@@ -5,10 +5,11 @@ import { directionsA, type Direction } from "@/components/lab/directions-a";
 import { directionsB } from "@/components/lab/directions-b";
 import { directionsC } from "@/components/lab/directions-c";
 import { directionsD } from "@/components/lab/directions-d";
+import { directionsE } from "@/components/lab/directions-e";
 
 export const metadata = { title: "Design Lab" };
 
-const all: Direction[] = [...directionsA, ...directionsB, ...directionsC, ...directionsD];
+const all: Direction[] = [...directionsA, ...directionsB, ...directionsC, ...directionsD, ...directionsE];
 
 function Tile({ direction }: { direction: Direction }) {
   const Button = direction.Button;
@@ -38,7 +39,7 @@ export default function LabPage() {
       <main className="mx-auto max-w-6xl px-6 py-10">
         <h1 className="text-3xl font-semibold tracking-[-0.03em]">Design Lab</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          10 özgün yön daha — toplam 20. Her biri button + card ile canlı. Beğendiğinin{" "}
+          21 yön: 20 estetik + 1 mekanik prototipi (No. 21 Living Ink). Her biri button + card ile canlı. Beğendiğinin{" "}
           <span className="font-mono text-sm text-foreground">numarasını söyle</span> — onu tüm
           kütüphaneye yayalım.
         </p>
