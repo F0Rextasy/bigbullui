@@ -30,27 +30,6 @@ const categories = [
   },
 ];
 
-const steps = [
-  {
-    n: "01",
-    title: "Install",
-    text: "One package, zero dependencies.",
-    code: "npm install bigbullui",
-  },
-  {
-    n: "02",
-    title: "Add tokens",
-    text: "A single CSS import themes everything.",
-    code: '@import "bigbullui/css";',
-  },
-  {
-    n: "03",
-    title: "Use",
-    text: "Import any component and ship.",
-    code: 'import { Button } from "bigbullui";',
-  },
-];
-
 const swatches = [
   { label: "Ink", className: "bg-primary" },
   { label: "Cream", className: "bg-background" },
@@ -121,7 +100,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-4xl font-semibold tracking-[-0.03em]">Try it live.</h2>
         <p className="mt-3 text-muted-foreground">
-          Real components, running now. Flip the switch, drag the slider, change the tab.
+          Six real components, running now. Touch everything.
         </p>
         <div className="mt-10">
           <Playground />
@@ -157,23 +136,6 @@ export default function Home() {
                   </Link>
                 ))}
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <GlowDivider className="mx-auto max-w-4xl" />
-
-      {/* Steps */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-4xl font-semibold tracking-[-0.03em]">Three steps. Own your UI.</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {steps.map((step) => (
-            <div key={step.n} className="flex h-full flex-col gap-4 rounded-lg border border-border bg-card p-6">
-              <span className="font-mono text-sm text-accent-strong">{step.n}</span>
-              <h3 className="font-medium">{step.title}</h3>
-              <p className="text-sm text-muted-foreground">{step.text}</p>
-              <CodeBox code={step.code} />
             </div>
           ))}
         </div>
