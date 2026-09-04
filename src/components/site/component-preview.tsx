@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip } from "@/components/ui/tooltip";
 import { Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { CometButton } from "@/components/ui/comet-button";
 
 const previews: Record<string, React.ComponentType> = {
   button: () => (
@@ -45,6 +46,13 @@ const previews: Record<string, React.ComponentType> = {
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="outline">Outline</Badge>
       <Badge variant="accent">Accent</Badge>
+    </div>
+  ),
+  "comet-button": () => (
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      <CometButton>Launch</CometButton>
+      <CometButton variant="accent">Get started</CometButton>
+      <CometButton size="lg">Big action</CometButton>
     </div>
   ),
   accordion: () => (

@@ -26,6 +26,7 @@ const usage: Record<string, string> = {
   dialog: `const [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>Open</Button>\n<Dialog open={open} onOpenChange={setOpen}>\n  <DialogHeader>\n    <DialogTitle>Title</DialogTitle>\n    <DialogDescription>Description.</DialogDescription>\n  </DialogHeader>\n  <DialogFooter>\n    <Button onClick={() => setOpen(false)}>Got it</Button>\n  </DialogFooter>\n</Dialog>`,
   tabs: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";\n\n<Tabs defaultValue="one">\n  <TabsList>\n    <TabsTrigger value="one">One</TabsTrigger>\n    <TabsTrigger value="two">Two</TabsTrigger>\n  </TabsList>\n  <TabsContent value="one">First.</TabsContent>\n  <TabsContent value="two">Second.</TabsContent>\n</Tabs>`,
   tooltip: `import { Tooltip } from "@/components/ui/tooltip";\n\n<Tooltip content="Helpful text">\n  <Button variant="outline">Hover me</Button>\n</Tooltip>`,
+  "comet-button": `import { CometButton } from "@/components/ui/comet-button";\n\n<CometButton>Launch</CometButton>\n<CometButton variant="accent" size="lg">Get started</CometButton>`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -53,6 +54,11 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "content", type: "React.ReactNode", description: "Tooltip text or content." },
     { name: "side", type: '"top" | "bottom"', description: "Placement of the tooltip." },
     { name: "delayMs", type: "number", description: "Delay before showing (default 300)." },
+  ],
+  "comet-button": [
+    { name: "variant", type: '"default" | "accent"', description: "Visual style." },
+    { name: "size", type: '"default" | "lg"', description: "Size of the button." },
+    { name: "glare", type: "string", description: "Cursor glare color (default soft white glow)." },
   ],
 };
 
