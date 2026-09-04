@@ -21,3 +21,25 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+::selection {
+  background-color: var(--color-accent-strong);
+  color: var(--color-background);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 8px;
+}

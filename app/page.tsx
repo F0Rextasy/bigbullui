@@ -55,9 +55,6 @@ export default function Home() {
             >
               <h3 className="font-medium">{component.title}</h3>
               <p className="mt-1 flex-1 text-sm text-muted-foreground">{component.description}</p>
-              <code className="mt-4 font-mono text-xs text-muted-foreground">
-                {"<"}{component.title} {"/>"}
-              </code>
             </Link>
           ))}
         </div>
