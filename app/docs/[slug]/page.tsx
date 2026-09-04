@@ -26,6 +26,14 @@ const usage: Record<string, string> = {
   dialog: `const [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>Open</Button>\n<Dialog open={open} onOpenChange={setOpen}>\n  <DialogHeader>\n    <DialogTitle>Title</DialogTitle>\n    <DialogDescription>Description.</DialogDescription>\n  </DialogHeader>\n  <DialogFooter>\n    <Button onClick={() => setOpen(false)}>Got it</Button>\n  </DialogFooter>\n</Dialog>`,
   tabs: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";\n\n<Tabs defaultValue="one">\n  <TabsList>\n    <TabsTrigger value="one">One</TabsTrigger>\n    <TabsTrigger value="two">Two</TabsTrigger>\n  </TabsList>\n  <TabsContent value="one">First.</TabsContent>\n  <TabsContent value="two">Second.</TabsContent>\n</Tabs>`,
   tooltip: `import { Tooltip } from "@/components/ui/tooltip";\n\n<Tooltip content="Helpful text">\n  <Button variant="outline">Hover me</Button>\n</Tooltip>`,
+  switch: `import { Switch } from "@/components/ui/switch";\n\n<Switch defaultChecked aria-label="Notifications" />`,
+  checkbox: `import { Checkbox } from "@/components/ui/checkbox";\n\n<Checkbox defaultChecked aria-label="Accept terms" />`,
+  "radio-group": `import { RadioGroup, RadioItem } from "@/components/ui/radio-group";\n\n<RadioGroup name="seat" defaultValue="window">\n  <RadioItem value="window">Window</RadioItem>\n  <RadioItem value="aisle">Aisle</RadioItem>\n</RadioGroup>`,
+  slider: `import { Slider } from "@/components/ui/slider";\n\n<Slider defaultValue={60} aria-label="Volume" />`,
+  progress: `import { Progress } from "@/components/ui/progress";\n\n<Progress value={72} />`,
+  avatar: `import { Avatar } from "@/components/ui/avatar";\n\n<Avatar name="Ada Bull" />`,
+  alert: `import { Alert } from "@/components/ui/alert";\n\n<Alert tone="accent" title="Limited seats">Only a few stubs left.</Alert>`,
+  textarea: `import { Textarea } from "@/components/ui/textarea";\n\n<Textarea placeholder="Special requests..." rows={3} />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -53,6 +61,53 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "content", type: "React.ReactNode", description: "Tooltip text or content." },
     { name: "side", type: '"top" | "bottom"', description: "Placement of the tooltip." },
     { name: "delayMs", type: "number", description: "Delay before showing (default 300)." },
+  ],
+  switch: [
+    { name: "checked", type: "boolean", description: "Controlled on state." },
+    { name: "defaultChecked", type: "boolean", description: "Uncontrolled initial state (default false)." },
+    { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Called when the state changes." },
+    { name: "disabled", type: "boolean", description: "Disables interaction (default false)." },
+  ],
+  checkbox: [
+    { name: "checked", type: "boolean", description: "Controlled checked state." },
+    { name: "defaultChecked", type: "boolean", description: "Uncontrolled initial state (default false)." },
+    { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Called when the state changes." },
+    { name: "disabled", type: "boolean", description: "Disables interaction (default false)." },
+  ],
+  "radio-group": [
+    { name: "value", type: "string", description: "Controlled selected value." },
+    { name: "defaultValue", type: "string", description: "Uncontrolled initial value." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Called when selection changes." },
+    { name: "name", type: "string", description: "Native radio group name (required)." },
+    { name: "value (RadioItem)", type: "string", description: "Unique item value (required)." },
+    { name: "disabled (RadioItem)", type: "boolean", description: "Disables the item (default false)." },
+  ],
+  slider: [
+    { name: "value", type: "number", description: "Controlled value." },
+    { name: "defaultValue", type: "number", description: "Uncontrolled initial value (default 50)." },
+    { name: "min", type: "number", description: "Minimum value (default 0)." },
+    { name: "max", type: "number", description: "Maximum value (default 100)." },
+    { name: "step", type: "number", description: "Step increment (default 1)." },
+    { name: "onValueChange", type: "(value: number) => void", description: "Called when the value changes." },
+    { name: "disabled", type: "boolean", description: "Disables interaction (default false)." },
+  ],
+  progress: [
+    { name: "value", type: "number", description: "Current progress (required, clamped to max)." },
+    { name: "max", type: "number", description: "Maximum value (default 100)." },
+  ],
+  avatar: [
+    { name: "name", type: "string", description: "Full name — used for initials and aria-label (required)." },
+    { name: "src", type: "string", description: "Photo URL, falls back to initials on error." },
+    { name: "size", type: '"sm" | "md" | "lg"', description: "Avatar size (default md)." },
+  ],
+  alert: [
+    { name: "tone", type: '"info" | "accent" | "destructive"', description: "Stamp bar color and eyebrow (default info)." },
+    { name: "title", type: "string", description: "Optional bold title line." },
+  ],
+  textarea: [
+    { name: "rows", type: "number", description: "Visible text rows." },
+    { name: "placeholder", type: "string", description: "Placeholder text." },
+    { name: "disabled", type: "boolean", description: "Disables interaction (default false)." },
   ],
 };
 

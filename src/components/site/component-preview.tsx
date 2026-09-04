@@ -9,6 +9,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip } from "@/components/ui/tooltip";
 import { Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioItem } from "@/components/ui/radio-group";
+import { Slider } from "@/components/ui/slider";
+import { Progress } from "@/components/ui/progress";
+import { Avatar } from "@/components/ui/avatar";
+import { Alert } from "@/components/ui/alert";
+import { Textarea } from "@/components/ui/textarea";
 
 const previews: Record<string, React.ComponentType> = {
   button: () => (
@@ -96,6 +104,53 @@ const previews: Record<string, React.ComponentType> = {
       </>
     );
   },
+  switch: () => (
+    <div className="flex items-center justify-center gap-4">
+      <Switch defaultChecked aria-label="Notifications" />
+      <Switch aria-label="Sound" />
+      <Switch disabled aria-label="Disabled" />
+    </div>
+  ),
+  checkbox: () => (
+    <div className="flex items-center justify-center gap-4">
+      <Checkbox defaultChecked aria-label="Accept terms" />
+      <Checkbox aria-label="Subscribe" />
+      <Checkbox disabled aria-label="Disabled" />
+    </div>
+  ),
+  "radio-group": () => (
+    <RadioGroup name="seat" defaultValue="window" className="w-full max-w-xs">
+      <RadioItem value="window">Window</RadioItem>
+      <RadioItem value="aisle">Aisle</RadioItem>
+      <RadioItem value="middle" disabled>Middle</RadioItem>
+    </RadioGroup>
+  ),
+  slider: () => (
+    <Slider defaultValue={60} aria-label="Volume" className="w-full max-w-sm" />
+  ),
+  progress: () => (
+    <div className="grid w-full max-w-sm gap-3">
+      <Progress value={72} />
+      <Progress value={35} />
+    </div>
+  ),
+  avatar: () => (
+    <div className="flex items-center justify-center gap-3">
+      <Avatar name="Ada Bull" size="sm" />
+      <Avatar name="Ada Bull" />
+      <Avatar name="Ada Bull" size="lg" />
+    </div>
+  ),
+  alert: () => (
+    <div className="grid w-full max-w-md gap-3">
+      <Alert tone="info" title="Gate change">Boarding moved to gate B12.</Alert>
+      <Alert tone="accent" title="Limited seats">Only a few stubs left for tonight.</Alert>
+      <Alert tone="destructive" title="Show cancelled">Refunds are automatic.</Alert>
+    </div>
+  ),
+  textarea: () => (
+    <Textarea placeholder="Special requests..." rows={3} className="w-full max-w-sm" />
+  ),
 };
 
 export function ComponentPreview({ name }: { name: string }) {
