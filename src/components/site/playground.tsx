@@ -9,6 +9,9 @@ import { Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } fr
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioItem } from "@/components/ui/radio-group";
+import { Progress } from "@/components/ui/progress";
+import { Alert } from "@/components/ui/alert";
+import { Tooltip } from "@/components/ui/tooltip";
 
 function DemoCard({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -18,6 +21,55 @@ function DemoCard({ label, children }: { label: string; children: React.ReactNod
       </span>
       <div className="flex flex-1 items-center justify-center">{children}</div>
     </div>
+  );
+}
+
+function ProgressDemo() {
+  const [value, setValue] = React.useState(12);
+  React.useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(72);
+      return;
+    }
+    const id = setInterval(() => {
+      setValue((v) => (v >= 100 ? 0 : v + 4));
+    }, 120);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <span className="w-full max-w-xs">
+      <Progress value={value} />
+      <span className="mt-2 block text-center font-mono text-xs text-muted-foreground">{value}%</span>
+    </span>
+  );
+}
+
+type AlertTone = "info" | "accent" | "destructive";
+
+function AlertDemo() {
+  const [tone, setTone] = React.useState<AlertTone>("info");
+  const copy: Record<AlertTone, { title: string; body: string }> = {
+    info: { title: "Gate change", body: "Boarding moved to gate B12." },
+    accent: { title: "Limited seats", body: "Only a few stubs left." },
+    destructive: { title: "Show cancelled", body: "Refunds are automatic." },
+  };
+  return (
+    <span className="flex w-full max-w-xs flex-col gap-3">
+      <Alert tone={tone} title={copy[tone].title}>{copy[tone].body}</Alert>
+      <span className="flex gap-2">
+        {(Object.keys(copy) as AlertTone[]).map((t) => (
+          <button
+            key={t}
+            type="button"
+            onClick={() => setTone(t)}
+            aria-pressed={tone === t}
+            className={`rounded-sm border px-2 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors ${tone === t ? "border-foreground bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:text-foreground"}`}
+          >
+            {t}
+          </button>
+        ))}
+      </span>
+    </span>
   );
 }
 
@@ -96,6 +148,20 @@ export function Playground() {
             <RadioItem value="biz">Biz</RadioItem>
           </RadioGroup>
         </span>
+      </DemoCard>
+
+      <DemoCard label="Progress">
+        <ProgressDemo />
+      </DemoCard>
+
+      <DemoCard label="Alert">
+        <AlertDemo />
+      </DemoCard>
+
+      <DemoCard label="Tooltip">
+        <Tooltip content="Row C · Seat 12">
+          <Button variant="outline">Hover me</Button>
+        </Tooltip>
       </DemoCard>
     </div>
   );

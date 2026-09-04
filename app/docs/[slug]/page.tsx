@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const usage: Record<string, string> = {
-  button: `import { Button } from "@/components/ui/button";\n\n<Button>Click me</Button>\n<Button variant="outline" size="lg">Outline</Button>`,
+  button: `import { Button } from "@/components/ui/button";\n\n<Button>Admit one</Button>\n<Button variant="outline" size="lg">Outline</Button>`,
   input: `import { Input } from "@/components/ui/input";\n\n<Input type="email" placeholder="Email" />`,
   card: `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";\n\n<Card>\n  <CardHeader>\n    <CardTitle>Title</CardTitle>\n    <CardDescription>Description</CardDescription>\n  </CardHeader>\n  <CardContent>Content</CardContent>\n</Card>`,
   badge: `import { Badge } from "@/components/ui/badge";\n\n<Badge>New</Badge>\n<Badge variant="accent">Accent</Badge>`,
@@ -34,6 +34,56 @@ const usage: Record<string, string> = {
   avatar: `import { Avatar } from "@/components/ui/avatar";\n\n<Avatar name="Ada Bull" />`,
   alert: `import { Alert } from "@/components/ui/alert";\n\n<Alert tone="accent" title="Limited seats">Only a few stubs left.</Alert>`,
   textarea: `import { Textarea } from "@/components/ui/textarea";\n\n<Textarea placeholder="Special requests..." rows={3} />`,
+
+  // P1
+  select: `import { Select } from "@/components/ui/select";\n\n<Select\n  options={[\n    { value: "a", label: "Option A" },\n    { value: "b", label: "Option B" },\n  ]}\n  placeholder="Select an option"\n/>`,
+  stepper: `import { Stepper } from "@/components/ui/stepper";\n\n<Stepper defaultValue={1} min={0} max={10} />`,
+  "pin-input": `import { PinInput } from "@/components/ui/pin-input";\n\n<PinInput length={4} onComplete={(pin) => console.log(pin)} />`,
+  rating: `import { Rating } from "@/components/ui/rating";\n\n<Rating defaultValue={4} max={5} />`,
+  pagination: `import { Pagination } from "@/components/ui/pagination";\n\n<Pagination page={1} totalPages={10} onPageChange={(p) => setPage(p)} />`,
+  breadcrumb: `import { Breadcrumb, BreadcrumbItem } from "@/components/ui/breadcrumb";\n\n<Breadcrumb>\n  <BreadcrumbItem href="/">Home</BreadcrumbItem>\n  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>\n  <BreadcrumbItem current>Ticket</BreadcrumbItem>\n</Breadcrumb>`,
+  steps: `import { Steps } from "@/components/ui/steps";\n\n<Steps\n  current={1}\n  steps={[\n    { title: "Seat", description: "Select seat" },\n    { title: "Payment", description: "Confirm stub" },\n    { title: "Ticket", description: "Ready to admit" },\n  ]}\n/>`,
+  "toggle-group": `import { ToggleGroup, ToggleItem } from "@/components/ui/toggle-group";\n\n<ToggleGroup defaultValue="all">\n  <ToggleItem value="all">All</ToggleItem>\n  <ToggleItem value="stubs">Stubs</ToggleItem>\n  <ToggleItem value="vip">VIP</ToggleItem>\n</ToggleGroup>`,
+  toast: `import { ToastProvider, useToast } from "@/components/ui/toast";\n\nfunction Demo() {\n  const { toast } = useToast();\n  return (\n    <button onClick={() => toast({ title: "Admitted", description: "Stub #402 accepted." })}>\n      Show Toast\n    </button>\n  );\n}`,
+  sheet: `import { Sheet, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";\n\n<Sheet open={open} onOpenChange={setOpen} side="right">\n  <SheetHeader>\n    <SheetTitle>Ticket Drawer</SheetTitle>\n    <SheetDescription>Order overview.</SheetDescription>\n  </SheetHeader>\n</Sheet>`,
+  popover: `import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";\n\n<Popover>\n  <PopoverTrigger>\n    <Button variant="outline">Info</Button>\n  </PopoverTrigger>\n  <PopoverContent>Gate information.</PopoverContent>\n</Popover>`,
+  empty: `import { Empty } from "@/components/ui/empty";\n\n<Empty\n  title="NO TICKETS"\n  description="No stubs found in your collection."\n  action={<Button size="sm">Browse events</Button>}\n/>`,
+  kbd: `import { Kbd } from "@/components/ui/kbd";\n\n<Kbd>⌘</Kbd> + <Kbd>K</Kbd>`,
+  separator: `import { Separator } from "@/components/ui/separator";\n\n<Separator dashed={true} />`,
+  table: `import { Table, TableHead, TableBody, TableRow, TableCell, TableHeaderCell } from "@/components/ui/table";\n\n<Table>\n  <TableHead>\n    <TableRow>\n      <TableHeaderCell>Seat</TableHeaderCell>\n      <TableHeaderCell>Status</TableHeaderCell>\n    </TableRow>\n  </TableHead>\n  <TableBody>\n    <TableRow>\n      <TableCell>A-12</TableCell>\n      <TableCell>Admitted</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`,
+  marquee: `import { Marquee } from "@/components/ui/marquee";\n\n<Marquee speed={25}>\n  <span>★ ADMIT ONE ★ BIGBULLUI ★</span>\n</Marquee>`,
+
+  // P2 Wave 1
+  "ticket-card": `import { TicketCard } from "@/components/ui/ticket-card";\n\n<TicketCard\n  eventName="BIGBULL MAIN STAGE"\n  status="valid"\n  price="$45.00"\n/>`,
+  barcode: `import { Barcode } from "@/components/ui/barcode";\n\n<Barcode value="BB-90210" height={48} />`,
+  "stamp-seal": `import { StampSeal } from "@/components/ui/stamp-seal";\n\n<StampSeal text="ADMITTED" tone="accent" rotate={-8} />`,
+  spinner: `import { Spinner } from "@/components/ui/spinner";\n\n<Spinner size="md" />`,
+  skeleton: `import { Skeleton } from "@/components/ui/skeleton";\n\n<Skeleton className="h-4 w-48" />`,
+  "copy-button": `import { CopyButton } from "@/components/ui/copy-button";\n\n<CopyButton value="npm install bigbullui" />`,
+
+  // P2 Wave 2
+  coupon: `import { Coupon } from "@/components/ui/coupon";\n\n<Coupon\n  code="BIGBULL25"\n  discount="25%"\n  title="FESTIVAL PASS"\n  expires="31 DEC"\n/>`,
+  "boarding-pass": `import { BoardingPass } from "@/components/ui/boarding-pass";\n\n<BoardingPass\n  flight="BB-402"\n  origin="JFK"\n  destination="IST"\n  passenger="ADA BULL"\n  seat="12A"\n/>`,
+  "price-tag": `import { PriceTag } from "@/components/ui/price-tag";\n\n<PriceTag price="45.00" originalPrice="60.00" sale label="VIP ADMISSION" />`,
+  "luggage-tag": `import { LuggageTag } from "@/components/ui/luggage-tag";\n\n<LuggageTag tagNumber="BB-920-142" destination="IST" passengerName="ADA BULL" />`,
+  timeline: `import { Timeline } from "@/components/ui/timeline";\n\n<Timeline\n  items={[\n    { date: "18:00", title: "Doors Open" },\n    { date: "20:00", title: "Main Event", tone: "accent" },\n  ]}\n/>`,
+  sparkline: `import { Sparkline } from "@/components/ui/sparkline";\n\n<Sparkline data={[10, 25, 18, 42, 35, 60, 52, 85]} tone="accent" />`,
+  countdown: `import { Countdown } from "@/components/ui/countdown";\n\n<Countdown targetDate={new Date("2026-12-31T23:59:59")} />`,
+  "search-bar": `import { SearchBar } from "@/components/ui/search-bar";\n\n<SearchBar placeholder="Search tickets..." shortcut="⌘K" />`,
+  "dropdown-menu": `import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";\n\n<DropdownMenu>\n  <DropdownMenuTrigger><Button variant="outline">Options</Button></DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuItem shortcut="⌘P">Print</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>`,
+  "cookie-banner": `import { CookieBanner } from "@/components/ui/cookie-banner";\n\n<CookieBanner onAccept={() => console.log("Admitted")} />`,
+  "bar-chart": `import { BarChart } from "@/components/ui/bar-chart";\n\n<BarChart\n  data={[\n    { label: "A", value: 40 },\n    { label: "B", value: 80, tone: "accent" },\n  ]}\n/>`,
+  combobox: `import { Combobox } from "@/components/ui/combobox";\n\n<Combobox\n  options={[\n    { value: "orch", label: "Orchestra" },\n    { value: "balc", label: "Balcony" },\n  ]}\n  placeholder="Select seat..."\n/>`,
+  "file-dropzone": `import { FileDropzone } from "@/components/ui/file-dropzone";\n\n<FileDropzone\n  accept="image/*,.pdf"\n  onFilesDrop={(files) => console.log(files)}\n/>`,
+  "color-picker": `import { ColorPicker } from "@/components/ui/color-picker";\n\n<ColorPicker\n  defaultValue="#BC3A28"\n  onValueChange={(c) => console.log(c)}\n/>`,
+  "password-strength": `import { PasswordStrength } from "@/components/ui/password-strength";\n\n<PasswordStrength value="TicketSecret!2026" />`,
+  "inline-edit": `import { InlineEdit } from "@/components/ui/inline-edit";\n\n<InlineEdit\n  label="SEAT ASSIGNMENT"\n  defaultValue="ROW C · SEAT 12"\n  onSave={(val) => console.log(val)}\n/>`,
+  calendar: `import { Calendar } from "@/components/ui/calendar";\n\n<Calendar\n  defaultValue={new Date()}\n  onValueChange={(date) => console.log(date)}\n/>`,
+  "data-table": `import { DataTable } from "@/components/ui/data-table";\n\n<DataTable\n  data={[\n    { id: "1", seat: "A-12", tier: "VIP", price: "$95" },\n    { id: "2", seat: "B-04", tier: "Balcony", price: "$45" },\n  ]}\n  columns={[\n    { key: "seat", header: "Seat", sortable: true },\n    { key: "tier", header: "Tier" },\n    { key: "price", header: "Price", sortable: true },\n  ]}\n  searchKey="seat"\n/>`,
+  "confetti-burst": `import { ConfettiBurst } from "@/components/ui/confetti-burst";\n\n<div className="relative">\n  <ConfettiBurst active count={30} />\n</div>`,
+  "command-palette": `import { CommandPalette } from "@/components/ui/command-palette";\n\n<CommandPalette\n  open={open}\n  onOpenChange={setOpen}\n  items={[\n    { id: "1", label: "Print Stubs", shortcut: "⌘P", onSelect: () => {} },\n    { id: "2", label: "Seat Map", shortcut: "⌘M", onSelect: () => {} },\n  ]}\n/>`,
+  "context-menu": `import { ContextMenu } from "@/components/ui/context-menu";\n\n<ContextMenu\n  items={[\n    { id: "print", label: "Print Stub", shortcut: "⌘P" },\n    "separator",\n    { id: "revoke", label: "Revoke Ticket", danger: true },\n  ]}\n>\n  <div className="p-8 border border-dashed rounded-lg">Right-click here</div>\n</ContextMenu>`,
+  "scroll-top": `import { ScrollTop } from "@/components/ui/scroll-top";\n\n<ScrollTop threshold={150} label="TOP" />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -109,6 +159,245 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "placeholder", type: "string", description: "Placeholder text." },
     { name: "disabled", type: "boolean", description: "Disables interaction (default false)." },
   ],
+
+  // P1
+  select: [
+    { name: "options", type: "SelectOption[]", description: "List of options with value and label (required)." },
+    { name: "value", type: "string", description: "Controlled selected value." },
+    { name: "defaultValue", type: "string", description: "Initial selected value." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Called when selection changes." },
+    { name: "placeholder", type: "string", description: "Placeholder text when nothing is selected." },
+    { name: "disabled", type: "boolean", description: "Disables select interaction." },
+    { name: "name", type: "string", description: "Form name for native submission." },
+  ],
+  stepper: [
+    { name: "value", type: "number", description: "Controlled value." },
+    { name: "defaultValue", type: "number", description: "Initial value (default 0)." },
+    { name: "min", type: "number", description: "Minimum allowed value (default 0)." },
+    { name: "max", type: "number", description: "Maximum allowed value (default 100)." },
+    { name: "step", type: "number", description: "Step increment (default 1)." },
+    { name: "onValueChange", type: "(value: number) => void", description: "Callback when value changes." },
+    { name: "disabled", type: "boolean", description: "Disables stepper interaction." },
+  ],
+  "pin-input": [
+    { name: "length", type: "number", description: "Number of code boxes (default 4)." },
+    { name: "value", type: "string", description: "Controlled PIN string." },
+    { name: "defaultValue", type: "string", description: "Initial PIN string." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Callback on each digit change." },
+    { name: "onComplete", type: "(value: string) => void", description: "Callback when all digits are filled." },
+    { name: "disabled", type: "boolean", description: "Disables interaction." },
+  ],
+  rating: [
+    { name: "value", type: "number", description: "Controlled rating score." },
+    { name: "defaultValue", type: "number", description: "Initial rating score (default 0)." },
+    { name: "max", type: "number", description: "Maximum stars (default 5)." },
+    { name: "onValueChange", type: "(value: number) => void", description: "Callback when rating changes." },
+    { name: "disabled", type: "boolean", description: "Disables rating input." },
+  ],
+  pagination: [
+    { name: "page", type: "number", description: "Current active page (required)." },
+    { name: "totalPages", type: "number", description: "Total page count (required)." },
+    { name: "onPageChange", type: "(page: number) => void", description: "Page change callback (required)." },
+    { name: "siblingCount", type: "number", description: "Neighbor pages to show (default 1)." },
+  ],
+  breadcrumb: [
+    { name: "separator", type: "React.ReactNode", description: "Separator between breadcrumb items (default '/')." },
+  ],
+  steps: [
+    { name: "steps", type: "StepItem[]", description: "List of step items with title and description." },
+    { name: "current", type: "number", description: "0-indexed active step." },
+  ],
+  "toggle-group": [
+    { name: "value", type: "string", description: "Controlled selected value." },
+    { name: "defaultValue", type: "string", description: "Initial selected value." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Selection change callback." },
+  ],
+  toast: [
+    { name: "title", type: "string", description: "Toast title (required)." },
+    { name: "description", type: "string", description: "Optional toast body." },
+    { name: "tone", type: '"default" | "accent" | "destructive"', description: "Border tone style." },
+    { name: "duration", type: "number", description: "Duration in ms before auto-dismiss (default 4000)." },
+  ],
+  sheet: [
+    { name: "open", type: "boolean", description: "Controlled open state (required)." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state change callback (required)." },
+    { name: "side", type: '"right" | "left"', description: "Entrance side (default 'right')." },
+  ],
+  popover: [
+    { name: "open", type: "boolean", description: "Controlled open state." },
+    { name: "defaultOpen", type: "boolean", description: "Initial open state." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state callback." },
+  ],
+  empty: [
+    { name: "title", type: "string", description: "Header text (default 'NOTHING HERE')." },
+    { name: "description", type: "string", description: "Optional body explanation." },
+    { name: "action", type: "React.ReactNode", description: "Optional action button slot." },
+    { name: "icon", type: "React.ReactNode", description: "Custom central icon." },
+  ],
+  kbd: [
+    { name: "children", type: "React.ReactNode", description: "Keycap label or symbol." },
+  ],
+  separator: [
+    { name: "orientation", type: '"horizontal" | "vertical"', description: "Line orientation (default 'horizontal')." },
+    { name: "dashed", type: "boolean", description: "Whether border is dashed (default true)." },
+  ],
+  table: [],
+  marquee: [
+    { name: "speed", type: "number", description: "Cycle duration in seconds (default 25)." },
+    { name: "direction", type: '"left" | "right"', description: "Scroll direction (default 'left')." },
+    { name: "pauseOnHover", type: "boolean", description: "Pause on mouse hover (default true)." },
+  ],
+
+  // P2 Wave 1
+  "ticket-card": [
+    { name: "eventName", type: "string", description: "Event headline name." },
+    { name: "serial", type: "string", description: "Serial identifier string." },
+    { name: "admitCount", type: "string", description: "Admission header text (default 'ADMIT ONE')." },
+    { name: "status", type: '"valid" | "admitted" | "void"', description: "Status stamp." },
+    { name: "price", type: "string", description: "Price display." },
+    { name: "barcodeValue", type: "string", description: "Bottom serial readout." },
+  ],
+  barcode: [
+    { name: "value", type: "string", description: "Data encoded in barcode (required)." },
+    { name: "height", type: "number", description: "Height in pixels (default 48)." },
+    { name: "showValue", type: "boolean", description: "Display value string below barcode (default true)." },
+  ],
+  "stamp-seal": [
+    { name: "text", type: "string", description: "Main stamp text (default 'ADMITTED')." },
+    { name: "subtext", type: "string", description: "Upper arch subtext (default 'OFFICIAL STUB')." },
+    { name: "tone", type: '"accent" | "primary" | "destructive"', description: "Border and text tone." },
+    { name: "rotate", type: "number", description: "Angle of rotation in degrees (default -8)." },
+  ],
+  spinner: [
+    { name: "size", type: '"sm" | "md" | "lg"', description: "Rotary indicator size (default 'md')." },
+  ],
+  skeleton: [],
+  "copy-button": [
+    { name: "value", type: "string", description: "Text string to copy (required)." },
+    { name: "timeout", type: "number", description: "Duration in ms to show check state (default 2000)." },
+  ],
+
+  // P2 Wave 2
+  coupon: [
+    { name: "code", type: "string", description: "Discount code string (required)." },
+    { name: "discount", type: "string", description: "Discount percentage or amount (required)." },
+    { name: "title", type: "string", description: "Coupon title (required)." },
+    { name: "expires", type: "string", description: "Expiration date string." },
+  ],
+  "boarding-pass": [
+    { name: "flight", type: "string", description: "Flight number (e.g. 'BB-402')." },
+    { name: "origin", type: "string", description: "3-letter origin airport code." },
+    { name: "destination", type: "string", description: "3-letter destination airport code." },
+    { name: "passenger", type: "string", description: "Passenger name." },
+    { name: "seat", type: "string", description: "Seat number." },
+    { name: "gate", type: "string", description: "Boarding gate." },
+    { name: "boardingTime", type: "string", description: "Scheduled boarding time." },
+  ],
+  "price-tag": [
+    { name: "price", type: "string", description: "Price value string (required)." },
+    { name: "originalPrice", type: "string", description: "Original strikethrough price." },
+    { name: "currency", type: "string", description: "Currency symbol (default '$')." },
+    { name: "label", type: "string", description: "Upper label." },
+    { name: "sale", type: "boolean", description: "Whether to show sale stamp." },
+  ],
+  "luggage-tag": [
+    { name: "tagNumber", type: "string", description: "Claim identifier (required)." },
+    { name: "destination", type: "string", description: "Airport code (required)." },
+    { name: "passengerName", type: "string", description: "Passenger name (required)." },
+    { name: "flight", type: "string", description: "Flight number." },
+    { name: "weight", type: "string", description: "Weight string." },
+  ],
+  timeline: [
+    { name: "items", type: "TimelineItem[]", description: "List of chronological events (required)." },
+  ],
+  sparkline: [
+    { name: "data", type: "number[]", description: "Data array of numbers (required)." },
+    { name: "width", type: "number", description: "SVG width in pixels (default 140)." },
+    { name: "height", type: "number", description: "SVG height in pixels (default 40)." },
+    { name: "tone", type: '"accent" | "foreground"', description: "Color style tone." },
+    { name: "showArea", type: "boolean", description: "Render filled area under trend line." },
+  ],
+  countdown: [
+    { name: "targetDate", type: "Date | string", description: "Target expiration time (required)." },
+    { name: "onComplete", type: "() => void", description: "Callback when timer reaches zero." },
+  ],
+  "search-bar": [
+    { name: "placeholder", type: "string", description: "Placeholder search text." },
+    { name: "shortcut", type: "string", description: "Keycap indicator (default '⌘K')." },
+    { name: "onSearch", type: "(val: string) => void", description: "Callback when search is submitted." },
+  ],
+  "dropdown-menu": [
+    { name: "open", type: "boolean", description: "Controlled open state." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state callback." },
+  ],
+  "cookie-banner": [
+    { name: "title", type: "string", description: "Notice title." },
+    { name: "description", type: "string", description: "Policy summary." },
+    { name: "onAccept", type: "() => void", description: "Accept button callback." },
+    { name: "onDecline", type: "() => void", description: "Decline button callback." },
+  ],
+  "bar-chart": [
+    { name: "data", type: "BarChartItem[]", description: "Data items array (required)." },
+    { name: "height", type: "number", description: "Chart height in px (default 160)." },
+    { name: "showValues", type: "boolean", description: "Display value numbers above bars." },
+  ],
+  combobox: [
+    { name: "options", type: "ComboboxOption[]", description: "List of selectable options (required)." },
+    { name: "value", type: "string", description: "Controlled selected value." },
+    { name: "onValueChange", type: "(val: string) => void", description: "Selection change callback." },
+    { name: "placeholder", type: "string", description: "Placeholder text." },
+  ],
+  "file-dropzone": [
+    { name: "onFilesDrop", type: "(files: File[]) => void", description: "Callback when files are dropped or selected." },
+    { name: "accept", type: "string", description: "Accepted MIME types or extensions (e.g. 'image/*')." },
+    { name: "maxFiles", type: "number", description: "Maximum number of files allowed (default 5)." },
+  ],
+  "color-picker": [
+    { name: "value", type: "string", description: "Controlled color value hex string." },
+    { name: "defaultValue", type: "string", description: "Initial color hex string (default '#BC3A28')." },
+    { name: "onValueChange", type: "(color: string) => void", description: "Callback when color is picked." },
+    { name: "colors", type: "string[]", description: "Array of available color hex values." },
+  ],
+  "password-strength": [
+    { name: "value", type: "string", description: "Current password string to evaluate." },
+    { name: "showCriteria", type: "boolean", description: "Whether to render requirements checklist (default true)." },
+  ],
+  "inline-edit": [
+    { name: "value", type: "string", description: "Controlled text value." },
+    { name: "defaultValue", type: "string", description: "Initial text value." },
+    { name: "onSave", type: "(val: string) => void", description: "Callback when editing is committed." },
+    { name: "label", type: "string", description: "Optional upper micro label." },
+    { name: "placeholder", type: "string", description: "Placeholder when value is empty." },
+  ],
+  calendar: [
+    { name: "value", type: "Date", description: "Controlled selected date." },
+    { name: "defaultValue", type: "Date", description: "Initial selected date." },
+    { name: "onValueChange", type: "(date: Date) => void", description: "Callback when date is clicked." },
+  ],
+  "data-table": [
+    { name: "data", type: "T[]", description: "Array of table row data items (required)." },
+    { name: "columns", type: "Column<T>[]", description: "Column definitions with key, header, and sortable flag (required)." },
+    { name: "searchKey", type: "string", description: "Field key used for live text search filter." },
+    { name: "pageSize", type: "number", description: "Number of rows per page (default 5)." },
+  ],
+  "confetti-burst": [
+    { name: "active", type: "boolean", description: "Whether to render and animate confetti (default true)." },
+    { name: "count", type: "number", description: "Number of ticket confetti pieces (default 24)." },
+  ],
+  "command-palette": [
+    { name: "open", type: "boolean", description: "Controlled open state (required)." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state change callback (required)." },
+    { name: "items", type: "CommandItem[]", description: "List of command actions with label, category, and shortcut (required)." },
+    { name: "placeholder", type: "string", description: "Search input placeholder." },
+  ],
+  "context-menu": [
+    { name: "items", type: "(ContextMenuItem | 'separator')[]", description: "Context menu items array (required)." },
+    { name: "children", type: "React.ReactNode", description: "Target trigger element (required)." },
+  ],
+  "scroll-top": [
+    { name: "threshold", type: "number", description: "Scroll offset in px before showing button (default 200)." },
+    { name: "label", type: "string", description: "Button text label (default 'TOP')." },
+  ],
 };
 
 export default async function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -122,7 +411,12 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   return (
     <article className="space-y-10">
       <header className="space-y-3">
-        <Badge variant="accent">Component</Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="accent">Component</Badge>
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            {meta.category}
+          </span>
+        </div>
         <h1 className="text-4xl font-semibold tracking-[-0.03em]">{meta.title}</h1>
         <p className="text-muted-foreground">{meta.description}</p>
       </header>
