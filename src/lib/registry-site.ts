@@ -39,8 +39,10 @@ export const components: ComponentMeta[] = [
   { name: "date-picker", title: "Date Picker", description: "Admission date picker input with popover ticket calendar and quick date selection.", category: "form" },
   { name: "dual-slider", title: "Dual Slider", description: "Ticket price range selector with minimum and maximum draggable thumb handles.", category: "form" },
   { name: "mention-input", title: "Mention Input", description: "Ticket tier and staff mention input with instant @ autocomplete popover.", category: "form" },
+  { name: "autocomplete", title: "Autocomplete", description: "Typeahead ticket search input with instant suggestions and keyboard select.", category: "form" },
+  { name: "transfer-list", title: "Transfer List", description: "Two-column ticket transfer list between available and claimed stubs.", category: "form" },
 
-  // Display (23)
+  // Display (24)
   { name: "ticket-card", title: "Ticket Card", description: "Complete admission ticket with notched edges and seat details.", category: "display" },
   { name: "coupon", title: "Coupon", description: "Discount coupon with scissor cutout lines and promo code copy.", category: "display" },
   { name: "boarding-pass", title: "Boarding Pass", description: "Flight pass with origin, destination and receipt section.", category: "display" },
@@ -64,6 +66,7 @@ export const components: ComponentMeta[] = [
   { name: "video-frame", title: "Video Frame", description: "Cinema screening container with sprocket edges and play overlay.", category: "display" },
   { name: "audio-mini", title: "Audio Mini", description: "Compact ticket stub audio player with animated equalizer bars and duration counter.", category: "display" },
   { name: "section-heading", title: "Section Heading", description: "Theater and arena section divider banner with dashed rules and zone badges.", category: "display" },
+  { name: "lightbox", title: "Lightbox", description: "Fullscreen ticket and media viewer with film frame edges and image paging.", category: "display" },
 
   // Feedback (12)
   { name: "alert", title: "Alert", description: "Notice box with tone bar and status eyebrow.", category: "feedback" },
@@ -79,8 +82,7 @@ export const components: ComponentMeta[] = [
   { name: "confetti-burst", title: "Confetti Burst", description: "CSS celebration burst with stamp-colored pieces flying outward.", category: "feedback" },
   { name: "tour", title: "Tour", description: "Interactive step-by-step guided onboarding card with progress indicators and ticket styling.", category: "feedback" },
 
-
-  // Navigation (12)
+  // Navigation (14)
   { name: "tabs", title: "Tabs", description: "Segmented panel switch with roving keyboard focus.", category: "navigation" },
   { name: "accordion", title: "Accordion", description: "Collapsible disclosure items with smooth height transitions.", category: "navigation" },
   { name: "pagination", title: "Pagination", description: "Numbered buttons with ellipsis and page stepping.", category: "navigation" },
@@ -93,4 +95,6 @@ export const components: ComponentMeta[] = [
   { name: "context-menu", title: "Context Menu", description: "Right-click menu with smooth reveal, shortcuts, and dashed divider.", category: "navigation" },
   { name: "scroll-top", title: "Scroll Top", description: "Floating elevator button that scrolls smoothly to page top.", category: "navigation" },
   { name: "menubar", title: "Menubar", description: "Theater box office menu bar with dropdown menus, shortcuts, and dashed frames.", category: "navigation" },
+  { name: "navbar", title: "Navbar", description: "Perforated ticket stub navigation bar with brand monogram and active links.", category: "navigation" },
+  { name: "tree-nav", title: "Tree Nav", description: "Hierarchical arena seating explorer with collapsible nodes and ticket icons.", category: "navigation" },
 ];

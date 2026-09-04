@@ -94,6 +94,11 @@ const usage: Record<string, string> = {
   "dual-slider": `import { DualSlider } from "@/components/ui/dual-slider";\n\n<DualSlider min={10} max={200} defaultValue={[30, 100]} />`,
   tour: `import { Tour } from "@/components/ui/tour";\n\n<Tour\n  steps={[\n    { title: "Select Seat", description: "Choose your section." },\n    { title: "Confirm Order", description: "Receive digital pass." },\n  ]}\n/>`,
   "mention-input": `import { MentionInput } from "@/components/ui/mention-input";\n\n<MentionInput placeholder="Type @ to assign seat tier..." />`,
+  navbar: `import { Navbar } from "@/components/ui/navbar";\n\n<Navbar brand="BIGBULL" items={[{ label: "EVENTS", href: "#", active: true }]} />`,
+  autocomplete: `import { Autocomplete } from "@/components/ui/autocomplete";\n\n<Autocomplete options={[{ value: "1", label: "Orchestra" }]} />`,
+  lightbox: `import { Lightbox } from "@/components/ui/lightbox";\n\n<Lightbox open={open} onOpenChange={setOpen} images={[{ src: "/pass.png" }]} />`,
+  "transfer-list": `import { TransferList } from "@/components/ui/transfer-list";\n\n<TransferList leftTitle="Available" rightTitle="Claimed" />`,
+  "tree-nav": `import { TreeNav } from "@/components/ui/tree-nav";\n\n<TreeNav data={[{ id: "orch", label: "Orchestra Tier", children: [{ id: "r1", label: "Row 1" }] }]} />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -467,6 +472,35 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "value", type: "string", description: "Controlled text value." },
     { name: "onValueChange", type: "(val: string) => void", description: "Callback when text changes." },
     { name: "placeholder", type: "string", description: "Placeholder text." },
+  ],
+  navbar: [
+    { name: "brand", type: "string", description: "Brand title label (default 'BIGBULL')." },
+    { name: "items", type: "NavItem[]", description: "List of navigation link items." },
+    { name: "action", type: "React.ReactNode", description: "Optional right-side action slot." },
+  ],
+  autocomplete: [
+    { name: "options", type: "AutocompleteOption[]", description: "Array of selectable options with label and value (required)." },
+    { name: "value", type: "string", description: "Controlled input text value." },
+    { name: "onValueChange", type: "(val: string) => void", description: "Callback when value changes." },
+    { name: "placeholder", type: "string", description: "Placeholder text." },
+  ],
+  lightbox: [
+    { name: "open", type: "boolean", description: "Controlled open state (required)." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state change callback (required)." },
+    { name: "images", type: "LightboxImage[]", description: "Array of images to display in gallery viewer (required)." },
+    { name: "initialIndex", type: "number", description: "Initial slide index (default 0)." },
+  ],
+  "transfer-list": [
+    { name: "leftTitle", type: "string", description: "Title of left column (default 'AVAILABLE TICKETS')." },
+    { name: "rightTitle", type: "string", description: "Title of right column (default 'CLAIMED STUBS')." },
+    { name: "leftItems", type: "TransferItem[]", description: "Initial or controlled left column items." },
+    { name: "rightItems", type: "TransferItem[]", description: "Initial or controlled right column items." },
+    { name: "onChange", type: "(left: TransferItem[], right: TransferItem[]) => void", description: "Callback when items move." },
+  ],
+  "tree-nav": [
+    { name: "data", type: "TreeNode[]", description: "Hierarchical tree nodes array (required)." },
+    { name: "selectedId", type: "string", description: "Currently selected node ID." },
+    { name: "onSelect", type: "(node: TreeNode) => void", description: "Callback when a leaf node is selected." },
   ],
 };
 

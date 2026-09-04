@@ -171,4 +171,15 @@ export { Tour } from "./components/ui/tour";
 export type { TourProps, TourStep } from "./components/ui/tour";
 export { MentionInput } from "./components/ui/mention-input";
 export type { MentionInputProps, MentionItem } from "./components/ui/mention-input";
+// Wave 7 Additions
+export { Navbar } from "./components/ui/navbar";
+export type { NavbarProps, NavItem } from "./components/ui/navbar";
+export { Autocomplete } from "./components/ui/autocomplete";
+export type { AutocompleteProps, AutocompleteOption } from "./components/ui/autocomplete";
+export { Lightbox } from "./components/ui/lightbox";
+export type { LightboxProps, LightboxImage } from "./components/ui/lightbox";
+export { TransferList } from "./components/ui/transfer-list";
+export type { TransferListProps, TransferItem } from "./components/ui/transfer-list";
+export { TreeNav } from "./components/ui/tree-nav";
+export type { TreeNavProps, TreeNode } from "./components/ui/tree-nav";
 

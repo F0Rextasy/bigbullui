@@ -81,7 +81,13 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { DualSlider } from "@/components/ui/dual-slider";
 import { Tour } from "@/components/ui/tour";
 import { MentionInput } from "@/components/ui/mention-input";
+import { Navbar } from "@/components/ui/navbar";
+import { Autocomplete } from "@/components/ui/autocomplete";
+import { Lightbox } from "@/components/ui/lightbox";
+import { TransferList } from "@/components/ui/transfer-list";
+import { TreeNav } from "@/components/ui/tree-nav";
 import { cn } from "@/components/ui/lib/utils";
+
 
 
 
@@ -671,7 +677,96 @@ function AnimatedMentionInputPreview() {
   );
 }
 
-/* Master Previews Record for all 70 Components */
+function AnimatedNavbarPreview() {
+  return (
+    <div className="w-full max-w-xl">
+      <Navbar
+        brand="BIGBULL TICKETS"
+        items={[
+          { label: "HEADLINERS", href: "#", active: true },
+          { label: "SCHEDULE", href: "#" },
+          { label: "STANDBY", href: "#" },
+        ]}
+      />
+    </div>
+  );
+}
+
+function AnimatedAutocompletePreview() {
+  const [val, setVal] = React.useState("");
+  return (
+    <div className="w-full max-w-xs">
+      <Autocomplete
+        value={val}
+        onValueChange={setVal}
+        placeholder="Type to search seat or tier..."
+        options={[
+          { value: "a1", label: "Orchestra Row A", category: "Floor" },
+          { value: "a2", label: "Orchestra Row B", category: "Floor" },
+          { value: "b1", label: "Balcony Center", category: "Tier 2" },
+          { value: "v1", label: "VIP Box North", category: "Premium" },
+        ]}
+      />
+    </div>
+  );
+}
+
+function AnimatedLightboxPreview() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <Button variant="outline" onClick={() => setOpen(true)} className="font-mono text-xs">
+        <span className="mr-2">🎟️</span> Open Ticket Lightbox
+      </Button>
+      <Lightbox
+        open={open}
+        onOpenChange={setOpen}
+        images={[
+          { src: "/stub-1.png", title: "MAIN STAGE PASS", alt: "Section A Row C Seat 12" },
+          { src: "/stub-2.png", title: "VIP BALCONY STUB", alt: "Box Tier Seat 04" },
+        ]}
+      />
+    </div>
+  );
+}
+
+function AnimatedTransferListPreview() {
+  return <TransferList className="max-w-lg" />;
+}
+
+function AnimatedTreeNavPreview() {
+  const [selected, setSelected] = React.useState("row-a");
+  const treeData = [
+    {
+      id: "orch",
+      label: "ORCHESTRA TIER",
+      badge: "GROUND",
+      children: [
+        { id: "row-a", label: "Row A (Seats 1-20)", badge: "VIP" },
+        { id: "row-b", label: "Row B (Seats 1-20)" },
+      ],
+    },
+    {
+      id: "balc",
+      label: "BALCONY TIER",
+      badge: "UPPER",
+      children: [
+        { id: "box-1", label: "Private Box 1", badge: "SOLD" },
+        { id: "box-2", label: "Private Box 2" },
+      ],
+    },
+  ];
+
+  return (
+    <TreeNav
+      data={treeData}
+      selectedId={selected}
+      onSelect={(node) => setSelected(node.id)}
+    />
+  );
+}
+
+/* Master Previews Record for all 75 Components */
 const previews: Record<string, React.ComponentType> = {
   button: AnimatedButtonPreview,
   badge: AnimatedBadgePreview,
@@ -1094,6 +1189,11 @@ const previews: Record<string, React.ComponentType> = {
   "dual-slider": AnimatedDualSliderPreview,
   tour: AnimatedTourPreview,
   "mention-input": AnimatedMentionInputPreview,
+  navbar: AnimatedNavbarPreview,
+  autocomplete: AnimatedAutocompletePreview,
+  lightbox: AnimatedLightboxPreview,
+  "transfer-list": AnimatedTransferListPreview,
+  "tree-nav": AnimatedTreeNavPreview,
 };
 
 export function ComponentPreview({ name }: { name: string }) {
