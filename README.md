@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# bigbullui
 
-## Getting Started
+Animated React components you own. No shadcn, no MUI, no Radix underneath —
+just React, Tailwind, and SVG.
 
-First, run the development server:
+## Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install bigbullui
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add the design tokens to your CSS (Tailwind CSS v4 required):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```css
+@import "tailwindcss";
+@import "bigbullui/css";
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Use
 
-## Learn More
+```tsx
+import { CometButton, Dialog, DialogHeader, DialogTitle } from "bigbullui";
 
-To learn more about Next.js, take a look at the following resources:
+export function Example() {
+  return <CometButton variant="accent">Get started</CometButton>;
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Component | Import |
+|---|---|
+| Button | `import { Button } from "bigbullui"` |
+| Input | `import { Input } from "bigbullui"` |
+| Card | `import { Card, ... } from "bigbullui"` |
+| Badge | `import { Badge } from "bigbullui"` |
+| Accordion | `import { Accordion, ... } from "bigbullui"` |
+| Dialog | `import { Dialog, ... } from "bigbullui"` |
+| Tabs | `import { Tabs, ... } from "bigbullui"` |
+| Tooltip | `import { Tooltip } from "bigbullui"` |
+| Comet Button | `import { CometButton } from "bigbullui"` |
 
-## Deploy on Vercel
+Dark mode: toggle the `dark` class on `<html>` — tokens switch automatically.
+Respects `prefers-reduced-motion` out of the box.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Copy-paste
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Prefer owning the source? Every component is a single self-contained file
+(only `react` + a tiny `cn` helper). Copy any file from
+`src/components/ui/` into your project — no install needed.
+
+## License
+
+MIT © 2026 bigbullui
