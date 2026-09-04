@@ -84,6 +84,11 @@ const usage: Record<string, string> = {
   "command-palette": `import { CommandPalette } from "@/components/ui/command-palette";\n\n<CommandPalette\n  open={open}\n  onOpenChange={setOpen}\n  items={[\n    { id: "1", label: "Print Stubs", shortcut: "⌘P", onSelect: () => {} },\n    { id: "2", label: "Seat Map", shortcut: "⌘M", onSelect: () => {} },\n  ]}\n/>`,
   "context-menu": `import { ContextMenu } from "@/components/ui/context-menu";\n\n<ContextMenu\n  items={[\n    { id: "print", label: "Print Stub", shortcut: "⌘P" },\n    "separator",\n    { id: "revoke", label: "Revoke Ticket", danger: true },\n  ]}\n>\n  <div className="p-8 border border-dashed rounded-lg">Right-click here</div>\n</ContextMenu>`,
   "scroll-top": `import { ScrollTop } from "@/components/ui/scroll-top";\n\n<ScrollTop threshold={150} label="TOP" />`,
+  "time-input": `import { TimeInput } from "@/components/ui/time-input";\n\n<TimeInput defaultValue="20:00" onValueChange={(t) => console.log(t)} />`,
+  "masked-input": `import { MaskedInput } from "@/components/ui/masked-input";\n\n<MaskedInput mask="BB-####-####" defaultValue="BB-2026-0001" />`,
+  "date-picker": `import { DatePicker } from "@/components/ui/date-picker";\n\n<DatePicker defaultValue={new Date()} onValueChange={(d) => console.log(d)} />`,
+  menubar: `import { Menubar } from "@/components/ui/menubar";\n\n<Menubar\n  menus={[\n    { id: "file", label: "Ticket", items: [{ id: "p", label: "Print", shortcut: "⌘P" }] },\n  ]}\n/>`,
+  "video-frame": `import { VideoFrame } from "@/components/ui/video-frame";\n\n<VideoFrame\n  title="CINEMA MATINEE"\n  reelNumber="REEL-01"\n  duration="01:30:00"\n/>`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -397,6 +402,33 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
   "scroll-top": [
     { name: "threshold", type: "number", description: "Scroll offset in px before showing button (default 200)." },
     { name: "label", type: "string", description: "Button text label (default 'TOP')." },
+  ],
+  "time-input": [
+    { name: "value", type: "string", description: "Controlled time string (HH:MM)." },
+    { name: "defaultValue", type: "string", description: "Initial time string (default '19:30')." },
+    { name: "onValueChange", type: "(val: string) => void", description: "Callback when time changes." },
+    { name: "format24h", type: "boolean", description: "Whether to use 24h or 12h format (default true)." },
+  ],
+  "masked-input": [
+    { name: "mask", type: "string", description: "Pattern format string (# for digits, A for alpha)." },
+    { name: "value", type: "string", description: "Controlled text value." },
+    { name: "onValueChange", type: "(val: string, complete: boolean) => void", description: "Change callback with completion state." },
+  ],
+  "date-picker": [
+    { name: "value", type: "Date", description: "Controlled selected date." },
+    { name: "defaultValue", type: "Date", description: "Initial date value." },
+    { name: "onValueChange", type: "(date: Date) => void", description: "Callback when date is chosen." },
+    { name: "placeholder", type: "string", description: "Input trigger placeholder text." },
+  ],
+  menubar: [
+    { name: "menus", type: "MenubarMenu[]", description: "Array of menu groups with items and shortcuts (required)." },
+  ],
+  "video-frame": [
+    { name: "title", type: "string", description: "Screening or film title." },
+    { name: "reelNumber", type: "string", description: "Film reel or hall identifier." },
+    { name: "duration", type: "string", description: "Duration timestamp display." },
+    { name: "src", type: "string", description: "Optional video file source." },
+    { name: "poster", type: "string", description: "Preview poster image source." },
   ],
 };
 

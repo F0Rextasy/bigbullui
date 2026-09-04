@@ -71,7 +71,13 @@ import { ConfettiBurst } from "@/components/ui/confetti-burst";
 import { CommandPalette } from "@/components/ui/command-palette";
 import { ContextMenu } from "@/components/ui/context-menu";
 import { ScrollTop } from "@/components/ui/scroll-top";
+import { TimeInput } from "@/components/ui/time-input";
+import { MaskedInput } from "@/components/ui/masked-input";
+import { DatePicker } from "@/components/ui/date-picker";
+import { Menubar } from "@/components/ui/menubar";
+import { VideoFrame } from "@/components/ui/video-frame";
 import { cn } from "@/components/ui/lib/utils";
+
 
 
 /* Animated Component Previews */
@@ -482,7 +488,104 @@ function AnimatedScrollTopPreview() {
   );
 }
 
-/* Master Previews Record for all 60 Components */
+function AnimatedTimeInputPreview() {
+  const [time, setTime] = React.useState("20:45");
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <TimeInput value={time} onValueChange={setTime} />
+      <span className="font-mono text-xs text-muted-foreground">
+        RESERVED SCREENING: <strong className="text-foreground">{time}</strong>
+      </span>
+    </div>
+  );
+}
+
+function AnimatedMaskedInputPreview() {
+  const [val, setVal] = React.useState("BB-2026-9481");
+  return (
+    <div className="flex flex-col items-center gap-2 w-full max-w-xs">
+      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground self-start">
+        TICKET SERIAL CODE
+      </span>
+      <MaskedInput
+        mask="BB-####-####"
+        value={val}
+        onValueChange={(formatted) => setVal(formatted)}
+        placeholder="BB-0000-0000"
+      />
+      <span className="font-mono text-[11px] text-muted-foreground self-start">
+        Auto-formats characters with ticket validation
+      </span>
+    </div>
+  );
+}
+
+function AnimatedDatePickerPreview() {
+  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <DatePicker value={date} onValueChange={setDate} />
+      <span className="font-mono text-[11px] text-muted-foreground">
+        Click to open admission calendar popover
+      </span>
+    </div>
+  );
+}
+
+function AnimatedMenubarPreview() {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <Menubar
+        menus={[
+          {
+            id: "admission",
+            label: "Admission",
+            items: [
+              { id: "admit", label: "Admit Stub", shortcut: "↵" },
+              { id: "print", label: "Print Ticket", shortcut: "⌘P" },
+              "separator",
+              { id: "revoke", label: "Revoke Pass", danger: true },
+            ],
+          },
+          {
+            id: "seating",
+            label: "Seating",
+            items: [
+              { id: "orch", label: "Orchestra" },
+              { id: "mezz", label: "Mezzanine" },
+              { id: "balc", label: "Balcony" },
+            ],
+          },
+          {
+            id: "help",
+            label: "Help",
+            items: [
+              { id: "guide", label: "Ticket Guide", shortcut: "F1" },
+              { id: "terms", label: "Terms of Entry" },
+            ],
+          },
+        ]}
+      />
+      <span className="font-mono text-[11px] text-muted-foreground">
+        Click any menu header to open dropdown
+      </span>
+    </div>
+  );
+}
+
+function AnimatedVideoFramePreview() {
+  return (
+    <div className="w-full max-w-md">
+      <VideoFrame
+        title="MIDNIGHT CINEMA ARCHIVE"
+        reelNumber="35MM · REEL 04"
+        duration="01:48:22"
+      />
+    </div>
+  );
+}
+
+/* Master Previews Record for all 65 Components */
 const previews: Record<string, React.ComponentType> = {
   button: AnimatedButtonPreview,
   badge: AnimatedBadgePreview,
@@ -895,6 +998,11 @@ const previews: Record<string, React.ComponentType> = {
   "context-menu": AnimatedContextMenuPreview,
   "inline-edit": AnimatedInlineEditPreview,
   "scroll-top": AnimatedScrollTopPreview,
+  "time-input": AnimatedTimeInputPreview,
+  "masked-input": AnimatedMaskedInputPreview,
+  "date-picker": AnimatedDatePickerPreview,
+  menubar: AnimatedMenubarPreview,
+  "video-frame": AnimatedVideoFramePreview,
 };
 
 export function ComponentPreview({ name }: { name: string }) {

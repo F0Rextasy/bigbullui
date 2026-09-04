@@ -149,4 +149,15 @@ export { InlineEdit } from "./components/ui/inline-edit";
 export type { InlineEditProps } from "./components/ui/inline-edit";
 export { ScrollTop } from "./components/ui/scroll-top";
 export type { ScrollTopProps } from "./components/ui/scroll-top";
+// Wave 5 Additions
+export { TimeInput } from "./components/ui/time-input";
+export type { TimeInputProps } from "./components/ui/time-input";
+export { MaskedInput } from "./components/ui/masked-input";
+export type { MaskedInputProps } from "./components/ui/masked-input";
+export { DatePicker } from "./components/ui/date-picker";
+export type { DatePickerProps } from "./components/ui/date-picker";
+export { Menubar } from "./components/ui/menubar";
+export type { MenubarProps, MenubarMenu, MenubarItem } from "./components/ui/menubar";
+export { VideoFrame } from "./components/ui/video-frame";
+export type { VideoFrameProps } from "./components/ui/video-frame";
 
