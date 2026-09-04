@@ -76,7 +76,13 @@ import { MaskedInput } from "@/components/ui/masked-input";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Menubar } from "@/components/ui/menubar";
 import { VideoFrame } from "@/components/ui/video-frame";
+import { AudioMini } from "@/components/ui/audio-mini";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { DualSlider } from "@/components/ui/dual-slider";
+import { Tour } from "@/components/ui/tour";
+import { MentionInput } from "@/components/ui/mention-input";
 import { cn } from "@/components/ui/lib/utils";
+
 
 
 
@@ -585,7 +591,87 @@ function AnimatedVideoFramePreview() {
   );
 }
 
-/* Master Previews Record for all 65 Components */
+function AnimatedAudioMiniPreview() {
+  return (
+    <div className="w-full max-w-sm">
+      <AudioMini
+        title="CONCERT HALL ACOUSTICS"
+        artist="ORCHESTRA ROW C · SEAT 12"
+        duration="04:18"
+      />
+    </div>
+  );
+}
+
+function AnimatedSectionHeadingPreview() {
+  return (
+    <div className="w-full max-w-md p-4 rounded-xl border border-dashed border-border bg-card">
+      <SectionHeading
+        title="SECTION A · ORCHESTRA"
+        subtitle="GROUND LEVEL · DIRECT STAGE VIEW"
+        badge="GATE 03"
+        action={
+          <span className="font-mono text-xs font-bold text-accent cursor-pointer hover:underline">
+            VIEW MAP →
+          </span>
+        }
+      />
+    </div>
+  );
+}
+
+function AnimatedDualSliderPreview() {
+  const [range, setRange] = React.useState<[number, number]>([35, 120]);
+  return (
+    <div className="w-full max-w-sm p-4 rounded-xl border border-dashed border-border bg-card">
+      <DualSlider
+        min={10}
+        max={200}
+        step={5}
+        value={range}
+        onValueChange={setRange}
+        currency="$"
+      />
+    </div>
+  );
+}
+
+function AnimatedTourPreview() {
+  const [step, setStep] = React.useState(0);
+  const tourSteps = [
+    { title: "SELECT ADMISSION SEAT", description: "Pick your preferred auditorium zone from the interactive stub map." },
+    { title: "SECURITY VALIDATION", description: "Your digital pass includes a dynamic anti-fraud barcode." },
+    { title: "BOARDING GATE ACCESS", description: "Present ticket at scanner Gate 3 for instant entry." },
+  ];
+
+  return (
+    <Tour
+      steps={tourSteps}
+      currentStep={step}
+      onStepChange={setStep}
+      onSkip={() => setStep(0)}
+      onComplete={() => setStep(0)}
+    />
+  );
+}
+
+function AnimatedMentionInputPreview() {
+  const [val, setVal] = React.useState("Assigned to @VIP-Box for curtain call.");
+  return (
+    <div className="w-full max-w-md">
+      <MentionInput
+        value={val}
+        onValueChange={setVal}
+        placeholder="Type @ to mention ticket tiers or staff..."
+      />
+      <span className="mt-2 block font-mono text-[11px] text-muted-foreground">
+        Type @ to trigger ticket tier suggestions
+      </span>
+    </div>
+  );
+}
+
+/* Master Previews Record for all 70 Components */
 const previews: Record<string, React.ComponentType> = {
   button: AnimatedButtonPreview,
   badge: AnimatedBadgePreview,
@@ -1003,6 +1089,11 @@ const previews: Record<string, React.ComponentType> = {
   "date-picker": AnimatedDatePickerPreview,
   menubar: AnimatedMenubarPreview,
   "video-frame": AnimatedVideoFramePreview,
+  "audio-mini": AnimatedAudioMiniPreview,
+  "section-heading": AnimatedSectionHeadingPreview,
+  "dual-slider": AnimatedDualSliderPreview,
+  tour: AnimatedTourPreview,
+  "mention-input": AnimatedMentionInputPreview,
 };
 
 export function ComponentPreview({ name }: { name: string }) {

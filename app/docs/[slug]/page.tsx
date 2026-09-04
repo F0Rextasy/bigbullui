@@ -89,6 +89,11 @@ const usage: Record<string, string> = {
   "date-picker": `import { DatePicker } from "@/components/ui/date-picker";\n\n<DatePicker defaultValue={new Date()} onValueChange={(d) => console.log(d)} />`,
   menubar: `import { Menubar } from "@/components/ui/menubar";\n\n<Menubar\n  menus={[\n    { id: "file", label: "Ticket", items: [{ id: "p", label: "Print", shortcut: "⌘P" }] },\n  ]}\n/>`,
   "video-frame": `import { VideoFrame } from "@/components/ui/video-frame";\n\n<VideoFrame\n  title="CINEMA MATINEE"\n  reelNumber="REEL-01"\n  duration="01:30:00"\n/>`,
+  "audio-mini": `import { AudioMini } from "@/components/ui/audio-mini";\n\n<AudioMini title="CONCERT LIVE" artist="ORCHESTRA" duration="03:45" />`,
+  "section-heading": `import { SectionHeading } from "@/components/ui/section-heading";\n\n<SectionHeading title="ORCHESTRA TIER" subtitle="DOORS OPEN 19:30" badge="GATE 03" />`,
+  "dual-slider": `import { DualSlider } from "@/components/ui/dual-slider";\n\n<DualSlider min={10} max={200} defaultValue={[30, 100]} />`,
+  tour: `import { Tour } from "@/components/ui/tour";\n\n<Tour\n  steps={[\n    { title: "Select Seat", description: "Choose your section." },\n    { title: "Confirm Order", description: "Receive digital pass." },\n  ]}\n/>`,
+  "mention-input": `import { MentionInput } from "@/components/ui/mention-input";\n\n<MentionInput placeholder="Type @ to assign seat tier..." />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -429,6 +434,39 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "duration", type: "string", description: "Duration timestamp display." },
     { name: "src", type: "string", description: "Optional video file source." },
     { name: "poster", type: "string", description: "Preview poster image source." },
+  ],
+  "audio-mini": [
+    { name: "title", type: "string", description: "Audio track title." },
+    { name: "artist", type: "string", description: "Artist or seat row label." },
+    { name: "duration", type: "string", description: "Duration timestamp display." },
+    { name: "src", type: "string", description: "Optional audio file URL." },
+  ],
+  "section-heading": [
+    { name: "title", type: "string", description: "Main section heading title (required)." },
+    { name: "subtitle", type: "string", description: "Optional secondary description line." },
+    { name: "badge", type: "string", description: "Optional badge text (e.g. 'GATE 3')." },
+    { name: "action", type: "React.ReactNode", description: "Optional right-aligned action slot." },
+  ],
+  "dual-slider": [
+    { name: "min", type: "number", description: "Minimum limit (default 0)." },
+    { name: "max", type: "number", description: "Maximum limit (default 100)." },
+    { name: "value", type: "[number, number]", description: "Controlled range tuple." },
+    { name: "defaultValue", type: "[number, number]", description: "Initial range tuple (default [20, 80])." },
+    { name: "onValueChange", type: "(val: [number, number]) => void", description: "Callback when range changes." },
+    { name: "currency", type: "string", description: "Currency symbol (default '$')." },
+  ],
+  tour: [
+    { name: "steps", type: "TourStep[]", description: "Array of tour step cards with title and description (required)." },
+    { name: "currentStep", type: "number", description: "Controlled current step index." },
+    { name: "onStepChange", type: "(step: number) => void", description: "Callback when step changes." },
+    { name: "onComplete", type: "() => void", description: "Callback on finish." },
+    { name: "onSkip", type: "() => void", description: "Callback on skip." },
+  ],
+  "mention-input": [
+    { name: "mentions", type: "MentionItem[]", description: "Array of mention items with id and name." },
+    { name: "value", type: "string", description: "Controlled text value." },
+    { name: "onValueChange", type: "(val: string) => void", description: "Callback when text changes." },
+    { name: "placeholder", type: "string", description: "Placeholder text." },
   ],
 };
 

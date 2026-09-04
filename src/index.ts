@@ -160,4 +160,15 @@ export { Menubar } from "./components/ui/menubar";
 export type { MenubarProps, MenubarMenu, MenubarItem } from "./components/ui/menubar";
 export { VideoFrame } from "./components/ui/video-frame";
 export type { VideoFrameProps } from "./components/ui/video-frame";
+// Wave 6 Additions
+export { AudioMini } from "./components/ui/audio-mini";
+export type { AudioMiniProps } from "./components/ui/audio-mini";
+export { SectionHeading } from "./components/ui/section-heading";
+export type { SectionHeadingProps } from "./components/ui/section-heading";
+export { DualSlider } from "./components/ui/dual-slider";
+export type { DualSliderProps } from "./components/ui/dual-slider";
+export { Tour } from "./components/ui/tour";
+export type { TourProps, TourStep } from "./components/ui/tour";
+export { MentionInput } from "./components/ui/mention-input";
+export type { MentionInputProps, MentionItem } from "./components/ui/mention-input";
 

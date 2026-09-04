@@ -37,8 +37,10 @@ export const components: ComponentMeta[] = [
   { name: "time-input", title: "Time Input", description: "Curtain call showtime selector with hours, minutes, and AM/PM stepper.", category: "form" },
   { name: "masked-input", title: "Masked Input", description: "Formatted code field with auto-formatted delimiters and validation mark.", category: "form" },
   { name: "date-picker", title: "Date Picker", description: "Admission date picker input with popover ticket calendar and quick date selection.", category: "form" },
+  { name: "dual-slider", title: "Dual Slider", description: "Ticket price range selector with minimum and maximum draggable thumb handles.", category: "form" },
+  { name: "mention-input", title: "Mention Input", description: "Ticket tier and staff mention input with instant @ autocomplete popover.", category: "form" },
 
-  // Display (21)
+  // Display (23)
   { name: "ticket-card", title: "Ticket Card", description: "Complete admission ticket with notched edges and seat details.", category: "display" },
   { name: "coupon", title: "Coupon", description: "Discount coupon with scissor cutout lines and promo code copy.", category: "display" },
   { name: "boarding-pass", title: "Boarding Pass", description: "Flight pass with origin, destination and receipt section.", category: "display" },
@@ -60,8 +62,10 @@ export const components: ComponentMeta[] = [
   { name: "calendar", title: "Calendar", description: "Month calendar with date selection, month navigation, and today indicator.", category: "display" },
   { name: "data-table", title: "Data Table", description: "Sortable, searchable data table with row selection and pagination.", category: "display" },
   { name: "video-frame", title: "Video Frame", description: "Cinema screening container with sprocket edges and play overlay.", category: "display" },
+  { name: "audio-mini", title: "Audio Mini", description: "Compact ticket stub audio player with animated equalizer bars and duration counter.", category: "display" },
+  { name: "section-heading", title: "Section Heading", description: "Theater and arena section divider banner with dashed rules and zone badges.", category: "display" },
 
-  // Feedback (11)
+  // Feedback (12)
   { name: "alert", title: "Alert", description: "Notice box with tone bar and status eyebrow.", category: "feedback" },
   { name: "tooltip", title: "Tooltip", description: "Floating helper tooltip on hover and keyboard focus.", category: "feedback" },
   { name: "dialog", title: "Dialog", description: "Accessible modal dialog with focus trap and scale animation.", category: "feedback" },
@@ -73,6 +77,8 @@ export const components: ComponentMeta[] = [
   { name: "skeleton", title: "Skeleton", description: "Dashed placeholder box with gentle pulse animation.", category: "feedback" },
   { name: "cookie-banner", title: "Cookie Banner", description: "Fixed privacy consent banner with accept and decline actions.", category: "feedback" },
   { name: "confetti-burst", title: "Confetti Burst", description: "CSS celebration burst with stamp-colored pieces flying outward.", category: "feedback" },
+  { name: "tour", title: "Tour", description: "Interactive step-by-step guided onboarding card with progress indicators and ticket styling.", category: "feedback" },
+
 
   // Navigation (12)
   { name: "tabs", title: "Tabs", description: "Segmented panel switch with roving keyboard focus.", category: "navigation" },
