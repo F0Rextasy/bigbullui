@@ -53,7 +53,7 @@ export function TabsList({ className, ...props }: React.HTMLAttributes<HTMLDivEl
     <div
       role="tablist"
       onKeyDown={handleKeyDown}
-      className={cn("inline-flex h-9 items-center justify-center gap-1 rounded-lg bg-secondary p-1 text-muted-foreground", className)}
+      className={cn("inline-flex h-10 items-center justify-center gap-1 rounded-md border border-dashed border-foreground/50 bg-transparent p-1 text-muted-foreground", className)}
       {...props}
     />
   );
@@ -78,8 +78,8 @@ export function TabsTrigger({ value, className, onClick, ...props }: TabsTrigger
         onClick?.(event);
       }}
       className={cn(
-        "relative inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-        isActive && "bg-card text-foreground shadow-sm",
+        "relative inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-[4px] px-3 py-1 font-mono text-xs uppercase tracking-[0.12em] transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        isActive && "bg-primary text-primary-foreground shadow-sm",
         className
       )}
       {...props}

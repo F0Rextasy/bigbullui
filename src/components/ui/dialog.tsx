@@ -66,7 +66,7 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
         aria-modal="true"
         tabIndex={-1}
         className={cn(
-          "absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-card p-6 shadow-lg focus:outline-none animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none"
+          "absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border-[1.5px] border-foreground bg-card p-6 shadow-lg outline-1 outline-dashed outline-offset-[-7px] focus:outline-none animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none"
         )}
       >
         {children}

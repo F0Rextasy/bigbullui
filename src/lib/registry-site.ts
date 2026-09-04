@@ -13,5 +13,4 @@ export const components: ComponentMeta[] = [
   { name: "dialog", title: "Dialog", description: "Modal window with focus trap and scale animation." },
   { name: "tabs", title: "Tabs", description: "Switch between panels with keyboard navigation." },
   { name: "tooltip", title: "Tooltip", description: "Small informational popup on hover and focus." },
-  { name: "comet-button", title: "Comet Button", description: "Cursor-tracking glare with a light sweep on hover — our signature button." },
 ];

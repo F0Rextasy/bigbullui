@@ -38,7 +38,6 @@ export function Example() {
 | Dialog | `import { Dialog, ... } from "bigbullui"` |
 | Tabs | `import { Tabs, ... } from "bigbullui"` |
 | Tooltip | `import { Tooltip } from "bigbullui"` |
-| Comet Button | `import { CometButton } from "bigbullui"` |
 
 Dark mode: toggle the `dark` class on `<html>` — tokens switch automatically.
 Respects `prefers-reduced-motion` out of the box.

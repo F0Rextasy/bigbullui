@@ -9,12 +9,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip } from "@/components/ui/tooltip";
 import { Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { CometButton } from "@/components/ui/comet-button";
 
 const previews: Record<string, React.ComponentType> = {
   button: () => (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      <Button>Default</Button>
+      <Button>Admit one</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
@@ -25,34 +24,27 @@ const previews: Record<string, React.ComponentType> = {
   ),
   input: () => (
     <div className="grid w-full max-w-sm gap-3">
-      <Input type="email" placeholder="Email" />
+      <Input type="text" placeholder="Ticket code" />
       <Input disabled placeholder="Disabled" />
     </div>
   ),
   card: () => (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>bigbullui</CardTitle>
-        <CardDescription>Copy-paste components.</CardDescription>
+        <CardTitle>Front row</CardTitle>
+        <CardDescription>Row C · Seat 12 · No refunds</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">Animated, accessible, typed.</p>
+        <p className="text-sm text-muted-foreground">Keep this stub until the end of the show.</p>
       </CardContent>
     </Card>
   ),
   badge: () => (
     <div className="flex flex-wrap justify-center gap-2">
-      <Badge>Default</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="outline">Outline</Badge>
-      <Badge variant="accent">Accent</Badge>
-    </div>
-  ),
-  "comet-button": () => (
-    <div className="flex flex-wrap items-center justify-center gap-3">
-      <CometButton>Launch</CometButton>
-      <CometButton variant="accent">Get started</CometButton>
-      <CometButton size="lg">Big action</CometButton>
+      <Badge>VIP</Badge>
+      <Badge variant="secondary">New</Badge>
+      <Badge variant="outline">Standby</Badge>
+      <Badge variant="accent">Sold out</Badge>
     </div>
   ),
   accordion: () => (
@@ -80,7 +72,7 @@ const previews: Record<string, React.ComponentType> = {
     </Tabs>
   ),
   tooltip: () => (
-    <Tooltip content="bigbullui tooltip">
+    <Tooltip content="Row C · Seat 12">
       <Button variant="outline">Hover me</Button>
     </Tooltip>
   ),
@@ -93,12 +85,12 @@ const previews: Record<string, React.ComponentType> = {
         </Button>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogHeader>
-            <DialogTitle>bigbullui dialog</DialogTitle>
-            <DialogDescription>Built from scratch with a focus trap and Escape handling.</DialogDescription>
+            <DialogTitle>Order confirmed</DialogTitle>
+            <DialogDescription>Your stub is ready. Keep it until the end of the show.</DialogDescription>
           </DialogHeader>
           <p className="text-sm text-muted-foreground">Press Esc or click outside to close.</p>
           <DialogFooter>
-            <Button onClick={() => setOpen(false)}>Got it</Button>
+            <Button onClick={() => setOpen(false)}>Done</Button>
           </DialogFooter>
         </Dialog>
       </>

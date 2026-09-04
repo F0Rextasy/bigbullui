@@ -34,7 +34,7 @@ export function AccordionItem({ value, className, children, ...props }: Accordio
   const contentId = React.useId();
   return (
     <div
-      className={cn("border-b border-border", className)}
+      className={cn("border-b border-dashed border-border", className)}
       data-state={isOpen ? "open" : "closed"}
       {...props}
     >
@@ -79,9 +79,9 @@ export function AccordionTrigger({ value, isOpen, contentId, className, children
         <svg
           width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden
-          className={cn("shrink-0 text-muted-foreground transition-transform duration-200", isOpen && "rotate-180")}
+          className={cn("shrink-0 text-muted-foreground transition-transform duration-200", isOpen && "rotate-45")}
         >
-          <path d="m6 9 6 6 6-6" />
+          <path d="M12 5v14M5 12h14" />
         </svg>
       </button>
     </h3>

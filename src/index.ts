@@ -20,7 +20,5 @@ export { Tooltip } from "./components/ui/tooltip";
 export type { TooltipProps } from "./components/ui/tooltip";
 export { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "./components/ui/dialog";
 export type { DialogProps } from "./components/ui/dialog";
-export { CometButton } from "./components/ui/comet-button";
-export type { CometButtonProps } from "./components/ui/comet-button";
 export { cn } from "./components/ui/lib/utils";
 export type { ClassValue } from "./components/ui/lib/utils";

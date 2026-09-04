@@ -5,45 +5,47 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Ticket Stub — light: warm cream stub */
 :root {
-  --background: #fafaf7;
-  --foreground: #0a0a0f;
-  --muted: #f4f1ea;
-  --muted-foreground: #6b6e78;
-  --card: #ffffff;
-  --card-foreground: #0a0a0f;
-  --border: #e5e2da;
-  --input: #e5e2da;
-  --primary: #0a0a0f;
-  --primary-foreground: #ffffff;
-  --secondary: #f4f1ea;
-  --secondary-foreground: #0a0a0f;
-  --accent: #e5ecff;
-  --accent-foreground: #0a0a0f;
-  --accent-strong: #2d5bff;
-  --destructive: #e5484d;
-  --ring: #2d5bff;
-  --radius: 0.75rem;
+  --background: #f6f0e0;
+  --foreground: #17130c;
+  --muted: #ece3cc;
+  --muted-foreground: #6f6350;
+  --card: #fffdf5;
+  --card-foreground: #17130c;
+  --border: #d8c9ac;
+  --input: #c9ba99;
+  --primary: #17130c;
+  --primary-foreground: #fbf5e8;
+  --secondary: #ece3cc;
+  --secondary-foreground: #17130c;
+  --accent: #bc3a28;
+  --accent-foreground: #fff6e8;
+  --accent-strong: #bc3a28;
+  --destructive: #b3261e;
+  --ring: #bc3a28;
+  --radius: 0.5rem;
 }
 
+/* Ticket Stub — dark: night stub */
 .dark {
-  --background: #0a0a0f;
-  --foreground: #fafaf7;
-  --muted: #16161d;
-  --muted-foreground: #8a8d98;
-  --card: #101017;
-  --card-foreground: #fafaf7;
-  --border: #1f1f27;
-  --input: #1f1f27;
-  --primary: #fafaf7;
-  --primary-foreground: #0a0a0f;
-  --secondary: #16161d;
-  --secondary-foreground: #fafaf7;
-  --accent: rgba(45, 91, 255, 0.15);
-  --accent-foreground: #c7d4ff;
-  --accent-strong: #6b8aff;
+  --background: #16120b;
+  --foreground: #f3ead3;
+  --muted: #241e13;
+  --muted-foreground: #a89a7e;
+  --card: #1e1810;
+  --card-foreground: #f3ead3;
+  --border: #3a3122;
+  --input: #4a3f2c;
+  --primary: #f3ead3;
+  --primary-foreground: #16120b;
+  --secondary: #241e13;
+  --secondary-foreground: #f3ead3;
+  --accent: #d95b43;
+  --accent-foreground: #fff6e6;
+  --accent-strong: #e8705a;
   --destructive: #ff6369;
-  --ring: #6b8aff;
+  --ring: #e0573d;
 }
 
 @theme inline {
