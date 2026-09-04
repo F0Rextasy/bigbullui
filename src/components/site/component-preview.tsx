@@ -91,6 +91,11 @@ import { MaskedCurrency } from "@/components/ui/masked-currency";
 import { StickyBar } from "@/components/ui/sticky-bar";
 import { Stack } from "@/components/ui/stack";
 import { Container } from "@/components/ui/container";
+import { KanbanLite } from "@/components/ui/kanban-lite";
+import { GanttLite } from "@/components/ui/gantt-lite";
+import { Sidebar } from "@/components/ui/sidebar";
+import { Stopwatch } from "@/components/ui/stopwatch";
+import { Countup } from "@/components/ui/countup";
 import { cn } from "@/components/ui/lib/utils";
 
 
@@ -911,7 +916,81 @@ function AnimatedContainerPreview() {
   );
 }
 
-/* Master Previews Record for all 80 Components */
+function AnimatedKanbanLitePreview() {
+  return (
+    <div className="w-full max-w-2xl">
+      <KanbanLite />
+    </div>
+  );
+}
+
+function AnimatedGanttLitePreview() {
+  const [hour, setHour] = React.useState(20);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setHour((h) => (h >= 23 ? 18 : Number((h + 0.5).toFixed(1))));
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="w-full max-w-2xl">
+      <GanttLite liveHour={hour} />
+    </div>
+  );
+}
+
+function AnimatedSidebarPreview() {
+  const [active, setActive] = React.useState("dashboard");
+  const [collapsed, setCollapsed] = React.useState(false);
+
+  return (
+    <div className="flex h-72 w-full max-w-md overflow-hidden rounded-lg border-2 border-foreground bg-background shadow-xs">
+      <Sidebar
+        activeId={active}
+        onSelect={setActive}
+        collapsed={collapsed}
+        onCollapsedChange={setCollapsed}
+      />
+      <div className="flex flex-1 flex-col items-center justify-center p-6 text-center font-mono">
+        <div className="text-xs uppercase font-bold text-muted-foreground">SELECTED VIEW</div>
+        <div className="mt-1 text-sm font-black text-accent">{active.toUpperCase()}</div>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedStopwatchPreview() {
+  return (
+    <div className="w-full max-w-sm">
+      <Stopwatch autoStart={true} />
+    </div>
+  );
+}
+
+function AnimatedCountupPreview() {
+  const [val, setVal] = React.useState(8492);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setVal((v) => v + Math.floor(Math.random() * 45) + 10);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <Countup end={val} start={val - 120} duration={1200} label="LIVE TURNSTILE ADMISSIONS" />
+      <div className="flex gap-2">
+        <Countup end={val} variant="badge" prefix="TOTAL " suffix=" STUBS" />
+        <Countup end={Math.floor(val / 4)} variant="minimal" prefix="VIP: " />
+      </div>
+    </div>
+  );
+}
+
+/* Master Previews Record for all 85 Components */
 const previews: Record<string, React.ComponentType> = {
   button: AnimatedButtonPreview,
   badge: AnimatedBadgePreview,
@@ -1344,6 +1423,11 @@ const previews: Record<string, React.ComponentType> = {
   "sticky-bar": AnimatedStickyBarPreview,
   stack: AnimatedStackPreview,
   container: AnimatedContainerPreview,
+  "kanban-lite": AnimatedKanbanLitePreview,
+  "gantt-lite": AnimatedGanttLitePreview,
+  sidebar: AnimatedSidebarPreview,
+  stopwatch: AnimatedStopwatchPreview,
+  countup: AnimatedCountupPreview,
 };
 
 export function ComponentPreview({ name }: { name: string }) {

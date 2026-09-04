@@ -72,6 +72,10 @@ export const components: ComponentMeta[] = [
   { name: "sticky-bar", title: "Sticky Bar", description: "Floating bottom checkout bar with item counter and admission button.", category: "display" },
   { name: "stack", title: "Stack", description: "Stacked ticket stubs container with staggered angles and hover fan-out.", category: "display" },
   { name: "container", title: "Container", description: "Centered layout wrapper with perforated ticket notch cutouts.", category: "display" },
+  { name: "kanban-lite", title: "Kanban Lite", description: "Ticket queue and admission stage progression board with notch cards.", category: "display" },
+  { name: "gantt-lite", title: "Gantt Lite", description: "Interactive festival and stage timetable schedule with animated now indicator.", category: "display" },
+  { name: "stopwatch", title: "Stopwatch", description: "Turnstile gate admission timer with lap stub tear-offs and digital readout.", category: "display" },
+  { name: "countup", title: "Countup", description: "Mechanical turnstile odometer counter with animated tally and slot frames.", category: "display" },
 
   // Feedback (12)
   { name: "alert", title: "Alert", description: "Notice box with tone bar and status eyebrow.", category: "feedback" },
@@ -87,7 +91,7 @@ export const components: ComponentMeta[] = [
   { name: "confetti-burst", title: "Confetti Burst", description: "CSS celebration burst with stamp-colored pieces flying outward.", category: "feedback" },
   { name: "tour", title: "Tour", description: "Interactive step-by-step guided onboarding card with progress indicators and ticket styling.", category: "feedback" },
 
-  // Navigation (14)
+  // Navigation (15)
   { name: "tabs", title: "Tabs", description: "Segmented panel switch with roving keyboard focus.", category: "navigation" },
   { name: "accordion", title: "Accordion", description: "Collapsible disclosure items with smooth height transitions.", category: "navigation" },
   { name: "pagination", title: "Pagination", description: "Numbered buttons with ellipsis and page stepping.", category: "navigation" },
@@ -102,4 +106,5 @@ export const components: ComponentMeta[] = [
   { name: "menubar", title: "Menubar", description: "Theater box office menu bar with dropdown menus, shortcuts, and dashed frames.", category: "navigation" },
   { name: "navbar", title: "Navbar", description: "Perforated ticket stub navigation bar with brand monogram and active links.", category: "navigation" },
   { name: "tree-nav", title: "Tree Nav", description: "Hierarchical arena seating explorer with collapsible nodes and ticket icons.", category: "navigation" },
+  { name: "sidebar", title: "Sidebar", description: "Collapsible ticket booth navigation sidebar drawer with notch cutouts.", category: "navigation" },
 ];

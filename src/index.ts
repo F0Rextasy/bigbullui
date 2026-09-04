@@ -193,4 +193,15 @@ export { Stack } from "./components/ui/stack";
 export type { StackProps } from "./components/ui/stack";
 export { Container } from "./components/ui/container";
 export type { ContainerProps } from "./components/ui/container";
+// Wave 9 Additions
+export { KanbanLite } from "./components/ui/kanban-lite";
+export type { KanbanLiteProps, KanbanColumn, KanbanTicket } from "./components/ui/kanban-lite";
+export { GanttLite } from "./components/ui/gantt-lite";
+export type { GanttLiteProps, GanttItem } from "./components/ui/gantt-lite";
+export { Sidebar } from "./components/ui/sidebar";
+export type { SidebarProps, SidebarGroupData, SidebarItemData } from "./components/ui/sidebar";
+export { Stopwatch } from "./components/ui/stopwatch";
+export type { StopwatchProps, LapRecord } from "./components/ui/stopwatch";
+export { Countup } from "./components/ui/countup";
+export type { CountupProps } from "./components/ui/countup";
 

@@ -104,6 +104,11 @@ const usage: Record<string, string> = {
   "sticky-bar": `import { StickyBar } from "@/components/ui/sticky-bar";\n\n<StickyBar itemCount={2} total="$90.00" actionText="ADMIT NOW" />`,
   stack: `import { Stack } from "@/components/ui/stack";\n\n<Stack fanOnHover>\n  <div>Ticket 1</div>\n  <div>Ticket 2</div>\n</Stack>`,
   container: `import { Container } from "@/components/ui/container";\n\n<Container size="lg" notched>\n  <main>Notched ticket container layout</main>\n</Container>`,
+  "kanban-lite": `import { KanbanLite } from "@/components/ui/kanban-lite";\n\n<KanbanLite onMoveTicket={(ticketId, from, to) => console.log(ticketId, from, to)} />`,
+  "gantt-lite": `import { GanttLite } from "@/components/ui/gantt-lite";\n\n<GanttLite startHour={18} endHour={24} liveHour={20} />`,
+  sidebar: `import { Sidebar } from "@/components/ui/sidebar";\n\n<Sidebar brand="BIGBULL ARENA" activeId="dashboard" />`,
+  stopwatch: `import { Stopwatch } from "@/components/ui/stopwatch";\n\n<Stopwatch autoStart onLap={(lap) => console.log(lap)} />`,
+  countup: `import { Countup } from "@/components/ui/countup";\n\n<Countup end={8492} duration={1500} label="TICKETS ADMITTED" />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -533,6 +538,42 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
   container: [
     { name: "size", type: '"sm" | "md" | "lg" | "xl" | "full"', description: "Max-width container size (default 'lg')." },
     { name: "notched", type: "boolean", description: "Renders punch notch cutouts on side edges (default true)." },
+  ],
+  "kanban-lite": [
+    { name: "columns", type: "KanbanColumn[]", description: "Array of Kanban board columns with ticket stubs." },
+    { name: "onMoveTicket", type: "(ticketId: string, fromColId: string, toColId: string) => void", description: "Callback when a ticket is advanced or moved back." },
+  ],
+  "gantt-lite": [
+    { name: "stages", type: "string[]", description: "Stage / zone names list for rows." },
+    { name: "items", type: "GanttItem[]", description: "Scheduled timetable acts and performance blocks." },
+    { name: "startHour", type: "number", description: "Timeline start hour (0-24, default 18)." },
+    { name: "endHour", type: "number", description: "Timeline end hour (0-24, default 24)." },
+    { name: "liveHour", type: "number", description: "Current hour position for the pulsing red now indicator line." },
+    { name: "onSelectItem", type: "(item: GanttItem) => void", description: "Callback when a schedule block is clicked." },
+  ],
+  sidebar: [
+    { name: "brand", type: "string", description: "Title banner in sidebar header." },
+    { name: "ticketCode", type: "string", description: "Sub-label or pass code in header." },
+    { name: "groups", type: "SidebarGroupData[]", description: "Navigation links grouped by category." },
+    { name: "collapsed", type: "boolean", description: "Controlled collapsed drawer state." },
+    { name: "onCollapsedChange", type: "(collapsed: boolean) => void", description: "Callback when collapse toggles." },
+    { name: "activeId", type: "string", description: "ID of currently active navigation link." },
+    { name: "onSelect", type: "(id: string) => void", description: "Callback when a link is clicked." },
+  ],
+  stopwatch: [
+    { name: "autoStart", type: "boolean", description: "Whether timer automatically starts on render." },
+    { name: "onLap", type: "(lap: LapRecord) => void", description: "Callback when lap tear-off stub is recorded." },
+  ],
+  countup: [
+    { name: "end", type: "number", description: "Target final number value to count up to (required)." },
+    { name: "start", type: "number", description: "Starting initial number value (default 0)." },
+    { name: "duration", type: "number", description: "Animation duration in milliseconds (default 1500)." },
+    { name: "prefix", type: "string", description: "Text or symbol prepended to number." },
+    { name: "suffix", type: "string", description: "Text or symbol appended to number." },
+    { name: "separator", type: "string", description: "Thousands separator character (default ',')." },
+    { name: "decimals", type: "number", description: "Number of decimal places (default 0)." },
+    { name: "label", type: "string", description: "Eyebrow label above odometer display." },
+    { name: "variant", type: '"odometer" | "minimal" | "badge"', description: "Display style variant (default 'odometer')." },
   ],
 };
 
