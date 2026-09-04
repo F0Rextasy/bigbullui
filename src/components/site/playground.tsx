@@ -97,11 +97,11 @@ export function Playground() {
       <DemoCard label="Tabs">
         <Tabs defaultValue="one" className="w-full max-w-xs">
           <TabsList>
-            <TabsTrigger value="one">Stub</TabsTrigger>
+            <TabsTrigger value="one">Gate</TabsTrigger>
             <TabsTrigger value="two">Row</TabsTrigger>
             <TabsTrigger value="three">Seat</TabsTrigger>
           </TabsList>
-          <TabsContent value="one">Row C, Seat 12 — keep this stub.</TabsContent>
+          <TabsContent value="one">Row C, Seat 12 — hold onto it.</TabsContent>
           <TabsContent value="two">Gate B12, boarding 18:40.</TabsContent>
           <TabsContent value="three">No refunds, rain or shine.</TabsContent>
         </Tabs>
@@ -128,7 +128,7 @@ export function Playground() {
         <Accordion type="single" defaultValue="a" className="w-full">
           <AccordionItem value="a">
             <AccordionTrigger>What is bigbullui?</AccordionTrigger>
-            <AccordionContent>Ticket-stub components for React.</AccordionContent>
+            <AccordionContent>Zero-dependency components for React.</AccordionContent>
           </AccordionItem>
           <AccordionItem value="b">
             <AccordionTrigger>Is it free?</AccordionTrigger>

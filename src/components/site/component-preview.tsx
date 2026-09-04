@@ -86,6 +86,11 @@ import { Autocomplete } from "@/components/ui/autocomplete";
 import { Lightbox } from "@/components/ui/lightbox";
 import { TransferList } from "@/components/ui/transfer-list";
 import { TreeNav } from "@/components/ui/tree-nav";
+import { TreeSelect } from "@/components/ui/tree-select";
+import { MaskedCurrency } from "@/components/ui/masked-currency";
+import { StickyBar } from "@/components/ui/sticky-bar";
+import { Stack } from "@/components/ui/stack";
+import { Container } from "@/components/ui/container";
 import { cn } from "@/components/ui/lib/utils";
 
 
@@ -766,7 +771,147 @@ function AnimatedTreeNavPreview() {
   );
 }
 
-/* Master Previews Record for all 75 Components */
+function AnimatedTreeSelectPreview() {
+  const [val, setVal] = React.useState("Balcony Zone B");
+  const treeData = [
+    {
+      id: "orch",
+      label: "Orchestra Section",
+      children: [
+        { id: "orch-a", label: "Orchestra Row A" },
+        { id: "orch-b", label: "Orchestra Row B" },
+      ],
+    },
+    {
+      id: "balc",
+      label: "Balcony Section",
+      children: [
+        { id: "balc-a", label: "Balcony Zone A" },
+        { id: "balc-b", label: "Balcony Zone B" },
+      ],
+    },
+  ];
+
+  return (
+    <div className="w-full max-w-xs">
+      <TreeSelect
+        data={treeData}
+        value={val}
+        onValueChange={(id, node) => setVal(node.label)}
+      />
+    </div>
+  );
+}
+
+function AnimatedMaskedCurrencyPreview() {
+  const [amount, setAmount] = React.useState(8500);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setAmount((prev) => (prev >= 12000 ? 4500 : prev + 1500));
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <MaskedCurrency
+        value={amount}
+        onValueChange={(val) => setAmount(val)}
+        className="w-48"
+      />
+      <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+        Live Stub Balance: ${(amount / 100).toFixed(2)}
+      </span>
+    </div>
+  );
+}
+
+function AnimatedStickyBarPreview() {
+  const [count, setCount] = React.useState(3);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCount((c) => (c % 5) + 1);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="relative w-full max-w-lg overflow-hidden rounded-lg border-2 border-foreground bg-background p-2">
+      <div className="p-4 text-center text-xs font-mono text-muted-foreground">
+        [Scrollable Admission Venue Layout]
+      </div>
+      <StickyBar
+        className="relative inset-auto bottom-auto border-t border-border"
+        itemCount={count}
+        total={`$${(count * 45).toFixed(2)}`}
+        actionText="CLAIM STUBS"
+      />
+    </div>
+  );
+}
+
+function AnimatedStackPreview() {
+  return (
+    <div className="flex items-center justify-center p-4">
+      <Stack fanOnHover>
+        <div className="flex h-28 w-44 flex-col justify-between rounded-lg border-2 border-foreground bg-card p-3 shadow-md">
+          <div className="flex justify-between text-[10px] font-mono font-bold text-muted-foreground">
+            <span>PASS #001</span>
+            <span className="text-accent">VIP</span>
+          </div>
+          <div className="text-xs font-mono font-black text-foreground">
+            GOLDEN TICKET
+          </div>
+          <div className="border-t border-dashed border-border pt-1 text-[9px] font-mono text-muted-foreground">
+            ROW A • SEAT 01
+          </div>
+        </div>
+        <div className="flex h-28 w-44 flex-col justify-between rounded-lg border-2 border-foreground bg-secondary p-3 shadow-md">
+          <div className="flex justify-between text-[10px] font-mono font-bold text-muted-foreground">
+            <span>PASS #002</span>
+            <span className="text-accent">STD</span>
+          </div>
+          <div className="text-xs font-mono font-black text-foreground">
+            BALCONY ACCESS
+          </div>
+          <div className="border-t border-dashed border-border pt-1 text-[9px] font-mono text-muted-foreground">
+            ROW B • SEAT 14
+          </div>
+        </div>
+        <div className="flex h-28 w-44 flex-col justify-between rounded-lg border-2 border-foreground bg-card p-3 shadow-lg">
+          <div className="flex justify-between text-[10px] font-mono font-bold text-muted-foreground">
+            <span>PASS #003</span>
+            <span className="text-accent">PRESS</span>
+          </div>
+          <div className="text-xs font-mono font-black text-foreground">
+            ALL-ACCESS PASS
+          </div>
+          <div className="border-t border-dashed border-border pt-1 text-[9px] font-mono text-muted-foreground">
+            STAGE • ROW 0
+          </div>
+        </div>
+      </Stack>
+    </div>
+  );
+}
+
+function AnimatedContainerPreview() {
+  return (
+    <Container size="sm" notched className="rounded-lg border-2 border-dashed border-foreground bg-card p-6 shadow-xs">
+      <div className="flex items-center justify-between border-b border-border pb-2 text-xs font-mono font-bold">
+        <span>NOTCHED WRAPPER</span>
+        <span className="text-accent">SECTOR 9</span>
+      </div>
+      <p className="mt-3 text-xs font-mono text-muted-foreground leading-relaxed">
+        Container automatically clamps width while rendering ticket punch notches on either flank.
+      </p>
+    </Container>
+  );
+}
+
+/* Master Previews Record for all 80 Components */
 const previews: Record<string, React.ComponentType> = {
   button: AnimatedButtonPreview,
   badge: AnimatedBadgePreview,
@@ -1194,6 +1339,11 @@ const previews: Record<string, React.ComponentType> = {
   lightbox: AnimatedLightboxPreview,
   "transfer-list": AnimatedTransferListPreview,
   "tree-nav": AnimatedTreeNavPreview,
+  "tree-select": AnimatedTreeSelectPreview,
+  "masked-currency": AnimatedMaskedCurrencyPreview,
+  "sticky-bar": AnimatedStickyBarPreview,
+  stack: AnimatedStackPreview,
+  container: AnimatedContainerPreview,
 };
 
 export function ComponentPreview({ name }: { name: string }) {

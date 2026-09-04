@@ -99,6 +99,11 @@ const usage: Record<string, string> = {
   lightbox: `import { Lightbox } from "@/components/ui/lightbox";\n\n<Lightbox open={open} onOpenChange={setOpen} images={[{ src: "/pass.png" }]} />`,
   "transfer-list": `import { TransferList } from "@/components/ui/transfer-list";\n\n<TransferList leftTitle="Available" rightTitle="Claimed" />`,
   "tree-nav": `import { TreeNav } from "@/components/ui/tree-nav";\n\n<TreeNav data={[{ id: "orch", label: "Orchestra Tier", children: [{ id: "r1", label: "Row 1" }] }]} />`,
+  "tree-select": `import { TreeSelect } from "@/components/ui/tree-select";\n\n<TreeSelect\n  data={[{ id: "orch", label: "Orchestra", children: [{ id: "row-a", label: "Row A" }] }]}\n  defaultValue="Row A"\n/>`,
+  "masked-currency": `import { MaskedCurrency } from "@/components/ui/masked-currency";\n\n<MaskedCurrency currency="$" defaultValue={4500} onValueChange={(cents) => console.log(cents)} />`,
+  "sticky-bar": `import { StickyBar } from "@/components/ui/sticky-bar";\n\n<StickyBar itemCount={2} total="$90.00" actionText="ADMIT NOW" />`,
+  stack: `import { Stack } from "@/components/ui/stack";\n\n<Stack fanOnHover>\n  <div>Ticket 1</div>\n  <div>Ticket 2</div>\n</Stack>`,
+  container: `import { Container } from "@/components/ui/container";\n\n<Container size="lg" notched>\n  <main>Notched ticket container layout</main>\n</Container>`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -501,6 +506,33 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "data", type: "TreeNode[]", description: "Hierarchical tree nodes array (required)." },
     { name: "selectedId", type: "string", description: "Currently selected node ID." },
     { name: "onSelect", type: "(node: TreeNode) => void", description: "Callback when a leaf node is selected." },
+  ],
+  "tree-select": [
+    { name: "data", type: "TreeSelectNode[]", description: "Hierarchical data options array." },
+    { name: "value", type: "string", description: "Controlled selected node label/id." },
+    { name: "defaultValue", type: "string", description: "Initial selected value." },
+    { name: "onValueChange", type: "(val: string, node: TreeSelectNode) => void", description: "Callback when a node is selected." },
+    { name: "placeholder", type: "string", description: "Placeholder when no item is selected." },
+  ],
+  "masked-currency": [
+    { name: "currency", type: "string", description: "Prefix currency symbol (default '$')." },
+    { name: "value", type: "number", description: "Controlled value in cents." },
+    { name: "defaultValue", type: "number", description: "Initial value in cents (default 4500 = $45.00)." },
+    { name: "onValueChange", type: "(cents: number, formatted: string) => void", description: "Callback on amount change." },
+  ],
+  "sticky-bar": [
+    { name: "itemCount", type: "number", description: "Number of tickets/items selected." },
+    { name: "total", type: "string", description: "Formatted total amount string." },
+    { name: "actionText", type: "string", description: "Button label (default 'ADMIT NOW')." },
+    { name: "onAction", type: "() => void", description: "Action button click callback." },
+  ],
+  stack: [
+    { name: "children", type: "React.ReactNode", description: "Layered stub cards or elements." },
+    { name: "fanOnHover", type: "boolean", description: "Whether cards fan out smoothly on hover (default true)." },
+  ],
+  container: [
+    { name: "size", type: '"sm" | "md" | "lg" | "xl" | "full"', description: "Max-width container size (default 'lg')." },
+    { name: "notched", type: "boolean", description: "Renders punch notch cutouts on side edges (default true)." },
   ],
 };
 

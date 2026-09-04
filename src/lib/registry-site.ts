@@ -41,8 +41,10 @@ export const components: ComponentMeta[] = [
   { name: "mention-input", title: "Mention Input", description: "Ticket tier and staff mention input with instant @ autocomplete popover.", category: "form" },
   { name: "autocomplete", title: "Autocomplete", description: "Typeahead ticket search input with instant suggestions and keyboard select.", category: "form" },
   { name: "transfer-list", title: "Transfer List", description: "Two-column ticket transfer list between available and claimed stubs.", category: "form" },
+  { name: "tree-select", title: "Tree Select", description: "Hierarchical seating dropdown selector with expandable zone nodes.", category: "form" },
+  { name: "masked-currency", title: "Masked Currency", description: "Formatted currency price input with prefix badge and numeric mask.", category: "form" },
 
-  // Display (24)
+  // Display (27)
   { name: "ticket-card", title: "Ticket Card", description: "Complete admission ticket with notched edges and seat details.", category: "display" },
   { name: "coupon", title: "Coupon", description: "Discount coupon with scissor cutout lines and promo code copy.", category: "display" },
   { name: "boarding-pass", title: "Boarding Pass", description: "Flight pass with origin, destination and receipt section.", category: "display" },
@@ -67,6 +69,9 @@ export const components: ComponentMeta[] = [
   { name: "audio-mini", title: "Audio Mini", description: "Compact ticket stub audio player with animated equalizer bars and duration counter.", category: "display" },
   { name: "section-heading", title: "Section Heading", description: "Theater and arena section divider banner with dashed rules and zone badges.", category: "display" },
   { name: "lightbox", title: "Lightbox", description: "Fullscreen ticket and media viewer with film frame edges and image paging.", category: "display" },
+  { name: "sticky-bar", title: "Sticky Bar", description: "Floating bottom checkout bar with item counter and admission button.", category: "display" },
+  { name: "stack", title: "Stack", description: "Stacked ticket stubs container with staggered angles and hover fan-out.", category: "display" },
+  { name: "container", title: "Container", description: "Centered layout wrapper with perforated ticket notch cutouts.", category: "display" },
 
   // Feedback (12)
   { name: "alert", title: "Alert", description: "Notice box with tone bar and status eyebrow.", category: "feedback" },

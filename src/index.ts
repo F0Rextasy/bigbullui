@@ -182,4 +182,15 @@ export { TransferList } from "./components/ui/transfer-list";
 export type { TransferListProps, TransferItem } from "./components/ui/transfer-list";
 export { TreeNav } from "./components/ui/tree-nav";
 export type { TreeNavProps, TreeNode } from "./components/ui/tree-nav";
+// Wave 8 Additions
+export { TreeSelect } from "./components/ui/tree-select";
+export type { TreeSelectProps, TreeSelectNode } from "./components/ui/tree-select";
+export { MaskedCurrency } from "./components/ui/masked-currency";
+export type { MaskedCurrencyProps } from "./components/ui/masked-currency";
+export { StickyBar } from "./components/ui/sticky-bar";
+export type { StickyBarProps } from "./components/ui/sticky-bar";
+export { Stack } from "./components/ui/stack";
+export type { StackProps } from "./components/ui/stack";
+export { Container } from "./components/ui/container";
+export type { ContainerProps } from "./components/ui/container";
 
