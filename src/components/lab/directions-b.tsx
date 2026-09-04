@@ -1,3 +1,4 @@
+import type { InputHTMLAttributes, ReactNode } from "react";
 import type { Direction } from "./directions-a";
 
 const sticker: Direction = {
@@ -84,6 +85,26 @@ const memphis: Direction = {
   ),
 };
 
+function SwissInput({ label, ...props }: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.25em] text-black/60">{label}</span>
+      <input
+        {...props}
+        className="h-12 w-full rounded-none border border-black/30 bg-white px-4 text-sm text-black placeholder:text-black/35 focus:border-black focus:outline-none"
+      />
+    </label>
+  );
+}
+
+function SwissBadge({ tone = "black", children }: { tone?: "black" | "red"; children: ReactNode }) {
+  return (
+    <span className={`inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white ${tone === "red" ? "bg-[#e30613]" : "bg-black"}`}>
+      {children}
+    </span>
+  );
+}
+
 const swiss: Direction = {
   id: "swiss",
   no: "09",
@@ -99,11 +120,29 @@ const swiss: Direction = {
     </button>
   ),
   Card: () => (
-    <div className="w-full max-w-sm border border-black/15 bg-white p-8 text-black">
-      <div aria-hidden className="h-1 w-12 bg-[#e30613]" />
-      <p className="mt-4 font-mono text-xs text-black/50">01 / Index</p>
-      <h3 className="mt-1 text-4xl font-bold leading-none tracking-tighter">Grid is law</h3>
-      <p className="mt-3 text-sm leading-relaxed text-black/70">Maximum clarity through maximum restraint. One accent, no decoration.</p>
+    <div className="w-full max-w-sm space-y-6">
+      <div className="border border-black/15 bg-white p-8 text-black">
+        <div aria-hidden className="h-1 w-12 bg-[#e30613]" />
+        <p className="mt-4 font-mono text-xs text-black/50">01 / Index</p>
+        <h3 className="mt-1 text-4xl font-bold leading-none tracking-tighter">Grid is law</h3>
+        <p className="mt-3 text-sm leading-relaxed text-black/70">Maximum clarity through maximum restraint. One accent, no decoration.</p>
+      </div>
+      <div className="border border-black/15 bg-white p-6 text-black">
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-black/50">02 / Newsletter</p>
+        <div className="mt-4 space-y-4">
+          <SwissInput label="Email" type="email" placeholder="you@studio.ch" />
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              className="h-12 cursor-pointer rounded-none bg-black px-6 text-xs font-bold uppercase tracking-[0.25em] text-white transition-colors duration-150 hover:bg-[#e30613] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e30613] focus-visible:ring-offset-2"
+            >
+              Join
+            </button>
+            <SwissBadge tone="red">New</SwissBadge>
+            <SwissBadge>Swiss</SwissBadge>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };
