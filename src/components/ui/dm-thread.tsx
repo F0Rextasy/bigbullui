@@ -18,7 +18,7 @@ export interface DmThreadProps extends React.HTMLAttributes<HTMLDivElement> {
   onSend?: (body: string) => void;
 }
 
-/** Özel mesaj dizisi: başlık + durum + eylem çubuklu sohbet. */
+/** Direct message thread: header + status + action toolbar. */
 export function DmThread({ name, initials, online = false, messages, onSend, className, ...props }: DmThreadProps) {
   const [input, setInput] = React.useState("");
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -38,18 +38,18 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
     <div className={cn("flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
       <style>{`@keyframes dmIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-      {/* Başlık */}
+      {/* Header */}
       <div className="flex items-center gap-2.5 border-b border-border px-4 py-2.5">
         <span className="relative">
           <span className="flex size-9 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[10px] font-bold">
             {initials}
           </span>
-          {online && <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full border-2 border-card bg-emerald-500" aria-label="çevrimiçi" />}
+          {online && <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full border-2 border-card bg-emerald-500" aria-label="Online" />}
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">{name}</p>
           <p className={cn("text-[10px] uppercase tracking-wider", online ? "text-emerald-600" : "text-muted-foreground")}>
-            {online ? "Çevrimiçi" : "Son görülme yakın zamanda"}
+            {online ? "Online" : "Recently active"}
           </p>
         </div>
         <button className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Sohbet bilgileri">
@@ -75,7 +75,7 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
         ))}
       </div>
 
-      {/* Giriş */}
+      {/* Input */}
       <div className="flex gap-2 border-t border-border p-3">
         <input
           value={input}
@@ -89,7 +89,7 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
           onClick={send}
           disabled={!input.trim()}
           className="shrink-0 rounded-md bg-accent px-3 py-1.5 text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40 motion-reduce:transition-none"
-          aria-label="Gönder"
+          aria-label="Send message"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
         </button>

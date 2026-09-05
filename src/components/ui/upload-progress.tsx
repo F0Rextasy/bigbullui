@@ -10,7 +10,7 @@ export interface UploadProgressProps extends React.HTMLAttributes<HTMLDivElement
   onCancel?: () => void;
 }
 
-/** Tek dosya yükleme: dairesel ilerleme + dosya adı + iptal. */
+/** Single file upload progress: circular gauge + filename + cancel. */
 export function UploadProgress({ filename, progress, onCancel, className, ...props }: UploadProgressProps) {
   const R = 16;
   const C = 2 * Math.PI * R;
@@ -39,13 +39,13 @@ export function UploadProgress({ filename, progress, onCancel, className, ...pro
       </span>
       <div className="min-w-0 flex-1 animate-[upFade_0.3s_ease-out_both] motion-reduce:animate-none">
         <p className="truncate text-sm font-medium">{filename}</p>
-        <p className="text-xs text-muted-foreground">{done ? "Yükleme tamamlandı" : "Yükleniyor…"}</p>
+        <p className="text-xs text-muted-foreground">{done ? "Upload complete" : "Uploading…"}</p>
       </div>
       {!done && (
         <button
           onClick={onCancel}
           className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-          aria-label={`${filename} yüklemesini iptal et`}
+          aria-label={`Cancel ${filename} upload`}
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
         </button>

@@ -15,7 +15,7 @@ export interface SearchFilterBarProps extends React.HTMLAttributes<HTMLDivElemen
   onFilterToggle?: (id: string) => void;
 }
 
-/** Arama + sıralama + filtre birleşik araç çubuğu. */
+/** Search and filter toolbar: search input + sort dropdown + filters. */
 export function SearchFilterBar({
   value,
   defaultValue,
@@ -66,9 +66,9 @@ export function SearchFilterBar({
         />
       </div>
 
-      {/* Sıralama */}
+      {/* Sort */}
       {sorts.length > 0 && (
-        <div className="flex gap-1 rounded-md border border-border bg-card p-0.5" role="radiogroup" aria-label="Sıralama">
+        <div className="flex gap-1 rounded-md border border-border bg-card p-0.5" role="radiogroup" aria-label="Sorting options">
           {sorts.map((s) => (
             <button
               key={s.id}

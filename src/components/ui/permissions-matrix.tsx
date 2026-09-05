@@ -16,12 +16,12 @@ export interface Permission {
 export interface PermissionsMatrixProps extends React.HTMLAttributes<HTMLDivElement> {
   roles: Role[];
   permissions: Permission[];
-  /** başlangıç yetki haritası: roleId -> permissionId[] */
+  /** Initial permission map: roleId -> permissionId[] */
   value?: Record<string, string[]>;
   onValueChange?: (value: Record<string, string[]>) => void;
 }
 
-/** Roller × izinler matrisi; hücre tıklaması yetkiyi açar/kapar. */
+/** Role-permission access matrix with interactive toggles. */
 export function PermissionsMatrix({ roles, permissions, value, onValueChange, className, ...props }: PermissionsMatrixProps) {
   const [internal, setInternal] = React.useState<Record<string, string[]>>(() => {
     if (value) return value;
@@ -46,7 +46,7 @@ export function PermissionsMatrix({ roles, permissions, value, onValueChange, cl
         <table className="w-full min-w-max text-sm">
           <thead>
             <tr className="border-b border-border bg-secondary/60">
-              <th className="px-3 py-2 text-left font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">İzin</th>
+              <th className="px-3 py-2 text-left font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Permission</th>
               {roles.map((r) => (
                 <th key={r.id} className="px-3 py-2 text-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{r.label}</th>
               ))}

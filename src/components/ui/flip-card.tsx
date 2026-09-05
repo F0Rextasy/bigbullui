@@ -6,11 +6,11 @@ import { cn } from "./lib/utils";
 export interface FlipCardProps extends React.HTMLAttributes<HTMLDivElement> {
   front: React.ReactNode;
   back: React.ReactNode;
-  /** hover ile mi click ile mi dönsün */
+  /** Flip trigger: hover or click */
   trigger?: "hover" | "click";
 }
 
-/** İki yüzlü kart: rotateY 180, 3D perspektif, backface gizli. */
+/** Two-sided flip card: rotateY 180, 3D perspective, hidden backface. */
 export function FlipCard({ front, back, trigger = "click", className, ...props }: FlipCardProps) {
   const [flipped, setFlipped] = React.useState(false);
 
@@ -42,11 +42,11 @@ export function FlipCard({ front, back, trigger = "click", className, ...props }
           flipped && "[transform:rotateY(180deg)]"
         )}
       >
-        {/* Ön yüz */}
+        {/* Front side */}
         <div className="absolute inset-0 [backface-visibility:hidden] rounded-lg border-2 border-dashed border-border bg-card p-5 outline-1 outline-dashed outline-offset-[-6px] outline-border/40">
           {front}
         </div>
-        {/* Arka yüz */}
+        {/* Back side */}
         <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-lg border border-border bg-accent text-accent-foreground p-5 animate-[flipCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
           {back}
         </div>

@@ -14,7 +14,7 @@ export interface TreeTableProps extends React.HTMLAttributes<HTMLDivElement> {
   nodes: TreeNode[];
 }
 
-/** Hiyerarşik satırlar açılır kapanır tablo; bağlam çizgileriyle. */
+/** Tree table with expandable rows and connecting lineage branches. */
 export function TreeTable({ nodes, className, ...props }: TreeTableProps) {
   const [expanded, setExpanded] = React.useState<Set<string>>(new Set());
 
@@ -66,7 +66,7 @@ export function TreeTable({ nodes, className, ...props }: TreeTableProps) {
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
             <th className="px-3 py-2 text-left font-medium">Ad</th>
-            <th className="px-3 py-2 text-right font-medium">Değer</th>
+            <th className="px-3 py-2 text-right font-medium">Value</th>
           </tr>
         </thead>
         <tbody>{renderRows(nodes, 0)}</tbody>

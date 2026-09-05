@@ -17,16 +17,16 @@ export interface InstallmentPickerProps extends React.HTMLAttributes<HTMLDivElem
   onValueChange?: (months: number) => void;
 }
 
-/** Taksit seçenekleri: vade + aylık + toplam tablosu. */
+/** Installment options: plan tenure + monthly + total breakdown. */
 export function InstallmentPicker({ plans, value, defaultValue, onValueChange, className, ...props }: InstallmentPickerProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? plans[0]?.months);
   const active = value ?? internal;
 
   return (
-    <div className={cn("w-full max-w-sm overflow-hidden rounded-lg border border-border bg-card", className)} role="radiogroup" aria-label="Taksit seçenekleri" {...props}>
+    <div className={cn("w-full max-w-sm overflow-hidden rounded-lg border border-border bg-card", className)} role="radiogroup" aria-label="Installment plans" {...props}>
       <style>{`@keyframes ipIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="border-b border-border px-4 py-2.5">
-        <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Taksit seçenekleri</h3>
+        <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Installment Plans</h3>
       </div>
       <ul className="divide-y divide-border/60">
         {plans.map((plan, idx) => {
@@ -56,7 +56,7 @@ export function InstallmentPicker({ plans, value, defaultValue, onValueChange, c
                 </span>
                 <span className="flex-1">
                   <span className={cn("block text-sm", selected ? "font-semibold text-accent" : "font-medium")}>{plan.months} taksit</span>
-                  {plan.rate && <span className="block text-[11px] text-muted-foreground">Aylık %{plan.rate}</span>}
+                  {plan.rate && <span className="block text-[11px] text-muted-foreground">%{plan.rate} / month</span>}
                 </span>
                 <span className="shrink-0 text-right">
                   <span className={cn("block font-mono text-sm font-bold tabular-nums", selected && "text-accent")}>{plan.monthly}</span>

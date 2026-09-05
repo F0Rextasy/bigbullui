@@ -7,7 +7,7 @@ export interface TrophyShelfProps extends React.HTMLAttributes<HTMLDivElement> {
   trophies: { id: string; label: string; year: string; earned?: boolean }[];
 }
 
-/** Kupa rafı: kazanılan kupalar + parıltı + boş slotlar. */
+/** Trophy shelf display: earned awards + shine overlay + open slots. */
 export function TrophyShelf({ trophies, className, ...props }: TrophyShelfProps) {
   return (
     <div className={cn("w-full max-w-sm", className)} {...props}>
@@ -30,7 +30,7 @@ export function TrophyShelf({ trophies, className, ...props }: TrophyShelfProps)
           ))}
         </div>
         <p className="mt-2 text-center font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-          {trophies.filter((t) => t.earned).length}/{trophies.length} kazanılan
+          {trophies.filter((t) => t.earned).length}/{trophies.length} earned
         </p>
       </div>
     </div>

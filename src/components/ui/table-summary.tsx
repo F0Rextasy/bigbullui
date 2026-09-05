@@ -7,7 +7,7 @@ export interface SummaryRow {
   id: string;
   label: string;
   value: string;
-  /** kalın vurgulu toplam satırı */
+  /** Emphasized bold total summary row */
   bold?: boolean;
 }
 
@@ -16,7 +16,7 @@ export interface TableSummaryProps extends React.HTMLAttributes<HTMLDivElement> 
   caption?: string;
 }
 
-/** Tablo altı özet: satırlar + kalın toplam + dash çerçeve. */
+/** Table summary card: line items + bold total with dashed border. */
 export function TableSummary({ rows, caption, className, ...props }: TableSummaryProps) {
   return (
     <div className={cn("w-full max-w-sm rounded-lg border-2 border-dashed border-border bg-card p-4", className)} {...props}>

@@ -12,11 +12,11 @@ export interface UpgradePromptProps extends React.HTMLAttributes<HTMLDivElement>
   onDismiss?: () => void;
 }
 
-/** Yükseltme çağrısı kartı: plan avantajları + fiyat + kapatma. */
+/** Plan upgrade callout card: features + pricing + dismiss. */
 export function UpgradePrompt({
-  title = "Daha fazlasına hazır mısın?",
-  description = "Üst planla limitleri kaldır, ekibini büyüt.",
-  features = ["Sınırsız proje", "Öncelikli destek", "Gelişmiş analitik"],
+  title = "Ready for unlimited power?",
+  description = "Upgrade to Pro to remove all limits and empower your team.",
+  features = ["Unlimited projects", "Priority support", "Advanced analytics"],
   price = "₺149/ay",
   onUpgrade,
   onDismiss,
@@ -42,7 +42,7 @@ export function UpgradePrompt({
       </button>
 
       <div className="relative animate-[upIn_0.35s_ease-out_both] motion-reduce:animate-none">
-        <span className="rounded-full border border-accent/60 bg-accent/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-accent">Pro'ya geç</span>
+        <span className="rounded-full border border-accent/60 bg-accent/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-accent">Upgrade to Pro</span>
         <h3 className="mt-2 text-base font-semibold">{title}</h3>
         <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         <ul className="mt-3 space-y-1">
@@ -63,7 +63,7 @@ export function UpgradePrompt({
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             )}
           >
-            Yükselt
+            Upgrade
           </button>
         </div>
       </div>

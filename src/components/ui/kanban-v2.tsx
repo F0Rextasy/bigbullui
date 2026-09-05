@@ -14,7 +14,7 @@ export interface KanbanV2Props extends React.HTMLAttributes<HTMLDivElement> {
   onMove?: (cardId: string, from: string, to: string) => void;
 }
 
-/** Sürükle-bırak kanban v2: kartlar kolonlar arasında HTML5 drag ile taşınır. */
+/** Drag-and-drop Kanban board v2: HTML5 drag reordering across columns. */
 export function KanbanV2({ columns, onMove, className, ...props }: KanbanV2Props) {
   const [board, setBoard] = React.useState(columns);
   const [dragging, setDragging] = React.useState<{ cardId: string; from: string } | null>(null);
@@ -76,7 +76,7 @@ export function KanbanV2({ columns, onMove, className, ...props }: KanbanV2Props
               </li>
             ))}
             {col.cards.length === 0 && (
-              <li className="flex min-h-12 items-center justify-center rounded-md border border-dashed border-border/60 text-[10px] text-muted-foreground">Boş</li>
+              <li className="flex min-h-12 items-center justify-center rounded-md border border-dashed border-border/60 text-[10px] text-muted-foreground">Empty</li>
             )}
           </ul>
         </div>

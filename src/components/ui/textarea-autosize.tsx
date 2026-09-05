@@ -8,7 +8,7 @@ export interface TextareaAutosizeProps extends React.TextareaHTMLAttributes<HTML
   maxHeight?: number;
 }
 
-/** İçeriğe göre büyüyen textarea. */
+/** Auto-resizing textarea that expands with user input content. */
 export function TextareaAutosize({ minHeight = 60, maxHeight = 300, className, ...props }: TextareaAutosizeProps) {
   const ref = React.useRef<HTMLTextAreaElement>(null);
 

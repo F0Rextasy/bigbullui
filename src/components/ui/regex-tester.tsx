@@ -9,13 +9,12 @@ export interface RegexTesterProps extends React.HTMLAttributes<HTMLDivElement> {
   onMatch?: (matches: string[]) => void;
 }
 
-/** Regex deseni + test dizesi + eşleşme vurgulama. */
+/** Regular expression tester: pattern + test string + match highlights. */
 export function RegexTester({ pattern: patternProp, testString: testProp = "", onMatch, className, ...props }: RegexTesterProps) {
   const [pattern, setPattern] = React.useState(patternProp ?? "\\d+");
   const [test, setTest] = React.useState(testProp);
-  const [error, setError] = React.useState<string | null>(null);
 
-  const { segments, matches } = React.useMemo(() => {
+  const { segments, matches, error } = React.useMemo(() => {
     try {
       const re = new RegExp(pattern, "g");
       const segs: { text: string; hit: boolean }[] = [];
@@ -30,11 +29,9 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
         if (m[0].length === 0) re.lastIndex++;
       }
       if (last < test.length) segs.push({ text: test.slice(last), hit: false });
-      setError(null);
-      return { segments: segs, matches: found };
+      return { segments: segs, matches: found, error: null as string | null };
     } catch (e) {
-      setError((e as Error).message);
-      return { segments: [{ text: test, hit: false }], matches: [] };
+      return { segments: [{ text: test, hit: false }], matches: [] as string[], error: (e as Error).message };
     }
   }, [pattern, test]);
 
@@ -80,7 +77,7 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
               )
             )}
           </p>
-          <p className="mt-2 font-mono text-[10px] text-muted-foreground">{matches.length} eşleşme</p>
+          <p className="mt-2 font-mono text-[10px] text-muted-foreground">{matches.length} matches</p>
         </div>
       )}
     </div>

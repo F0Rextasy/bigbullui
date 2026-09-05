@@ -12,7 +12,7 @@ export interface KeyboardNavHelperProps extends React.HTMLAttributes<HTMLDivElem
   shortcuts: KeyboardShortcut[];
 }
 
-/** Klavye kısayol yardımcı overlay'i — "?" tuşuyla açılır. */
+/** Keyboard shortcuts modal overlay triggered by "?" key. */
 export function KeyboardNavHelper({ shortcuts, className, ...props }: KeyboardNavHelperProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -35,12 +35,12 @@ export function KeyboardNavHelper({ shortcuts, className, ...props }: KeyboardNa
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Klavye kısayolları"
+        aria-label="Keyboard shortcuts"
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[khIn_0.2s_ease-out_both] motion-reduce:animate-none"
       >
         <div className="flex items-center justify-between">
-          <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Klavye kısayolları</h3>
+          <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Keyboard Shortcuts</h3>
           <button
             onClick={() => setOpen(false)}
             className="rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"

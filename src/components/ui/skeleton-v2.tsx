@@ -2,11 +2,11 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface SkeletonV2Props extends React.HTMLAttributes<HTMLDivElement> {
-  /** shimmer sweep efekti (varsayılan açık) */
+  /** Shimmer sweep animation effect (default enabled) */
   shimmer?: boolean;
 }
 
-/** v2 iskelet kutusu: shimmer süpürmesi + nabız. */
+/** Skeleton box v2: shimmer sweep + pulse animation. */
 export function SkeletonV2({ className, shimmer = true, ...props }: SkeletonV2Props) {
   return (
     <div
@@ -32,7 +32,7 @@ export function SkeletonV2({ className, shimmer = true, ...props }: SkeletonV2Pr
   );
 }
 
-/** Mono metin iskeleti: satır genişlikleri en/son satırla kırpılır. */
+/** Monospace text skeleton: clamp lines with varying widths. */
 export function SkeletonText({
   lines = 3,
   className,
@@ -51,7 +51,7 @@ export function SkeletonText({
   );
 }
 
-/** Kart iskeleti: görsel alanı + başlık + iki metin satırı, çift çerçeve. */
+/** Card skeleton layout: image slot + title + text lines. */
 export function SkeletonCard({ className, ...props }: SkeletonV2Props) {
   return (
     <div

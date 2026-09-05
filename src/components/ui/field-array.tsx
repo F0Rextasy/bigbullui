@@ -16,8 +16,8 @@ export interface FieldArrayProps extends React.HTMLAttributes<HTMLDivElement> {
   maxRows?: number;
 }
 
-/** Dinamik form alanları: satır ekle/çıkar/yukarı-aşağı taşı. */
-export function FieldArray({ label = "Alanlar", rows, onRowsChange, placeholder = "Değer…", maxRows = 10, className, ...props }: FieldArrayProps) {
+/** Dynamic form field array: add/remove/reorder list items. */
+export function FieldArray({ label = "Fields", rows, onRowsChange, placeholder = "Value…", maxRows = 10, className, ...props }: FieldArrayProps) {
   const update = (idx: number, value: string) => onRowsChange?.(rows.map((r, i) => (i === idx ? { ...r, value } : r)));
   const remove = (idx: number) => onRowsChange?.(rows.filter((_, i) => i !== idx));
   const add = () => onRowsChange?.([...rows, { id: `row-${Date.now()}`, value: "" }]);
@@ -42,13 +42,13 @@ export function FieldArray({ label = "Alanlar", rows, onRowsChange, placeholder 
             placeholder={placeholder}
             className="min-w-0 flex-1 rounded-md border border-input bg-background px-2.5 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
           />
-          <button onClick={() => move(idx, -1)} disabled={idx === 0} className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Yukarı taşı">
+          <button onClick={() => move(idx, -1)} disabled={idx === 0} className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Move up">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6" /></svg>
           </button>
-          <button onClick={() => move(idx, 1)} disabled={idx === rows.length - 1} className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Aşağı taşı">
+          <button onClick={() => move(idx, 1)} disabled={idx === rows.length - 1} className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Move down">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </button>
-          <button onClick={() => remove(idx)} disabled={rows.length <= 1} className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Satırı sil">
+          <button onClick={() => remove(idx)} disabled={rows.length <= 1} className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Delete row">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
           </button>
         </div>
@@ -58,7 +58,7 @@ export function FieldArray({ label = "Alanlar", rows, onRowsChange, placeholder 
         disabled={rows.length >= maxRows}
         className="w-full rounded-md border border-dashed border-border py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-accent hover:text-accent disabled:opacity-40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
       >
-        + Satır ekle
+        + Add row
       </button>
     </div>
   );

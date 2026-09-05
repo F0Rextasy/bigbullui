@@ -17,7 +17,7 @@ export interface VideoListProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onSelect?: (id: string) => void;
 }
 
-/** Video sonuç listesi: küçük resim + süre + kanal + izlenme. */
+/** Video search results list: thumbnail + duration + channel + views. */
 export function VideoList({ videos, onSelect, className, ...props }: VideoListProps) {
   return (
     <div className={cn("w-full max-w-lg space-y-2", className)} {...props}>
@@ -43,7 +43,7 @@ export function VideoList({ videos, onSelect, className, ...props }: VideoListPr
           <span className="min-w-0 flex-1 py-0.5">
             <span className="line-clamp-2 text-sm font-medium leading-snug">{v.title}</span>
             <span className="mt-1 block text-xs text-muted-foreground">{v.channel}</span>
-            {v.views && <span className="block text-[11px] text-muted-foreground">{v.views} görüntülenme</span>}
+            {v.views && <span className="block text-[11px] text-muted-foreground">{v.views} views</span>}
           </span>
         </button>
       ))}

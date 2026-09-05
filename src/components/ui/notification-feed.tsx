@@ -24,7 +24,7 @@ const TYPE_ICON: Record<string, { bg: string; glyph: string }> = {
   error: { bg: "bg-destructive/15 text-destructive", glyph: "×" },
 };
 
-/** Tam sayfa bildirim akışı: tip ikonları + okundu durumu. */
+/** Notification feed: category icons + read/unread states. */
 export function NotificationFeed({ notifications, onMarkRead, className, ...props }: NotificationFeedProps) {
   const [read, setRead] = React.useState<Set<string>>(new Set());
 

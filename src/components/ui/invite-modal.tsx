@@ -12,7 +12,7 @@ export interface InviteModalProps {
   onSend?: (email: string, role: string) => void;
 }
 
-/** Davet modalı: e-posta + rol seçimi + gönderme durumu. */
+/** Team member invite modal: email + role selector + dispatch state. */
 export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "member"], onSend }: InviteModalProps) {
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState(roles[roles.length - 1]);
@@ -29,21 +29,21 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Ekip üyesi davet et"
+        aria-label="Invite team member"
         onClick={(e) => e.stopPropagation()}
         className="w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[invScale_0.25s_cubic-bezier(0.16,1,0.3,1)_both] motion-reduce:animate-none"
       >
         {!sent ? (
           <>
-            <h3 className="text-sm font-semibold">Ekip üyesi davet et</h3>
-            <p className="mt-1 text-xs text-muted-foreground">Davet e-postası anında gönderilir.</p>
+            <h3 className="text-sm font-semibold">Invite team member</h3>
+            <p className="mt-1 text-xs text-muted-foreground">An invitation email will be dispatched immediately.</p>
             <div className="mt-4 space-y-3">
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="yeni@uye.com"
-                aria-label="Davet e-postası"
+                aria-label="Invitation email"
               />
               <div className="flex gap-1.5" role="radiogroup" aria-label="Rol">
                 {roles.map((r) => (
@@ -64,13 +64,13 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
               </div>
             </div>
             <div className="mt-5 flex justify-end gap-2">
-              <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>Vazgeç</Button>
+              <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>Cancel</Button>
               <Button
                 size="sm"
                 disabled={!valid}
                 onClick={() => { onSend?.(email, role); setSent(true); setTimeout(() => { setSent(false); setEmail(""); onOpenChange(false); }, 1500); }}
               >
-                Davet gönder
+                Send Invite
               </Button>
             </div>
           </>
@@ -79,7 +79,7 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
             <span className="inline-flex size-10 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-500 animate-[invScale_0.3s_cubic-bezier(0.34,1.56,0.64,1)_both] motion-reduce:animate-none">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
             </span>
-            <p className="mt-3 text-sm font-medium">Davet gönderildi</p>
+            <p className="mt-3 text-sm font-medium">Invitation sent</p>
             <p className="text-xs text-muted-foreground">{email}</p>
           </div>
         )}

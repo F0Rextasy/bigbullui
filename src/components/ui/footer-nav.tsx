@@ -14,7 +14,7 @@ export interface FooterNavProps extends React.HTMLAttributes<HTMLElement> {
   copyright?: string;
 }
 
-/** Site haritası footer: link kolonları + telif satırı. */
+/** Sitemap footer layout: column links + copyright row. */
 export function FooterNav({ brand = "bigbullui", columns, copyright = "© 2026", className, ...props }: FooterNavProps) {
   return (
     <footer className={cn("w-full border-t-2 border-dashed border-border bg-card px-6 py-8", className)} {...props}>

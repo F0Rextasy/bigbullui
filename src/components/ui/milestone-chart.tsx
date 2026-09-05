@@ -14,7 +14,7 @@ export interface MilestoneChartProps extends React.HTMLAttributes<HTMLDivElement
   milestones: Milestone[];
 }
 
-/** Kilometre taşı grafiği: yatay çizgi üzerinde ulaşılan/aşılan noktalar. */
+/** Milestone progression chart: timeline checkpoints on track. */
 export function MilestoneChart({ milestones, className, ...props }: MilestoneChartProps) {
   const reachedCount = milestones.filter((m) => m.reached).length;
   const pct = Math.round((reachedCount / Math.max(1, milestones.length)) * 100);
@@ -26,9 +26,9 @@ export function MilestoneChart({ milestones, className, ...props }: MilestoneCha
         @keyframes mcPop { 0% { transform: scale(0); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
       `}</style>
       <div className="relative">
-        {/* Ana çizgi */}
+        {/* Base track */}
         <div className="absolute left-0 right-0 top-2.5 h-0.5 rounded-full bg-border/60" aria-hidden="true" />
-        {/* Dolu kısım */}
+        {/* Progress fill */}
         <div
           className="absolute left-0 top-2.5 h-0.5 origin-left rounded-full bg-accent"
           style={{ width: `${pct}%`, animation: "mcLine 0.7s cubic-bezier(0.16,1,0.3,1) both" }}

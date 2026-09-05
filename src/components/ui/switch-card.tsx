@@ -12,7 +12,7 @@ export interface SwitchCardProps extends React.HTMLAttributes<HTMLLabelElement> 
   disabled?: boolean;
 }
 
-/** Kart görünümünde açma/kapama: başlık + açıklama + switch. */
+/** Card-style toggle switch: title + description + switch control. */
 export function SwitchCard({ title, description, checked, defaultChecked, onCheckedChange, disabled, className, ...props }: SwitchCardProps) {
   const [internal, setInternal] = React.useState(defaultChecked ?? false);
   const isOn = checked ?? internal;

@@ -13,7 +13,7 @@ export interface RowExpandListProps extends React.HTMLAttributes<HTMLDivElement>
   items: RowExpandItem[];
 }
 
-/** Satır genişletme listesi: tıklayınca detay paneli yükseklik animasyonuyla açılır. */
+/** Expandable row list: accordion details with height animation. */
 export function RowExpandList({ items, className, ...props }: RowExpandListProps) {
   const [openId, setOpenId] = React.useState<string | null>(null);
 

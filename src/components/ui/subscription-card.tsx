@@ -12,7 +12,7 @@ export interface SubscriptionCardProps extends React.HTMLAttributes<HTMLDivEleme
   onCancel?: () => void;
 }
 
-/** Abonelik kartı: plan + yenileme + özellikler + iptal. */
+/** Subscription tier card: plan + renewal date + features + cancel. */
 export function SubscriptionCard({ plan, price, cycle, renewDate, features = [], onCancel, className, ...props }: SubscriptionCardProps) {
   return (
     <div className={cn("w-full max-w-sm rounded-lg border-2 border-dashed border-accent/40 bg-card p-5", className)} {...props}>
@@ -45,7 +45,7 @@ export function SubscriptionCard({ plan, price, cycle, renewDate, features = [],
           onClick={onCancel}
           className="font-mono text-[10px] uppercase tracking-wider text-destructive hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-destructive rounded-sm"
         >
-          İptal et
+          Cancel Plan
         </button>
       </div>
     </div>

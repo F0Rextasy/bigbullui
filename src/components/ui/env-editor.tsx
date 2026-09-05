@@ -14,7 +14,7 @@ export interface EnvEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onChange?: (vars: EnvVar[]) => void;
 }
 
-/** Anahtar=değer ortam değişkeni düzenleyici: secret maskeleme + ekle/sil. */
+/** Environment variable editor: secret masking + add/remove keys. */
 export function EnvEditor({ vars: varsProp, onChange, className, ...props }: EnvEditorProps) {
   const [vars, setVars] = React.useState<EnvVar[]>(varsProp ?? [
     { key: "DATABASE_URL", value: "postgres://…", secret: true },
@@ -41,7 +41,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
             <input
               value={v.key}
               onChange={(e) => update(idx, { key: e.target.value.toUpperCase().replace(/\s+/g, "_") })}
-              aria-label="Değişken adı"
+              aria-label="Variable name"
               className="w-32 shrink-0 rounded-md border border-input bg-secondary/40 px-2 py-1.5 font-mono text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
               spellCheck={false}
             />
@@ -50,7 +50,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
               type={shown ? "text" : "password"}
               value={v.value}
               onChange={(e) => update(idx, { value: e.target.value })}
-              aria-label={`${v.key} değeri`}
+              aria-label={`${v.key} value`}
               className="min-w-0 flex-1 rounded-md border border-input bg-background px-2 py-1.5 font-mono text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
               spellCheck={false}
             />
@@ -58,7 +58,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
               <button
                 onClick={() => setRevealed((prev) => { const n = new Set(prev); if (n.has(idx)) n.delete(idx); else n.add(idx); return n; })}
                 className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-                aria-label={shown ? "Gizle" : "Göster"}
+                aria-label={shown ? "Hide" : "Show"}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                   {shown ? <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" /><path d="M1 1l22 22" /></> : <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></>}
@@ -68,7 +68,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
             <button
               onClick={() => remove(idx)}
               className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-              aria-label={`${v.key} satırını sil`}
+              aria-label={`Delete ${v.key} row`}
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
             </button>
@@ -79,7 +79,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
         onClick={add}
         className="w-full rounded-md border border-dashed border-border py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
       >
-        + Değişken ekle
+        + Add variable
       </button>
     </div>
   );

@@ -7,7 +7,7 @@ export interface ForgotPasswordProps extends React.HTMLAttributes<HTMLDivElement
   onSend?: (email: string) => void;
 }
 
-/** Şifre sıfırlama: e-posta girişi → gönderildi durumuna geçiş. */
+/** Forgot password flow: email submission to confirmation state. */
 export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordProps) {
   const [email, setEmail] = React.useState("");
   const [sent, setSent] = React.useState(false);
@@ -29,8 +29,8 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
       {!sent ? (
         <div className="space-y-4 animate-[forgotSwap_0.3s_ease-out_both] motion-reduce:animate-none">
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">Şifreni mi unuttun?</h2>
-            <p className="mt-1 text-sm text-muted-foreground">E-postanı gir, sıfırlama bağlantısı gönderelim.</p>
+            <h2 className="text-lg font-semibold tracking-tight">Forgot your password?</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Enter your email address and we will send a reset link.</p>
           </div>
           <input
             type="email"
@@ -54,7 +54,7 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
               "disabled:pointer-events-none disabled:opacity-40"
             )}
           >
-            Sıfırlama bağlantısı gönder
+            Send reset link
           </button>
         </div>
       ) : (
@@ -65,16 +65,16 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
             </svg>
           </div>
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">Gönderildi</h2>
+            <h2 className="text-lg font-semibold tracking-tight">Check your email</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">{email}</span> adresine sıfırlama bağlantısı gönderildi. Gelen kutunu kontrol et.
+              <span className="font-medium text-foreground">{email}</span> has been sent a password reset link. Check your inbox.
             </p>
           </div>
           <button
             onClick={() => { setSent(false); setEmail(""); }}
             className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm motion-reduce:transition-none"
           >
-            ← Farklı e-posta dene
+            ← Try another email
           </button>
         </div>
       )}

@@ -14,7 +14,7 @@ export interface TimelineVerticalV2Props extends React.HTMLAttributes<HTMLDivEle
   items: Timeline2Item[];
 }
 
-/** İki yanlı dikey zaman çizelgesi: kartlar sırayla sola-sağa dizilir. */
+/** Alternating two-column vertical timeline: cards stagger left and right. */
 export function TimelineVerticalV2({ items, className, ...props }: TimelineVerticalV2Props) {
   return (
     <div className={cn("relative w-full max-w-md py-2", className)} {...props}>

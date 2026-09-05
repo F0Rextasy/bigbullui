@@ -10,7 +10,7 @@ export interface TaskListProps extends Omit<React.HTMLAttributes<HTMLUListElemen
 
 const PRI: Record<string, string> = { low: "text-muted-foreground", med: "text-amber-600", high: "text-destructive" };
 
-/** Görev satırları: atanan chip + öncelik noktası. */
+/** Task list item rows: assignee chip + priority dot indicator. */
 export function TaskList({ tasks, onToggle, className, ...props }: TaskListProps) {
   const [state, setState] = React.useState(tasks);
   React.useEffect(() => setState(tasks), [tasks]);

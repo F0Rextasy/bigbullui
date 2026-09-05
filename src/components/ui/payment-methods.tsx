@@ -24,13 +24,13 @@ const ICONS: Record<PaymentMethod["icon"], React.ReactNode> = {
   wallet: <><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4z" /></>,
 };
 
-/** Ödeme yöntemi seçici: kart/havale/kapıda/cüzdan ikonları. */
+/** Payment method selector: card / bank / on-delivery / wallet tiles. */
 export function PaymentMethods({ methods, value, defaultValue, onValueChange, className, ...props }: PaymentMethodsProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? methods[0]?.id);
   const active = value ?? internal;
 
   return (
-    <div className={cn("grid grid-cols-2 gap-2", className)} role="radiogroup" aria-label="Ödeme yöntemi" {...props}>
+    <div className={cn("grid grid-cols-2 gap-2", className)} role="radiogroup" aria-label="Payment method" {...props}>
       <style>{`@keyframes pmIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {methods.map((m, idx) => {
         const selected = active === m.id;

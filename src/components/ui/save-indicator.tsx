@@ -9,7 +9,7 @@ export interface SaveIndicatorProps extends React.HTMLAttributes<HTMLSpanElement
   label?: string;
 }
 
-/** Otomatik kaydetme göstergesi: durum değişiminde yumuşak geçiş. */
+/** Autosave state indicator: smooth state transitions with checkmark. */
 export function SaveIndicator({ status = "idle", label, className, ...props }: SaveIndicatorProps) {
   const meta: Record<string, { text: string; tone: string; icon: React.ReactNode }> = {
     idle: { text: "Kaydedildi", tone: "text-muted-foreground", icon: <span className="size-1.5 rounded-full bg-border" /> },

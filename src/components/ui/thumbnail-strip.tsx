@@ -16,13 +16,13 @@ export interface ThumbnailStripProps extends React.HTMLAttributes<HTMLDivElement
   onValueChange?: (id: string) => void;
 }
 
-/** Yatay küçük resim şeridi: seçili çerçeve animasyonlu. */
+/** Horizontal thumbnail strip: animated border outline on selection. */
 export function ThumbnailStrip({ images, value, defaultValue, onValueChange, className, ...props }: ThumbnailStripProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? images[0]?.id);
   const active = value ?? internal;
 
   return (
-    <div className={cn("flex gap-2 overflow-x-auto pb-1", className)} role="radiogroup" aria-label="Küçük resimler" {...props}>
+    <div className={cn("flex gap-2 overflow-x-auto pb-1", className)} role="radiogroup" aria-label="Thumbnails" {...props}>
       <style>{`@keyframes tsSel { from { transform: scale(0.92); } to { transform: scale(1); } }`}</style>
       {images.map((img, idx) => {
         const selected = active === img.id;

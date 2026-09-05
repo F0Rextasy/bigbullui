@@ -13,7 +13,7 @@ export interface GlossaryListProps extends React.HTMLAttributes<HTMLDivElement> 
   terms: GlossaryTerm[];
 }
 
-/** Sözlük listesi: harf indeksi + terim/tanım satırları. */
+/** Glossary list: alphabet jump index + term definitions. */
 export function GlossaryList({ terms, className, ...props }: GlossaryListProps) {
   const sorted = [...terms].sort((a, b) => a.term.localeCompare(b.term, "tr"));
   const letters = [...new Set(sorted.map((t) => t.term[0].toUpperCase()))];

@@ -4,13 +4,13 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface TiltCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** max eğim derecesi */
+  /** Maximum tilt angle in degrees */
   maxTilt?: number;
-  /** parıltı katmanı göster */
+  /** Show glare shine overlay */
   glare?: boolean;
 }
 
-/** İmleci takip eden 3D eğilme kartı; çıkışta yayıyla geri düzelir. */
+/** 3D parallax tilt card tracking cursor with spring reset. */
 export function TiltCard({ maxTilt = 10, glare = true, className, children, ...props }: TiltCardProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [transform, setTransform] = React.useState("");

@@ -5,13 +5,13 @@ import { cn } from "./lib/utils";
 
 export interface MaintenanceBannerProps extends React.HTMLAttributes<HTMLDivElement> {
   message?: string;
-  /** bakım başlangıcına kalan dakika */
+  /** Minutes remaining until maintenance window starts */
   startsInMinutes?: number;
   onDismiss?: () => void;
 }
 
-/** Bakım bildirimi şeridi: mesaj + geri sayım + kapatma. */
-export function MaintenanceBanner({ message = "Planlı bakım yapıyoruz. Kısa süreliğine kesinti olabilir.", startsInMinutes, onDismiss, className, ...props }: MaintenanceBannerProps) {
+/** Scheduled maintenance banner: announcement + countdown + dismiss. */
+export function MaintenanceBanner({ message = "Scheduled maintenance in progress. Services may experience brief interruptions.", startsInMinutes, onDismiss, className, ...props }: MaintenanceBannerProps) {
   const [dismissed, setDismissed] = React.useState(false);
   const [mins, setMins] = React.useState(startsInMinutes ?? 0);
   const hasCountdown = startsInMinutes !== undefined && startsInMinutes > 0;

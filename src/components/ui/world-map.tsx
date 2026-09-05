@@ -11,21 +11,21 @@ export interface CountryValue {
 
 export interface WorldMapProps extends React.HTMLAttributes<SVGSVGElement> {
   data: CountryValue[];
-  /** max değere göre renk yoğunluğu */
+  /** Maximum density value for color scaling */
   height?: number;
   onCountryHover?: (code: string | null) => void;
 }
 
 /**
- * Basitleştirilmiş dünya haritası: 6 kıta bloğu grid'i, değer yoğunluğuna göre renk.
- * Tam ülke path verisi yerine stilize bölge görünümü (kütüphane boyutu için).
+ * Simplified world map: 6 continental grid blocks with value density coloring.
+ * Stylized regional blocks instead of full GeoJSON paths for lightweight size.
  */
 export function WorldMap({ data, height = 220, onCountryHover, className, ...props }: WorldMapProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const max = Math.max(...data.map((d) => d.value), 1);
   const byCode = new Map(data.map((d) => [d.code, d.value]));
 
-  // Stilize bölge grid'i — kıta blokları
+  // Stylized region grid blocks
   const regions = [
     { code: "NA", x: 8, y: 12, w: 26, h: 22, label: "K. Amerika" },
     { code: "SA", x: 22, y: 42, w: 14, h: 30, label: "G. Amerika" },
@@ -36,7 +36,7 @@ export function WorldMap({ data, height = 220, onCountryHover, className, ...pro
   ];
 
   const valueFor = (code: string): number | null => {
-    // bölge kodu doğrudan eşleşirse al, yoksa alt ülke kodlarından maksimumu bul
+    // Check direct match for region code, or compute maximum across countries
     const direct = byCode.get(code);
     if (direct !== undefined) return direct;
     const regionPrefix = code.slice(0, 2);
@@ -50,7 +50,7 @@ export function WorldMap({ data, height = 220, onCountryHover, className, ...pro
       style={{ height }}
       className={cn("w-full", className)}
       role="img"
-      aria-label="Dünya haritası veri görselleştirmesi"
+      aria-label="World map data visualization"
       onMouseLeave={() => { setHover(null); onCountryHover?.(null); }}
       {...props}
     >

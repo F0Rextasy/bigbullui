@@ -7,7 +7,7 @@ export interface PasswordInputProps extends Omit<React.InputHTMLAttributes<HTMLI
   onVisibilityChange?: (visible: boolean) => void;
 }
 
-/** Şifre girişi: göster/gizle göz ikonu. */
+/** Password input with visibility reveal toggle. */
 export function PasswordInput({ onVisibilityChange, className, ...props }: PasswordInputProps) {
   const [visible, setVisible] = React.useState(false);
 
@@ -28,7 +28,7 @@ export function PasswordInput({ onVisibilityChange, className, ...props }: Passw
         tabIndex={-1}
         onClick={() => { setVisible((v) => { const n = !v; onVisibilityChange?.(n); return n; }); }}
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-        aria-label={visible ? "Şifreyi gizle" : "Şifreyi göster"}
+        aria-label={visible ? "Hide password" : "Show password"}
       >
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="animate-[piIn_0.15s_ease-out] motion-reduce:animate-none" aria-hidden="true">
           {visible ? (

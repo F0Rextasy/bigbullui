@@ -17,7 +17,7 @@ export interface SessionListProps extends React.HTMLAttributes<HTMLDivElement> {
   onRevoke?: (id: string) => void;
 }
 
-/** Aktif oturumlar: cihaz + konum + son etkinlik + çıkış. */
+/** Active login sessions: device + location + activity + revoke. */
 export function SessionList({ sessions, onRevoke, className, ...props }: SessionListProps) {
   const [revoked, setRevoked] = React.useState<string[]>([]);
 
@@ -69,14 +69,14 @@ export function SessionList({ sessions, onRevoke, className, ...props }: Session
               className="shrink-0 rounded-sm border border-dashed border-border px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               aria-label={`${s.device} oturumunu kapat`}
             >
-              ÇIKIŞ
+              REVOKE
             </button>
           )}
         </div>
       ))}
       {visible.length === 0 && (
         <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
-          Tüm diğer oturumlar kapatıldı.
+          All other active sessions revoked.
         </p>
       )}
     </div>

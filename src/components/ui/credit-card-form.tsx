@@ -94,7 +94,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
           "disabled:pointer-events-none disabled:opacity-40 animate-[ccIn_0.25s_ease-out_0.18s_both] motion-reduce:animate-none"
         )}
       >
-        Ödemeyi tamamla
+        Complete payment
       </button>
     </form>
   );

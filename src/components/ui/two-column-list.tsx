@@ -7,7 +7,7 @@ export interface TwoColumnListProps extends React.HTMLAttributes<HTMLDivElement>
   items: { id: string; label: string; value?: string }[];
 }
 
-/** İki kolonlu listeleme — defter görünümü, aralarında çizgi. */
+/** Two-column ledger list view with center divider rule. */
 export function TwoColumnList({ items, className, ...props }: TwoColumnListProps) {
   const half = Math.ceil(items.length / 2);
   const left = items.slice(0, half);

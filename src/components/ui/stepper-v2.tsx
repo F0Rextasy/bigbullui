@@ -12,11 +12,11 @@ export interface WizardStep {
 export interface StepperV2Props extends React.HTMLAttributes<HTMLOListElement> {
   steps: WizardStep[];
   current: number;
-  /** dikey düzen */
+  /** Vertical layout */
   vertical?: boolean;
 }
 
-/** Açıklamalı dikey/yatay stepper. */
+/** Annotated vertical/horizontal step indicator. */
 export function StepperV2({ steps, current, vertical = true, className, ...props }: StepperV2Props) {
   if (vertical) {
     return (

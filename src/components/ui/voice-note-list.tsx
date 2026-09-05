@@ -15,7 +15,7 @@ export interface VoiceNoteListProps extends Omit<React.HTMLAttributes<HTMLDivEle
   onPlay?: (id: string) => void;
 }
 
-/** Sesli not listesi: oynat butonları + dalga + süre. */
+/** Voice note playlist: audio playback + waveform + duration. */
 export function VoiceNoteList({ notes, onPlay, className, ...props }: VoiceNoteListProps) {
   const [playing, setPlaying] = React.useState<string | null>(null);
 

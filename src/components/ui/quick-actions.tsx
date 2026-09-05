@@ -15,12 +15,12 @@ export interface QuickActionsProps extends React.HTMLAttributes<HTMLDivElement> 
   actions: QuickAction[];
 }
 
-/** Hızlı aksiyon çubuğu: klavye kısayolları + danger tonu. */
+/** Quick action toolbar: keyboard shortcuts + danger variants. */
 export function QuickActions({ actions, className, ...props }: QuickActionsProps) {
   const [flash, setFlash] = React.useState<string | null>(null);
 
   return (
-    <div className={cn("inline-flex divide-x divide-border/60 overflow-hidden rounded-md border border-border bg-card", className)} role="toolbar" aria-label="Hızlı işlemler" {...props}>
+    <div className={cn("inline-flex divide-x divide-border/60 overflow-hidden rounded-md border border-border bg-card", className)} role="toolbar" aria-label="Quick actions" {...props}>
       <style>{`@keyframes qaFlash { from { background-color: var(--accent); } to { background-color: transparent; } }`}</style>
       {actions.map((a, idx) => (
         <button

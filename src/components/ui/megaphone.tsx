@@ -8,7 +8,7 @@ export interface MegaphoneProps extends React.HTMLAttributes<HTMLDivElement> {
   onAnnounce?: () => void;
 }
 
-/** Megafon: mesaj yayını + ses dalgası animasyonu. */
+/** Megaphone banner: broadcast message + animated soundwaves. */
 export function Megaphone({ message, onAnnounce, className, ...props }: MegaphoneProps) {
   const [announcing, setAnnouncing] = React.useState(false);
 
@@ -25,10 +25,10 @@ export function Megaphone({ message, onAnnounce, className, ...props }: Megaphon
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">{message}</p>
         <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-          {announcing ? "Yayında…" : "Duyuru"}
+          {announcing ? "Broadcasting…" : "Announcement"}
         </p>
       </div>
-      {/* Ses dalgaları */}
+      {/* Audio waveforms */}
       <span className="flex shrink-0 items-center gap-0.5" aria-hidden="true">
         {[0, 1, 2].map((i) => (
           <span
@@ -42,7 +42,7 @@ export function Megaphone({ message, onAnnounce, className, ...props }: Megaphon
         onClick={announce}
         className="shrink-0 rounded-md bg-accent px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
       >
-        Yayınla
+        Broadcast
       </button>
     </div>
   );

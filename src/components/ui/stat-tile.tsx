@@ -11,7 +11,7 @@ export interface StatTileProps extends React.HTMLAttributes<HTMLDivElement> {
   spark?: number[];
 }
 
-/** Tek istatistik kutusu: büyük sayı + delta + mini spark çubukları. */
+/** Single statistic tile: large KPI metric + delta + spark bars. */
 export function StatTile({ label, value, delta, spark, className, ...props }: StatTileProps) {
   return (
     <TiltCard maxTilt={4} glare={false} className={cn("p-4", className)} {...props}>
@@ -44,7 +44,7 @@ export interface KpiStripProps extends React.HTMLAttributes<HTMLDivElement> {
   tiles: Omit<StatTileProps, "className" | "style">[];
 }
 
-/** 3-5 metrik yatay şeridi. */
+/** Horizontal metric summary strip. */
 export function KpiStrip({ tiles, className, ...props }: KpiStripProps) {
   return (
     <div className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4", className)} {...props}>

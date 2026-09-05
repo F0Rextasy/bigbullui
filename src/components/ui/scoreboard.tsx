@@ -14,39 +14,60 @@ export interface ScoreboardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
+function AnimatedScore({ target }: { target: number }) {
+  const [current, setCurrent] = React.useState(target);
+  const currentRef = React.useRef(target);
+
+  React.useEffect(() => {
+    const from = currentRef.current;
+    if (from === target) return;
+    let animationFrame = 0;
+    const start = performance.now();
+    const duration = 500;
+
+    const animate = (timestamp: number) => {
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(from + (target - from) * eased);
+      currentRef.current = value;
+      setCurrent(value);
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [target]);
+
+  const digits = String(current).split("");
+  return (
+    <div className="flex gap-1">
+      {digits.map((digit, dIdx) => (
+        <div
+          key={dIdx}
+          className={cn(
+            "w-8 h-8 rounded-md",
+            "border border-border/60 bg-card",
+            "flex items-center justify-center",
+            "font-mono text-3xl font-bold",
+            dIdx > 0 ? "scale-95" : "scale-100",
+            "motion-reduce:transition-none",
+            "animate-[scoreboardRoll_0.4s_ease-out_both]",
+          )}
+        >
+          {digit}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function Scoreboard({
   teams,
   className,
   ...props
 }: ScoreboardProps) {
-  const scoreRollAnimals = teams.map((team, teamIdx) => {
-    const [current, setCurrent] = React.useState(team.score);
-    const target = team.score;
-
-    React.useEffect(() => {
-      let animationFrame: number;
-      let start: number;
-      const duration = 500;
-
-      const animate = (timestamp: number) => {
-        if (!start) start = timestamp;
-        const progress = Math.min((timestamp - start) / duration, 1);
-        // Easing function
-        const eased = 1 - Math.pow(1 - progress, 3);
-        setCurrent(Math.round(start + (target - start) * eased));
-        if (progress < 1) {
-          animationFrame = requestAnimationFrame(animate);
-        } else {
-          setCurrent(target);
-          cancelAnimationFrame(animationFrame);
-        }
-      };
-
-      animationFrame = requestAnimationFrame(animate);
-    }, [target]);
-
-    return { current, target, teamIdx };
-  });
 
   return (
     <div
@@ -57,9 +78,7 @@ export function Scoreboard({
       )}
       {...props}
     >
-      {teams.map((team, teamIdx) => {
-        const { current, teamIdx: _ } = scoreRollAnimals[teamIdx];
-
+      {teams.map((team) => {
         return (
           <div
             key={team.name}
@@ -79,30 +98,8 @@ export function Scoreboard({
             <div className="flex items-center gap-2">
               {/* Big rolling score digits */}
               <div className="relative">
-                {(() => {
-                  const digits = String(current).split("");
-                  return (
-                <div className="flex gap-1">
-                  {digits.map((digit, dIdx) => (
-                    <div
-                      key={digit}
-                      className={cn(
-                        "w-8 h-8 rounded-md",
-                        "border border-border/60 bg-card",
-                        "flex items-center justify-center",
-                        "font-mono text-3xl font-bold",
-                        dIdx > 0 ? "scale-95" : "scale-100",
-                        "motion-reduce:transition-none",
-                        "animate-[scoreboardRoll_0.4s_ease-out_both]",
-                      )}
-                    >
-                      {digit}
-                    </div>
-                  ))}
-                </div>
-                  );
-                })()}
-                {current > 0 && (
+                <AnimatedScore target={team.score} />
+                {team.score > 0 && (
                   <span className="text-[10px] text-muted-foreground">&#8377;</span>
                 )}
               </div>

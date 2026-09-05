@@ -9,13 +9,13 @@ export interface SyncStatusProps extends React.HTMLAttributes<HTMLSpanElement> {
   lastSync?: string;
 }
 
-/** Senkronizasyon göstergesi: dönen ok + son senkron zamanı. */
+/** Sync status badge: spinning sync icon + last synced timestamp. */
 export function SyncStatus({ status = "idle", lastSync, className, ...props }: SyncStatusProps) {
   const meta = {
-    idle: { text: "Hazır", icon: "text-muted-foreground", spin: false },
+    idle: { text: "Ready", icon: "text-muted-foreground", spin: false },
     syncing: { text: "Senkronize ediliyor…", icon: "text-accent", spin: true },
     synced: { text: "Senkronize", icon: "text-emerald-600", spin: false },
-    error: { text: "Senkron hatası", icon: "text-destructive", spin: false },
+    error: { text: "Sync error", icon: "text-destructive", spin: false },
   }[status];
 
   return (

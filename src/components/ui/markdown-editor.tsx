@@ -9,7 +9,7 @@ export interface MarkdownEditorProps extends React.HTMLAttributes<HTMLDivElement
   onValueChange?: (value: string) => void;
 }
 
-/** Markdown yaz + önizleme sekmesi: basit renderer (başlık, liste, kod, link, kalın). */
+/** Markdown write and preview tabs: basic renderer (headings, lists, code, links, bold). */
 function renderMarkdown(src: string): React.ReactNode {
   const lines = src.split("\n");
   const out: React.ReactNode[] = [];
@@ -71,8 +71,8 @@ function renderMarkdown(src: string): React.ReactNode {
   return out;
 }
 
-/** Markdown yaz + önizleme sekmeleri. */
-export function MarkdownEditor({ value, defaultValue = "# Başlık\n\n**kalın** ve `kod`.\n\n- madde 1\n- madde 2", onValueChange, className, ...props }: MarkdownEditorProps) {
+/** Markdown write and preview tabs component. */
+export function MarkdownEditor({ value, defaultValue = "# Heading\n\n**bold** and `code`.\n\n- item 1\n- item 2", onValueChange, className, ...props }: MarkdownEditorProps) {
   const [internal, setInternal] = React.useState(defaultValue);
   const [tab, setTab] = React.useState<"write" | "preview">("write");
   const src = value ?? internal;
@@ -92,7 +92,7 @@ export function MarkdownEditor({ value, defaultValue = "# Başlık\n\n**kalın**
               tab === t ? "border-b-2 border-accent text-accent" : "text-muted-foreground hover:text-foreground"
             )}
           >
-            {t === "write" ? "Yaz" : "Önizle"}
+            {t === "write" ? "Write" : "Preview"}
           </button>
         ))}
       </div>
@@ -101,7 +101,7 @@ export function MarkdownEditor({ value, defaultValue = "# Başlık\n\n**kalın**
           <textarea
             value={src}
             onChange={(e) => { setInternal(e.target.value); onValueChange?.(e.target.value); }}
-            aria-label="Markdown düzenleyici"
+            aria-label="Markdown editor"
             spellCheck={false}
             className="min-h-40 w-full resize-y bg-transparent p-4 font-mono text-xs leading-5 text-foreground focus-visible:outline-none"
           />

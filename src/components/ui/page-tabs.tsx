@@ -9,7 +9,7 @@ export interface PageTabsProps extends React.HTMLAttributes<HTMLDivElement> {
   onNavigate?: (id: string) => void;
 }
 
-/** Sayfa içi sekmeler — URL query param'ı ile senkron (?tab=...). */
+/** In-page tab navigation synchronized with URL query params (?tab=...). */
 export function PageTabs({ tabs, activeId, onNavigate, className, ...props }: PageTabsProps) {
   const [internal, setInternal] = React.useState(activeId ?? tabs[0]?.id);
   const active = activeId ?? internal;

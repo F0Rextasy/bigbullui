@@ -14,10 +14,10 @@ export interface HistoryNavProps extends React.HTMLAttributes<HTMLElement> {
   onForward?: () => void;
 }
 
-/** Geri/ileri gezinme şeridi: geçmiş kırıntıları + ok butonları. */
+/** History navigation toolbar: breadcrumb trail + forward/back arrows. */
 export function HistoryNav({ entries, onBack, onForward, className, ...props }: HistoryNavProps) {
   return (
-    <nav className={cn("inline-flex items-center gap-1 rounded-md border border-border bg-card px-1.5 py-1", className)} aria-label="Gezinme geçmişi" {...props}>
+    <nav className={cn("inline-flex items-center gap-1 rounded-md border border-border bg-card px-1.5 py-1", className)} aria-label="Navigation history" {...props}>
       <button
         onClick={onBack}
         className="rounded-sm p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
@@ -44,7 +44,7 @@ export function HistoryNav({ entries, onBack, onForward, className, ...props }: 
       <button
         onClick={onForward}
         className="rounded-sm p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-        aria-label="İleri"
+        aria-label="Forward"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
       </button>

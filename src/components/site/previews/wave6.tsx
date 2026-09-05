@@ -114,10 +114,10 @@ const ChatBubblePreview: React.FC = () => {
     <div className="rounded-lg border border-border bg-card p-6">
       <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground mb-4">ChatBubble</h3>
       <ChatBubble direction="outgoing">
-        Hey there! How's it going?
+        Hey there! How&apos;s it going?
       </ChatBubble>
       <ChatBubble direction="incoming">
-        I'm doing well, thanks!
+        I&apos;m doing well, thanks!
       </ChatBubble>
     </div>
   );

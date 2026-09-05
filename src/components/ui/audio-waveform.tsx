@@ -294,7 +294,7 @@ export function AudioWaveform({
           <div className="mb-2.5 flex items-center justify-between text-[10px] text-muted-foreground uppercase tracking-wider">
             <div className="flex items-center gap-2">
               <span className="font-bold text-foreground">FREQ SPECTRUM</span>
-              <span>// 48KHZ 24-BIT</span>
+              <span>{"// 48KHZ 24-BIT"}</span>
             </div>
             <div className="flex items-center gap-2">
               {hoveredIndex !== null && (

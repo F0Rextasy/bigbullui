@@ -11,11 +11,11 @@ export interface MegaMenuColumn {
 export interface MegaMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   trigger: React.ReactNode;
   columns: MegaMenuColumn[];
-  /** sol alt köşede öne çıkan kutu */
+  /** Featured promotional box in bottom-left */
   featured?: React.ReactNode;
 }
 
-/** Tam genişlik açılır mega menü: kolonlu panel + öne çıkan kutu. */
+/** Full-width mega menu: multi-column links + featured banner. */
 export function MegaMenu({ trigger, columns, featured, className, ...props }: MegaMenuProps) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);

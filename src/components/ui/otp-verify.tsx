@@ -6,11 +6,11 @@ import { cn } from "./lib/utils";
 export interface OtpVerifyProps extends React.HTMLAttributes<HTMLDivElement> {
   length?: number;
   onVerify?: (code: string) => void;
-  /** yeniden gönder için saniye */
+  /** Cooldown seconds before resending */
   resendSeconds?: number;
 }
 
-/** 6 haneli OTP doğrulama: otomatik ilerleme, yapıştırma desteği, geri sayımlı yeniden gönder. */
+/** 6-digit OTP verification: auto-advance, paste support, resend countdown. */
 export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className, ...props }: OtpVerifyProps) {
   const [digits, setDigits] = React.useState<string[]>(Array(length).fill(""));
   const [seconds, setSeconds] = React.useState(resendSeconds);
@@ -32,7 +32,7 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
   const setDigit = (idx: number, val: string) => {
     const clean = val.replace(/\D/g, "");
     if (clean.length > 1) {
-      // yapıştırma: kalan kutulara dağıt
+      // paste: distribute across remaining slots
       const next = [...digits];
       for (let i = 0; i < clean.length && idx + i < length; i++) next[idx + i] = clean[i];
       setDigits(next);
@@ -80,13 +80,13 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
       </div>
       <p className="text-center text-xs text-muted-foreground">
         {seconds > 0 ? (
-          <>Yeniden gönder: <span className="font-mono tabular-nums">{String(seconds).padStart(2, "0")}s</span></>
+          <>Resend code in: <span className="font-mono tabular-nums">{String(seconds).padStart(2, "0")}s</span></>
         ) : (
           <button
             onClick={() => { setSeconds(resendSeconds); setDigits(Array(length).fill("")); refs.current[0]?.focus(); }}
             className="text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
           >
-            Kodu yeniden gönder
+            Resend code
           </button>
         )}
       </p>

@@ -7,7 +7,7 @@ export interface MarkdownPreviewProps extends React.HTMLAttributes<HTMLDivElemen
   source: string;
 }
 
-/** Saf markdown → JSX render: başlık, liste, kod, link, kalın. */
+/** Pure markdown to JSX renderer: headings, lists, inline code, links, bold. */
 export function MarkdownPreview({ source, className, ...props }: MarkdownPreviewProps) {
   return (
     <div className={cn("max-w-none text-sm", className)} {...props}>

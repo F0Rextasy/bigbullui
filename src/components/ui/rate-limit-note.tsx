@@ -4,13 +4,13 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface RateLimitNoteProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** sıfırlamaya kalan saniye */
+  /** Seconds remaining until limit resets */
   resetSeconds?: number;
   limitLabel?: string;
 }
 
-/** Hız sınırı uyarısı: geri sayımlı kilit notu. */
-export function RateLimitNote({ resetSeconds = 60, limitLabel = "İstek limiti doldu", className, ...props }: RateLimitNoteProps) {
+/** Rate limit banner: countdown cooldown notification. */
+export function RateLimitNote({ resetSeconds = 60, limitLabel = "Rate limit exceeded", className, ...props }: RateLimitNoteProps) {
   const [seconds, setSeconds] = React.useState(resetSeconds);
 
   React.useEffect(() => {
@@ -27,7 +27,7 @@ export function RateLimitNote({ resetSeconds = 60, limitLabel = "İstek limiti d
       <p className="min-w-0 flex-1 text-xs text-foreground">
         <span className="font-medium">{limitLabel}.</span>{" "}
         {seconds > 0 ? (
-          <>Lütfen <span className="font-mono tabular-nums text-amber-600">{String(seconds).padStart(2, "0")}s</span> bekle.</>
+          <>Please wait <span className="font-mono tabular-nums text-amber-600">{String(seconds).padStart(2, "0")}s</span> before retrying.</>
         ) : (
           "Tekrar deneyebilirsin."
         )}

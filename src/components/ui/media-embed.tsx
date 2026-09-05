@@ -10,7 +10,7 @@ export interface MediaEmbedProps extends React.HTMLAttributes<HTMLDivElement> {
   poster?: string;
 }
 
-/** Gömülü medya çerçevesi: 16:9 + yükleme iskeleti + dashed çerçeve. */
+/** Responsive media embed container: 16:9 ratio + skeleton + dashed border. */
 export function MediaEmbed({ src, title, poster, className, ...props }: MediaEmbedProps) {
   const [loaded, setLoaded] = React.useState(false);
 
@@ -30,7 +30,7 @@ export function MediaEmbed({ src, title, poster, className, ...props }: MediaEmb
       ) : (
         <div className={cn("absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground", loaded && "hidden")}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M23 7l-7 5 7 5V7z" /><rect x="1" y="5" width="15" height="14" rx="2" /></svg>
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em]">{title ?? "Medya yüklenmedi"}</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em]">{title ?? "Media not loaded"}</span>
         </div>
       )}
       {title && loaded && (

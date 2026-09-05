@@ -10,12 +10,12 @@ export interface ErrorPageProps extends React.HTMLAttributes<HTMLDivElement> {
   action?: React.ReactNode;
 }
 
-/** 404/500/403 tam sayfa düzeni: dev kod + açıklama + dönüş eylemi. */
+/** Full-page error display: large status code + description + return button. */
 export function ErrorPage({ code = "404", title, description, action, className, ...props }: ErrorPageProps) {
   const defaults: Record<string, { t: string; d: string }> = {
-    "404": { t: "Sayfa bulunamadı", d: "Aradığın bilet bu gişede kesilmedi. Adres değişmiş olabilir." },
-    "500": { t: "Sunucu hatası", d: "Perde arkasında bir aksaklık oldu. Kısa süre sonra tekrar dene." },
-    "403": { t: "Erişim yok", d: "Bu bölüme giriş yetkin görünmüyor." },
+    "404": { t: "Page Not Found", d: "The page you are looking for does not exist or may have moved." },
+    "500": { t: "Server Error", d: "An unexpected error occurred behind the scenes. Please try again shortly." },
+    "403": { t: "Access Denied", d: "You do not have permission to view this section." },
   };
   const meta = defaults[code];
 
@@ -42,6 +42,7 @@ export function ErrorPage({ code = "404", title, description, action, className,
       </div>
       <div className="animate-[errIn_0.35s_ease-out_0.3s_both] motion-reduce:animate-none">
         {action ?? (
+          // eslint-disable-next-line @next/next/no-html-link-for-pages -- library component must not depend on next/link
           <a
             href="/"
             className="inline-block rounded-md border-2 border-dashed border-border px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors hover:border-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"

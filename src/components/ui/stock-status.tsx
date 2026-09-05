@@ -6,12 +6,12 @@ import { cn } from "./lib/utils";
 export interface StockStatusProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** mevcut stok */
   stock: number;
-  /** az stok eşiği */
+  /** Low stock warning threshold */
   lowAt?: number;
   labelInStock?: string;
 }
 
-/** Stok durumu göstergesi: var/az/yok + nabız animasyonu. */
+/** Stock availability indicator: in-stock / low / out of stock + pulse. */
 export function StockStatus({ stock, lowAt = 5, labelInStock = "Stokta", className, ...props }: StockStatusProps) {
   const out = stock <= 0;
   const low = stock > 0 && stock <= lowAt;
@@ -33,7 +33,7 @@ export function StockStatus({ stock, lowAt = 5, labelInStock = "Stokta", classNa
         )}
         aria-hidden="true"
       />
-      {out ? "Tükendi" : low ? `Son ${stock} ürün` : `${labelInStock} · ${stock}`}
+      {out ? "Out of Stock" : low ? `Only ${stock} left` : `${labelInStock} · ${stock}`}
     </span>
   );
 }

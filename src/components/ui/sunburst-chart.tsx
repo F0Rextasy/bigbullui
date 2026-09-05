@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface SunburstRing {
-  /** dilim: label, value, parent (iç ring id veya null = merkez) */
+  /** Slice: label, value, parent (inner ring id or null for center) */
   id: string;
   label: string;
   value: number;
@@ -29,7 +29,7 @@ function arcPath(cx: number, cy: number, rInner: number, rOuter: number, start: 
   return `M ${p1.x} ${p1.y} A ${rOuter} ${rOuter} 0 ${large} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${rInner} ${rInner} 0 ${large} 0 ${p4.x} ${p4.y} Z`;
 }
 
-/** Güneş ışını grafiği: iki ring hiyerarşi, hover vurgu. */
+/** Sunburst radial chart: two-ring hierarchy with hover highlight. */
 export function SunburstChart({ slices, height = 260, className, ...props }: SunburstChartProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const cx = 50, cy = 50;
@@ -47,7 +47,7 @@ export function SunburstChart({ slices, height = 260, className, ...props }: Sun
   let angle = -Math.PI / 2;
 
   return (
-    <svg viewBox="0 0 100 100" style={{ height }} className={cn("w-full max-w-sm mx-auto", className)} role="img" aria-label="Güneş ışını grafiği" {...props}>
+    <svg viewBox="0 0 100 100" style={{ height }} className={cn("w-full max-w-sm mx-auto", className)} role="img" aria-label="Sunburst chart" {...props}>
       <style>{`@keyframes sbIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }`}</style>
       {root.map((seg, idx) => {
         const sweep = (seg.value / rootTotal) * Math.PI * 2;
@@ -58,7 +58,7 @@ export function SunburstChart({ slices, height = 260, className, ...props }: Sun
 
         return (
           <g key={seg.id} style={{ animation: "sbIn 0.45s ease-out both", animationDelay: `${idx * 100}ms`, transformOrigin: `${cx}px ${cy}px` }}>
-            {/* Dış ring parçaları */}
+            {/* Outer ring slices */}
             {(rootChildren.get(seg.id) ?? []).map((child, cIdx) => {
               const childSweep = (child.value / seg.value) * sweep;
               const childStart = start + (cIdx / (rootChildren.get(seg.id)!.length)) * sweep * 0 + (rootChildren.get(seg.id)!.slice(0, cIdx).reduce((s, c) => s + c.value, 0) / seg.value) * sweep;
@@ -78,7 +78,7 @@ export function SunburstChart({ slices, height = 260, className, ...props }: Sun
                 />
               );
             })}
-            {/* İç ring */}
+            {/* Inner ring */}
             <path
               d={arcPath(cx, cy, 12, 25, start, end)}
               fill="var(--accent)"

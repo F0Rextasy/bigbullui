@@ -18,9 +18,9 @@ const TONE: Record<RoleTone, string> = {
   custom: "border-dashed border-border bg-transparent text-foreground",
 };
 
-const LABEL: Record<RoleTone, string> = { admin: "Admin", editor: "Editör", member: "Üye", viewer: "Ziyaretçi", custom: "Özel" };
+const LABEL: Record<RoleTone, string> = { admin: "Admin", editor: "Editor", member: "Member", viewer: "Viewer", custom: "Custom" };
 
-/** Rol rozeti seti: admin/editör/üye/ziyaretçi tonları. */
+/** Role badge set: admin / editor / member / viewer / custom tones. */
 export function RoleBadge({ role, label, className, ...props }: RoleBadgeProps) {
   return (
     <span

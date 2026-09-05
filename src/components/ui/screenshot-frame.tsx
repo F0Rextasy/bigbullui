@@ -8,7 +8,7 @@ export interface ScreenshotFrameProps extends React.HTMLAttributes<HTMLDivElemen
   children: React.ReactNode;
 }
 
-/** Tarayıcı çerçeveli ekran görüntüsü: URL bar + pencere kontrolleri. */
+/** Browser chrome mockup frame: URL address bar + window controls. */
 export function ScreenshotFrame({ url, children, className, ...props }: ScreenshotFrameProps) {
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card shadow-sm", className)} {...props}>

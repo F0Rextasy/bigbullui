@@ -6,15 +6,15 @@ import { cn } from "./lib/utils";
 export interface SplitScreenProps extends React.HTMLAttributes<HTMLDivElement> {
   /** sol taraf (genelde metin/form) */
   left: React.ReactNode;
-  /** sağ taraf (genelde görsel/vurgu) */
+  /** Right side slot (typically graphic or visual) */
   right: React.ReactNode;
-  /** sağ tarafın genişlik oranı (0-1) */
+  /** Right side width fraction (0 to 1) */
   rightRatio?: number;
-  /** mobilde sağ tarafı gizle */
+  /** Hide right panel on mobile viewports */
   hideRightOnMobile?: boolean;
 }
 
-/** Yarı yarıya düzen: sol içerik + sağ vurgu paneli. */
+/** Split screen layout: left main content + right visual panel. */
 export function SplitScreen({ left, right, rightRatio = 0.45, hideRightOnMobile = true, className, ...props }: SplitScreenProps) {
   const leftPct = Math.round((1 - rightRatio) * 100);
   const rightPct = Math.round(rightRatio * 100);

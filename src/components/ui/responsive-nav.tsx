@@ -16,7 +16,7 @@ export interface ResponsiveNavProps extends React.HTMLAttributes<HTMLElement> {
   breakpoint?: "sm" | "md" | "lg";
 }
 
-/** Masaüstü yatay nav + mobil hamburger otomatik geçiş. */
+/** Responsive navigation bar: desktop row to mobile drawer. */
 export function ResponsiveNav({ brand = "bigbullui", items, activeId, breakpoint = "md", className, ...props }: ResponsiveNavProps) {
   const [open, setOpen] = React.useState(false);
   const bp = { sm: "sm:hidden", md: "md:hidden", lg: "lg:hidden" }[breakpoint];
@@ -50,7 +50,7 @@ export function ResponsiveNav({ brand = "bigbullui", items, activeId, breakpoint
         <button
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
-          aria-label="Menüyü aç/kapat"
+          aria-label="Toggle navigation menu"
           className={cn("rounded-sm p-1.5 text-foreground transition-transform duration-200 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", bp, open && "rotate-90")}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">

@@ -9,7 +9,7 @@ export interface FeedMasonryProps extends React.HTMLAttributes<HTMLDivElement> {
   columns?: 2 | 3;
 }
 
-/** Masonry akış: farklı yükseklikli içerik kartları. */
+/** Masonry feed layout for dynamic height cards. */
 export function FeedMasonry({ items, columns = 2, className, ...props }: FeedMasonryProps) {
   return (
     <div className={cn("w-full", className)} {...props}>

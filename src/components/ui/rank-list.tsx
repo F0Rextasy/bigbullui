@@ -9,7 +9,7 @@ export interface RankListProps extends React.HTMLAttributes<HTMLDivElement> {
   onReorder?: (items: DragSortItem[]) => void;
 }
 
-/** Sıralı liste: sürükle-bırak sıralama + skor. */
+/** Leaderboard rank list: drag ranking + score counters. */
 export function RankList({ items, onReorder, className, ...props }: RankListProps) {
   const dragItems: DragSortItem[] = items.map((it) => ({
     id: it.id,

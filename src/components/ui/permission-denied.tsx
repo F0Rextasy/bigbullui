@@ -9,7 +9,7 @@ export interface PermissionDeniedProps extends React.HTMLAttributes<HTMLDivEleme
   requested?: boolean;
 }
 
-/** Yetkisiz erişim paneli: kilit + kaynak adı + erişim isteme butonu. */
+/** Permission denied state panel: lock icon + request access. */
 export function PermissionDenied({ resource = "bu kaynak", onRequestAccess, requested, className, ...props }: PermissionDeniedProps) {
   const [sent, setSent] = React.useState(false);
   const isSent = requested ?? sent;
@@ -25,8 +25,8 @@ export function PermissionDenied({ resource = "bu kaynak", onRequestAccess, requ
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
       </span>
       <div>
-        <h2 className="text-base font-semibold">Erişim engellendi</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{resource} görüntülemek için iznin yok.</p>
+        <h2 className="text-base font-semibold">Access Denied</h2>
+        <p className="mt-1 text-sm text-muted-foreground">You do not have permission to access {resource}.</p>
       </div>
       {!isSent ? (
         <button
@@ -37,11 +37,11 @@ export function PermissionDenied({ resource = "bu kaynak", onRequestAccess, requ
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >
-          Erişim iste
+          Request Access
         </button>
       ) : (
         <span className="rounded-full border border-accent/50 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent animate-[pdShake_0.4s_ease-out] motion-reduce:animate-none">
-          İstek gönderildi
+          Request Sent
         </span>
       )}
     </div>

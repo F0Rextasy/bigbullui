@@ -18,13 +18,13 @@ export interface ShippingOptionsProps extends React.HTMLAttributes<HTMLDivElemen
   onValueChange?: (id: string) => void;
 }
 
-/** Kargo seçenekleri: radio kartlar + süre + ücret. */
+/** Shipping option selector: radio card options + delivery duration + rate. */
 export function ShippingOptions({ options, value, defaultValue, onValueChange, className, ...props }: ShippingOptionsProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? options.find((o) => o.recommended)?.id ?? options[0]?.id);
   const active = value ?? internal;
 
   return (
-    <div className={cn("w-full max-w-sm space-y-2", className)} role="radiogroup" aria-label="Kargo seçenekleri" {...props}>
+    <div className={cn("w-full max-w-sm space-y-2", className)} role="radiogroup" aria-label="Shipping options" {...props}>
       <style>{`@keyframes soIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {options.map((opt, idx) => {
         const selected = active === opt.id;
@@ -55,7 +55,7 @@ export function ShippingOptions({ options, value, defaultValue, onValueChange, c
               <span className="flex items-center gap-2">
                 <span className="truncate text-sm font-medium">{opt.carrier}</span>
                 {opt.recommended && (
-                  <span className="shrink-0 rounded-full border border-accent/50 bg-accent/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-accent">Önerilen</span>
+                  <span className="shrink-0 rounded-full border border-accent/50 bg-accent/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-accent">Recommended</span>
                 )}
               </span>
               <span className="block text-xs text-muted-foreground">{opt.duration}</span>

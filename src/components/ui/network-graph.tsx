@@ -23,14 +23,14 @@ export interface NetworkGraphProps extends React.HTMLAttributes<SVGSVGElement> {
   height?: number;
 }
 
-/** Düğüm-bağlantı grafiği: statik düzen + hover vurgu + bezier bağlantılar. */
+/** Node network graph: static layout + bezier curves + node highlight. */
 export function NetworkGraph({ nodes, edges, height = 260, className, ...props }: NetworkGraphProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const connected = (id: string) => hover !== null && (id === hover || edges.some((e) => (e.from === hover && e.to === id) || (e.to === hover && e.from === id)));
 
   return (
-    <svg viewBox="0 0 100 62" style={{ height }} className={cn("w-full", className)} role="img" aria-label="Ağ grafiği" {...props}>
+    <svg viewBox="0 0 100 62" style={{ height }} className={cn("w-full", className)} role="img" aria-label="Network graph" {...props}>
       <style>{`@keyframes ngDraw { from { stroke-dashoffset: 60; } } @keyframes ngNode { from { transform: scale(0); } }`}</style>
       {edges.map((edge, idx) => {
         const a = byId.get(edge.from);

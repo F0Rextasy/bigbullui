@@ -19,7 +19,7 @@ function validate(src: string): { valid: boolean; error?: string } {
   try { JSON.parse(src); return { valid: true }; } catch (e) { return { valid: false, error: (e as Error).message }; }
 }
 
-/** Girintili JSON düzenleme + canlı doğrulama + biçimlendir. */
+/** Indented JSON editor with live syntax validation and format action. */
 export function JsonEditor({ value, defaultValue = '{\n  "ad": "bigbullui",\n  "surum": "0.1.0"\n}', onValueChange, height = "200px", className, ...props }: JsonEditorProps) {
   const [internal, setInternal] = React.useState(defaultValue);
   const src = value ?? internal;
@@ -38,16 +38,16 @@ export function JsonEditor({ value, defaultValue = '{\n  "ad": "bigbullui",\n  "
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">JSON</span>
         <div className="flex items-center gap-2">
           {valid ? (
-            <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-600">✓ Geçerli</span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-600">✓ Valid</span>
           ) : (
-            <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[jeIn_0.2s_ease-out] motion-reduce:animate-none">✗ Geçersiz</span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[jeIn_0.2s_ease-out] motion-reduce:animate-none">✗ Invalid</span>
           )}
           <button
             onClick={() => handleChange(format(src))}
             disabled={!valid}
             className="rounded-sm border border-border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           >
-            Biçimlendir
+            Format
           </button>
         </div>
       </div>
@@ -55,7 +55,7 @@ export function JsonEditor({ value, defaultValue = '{\n  "ad": "bigbullui",\n  "
         value={src}
         onChange={(e) => handleChange(e.target.value)}
         style={{ height }}
-        aria-label="JSON düzenleyici"
+        aria-label="JSON editor"
         aria-invalid={!valid}
         spellCheck={false}
         className="w-full resize-none bg-transparent p-3 font-mono text-xs leading-5 text-foreground focus-visible:outline-none"

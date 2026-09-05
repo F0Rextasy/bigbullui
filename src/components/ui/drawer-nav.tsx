@@ -16,8 +16,8 @@ export interface DrawerNavProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
 }
 
-/** Mobil hamburger menü: soldan kayan overlay + staggered linkler. */
-export function DrawerNav({ items, open, onOpenChange, title = "Menü", className, ...props }: DrawerNavProps) {
+/** Drawer navigation: slide-in overlay menu + staggered links. */
+export function DrawerNav({ items, open, onOpenChange, title = "Menu", className, ...props }: DrawerNavProps) {
   React.useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onOpenChange(false); };

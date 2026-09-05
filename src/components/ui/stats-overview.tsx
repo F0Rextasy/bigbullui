@@ -9,8 +9,8 @@ export interface StatsOverviewProps extends React.HTMLAttributes<HTMLDivElement>
   tableRows?: { label: string; value: string }[];
 }
 
-/** Genel bakış düzeni: üstte KPI şeridi + altta mini tablo ve aktivite alanı. */
-export function StatsOverview({ tiles = [], tableTitle = "Son kayıtlar", tableRows = [], className, ...props }: StatsOverviewProps) {
+/** Dashboard overview layout: top KPI tiles + mini table + chart slot. */
+export function StatsOverview({ tiles = [], tableTitle = "Recent records", tableRows = [], className, ...props }: StatsOverviewProps) {
   return (
     <div className={cn("space-y-4", className)} {...props}>
       <style>{`@keyframes soFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
@@ -54,12 +54,12 @@ export function StatsOverview({ tiles = [], tableTitle = "Son kayıtlar", tableR
                 <span className="font-mono text-xs tabular-nums text-muted-foreground">{r.value}</span>
               </li>
             ))}
-            {tableRows.length === 0 && <li className="px-4 py-4 text-center text-xs text-muted-foreground">Kayıt yok</li>}
+            {tableRows.length === 0 && <li className="px-4 py-4 text-center text-xs text-muted-foreground">No records found</li>}
           </ul>
         </div>
 
         <div className="rounded-lg border border-dashed border-border bg-secondary/30 p-6 animate-[soFade_0.35s_ease-out_0.28s_both] motion-reduce:animate-none">
-          <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Grafik alanı</h3>
+          <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Analytics Overview</h3>
           <div className="mt-4 flex h-24 items-end gap-1.5" aria-hidden="true">
             {[35, 55, 42, 70, 58, 85, 64, 92, 78, 60, 88, 74].map((v, i) => (
               <span

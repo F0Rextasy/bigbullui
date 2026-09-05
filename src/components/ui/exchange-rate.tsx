@@ -18,7 +18,7 @@ function convert(amount: number, from: string, to: string, rates: Record<string,
   return (amount / f) * t;
 }
 
-/** Döviz çevirici: iki alan canlı çapraz hesap. */
+/** Exchange rate converter: live bidirectional conversion. */
 export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultTo = "USD", className, ...props }: ExchangeRateProps) {
   const codes = Object.keys(rates);
   const [from, setFrom] = React.useState(defaultFrom);
@@ -67,7 +67,7 @@ export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultT
           className="rounded-full border border-border p-1.5 text-muted-foreground transition-transform duration-300 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           style={{ transitionProperty: "transform" }}
           onTransitionEnd={undefined}
-          title="Değiştir"
+          title="Switch currencies"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="hover:animate-[exSwap_0.3s_ease-out] motion-reduce:animate-none" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4l4 4" /><path d="M17 8v12m0 0l4-4m-4 4l-4-4" /></svg>
         </button>

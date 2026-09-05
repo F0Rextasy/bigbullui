@@ -6,19 +6,19 @@ import { cn } from "./lib/utils";
 export interface PollOption {
   id: string;
   label: string;
-  /** oy sayısı — toplamdan oran hesaplanır */
+  /** Vote count used to calculate percentage */
   votes: number;
 }
 
 export interface PollProps extends React.HTMLAttributes<HTMLDivElement> {
   question: string;
   options: PollOption[];
-  /** kullanıcı oy verdiyse bu seçeneğin id'si */
+  /** ID of the voted option if already cast */
   votedId?: string;
   onVote?: (optionId: string) => void;
 }
 
-/** Anket: seçenekler + oran çubukları + oy animasyonu. */
+/** Interactive poll: options + percentage breakdown + vote animation. */
 export function Poll({ question, options, votedId, onVote, className, ...props }: PollOptionProps2) {
   const [selected, setSelected] = React.useState<string | null>(votedId ?? null);
   const total = options.reduce((s, o) => s + o.votes, 0);
@@ -66,13 +66,13 @@ export function Poll({ question, options, votedId, onVote, className, ...props }
         })}
       </div>
       <p className="mt-2.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-        {hasVoted ? `${total + (votedId ? 0 : 1)} oy` : "Oy vermek için seç"}
+        {hasVoted ? `${total + (votedId ? 0 : 1)} votes` : "Select an option to vote"}
       </p>
     </div>
   );
 }
 
-// alias — yanlışlıkla PollOptionProps2 yazmamayı garanti etmek için gerçek tip:
+// alias for exported prop type safety:
 type PollOptionProps2 = React.HTMLAttributes<HTMLDivElement> & {
   question: string;
   options: PollOption[];

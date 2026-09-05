@@ -17,8 +17,8 @@ export interface SidebarV2Props extends React.HTMLAttributes<HTMLElement> {
   title?: string;
 }
 
-/** İki seviye daraltılabilir sidebar v2. */
-export function SidebarV2({ items, activeId, onNavigate, title = "Menü", className, ...props }: SidebarV2Props) {
+/** Two-level collapsible sidebar v2. */
+export function SidebarV2({ items, activeId, onNavigate, title = "Menu", className, ...props }: SidebarV2Props) {
   const [expanded, setExpanded] = React.useState<Set<string>>(new Set());
   const [active, setActive] = React.useState(activeId ?? items[0]?.id);
 

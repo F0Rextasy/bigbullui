@@ -4,11 +4,11 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** ışık yarıçapı (px) */
+  /** Spotlight radius (px) */
   radius?: number;
 }
 
-/** İmleç peşinde radyal ışık huzmesi taşıyan kart. */
+/** Radial spotlight focus card tracking cursor position. */
 export function SpotlightCard({ radius = 220, className, children, ...props }: SpotlightCardProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [pos, setPos] = React.useState({ x: -999, y: -999 });
@@ -39,7 +39,7 @@ export function SpotlightCard({ radius = 220, className, children, ...props }: S
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-      {/* İmleç huzmesi */}
+      {/* Cursor spotlight beam */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 transition-opacity duration-300 motion-reduce:transition-none"

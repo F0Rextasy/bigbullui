@@ -9,7 +9,7 @@ export interface ImageCarouselProps extends React.HTMLAttributes<HTMLDivElement>
   interval?: number;
 }
 
-/** Görsel kaydırıcı: oklar + noktalar + otomatik oynatma. */
+/** Image carousel slider: nav arrows + dot pagination + autoplay. */
 export function ImageCarousel({ images, autoPlay, interval = 4000, className, ...props }: ImageCarouselProps) {
   const [index, setIndex] = React.useState(0);
 
@@ -42,14 +42,14 @@ export function ImageCarousel({ images, autoPlay, interval = 4000, className, ..
       <button
         onClick={() => go(-1)}
         className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
-        aria-label="Önceki görsel"
+        aria-label="Previous slide"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
       </button>
       <button
         onClick={() => go(1)}
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
-        aria-label="Sonraki görsel"
+        aria-label="Next slide"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
       </button>
@@ -58,7 +58,7 @@ export function ImageCarousel({ images, autoPlay, interval = 4000, className, ..
           <button
             key={img.id}
             onClick={() => setIndex(i)}
-            aria-label={`${i + 1}. görsele git`}
+            aria-label={`Go to slide ${i + 1}`}
             className={cn("rounded-full transition-all duration-200 motion-reduce:transition-none", i === index ? "h-1.5 w-4 bg-white" : "size-1.5 bg-white/50 hover:bg-white/80")}
           />
         ))}

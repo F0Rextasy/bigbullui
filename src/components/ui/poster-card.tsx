@@ -6,12 +6,12 @@ import { cn } from "./lib/utils";
 export interface PosterCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle?: string;
-  /** tarih köşesi: { day, month } */
+  /** Date badge corner: { day, month } */
   date?: { day: string; month: string };
   gradient?: React.ReactNode;
 }
 
-/** Etkinlik afişi kartı: gradient overlay + tarih köşesi. */
+/** Event poster card: gradient overlay + calendar date badge. */
 export function PosterCard({ title, subtitle, date, gradient, className, children, ...props }: PosterCardProps) {
   return (
     <div className={cn("group relative aspect-[3/4] w-full max-w-56 overflow-hidden rounded-lg border border-border bg-secondary", className)} {...props}>

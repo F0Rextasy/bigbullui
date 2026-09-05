@@ -8,7 +8,7 @@ export interface StickyFooterProps extends React.HTMLAttributes<HTMLDivElement> 
   right?: React.ReactNode;
 }
 
-/** Yapışkan alt bar: scroll sırasında sabit kalır, içerikli. */
+/** Sticky footer toolbar anchored during scroll. */
 export function StickyFooter({ left, right, className, children, ...props }: StickyFooterProps) {
   return (
     <div

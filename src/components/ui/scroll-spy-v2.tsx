@@ -7,7 +7,7 @@ export interface ScrollSpyV2Props extends React.HTMLAttributes<HTMLElement> {
   sections: { id: string; label: string }[];
 }
 
-/** Yatay scroll-spy nav v2: aktif bölümün altında kayan pill. */
+/** Horizontal scroll-spy nav v2: sliding active indicator pill. */
 export function ScrollSpyV2({ sections, className, ...props }: ScrollSpyV2Props) {
   const [active, setActive] = React.useState(sections[0]?.id);
   const listRef = React.useRef<HTMLUListElement>(null);
@@ -38,7 +38,7 @@ export function ScrollSpyV2({ sections, className, ...props }: ScrollSpyV2Props)
   }, [active]);
 
   return (
-    <nav className={cn("w-full border-b border-border", className)} aria-label="Bölümler" {...props}>
+    <nav className={cn("w-full border-b border-border", className)} aria-label="Sections" {...props}>
       <ul ref={listRef} className="flex gap-1 overflow-x-auto px-2" style={{ scrollbarWidth: "none" }}>
         {sections.map((s) => {
           const isActive = active === s.id;

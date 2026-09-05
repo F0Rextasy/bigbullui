@@ -5,13 +5,13 @@ import { cn } from "./lib/utils";
 
 export interface LoginFormProps extends Omit<React.HTMLAttributes<HTMLFormElement>, "onSubmit"> {
   onSubmit?: (data: { email: string; password: string; remember: boolean }) => void;
-  /** sosyal sağlayıcı butonları göster */
+  /** Show social login provider buttons */
   social?: boolean;
   forgotHref?: string;
   registerHref?: string;
 }
 
-/** Giriş formu: canlı doğrulama, göster/gizle şifre, beni hatırla, sosyal butonlar. */
+/** Sign-in form: validation, password reveal toggle, remember me, social login. */
 export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerHref = "#", className, ...props }: LoginFormProps) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -23,7 +23,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const next: typeof errors = {};
-    if (!emailValid) next.email = "Geçerli bir e-posta girin";
+    if (!emailValid) next.email = "Please enter a valid email";
     if (password.length < 6) next.password = "En az 6 karakter";
     setErrors(next);
     if (Object.keys(next).length === 0) onSubmit?.({ email, password, remember });
@@ -63,7 +63,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
       </div>
 
       <div className="space-y-1.5 animate-[loginIn_0.35s_ease-out_0.08s_both] motion-reduce:animate-none">
-        <label htmlFor="login-password" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Şifre</label>
+        <label htmlFor="login-password" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
         <div className="relative">
           <input
             id="login-password"
@@ -82,9 +82,9 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             type="button"
             onClick={() => setShow((s) => !s)}
             className="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring transition-colors"
-            aria-label={show ? "Şifreyi gizle" : "Şifreyi göster"}
+            aria-label={show ? "Hide password" : "Show password"}
           >
-            {show ? "GİZLE" : "GÖSTER"}
+            {show ? "HIDE" : "SHOW"}
           </button>
         </div>
         {errors.password && <p className="text-xs text-destructive animate-[loginShake_0.3s_ease-out] motion-reduce:animate-none">{errors.password}</p>}
@@ -93,9 +93,9 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
       <div className="flex items-center justify-between text-xs animate-[loginIn_0.35s_ease-out_0.16s_both] motion-reduce:animate-none">
         <label className="flex cursor-pointer items-center gap-1.5 select-none">
           <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="size-3.5 accent-accent" />
-          <span className="text-muted-foreground">Beni hatırla</span>
+          <span className="text-muted-foreground">Remember me</span>
         </label>
-        <a href={forgotHref} className="text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">Şifremi unuttum</a>
+        <a href={forgotHref} className="text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">Forgot password?</a>
       </div>
 
       <button
@@ -107,7 +107,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
           "animate-[loginIn_0.35s_ease-out_0.24s_both] motion-reduce:animate-none"
         )}
       >
-        Giriş yap
+        Sign In
       </button>
 
       {social && (
@@ -125,7 +125,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
       )}
 
       <p className="text-center text-xs text-muted-foreground animate-[loginIn_0.35s_ease-out_0.4s_both] motion-reduce:animate-none">
-        Hesabın yok mu? <a href={registerHref} className="text-accent hover:underline">Kayıt ol</a>
+        Don&apos;t have an account? <a href={registerHref} className="text-accent hover:underline">Sign up</a>
       </p>
     </form>
   );

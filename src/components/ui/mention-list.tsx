@@ -15,7 +15,7 @@ export interface MentionListProps extends Omit<React.HTMLAttributes<HTMLUListEle
   onSelect?: (user: MentionUser) => void;
 }
 
-/** @bahsetme öneri paneli: arama sonuçları + baş harf avatarları. */
+/** Mention autocomplete list: filtered users + avatar initials. */
 export function MentionList({ users, onSelect, className, ...props }: MentionListProps) {
   const [highlight, setHighlight] = React.useState(0);
 
@@ -23,7 +23,7 @@ export function MentionList({ users, onSelect, className, ...props }: MentionLis
     <ul
       className={cn("w-56 divide-y divide-border/60 rounded-md border border-border bg-card py-1 shadow-lg", className)}
       role="listbox"
-      aria-label="Bahsetme önerileri"
+      aria-label="Mention suggestions"
       {...props}
     >
       <style>{`@keyframes mlIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
@@ -49,7 +49,7 @@ export function MentionList({ users, onSelect, className, ...props }: MentionLis
           </button>
         </li>
       ))}
-      {users.length === 0 && <li className="px-3 py-3 text-center text-xs text-muted-foreground">Kullanıcı bulunamadı</li>}
+      {users.length === 0 && <li className="px-3 py-3 text-center text-xs text-muted-foreground">No users found</li>}
     </ul>
   );
 }

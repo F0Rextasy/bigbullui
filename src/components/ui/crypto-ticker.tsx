@@ -14,7 +14,7 @@ export interface CryptoTickerProps extends React.HTMLAttributes<HTMLDivElement> 
   entries: CryptoEntry[];
 }
 
-/** Kripto fiyat şeridi: yukarı/aşağı ok animasyonlu. */
+/** Crypto ticker tape: up/down animated change indicators. */
 export function CryptoTicker({ entries, className, ...props }: CryptoTickerProps) {
   return (
     <div className={cn("w-full overflow-hidden rounded-md border border-border bg-card", className)} {...props}>

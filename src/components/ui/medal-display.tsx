@@ -20,7 +20,7 @@ const TIER = {
   bronze: { bg: "bg-orange-400/15", border: "border-orange-400/50", text: "text-orange-600", icon: "🥉" },
 };
 
-/** Madalya panosu: altın/gümüş/bronz şeritler + parıltı. */
+/** Medal showcase: gold/silver/bronze tiers + shine overlay. */
 export function MedalDisplay({ medals, className, ...props }: MedalDisplayProps) {
   return (
     <div className={cn("w-full max-w-sm space-y-2", className)} {...props}>

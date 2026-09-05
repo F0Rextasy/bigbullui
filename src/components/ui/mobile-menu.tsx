@@ -15,7 +15,7 @@ export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   onOpenChange: (open: boolean) => void;
 }
 
-/** Tam ekran mobil menü: yukarıdan açılan panel + staggered linkler. */
+/** Fullscreen mobile navigation overlay with staggered entrance. */
 export function MobileMenu({ items, open, onOpenChange, className, ...props }: MobileMenuProps) {
   React.useEffect(() => {
     if (!open) return;
@@ -27,10 +27,10 @@ export function MobileMenu({ items, open, onOpenChange, className, ...props }: M
   if (!open) return null;
 
   return (
-    <div className={cn("fixed inset-0 z-50 flex flex-col bg-background", className)} role="dialog" aria-modal="true" aria-label="Mobil menü" {...props}>
+    <div className={cn("fixed inset-0 z-50 flex flex-col bg-background", className)} role="dialog" aria-modal="true" aria-label="Mobile menu" {...props}>
       <style>{`@keyframes mmIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-center justify-between border-b-2 border-dashed border-border px-4 py-3">
-        <span className="font-mono text-xs font-bold uppercase tracking-widest">Menü</span>
+        <span className="font-mono text-xs font-bold uppercase tracking-widest">Menu</span>
         <button
           onClick={() => onOpenChange(false)}
           className="rounded-sm p-1.5 text-foreground transition-transform duration-200 hover:rotate-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"

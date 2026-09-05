@@ -10,7 +10,7 @@ export interface SettingsSectionProps extends React.HTMLAttributes<HTMLDivElemen
   onSave?: () => void;
 }
 
-/** Ayar bölümü: başlık + açıklama + ayar satırları + kaydet butonu. */
+/** Settings section panel: title + description + setting rows + save. */
 export function SettingsSection({ title, description, rows = [], onSave, className, children, ...props }: SettingsSectionProps) {
   const [saved, setSaved] = React.useState(false);
 

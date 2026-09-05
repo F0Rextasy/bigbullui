@@ -261,7 +261,7 @@ export function CollapsibleTrigger({
   );
 }
 
-export interface CollapsibleContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type CollapsibleContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 export function CollapsibleContent({
   className,

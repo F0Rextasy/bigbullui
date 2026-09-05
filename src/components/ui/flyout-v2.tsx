@@ -13,7 +13,7 @@ export interface FlyoutV2Props extends Omit<React.HTMLAttributes<HTMLUListElemen
   items: Flyout2Item[];
 }
 
-/** Hover flyout menü v2: alt öğeler sağdan açılır. */
+/** Hover flyout navigation menu v2 with right-flyout submenus. */
 export function FlyoutV2({ items, className, ...props }: FlyoutV2Props) {
   return (
     <ul className={cn("w-44 rounded-md border border-border bg-card p-1 shadow-lg", className)} role="menu" {...props}>

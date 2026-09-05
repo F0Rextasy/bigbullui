@@ -14,12 +14,12 @@ export interface SecurityScoreProps extends React.HTMLAttributes<HTMLDivElement>
   checks: SecurityCheck[];
 }
 
-/** Güvenlik puanı: dairesel puan + madde madde durum listesi. */
+/** Security health score: circular progress gauge + checklist breakdown. */
 export function SecurityScore({ checks, className, ...props }: SecurityScoreProps) {
   const passed = checks.filter((c) => c.passed).length;
   const percent = Math.round((passed / Math.max(1, checks.length)) * 100);
   const R = 44;
-  const C = Math.PI * R; // yarım daire
+  const C = Math.PI * R; // half circumference
   const tone = percent >= 80 ? "text-emerald-500" : percent >= 50 ? "text-amber-500" : "text-destructive";
 
   return (
@@ -50,8 +50,8 @@ export function SecurityScore({ checks, className, ...props }: SecurityScoreProp
           </div>
         </div>
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider">Güvenlik Puanı</h3>
-          <p className="mt-1 text-xs text-muted-foreground">{passed}/{checks.length} kontrol geçildi</p>
+          <h3 className="text-sm font-semibold uppercase tracking-wider">Security Score</h3>
+          <p className="mt-1 text-xs text-muted-foreground">{passed}/{checks.length} checks passed</p>
         </div>
       </div>
 

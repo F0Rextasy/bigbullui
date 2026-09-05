@@ -10,8 +10,8 @@ export interface CurrencyOption {
 }
 
 export const CURRENCIES: CurrencyOption[] = [
-  { code: "TRY", symbol: "₺", label: "Türk Lirası" },
-  { code: "USD", symbol: "$", label: "Amerikan Doları" },
+  { code: "TRY", symbol: "₺", label: "Turkish Lira" },
+  { code: "USD", symbol: "$", label: "US Dollar" },
   { code: "EUR", symbol: "€", label: "Euro" },
   { code: "GBP", symbol: "£", label: "Sterlin" },
 ];
@@ -22,7 +22,7 @@ export interface CurrencySelectProps extends Omit<React.HTMLAttributes<HTMLDivEl
   onValueChange?: (code: string) => void;
 }
 
-/** Para birimi seçici: sembol + kod dropdown. */
+/** Currency selector dropdown with symbols and currency codes. */
 export function CurrencySelect({ value, defaultValue, onValueChange, className, ...props }: CurrencySelectProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? "TRY");
   const [open, setOpen] = React.useState(false);

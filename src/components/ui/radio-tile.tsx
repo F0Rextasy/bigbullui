@@ -13,7 +13,7 @@ export interface RadioTileProps extends React.HTMLAttributes<HTMLLabelElement> {
   name?: string;
 }
 
-/** Açıklamalı radyo kutucuğu: ikon + başlık + açıklama + radio nokta. */
+/** Radio tile card: icon + title + description + radio indicator. */
 export function RadioTile({ title, description, icon, value, checked, onCheckedChange, name = "radio-tile", className, ...props }: RadioTileProps) {
   return (
     <label

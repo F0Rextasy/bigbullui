@@ -4,12 +4,12 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface TwoFactorProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** kurtarma kodları; boşsa üretilmiş örnek gösterilir */
+  /** Backup recovery codes; displays generated sample if omitted */
   recoveryCodes?: string[];
   onConfirm?: () => void;
 }
 
-/** 2FA kurulum paneli: QR alanı + kurtarma kodları (indirilebilir hissi) + onay. */
+/** Two-factor authentication setup: QR code + recovery backup codes. */
 export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: TwoFactorProps) {
   const codes = recoveryCodes ?? [
     "4F7A-9K2M", "B3X8-QP1D", "M2VD-88ZL", "T9RC-55WN",
@@ -39,11 +39,11 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
       `}</style>
 
       <div className="text-center">
-        <h3 className="text-lg font-semibold tracking-tight">İki adımlı doğrulama</h3>
-        <p className="mt-1 text-sm text-muted-foreground">Doğrulama uygulamanla QR kodu tara.</p>
+        <h3 className="text-lg font-semibold tracking-tight">Two-Factor Authentication</h3>
+        <p className="mt-1 text-sm text-muted-foreground">Scan the QR code with your authenticator application.</p>
       </div>
 
-      {/* QR simülasyonu */}
+      {/* QR simulator */}
       <div className="relative mx-auto size-40 overflow-hidden rounded-lg border-2 border-dashed border-border bg-card p-3">
         <div className="grid size-full grid-cols-8 gap-0.5" aria-hidden="true">
           {Array.from({ length: 64 }).map((_, i) => {
@@ -54,15 +54,15 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
         <div className="absolute left-2 right-2 h-0.5 bg-destructive/80" style={{ animation: "twofaScan 2.4s ease-in-out infinite" }} aria-hidden="true" />
       </div>
 
-      {/* Kurtarma kodları */}
+      {/* Recovery codes */}
       <div className="rounded-md border border-border bg-secondary/40 p-3 animate-[twofaIn_0.3s_ease-out_0.15s_both] motion-reduce:animate-none">
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Kurtarma kodları</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Recovery Codes</span>
           <button
             onClick={() => setRevealed((r) => !r)}
             className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
           >
-            {revealed ? "GİZLE" : "GÖSTER"}
+            {revealed ? "HIDE" : "SHOW"}
           </button>
         </div>
         <div className={cn("mt-2 grid grid-cols-2 gap-1 transition-all duration-300 motion-reduce:transition-none", revealed ? "opacity-100" : "opacity-0 select-none blur-sm")}>
@@ -74,7 +74,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
           onClick={copyAll}
           className="mt-2 w-full rounded-sm border border-dashed border-border py-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         >
-          {copied ? "✓ KOPYALANDI" : "TÜMÜNÜ KOPYALA"}
+          {copied ? "✓ COPIED" : "COPY ALL"}
         </button>
       </div>
 
@@ -87,7 +87,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
           "animate-[twofaIn_0.3s_ease-out_0.25s_both] motion-reduce:animate-none"
         )}
       >
-        Etkinleştir
+        Enable 2FA
       </button>
     </div>
   );

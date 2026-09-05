@@ -53,7 +53,7 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
         disabled={sent}
         className="mt-2 w-full rounded-md border border-dashed border-border py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-accent hover:text-accent disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
       >
-        {sent ? "Gönderildi ✓" : "Mektup gönder"}
+        {sent ? "Dispatched ✓" : "Send letter"}
       </button>
     </div>
   );

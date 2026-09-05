@@ -4,17 +4,17 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface RouteLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** true iken yükleniyor çubuğu görünür ve dolar */
+  /** Visible progress bar animation during route transitions */
   active: boolean;
 }
 
-/** Sayfa geçişi yükleme çubuğu: üstte ince ilerleyen şerit. */
+/** Route progress bar: top micro loading indicator. */
 export function RouteLoader({ active, className, ...props }: RouteLoaderProps) {
   return (
     <div
       className={cn("fixed inset-x-0 top-0 z-[60] h-0.5 overflow-hidden transition-opacity duration-200 motion-reduce:transition-none", active ? "opacity-100" : "opacity-0", className)}
       role="progressbar"
-      aria-label="Sayfa yükleniyor"
+      aria-label="Page loading"
       {...props}
     >
       <style>{`

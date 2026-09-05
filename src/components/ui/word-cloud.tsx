@@ -15,7 +15,7 @@ export interface WordCloudProps extends React.HTMLAttributes<HTMLDivElement> {
   onWordClick?: (word: string) => void;
 }
 
-/** Kelime bulutu: ağırlığa göre boyut, hover renk değişimi. */
+/** Tag word cloud: weight-based font size + hover color changes. */
 export function WordCloud({ words, maxFontSize = 28, minFontSize = 11, onWordClick, className, ...props }: WordCloudProps) {
   const max = Math.max(...words.map((w) => w.weight), 1);
   const min = Math.min(...words.map((w) => w.weight), 0);

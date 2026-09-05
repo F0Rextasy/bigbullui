@@ -13,7 +13,7 @@ export interface DragSortProps extends React.HTMLAttributes<HTMLUListElement> {
   onReorder?: (items: DragSortItem[]) => void;
 }
 
-/** HTML5 drag ile yeniden sıralanan liste; hedef satır vurgulanır, diğerleri kayarak yer açar. */
+/** Drag and drop sortable list using HTML5 drag events with smooth displacement. */
 export function DragSort({ items, onReorder, className, ...props }: DragSortProps) {
   const [order, setOrder] = React.useState(items);
   const [dragId, setDragId] = React.useState<string | null>(null);

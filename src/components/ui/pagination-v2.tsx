@@ -8,11 +8,11 @@ export interface PaginationV2Props extends React.HTMLAttributes<HTMLElement> {
   page?: number;
   defaultPage?: number;
   onPageChange?: (page: number) => void;
-  /** sonsuz kaydırma tetikleyicisi göster */
+  /** Show infinite scroll indicator */
   infiniteHint?: boolean;
 }
 
-/** Hibrit sayfalama: numaralı + sonsuz kaydırma ipucu. */
+/** Hybrid pagination: page numbers + infinite scroll indicator. */
 export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, infiniteHint, className, ...props }: PaginationV2Props) {
   const [internal, setInternal] = React.useState(defaultPage);
   const current = page ?? internal;
@@ -44,7 +44,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
             onClick={() => go(current - 1)}
             disabled={current <= 1}
             className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-            aria-label="Önceki sayfa"
+            aria-label="Previous page"
           >
             ←
           </button>
@@ -79,7 +79,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
         </li>
       </ul>
       {infiniteHint && current < totalPages && (
-        <p className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">aşağı kaydırarak devam et</p>
+        <p className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">scroll down to continue</p>
       )}
     </nav>
   );

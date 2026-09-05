@@ -17,8 +17,8 @@ export interface DurationInputProps extends Omit<React.HTMLAttributes<HTMLDivEle
   label?: string;
 }
 
-/** Süre girişi: saat/dakika(/saniye) stepper. */
-export function DurationInput({ value, defaultValue = { hours: 0, minutes: 0 }, onValueChange, showSeconds = false, label = "Süre", className, ...props }: DurationInputProps) {
+/** Duration input: hours/minutes/seconds stepper controls. */
+export function DurationInput({ value, defaultValue = { hours: 0, minutes: 0 }, onValueChange, showSeconds = false, label = "Duration", className, ...props }: DurationInputProps) {
   const [internal, setInternal] = React.useState<DurationValue>(defaultValue);
   const current = value ?? internal;
 
@@ -33,7 +33,7 @@ export function DurationInput({ value, defaultValue = { hours: 0, minutes: 0 }, 
       <button
         onClick={() => set({ [key]: Math.min(max, (current[key] ?? 0) + 1) } as Partial<DurationValue>)}
         className="rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-        aria-label={`${label} artır`}
+        aria-label={`Increase ${label}`}
       >
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6" /></svg>
       </button>

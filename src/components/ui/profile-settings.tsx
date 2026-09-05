@@ -11,7 +11,7 @@ export interface ProfileSettingsProps extends React.HTMLAttributes<HTMLDivElemen
   onDelete?: () => void;
 }
 
-/** Profil ayarları: avatar alanı + bilgiler + kırmızı tehlike bölgesi. */
+/** Profile settings page: avatar + personal info + danger zone. */
 export function ProfileSettings({ name = "Ada Lovelace", email = "ada@mail.com", initials = "AL", onSave, onDelete, className, ...props }: ProfileSettingsProps) {
   const [n, setN] = React.useState(name);
   const [e, setE] = React.useState(email);
@@ -29,7 +29,7 @@ export function ProfileSettings({ name = "Ada Lovelace", email = "ada@mail.com",
           <p className="text-sm font-medium">{n}</p>
           <p className="text-xs text-muted-foreground">{e}</p>
           <button className="mt-1 font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">
-            Avatarı değiştir
+            Change avatar
           </button>
         </div>
       </div>
@@ -65,17 +65,17 @@ export function ProfileSettings({ name = "Ada Lovelace", email = "ada@mail.com",
         </button>
       </div>
 
-      {/* Tehlike bölgesi */}
+      {/* Danger zone */}
       <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-4 animate-[profIn_0.3s_ease-out_0.2s_both] motion-reduce:animate-none">
-        <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-destructive">Tehlike bölgesi</h4>
+        <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-destructive">Danger Zone</h4>
         <div className="mt-2 flex items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground">Hesabı kalıcı olarak sil. Bu işlem geri alınamaz.</p>
+          <p className="text-xs text-muted-foreground">Permanently delete your account. This action cannot be undone.</p>
           {!confirmDelete ? (
             <button
               onClick={() => setConfirmDelete(true)}
               className="shrink-0 rounded-md border border-destructive/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-destructive transition-colors hover:bg-destructive hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
             >
-              Hesabı sil
+              Delete Account
             </button>
           ) : (
             <div className="flex shrink-0 items-center gap-2">
@@ -83,13 +83,13 @@ export function ProfileSettings({ name = "Ada Lovelace", email = "ada@mail.com",
                 onClick={() => setConfirmDelete(false)}
                 className="rounded-md border border-border px-2 py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               >
-                Vazgeç
+                Cancel
               </button>
               <button
                 onClick={() => { setConfirmDelete(false); onDelete?.(); }}
                 className="rounded-md bg-destructive px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
               >
-                Onaylıyorum
+                Confirm
               </button>
             </div>
           )}

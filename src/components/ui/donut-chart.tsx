@@ -512,7 +512,7 @@ export function DonutChart({
           </span>
           {subtitle && (
             <span className="hidden sm:inline font-mono text-[10px] text-muted-foreground uppercase">
-              // {subtitle}
+              {"// "}{subtitle}
             </span>
           )}
         </div>

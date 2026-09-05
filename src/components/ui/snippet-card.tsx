@@ -10,7 +10,7 @@ export interface SnippetCardProps extends React.HTMLAttributes<HTMLDivElement> {
   filename?: string;
 }
 
-/** Kod parçası kartı: dil rozeti + kopyala butonu + dashed çerçeve. */
+/** Code snippet card: language badge + copy button + dashed frame. */
 export function SnippetCard({ code, language = "ts", filename, className, ...props }: SnippetCardProps) {
   return (
     <div className={cn("group w-full overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>

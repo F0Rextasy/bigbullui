@@ -17,7 +17,7 @@ export interface PriceCompareProps extends React.HTMLAttributes<HTMLDivElement> 
   currency?: string;
 }
 
-/** Fiyat karşılaştırma tablosu: satıcılar arası en iyi teklif vurgulu. */
+/** Price comparison table highlighting the best vendor offer. */
 export function PriceCompare({ title, offers, currency = "₺", className, ...props }: PriceCompareProps) {
   const sorted = [...offers].sort((a, b) => a.price - b.price);
   const best = sorted[0];

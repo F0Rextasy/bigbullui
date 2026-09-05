@@ -72,7 +72,7 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
         onClick={onRegenerate}
         className="mt-3 w-full rounded-md border border-dashed border-border py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
       >
-        Anahtarı yenile
+        Regenerate key
       </button>
     </div>
   );

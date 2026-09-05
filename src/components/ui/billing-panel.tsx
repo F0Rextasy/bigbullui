@@ -34,7 +34,7 @@ export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, cla
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >
-          Planı yükselt
+          Upgrade plan
         </button>
       </div>
 

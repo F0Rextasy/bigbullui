@@ -10,7 +10,7 @@ export interface UsageMeterProps extends React.HTMLAttributes<HTMLDivElement> {
   unit?: string;
 }
 
-/** Kota göstergesi: doluluk çubuğu + yüzde + aşım uyarısı. */
+/** Usage meter gauge: filled bar + percentage + threshold alert. */
 export function UsageMeter({ label, used, limit, unit = "", className, ...props }: UsageMeterProps) {
   const pct = Math.min(100, Math.round((used / Math.max(1, limit)) * 100));
   const tone = pct >= 100 ? "bg-destructive" : pct >= 80 ? "bg-amber-500" : "bg-accent";
@@ -38,10 +38,10 @@ export function UsageMeter({ label, used, limit, unit = "", className, ...props 
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">%{pct}</span>
         {over && (
           <span className="font-mono text-[10px] uppercase tracking-wider text-destructive animate-[usagePulse_1.2s_ease-in-out_infinite] motion-reduce:animate-none">
-            Limit aşıldı
+            Quota exceeded
           </span>
         )}
-        {!over && pct >= 80 && <span className="font-mono text-[10px] text-amber-600">Limite yaklaşıyorsun</span>}
+        {!over && pct >= 80 && <span className="font-mono text-[10px] text-amber-600">Approaching quota limit</span>}
       </div>
     </div>
   );

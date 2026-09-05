@@ -18,7 +18,7 @@ export interface RecipeCardProps extends React.HTMLAttributes<HTMLDivElement> {
   steps: string[];
 }
 
-/** Tarif kartı: malzemeler + adımlar + süre/porsiyon. */
+/** Recipe guide card: ingredients + step breakdown + duration. */
 export function RecipeCard({ title, minutes, servings, ingredients, steps, className, ...props }: RecipeCardProps) {
   const [tab, setTab] = React.useState<"ingredients" | "steps">("ingredients");
 
@@ -49,7 +49,7 @@ export function RecipeCard({ title, minutes, servings, ingredients, steps, class
               tab === t ? "border-b-2 border-accent text-accent" : "text-muted-foreground hover:text-foreground"
             )}
           >
-            {t === "ingredients" ? `Malzemeler (${ingredients.length})` : `Adımlar (${steps.length})`}
+            {t === "ingredients" ? `Ingredients (${ingredients.length})` : `Steps (${steps.length})`}
           </button>
         ))}
       </div>

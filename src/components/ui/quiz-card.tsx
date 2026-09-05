@@ -15,7 +15,7 @@ export interface QuizCardProps extends React.HTMLAttributes<HTMLDivElement> {
   onAnswer?: (optionId: string, correct: boolean) => void;
 }
 
-/** Mini test kartı: seçenekler + doğru/yanlış geri bildirimi. */
+/** Quiz flashcard: answer options + correct/incorrect feedback. */
 export function QuizCard({ question, options, onAnswer, className, ...props }: QuizCardProps) {
   const [picked, setPicked] = React.useState<string | null>(null);
 

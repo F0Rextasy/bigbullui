@@ -16,7 +16,7 @@ export interface WebhookListProps extends React.HTMLAttributes<HTMLDivElement> {
   onRemove?: (id: string) => void;
 }
 
-/** Webhook listesi: URL + olay rozetleri + durum + test/kaldır. */
+/** Webhook endpoint list: URL + event badges + status + test/remove. */
 export function WebhookList({ webhooks, onTest, onRemove, className, ...props }: WebhookListProps) {
   const [tested, setTested] = React.useState<string | null>(null);
 
@@ -41,7 +41,7 @@ export function WebhookList({ webhooks, onTest, onRemove, className, ...props }:
             <button
               onClick={() => onRemove?.(w.id)}
               className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-              aria-label={`${w.url} webhookunu kaldır`}
+              aria-label={`Remove webhook ${w.url}`}
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
             </button>
@@ -54,7 +54,7 @@ export function WebhookList({ webhooks, onTest, onRemove, className, ...props }:
         </div>
       ))}
       {webhooks.length === 0 && (
-        <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">Henüz webhook yok.</p>
+        <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">No webhooks configured yet.</p>
       )}
     </div>
   );

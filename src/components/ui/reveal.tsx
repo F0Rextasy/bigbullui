@@ -5,9 +5,9 @@ import { cn } from "./lib/utils";
 
 export type RevealProps = {
   children?: React.ReactNode;
-  /** kademeli giriş gecikmesi çarpanı (ms cinsinden index*40) */
+  /** Staggered entrance delay multiplier (index * 40 in ms) */
   delay?: number;
-  /** yalnızca ilk görünümde tetiklensin */
+  /** Only trigger once on first visible appearance */
   once?: boolean;
 };
 

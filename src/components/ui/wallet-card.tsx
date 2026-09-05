@@ -17,13 +17,13 @@ export interface WalletCardProps extends React.HTMLAttributes<HTMLDivElement> {
   transactions?: WalletTransaction[];
 }
 
-/** Cüzdan kartı: bakiye + ekle butonu + mini işlem listesi. */
+/** Digital wallet card: balance + top-up action + recent transactions. */
 export function WalletCard({ balance, onTopUp, transactions = [], className, ...props }: WalletCardProps) {
   return (
     <div className={cn("w-full max-w-sm overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
       <style>{`@keyframes wcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="bg-gradient-to-br from-accent/15 to-card p-5 animate-[wcIn_0.35s_ease-out_both] motion-reduce:animate-none">
-        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Cüzdan bakiyesi</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Wallet Balance</p>
         <p className="mt-1 font-mono text-2xl font-bold tabular-nums">{balance}</p>
         <button
           onClick={onTopUp}

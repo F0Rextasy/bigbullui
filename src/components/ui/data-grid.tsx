@@ -6,9 +6,9 @@ import { cn } from "./lib/utils";
 export interface DataGridColumn<T> {
   key: string;
   header: string;
-  /** hücre değerini özel render eder */
+  /** Custom cell renderer function */
   render?: (row: T) => React.ReactNode;
-  /** bu kolona göre sıralamayı etkinleştir */
+  /** Enables sorting by this column */
   sortable?: boolean;
 }
 
@@ -20,8 +20,8 @@ export interface DataGridProps<T extends Record<string, unknown>> extends React.
   emptyMessage?: string;
 }
 
-/** Ağır veri ızgarası: sıralama + sayfalama + sabit başlık. */
-export function DataGrid<T extends Record<string, unknown>>({ columns, rows, rowKey, pageSize = 8, emptyMessage = "Kayıt yok", className, ...props }: DataGridProps<T>) {
+/** Data grid: sortable columns + pagination + sticky header. */
+export function DataGrid<T extends Record<string, unknown>>({ columns, rows, rowKey, pageSize = 8, emptyMessage = "No records found", className, ...props }: DataGridProps<T>) {
   const [sort, setSort] = React.useState<{ key: string; dir: "asc" | "desc" } | null>(null);
   const [page, setPage] = React.useState(0);
 
@@ -100,7 +100,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns, rows, row
               disabled={safePage === 0}
               className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase transition-colors hover:border-foreground/40 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
             >
-              Önceki
+              Previous
             </button>
             <button
               onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}

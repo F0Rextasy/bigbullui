@@ -24,7 +24,7 @@ npm install bigbullui
 
 ## Component Catalog (462 Components)
 
-### Ticket Stub & Retro (62 components)
+### Ticket Stub & Retro (40 components)
 Tickets, stubs, coupons, passes, split-flap, and tactile mechanical controls.
 
 - **Seat Map** (`seat-map`): Interactive arena seating chart matrix grid with row letters, seat numbers, tier types, and price calculator. → https://ui.bigbullapp.com/docs/seat-map
@@ -37,7 +37,6 @@ Tickets, stubs, coupons, passes, split-flap, and tactile mechanical controls.
 - **Barcode** (`barcode`): Dynamic SVG barcode with mono serial readout. → https://ui.bigbullapp.com/docs/barcode
 - **Stamp Seal** (`stamp-seal`): Rotated rubber stamp badge with double dashed circular ring. → https://ui.bigbullapp.com/docs/stamp-seal
 - **NFC Badge** (`nfc-badge`): Contactless gate pass tap simulator with animated radio wave ripple pulse, status badge, lanyard notch, and admission chime. → https://ui.bigbullapp.com/docs/nfc-badge
-- **Scratch Off** (`scratch-off`): Lottery ticket with interactive foil scratch layer and auto-reveal. → https://ui.bigbullapp.com/docs/scratch-off
 - **QR Reader** (`qr-reader`): Turnstile simulated camera QR and barcode scanner viewfinder with animated laser sweep and targeting reticle. → https://ui.bigbullapp.com/docs/qr-reader
 - **Ticket Fold** (`ticket-fold`): 3D accordion fold pass that unfolds with smooth perspective rotation and tear-away slip. → https://ui.bigbullapp.com/docs/ticket-fold
 - **Split Flap** (`split-flap`): Mechanical departure board with flipping characters and retro terminal styling. → https://ui.bigbullapp.com/docs/split-flap
@@ -60,34 +59,13 @@ Tickets, stubs, coupons, passes, split-flap, and tactile mechanical controls.
 - **BackstagePass** (`backstage-pass`): Laminated ALL ACCESS pass with lanyard hole, rotated stripe strip, shine sweep on hover and fake barcode. → https://ui.bigbullapp.com/docs/backstage-pass
 - **Wristband** (`wristband`): Festival wristband with patterned repeating stripes, snap closure, serial and a subtle breathing animation. → https://ui.bigbullapp.com/docs/wristband
 - **Lanyard** (`lanyard`): Strap with clip that sways gently from the top and holds an attached card slot for children. → https://ui.bigbullapp.com/docs/lanyard
-- **DrinkTicket** (`drink-ticket`): Perforated drink coupon with glyph, GOOD FOR ONE copy and a tear-off stub that rotates on hover. → https://ui.bigbullapp.com/docs/drink-ticket
-- **RaffleTicket** (`raffle-ticket`): Raffle ticket with a big number, matching stub number and a winning highlight that pulses and stamps. → https://ui.bigbullapp.com/docs/raffle-ticket
-- **SlotMachine** (`slot-machine`): Three-reel slot machine with staggered spinning reels, a pulling lever and payline highlight on stop. → https://ui.bigbullapp.com/docs/slot-machine
-- **PrizeWheel** (`prize-wheel`): SVG prize wheel of tinted segments that spins with eased deceleration and a flicking pointer flapper. → https://ui.bigbullapp.com/docs/prize-wheel
-- **Dice** (`dice`): Pair of 3D dice that tumble with rapid face swaps and settle with a bounce on roll. → https://ui.bigbullapp.com/docs/dice
-- **CoinFlip** (`coin-flip`): Coin that rotates on Y through multiple turns, decelerating to a heads or tails face with a stamped result badge. → https://ui.bigbullapp.com/docs/coin-flip
-- **PlayingCard** (`playing-card`): Playing card with corner rank and suit, big center suit, diamond-pattern back and a 3D flip on click. → https://ui.bigbullapp.com/docs/playing-card
-- **BingoCard** (`bingo-card`): 5x5 B-I-N-G-O card whose cells stamp in on toggle with a free center and line-complete sweep highlights. → https://ui.bigbullapp.com/docs/bingo-card
-- **DiscoBall** (`disco-ball`): Tiled mirror sphere that slowly rotates and projects dancing light dots around the room. → https://ui.bigbullapp.com/docs/disco-ball
-- **StageLights** (`stage-lights`): Two to four gradient light cones that sweep alternately over a glowing stage floor ellipse. → https://ui.bigbullapp.com/docs/stage-lights
-- **TicketBooth** (`ticket-booth`): Booth window with TICKETS marquee header, counter ledge, speaker grille dots and a CLOSED flip sign. → https://ui.bigbullapp.com/docs/ticket-booth
-- **DriveInScreen** (`drive-in-screen`): Outdoor cinema screen with projection flicker, a car silhouette row and an intermission countdown slot. → https://ui.bigbullapp.com/docs/drive-in-screen
 - **TicketStubV2** (`ticket-stub-v2`): Rip-off event stub whose tear line detaches the stub with rotate-and-fall on tear, plus serial and barcode. → https://ui.bigbullapp.com/docs/ticket-stub-v2
 - **QR Code** (`qr-code`): Generates QR codes with Reed-Solomon error correction, mask evaluation, and finder patterns. Includes encodeQrMatrix helper. → https://ui.bigbullapp.com/docs/qr-code
-- **Lottery Machine** (`lottery-machine`): Lottery machine with shaking ball cage and stamped number results. → https://ui.bigbullapp.com/docs/lottery-machine
 - **Ticket Validator** (`ticket-validator`): Ticket validator device with blinking green/red result light. → https://ui.bigbullapp.com/docs/ticket-validator
-- **Vending Machine** (`vending-machine`): Vending machine with product grid, coin slot and drop animation. → https://ui.bigbullapp.com/docs/vending-machine
-- **Arcade Cabinet** (`arcade-cabinet`): Retro arcade cabinet with scanline screen, joystick and coin slot. → https://ui.bigbullapp.com/docs/arcade-cabinet
-- **Betting Slip** (`betting-slip`): Betting slip: match picks, odds grid, stake and play button. → https://ui.bigbullapp.com/docs/betting-slip
 - **Punch Clock** (`punch-clock`): Punch clock with live digital time and in/out stamp feed. → https://ui.bigbullapp.com/docs/punch-clock
 - **Mailbox** (`mailbox`): Mailbox with flag raise and letter send animation. → https://ui.bigbullapp.com/docs/mailbox
-- **Safe Vault** (`safe-vault`): Safe vault with dial animation, code entry and open reveal. → https://ui.bigbullapp.com/docs/safe-vault
 - **Medal Display** (`medal-display`): Medal board with gold/silver/bronze tiers and shine sweep. → https://ui.bigbullapp.com/docs/medal-display
 - **Trophy Shelf** (`trophy-shelf`): Trophy shelf with earned/empty slots and drop-in animation. → https://ui.bigbullapp.com/docs/trophy-shelf
-- **Pool Table** (`pool-table`): Pool ball grid organizer with striped/solid ball rendering. → https://ui.bigbullapp.com/docs/pool-table
-- **Revolving Door** (`revolving-door`): Revolving door with rotating panels. → https://ui.bigbullapp.com/docs/revolving-door
-- **Ferris Wheel** (`ferris-wheel`): Ferris wheel with rotating cabins. → https://ui.bigbullapp.com/docs/ferris-wheel
-- **Carousel Ride** (`carousel-ride`): Carousel ride with circling horses. → https://ui.bigbullapp.com/docs/carousel-ride
 - **Badge Ribbon** (`badge-ribbon`): Award rosette badge ribbon with swallow-tail streamers and certified stamp. → https://ui.bigbullapp.com/docs/badge-ribbon
 
 ### Core Form & Inputs (53 components)

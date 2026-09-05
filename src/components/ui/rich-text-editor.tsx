@@ -208,7 +208,7 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
               )}
               title="Quote"
             >
-              "`
+              {'"'}
             </button>
 
             {/* Code */}

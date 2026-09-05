@@ -7,7 +7,7 @@ export interface FeatureFlag {
   id: string;
   label: string;
   enabled: boolean;
-  /** kademeli dağıtım yüzdesi */
+  /** Gradual rollout percentage */
   rollout?: number;
 }
 
@@ -16,7 +16,7 @@ export interface FeatureFlagPanelProps extends Omit<React.HTMLAttributes<HTMLDiv
   onToggle?: (id: string, enabled: boolean) => void;
 }
 
-/** Özellik anahtarı panosu: aç/kapa + yüzde dağıtımı. */
+/** Feature flag management panel: toggles + rollout percentages. */
 export function FeatureFlagPanel({ flags, onToggle, className, ...props }: FeatureFlagPanelProps) {
   const [state, setState] = React.useState(flags);
 
@@ -39,7 +39,7 @@ export function FeatureFlagPanel({ flags, onToggle, className, ...props }: Featu
                 <div className="h-1 w-20 overflow-hidden rounded-full bg-border/60">
                   <div className="h-full rounded-full bg-accent transition-all duration-500 motion-reduce:transition-none" style={{ width: `${f.rollout}%` }} />
                 </div>
-                <span className="font-mono text-[9px] tabular-nums text-muted-foreground">%{f.rollout} dağıtımda</span>
+                <span className="font-mono text-[9px] tabular-nums text-muted-foreground">%{f.rollout} rollout</span>
               </div>
             )}
           </div>

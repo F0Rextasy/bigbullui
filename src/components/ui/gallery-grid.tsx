@@ -14,7 +14,7 @@ export interface GalleryGridProps extends React.HTMLAttributes<HTMLDivElement> {
   columns?: 2 | 3 | 4;
 }
 
-/** Lightbox bağlantılı görsel galerisi: tıklayınca tam ekran açılır. */
+/** Image gallery grid: expandable fullscreen lightbox view. */
 export function GalleryGrid({ images, columns = 3, className, ...props }: GalleryGridProps) {
   const [active, setActive] = React.useState<number | null>(null);
   const colClass = { 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4" }[columns];
@@ -40,7 +40,7 @@ export function GalleryGrid({ images, columns = 3, className, ...props }: Galler
             onClick={() => setActive(idx)}
             className="group relative aspect-square overflow-hidden rounded-md border border-border animate-[ggIn_0.35s_ease-out_both] motion-reduce:animate-none transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             style={{ animationDelay: `${idx * 50}ms` }}
-            aria-label={img.alt ?? `Görsel ${idx + 1}`}
+            aria-label={img.alt ?? `Image ${idx + 1}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={img.src} alt={img.alt ?? ""} className="size-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none" loading="lazy" />
@@ -59,7 +59,7 @@ export function GalleryGrid({ images, columns = 3, className, ...props }: Galler
                 onClick={() => setActive((a) => (a !== null ? (a - 1 + images.length) % images.length : null))}
                 className="rounded-sm border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               >
-                ← Önceki
+                ← Previous
               </button>
               <span className="font-mono text-[10px] text-muted-foreground">{active + 1} / {images.length}</span>
               <button

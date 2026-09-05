@@ -19,7 +19,7 @@ export interface InboxListProps extends Omit<React.HTMLAttributes<HTMLDivElement
   onSelect?: (id: string) => void;
 }
 
-/** E-posta gelen kutusu satırları: okunmadı yıldızı, gönderen, konu önizlemesi. */
+/** Email inbox rows: unread badge indicator, sender, subject preview. */
 export function InboxList({ items, onSelect, className, ...props }: InboxListProps) {
   const [selected, setSelected] = React.useState<string | null>(null);
   const [stars, setStars] = React.useState<Set<string>>(
@@ -58,7 +58,7 @@ export function InboxList({ items, onSelect, className, ...props }: InboxListPro
           <span className="min-w-0 flex-1">
             <span className="flex items-center gap-2">
               <span className={cn("truncate text-sm", item.unread ? "font-semibold" : "font-medium text-foreground/80")}>{item.from}</span>
-              {item.unread && <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-label="okunmadı" />}
+              {item.unread && <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-label="Unread" />}
               <span className="ml-auto shrink-0 font-mono text-[9px] text-muted-foreground">{item.time}</span>
             </span>
             <span className="mt-0.5 block truncate text-xs text-foreground/90">{item.subject}</span>
@@ -69,7 +69,7 @@ export function InboxList({ items, onSelect, className, ...props }: InboxListPro
             tabIndex={0}
             onClick={(e) => { e.stopPropagation(); toggleStar(item.id); }}
             onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); toggleStar(item.id); } }}
-            aria-label={stars.has(item.id) ? "Yıldızı kaldır" : "Yıldızla"}
+            aria-label={stars.has(item.id) ? "Remove star" : "Star message"}
             className={cn("shrink-0 rounded-sm p-0.5 transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring", stars.has(item.id) ? "text-amber-500" : "text-border hover:text-muted-foreground")}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill={stars.has(item.id) ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

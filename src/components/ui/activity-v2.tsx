@@ -30,7 +30,7 @@ export function ActivityV2({ items, filters, className, ...props }: ActivityV2Pr
           onClick={() => setActive(null)}
           className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none", active === null ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground hover:text-foreground")}
         >
-          Tümü
+          All
         </button>
         {actions.map((a) => (
           <button

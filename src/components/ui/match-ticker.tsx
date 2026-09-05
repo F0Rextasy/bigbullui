@@ -16,7 +16,7 @@ export interface MatchTickerProps extends React.HTMLAttributes<HTMLDivElement> {
   matches: MatchTickerEntry[];
 }
 
-/** Maç sonuç şeridi: canlı skorlar + LIVE badge, kayan yatay akış. */
+/** Match ticker tape: live scores + LIVE indicator badge. */
 export function MatchTicker({ matches, className, ...props }: MatchTickerProps) {
   const doubled = [...matches, ...matches];
 

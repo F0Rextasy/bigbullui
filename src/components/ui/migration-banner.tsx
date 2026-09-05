@@ -10,8 +10,8 @@ export interface MigrationBannerProps extends React.HTMLAttributes<HTMLDivElemen
   detail?: string;
 }
 
-/** Veri taşıma uyarısı: ilerleme + açılır detay. */
-export function MigrationBanner({ title = "Verilerin yeni sisteme taşınıyor", progress, detail, className, ...props }: MigrationBannerProps) {
+/** Data migration status banner: progress bar + expandable details. */
+export function MigrationBanner({ title = "Migrating data to new system", progress, detail, className, ...props }: MigrationBannerProps) {
   const [open, setOpen] = React.useState(false);
   const pct = Math.min(100, Math.max(0, Math.round(progress)));
 

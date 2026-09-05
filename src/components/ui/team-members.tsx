@@ -17,7 +17,7 @@ export interface TeamMembersProps extends React.HTMLAttributes<HTMLDivElement> {
   onRemove?: (id: string) => void;
 }
 
-/** Ekip üyeleri yönetimi: davet girişi + rol rozetleri + kaldırma. */
+/** Team member management panel: invite input + role badges + remove. */
 export function TeamMembers({ members, onInvite, onRemove, className, ...props }: TeamMembersProps) {
   const [invite, setInvite] = React.useState("");
   const [list, setList] = React.useState(members);
@@ -38,7 +38,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
         @keyframes teamStamp { 0% { transform: scale(0.8); opacity: 0; } 70% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
       `}</style>
       <div className="border-b border-border px-4 py-3">
-        <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Ekip üyeleri · {list.length}</h3>
+        <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Team Members · {list.length}</h3>
       </div>
 
       <ul className="divide-y divide-border/60">
@@ -60,7 +60,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
             <button
               onClick={() => { setList((l) => l.filter((x) => x.id !== m.id)); onRemove?.(m.id); }}
               className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-              aria-label={`${m.name} üyesini kaldır`}
+              aria-label={`Remove member ${m.name}`}
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
             </button>
@@ -74,7 +74,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
           onChange={(e) => setInvite(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); add(); } }}
           placeholder="yeni@uye.com"
-          aria-label="Davet e-postası"
+          aria-label="Invitation email"
           className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
         />
         <button
@@ -91,7 +91,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
         </button>
       </div>
       {invite.length > 0 && !valid && (
-        <p className="px-4 pb-2 font-mono text-[9px] text-destructive animate-[teamStamp_0.2s_ease-out] motion-reduce:animate-none">Geçerli bir e-posta gir</p>
+        <p className="px-4 pb-2 font-mono text-[9px] text-destructive animate-[teamStamp_0.2s_ease-out] motion-reduce:animate-none">Enter a valid email address</p>
       )}
     </div>
   );

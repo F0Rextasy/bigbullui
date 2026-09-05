@@ -13,7 +13,7 @@ export interface SerialInputProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   separator?: string;
 }
 
-/** Seri numarası girişi: gruplu kutular, otomatik ilerleyen, yapıştırma destekli. */
+/** Serial license input: grouped slots, auto-advance, clipboard paste. */
 export function SerialInput({
   groups = 3,
   groupLength = 4,

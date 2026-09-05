@@ -8,11 +8,11 @@ export interface HeroSplitProps extends Omit<React.HTMLAttributes<HTMLDivElement
   title: React.ReactNode;
   description?: string;
   actions?: React.ReactNode;
-  /** sağ görsel/vurgu slotu */
+  /** Right visual or highlight graphic slot */
   visual: React.ReactNode;
 }
 
-/** Sol metin + sağ görsel hero düzeni. */
+/** Hero split banner: left text copy + right visual container. */
 export function HeroSplit({ eyebrow, title, description, actions, visual, className, ...props }: HeroSplitProps) {
   return (
     <section className={cn("grid grid-cols-1 items-center gap-8 overflow-hidden rounded-xl border border-border bg-card p-8 lg:grid-cols-2 lg:p-12", className)} {...props}>

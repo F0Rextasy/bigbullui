@@ -9,7 +9,7 @@ export interface EmptyColSpanProps extends React.HTMLAttributes<HTMLTableCellEle
   icon?: React.ReactNode;
 }
 
-/** Tablo boş kolon hücresi: "veri yok" yer tutucusu. */
+/** Empty column span table cell placeholder for empty states. */
 export function EmptyColSpan({ colSpan = 1, message = "Veri yok", icon, className, ...props }: EmptyColSpanProps) {
   return (
     <td colSpan={colSpan} className={cn("px-4 py-10 text-center", className)} {...props}>

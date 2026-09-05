@@ -32,9 +32,9 @@ const STATUS_TONE: Record<UserStatus, string> = {
   suspended: "text-destructive",
 };
 
-const STATUS_LABEL: Record<UserStatus, string> = { active: "Aktif", invited: "Davetli", suspended: "Askıda" };
+const STATUS_LABEL: Record<UserStatus, string> = { active: "Active", invited: "Invited", suspended: "Suspended" };
 
-/** Kullanıcı yönetim tablosu: rol rozeti + durum + kaldırma eylemi. */
+/** User management table: role badge + status + remove action. */
 export function UserTable({ users, onRemove, className, ...props }: UserTableProps) {
   const [removed, setRemoved] = React.useState<string[]>([]);
   const visible = users.filter((u) => !removed.includes(u.id));
@@ -49,10 +49,10 @@ export function UserTable({ users, onRemove, className, ...props }: UserTablePro
         <table className="w-full min-w-max text-sm">
           <thead>
             <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-              <th className="px-4 py-2.5 text-left font-medium">Kullanıcı</th>
+              <th className="px-4 py-2.5 text-left font-medium">User</th>
               <th className="px-4 py-2.5 text-left font-medium">Rol</th>
               <th className="px-4 py-2.5 text-left font-medium">Durum</th>
-              <th className="px-4 py-2.5 text-right font-medium">İşlem</th>
+              <th className="px-4 py-2.5 text-right font-medium">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -99,7 +99,7 @@ export function UserTable({ users, onRemove, className, ...props }: UserTablePro
         </table>
       </div>
       {visible.length === 0 && (
-        <p className="p-6 text-center text-sm text-muted-foreground">Tüm kullanıcılar kaldırıldı.</p>
+        <p className="p-6 text-center text-sm text-muted-foreground">All users have been removed.</p>
       )}
     </div>
   );

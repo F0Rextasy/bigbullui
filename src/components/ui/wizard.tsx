@@ -7,7 +7,7 @@ export interface WizardStep {
   id: string;
   title: string;
   description?: string;
-  /** adım doğrulaması — false dönerse ilerlenmez */
+  /** Step validation callback — step does not advance if returns false */
   validate?: () => boolean;
 }
 
@@ -17,7 +17,7 @@ export interface WizardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode[];
 }
 
-/** Tam sayfa sihirbaz: ileri/geri + adım doğrulama + ilerleme göstergesi. */
+/** Multi-step form wizard: next/back + step validation + progress bar. */
 export function Wizard({ steps, onFinish, children, className, ...props }: WizardProps) {
   const [current, setCurrent] = React.useState(0);
   const [error, setError] = React.useState(false);
@@ -44,8 +44,8 @@ export function Wizard({ steps, onFinish, children, className, ...props }: Wizar
         @keyframes wzShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
       `}</style>
 
-      {/* Adım göstergesi */}
-      <ol className="flex items-center gap-2" aria-label="Adımlar">
+      {/* Step indicators */}
+      <ol className="flex items-center gap-2" aria-label="Wizard steps">
         {steps.map((s, i) => (
           <li key={s.id} className="flex flex-1 items-center gap-2">
             <span
@@ -64,7 +64,7 @@ export function Wizard({ steps, onFinish, children, className, ...props }: Wizar
         ))}
       </ol>
 
-      {/* İçerik */}
+      {/* Step content */}
       <div key={step.id} className={cn("mt-6 min-h-32", error && "animate-[wzShake_0.3s_ease-out] motion-reduce:animate-none")}>
         <h3 className="text-base font-semibold animate-[wzIn_0.3s_ease-out_both] motion-reduce:animate-none">{step.title}</h3>
         {step.description && <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>}
@@ -89,7 +89,7 @@ export function Wizard({ steps, onFinish, children, className, ...props }: Wizar
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >
-          {isLast ? "Tamamla" : "İleri →"}
+          {isLast ? "Complete" : "Next →"}
         </button>
       </div>
     </div>

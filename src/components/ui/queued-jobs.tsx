@@ -17,13 +17,13 @@ export interface QueuedJobsProps extends React.HTMLAttributes<HTMLDivElement> {
   onCancel?: (id: string) => void;
 }
 
-/** Kuyruktaki işler: durum + ilerleme + iptal. */
+/** Background queued jobs: status + progress bar + cancel action. */
 export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsProps) {
   const [list, setList] = React.useState(jobs);
 
   const statusMeta: Record<QueueJobStatus, { label: string; tone: string }> = {
     queued: { label: "Kuyrukta", tone: "text-muted-foreground" },
-    running: { label: "Çalışıyor", tone: "text-accent" },
+    running: { label: "Running", tone: "text-accent" },
     done: { label: "Bitti", tone: "text-emerald-600" },
     failed: { label: "Hata", tone: "text-destructive" },
   };
@@ -47,7 +47,7 @@ export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsPr
                 <button
                   onClick={() => { setList((l) => l.filter((j) => j.id !== job.id)); onCancel?.(job.id); }}
                   className="shrink-0 rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-                  aria-label={`${job.label} işini iptal et`}
+                  aria-label={`Cancel ${job.label}`}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
                 </button>
@@ -61,7 +61,7 @@ export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsPr
           </div>
         );
       })}
-      {list.length === 0 && <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">Kuyruk boş.</p>}
+      {list.length === 0 && <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">Queue is empty.</p>}
     </div>
   );
 }

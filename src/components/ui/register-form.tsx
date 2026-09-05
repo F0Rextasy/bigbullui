@@ -8,7 +8,7 @@ export interface RegisterFormProps extends Omit<React.HTMLAttributes<HTMLFormEle
   termsHref?: string;
 }
 
-/** Kayıt formu: ad/e-posta/şifre + şartlar onayı + canlı doğrulama. */
+/** Registration form: name/email/password + terms consent + live validation. */
 export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }: RegisterFormProps) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -18,7 +18,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const strength = password.length === 0 ? 0 : password.length < 6 ? 1 : password.length < 10 ? 2 : /[A-Z]/.test(password) && /[0-9]/.test(password) ? 3 : 2;
-  const strengthLabels = ["", "ZAYIF", "ORTA", "GÜÇLÜ"];
+  const strengthLabels = ["", "WEAK", "MEDIUM", "STRONG"];
   const strengthColors = ["", "bg-destructive", "bg-amber-500", "bg-emerald-500"];
 
   const valid = name.trim().length >= 2 && emailValid && password.length >= 6 && agreed;
@@ -64,7 +64,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
       </div>
 
       <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_0.12s_both] motion-reduce:animate-none">
-        <label htmlFor="reg-password" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Şifre</label>
+        <label htmlFor="reg-password" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
         <input
           id="reg-password"
           type="password"
@@ -94,7 +94,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
       <label className="flex cursor-pointer items-start gap-2 text-xs animate-[regIn_0.3s_ease-out_0.18s_both] motion-reduce:animate-none select-none">
         <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 size-3.5 accent-accent" />
         <span className="text-muted-foreground">
-          <a href={termsHref} className="text-accent hover:underline">Kullanım şartlarını</a> ve gizlilik politikasını okudum, kabul ediyorum.
+          I have read and agree to the <a href={termsHref} className="text-accent hover:underline">Terms of Service</a> and Privacy Policy.
         </span>
       </label>
 
@@ -109,7 +109,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
           "animate-[regIn_0.3s_ease-out_0.24s_both] motion-reduce:animate-none"
         )}
       >
-        Hesap oluştur
+        Create Account
       </button>
     </form>
   );

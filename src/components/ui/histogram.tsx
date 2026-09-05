@@ -14,7 +14,7 @@ export interface HistogramProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number;
 }
 
-/** Histogram: aralıklı bitişik çubuklar + hover detay. */
+/** Frequency histogram chart: contiguous bars + tooltip hover. */
 export function Histogram({ bins, height = 180, className, ...props }: HistogramProps) {
   const max = Math.max(...bins.map((b) => b.count), 1);
   const [hover, setHover] = React.useState<string | null>(null);

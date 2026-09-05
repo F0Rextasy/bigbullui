@@ -14,7 +14,7 @@ export interface ScoreKeeperProps extends React.HTMLAttributes<HTMLDivElement> {
   onScoreChange?: (teamId: string, delta: number) => void;
 }
 
-/** Skor tutucu: iki takım + +1/-1 butonları + rakam değişim animasyonu. */
+/** Score keeper counter: dual teams + increment controls + counter animation. */
 export function ScoreKeeper({ teams, onScoreChange, className, ...props }: ScoreKeeperProps) {
   const [scores, setScores] = React.useState<[number, number]>([teams[0].score, teams[1].score]);
   const [pulse, setPulse] = React.useState<string | null>(null);
@@ -53,7 +53,7 @@ export function ScoreKeeper({ teams, onScoreChange, className, ...props }: Score
             <button
               onClick={() => change(teamIdx as 0 | 1, 1)}
               className="flex size-6 items-center justify-center rounded-sm border border-border font-mono text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-              aria-label={`${team.name} skoru artır`}
+              aria-label={`Increase score for ${team.name}`}
             >
               +
             </button>

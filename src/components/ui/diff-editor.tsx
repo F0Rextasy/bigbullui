@@ -11,7 +11,7 @@ export interface DiffEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   onAfterChange?: (v: string) => void;
 }
 
-/** Yan yana düzenlenebilir diff görünümü. */
+/** Side-by-side editable diff comparison editor. */
 export function DiffEditor({ before, after, readOnly, onBeforeChange, onAfterChange, className, ...props }: DiffEditorProps) {
   const beforeLines = before.split("\n");
   const afterLines = after.split("\n");
@@ -33,7 +33,7 @@ export function DiffEditor({ before, after, readOnly, onBeforeChange, onAfterCha
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
       <style>{`@keyframes deIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
       <div className="grid grid-cols-2 divide-x divide-border border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-        <span className="px-3 py-1.5">Önce</span>
+        <span className="px-3 py-1.5">Original</span>
         <span className="px-3 py-1.5">Sonra</span>
       </div>
       <div className="grid max-h-64 grid-cols-2 divide-x divide-border overflow-auto">
@@ -41,7 +41,7 @@ export function DiffEditor({ before, after, readOnly, onBeforeChange, onAfterCha
           value={before}
           onChange={(e) => onBeforeChange?.(e.target.value)}
           readOnly={readOnly}
-          aria-label="Önceki sürüm"
+          aria-label="Previous version"
           spellCheck={false}
           className="min-h-40 resize-none bg-transparent p-3 font-mono text-xs leading-5 text-foreground focus-visible:outline-none"
         />
@@ -49,7 +49,7 @@ export function DiffEditor({ before, after, readOnly, onBeforeChange, onAfterCha
           value={after}
           onChange={(e) => onAfterChange?.(e.target.value)}
           readOnly={readOnly}
-          aria-label="Sonraki sürüm"
+          aria-label="Next version"
           spellCheck={false}
           className={cn(
             "min-h-40 resize-none bg-transparent p-3 font-mono text-xs leading-5 text-foreground focus-visible:outline-none animate-[deIn_0.3s_ease-out] motion-reduce:animate-none",

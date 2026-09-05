@@ -8,7 +8,7 @@ export interface PunchClockProps extends React.HTMLAttributes<HTMLDivElement> {
   onPunch?: (time: string, type: "in" | "out") => void;
 }
 
-/** Puantaj saati: kart girer + zaman damgası + giriş/çıkış tipi ★ */
+/** Time punch clock: timestamp card + clock in/out tracking. */
 export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...props }: PunchClockProps) {
   const [punches, setPunches] = React.useState<{ time: string; type: "in" | "out" }[]>([]);
   const [now, setNow] = React.useState(new Date());
@@ -39,24 +39,24 @@ export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...prop
           onClick={() => punch("in")}
           className="rounded-md border-2 border-emerald-500/50 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-600 transition-colors hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 motion-reduce:transition-none"
         >
-          Giriş
+          Clock In
         </button>
         <button
           onClick={() => punch("out")}
           className="rounded-md border-2 border-destructive/50 py-1.5 font-mono text-[10px] uppercase tracking-wider text-destructive transition-colors hover:bg-destructive hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
         >
-          Çıkış
+          Clock Out
         </button>
       </div>
 
-      {/* Son kayıtlar */}
+      {/* Recent punches */}
       <ul className="mt-3 space-y-1">
         {punches.map((p, idx) => (
           <li
             key={`${p.time}-${p.type}-${idx}`}
             className="flex items-center justify-between rounded-sm border border-dashed border-border/60 bg-secondary/30 px-2 py-1 font-mono text-[10px] animate-[pcFeed_0.3s_ease-out_both] motion-reduce:animate-none"
           >
-            <span className={p.type === "in" ? "text-emerald-600" : "text-destructive"}>{p.type === "in" ? "↓ GİRİŞ" : "↑ ÇIKIŞ"}</span>
+            <span className={p.type === "in" ? "text-emerald-600" : "text-destructive"}>{p.type === "in" ? "↓ IN" : "↑ OUT"}</span>
             <span className="tabular-nums text-foreground">{p.time}</span>
           </li>
         ))}

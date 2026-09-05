@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports -- CLI runs on plain Node, require() is intentional */
 
 /**
  * bigbullui CLI

@@ -9,7 +9,7 @@ export interface GiftMessageProps extends React.HTMLAttributes<HTMLDivElement> {
   onOpen?: () => void;
 }
 
-/** Hediye mesajı kartı: kurdele + zarf açma animasyonu. */
+/** Gift message card: ribbon badge + envelope reveal animation. */
 export function GiftMessage({ from, message, onOpen, className, ...props }: GiftMessageProps) {
   const [opened, setOpened] = React.useState(false);
 
@@ -24,11 +24,11 @@ export function GiftMessage({ from, message, onOpen, className, ...props }: Gift
         <button
           onClick={() => { setOpened(true); onOpen?.(); }}
           className="group relative w-full overflow-hidden rounded-lg border-2 border-dashed border-accent/60 bg-card p-6 text-center transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
-          aria-label="Hediyeyi aç"
+          aria-label="Open gift"
         >
           <span className="mx-auto mb-3 block w-max animate-[gmRibbon_2s_ease-in-out_infinite] motion-reduce:animate-none text-3xl" aria-hidden="true">🎁</span>
-          <span className="block font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{from} tarafaından hediye</span>
-          <span className="mt-1 block text-sm font-medium text-accent">Açmak için dokun</span>
+          <span className="block font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Gift from {from}</span>
+          <span className="mt-1 block text-sm font-medium text-accent">Tap to open</span>
         </button>
       ) : (
         <div className="rounded-lg border border-accent/50 bg-gradient-to-br from-accent/10 to-card p-5 animate-[gmPop_0.4s_cubic-bezier(0.34,1.56,0.64,1)_both] motion-reduce:animate-none">
