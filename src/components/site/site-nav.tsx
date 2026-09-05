@@ -32,7 +32,7 @@ export async function SiteNav() {
             Home
           </Link>
           <Link href="/docs" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            Components
+            Docs
           </Link>
           <a
             href="https://github.com/F0Rextasy/bigbullui"

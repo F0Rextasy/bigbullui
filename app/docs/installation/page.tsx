@@ -35,11 +35,11 @@ export default function InstallationPage() {
       </Step>
 
       <Step n="A · 02" title="Add the design tokens">
-          <CodeBox code={cssSetup} />
+          <CodeBox code={cssSetup} block />
       </Step>
 
       <Step n="A · 03" title="Use any component">
-          <CodeBox code={npmUsage} />
+          <CodeBox code={npmUsage} block />
       </Step>
 
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/40 p-5">

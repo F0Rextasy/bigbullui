@@ -47,7 +47,7 @@ export default function AgentsPage() {
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">SKILL.md</h2>
-        <CodeBox code={skill} maxHeight="480px" />
+        <CodeBox code={skill} block maxHeight="480px" />
       </section>
     </article>
   );

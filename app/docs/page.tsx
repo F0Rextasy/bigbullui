@@ -21,7 +21,7 @@ export default function DocsIndex() {
       <div>
         <h1 className="text-4xl font-semibold tracking-[-0.03em]">Components</h1>
         <p className="mt-2 text-muted-foreground">
-          Animated, accessible React components with zero dependencies. Search or browse by category.
+          Animated, accessible open-source React components. Search or browse by category.
         </p>
       </div>
 
@@ -34,8 +34,8 @@ export default function DocsIndex() {
         <p className="text-sm text-muted-foreground">
           Add the design tokens to your global CSS:
         </p>
-          <CodeBox code={installCss} />
-          <CodeBox code={installUsage} />
+          <CodeBox code={installCss} block />
+          <CodeBox code={installUsage} block />
       </section>
 
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/40 p-6">
@@ -46,7 +46,7 @@ export default function DocsIndex() {
         <p className="text-sm text-muted-foreground">
           Paste SKILL.md into any coding agent. It covers installation, tokens, components and rules.
         </p>
-          <CodeBox code={skillMd} maxHeight="256px" />
+          <CodeBox code={skillMd} block maxHeight="256px" />
       </section>
 
       <DocsExplorer components={components} />

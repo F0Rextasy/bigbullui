@@ -1,6 +1,6 @@
 # bigbullui skill
 
-Use bigbullui components in any React + Tailwind CSS v4 project. Zero dependencies beyond React and Tailwind.
+Use bigbullui components in any React + Tailwind CSS v4 project. Open source, MIT licensed.
 
 ## Install (npm)
 
@@ -31,7 +31,7 @@ No install needed. Copy files from `src/components/ui/` (plus the `cn` helper at
 
 ## Components
 
-Button, Input, Textarea, Card, Badge, Accordion, Dialog, Tabs, Tooltip, Switch, Checkbox, RadioGroup, Slider, Progress, Avatar, Alert. Every file is self-contained (imports only `react` + `./lib/utils`).
+Full catalog lives in `src/lib/registry-site.ts` (source of truth) and on the docs site, grouped as form, display, feedback and navigation — Button, Input, Dialog, Tabs, Toast, Table, Barcode, Ticket Card and many more. Every file is self-contained (imports only `react` + `./lib/utils`).
 
 ## Rules for generated code
 

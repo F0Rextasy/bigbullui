@@ -14,10 +14,10 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-6 pb-16 pt-24 text-center">
         <Badge variant="accent" className="mx-auto animate-[fade-in-up_0.5s_ease-out_both]">
-          MIT · Zero dependencies
+          MIT · Open source
         </Badge>
         <h1 className="mx-auto mt-6 max-w-4xl text-6xl font-semibold leading-[0.96] tracking-[-0.04em] sm:text-7xl md:text-8xl">
-          Beautiful React<br className="hidden sm:block" /> components with zero dependencies.
+          Open-source React<br className="hidden sm:block" /> components you own.
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
           Animated, accessible pieces. Install the package or copy the source — own the code
@@ -38,7 +38,7 @@ export default function Home() {
                 "inline-flex h-12 cursor-pointer items-center rounded-md border border-border bg-transparent px-7 text-base font-medium transition-colors hover:bg-secondary"
               )}
             >
-              Installation
+              Get started
             </Link>
           </div>
         </div>

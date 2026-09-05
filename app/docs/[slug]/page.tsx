@@ -846,9 +846,20 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
   const source = readFileSync(join(process.cwd(), "src", "components", "ui", `${meta.name}.tsx`), "utf8");
   const propsList = propsDocs[meta.name] ?? [];
+  const idx = components.findIndex((component) => component.name === slug);
+  const prev = idx > 0 ? components[idx - 1] : undefined;
+  const next = idx >= 0 && idx < components.length - 1 ? components[idx + 1] : undefined;
+  const toc = [
+    { id: "preview", label: "Preview" },
+    { id: "install", label: "Install" },
+    { id: "usage", label: "Usage" },
+    ...(propsList.length > 0 ? [{ id: "props", label: "Props" }] : []),
+    { id: "source", label: "Source" },
+  ];
 
   return (
-    <article className="space-y-10">
+    <div className="flex items-start gap-10">
+    <article className="min-w-0 flex-1 space-y-10">
       <header className="space-y-3">
         <div className="flex items-center gap-2">
           <Badge variant="accent">Component</Badge>
@@ -861,12 +872,12 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       </header>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Preview</h2>
+        <h2 id="preview" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Preview</h2>
         <ComponentPreview name={meta.name} />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Install</h2>
+        <h2 id="install" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Install</h2>
           <CodeBox code="npm install bigbullui" />
         <p className="text-xs text-muted-foreground">
           Then add the tokens — <Link href="/docs/installation" className="underline">full guide</Link>.
@@ -874,13 +885,13 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
-          <CodeBox code={usage[meta.name] ?? ""} />
+        <h2 id="usage" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
+          <CodeBox code={usage[meta.name] ?? ""} block />
       </section>
 
       {propsList.length > 0 ? (
         <section className="space-y-3">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Props</h2>
+          <h2 id="props" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Props</h2>
           <div className="overflow-hidden rounded-lg border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary text-left text-muted-foreground">
@@ -905,8 +916,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       ) : null}
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source</h2>
-          <CodeBox code={source} maxHeight="480px" />
+        <h2 id="source" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source</h2>
+          <CodeBox code={source} block maxHeight="480px" />
         <p className="text-xs text-muted-foreground">
           Copy this file into your project. It only imports React and the{" "}
           <code className="font-mono">cn</code> helper from{" "}
@@ -914,11 +925,39 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         </p>
       </section>
 
-      <footer>
-        <Link href="/docs" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-          ← All components
-        </Link>
-      </footer>
+      <nav aria-label="More components" className="flex items-center justify-between gap-4 border-t border-border pt-6">
+        {prev ? (
+          <Link href={`/docs/${prev.name}`} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            ← {prev.title}
+          </Link>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link href={`/docs/${next.name}`} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            {next.title} →
+          </Link>
+        ) : (
+          <span />
+        )}
+      </nav>
     </article>
+    <aside className="hidden w-48 shrink-0 xl:block">
+      <nav aria-label="On this page" className="sticky top-24 space-y-1">
+        <p className="mb-2 px-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          On this page
+        </p>
+        {toc.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className="block rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </aside>
+    </div>
   );
 }

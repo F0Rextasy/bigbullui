@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s — bigbullui",
   },
   description:
-    "A copy-paste library of animated, accessible, fully typed React components. No dependencies — just React, Tailwind, and SVG.",
+    "An open-source library of animated, accessible, fully typed React components. Copy the code, own it.",
 };
 
 const themeScript = `(function(){try{var t=localStorage.getItem("bigbullui-theme")||"system";var d=t==="dark"||(t==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;

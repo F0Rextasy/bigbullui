@@ -10,7 +10,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # bigbullui conventions
 
-Zero-dependency React 19 + Tailwind CSS 4 component library with Ticket Stub identity. MIT licensed.
+Open-source React 19 + Tailwind CSS 4 component library. Components import only `react` + `./lib/utils`. MIT licensed.
+Agent kit: `SKILL.md` (usage), `DESIGN.md` (design system), `CONTRIBUTING.md` (how to add components).
 
 ## Hard rules
 - `src/components/ui/*` files may import ONLY `react` and `./lib/utils`. Verify: grep for `from "` in that dir — nothing else may appear. No motion, radix, lucide, cva, clsx, tailwind-merge, next-themes, shiki in component sources.

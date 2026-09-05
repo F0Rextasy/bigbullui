@@ -121,7 +121,7 @@ export const components: ComponentMeta[] = [
   { name: "drawer", title: "Drawer", description: "Bottom slide-up drawer with pull handle, backdrop blur, and focus trap.", category: "feedback" },
   { name: "announcement-bar", title: "Announcement Bar", description: "Festival alert and headline announcement ribbon bar with perforated top/bottom tear lines, countdown urgency badge, action CTA button, and dismiss action.", category: "feedback" },
   { name: "status-dot", title: "Status Dot", description: "Live status beacon with radar sweep pulse, glow rings and occupancy levels.", category: "display" },
-  { name: "donut-chart", title: "Donut Chart", description: "Interactive zero-dependency SVG donut and pie chart with segment hover highlight, tooltips, center total readout, and custom color legend.", category: "display" },
+  { name: "donut-chart", title: "Donut Chart", description: "Interactive SVG donut and pie chart with segment hover highlight, tooltips, center total readout, and custom color legend.", category: "display" },
 
   // Navigation (17)
   { name: "tabs", title: "Tabs", description: "Segmented panel switch with roving keyboard focus.", category: "navigation" },

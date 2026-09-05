@@ -2030,7 +2030,7 @@ const previews: Record<string, React.ComponentType> = {
     <Accordion defaultValue="what" className="w-full max-w-sm">
       <AccordionItem value="what">
         <AccordionTrigger>What is bigbullui?</AccordionTrigger>
-        <AccordionContent>A zero-dependency React 19 component library with ticket identity.</AccordionContent>
+            <AccordionContent>An open-source React 19 component library.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="free">
         <AccordionTrigger>Is it free?</AccordionTrigger>

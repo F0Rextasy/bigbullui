@@ -1,14 +1,13 @@
 # bigbullui
 
-> Animated React components you own. No dependencies beyond React, Tailwind, and SVG.
+> Animated React components you own. Open source, MIT licensed.
 
 [![npm version](https://badge.fury.io/js/bigbullui.svg)](https://www.npmjs.com/package/bigbullui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/F0Rextasy/bigbullui/blob/main/LICENSE)
-[![Zero dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg)](https://www.npmjs.com/package/bigbullui)
 
 ## Features
 
-- **Zero dependencies** — every component imports only `react` and a tiny `cn` helper
+- **Open source** — MIT licensed, copy the code and own it
 - **Fully typed** — complete TypeScript definitions for every prop
 - **Accessible by default** — WAI-ARIA patterns, keyboard navigation, focus management, `prefers-reduced-motion` support
 - **Light + dark themes** — design tokens switch with a single `.dark` class
@@ -81,6 +80,8 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`seat-map`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/seat-map.tsx) | Seat Map | Interactive arena seating chart matrix grid with row letters, seat numbers, tier types, and price calculator. |
 | [`keypad`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/keypad.tsx) | Keypad | Numeric PIN keypad with tactile mechanical keys, visual pulse, and masked PIN display. |
 | [`tag-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tag-input.tsx) | Tag Input | Tag input with pill chip badges, remove buttons, backspace deletion, and dashed container. |
+| [`split-button`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/split-button.tsx) | Split Button | Primary action button with attached dropdown menu. |
+| [`radio-cards`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/radio-cards.tsx) | Radio Cards | Selectable card group with grid orientation. |
 
 </details>
 
@@ -138,7 +139,10 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`activity-feed`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/activity-feed.tsx) | Activity Feed | Universal user and team activity stream for deployments, invites, edits, and security audits with timeline avatars, action badges, relative timestamps, and event icons. |
 | [`credit-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/credit-card.tsx) | Credit Card | Universal payment card visualizer with real-time card number formatting, brand badge detection (Visa, Mastercard, Amex), metallic EMV chip, and interactive 3D flip card to show CVV. |
 | [`status-dot`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/status-dot.tsx) | Status Dot | Live status beacon with radar sweep pulse, glow rings and occupancy levels. |
-| [`donut-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/donut-chart.tsx) | Donut Chart | Interactive zero-dependency SVG donut and pie chart with segment hover highlight, tooltips, center total readout, and custom color legend. |
+| [`donut-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/donut-chart.tsx) | Donut Chart | Interactive SVG donut and pie chart with segment hover highlight, tooltips, center total readout, and custom color legend. |
+| [`trend-badge`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/trend-badge.tsx) | Trend Badge | Stamped trend badge with direction arrow, velocity levels and live pulse. |
+| [`meter`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/meter.tsx) | Meter | Gauge meter with zones, ticks and status readout. |
+| [`badge-ribbon`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/badge-ribbon.tsx) | Badge Ribbon | Rosette award ribbon with rank and color themes. |
 
 </details>
 
@@ -163,6 +167,7 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`hover-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/hover-card.tsx) | Hover Card | Popover preview on hover and focus with configurable delays and alignment. |
 | [`drawer`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/drawer.tsx) | Drawer | Bottom slide-up drawer with pull handle, backdrop blur, and focus trap. |
 | [`announcement-bar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/announcement-bar.tsx) | Announcement Bar | Festival alert and headline announcement ribbon bar with perforated top/bottom tear lines, countdown urgency badge, action CTA button, and dismiss action. |
+| [`callout`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/callout.tsx) | Callout | Dismissible notice box with tone variants. |
 
 </details>
 
@@ -201,7 +206,7 @@ WAI-ARIA patterns throughout: roving tabindex in Tabs and Radio groups, focus tr
 
 ## Contributing
 
-Issues and pull requests are welcome. Please keep components zero-dependency (`react` + `./lib/utils` only), typed, keyboard accessible, and documented with a docs page entry.
+Issues and pull requests are welcome. Please keep components dependency-free (`react` + `./lib/utils` only), typed, keyboard accessible, and documented with a docs page entry.
 
 ## License
 

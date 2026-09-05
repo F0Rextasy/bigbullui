@@ -36,7 +36,7 @@ export type CodeBlockProps = Omit<React.HTMLAttributes<HTMLDivElement>, "onCopy"
   onCopy?: (code: string) => void;
 }
 
-/** Lightweight regex tokenizer for zero-dependency syntax highlighting */
+/** Lightweight regex tokenizer (no parser dependency) for syntax highlighting */
 function tokenizeLine(line: string, isTerminal: boolean): React.ReactNode {
   if (!line) {
     return " ";

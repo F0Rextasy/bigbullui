@@ -74,6 +74,30 @@ export function DocSidebar() {
               <span>AI Agents</span>
               {pathname === "/docs/agents" && <span>•</span>}
             </Link>
+            <Link
+              href="/docs/contributing"
+              className={cn(
+                "flex items-center justify-between rounded-md px-2 py-1.5 font-mono text-xs transition-colors",
+                pathname === "/docs/contributing"
+                  ? "bg-accent font-bold text-accent-foreground"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              )}
+            >
+              <span>Contributing</span>
+              {pathname === "/docs/contributing" && <span>•</span>}
+            </Link>
+            <Link
+              href="/docs/design"
+              className={cn(
+                "flex items-center justify-between rounded-md px-2 py-1.5 font-mono text-xs transition-colors",
+                pathname === "/docs/design"
+                  ? "bg-accent font-bold text-accent-foreground"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              )}
+            >
+              <span>Design</span>
+              {pathname === "/docs/design" && <span>•</span>}
+            </Link>
           </div>
         ) : null}
       </div>

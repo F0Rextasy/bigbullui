@@ -142,7 +142,7 @@ export function Playground() {
           <Accordion type="single" defaultValue="a" className="w-full max-w-sm">
             <AccordionItem value="a">
               <AccordionTrigger>What is bigbullui?</AccordionTrigger>
-              <AccordionContent>Zero-dependency components for React.</AccordionContent>
+              <AccordionContent>Open-source components for React.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="b">
               <AccordionTrigger>Is it free?</AccordionTrigger>

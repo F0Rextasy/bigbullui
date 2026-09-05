@@ -1,7 +1,7 @@
 {
   "name": "bigbullui",
   "version": "0.1.0",
-  "description": "Animated React components you own. No dependencies beyond React, Tailwind, and SVG.",
+  "description": "Open-source React components you own. Copy-paste friendly, MIT licensed.",
   "license": "MIT",
   "author": "F0Rextasy",
   "homepage": "https://github.com/F0Rextasy/bigbullui#readme",
@@ -18,8 +18,7 @@
     "ui",
     "tailwindcss",
     "typescript",
-    "accessible",
-    "zero-dependency"
+    "accessible"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -53,12 +52,6 @@
     "start": "next start",
     "lint": "eslint"
   },
-  "dependencies": {
-    "next": "16.3.4",
-    "oh-my-codex": "^0.21.3",
-    "react": ">=18",
-    "react-dom": ">=18"
-  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
@@ -66,6 +59,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "tailwindcss": "^4",
     "tsup": "^8",
     "typescript": "^5"
