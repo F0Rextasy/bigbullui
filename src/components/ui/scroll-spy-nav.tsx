@@ -80,7 +80,7 @@ export function ScrollSpyNav({ sections, className }: ScrollSpyNavProps) {
       <div className="flex space-x-1">
         {sections.map((section, i) => {
           const isActive = i === activeIndex;
-          const onClick = React.useCallback(() => {
+          const onClick = () => {
             setActiveIndex(i);
             // Smooth scroll with reduced-motion respect
             const target = document.getElementById(section.id);
@@ -94,7 +94,7 @@ export function ScrollSpyNav({ sections, className }: ScrollSpyNavProps) {
                 target.scrollIntoView({ behavior: "smooth" });
               }
             }
-          }, [section.id, i]);
+          };
 
           return (
             <button

@@ -62,10 +62,10 @@ export function FlyoutMenu({
           )}
         >
           {items.map((item) => {
-            const handleClick = React.useCallback(() => {
+            const handleClick = () => {
               onSelect?.(item.id);
               setOpen(false);
-            }, [onSelect, item.id]);
+            };
 
             return (
               <button
