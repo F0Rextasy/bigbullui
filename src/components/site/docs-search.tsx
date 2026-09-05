@@ -18,7 +18,11 @@ function categoryName(id: string): string {
   return categories.find((c) => c.id === id)?.name ?? "Components";
 }
 
-export function DocsSearch() {
+export function DocsSearch({
+  trigger,
+}: {
+  trigger?: (setOpen: (open: boolean) => void) => React.ReactNode;
+} = {}) {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
@@ -57,17 +61,21 @@ export function DocsSearch() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-dashed border-border bg-transparent px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-foreground/50 hover:text-foreground"
-      >
-        <span>Search components...</span>
-        <span className="flex items-center gap-1">
-          <Kbd>⌘</Kbd>
-          <Kbd>K</Kbd>
-        </span>
-      </button>
+      {trigger ? (
+        trigger(setOpen)
+      ) : (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-dashed border-border bg-transparent px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-foreground/50 hover:text-foreground"
+        >
+          <span>Search components...</span>
+          <span className="flex items-center gap-1">
+            <Kbd>⌘</Kbd>
+            <Kbd>K</Kbd>
+          </span>
+        </button>
+      )}
       <CommandPalette
         open={open}
         onOpenChange={setOpen}

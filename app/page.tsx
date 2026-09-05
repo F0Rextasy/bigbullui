@@ -37,7 +37,7 @@ export default function Home() {
       <SiteNav />
 
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-6 pb-16 pt-16 text-center sm:pt-24">
+      <section className="mx-auto max-w-6xl px-4 pb-12 pt-12 text-center sm:px-6 sm:pb-16 sm:pt-24">
         {/* Release / Announcement Pill */}
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1 text-xs transition-colors hover:bg-secondary">
           <span className="flex h-2 w-2 rounded-full bg-accent" />
@@ -49,7 +49,7 @@ export default function Home() {
         </div>
 
         {/* Hero Title */}
-        <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-6xl md:text-7xl">
+        <h1 className="mx-auto mt-6 max-w-4xl text-3xl font-semibold leading-[1.1] tracking-[-0.04em] sm:text-6xl md:text-7xl">
           Build modern web applications with components you own.
         </h1>
 
@@ -92,7 +92,7 @@ export default function Home() {
         </div>
 
         {/* Hero Showcase Demo */}
-        <div className="mt-14 text-left">
+        <div className="mt-10 text-left sm:mt-14">
           <HeroShowcase />
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function Home() {
       <GlowDivider className="mx-auto max-w-5xl" />
 
       {/* Core Highlights / Why bigbullui */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="max-w-2xl">
           <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
             Architected For Speed &amp; Ownership
@@ -132,7 +132,7 @@ export default function Home() {
       <GlowDivider className="mx-auto max-w-5xl" />
 
       {/* Quickstart in 3 Steps */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
@@ -180,7 +180,7 @@ export default function Home() {
       <GlowDivider className="mx-auto max-w-5xl" />
 
       {/* Component Categories Directory */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
@@ -235,7 +235,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-border bg-secondary/50">
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 sm:py-12 sm:grid-cols-3">
           <div>
             <span className="flex items-center gap-2">
               <span aria-hidden className="text-2xl font-bold leading-none">

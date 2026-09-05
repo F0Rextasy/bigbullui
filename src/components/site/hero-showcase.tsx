@@ -33,7 +33,7 @@ export function HeroShowcase() {
   return (
     <div className="w-full overflow-hidden rounded-xl border-2 border-border bg-card shadow-sm">
       {/* Top Header Bar */}
-      <div className="flex flex-wrap items-center justify-between border-b border-border bg-secondary/40 px-4 py-3 sm:px-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/40 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5" aria-hidden="true">
             <span className="h-3 w-3 rounded-full border border-border bg-accent/80" />
@@ -56,8 +56,8 @@ export function HeroShowcase() {
 
       {/* Tabs Navigation */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="p-4 sm:p-6">
-        <div className="flex items-center justify-between overflow-x-auto pb-2">
-          <TabsList className="inline-flex gap-1.5 rounded-lg border border-border bg-secondary/50 p-1">
+        <div className="flex items-center overflow-x-auto pb-2">
+          <TabsList className="inline-flex shrink-0 gap-1.5 whitespace-nowrap rounded-lg border border-border bg-secondary/50 p-1">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="forms">Forms &amp; Auth</TabsTrigger>
             <TabsTrigger value="elements">Core UI &amp; Buttons</TabsTrigger>

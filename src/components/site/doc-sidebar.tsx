@@ -39,16 +39,19 @@ function SidebarLink({
   active,
   isNew = false,
   seen = true,
+  onClick,
 }: {
   href: string;
   label: string;
   active: boolean;
   isNew?: boolean;
   seen?: boolean;
+  onClick?: () => void;
 }) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       aria-current={active ? "page" : undefined}
       className={cn(
         "flex items-center justify-between gap-2.5 rounded-lg px-3 py-2 text-[15px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -94,7 +97,7 @@ export const CORE_ESSENTIALS = new Set([
   "calendar", "date-picker", "color-picker", "code-block"
 ]);
 
-export function DocSidebar() {
+export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
   const pathname = usePathname();
   const seen = useSeen();
 
@@ -170,6 +173,7 @@ export function DocSidebar() {
                 href={guide.href}
                 label={guide.label}
                 active={pathname === guide.href}
+                onClick={onNavigate}
               />
             ))}
           </div>
@@ -220,6 +224,7 @@ export function DocSidebar() {
                     active={pathname === `/docs/${component.name}`}
                     isNew={component.isNew}
                     seen={seen.has(component.name)}
+                    onClick={onNavigate}
                   />
                 ))}
               </div>

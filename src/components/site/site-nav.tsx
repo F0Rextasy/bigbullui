@@ -4,6 +4,7 @@ import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Star } from "@/components/ui/star";
 import { cn } from "@/components/ui/lib/utils";
 import { DocsSearch } from "@/components/site/docs-search";
+import { MobileNav } from "@/components/site/mobile-nav";
 
 async function getStars(): Promise<number | null> {
   try {
@@ -22,7 +23,7 @@ export async function SiteNav() {
   const stars = await getStars();
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="bigbullui home">
           <Image src="/logo.svg" alt="bigbullui logo" width={32} height={32} className="size-8" />
           <span className="text-sm font-semibold tracking-tight">bigbullui</span>
@@ -32,7 +33,9 @@ export async function SiteNav() {
             <DocsSearch />
           </div>
         </div>
-        <nav className="flex shrink-0 items-center gap-4">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden shrink-0 items-center gap-4 md:flex">
           <Link href="/" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Home
           </Link>
@@ -59,6 +62,9 @@ export async function SiteNav() {
             Get started
           </Link>
         </nav>
+
+        {/* Mobile Navigation Controls */}
+        <MobileNav stars={stars} />
       </div>
     </header>
   );

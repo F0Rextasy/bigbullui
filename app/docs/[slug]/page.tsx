@@ -2199,7 +2199,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
             {meta.category}
           </span>
         </div>
-        <h1 className="text-4xl font-semibold tracking-[-0.03em]">{meta.title}</h1>
+        <h1 className="text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">{meta.title}</h1>
         <p className="text-muted-foreground">{meta.description}</p>
       </header>
 
@@ -2255,7 +2255,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       {propsList.length > 0 ? (
         <section className="space-y-3">
           <h2 id="props" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Props</h2>
-          <div className="overflow-hidden rounded-lg border border-border">
+          <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary text-left text-muted-foreground">
                 <tr>

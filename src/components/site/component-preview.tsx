@@ -2508,16 +2508,16 @@ export function ComponentPreview({ name }: { name: string }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-border bg-card shadow-2xs">
+    <div className="w-full overflow-hidden rounded-lg border border-border bg-card shadow-2xs">
       {/* Interactive Canvas Toolbar */}
-      <div className="flex items-center justify-between border-b border-border bg-secondary/40 px-4 py-2 text-xs">
+      <div className="flex items-center justify-between border-b border-border bg-secondary/40 px-3 py-2 text-xs sm:px-4">
         <div className="flex items-center gap-2">
           <span className="size-2 rounded-full bg-accent/70" aria-hidden="true" />
           <span className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
             Live Preview
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={() => setReloadKey((k) => k + 1)}
@@ -2546,7 +2546,7 @@ export function ComponentPreview({ name }: { name: string }) {
       <div
         key={reloadKey}
         className={cn(
-          "flex min-h-52 items-center justify-center p-8 transition-colors",
+          "flex min-h-52 w-full items-center justify-center overflow-x-auto p-4 transition-colors sm:p-8",
           isDark ? "dark bg-background text-foreground" : "bg-card text-foreground"
         )}
       >
