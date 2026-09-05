@@ -48,3 +48,10 @@ server.log
 
 .omocode/
 .omo/
+
+# workspace scratch (never commit)
+TODO.md
+CLAUDE.md
+docs/superpowers/
+.omo/
+.omx/
