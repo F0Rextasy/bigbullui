@@ -31,14 +31,13 @@ function formatTimeAgo(date: Date | number | string): string {
 const TimeAgo = ({ date, live = true }: TimeAgoProps) => {
   const [text, setText] = React.useState(() => formatTimeAgo(date));
 
-  if (live) {
-    React.useEffect(() => {
-      const interval = setInterval(() => {
-        setText(formatTimeAgo(date));
-      }, 30_000);
-      return () => clearInterval(interval);
-    }, [date]);
-  }
+  React.useEffect(() => {
+    if (!live) return;
+    const interval = setInterval(() => {
+      setText(formatTimeAgo(date));
+    }, 30_000);
+    return () => clearInterval(interval);
+  }, [live, date]);
 
   return (
     <div

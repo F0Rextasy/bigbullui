@@ -12,6 +12,7 @@ export type SpotlightProps = {
 
 export function Spotlight({ targetRef, padding = 24, title, description }: SpotlightProps) {
   const [visible, setVisible] = React.useState(false);
+  const overlayRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const element = targetRef.current;
@@ -25,10 +26,6 @@ export function Spotlight({ targetRef, padding = 24, title, description }: Spotl
     return () => observer.disconnect();
   }, [targetRef, padding]);
 
-  if (!visible) return null;
-
-  const overlayRef = React.useRef<HTMLDivElement>(null);
-
   React.useEffect(() => {
     if (!visible || !overlayRef.current) return;
 
@@ -40,6 +37,8 @@ export function Spotlight({ targetRef, padding = 24, title, description }: Spotl
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [visible]);
+
+  if (!visible) return null;
 
   const targetBox = targetRef.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 };
 
