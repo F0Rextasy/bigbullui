@@ -7,15 +7,46 @@ const interTight = Inter_Tight({ variable: "--font-inter-tight", subsets: ["lati
 const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bigbullui.com"),
   title: {
     default: "bigbullui — Animated React components you own",
     template: "%s — bigbullui",
   },
   description:
     "An open-source library of animated, accessible, fully typed React components. Copy the code, own it.",
+  keywords: [
+    "react",
+    "react 19",
+    "components",
+    "tailwindcss",
+    "tailwind v4",
+    "ui library",
+    "ticket stub",
+    "retro ui",
+    "design tokens",
+    "accessible",
+  ],
+  authors: [{ name: "F0Rextasy", url: "https://github.com/F0Rextasy" }],
+  creator: "F0Rextasy",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://bigbullui.com",
+    siteName: "bigbullui",
+    title: "bigbullui — Animated React components you own",
+    description:
+      "An open-source library of 460+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "bigbullui — Animated React components you own",
+    description:
+      "An open-source library of 460+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
+    creator: "@F0Rextasy",
+  },
   icons: {
-    icon: "/icon",
-    apple: "/apple-icon",
+    icon: "/icon.svg",
+    apple: "/apple-icon.png",
   },
 };
 

@@ -2494,6 +2494,10 @@ import { wave19Previews } from "@/components/site/previews/wave19";
 
 Object.assign(previews, wave19Previews);
 
+import { wave21Previews } from "@/components/site/previews/wave21";
+
+Object.assign(previews, wave21Previews);
+
 export function ComponentPreview({ name }: { name: string }) {
   const Preview = previews[name];
   if (!Preview) {

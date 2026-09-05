@@ -91,34 +91,39 @@ export function CalendarHeatmap({
     0,
   );
 
+  const CELL = 14;
+  const GAP = 4;
+  const STEP = CELL + GAP;
+  const LABEL_W = 34;
+  const PAD = 6;
+  const gridW = LABEL_W + 7 * STEP + PAD;
+  const gridH = rows.length * STEP + 28 + PAD;
+
   return (
     <div
       className={cn("w-full", "motion-reduce:animate-none", className)}
       style={{ height: `${height}px` }}
     >
       <svg
-        className="w-full h-full"
-        viewBox="0 0 100 100"
-        style={{ overflow: "visible" }}
+        className="h-full w-full"
+        viewBox={`0 0 ${gridW} ${gridH}`}
+        preserveAspectRatio="xMidYMid meet"
       >
-        {/* Week labels at top */}
         {rows.map((row, rowIdx) => (
           <text
             key={`week-label-${rowIdx}`}
-            x={rowIdx * 14 + 14}
-            y={15}
-            fontSize="10"
-            textAnchor="middle"
+            x={PAD}
+            y={PAD + rowIdx * STEP + 11}
+            fontSize="9"
             className={cn(
               "motion-reduce:transition-none",
-              "text-[10px] uppercase text-muted-foreground capitalize",
+              "fill-muted-foreground font-mono uppercase",
             )}
           >
             W{row.week}
           </text>
         ))}
 
-        {/* Day cells - column staggered pop-in */}
         {rows.map((row, rowIdx) =>
           row.cells.map((cell, cellIdx) => {
             const intensity = cell.intensity;
@@ -126,46 +131,34 @@ export function CalendarHeatmap({
             const delay = rowIdx * 15 + cellIdx * 5;
 
             return (
-              <React.Fragment key={`${row.week}-${cellIdx}`}>
               <rect
-                x={cellIdx * 14 + 2}
-                y={rowIdx * 12 + 25}
-                width={10}
-                height={10}
+                key={`${row.week}-${cellIdx}`}
+                x={PAD + LABEL_W + cellIdx * STEP}
+                y={PAD + rowIdx * STEP}
+                width={CELL}
+                height={CELL}
+                rx={3}
                 fill="currentColor"
                 fillOpacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
                 className={cn(
                   "motion-reduce:transition-none",
                   `animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,
                 )}
-              />
-              <text
-                x={cellIdx * 14 + 7}
-                y={rowIdx * 12 + 32}
-                textAnchor="middle"
-                fontSize="10"
-                className={cn(
-                  "motion-reduce:transition-none",
-                  "text-[10px] font-medium select-none",
-                  intensity > 0.5 ? "text-foreground" : "text-muted-foreground",
-                )}
               >
-                {cell.label}
-              </text>
-              </React.Fragment>
+                <title>{cell.label}</title>
+              </rect>
             );
           }),
         )}
 
-        {/* Month labels below */}
         <text
-          x={50}
-          y={95}
+          x={gridW / 2}
+          y={gridH - 4}
           textAnchor="middle"
-          fontSize="10"
+          fontSize="9"
           className={cn(
             "motion-reduce:transition-none",
-            "text-[10px] uppercase text-muted-foreground",
+            "fill-muted-foreground font-mono uppercase",
           )}
         >
           {getMonth(minDate)} - {getMonth(maxDate)}

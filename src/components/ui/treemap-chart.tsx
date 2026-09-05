@@ -19,8 +19,6 @@ interface Rect {
 
 function computeTreemap(
   root: TreemapItem,
-  padX: number,
-  padY: number,
   padWidth: number,
   padHeight: number,
 ): Rect[] {
@@ -34,65 +32,31 @@ function computeTreemap(
     height: number,
     orientation: "v" | "h",
   ): void {
-    if (items.length === 0) return;
+    if (items.length === 0 || width <= 0 || height <= 0) return;
 
     if (items.length === 1) {
       rects.push({ x, y, width, height, label: items[0].label });
       return;
     }
 
-    const total = items.reduce(
-      (sum, item) => sum + item.value,
-      0,
-    );
+    const total = items.reduce((sum, item) => sum + item.value, 0) || 1;
+    let offset = 0;
 
-    const remaining = items.length - 1;
-    let used = 0;
-
-    if (orientation === "v") {
-      const cellWidth = width / total;
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        const itemWidth = cellWidth;
-        const itemHeight = (item.value / total) * (height - padY * 2);
-        rects.push({ x: x + padX, y: y + padY, width: itemWidth - padX * 2, height: itemHeight - padY * 2, label: item.label });
-
-        if (i < remaining) {
-          slice(
-            items.slice(i + 1),
-            x + cellWidth,
-            y,
-            width - cellWidth,
-            height,
-            "v",
-          );
-        }
-        break; // single level, don't recurse further for vertical
-      }
-    } else {
-      const cellHeight = height / total;
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        const itemHeight = cellHeight;
-        const itemWidth = (item.value / total) * (width - padX * 2);
-        rects.push({ x: x + padX, y: y + padY, width: itemWidth - padX * 2, height: itemHeight - padY * 2, label: item.label });
-
-        if (i < remaining) {
-          slice(
-            items.slice(i + 1),
-            x,
-            y + cellHeight,
-            width,
-            height - cellHeight,
-            "h",
-          );
-        }
-        break; // single level, don't recurse further for horizontal
+    for (const item of items) {
+      const frac = Math.max(item.value, 0) / total;
+      if (orientation === "v") {
+        const w = width * frac;
+        rects.push({ x: x + offset, y, width: w, height, label: item.label });
+        offset += w;
+      } else {
+        const h = height * frac;
+        rects.push({ x, y: y + offset, width, height: h, label: item.label });
+        offset += h;
       }
     }
   }
 
-  slice(root.children || [root], padX, padY, padWidth - padX * 2, padHeight - padY * 2, "v");
+  slice(root.children || [root], 0, 0, padWidth, padHeight, "v");
   return rects;
 }
 
@@ -108,7 +72,7 @@ export function TreemapChart({
 }: TreemapChartProps) {
   const rects = React.useMemo(() => {
     const root: TreemapItem = { label: "root", value: items.reduce((sum, item) => sum + item.value, 0), children: items };
-    return computeTreemap(root, 5, 5, 200, 200);
+    return computeTreemap(root, 200, 200);
   }, [items]);
 
   if (rects.length === 0) {
@@ -125,7 +89,7 @@ export function TreemapChart({
     >
       <svg
         className="w-full h-full"
-        viewBox="0 0 200 200"
+        viewBox="0 0 200 216"
         style={{ overflow: "visible" }}
       >
         {rects.map((rect, idx) => {
@@ -133,14 +97,18 @@ export function TreemapChart({
           const intensity = Math.min(value / Math.max(...rects.map(r => r.width * r.height / 40000)) || 1, 1);
           const bgOpacity = 0.1 + intensity * 0.8;
           const delay = idx * 20;
+          const inset = 2;
+          const w = Math.max(rect.width - inset * 2, 0);
+          const h = Math.max(rect.height - inset * 2, 0);
+          const showLabel = w > 24 && h > 14;
 
           return (
             <React.Fragment key={idx}>
               <rect
-                x={rect.x}
-                y={rect.y}
-                width={rect.width}
-                height={rect.height}
+                x={rect.x + inset}
+                y={rect.y + inset}
+                width={w}
+                height={h}
                 fill="currentColor"
                 opacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
                 className={cn(
@@ -148,19 +116,21 @@ export function TreemapChart({
                   `animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,
                 )}
               />
-              <text
-                x={rect.x + rect.width / 2}
-                y={rect.y + rect.height / 2 + 4}
-                textAnchor="middle"
-                fontSize="9"
-                className={cn(
-                  "motion-reduce:transition-none",
-                  "text-[8px] select-none",
-                  intensity > 0.5 ? "text-foreground" : "text-muted-foreground",
-                )}
-              >
-                {rect.label ?? ""}
-              </text>
+              {showLabel ? (
+                <text
+                  x={rect.x + rect.width / 2}
+                  y={rect.y + rect.height / 2 + 4}
+                  textAnchor="middle"
+                  fontSize="9"
+                  className={cn(
+                    "motion-reduce:transition-none",
+                    "text-[8px] select-none",
+                    intensity > 0.5 ? "text-foreground" : "text-muted-foreground",
+                  )}
+                >
+                  {rect.label ?? ""}
+                </text>
+              ) : null}
             </React.Fragment>
           );
         })}
@@ -168,7 +138,7 @@ export function TreemapChart({
         {/* Root label */}
         <text
           x="100"
-          y="195"
+          y="209"
           textAnchor="middle"
           fontSize="10"
           className={cn(

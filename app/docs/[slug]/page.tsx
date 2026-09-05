@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { wavePropsDocs3 } from "./wave-props3";
 import { ComponentPreview } from "@/components/site/component-preview";
@@ -135,6 +137,17 @@ const usage: Record<string, string> = {
   "activity-feed": `import { ActivityFeed } from "@/components/ui/activity-feed";\n\n<ActivityFeed\n  items={[\n    {\n      id: "act-1",\n      actor: { name: "Sarah Chen", role: "DEV", initials: "SC" },\n      type: "deploy",\n      title: "Deployed api-gateway v2.4.1 to production",\n      timestamp: "3m ago",\n      dateGroup: "TODAY",\n      badge: { label: "DEPLOYED", tone: "accent" },\n      meta: { env: "production", commit: "8f3a91b" },\n      details: ["Container image built", "Traffic routed to 100%"]\n    }\n  ]}\n/>`,
   "pricing-table": `import { PricingTable } from "@/components/ui/pricing-table";\n\n<PricingTable\n  title="ADMISSION TIERS"\n  subtitle="Select your access pass. Upgrade or cancel anytime."\n  annualDiscountBadge="SAVE 20%"\n/>`,
   "metric-card": `import { MetricCard } from "@/components/ui/metric-card";\n\n<MetricCard\n  title="MONTHLY RECURRING REVENUE"\n  value="$48,250"\n  trend={{ value: "+14.8%", label: "vs last month" }}\n  sparklineData={[32, 38, 35, 42, 40, 48, 52, 59, 64]}\n  badge="REALTIME"\n/>`,
+  "badge-ribbon": `import { BadgeRibbon } from "@/components/ui/badge-ribbon";\n\n<BadgeRibbon title="BOX OFFICE" rank="ADMIT VIP" color="red" />`,
+  "bullet-chart": `import { BulletChart } from "@/components/ui/bullet-chart";\n\n<BulletChart label="Ticket Sales" value={780} target={1000} max={1200} unit=" stubs" />`,
+  "callout": `import { Callout } from "@/components/ui/callout";\n\n<Callout title="ADMISSION NOTICE" variant="info">Gate 4 opens at 19:30.</Callout>`,
+  "histogram": `import { Histogram } from "@/components/ui/histogram";\n\n<Histogram bins={[{ id: "1", label: "18:00", count: 45 }, { id: "2", label: "19:00", count: 120 }]} />`,
+  "meter": `import { Meter } from "@/components/ui/meter";\n\n<Meter value={68} min={0} max={100} label="TURNSTILE CAPACITY" />`,
+  "milestone-chart": `import { MilestoneChart } from "@/components/ui/milestone-chart";\n\n<MilestoneChart milestones={[{ id: "1", label: "Doors Open", date: "18:00", reached: true }]} />`,
+  "radio-cards": `import { RadioCards, RadioCard, RadioCardHeader, RadioCardPrice } from "@/components/ui/radio-cards";\n\n<RadioCards defaultValue="vip" columns={2}>\n  <RadioCard value="std"><RadioCardHeader title="General" /><RadioCardPrice amount="$45" /></RadioCard>\n  <RadioCard value="vip"><RadioCardHeader title="VIP" /><RadioCardPrice amount="$120" /></RadioCard>\n</RadioCards>`,
+  "route-loader": `import { RouteLoader } from "@/components/ui/route-loader";\n\n<RouteLoader active={true} />`,
+  "split-button": `import { SplitButton } from "@/components/ui/split-button";\n\n<SplitButton label="Print Stub" options={[{ id: "pdf", label: "Export PDF" }]} />`,
+  "stat-tile": `import { StatTile } from "@/components/ui/stat-tile";\n\n<StatTile label="TOTAL ADMITTED" value="4,820" delta={{ value: "+18%", up: true }} />`,
+  "trend-badge": `import { TrendBadge } from "@/components/ui/trend-badge";\n\n<TrendBadge value="+24.8%" label="TICKET DEMAND" live />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -2149,6 +2162,8 @@ Object.assign(propsDocs, wavePropsDocs, wavePropsDocs2, wavePropsDocs3);
 
 
 
+
+
 export default async function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const meta = components.find((component) => component.name === slug);
@@ -2158,10 +2173,18 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const idx = components.findIndex((component) => component.name === slug);
   const prev = idx > 0 ? components[idx - 1] : undefined;
   const next = idx >= 0 && idx < components.length - 1 ? components[idx + 1] : undefined;
+
+  const sourceFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
+  const sourceCode = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
+
+  const defaultUsage = `import { ${meta.title.replace(/\s+/g, "")} } from "@/components/ui/${meta.name}";\n\n<${meta.title.replace(/\s+/g, "")} />`;
+  const usageCode = usage[meta.name] ?? defaultUsage;
+
   const toc = [
     { id: "preview", label: "Preview" },
     { id: "install", label: "Install" },
     { id: "usage", label: "Usage" },
+    ...(sourceCode ? [{ id: "source", label: "Source" }] : []),
     ...(propsList.length > 0 ? [{ id: "props", label: "Props" }] : []),
   ];
 
@@ -2195,8 +2218,23 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 id="usage" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
-          <CodeBox code={usage[meta.name] ?? ""} block />
+          <CodeBox code={usageCode} block />
       </section>
+
+      {sourceCode ? (
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 id="source" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source code</h2>
+            <span className="rounded bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+              {meta.name}.tsx
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Zero dependencies (only React + utils). Copy and paste directly into your project:
+          </p>
+          <CodeBox code={sourceCode} block maxHeight="420px" />
+        </section>
+      ) : null}
 
       {propsList.length > 0 ? (
         <section className="space-y-3">

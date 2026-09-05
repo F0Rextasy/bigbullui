@@ -1,0 +1,1869 @@
+
+> bigbullui@0.2.0 dev
+> next dev
+
+▲ Next.js 16.3.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://100.81.206.61:3000
+✓ Ready in 611ms
+⚠ Warning: Next.js ignored package-lock.json in C:\Users\Extasy because it is outside the current Git repository (C:\Users\Extasy\Desktop\bigbullui).
+ To use this directory, set `turbopack.root` in your Next.js config.
+
+✓ Running next.config.ts took 53ms
+
+ GET / 200 in 859ms (next.js: 259ms, application-code: 600ms)
+ GET / 200 in 383ms (next.js: 11ms, application-code: 372ms)
+ GET / 200 in 536ms (next.js: 15ms, application-code: 522ms)
+ GET /docs 200 in 173ms (next.js: 50ms, application-code: 123ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /docs/installation 200 in 1243ms (next.js: 1018ms, application-code: 224ms)
+ GET /docs/installation 200 in 48ms (next.js: 15ms, application-code: 33ms)
+ GET /docs/agents 200 in 1857ms (next.js: 1328ms, application-code: 529ms)
+ GET /docs/agents 200 in 228ms (next.js: 35ms, application-code: 193ms)
+ GET /docs/design 200 in 135ms (next.js: 67ms, application-code: 67ms)
+ GET /docs/add-to-cart-button 200 in 983ms (next.js: 70ms, generate-params: 843ms, application-code: 70ms)
+ GET /docs/address-form 200 in 51ms (next.js: 9ms, generate-params: 6ms, application-code: 35ms)
+ GET /docs/audio-recorder 200 in 47ms (next.js: 8ms, generate-params: 7ms, application-code: 32ms)
+ GET /icon 404 in 1453ms (next.js: 1134ms, application-code: 319ms)
+ GET /apple-icon 404 in 232ms (next.js: 16ms, application-code: 216ms)
+ GET /apple-icon.svg 404 in 201ms (next.js: 38ms, application-code: 164ms)
+ GET /docs/autocomplete 200 in 106ms (next.js: 44ms, generate-params: 6ms, application-code: 56ms)
+ GET /docs/avatar-upload 200 in 54ms (next.js: 15ms, generate-params: 6ms, application-code: 33ms)
+ GET /docs/betting-slip 200 in 51ms (next.js: 8ms, generate-params: 9ms, application-code: 34ms)
+ GET /docs/board-checklist 200 in 66ms (next.js: 26ms, generate-params: 6ms, application-code: 33ms)
+ GET /docs/button 200 in 44ms (next.js: 7ms, generate-params: 7ms, application-code: 30ms)
+ GET /docs/button-group 200 in 50ms (next.js: 7ms, generate-params: 6ms, application-code: 37ms)
+ GET /docs/button-group 200 in 630ms (next.js: 178ms, generate-params: 6ms, application-code: 446ms)
+ GET /docs/button-group 200 in 343ms (next.js: 6ms, generate-params: 0.1ms, application-code: 336ms)
+ GET /docs/button-group 200 in 446ms (next.js: 8ms, generate-params: 0.0ms, application-code: 438ms)
+ GET /docs/button-group 200 in 563ms (next.js: 16ms, generate-params: 0.0ms, application-code: 547ms)
+ GET /docs/button-group 200 in 337ms (next.js: 38ms, generate-params: 0.0ms, application-code: 299ms)
+ GET /docs/button-group 200 in 580ms (next.js: 52ms, generate-params: 0.0ms, application-code: 528ms)
+ GET /docs/button-group 200 in 266ms (next.js: 44ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/button-group 200 in 167ms (next.js: 11ms, generate-params: 0.0ms, application-code: 156ms)
+ GET /docs/button-group 200 in 261ms (next.js: 44ms, generate-params: 0.0ms, application-code: 217ms)
+ GET /docs/button-group 200 in 228ms (next.js: 16ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/button-group 200 in 201ms (next.js: 23ms, generate-params: 0.0ms, application-code: 179ms)
+ GET /docs/button-group 200 in 159ms (next.js: 9ms, generate-params: 6ms, application-code: 143ms)
+ GET /docs/button-group 200 in 166ms (next.js: 17ms, generate-params: 0.0ms, application-code: 149ms)
+ GET /docs/button-group 200 in 156ms (next.js: 7ms, generate-params: 0.0ms, application-code: 148ms)
+ GET /docs/button-group 200 in 155ms (next.js: 9ms, generate-params: 0.0ms, application-code: 147ms)
+ GET /docs/button-group 200 in 235ms (next.js: 9ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/button-group 200 in 200ms (next.js: 9ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/button-group 200 in 308ms (next.js: 8ms, generate-params: 0.0ms, application-code: 300ms)
+ GET /docs/button-group 200 in 219ms (next.js: 9ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/button-group 200 in 221ms (next.js: 21ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/button-group 200 in 213ms (next.js: 15ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/button-group 200 in 180ms (next.js: 13ms, generate-params: 0.0ms, application-code: 167ms)
+ GET /docs/button-group 200 in 130ms (next.js: 7ms, generate-params: 6ms, application-code: 117ms)
+ GET /docs/button-group 200 in 264ms (next.js: 13ms, generate-params: 6ms, application-code: 245ms)
+ GET / 200 in 410ms (next.js: 22ms, application-code: 388ms)
+ GET / 200 in 322ms (next.js: 21ms, application-code: 301ms)
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+ GET /docs/button-group 500 in 2.7s (next.js: 2.5s, application-code: 202ms)
+ GET / 500 in 2.9s (next.js: 2.9s, application-code: 17ms)
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+ GET / 500 in 175ms (next.js: 115ms, application-code: 60ms)
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+ GET / 500 in 165ms (next.js: 89ms, application-code: 76ms)
+ GET /docs/button-group 500 in 187ms (next.js: 144ms, application-code: 43ms)
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+ GET /docs/button-group 500 in 184ms (next.js: 133ms, application-code: 51ms)
+[browser] Uncaught Error: ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] Uncaught Error: ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+⨯ ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+ GET / 500 in 40ms (next.js: 23ms, application-code: 17ms)
+[browser] Uncaught Error: ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format!
+
+
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+[browser] ./app/favicon.ico
+Error: Processing image failed
+unable to decode image data
+
+Caused by:
+- Format error decoding Ico: The PNG is not in RGBA format!
+- The PNG is not in RGBA format! 
+ GET / 200 in 1235ms (next.js: 124ms, application-code: 1111ms)
+ GET /docs/button-group 200 in 1088ms (next.js: 299ms, generate-params: 6ms, application-code: 783ms)
+ GET / 200 in 314ms (next.js: 9ms, application-code: 305ms)
+ GET /docs/accordion 200 in 375ms (next.js: 20ms, generate-params: 6ms, application-code: 349ms)
+ GET /docs/activity-feed 200 in 269ms (next.js: 9ms, generate-params: 0.0ms, application-code: 260ms)
+ GET /docs/activity-v2 200 in 262ms (next.js: 10ms, generate-params: 0.0ms, application-code: 252ms)
+ GET /docs/add-to-cart-button 200 in 330ms (next.js: 19ms, generate-params: 0.0ms, application-code: 311ms)
+ GET /docs/address-form 200 in 282ms (next.js: 25ms, generate-params: 26ms, application-code: 230ms)
+ GET /docs/admin-shell 200 in 236ms (next.js: 17ms, generate-params: 0.0ms, application-code: 219ms)
+ GET /docs/airmail-letter 200 in 266ms (next.js: 15ms, generate-params: 0.0ms, application-code: 252ms)
+ GET /docs/alert 200 in 187ms (next.js: 7ms, generate-params: 0.0ms, application-code: 180ms)
+ GET /docs/alert-dialog 200 in 188ms (next.js: 11ms, generate-params: 0.0ms, application-code: 178ms)
+ GET /docs/anchor-nav 200 in 191ms (next.js: 5ms, generate-params: 5ms, application-code: 181ms)
+ GET /docs/announcement-bar 200 in 191ms (next.js: 5ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/api-key-card 200 in 267ms (next.js: 7ms, generate-params: 0.0ms, application-code: 260ms)
+ GET /docs/app-shell 200 in 186ms (next.js: 10ms, generate-params: 0.0ms, application-code: 176ms)
+ GET /docs/arcade-cabinet 200 in 298ms (next.js: 7ms, generate-params: 5ms, application-code: 285ms)
+ GET /docs/area-chart 200 in 254ms (next.js: 5ms, generate-params: 0.0ms, application-code: 249ms)
+ GET /docs/article-card 200 in 262ms (next.js: 5ms, generate-params: 0.0ms, application-code: 258ms)
+ GET /docs/aspect-ratio 200 in 295ms (next.js: 6ms, generate-params: 5ms, application-code: 284ms)
+ GET /docs/audio-mini 200 in 301ms (next.js: 21ms, generate-params: 0.0ms, application-code: 281ms)
+ GET /docs/audio-player 200 in 263ms (next.js: 5ms, generate-params: 0.0ms, application-code: 258ms)
+ GET /docs/audio-recorder 200 in 225ms (next.js: 5ms, generate-params: 6ms, application-code: 214ms)
+ GET /docs/audio-waveform 200 in 287ms (next.js: 6ms, generate-params: 0.0ms, application-code: 281ms)
+ GET /docs/audit-log 200 in 257ms (next.js: 5ms, generate-params: 0.0ms, application-code: 252ms)
+ GET /docs/autocomplete 200 in 208ms (next.js: 5ms, generate-params: 5ms, application-code: 198ms)
+ GET /docs/avatar 200 in 276ms (next.js: 5ms, generate-params: 0.0ms, application-code: 271ms)
+ GET /docs/avatar-group 200 in 250ms (next.js: 6ms, generate-params: 0.0ms, application-code: 244ms)
+ GET /docs/avatar-upload 200 in 208ms (next.js: 5ms, generate-params: 5ms, application-code: 198ms)
+ GET /docs/back-link 200 in 181ms (next.js: 4ms, generate-params: 0.0ms, application-code: 176ms)
+ GET /docs/backstage-pass 200 in 267ms (next.js: 5ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/badge 200 in 276ms (next.js: 6ms, generate-params: 5ms, application-code: 265ms)
+ GET /docs/badge-list 200 in 258ms (next.js: 5ms, generate-params: 0.0ms, application-code: 253ms)
+ GET /docs/bar-chart 200 in 254ms (next.js: 5ms, generate-params: 0.0ms, application-code: 249ms)
+ GET /docs/barcode 200 in 282ms (next.js: 6ms, generate-params: 5ms, application-code: 271ms)
+ GET /docs/bento-grid 200 in 264ms (next.js: 5ms, generate-params: 0.0ms, application-code: 259ms)
+ GET /docs/betting-slip 200 in 202ms (next.js: 6ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/billing-panel 200 in 334ms (next.js: 5ms, generate-params: 5ms, application-code: 324ms)
+ GET /docs/bingo-card 200 in 274ms (next.js: 6ms, generate-params: 0.0ms, application-code: 269ms)
+ GET /docs/bio-card 200 in 283ms (next.js: 6ms, generate-params: 0.0ms, application-code: 277ms)
+ GET /docs/board-checklist 200 in 250ms (next.js: 7ms, generate-params: 5ms, application-code: 238ms)
+ GET /docs/boarding-pass 200 in 361ms (next.js: 6ms, generate-params: 0.0ms, application-code: 355ms)
+ GET /docs/breadcrumb 200 in 232ms (next.js: 20ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/breadcrumb-dropdown 200 in 198ms (next.js: 7ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/bubble-chart 200 in 305ms (next.js: 12ms, generate-params: 0.0ms, application-code: 293ms)
+ GET /docs/budget-progress 200 in 663ms (next.js: 6ms, generate-params: 6ms, application-code: 651ms)
+ GET /docs/button-group 200 in 387ms (next.js: 22ms, generate-params: 0.0ms, application-code: 365ms)
+ GET /docs/calendar 200 in 406ms (next.js: 36ms, generate-params: 0.0ms, application-code: 370ms)
+ GET /docs/button 200 in 620ms (next.js: 15ms, generate-params: 0.0ms, application-code: 605ms)
+ GET /docs/calendar-heatmap 200 in 318ms (next.js: 10ms, generate-params: 6ms, application-code: 302ms)
+ GET /docs/candlestick-chart 200 in 397ms (next.js: 7ms, generate-params: 0.0ms, application-code: 390ms)
+ GET /docs/card 200 in 371ms (next.js: 23ms, generate-params: 0.1ms, application-code: 348ms)
+ GET /docs/carousel 200 in 221ms (next.js: 20ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/carousel-ride 200 in 298ms (next.js: 9ms, generate-params: 5ms, application-code: 284ms)
+ GET /docs/cart-badge 200 in 336ms (next.js: 16ms, generate-params: 0.0ms, application-code: 320ms)
+ GET /docs/cart-drawer 200 in 214ms (next.js: 7ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/cassette-tape 200 in 294ms (next.js: 6ms, generate-params: 0.0ms, application-code: 288ms)
+ GET /docs/centered-card 200 in 319ms (next.js: 6ms, generate-params: 5ms, application-code: 308ms)
+ GET /docs/changelog-list 200 in 287ms (next.js: 5ms, generate-params: 0.1ms, application-code: 282ms)
+ GET /docs/char-counter 200 in 174ms (next.js: 5ms, generate-params: 0.0ms, application-code: 169ms)
+ GET /docs/chat-bubble 200 in 276ms (next.js: 5ms, generate-params: 6ms, application-code: 265ms)
+ GET /docs/chat-window 200 in 283ms (next.js: 5ms, generate-params: 0.0ms, application-code: 277ms)
+ GET /docs/checkbox 200 in 221ms (next.js: 5ms, generate-params: 0.0ms, application-code: 216ms)
+ GET /docs/checkbox-card 200 in 228ms (next.js: 6ms, generate-params: 5ms, application-code: 217ms)
+ GET /docs/checkbox-group 200 in 228ms (next.js: 6ms, generate-params: 0.0ms, application-code: 222ms)
+ GET /docs/checkout-summary 200 in 348ms (next.js: 6ms, generate-params: 0.0ms, application-code: 343ms)
+ GET /docs/clock-picker 200 in 219ms (next.js: 7ms, generate-params: 5ms, application-code: 207ms)
+ GET /docs/coach-mark 200 in 207ms (next.js: 10ms, generate-params: 0.0ms, application-code: 197ms)
+ GET /docs/code-block 200 in 294ms (next.js: 6ms, generate-params: 0.0ms, application-code: 288ms)
+ GET /docs/code-editor 200 in 230ms (next.js: 5ms, generate-params: 5ms, application-code: 220ms)
+ GET /docs/coin-flip 200 in 267ms (next.js: 5ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/collapsible 200 in 281ms (next.js: 6ms, generate-params: 0.0ms, application-code: 274ms)
+ GET /docs/color-picker 200 in 227ms (next.js: 5ms, generate-params: 5ms, application-code: 218ms)
+ GET /docs/color-token-table 200 in 276ms (next.js: 5ms, generate-params: 0.0ms, application-code: 271ms)
+ GET /docs/column-toggle 200 in 181ms (next.js: 7ms, generate-params: 0.0ms, application-code: 174ms)
+ GET /docs/combobox 200 in 218ms (next.js: 6ms, generate-params: 5ms, application-code: 207ms)
+ GET /docs/command-palette 200 in 183ms (next.js: 4ms, generate-params: 0.0ms, application-code: 179ms)
+ GET /docs/comment-thread 200 in 262ms (next.js: 6ms, generate-params: 0.0ms, application-code: 256ms)
+ GET /docs/confetti-burst 200 in 181ms (next.js: 5ms, generate-params: 5ms, application-code: 171ms)
+ GET /docs/confirm-dialog 200 in 182ms (next.js: 5ms, generate-params: 0.0ms, application-code: 177ms)
+ GET /docs/connection-status 200 in 178ms (next.js: 5ms, generate-params: 0.0ms, application-code: 173ms)
+ GET /docs/consent-checkbox 200 in 200ms (next.js: 5ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/console-panel 200 in 278ms (next.js: 6ms, generate-params: 5ms, application-code: 267ms)
+ GET /docs/container 200 in 272ms (next.js: 5ms, generate-params: 0.0ms, application-code: 267ms)
+ GET /docs/context-menu 200 in 176ms (next.js: 5ms, generate-params: 0.0ms, application-code: 171ms)
+ GET /docs/cookie-banner 200 in 183ms (next.js: 5ms, generate-params: 5ms, application-code: 173ms)
+ GET /docs/copy-button 200 in 201ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/copy-chip 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/countdown 200 in 204ms (next.js: 5ms, generate-params: 5ms, application-code: 194ms)
+ GET /docs/country-select 200 in 208ms (next.js: 5ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/countup 200 in 268ms (next.js: 5ms, generate-params: 0.0ms, application-code: 263ms)
+ GET /docs/coupon 200 in 297ms (next.js: 21ms, generate-params: 5ms, application-code: 271ms)
+ GET /docs/coupon-field 200 in 207ms (next.js: 7ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/credit-card 200 in 266ms (next.js: 5ms, generate-params: 0.0ms, application-code: 261ms)
+ GET /docs/credit-card-form 200 in 215ms (next.js: 5ms, generate-params: 5ms, application-code: 205ms)
+ GET /docs/cron-builder 200 in 233ms (next.js: 5ms, generate-params: 0.0ms, application-code: 228ms)
+ GET /docs/crypto-ticker 200 in 259ms (next.js: 5ms, generate-params: 0.0ms, application-code: 254ms)
+ GET /docs/cta-section 200 in 280ms (next.js: 6ms, generate-params: 5ms, application-code: 269ms)
+ GET /docs/currency-display 200 in 275ms (next.js: 6ms, generate-params: 0.0ms, application-code: 270ms)
+ GET /docs/currency-select 200 in 230ms (next.js: 6ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/danger-zone 200 in 206ms (next.js: 5ms, generate-params: 5ms, application-code: 196ms)
+ GET /docs/data-grid 200 in 268ms (next.js: 5ms, generate-params: 0.0ms, application-code: 263ms)
+ GET /docs/data-table 200 in 271ms (next.js: 5ms, generate-params: 0.0ms, application-code: 267ms)
+ GET /docs/date-picker 200 in 208ms (next.js: 5ms, generate-params: 5ms, application-code: 198ms)
+ GET /docs/date-range-picker 200 in 226ms (next.js: 5ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/description-list 200 in 282ms (next.js: 6ms, generate-params: 0.0ms, application-code: 276ms)
+ GET /docs/dialog 200 in 209ms (next.js: 5ms, generate-params: 5ms, application-code: 199ms)
+ GET /docs/dice 200 in 269ms (next.js: 6ms, generate-params: 0.0ms, application-code: 263ms)
+ GET /docs/diff-editor 200 in 228ms (next.js: 7ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/diff-viewer 200 in 276ms (next.js: 6ms, generate-params: 5ms, application-code: 265ms)
+ GET /docs/disco-ball 200 in 332ms (next.js: 5ms, generate-params: 0.0ms, application-code: 327ms)
+ GET /docs/divider-with-text 200 in 267ms (next.js: 5ms, generate-params: 5ms, application-code: 257ms)
+ GET /docs/dm-thread 200 in 274ms (next.js: 5ms, generate-params: 0.0ms, application-code: 268ms)
+ GET /docs/dock 200 in 188ms (next.js: 5ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/donut-chart 200 in 284ms (next.js: 6ms, generate-params: 5ms, application-code: 273ms)
+ GET /docs/drag-sort 200 in 266ms (next.js: 6ms, generate-params: 0.0ms, application-code: 260ms)
+ GET /docs/drawer 200 in 193ms (next.js: 5ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/drawer-nav 200 in 183ms (next.js: 5ms, generate-params: 5ms, application-code: 173ms)
+ GET /docs/drink-ticket 200 in 258ms (next.js: 5ms, generate-params: 0.0ms, application-code: 253ms)
+ GET /docs/drive-in-screen 200 in 321ms (next.js: 8ms, generate-params: 0.0ms, application-code: 313ms)
+ GET /docs/dropdown-menu 200 in 207ms (next.js: 12ms, generate-params: 5ms, application-code: 189ms)
+ GET /docs/dropdown-menu-v2 200 in 177ms (next.js: 5ms, generate-params: 0.0ms, application-code: 172ms)
+ GET /docs/dual-slider 200 in 231ms (next.js: 5ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/duration-input 200 in 214ms (next.js: 5ms, generate-params: 5ms, application-code: 204ms)
+ GET /docs/email-input 200 in 212ms (next.js: 5ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/emoji-picker 200 in 199ms (next.js: 4ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/empty 200 in 183ms (next.js: 6ms, generate-params: 5ms, application-code: 172ms)
+ GET /docs/empty-col-span 200 in 269ms (next.js: 5ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/env-editor 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/envelope 200 in 268ms (next.js: 5ms, generate-params: 5ms, application-code: 257ms)
+ GET /docs/error-page 200 in 192ms (next.js: 10ms, generate-params: 0.0ms, application-code: 182ms)
+ GET /docs/event-card 200 in 282ms (next.js: 5ms, generate-params: 0.0ms, application-code: 277ms)
+ GET /docs/exchange-rate 200 in 226ms (next.js: 6ms, generate-params: 5ms, application-code: 215ms)
+ GET /docs/fab 200 in 194ms (next.js: 6ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/faq 200 in 202ms (next.js: 7ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/feature-flag-panel 200 in 217ms (next.js: 5ms, generate-params: 5ms, application-code: 208ms)
+ GET /docs/feature-grid 200 in 275ms (next.js: 5ms, generate-params: 0.0ms, application-code: 270ms)
+ GET /docs/feed-masonry 200 in 259ms (next.js: 5ms, generate-params: 0.0ms, application-code: 254ms)
+ GET /docs/ferris-wheel 200 in 296ms (next.js: 5ms, generate-params: 5ms, application-code: 286ms)
+ GET /docs/field 200 in 206ms (next.js: 5ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/field-array 200 in 212ms (next.js: 5ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/figure 200 in 286ms (next.js: 5ms, generate-params: 5ms, application-code: 276ms)
+ GET /docs/file-dropzone 200 in 209ms (next.js: 6ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/file-input 200 in 201ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/file-upload-list 200 in 197ms (next.js: 6ms, generate-params: 5ms, application-code: 186ms)
+ GET /docs/fireworks 200 in 261ms (next.js: 5ms, generate-params: 0.0ms, application-code: 256ms)
+ GET /docs/flip-card 200 in 282ms (next.js: 5ms, generate-params: 0.0ms, application-code: 277ms)
+ GET /docs/flip-clock 200 in 268ms (next.js: 6ms, generate-params: 5ms, application-code: 257ms)
+ GET /docs/flyout-menu 200 in 184ms (next.js: 5ms, generate-params: 0.0ms, application-code: 179ms)
+ GET /docs/flyout-v2 200 in 195ms (next.js: 6ms, generate-params: 0.0ms, application-code: 190ms)
+ GET /docs/focus-trap 200 in 215ms (next.js: 5ms, generate-params: 5ms, application-code: 205ms)
+ GET /docs/follower-list 200 in 271ms (next.js: 5ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/footer 200 in 181ms (next.js: 5ms, generate-params: 0.0ms, application-code: 175ms)
+ GET /docs/footer-minimal 200 in 187ms (next.js: 5ms, generate-params: 5ms, application-code: 177ms)
+ GET /docs/footer-nav 200 in 182ms (next.js: 5ms, generate-params: 0.0ms, application-code: 177ms)
+ GET /docs/forgot-password 200 in 207ms (next.js: 6ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/form-field 200 in 217ms (next.js: 5ms, generate-params: 5ms, application-code: 208ms)
+ GET /docs/form-progress 200 in 205ms (next.js: 5ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/funnel-chart 200 in 272ms (next.js: 6ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/gallery-grid 200 in 279ms (next.js: 5ms, generate-params: 5ms, application-code: 269ms)
+ GET /docs/gantt-lite 200 in 269ms (next.js: 5ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/gauge 200 in 262ms (next.js: 5ms, generate-params: 0.0ms, application-code: 257ms)
+ GET /docs/gift-card 200 in 283ms (next.js: 5ms, generate-params: 5ms, application-code: 274ms)
+ GET /docs/gift-message 200 in 270ms (next.js: 5ms, generate-params: 0.0ms, application-code: 265ms)
+ GET /docs/glossary-list 200 in 261ms (next.js: 5ms, generate-params: 0.0ms, application-code: 256ms)
+ GET /docs/heading 200 in 296ms (next.js: 6ms, generate-params: 6ms, application-code: 284ms)
+ GET /docs/heatmap 200 in 278ms (next.js: 5ms, generate-params: 0.0ms, application-code: 273ms)
+ GET /docs/hero 200 in 263ms (next.js: 5ms, generate-params: 0.0ms, application-code: 258ms)
+ GET /docs/hero-split 200 in 273ms (next.js: 5ms, generate-params: 5ms, application-code: 263ms)
+ GET /docs/highlight-text 200 in 271ms (next.js: 5ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/history-nav 200 in 180ms (next.js: 5ms, generate-params: 0.0ms, application-code: 175ms)
+ GET /docs/hooks 200 in 236ms (next.js: 5ms, generate-params: 5ms, application-code: 225ms)
+ GET /docs/hotkey-recorder 200 in 214ms (next.js: 5ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/hover-card 200 in 197ms (next.js: 5ms, generate-params: 0.0ms, application-code: 192ms)
+ GET /docs/html-preview 200 in 279ms (next.js: 6ms, generate-params: 5ms, application-code: 268ms)
+ GET /docs/id-card 200 in 280ms (next.js: 6ms, generate-params: 0.0ms, application-code: 274ms)
+ GET /docs/image-carousel 200 in 326ms (next.js: 7ms, generate-params: 0.0ms, application-code: 319ms)
+ GET /docs/image-compare 200 in 283ms (next.js: 6ms, generate-params: 5ms, application-code: 272ms)
+ GET /docs/image-crop 200 in 279ms (next.js: 6ms, generate-params: 0.0ms, application-code: 273ms)
+ GET /docs/inbox-list 200 in 265ms (next.js: 4ms, generate-params: 0.0ms, application-code: 261ms)
+ GET /docs/infinite-scroll 200 in 297ms (next.js: 5ms, generate-params: 5ms, application-code: 288ms)
+ GET /docs/inline-edit 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/input 200 in 215ms (next.js: 6ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/input-group 200 in 215ms (next.js: 5ms, generate-params: 5ms, application-code: 205ms)
+ GET /docs/installment-picker 200 in 208ms (next.js: 4ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/invite-modal 200 in 185ms (next.js: 5ms, generate-params: 0.0ms, application-code: 180ms)
+ GET /docs/invoice 200 in 307ms (next.js: 5ms, generate-params: 5ms, application-code: 297ms)
+ GET /docs/item 200 in 277ms (next.js: 5ms, generate-params: 0.0ms, application-code: 271ms)
+ GET /docs/json-editor 200 in 206ms (next.js: 5ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/json-viewer 200 in 288ms (next.js: 7ms, generate-params: 6ms, application-code: 275ms)
+ GET /docs/jumbotron 200 in 273ms (next.js: 6ms, generate-params: 0.0ms, application-code: 267ms)
+ GET /docs/kanban-lite 200 in 271ms (next.js: 6ms, generate-params: 0.0ms, application-code: 265ms)
+ GET /docs/kanban-v2 200 in 275ms (next.js: 5ms, generate-params: 5ms, application-code: 265ms)
+ GET /docs/kbd 200 in 285ms (next.js: 5ms, generate-params: 0.0ms, application-code: 279ms)
+ GET /docs/keyboard-nav-helper 200 in 189ms (next.js: 5ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/keypad 200 in 225ms (next.js: 5ms, generate-params: 5ms, application-code: 214ms)
+ GET /docs/label 200 in 205ms (next.js: 5ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/lanyard 200 in 278ms (next.js: 6ms, generate-params: 0.0ms, application-code: 272ms)
+ GET /docs/leaderboard 200 in 277ms (next.js: 5ms, generate-params: 5ms, application-code: 267ms)
+ GET /docs/lightbox 200 in 271ms (next.js: 5ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/like-button 200 in 176ms (next.js: 5ms, generate-params: 0.0ms, application-code: 171ms)
+ GET /docs/line-chart 200 in 287ms (next.js: 5ms, generate-params: 5ms, application-code: 277ms)
+ GET /docs/link-card 200 in 268ms (next.js: 6ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/list 200 in 267ms (next.js: 5ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/listbox 200 in 218ms (next.js: 5ms, generate-params: 5ms, application-code: 208ms)
+ GET /docs/live-badge 200 in 281ms (next.js: 9ms, generate-params: 0.0ms, application-code: 272ms)
+ GET /docs/live-clock 200 in 291ms (next.js: 5ms, generate-params: 0.0ms, application-code: 286ms)
+ GET /docs/load-more 200 in 289ms (next.js: 5ms, generate-params: 5ms, application-code: 279ms)
+ GET /docs/loading-button 200 in 215ms (next.js: 5ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/loading-dots 200 in 183ms (next.js: 7ms, generate-params: 0.0ms, application-code: 175ms)
+ GET /docs/loading-overlay 200 in 200ms (next.js: 6ms, generate-params: 5ms, application-code: 189ms)
+ GET /docs/log-viewer 200 in 263ms (next.js: 4ms, generate-params: 0.0ms, application-code: 258ms)
+ GET /docs/login-form 200 in 221ms (next.js: 5ms, generate-params: 0.0ms, application-code: 216ms)
+ GET /docs/logo-cloud 200 in 312ms (next.js: 5ms, generate-params: 5ms, application-code: 301ms)
+ GET /docs/lottery-machine 200 in 274ms (next.js: 6ms, generate-params: 0.0ms, application-code: 268ms)
+ GET /docs/luggage-tag 200 in 295ms (next.js: 5ms, generate-params: 0.0ms, application-code: 290ms)
+ GET /docs/mailbox 200 in 315ms (next.js: 6ms, generate-params: 5ms, application-code: 303ms)
+ GET /docs/maintenance-banner 200 in 200ms (next.js: 5ms, generate-params: 0.0ms, application-code: 194ms)
+ GET /docs/markdown-editor 200 in 219ms (next.js: 8ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/markdown-preview 200 in 300ms (next.js: 5ms, generate-params: 5ms, application-code: 290ms)
+ GET /docs/marquee 200 in 292ms (next.js: 6ms, generate-params: 0.0ms, application-code: 286ms)
+ GET /docs/marquee-bulbs 200 in 279ms (next.js: 8ms, generate-params: 0.0ms, application-code: 271ms)
+ GET /docs/masked-currency 200 in 238ms (next.js: 5ms, generate-params: 5ms, application-code: 228ms)
+ GET /docs/masked-input 200 in 203ms (next.js: 5ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/masonry-columns 200 in 261ms (next.js: 5ms, generate-params: 0.0ms, application-code: 256ms)
+ GET /docs/match-ticker 200 in 275ms (next.js: 5ms, generate-params: 5ms, application-code: 266ms)
+ GET /docs/medal-display 200 in 273ms (next.js: 5ms, generate-params: 0.0ms, application-code: 268ms)
+ GET /docs/media-controls 200 in 263ms (next.js: 5ms, generate-params: 0.0ms, application-code: 258ms)
+ GET /docs/media-embed 200 in 276ms (next.js: 6ms, generate-params: 5ms, application-code: 266ms)
+ GET /docs/media-object 200 in 269ms (next.js: 6ms, generate-params: 0.0ms, application-code: 263ms)
+ GET /docs/mega-menu 200 in 178ms (next.js: 5ms, generate-params: 0.0ms, application-code: 173ms)
+ GET /docs/megaphone 200 in 272ms (next.js: 5ms, generate-params: 5ms, application-code: 262ms)
+ GET /docs/mention-highlight 200 in 263ms (next.js: 5ms, generate-params: 0.0ms, application-code: 259ms)
+ GET /docs/mention-input 200 in 217ms (next.js: 6ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/mention-list 200 in 273ms (next.js: 5ms, generate-params: 5ms, application-code: 263ms)
+ GET /docs/menubar 200 in 180ms (next.js: 4ms, generate-params: 0.0ms, application-code: 176ms)
+ GET /docs/metric-card 200 in 287ms (next.js: 5ms, generate-params: 0.0ms, application-code: 282ms)
+ GET /docs/migration-banner 200 in 204ms (next.js: 6ms, generate-params: 5ms, application-code: 193ms)
+ GET /docs/mobile-menu 200 in 184ms (next.js: 5ms, generate-params: 0.0ms, application-code: 179ms)
+ GET /docs/month-picker 200 in 221ms (next.js: 7ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/multi-select 200 in 232ms (next.js: 6ms, generate-params: 5ms, application-code: 220ms)
+ GET /docs/navbar 200 in 188ms (next.js: 5ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/navigation-menu 200 in 205ms (next.js: 6ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/neon-sign 200 in 288ms (next.js: 6ms, generate-params: 5ms, application-code: 276ms)
+ GET /docs/network-graph 200 in 300ms (next.js: 7ms, generate-params: 0.0ms, application-code: 293ms)
+ GET /docs/nfc-badge 200 in 289ms (next.js: 4ms, generate-params: 0.0ms, application-code: 285ms)
+ GET /docs/notification-center 200 in 190ms (next.js: 5ms, generate-params: 5ms, application-code: 179ms)
+ GET /docs/notification-feed 200 in 300ms (next.js: 12ms, generate-params: 0.0ms, application-code: 288ms)
+ GET /docs/now-serving 200 in 193ms (next.js: 8ms, generate-params: 0.0ms, application-code: 186ms)
+ GET /docs/offline-banner 200 in 189ms (next.js: 6ms, generate-params: 6ms, application-code: 178ms)
+ GET /docs/order-card 200 in 301ms (next.js: 6ms, generate-params: 0.0ms, application-code: 295ms)
+ GET /docs/order-tracking 200 in 289ms (next.js: 5ms, generate-params: 0.0ms, application-code: 284ms)
+ GET /docs/org-chart 200 in 360ms (next.js: 5ms, generate-params: 6ms, application-code: 350ms)
+ GET /docs/otp-verify 200 in 220ms (next.js: 13ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/page-header 200 in 341ms (next.js: 7ms, generate-params: 0.0ms, application-code: 334ms)
+ GET /docs/page-tabs 200 in 193ms (next.js: 5ms, generate-params: 5ms, application-code: 183ms)
+ GET /docs/pager-dots 200 in 189ms (next.js: 5ms, generate-params: 0.0ms, application-code: 184ms)
+ GET /docs/pagination 200 in 189ms (next.js: 5ms, generate-params: 0.0ms, application-code: 184ms)
+ GET /docs/pagination-v2 200 in 189ms (next.js: 5ms, generate-params: 0.0ms, application-code: 184ms)
+ GET /docs/passport 200 in 314ms (next.js: 5ms, generate-params: 5ms, application-code: 305ms)
+ GET /docs/password-input 200 in 239ms (next.js: 8ms, generate-params: 0.0ms, application-code: 231ms)
+ GET /docs/password-strength 200 in 213ms (next.js: 5ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/payment-methods 200 in 204ms (next.js: 5ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/permission-denied 200 in 186ms (next.js: 5ms, generate-params: 5ms, application-code: 176ms)
+ GET /docs/permissions-matrix 200 in 202ms (next.js: 5ms, generate-params: 0.0ms, application-code: 197ms)
+ GET /docs/phone-input 200 in 241ms (next.js: 5ms, generate-params: 0.0ms, application-code: 236ms)
+ GET /docs/pin-input 200 in 221ms (next.js: 6ms, generate-params: 6ms, application-code: 210ms)
+ GET /docs/playing-card 200 in 281ms (next.js: 6ms, generate-params: 0.0ms, application-code: 275ms)
+ GET /docs/playlist 200 in 269ms (next.js: 5ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/podcast-player 200 in 294ms (next.js: 5ms, generate-params: 5ms, application-code: 284ms)
+ GET /docs/poll 200 in 269ms (next.js: 5ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/pool-table 200 in 265ms (next.js: 6ms, generate-params: 0.0ms, application-code: 259ms)
+ GET /docs/popover 200 in 212ms (next.js: 5ms, generate-params: 15ms, application-code: 192ms)
+ GET /docs/post-card 200 in 279ms (next.js: 5ms, generate-params: 0.0ms, application-code: 274ms)
+ GET /docs/poster-card 200 in 270ms (next.js: 6ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/postmark 200 in 286ms (next.js: 6ms, generate-params: 5ms, application-code: 276ms)
+ GET /docs/price-compare 200 in 280ms (next.js: 5ms, generate-params: 0.0ms, application-code: 274ms)
+ GET /docs/price-tag 200 in 268ms (next.js: 6ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/pricing-table 200 in 628ms (next.js: 5ms, generate-params: 5ms, application-code: 618ms)
+ GET /docs/prize-wheel 200 in 304ms (next.js: 8ms, generate-params: 5ms, application-code: 291ms)
+ GET /docs/product-card 200 in 292ms (next.js: 6ms, generate-params: 0.0ms, application-code: 287ms)
+ GET /docs/profile-settings 200 in 212ms (next.js: 6ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/progress 200 in 274ms (next.js: 5ms, generate-params: 5ms, application-code: 264ms)
+ GET /docs/progress-circle 200 in 266ms (next.js: 5ms, generate-params: 0.0ms, application-code: 261ms)
+ GET /docs/punch-clock 200 in 266ms (next.js: 6ms, generate-params: 0.1ms, application-code: 260ms)
+ GET /docs/qr-code 200 in 308ms (next.js: 10ms, generate-params: 5ms, application-code: 293ms)
+ GET /docs/qr-reader 200 in 293ms (next.js: 4ms, generate-params: 0.0ms, application-code: 289ms)
+ GET /docs/queue-ticket 200 in 269ms (next.js: 8ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/queued-jobs 200 in 271ms (next.js: 5ms, generate-params: 6ms, application-code: 261ms)
+ GET /docs/quick-actions 200 in 191ms (next.js: 5ms, generate-params: 0.1ms, application-code: 186ms)
+ GET /docs/quiz-card 200 in 271ms (next.js: 5ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/quote 200 in 274ms (next.js: 5ms, generate-params: 5ms, application-code: 264ms)
+ GET /docs/quote-wall 200 in 289ms (next.js: 4ms, generate-params: 0.0ms, application-code: 284ms)
+ GET /docs/radar-chart 200 in 268ms (next.js: 5ms, generate-params: 0.0ms, application-code: 262ms)
+ GET /docs/radio-group 200 in 227ms (next.js: 5ms, generate-params: 7ms, application-code: 215ms)
+ GET /docs/radio-tile 200 in 230ms (next.js: 6ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/raffle-ticket 200 in 276ms (next.js: 6ms, generate-params: 0.1ms, application-code: 270ms)
+ GET /docs/rank-list 200 in 292ms (next.js: 5ms, generate-params: 5ms, application-code: 281ms)
+ GET /docs/rate-limit-note 200 in 189ms (next.js: 6ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/rating 200 in 209ms (next.js: 6ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/reaction-bar 200 in 199ms (next.js: 5ms, generate-params: 5ms, application-code: 189ms)
+ GET /docs/receipt 200 in 278ms (next.js: 6ms, generate-params: 0.0ms, application-code: 273ms)
+ GET /docs/receipt-printer 200 in 257ms (next.js: 7ms, generate-params: 0.0ms, application-code: 250ms)
+ GET /docs/recipe-card 200 in 271ms (next.js: 5ms, generate-params: 5ms, application-code: 262ms)
+ GET /docs/refund-card 200 in 262ms (next.js: 6ms, generate-params: 0.0ms, application-code: 257ms)
+ GET /docs/regex-tester 200 in 208ms (next.js: 4ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/register-form 200 in 206ms (next.js: 5ms, generate-params: 5ms, application-code: 196ms)
+ GET /docs/resizable 200 in 273ms (next.js: 6ms, generate-params: 0.0ms, application-code: 267ms)
+ GET /docs/responsive-nav 200 in 179ms (next.js: 5ms, generate-params: 0.0ms, application-code: 174ms)
+ GET /docs/result 200 in 186ms (next.js: 4ms, generate-params: 5ms, application-code: 176ms)
+ GET /docs/reveal 200 in 270ms (next.js: 5ms, generate-params: 0.0ms, application-code: 265ms)
+ GET /docs/revolving-door 200 in 261ms (next.js: 6ms, generate-params: 0.0ms, application-code: 255ms)
+ GET /docs/rich-text-editor 200 in 209ms (next.js: 5ms, generate-params: 5ms, application-code: 199ms)
+ GET /docs/role-badge 200 in 278ms (next.js: 10ms, generate-params: 0.0ms, application-code: 268ms)
+ GET /docs/row-expand 200 in 283ms (next.js: 5ms, generate-params: 0.0ms, application-code: 278ms)
+ GET /docs/rsvp-card 200 in 290ms (next.js: 5ms, generate-params: 5ms, application-code: 280ms)
+ GET /docs/safe-vault 200 in 274ms (next.js: 5ms, generate-params: 0.0ms, application-code: 270ms)
+ GET /docs/sankey-chart 200 in 270ms (next.js: 5ms, generate-params: 0.0ms, application-code: 265ms)
+ GET /docs/save-indicator 200 in 233ms (next.js: 5ms, generate-params: 5ms, application-code: 222ms)
+ GET /docs/scatter-plot 200 in 272ms (next.js: 6ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/accordion 200 in 727ms (next.js: 8ms, generate-params: 0.0ms, application-code: 719ms)
+ GET /docs/score-keeper 200 in 318ms (next.js: 6ms, generate-params: 0.0ms, application-code: 312ms)
+ GET /docs/activity-feed 200 in 503ms (next.js: 20ms, generate-params: 0.0ms, application-code: 482ms)
+ GET /docs/scoreboard 200 in 508ms (next.js: 6ms, generate-params: 5ms, application-code: 497ms)
+ GET /docs/activity-v2 200 in 469ms (next.js: 11ms, generate-params: 0.0ms, application-code: 458ms)
+ GET /docs/scratch-off 200 in 473ms (next.js: 22ms, generate-params: 0.0ms, application-code: 451ms)
+ GET /docs/add-to-cart-button 200 in 336ms (next.js: 6ms, generate-params: 5ms, application-code: 325ms)
+ GET /docs/screenshot-frame 200 in 477ms (next.js: 117ms, generate-params: 0.0ms, application-code: 360ms)
+ GET /docs/address-form 200 in 388ms (next.js: 6ms, generate-params: 0.0ms, application-code: 383ms)
+ GET /docs/scroll-area 200 in 373ms (next.js: 5ms, generate-params: 0.0ms, application-code: 368ms)
+ GET /docs/admin-shell 200 in 346ms (next.js: 5ms, generate-params: 5ms, application-code: 337ms)
+ GET /docs/scroll-shadow 200 in 436ms (next.js: 6ms, generate-params: 0.0ms, application-code: 430ms)
+ GET /docs/airmail-letter 200 in 375ms (next.js: 6ms, generate-params: 0.0ms, application-code: 370ms)
+ GET /docs/scroll-spy-nav 200 in 292ms (next.js: 6ms, generate-params: 0.0ms, application-code: 286ms)
+ GET /docs/alert 200 in 288ms (next.js: 17ms, generate-params: 6ms, application-code: 266ms)
+ GET /docs/scroll-spy-v2 200 in 270ms (next.js: 6ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/alert-dialog 200 in 288ms (next.js: 5ms, generate-params: 0.0ms, application-code: 283ms)
+ GET /docs/scroll-top 200 in 286ms (next.js: 5ms, generate-params: 0.0ms, application-code: 281ms)
+ GET /docs/anchor-nav 200 in 289ms (next.js: 4ms, generate-params: 0.0ms, application-code: 285ms)
+ GET /docs/search-bar 200 in 300ms (next.js: 5ms, generate-params: 5ms, application-code: 290ms)
+ GET /docs/announcement-bar 200 in 306ms (next.js: 4ms, generate-params: 0.0ms, application-code: 301ms)
+ GET /docs/search-filter-bar 200 in 363ms (next.js: 5ms, generate-params: 0.0ms, application-code: 358ms)
+ GET /docs/api-key-card 200 in 396ms (next.js: 5ms, generate-params: 0.0ms, application-code: 391ms)
+ GET /docs/seat-map 200 in 334ms (next.js: 5ms, generate-params: 5ms, application-code: 324ms)
+ GET /docs/app-shell 200 in 358ms (next.js: 5ms, generate-params: 0.0ms, application-code: 354ms)
+ GET /docs/section-heading 200 in 429ms (next.js: 5ms, generate-params: 0.0ms, application-code: 424ms)
+ GET /docs/arcade-cabinet 200 in 449ms (next.js: 5ms, generate-params: 0.0ms, application-code: 444ms)
+ GET /docs/security-score 200 in 437ms (next.js: 7ms, generate-params: 5ms, application-code: 426ms)
+ GET /docs/area-chart 200 in 367ms (next.js: 4ms, generate-params: 0.0ms, application-code: 363ms)
+ GET /docs/segmented-switch 200 in 405ms (next.js: 4ms, generate-params: 0.0ms, application-code: 400ms)
+ GET /docs/article-card 200 in 400ms (next.js: 6ms, generate-params: 5ms, application-code: 389ms)
+ GET /docs/select 200 in 396ms (next.js: 5ms, generate-params: 0.0ms, application-code: 391ms)
+ GET /docs/aspect-ratio 200 in 465ms (next.js: 4ms, generate-params: 0.0ms, application-code: 460ms)
+ GET /docs/separator 200 in 450ms (next.js: 5ms, generate-params: 5ms, application-code: 440ms)
+ GET /docs/audio-mini 200 in 391ms (next.js: 5ms, generate-params: 0.0ms, application-code: 387ms)
+ GET /docs/serial-input 200 in 384ms (next.js: 6ms, generate-params: 0.0ms, application-code: 377ms)
+ GET /docs/audio-player 200 in 353ms (next.js: 5ms, generate-params: 5ms, application-code: 343ms)
+ GET /docs/session-list 200 in 296ms (next.js: 5ms, generate-params: 0.0ms, application-code: 291ms)
+ GET /docs/audio-recorder 200 in 375ms (next.js: 5ms, generate-params: 0.0ms, application-code: 370ms)
+ GET /docs/settings-section 200 in 431ms (next.js: 4ms, generate-params: 0.0ms, application-code: 427ms)
+ GET /docs/audio-waveform 200 in 361ms (next.js: 5ms, generate-params: 5ms, application-code: 350ms)
+ GET /docs/share-menu 200 in 348ms (next.js: 5ms, generate-params: 0.0ms, application-code: 343ms)
+ GET /docs/audit-log 200 in 345ms (next.js: 5ms, generate-params: 0.0ms, application-code: 340ms)
+ GET /docs/sheet 200 in 293ms (next.js: 5ms, generate-params: 5ms, application-code: 283ms)
+ GET /docs/autocomplete 200 in 316ms (next.js: 5ms, generate-params: 0.0ms, application-code: 311ms)
+ GET /docs/shipping-options 200 in 371ms (next.js: 4ms, generate-params: 0.0ms, application-code: 366ms)
+ GET /docs/avatar 200 in 365ms (next.js: 6ms, generate-params: 0.0ms, application-code: 359ms)
+ GET /docs/sidebar 200 in 369ms (next.js: 4ms, generate-params: 5ms, application-code: 360ms)
+ GET /docs/avatar-group 200 in 350ms (next.js: 5ms, generate-params: 0.0ms, application-code: 345ms)
+ GET /docs/sidebar-v2 200 in 284ms (next.js: 5ms, generate-params: 0.0ms, application-code: 279ms)
+ GET /docs/avatar-upload 200 in 322ms (next.js: 5ms, generate-params: 0.0ms, application-code: 317ms)
+ GET /docs/signature-pad 200 in 307ms (next.js: 5ms, generate-params: 5ms, application-code: 297ms)
+ GET /docs/back-link 200 in 300ms (next.js: 5ms, generate-params: 0.0ms, application-code: 295ms)
+ GET /docs/size-picker 200 in 369ms (next.js: 5ms, generate-params: 0.0ms, application-code: 365ms)
+ GET /docs/backstage-pass 200 in 342ms (next.js: 5ms, generate-params: 0.0ms, application-code: 337ms)
+ GET /docs/skeleton 200 in 352ms (next.js: 5ms, generate-params: 5ms, application-code: 342ms)
+ GET /docs/badge 200 in 349ms (next.js: 5ms, generate-params: 0.0ms, application-code: 344ms)
+ GET /docs/skeleton-v2 200 in 348ms (next.js: 5ms, generate-params: 0.0ms, application-code: 343ms)
+ GET /docs/badge-list 200 in 362ms (next.js: 5ms, generate-params: 0.0ms, application-code: 357ms)
+ GET /docs/skip-link 200 in 365ms (next.js: 5ms, generate-params: 6ms, application-code: 354ms)
+ GET /docs/bar-chart 200 in 558ms (next.js: 6ms, generate-params: 0.0ms, application-code: 553ms)
+ GET /docs/slider-ticks 200 in 566ms (next.js: 5ms, generate-params: 0.0ms, application-code: 561ms)
+ GET /docs/slider 200 in 628ms (next.js: 6ms, generate-params: 0.0ms, application-code: 622ms)
+ GET /docs/barcode 200 in 468ms (next.js: 5ms, generate-params: 6ms, application-code: 457ms)
+ GET /docs/slot-machine 200 in 434ms (next.js: 7ms, generate-params: 0.0ms, application-code: 426ms)
+ GET /docs/bento-grid 200 in 448ms (next.js: 5ms, generate-params: 0.0ms, application-code: 443ms)
+ GET /docs/snippet-card 200 in 396ms (next.js: 4ms, generate-params: 5ms, application-code: 387ms)
+ GET /docs/betting-slip 200 in 409ms (next.js: 5ms, generate-params: 0.0ms, application-code: 404ms)
+ GET /docs/sparkline 200 in 479ms (next.js: 6ms, generate-params: 0.0ms, application-code: 473ms)
+ GET /docs/billing-panel 200 in 368ms (next.js: 4ms, generate-params: 6ms, application-code: 358ms)
+ GET /docs/speed-dial 200 in 368ms (next.js: 6ms, generate-params: 0.0ms, application-code: 361ms)
+ GET /docs/bingo-card 200 in 353ms (next.js: 11ms, generate-params: 0.0ms, application-code: 342ms)
+ GET /docs/spinner 200 in 358ms (next.js: 5ms, generate-params: 0.0ms, application-code: 352ms)
+ GET /docs/bio-card 200 in 560ms (next.js: 5ms, generate-params: 5ms, application-code: 549ms)
+ GET /docs/split-flap 200 in 485ms (next.js: 5ms, generate-params: 0.0ms, application-code: 480ms)
+ GET /docs/board-checklist 200 in 381ms (next.js: 5ms, generate-params: 0.0ms, application-code: 376ms)
+ GET /docs/split-screen 200 in 455ms (next.js: 6ms, generate-params: 5ms, application-code: 443ms)
+ GET /docs/boarding-pass 200 in 364ms (next.js: 6ms, generate-params: 0.0ms, application-code: 358ms)
+ GET /docs/spotlight 200 in 273ms (next.js: 5ms, generate-params: 0.0ms, application-code: 268ms)
+ GET /docs/breadcrumb 200 in 367ms (next.js: 6ms, generate-params: 0.0ms, application-code: 361ms)
+ GET /docs/spotlight-card 200 in 369ms (next.js: 5ms, generate-params: 5ms, application-code: 359ms)
+ GET /docs/breadcrumb-dropdown 200 in 364ms (next.js: 6ms, generate-params: 0.0ms, application-code: 359ms)
+ GET /docs/stack 200 in 446ms (next.js: 6ms, generate-params: 0.0ms, application-code: 441ms)
+ GET /docs/bubble-chart 200 in 445ms (next.js: 8ms, generate-params: 0.0ms, application-code: 437ms)
+ GET /docs/stacked-bar 200 in 497ms (next.js: 6ms, generate-params: 5ms, application-code: 486ms)
+ GET /docs/budget-progress 200 in 572ms (next.js: 17ms, generate-params: 0.0ms, application-code: 555ms)
+ GET /docs/stage-lights 200 in 526ms (next.js: 8ms, generate-params: 0.0ms, application-code: 518ms)
+ GET /docs/button 200 in 519ms (next.js: 12ms, generate-params: 0.0ms, application-code: 508ms)
+ GET /docs/stamp-card 200 in 474ms (next.js: 16ms, generate-params: 7ms, application-code: 450ms)
+ GET /docs/button-group 200 in 402ms (next.js: 5ms, generate-params: 0.0ms, application-code: 397ms)
+ GET /docs/stamp-seal 200 in 463ms (next.js: 6ms, generate-params: 0.1ms, application-code: 457ms)
+ GET /docs/calendar 200 in 691ms (next.js: 5ms, generate-params: 0.0ms, application-code: 686ms)
+ GET /docs/stats-overview 200 in 689ms (next.js: 6ms, generate-params: 5ms, application-code: 678ms)
+ GET /docs/star 200 in 705ms (next.js: 7ms, generate-params: 0.0ms, application-code: 698ms)
+ GET /docs/calendar-heatmap 200 in 487ms (next.js: 12ms, generate-params: 0.0ms, application-code: 475ms)
+ GET /docs/status-dot 200 in 551ms (next.js: 6ms, generate-params: 5ms, application-code: 540ms)
+ GET /docs/candlestick-chart 200 in 460ms (next.js: 19ms, generate-params: 0.0ms, application-code: 441ms)
+ GET /docs/stepper 200 in 410ms (next.js: 5ms, generate-params: 0.0ms, application-code: 405ms)
+ GET /docs/card 200 in 387ms (next.js: 7ms, generate-params: 0.0ms, application-code: 380ms)
+ GET /docs/stepper-v2 200 in 326ms (next.js: 5ms, generate-params: 6ms, application-code: 315ms)
+ GET /docs/carousel 200 in 314ms (next.js: 7ms, generate-params: 0.0ms, application-code: 307ms)
+ GET /docs/steps 200 in 384ms (next.js: 5ms, generate-params: 0.0ms, application-code: 379ms)
+ GET /docs/carousel-ride 200 in 502ms (next.js: 6ms, generate-params: 0.0ms, application-code: 496ms)
+ GET /docs/sticky-bar 200 in 506ms (next.js: 5ms, generate-params: 6ms, application-code: 495ms)
+ GET /docs/cart-badge 200 in 494ms (next.js: 6ms, generate-params: 0.0ms, application-code: 489ms)
+ GET /docs/sticky-footer 200 in 448ms (next.js: 9ms, generate-params: 0.0ms, application-code: 439ms)
+ GET /docs/cart-drawer 200 in 344ms (next.js: 6ms, generate-params: 6ms, application-code: 332ms)
+ GET /docs/stock-status 200 in 390ms (next.js: 6ms, generate-params: 0.0ms, application-code: 384ms)
+ GET /docs/cassette-tape 200 in 504ms (next.js: 8ms, generate-params: 0.0ms, application-code: 495ms)
+ GET /docs/stopwatch 200 in 522ms (next.js: 6ms, generate-params: 0.0ms, application-code: 516ms)
+ GET /docs/centered-card 200 in 521ms (next.js: 5ms, generate-params: 5ms, application-code: 511ms)
+ GET /docs/story-viewer 200 in 536ms (next.js: 7ms, generate-params: 0.0ms, application-code: 529ms)
+ GET /docs/changelog-list 200 in 554ms (next.js: 6ms, generate-params: 0.0ms, application-code: 548ms)
+ GET /docs/subscription-card 200 in 525ms (next.js: 11ms, generate-params: 6ms, application-code: 508ms)
+ GET /docs/char-counter 200 in 225ms (next.js: 6ms, generate-params: 0.0ms, application-code: 219ms)
+ GET /docs/sunburst-chart 200 in 516ms (next.js: 45ms, generate-params: 0.0ms, application-code: 471ms)
+ GET /docs/chat-bubble 200 in 453ms (next.js: 12ms, generate-params: 0.0ms, application-code: 441ms)
+ GET /docs/switch 200 in 428ms (next.js: 8ms, generate-params: 7ms, application-code: 413ms)
+ GET /docs/chat-window 200 in 396ms (next.js: 6ms, generate-params: 0.0ms, application-code: 390ms)
+ GET /docs/switch-card 200 in 377ms (next.js: 5ms, generate-params: 0.0ms, application-code: 372ms)
+ GET /docs/checkbox 200 in 374ms (next.js: 10ms, generate-params: 0.0ms, application-code: 364ms)
+ GET /docs/sync-status 200 in 354ms (next.js: 7ms, generate-params: 6ms, application-code: 342ms)
+ GET /docs/checkbox-card 200 in 343ms (next.js: 6ms, generate-params: 0.0ms, application-code: 337ms)
+ GET /docs/tabbar 200 in 356ms (next.js: 6ms, generate-params: 0.1ms, application-code: 349ms)
+ GET /docs/checkbox-group 200 in 439ms (next.js: 9ms, generate-params: 0.0ms, application-code: 430ms)
+ GET /docs/table 200 in 516ms (next.js: 5ms, generate-params: 0.0ms, application-code: 511ms)
+ GET /docs/checkout-summary 200 in 513ms (next.js: 6ms, generate-params: 5ms, application-code: 502ms)
+ GET /docs/table-summary 200 in 434ms (next.js: 7ms, generate-params: 0.0ms, application-code: 427ms)
+ GET /docs/clock-picker 200 in 351ms (next.js: 5ms, generate-params: 0.0ms, application-code: 346ms)
+ GET /docs/tabs 200 in 250ms (next.js: 6ms, generate-params: 5ms, application-code: 239ms)
+ GET /docs/coach-mark 200 in 276ms (next.js: 6ms, generate-params: 0.0ms, application-code: 270ms)
+ GET /docs/tag-input 200 in 449ms (next.js: 5ms, generate-params: 0.0ms, application-code: 444ms)
+ GET /docs/code-block 200 in 529ms (next.js: 36ms, generate-params: 0.0ms, application-code: 493ms)
+ GET /docs/task-list 200 in 441ms (next.js: 6ms, generate-params: 5ms, application-code: 430ms)
+ GET /docs/code-editor 200 in 419ms (next.js: 6ms, generate-params: 0.0ms, application-code: 413ms)
+ GET /docs/team-grid 200 in 475ms (next.js: 6ms, generate-params: 0.0ms, application-code: 469ms)
+ GET /docs/coin-flip 200 in 416ms (next.js: 6ms, generate-params: 0.0ms, application-code: 410ms)
+ GET /docs/team-members 200 in 420ms (next.js: 5ms, generate-params: 5ms, application-code: 410ms)
+ GET /docs/collapsible 200 in 494ms (next.js: 6ms, generate-params: 0.0ms, application-code: 488ms)
+ GET /docs/terminal 200 in 443ms (next.js: 6ms, generate-params: 0.0ms, application-code: 438ms)
+ GET /docs/color-picker 200 in 428ms (next.js: 7ms, generate-params: 5ms, application-code: 416ms)
+ GET /docs/testimonial 200 in 510ms (next.js: 6ms, generate-params: 0.0ms, application-code: 504ms)
+ GET /docs/color-token-table 200 in 509ms (next.js: 5ms, generate-params: 0.0ms, application-code: 504ms)
+ GET /docs/text 200 in 399ms (next.js: 8ms, generate-params: 0.0ms, application-code: 390ms)
+ GET /docs/column-toggle 200 in 346ms (next.js: 6ms, generate-params: 5ms, application-code: 335ms)
+ GET /docs/text-diff 200 in 260ms (next.js: 6ms, generate-params: 0.0ms, application-code: 254ms)
+ GET /docs/combobox 200 in 303ms (next.js: 6ms, generate-params: 0.0ms, application-code: 297ms)
+ GET /docs/textarea 200 in 336ms (next.js: 7ms, generate-params: 0.0ms, application-code: 328ms)
+ GET /docs/command-palette 200 in 255ms (next.js: 6ms, generate-params: 5ms, application-code: 244ms)
+ GET /docs/textarea-autosize 200 in 391ms (next.js: 11ms, generate-params: 0.0ms, application-code: 380ms)
+ GET /docs/comment-thread 200 in 450ms (next.js: 8ms, generate-params: 0.0ms, application-code: 442ms)
+ GET /docs/theme-toggle 200 in 338ms (next.js: 7ms, generate-params: 6ms, application-code: 324ms)
+ GET /docs/confetti-burst 200 in 203ms (next.js: 6ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/thumbnail-strip 200 in 428ms (next.js: 6ms, generate-params: 5ms, application-code: 417ms)
+ GET /docs/confirm-dialog 200 in 430ms (next.js: 22ms, generate-params: 0.0ms, application-code: 408ms)
+ GET /docs/ticket-booth 200 in 344ms (next.js: 9ms, generate-params: 0.0ms, application-code: 336ms)
+ GET /docs/connection-status 200 in 481ms (next.js: 13ms, generate-params: 0.0ms, application-code: 468ms)
+ GET /docs/ticket-card 200 in 530ms (next.js: 6ms, generate-params: 6ms, application-code: 519ms)
+ GET /docs/consent-checkbox 200 in 449ms (next.js: 9ms, generate-params: 0.0ms, application-code: 440ms)
+ GET /docs/ticket-fold 200 in 523ms (next.js: 12ms, generate-params: 0.0ms, application-code: 511ms)
+ GET /docs/console-panel 200 in 496ms (next.js: 14ms, generate-params: 5ms, application-code: 477ms)
+ GET /docs/ticket-stub-v2 200 in 475ms (next.js: 6ms, generate-params: 0.0ms, application-code: 469ms)
+ GET /docs/container 200 in 392ms (next.js: 6ms, generate-params: 0.0ms, application-code: 386ms)
+ GET /docs/ticket-validator 200 in 255ms (next.js: 6ms, generate-params: 6ms, application-code: 243ms)
+ GET /docs/context-menu 200 in 407ms (next.js: 6ms, generate-params: 0.0ms, application-code: 402ms)
+ GET /docs/tilt-card 200 in 393ms (next.js: 7ms, generate-params: 0.0ms, application-code: 386ms)
+ GET /docs/cookie-banner 200 in 425ms (next.js: 10ms, generate-params: 7ms, application-code: 409ms)
+ GET /docs/time-ago 200 in 377ms (next.js: 22ms, generate-params: 0.0ms, application-code: 356ms)
+ GET /docs/copy-button 200 in 216ms (next.js: 5ms, generate-params: 0.0ms, application-code: 211ms)
+ GET /docs/time-input 200 in 285ms (next.js: 9ms, generate-params: 0.0ms, application-code: 276ms)
+ GET /docs/copy-chip 200 in 356ms (next.js: 10ms, generate-params: 5ms, application-code: 340ms)
+ GET /docs/time-range-picker 200 in 328ms (next.js: 5ms, generate-params: 0.0ms, application-code: 323ms)
+ GET /docs/countdown 200 in 227ms (next.js: 11ms, generate-params: 0.0ms, application-code: 216ms)
+ GET /docs/timeline 200 in 357ms (next.js: 5ms, generate-params: 5ms, application-code: 347ms)
+ GET /docs/country-select 200 in 431ms (next.js: 7ms, generate-params: 0.0ms, application-code: 424ms)
+ GET /docs/timeline-vertical-v2 200 in 493ms (next.js: 6ms, generate-params: 0.0ms, application-code: 488ms)
+ GET /docs/countup 200 in 389ms (next.js: 7ms, generate-params: 0.0ms, application-code: 382ms)
+ GET /docs/toast 200 in 381ms (next.js: 6ms, generate-params: 5ms, application-code: 370ms)
+ GET /docs/coupon 200 in 452ms (next.js: 6ms, generate-params: 0.0ms, application-code: 446ms)
+ GET /docs/toc 200 in 375ms (next.js: 5ms, generate-params: 0.0ms, application-code: 370ms)
+ GET /docs/coupon-field 200 in 321ms (next.js: 5ms, generate-params: 0.0ms, application-code: 315ms)
+ GET /docs/toggle 200 in 228ms (next.js: 5ms, generate-params: 5ms, application-code: 218ms)
+ GET /docs/credit-card 200 in 349ms (next.js: 13ms, generate-params: 0.0ms, application-code: 335ms)
+ GET /docs/toggle-group 200 in 321ms (next.js: 7ms, generate-params: 0.0ms, application-code: 314ms)
+ GET /docs/credit-card-form 200 in 347ms (next.js: 6ms, generate-params: 6ms, application-code: 336ms)
+ GET /docs/tooltip 200 in 356ms (next.js: 16ms, generate-params: 0.0ms, application-code: 340ms)
+ GET /docs/cron-builder 200 in 340ms (next.js: 8ms, generate-params: 0.0ms, application-code: 332ms)
+ GET /docs/tour 200 in 400ms (next.js: 5ms, generate-params: 0.0ms, application-code: 395ms)
+ GET /docs/crypto-ticker 200 in 440ms (next.js: 9ms, generate-params: 6ms, application-code: 424ms)
+ GET /docs/transfer-list 200 in 412ms (next.js: 5ms, generate-params: 0.0ms, application-code: 407ms)
+ GET /docs/cta-section 200 in 349ms (next.js: 8ms, generate-params: 0.0ms, application-code: 341ms)
+ GET /docs/tree-nav 200 in 396ms (next.js: 6ms, generate-params: 0.0ms, application-code: 389ms)
+ GET /docs/currency-display 200 in 424ms (next.js: 7ms, generate-params: 5ms, application-code: 412ms)
+ GET /docs/tree-select 200 in 362ms (next.js: 5ms, generate-params: 0.0ms, application-code: 357ms)
+ GET /docs/currency-select 200 in 414ms (next.js: 8ms, generate-params: 0.0ms, application-code: 405ms)
+ GET /docs/tree-table 200 in 386ms (next.js: 12ms, generate-params: 0.0ms, application-code: 374ms)
+ GET /docs/danger-zone 200 in 389ms (next.js: 5ms, generate-params: 6ms, application-code: 379ms)
+ GET /docs/treemap-chart 200 in 491ms (next.js: 24ms, generate-params: 0.0ms, application-code: 467ms)
+ GET /docs/data-grid 200 in 499ms (next.js: 6ms, generate-params: 0.0ms, application-code: 493ms)
+ GET /docs/trophy-shelf 200 in 463ms (next.js: 5ms, generate-params: 5ms, application-code: 453ms)
+ GET /docs/data-table 200 in 473ms (next.js: 5ms, generate-params: 0.0ms, application-code: 468ms)
+ GET /docs/truncate 200 in 407ms (next.js: 5ms, generate-params: 0.0ms, application-code: 402ms)
+ GET /docs/date-picker 200 in 431ms (next.js: 6ms, generate-params: 5ms, application-code: 420ms)
+ GET /docs/turnstile-gate 200 in 447ms (next.js: 6ms, generate-params: 0.0ms, application-code: 441ms)
+ GET /docs/date-range-picker 200 in 454ms (next.js: 5ms, generate-params: 0.0ms, application-code: 448ms)
+ GET /docs/two-column-list 200 in 601ms (next.js: 34ms, generate-params: 0.0ms, application-code: 566ms)
+ GET /docs/description-list 200 in 377ms (next.js: 15ms, generate-params: 11ms, application-code: 351ms)
+ GET /docs/two-factor 200 in 363ms (next.js: 24ms, generate-params: 0.0ms, application-code: 339ms)
+ GET /docs/dialog 200 in 438ms (next.js: 8ms, generate-params: 0.0ms, application-code: 430ms)
+ GET /docs/typewriter 200 in 627ms (next.js: 16ms, generate-params: 0.0ms, application-code: 611ms)
+ GET /docs/dice 200 in 350ms (next.js: 9ms, generate-params: 5ms, application-code: 336ms)
+ GET /docs/typing-indicator 200 in 472ms (next.js: 29ms, generate-params: 0.0ms, application-code: 443ms)
+ GET /docs/diff-editor 200 in 395ms (next.js: 24ms, generate-params: 0.0ms, application-code: 371ms)
+ GET /docs/upgrade-prompt 200 in 432ms (next.js: 16ms, generate-params: 0.0ms, application-code: 417ms)
+ GET /docs/diff-viewer 200 in 561ms (next.js: 10ms, generate-params: 0.0ms, application-code: 551ms)
+ GET /docs/upload-progress 200 in 528ms (next.js: 8ms, generate-params: 6ms, application-code: 514ms)
+ GET /docs/disco-ball 200 in 577ms (next.js: 6ms, generate-params: 0.2ms, application-code: 571ms)
+ GET /docs/usage-meter 200 in 673ms (next.js: 16ms, generate-params: 0.0ms, application-code: 657ms)
+ GET /docs/divider-with-text 200 in 595ms (next.js: 11ms, generate-params: 0.0ms, application-code: 584ms)
+ GET /docs/user-card 200 in 693ms (next.js: 15ms, generate-params: 6ms, application-code: 672ms)
+ GET /docs/dm-thread 200 in 673ms (next.js: 23ms, generate-params: 0.0ms, application-code: 650ms)
+ GET /docs/user-table 200 in 388ms (next.js: 16ms, generate-params: 0.0ms, application-code: 372ms)
+ GET /docs/dock 200 in 391ms (next.js: 13ms, generate-params: 0.0ms, application-code: 378ms)
+ GET /docs/variant-picker 200 in 547ms (next.js: 6ms, generate-params: 6ms, application-code: 535ms)
+ GET /docs/donut-chart 200 in 530ms (next.js: 11ms, generate-params: 0.0ms, application-code: 519ms)
+ GET /docs/vending-machine 200 in 513ms (next.js: 9ms, generate-params: 0.0ms, application-code: 504ms)
+ GET /docs/drag-sort 200 in 595ms (next.js: 17ms, generate-params: 0.0ms, application-code: 578ms)
+ GET /docs/version-badge 200 in 490ms (next.js: 8ms, generate-params: 7ms, application-code: 475ms)
+ GET /docs/drawer 200 in 457ms (next.js: 9ms, generate-params: 0.0ms, application-code: 448ms)
+ GET /docs/video-frame 200 in 431ms (next.js: 24ms, generate-params: 0.0ms, application-code: 407ms)
+ GET /docs/drawer-nav 200 in 451ms (next.js: 9ms, generate-params: 0.0ms, application-code: 442ms)
+ GET /docs/video-list 200 in 566ms (next.js: 10ms, generate-params: 0.0ms, application-code: 555ms)
+ GET /docs/drink-ticket 200 in 622ms (next.js: 13ms, generate-params: 8ms, application-code: 602ms)
+ GET /docs/video-player 200 in 743ms (next.js: 32ms, generate-params: 0.0ms, application-code: 711ms)
+ GET /docs/drive-in-screen 200 in 657ms (next.js: 16ms, generate-params: 0.0ms, application-code: 642ms)
+ GET /docs/video-thumbnail 200 in 440ms (next.js: 21ms, generate-params: 7ms, application-code: 411ms)
+ GET /docs/dropdown-menu 200 in 452ms (next.js: 9ms, generate-params: 0.0ms, application-code: 444ms)
+ GET /docs/vinyl-record 200 in 480ms (next.js: 8ms, generate-params: 0.0ms, application-code: 472ms)
+ GET /docs/dropdown-menu-v2 200 in 483ms (next.js: 19ms, generate-params: 0.0ms, application-code: 463ms)
+ GET /docs/virtual-list 200 in 488ms (next.js: 8ms, generate-params: 0.0ms, application-code: 480ms)
+ GET /docs/dual-slider 200 in 502ms (next.js: 5ms, generate-params: 9ms, application-code: 489ms)
+ GET /docs/voice-message 200 in 327ms (next.js: 8ms, generate-params: 0.0ms, application-code: 319ms)
+ GET /docs/duration-input 200 in 474ms (next.js: 14ms, generate-params: 0.0ms, application-code: 461ms)
+ GET /docs/voice-note-list 200 in 514ms (next.js: 28ms, generate-params: 0.0ms, application-code: 485ms)
+ GET /docs/email-input 200 in 432ms (next.js: 15ms, generate-params: 0.0ms, application-code: 417ms)
+ GET /docs/volume-slider 200 in 411ms (next.js: 7ms, generate-params: 6ms, application-code: 398ms)
+ GET /docs/emoji-picker 200 in 485ms (next.js: 30ms, generate-params: 0.0ms, application-code: 455ms)
+ GET /docs/wallet-card 200 in 484ms (next.js: 14ms, generate-params: 0.0ms, application-code: 469ms)
+ GET /docs/empty 200 in 526ms (next.js: 14ms, generate-params: 0.0ms, application-code: 512ms)
+ GET /docs/waterfall-chart 200 in 550ms (next.js: 8ms, generate-params: 6ms, application-code: 535ms)
+ GET /docs/empty-col-span 200 in 536ms (next.js: 12ms, generate-params: 0.0ms, application-code: 524ms)
+ GET /docs/watermark 200 in 542ms (next.js: 21ms, generate-params: 0.0ms, application-code: 521ms)
+ GET /docs/env-editor 200 in 526ms (next.js: 37ms, generate-params: 0.0ms, application-code: 489ms)
+ GET /docs/wax-seal 200 in 601ms (next.js: 13ms, generate-params: 6ms, application-code: 582ms)
+ GET /docs/envelope 200 in 570ms (next.js: 8ms, generate-params: 0.0ms, application-code: 562ms)
+ GET /docs/webhook-list 200 in 458ms (next.js: 32ms, generate-params: 0.0ms, application-code: 426ms)
+ GET /docs/error-page 200 in 230ms (next.js: 12ms, generate-params: 0.0ms, application-code: 218ms)
+ GET /docs/wishlist-button 200 in 488ms (next.js: 21ms, generate-params: 8ms, application-code: 459ms)
+ GET /docs/event-card 200 in 486ms (next.js: 19ms, generate-params: 0.0ms, application-code: 468ms)
+ GET /docs/wizard 200 in 379ms (next.js: 9ms, generate-params: 0.0ms, application-code: 370ms)
+ GET /docs/exchange-rate 200 in 459ms (next.js: 13ms, generate-params: 0.0ms, application-code: 446ms)
+ GET /docs/word-cloud 200 in 431ms (next.js: 7ms, generate-params: 0.0ms, application-code: 424ms)
+ GET /docs/fab 200 in 450ms (next.js: 9ms, generate-params: 7ms, application-code: 433ms)
+ GET /docs/world-map 200 in 463ms (next.js: 17ms, generate-params: 0.0ms, application-code: 446ms)
+ GET /docs/faq 200 in 454ms (next.js: 16ms, generate-params: 0.0ms, application-code: 438ms)
+ GET /docs/wristband 200 in 569ms (next.js: 6ms, generate-params: 0.0ms, application-code: 564ms)
+ GET /docs/feature-flag-panel 200 in 283ms (next.js: 13ms, generate-params: 7ms, application-code: 263ms)
+ GET /docs/year-picker 200 in 399ms (next.js: 8ms, generate-params: 0.0ms, application-code: 391ms)
+ GET /docs/feature-grid 200 in 682ms (next.js: 19ms, generate-params: 0.0ms, application-code: 663ms)
+ GET /docs/zoom-image 200 in 549ms (next.js: 13ms, generate-params: 0.0ms, application-code: 536ms)
+ GET /docs/feed-masonry 200 in 314ms (next.js: 8ms, generate-params: 0.0ms, application-code: 306ms)
+ GET /docs/ferris-wheel 200 in 343ms (next.js: 7ms, generate-params: 6ms, application-code: 330ms)
+ GET /docs/field 200 in 248ms (next.js: 8ms, generate-params: 0.0ms, application-code: 240ms)
+ GET /docs/field-array 200 in 244ms (next.js: 9ms, generate-params: 0.0ms, application-code: 235ms)
+ GET /docs/figure 200 in 302ms (next.js: 5ms, generate-params: 0.0ms, application-code: 297ms)
+ GET /docs/file-dropzone 200 in 253ms (next.js: 7ms, generate-params: 6ms, application-code: 240ms)
+ GET /docs/file-input 200 in 240ms (next.js: 8ms, generate-params: 0.0ms, application-code: 232ms)
+ GET /docs/file-upload-list 200 in 221ms (next.js: 8ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/fireworks 200 in 324ms (next.js: 6ms, generate-params: 0.0ms, application-code: 318ms)
+ GET /docs/flip-card 200 in 323ms (next.js: 8ms, generate-params: 7ms, application-code: 309ms)
+ GET /docs/flip-clock 200 in 335ms (next.js: 20ms, generate-params: 0.0ms, application-code: 316ms)
+ GET /docs/flyout-menu 200 in 230ms (next.js: 7ms, generate-params: 0.0ms, application-code: 223ms)
+ GET /docs/flyout-v2 200 in 212ms (next.js: 12ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/focus-trap 200 in 296ms (next.js: 9ms, generate-params: 7ms, application-code: 280ms)
+ GET /docs/follower-list 200 in 339ms (next.js: 7ms, generate-params: 0.0ms, application-code: 332ms)
+ GET /docs/footer 200 in 214ms (next.js: 8ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/footer-minimal 200 in 212ms (next.js: 9ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/footer-nav 200 in 209ms (next.js: 6ms, generate-params: 0.0ms, application-code: 202ms)
+ GET /docs/forgot-password 200 in 249ms (next.js: 8ms, generate-params: 6ms, application-code: 235ms)
+ GET /docs/form-field 200 in 262ms (next.js: 9ms, generate-params: 0.0ms, application-code: 253ms)
+ GET /docs/form-progress 200 in 236ms (next.js: 10ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/funnel-chart 200 in 307ms (next.js: 11ms, generate-params: 0.0ms, application-code: 296ms)
+ GET /docs/gallery-grid 200 in 349ms (next.js: 9ms, generate-params: 6ms, application-code: 334ms)
+ GET /docs/gantt-lite 200 in 335ms (next.js: 28ms, generate-params: 0.0ms, application-code: 307ms)
+ GET /docs/gauge 200 in 334ms (next.js: 7ms, generate-params: 0.0ms, application-code: 327ms)
+ GET /docs/gift-card 200 in 347ms (next.js: 16ms, generate-params: 8ms, application-code: 323ms)
+ GET /docs/scratch-off 200 in 682ms (next.js: 10ms, generate-params: 6ms, application-code: 667ms)
+ GET /docs/signature-pad 200 in 528ms (next.js: 12ms, generate-params: 6ms, application-code: 509ms)
+ GET /docs/calendar-heatmap 200 in 556ms (next.js: 13ms, generate-params: 6ms, application-code: 537ms)
+✓ Compiled in 335ms
+ GET /docs/calendar-heatmap 200 in 449ms (next.js: 38ms, generate-params: 8ms, application-code: 403ms)
+ GET /docs/button-group 200 in 362ms (next.js: 17ms, generate-params: 0.0ms, application-code: 345ms)
+ GET /docs/calendar-heatmap 200 in 532ms (next.js: 21ms, generate-params: 6ms, application-code: 505ms)
+ GET /docs/treemap-chart 200 in 2.6s (next.js: 33ms, generate-params: 5ms, application-code: 2.5s)
+✓ Compiled in 201ms
+ GET /docs/treemap-chart 200 in 889ms (next.js: 30ms, generate-params: 6ms, application-code: 854ms)
+ GET /docs/button-group 200 in 1354ms (next.js: 75ms, generate-params: 0.0ms, application-code: 1279ms)
+ GET /docs/treemap-chart 200 in 1660ms (next.js: 6ms, generate-params: 6ms, application-code: 1648ms)
+✓ Compiled in 140ms
+✓ Compiled in 203ms
+ GET /docs/treemap-chart 200 in 3.2s (next.js: 51ms, generate-params: 0.0ms, application-code: 3.1s)
+ GET /docs/treemap-chart 200 in 4.3s (next.js: 16ms, generate-params: 7ms, application-code: 4.3s)
+ GET /docs/button-group 200 in 4.2s (next.js: 7ms, generate-params: 0.0ms, application-code: 4.2s)
+ GET /docs/button-group 200 in 3.3s (next.js: 13ms, generate-params: 5ms, application-code: 3.3s)
+ GET /docs/keypad 200 in 375ms (next.js: 5ms, generate-params: 7ms, application-code: 363ms)
+ GET /docs/audio-player 200 in 437ms (next.js: 10ms, generate-params: 7ms, application-code: 421ms)
+ GET /docs/seat-map 200 in 378ms (next.js: 8ms, generate-params: 6ms, application-code: 364ms)
+ GET /docs/split-flap 200 in 644ms (next.js: 9ms, generate-params: 5ms, application-code: 629ms)
+ GET /docs/qr-reader 200 in 483ms (next.js: 6ms, generate-params: 6ms, application-code: 471ms)
+ GET /docs/slot-machine 200 in 488ms (next.js: 10ms, generate-params: 6ms, application-code: 472ms)
+ GET /docs/fireworks 200 in 520ms (next.js: 8ms, generate-params: 6ms, application-code: 507ms)
+ GET /docs/countdown 200 in 380ms (next.js: 10ms, generate-params: 6ms, application-code: 365ms)
+[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
+[browser] Uncaught Error: Hydration failed because the server rendered text didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectErrorBoundary router={{...}}>
+      <InnerLayoutRouter url="/docs/coun..." tree={[...]} params={{slug:"coun..."}} cacheNode={{rsc:{...}, ...}} ...>
+        <SegmentViewNode type="page" pagePath="docs/[slug...">
+          <SegmentTrieNode>
+          <ComponentPage>
+            <div className="flex items...">
+              <article className="min-w-0 fl...">
+                <MarkSeen>
+                <header>
+                <section className="space-y-3">
+                  <h2>
+                  <ComponentPreview name="countdown">
+                    <div className="flex min-h...">
+                      <AnimatedCountdownPreview>
+                        <Countdown targetDate={Date}>
+                          <div role="timer" aria-label="Countdown ..." className="inline-fle...">
+                            <div className="flex flex-...">
+                              <span className="font-mono text-xl font-black text-foreground">
++                               03
+-                               02
+                              ...
+                            ...
+                            ...
+                ...
+              ...
+        ...
+      ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at span (<anonymous>)
+    at <unknown> (src/components/ui/countdown.tsx:63:13)
+    at Array.map (<anonymous>)
+    at Countdown (src/components/ui/countdown.tsx:60:14)
+    at AnimatedCountdownPreview (src/components/site/component-preview.tsx:249:10)
+    at ComponentPreview (src/components/site/component-preview.tsx:2504:7)
+    at ComponentPage (app\docs\[slug]\page.tsx:2185:9)
+  61 |         <React.Fragment key={unit.label}>
+  62 |           <div className="flex flex-col items-center justify-center rounded-md border-2 border-foreground bg-card px-3 py-2 text-center shadow-xs min-w-[56px]">
+> 63 |             <span className="font-mono text-xl font-black text-foreground">
+     |             ^
+  64 |               {String(unit.value).padStart(2, "0")}
+  65 |             </span>
+  66 |             <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground mt-0.5">
+ GET /docs/stopwatch 200 in 481ms (next.js: 8ms, generate-params: 7ms, application-code: 466ms)
+ GET /docs/calendar 200 in 534ms (next.js: 6ms, generate-params: 7ms, application-code: 520ms)
+ GET /docs/date-picker 200 in 386ms (next.js: 9ms, generate-params: 6ms, application-code: 372ms)
+ GET /docs/virtual-list 200 in 433ms (next.js: 7ms, generate-params: 6ms, application-code: 421ms)
+ GET /docs/image-crop 200 in 433ms (next.js: 7ms, generate-params: 6ms, application-code: 421ms)
+ GET /docs/rich-text-editor 200 in 383ms (next.js: 10ms, generate-params: 6ms, application-code: 368ms)
+ GET /docs/command-palette 200 in 342ms (next.js: 9ms, generate-params: 6ms, application-code: 327ms)
+ GET /docs/tour 200 in 343ms (next.js: 9ms, generate-params: 6ms, application-code: 328ms)
+ GET /docs/dialog 200 in 353ms (next.js: 8ms, generate-params: 5ms, application-code: 340ms)
+ GET /docs/kanban-lite 200 in 464ms (next.js: 6ms, generate-params: 9ms, application-code: 449ms)
+ GET /docs/audio-recorder 200 in 532ms (next.js: 6ms, generate-params: 8ms, application-code: 517ms)
+ GET /docs/video-player 200 in 519ms (next.js: 8ms, generate-params: 6ms, application-code: 505ms)
+ GET /docs/qr-code 200 in 599ms (next.js: 8ms, generate-params: 8ms, application-code: 583ms)
+ GET /docs/coin-flip 200 in 544ms (next.js: 11ms, generate-params: 7ms, application-code: 525ms)
+ GET /docs/button 200 in 61ms (next.js: 12ms, generate-params: 6ms, application-code: 42ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /docs/autocomplete 200 in 54ms (next.js: 9ms, generate-params: 5ms, application-code: 39ms)
+ GET /docs/audio-recorder 200 in 49ms (next.js: 6ms, generate-params: 0.0ms, application-code: 43ms)
+ GET /docs/add-to-cart-button 200 in 49ms (next.js: 8ms, generate-params: 5ms, application-code: 36ms)
+ GET /docs/checkbox-card 200 in 57ms (next.js: 13ms, generate-params: 6ms, application-code: 37ms)
+ GET /docs/code-editor 200 in 51ms (next.js: 8ms, generate-params: 6ms, application-code: 37ms)
+ GET /docs/checkbox-group 200 in 52ms (next.js: 8ms, generate-params: 6ms, application-code: 38ms)
+ GET /docs/clock-picker 200 in 57ms (next.js: 8ms, generate-params: 7ms, application-code: 41ms)
+ GET /docs/consent-checkbox 200 in 57ms (next.js: 10ms, generate-params: 6ms, application-code: 41ms)
+✓ Compiled in 411ms
+ GET /docs/coin-flip 200 in 409ms (next.js: 101ms, generate-params: 0.1ms, application-code: 308ms)
+ GET /docs/consent-checkbox 200 in 470ms (next.js: 49ms, generate-params: 8ms, application-code: 413ms)
+ GET /docs/coupon-field 200 in 62ms (next.js: 11ms, generate-params: 9ms, application-code: 43ms)
+ GET /docs/country-select 200 in 58ms (next.js: 9ms, generate-params: 6ms, application-code: 43ms)
+ GET /docs/credit-card-form 200 in 87ms (next.js: 14ms, generate-params: 6ms, application-code: 67ms)
+ GET /docs/currency-select 200 in 53ms (next.js: 10ms, generate-params: 0.0ms, application-code: 43ms)
+ GET /docs/cron-builder 200 in 61ms (next.js: 14ms, generate-params: 6ms, application-code: 40ms)
+ GET /docs/duration-input 200 in 62ms (next.js: 20ms, generate-params: 6ms, application-code: 36ms)
+ GET /docs/diff-editor 200 in 61ms (next.js: 10ms, generate-params: 6ms, application-code: 46ms)
+ GET /docs/diff-editor 200 in 62ms (next.js: 22ms, generate-params: 6ms, application-code: 34ms)
+ GET /docs/date-range-picker 200 in 56ms (next.js: 15ms, generate-params: 0.0ms, application-code: 40ms)
+ GET /docs/date-picker 200 in 75ms (next.js: 25ms, generate-params: 6ms, application-code: 44ms)
+ GET /docs/field-array 200 in 69ms (next.js: 15ms, generate-params: 6ms, application-code: 48ms)
+ GET /docs/feature-flag-panel 200 in 55ms (next.js: 11ms, generate-params: 6ms, application-code: 39ms)
+ GET /docs/exchange-rate 200 in 55ms (next.js: 8ms, generate-params: 8ms, application-code: 38ms)
+ GET /docs/env-editor 200 in 60ms (next.js: 18ms, generate-params: 6ms, application-code: 37ms)
+ GET /docs/form-progress 200 in 60ms (next.js: 12ms, generate-params: 8ms, application-code: 41ms)
+ GET /docs/forgot-password 200 in 56ms (next.js: 9ms, generate-params: 7ms, application-code: 39ms)
+ GET /docs/hotkey-recorder 200 in 132ms (next.js: 8ms, generate-params: 6ms, application-code: 118ms)
+ GET /docs/form-progress 200 in 53ms (next.js: 8ms, generate-params: 0.0ms, application-code: 44ms)
+ GET /docs/hooks 200 in 57ms (next.js: 12ms, generate-params: 7ms, application-code: 38ms)
+ GET /docs/hotkey-recorder 200 in 59ms (next.js: 10ms, generate-params: 6ms, application-code: 42ms)
+ GET /docs/inline-edit 200 in 61ms (next.js: 13ms, generate-params: 7ms, application-code: 41ms)
+ GET /docs/installment-picker 200 in 64ms (next.js: 18ms, generate-params: 7ms, application-code: 39ms)
+ GET /docs/json-editor 200 in 61ms (next.js: 14ms, generate-params: 6ms, application-code: 41ms)
+ GET /docs/login-form 200 in 57ms (next.js: 9ms, generate-params: 8ms, application-code: 40ms)
+✓ Compiled in 258ms
+ GET /docs/login-form 200 in 509ms (next.js: 49ms, generate-params: 8ms, application-code: 452ms)
+ GET /docs/coin-flip 200 in 509ms (next.js: 149ms, generate-params: 0.0ms, application-code: 360ms)
+ GET /docs/password-input 200 in 54ms (next.js: 8ms, generate-params: 7ms, application-code: 39ms)
+ GET /docs/radio-cards 200 in 42ms (next.js: 8ms, generate-params: 6ms, application-code: 29ms)
+ GET /docs/payment-methods 200 in 50ms (next.js: 8ms, generate-params: 6ms, application-code: 36ms)
+ GET /docs/payment-methods 200 in 300ms (next.js: 15ms, generate-params: 7ms, application-code: 278ms)
+ GET /docs/coin-flip 200 in 285ms (next.js: 16ms, generate-params: 0.1ms, application-code: 269ms)
+ GET /docs/radio-tile 200 in 69ms (next.js: 17ms, generate-params: 7ms, application-code: 46ms)
+ GET /docs/register-form 200 in 55ms (next.js: 10ms, generate-params: 7ms, application-code: 38ms)
+ GET /docs/search-filter-bar 200 in 62ms (next.js: 13ms, generate-params: 6ms, application-code: 44ms)
+ GET /docs/shipping-options 200 in 50ms (next.js: 8ms, generate-params: 7ms, application-code: 35ms)
+ GET /docs/split-button 200 in 58ms (next.js: 9ms, generate-params: 7ms, application-code: 42ms)
+ GET /docs/stepper-v2 200 in 54ms (next.js: 10ms, generate-params: 6ms, application-code: 38ms)
+ GET /docs/stepper 200 in 53ms (next.js: 10ms, generate-params: 6ms, application-code: 37ms)
+ GET /docs/switch-card 200 in 55ms (next.js: 9ms, generate-params: 5ms, application-code: 40ms)
+ GET /docs/textarea-autosize 200 in 53ms (next.js: 9ms, generate-params: 9ms, application-code: 35ms)
+ GET /docs/wishlist-button 200 in 63ms (next.js: 13ms, generate-params: 7ms, application-code: 44ms)
+ GET /docs 200 in 81ms (next.js: 31ms, application-code: 49ms)
+ GET /docs/coin-flip 200 in 413ms (next.js: 12ms, generate-params: 9ms, application-code: 393ms)
+ GET /docs 200 in 323ms (next.js: 16ms, application-code: 308ms)
+ GET /docs 200 in 338ms (next.js: 6ms, application-code: 332ms)
+ GET /docs 200 in 1299ms (next.js: 9ms, application-code: 1290ms)
+✓ Compiled in 138ms
+ GET /docs 200 in 343ms (next.js: 6ms, application-code: 337ms)
+ GET /docs 200 in 243ms (next.js: 6ms, application-code: 237ms)
+✓ Compiled in 238ms
+✓ Compiled in 307ms
+ GET /docs 200 in 340ms (next.js: 6ms, application-code: 334ms)
+ GET /docs 200 in 360ms (next.js: 7ms, application-code: 353ms)
+ GET / 200 in 553ms (next.js: 133ms, application-code: 420ms)
+ GET /docs/agents 200 in 434ms (next.js: 137ms, application-code: 297ms)
+ GET /docs 200 in 60ms (next.js: 8ms, application-code: 52ms)
+ GET /docs/contributing 200 in 157ms (next.js: 108ms, application-code: 49ms)
+✓ Compiled in 363ms
+ GET /docs/contributing 200 in 307ms (next.js: 12ms, application-code: 294ms)
+✓ Compiled in 294ms
+ GET /docs/contributing 200 in 261ms (next.js: 15ms, application-code: 246ms)
+✓ Compiled in 256ms
+ GET /docs/contributing 200 in 249ms (next.js: 7ms, application-code: 242ms)
+ GET /docs 200 in 50ms (next.js: 19ms, application-code: 32ms)
+ GET /docs 200 in 32ms (next.js: 6ms, application-code: 26ms)
+ GET /docs/installation 200 in 134ms (next.js: 90ms, application-code: 44ms)
+ GET /docs/agents 200 in 40ms (next.js: 11ms, application-code: 29ms)
+ GET / 200 in 348ms (next.js: 18ms, application-code: 330ms)
+ GET / 200 in 523ms (next.js: 15ms, application-code: 509ms)
+ GET /docs/accordion 200 in 1297ms (next.js: 89ms, generate-params: 9ms, application-code: 1199ms)
+ GET /docs/activity-feed 200 in 259ms (next.js: 6ms, generate-params: 5ms, application-code: 247ms)
+ GET /docs/activity-v2 200 in 246ms (next.js: 6ms, generate-params: 0.0ms, application-code: 240ms)
+ GET /docs/add-to-cart-button 200 in 237ms (next.js: 9ms, generate-params: 0.0ms, application-code: 228ms)
+ GET /docs/address-form 200 in 245ms (next.js: 7ms, generate-params: 0.0ms, application-code: 238ms)
+ GET /docs/admin-shell 200 in 234ms (next.js: 5ms, generate-params: 7ms, application-code: 223ms)
+ GET /docs/airmail-letter 200 in 213ms (next.js: 8ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/alert 200 in 208ms (next.js: 11ms, generate-params: 0.0ms, application-code: 197ms)
+ GET /docs/alert-dialog 200 in 227ms (next.js: 15ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/anchor-nav 200 in 216ms (next.js: 4ms, generate-params: 5ms, application-code: 207ms)
+ GET /docs/announcement-bar 200 in 247ms (next.js: 14ms, generate-params: 0.0ms, application-code: 233ms)
+ GET /docs/api-key-card 200 in 232ms (next.js: 8ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/app-shell 200 in 243ms (next.js: 13ms, generate-params: 0.0ms, application-code: 230ms)
+ GET /docs/arcade-cabinet 200 in 234ms (next.js: 5ms, generate-params: 7ms, application-code: 222ms)
+ GET /docs/area-chart 200 in 210ms (next.js: 10ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/article-card 200 in 255ms (next.js: 6ms, generate-params: 0.0ms, application-code: 249ms)
+ GET /docs/aspect-ratio 200 in 247ms (next.js: 7ms, generate-params: 0.0ms, application-code: 240ms)
+ GET /docs/audio-mini 200 in 240ms (next.js: 8ms, generate-params: 7ms, application-code: 225ms)
+ GET /docs/audio-player 200 in 231ms (next.js: 10ms, generate-params: 0.0ms, application-code: 220ms)
+ GET /docs/audio-recorder 200 in 233ms (next.js: 6ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/audio-waveform 200 in 237ms (next.js: 7ms, generate-params: 0.0ms, application-code: 230ms)
+ GET /docs/audit-log 200 in 213ms (next.js: 10ms, generate-params: 7ms, application-code: 195ms)
+ GET /docs/autocomplete 200 in 237ms (next.js: 8ms, generate-params: 0.0ms, application-code: 229ms)
+ GET /docs/avatar 200 in 238ms (next.js: 7ms, generate-params: 0.0ms, application-code: 231ms)
+ GET /docs/avatar-group 200 in 243ms (next.js: 8ms, generate-params: 0.0ms, application-code: 235ms)
+ GET /docs/avatar-upload 200 in 236ms (next.js: 7ms, generate-params: 5ms, application-code: 224ms)
+ GET /docs/back-link 200 in 224ms (next.js: 6ms, generate-params: 0.0ms, application-code: 218ms)
+ GET /docs/backstage-pass 200 in 245ms (next.js: 15ms, generate-params: 0.0ms, application-code: 229ms)
+ GET /docs/badge 200 in 239ms (next.js: 8ms, generate-params: 0.0ms, application-code: 231ms)
+ GET /docs/badge-list 200 in 254ms (next.js: 6ms, generate-params: 7ms, application-code: 242ms)
+ GET /docs/badge-ribbon 200 in 225ms (next.js: 8ms, generate-params: 0.0ms, application-code: 217ms)
+ GET /docs/bar-chart 200 in 203ms (next.js: 8ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/barcode 200 in 234ms (next.js: 9ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/bento-grid 200 in 267ms (next.js: 8ms, generate-params: 7ms, application-code: 253ms)
+ GET /docs/betting-slip 200 in 237ms (next.js: 7ms, generate-params: 0.1ms, application-code: 231ms)
+ GET /docs/billing-panel 200 in 263ms (next.js: 10ms, generate-params: 0.0ms, application-code: 253ms)
+ GET /docs/bingo-card 200 in 269ms (next.js: 17ms, generate-params: 0.0ms, application-code: 253ms)
+ GET /docs/bio-card 200 in 340ms (next.js: 10ms, generate-params: 0.0ms, application-code: 330ms)
+ GET /docs/board-checklist 200 in 330ms (next.js: 9ms, generate-params: 0.0ms, application-code: 321ms)
+ GET /docs/boarding-pass 200 in 280ms (next.js: 12ms, generate-params: 10ms, application-code: 257ms)
+ GET /docs/breadcrumb 200 in 250ms (next.js: 6ms, generate-params: 0.0ms, application-code: 244ms)
+ GET /docs/breadcrumb-dropdown 200 in 264ms (next.js: 13ms, generate-params: 0.0ms, application-code: 251ms)
+ GET /docs/bubble-chart 200 in 303ms (next.js: 10ms, generate-params: 0.0ms, application-code: 293ms)
+ GET /docs/budget-progress 200 in 296ms (next.js: 9ms, generate-params: 0.0ms, application-code: 287ms)
+ GET /docs/bullet-chart 200 in 247ms (next.js: 7ms, generate-params: 6ms, application-code: 234ms)
+ GET /docs/button 200 in 271ms (next.js: 7ms, generate-params: 0.0ms, application-code: 263ms)
+ GET /docs/button-group 200 in 247ms (next.js: 9ms, generate-params: 0.0ms, application-code: 238ms)
+ GET /docs/calendar 200 in 241ms (next.js: 7ms, generate-params: 0.0ms, application-code: 234ms)
+ GET /docs/calendar-heatmap 200 in 258ms (next.js: 14ms, generate-params: 0.0ms, application-code: 245ms)
+ GET /docs/callout 200 in 278ms (next.js: 14ms, generate-params: 9ms, application-code: 256ms)
+ GET /docs/candlestick-chart 200 in 244ms (next.js: 7ms, generate-params: 0.0ms, application-code: 238ms)
+ GET /docs/card 200 in 342ms (next.js: 9ms, generate-params: 0.0ms, application-code: 333ms)
+ GET /docs/carousel 200 in 348ms (next.js: 9ms, generate-params: 0.0ms, application-code: 338ms)
+ GET /docs/carousel-ride 200 in 247ms (next.js: 9ms, generate-params: 9ms, application-code: 230ms)
+ GET /docs/cart-badge 200 in 285ms (next.js: 14ms, generate-params: 0.0ms, application-code: 271ms)
+ GET /docs/cart-drawer 200 in 279ms (next.js: 8ms, generate-params: 0.1ms, application-code: 270ms)
+ GET /docs/cassette-tape 200 in 246ms (next.js: 13ms, generate-params: 0.0ms, application-code: 233ms)
+ GET /docs/centered-card 200 in 272ms (next.js: 5ms, generate-params: 7ms, application-code: 260ms)
+ GET /docs/changelog-list 200 in 237ms (next.js: 5ms, generate-params: 0.0ms, application-code: 233ms)
+ GET /docs/char-counter 200 in 217ms (next.js: 7ms, generate-params: 0.0ms, application-code: 211ms)
+ GET /docs/chat-bubble 200 in 222ms (next.js: 8ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/chat-window 200 in 250ms (next.js: 6ms, generate-params: 6ms, application-code: 238ms)
+ GET /docs/checkbox 200 in 253ms (next.js: 6ms, generate-params: 0.0ms, application-code: 247ms)
+ GET /docs/checkbox-card 200 in 252ms (next.js: 10ms, generate-params: 0.0ms, application-code: 242ms)
+ GET /docs/checkbox-group 200 in 241ms (next.js: 7ms, generate-params: 0.0ms, application-code: 234ms)
+ GET /docs/checkout-summary 200 in 309ms (next.js: 8ms, generate-params: 0.0ms, application-code: 301ms)
+ GET /docs/clock-picker 200 in 261ms (next.js: 11ms, generate-params: 7ms, application-code: 243ms)
+ GET /docs/coach-mark 200 in 242ms (next.js: 11ms, generate-params: 0.2ms, application-code: 230ms)
+ GET /docs/code-block 200 in 230ms (next.js: 7ms, generate-params: 0.0ms, application-code: 222ms)
+ GET /docs/code-editor 200 in 217ms (next.js: 7ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/coin-flip 200 in 249ms (next.js: 8ms, generate-params: 0.0ms, application-code: 241ms)
+ GET /docs/collapsible 200 in 262ms (next.js: 5ms, generate-params: 6ms, application-code: 251ms)
+ GET /docs/color-picker 200 in 239ms (next.js: 9ms, generate-params: 0.0ms, application-code: 231ms)
+ GET /docs/color-token-table 200 in 220ms (next.js: 10ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/column-toggle 200 in 278ms (next.js: 14ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/combobox 200 in 230ms (next.js: 8ms, generate-params: 6ms, application-code: 215ms)
+ GET /docs/command-palette 200 in 250ms (next.js: 7ms, generate-params: 0.0ms, application-code: 244ms)
+ GET /docs/comment-thread 200 in 220ms (next.js: 5ms, generate-params: 0.0ms, application-code: 215ms)
+ GET /docs/confetti-burst 200 in 238ms (next.js: 9ms, generate-params: 0.1ms, application-code: 229ms)
+ GET /docs/confirm-dialog 200 in 233ms (next.js: 11ms, generate-params: 8ms, application-code: 214ms)
+ GET /docs/connection-status 200 in 228ms (next.js: 6ms, generate-params: 0.0ms, application-code: 222ms)
+ GET /docs/consent-checkbox 200 in 265ms (next.js: 18ms, generate-params: 0.0ms, application-code: 246ms)
+ GET /docs/console-panel 200 in 246ms (next.js: 12ms, generate-params: 0.0ms, application-code: 234ms)
+ GET /docs/container 200 in 322ms (next.js: 13ms, generate-params: 0.0ms, application-code: 309ms)
+ GET /docs/context-menu 200 in 238ms (next.js: 13ms, generate-params: 6ms, application-code: 220ms)
+ GET /docs/cookie-banner 200 in 238ms (next.js: 7ms, generate-params: 0.0ms, application-code: 230ms)
+ GET /docs/copy-button 200 in 254ms (next.js: 15ms, generate-params: 0.0ms, application-code: 239ms)
+ GET /docs/copy-chip 200 in 327ms (next.js: 7ms, generate-params: 0.0ms, application-code: 320ms)
+ GET /docs/countdown 200 in 255ms (next.js: 8ms, generate-params: 0.0ms, application-code: 247ms)
+ GET /docs 200 in 611ms (next.js: 24ms, application-code: 586ms)
+ GET /docs/country-select 200 in 272ms (next.js: 6ms, generate-params: 8ms, application-code: 257ms)
+ GET /docs/countup 200 in 251ms (next.js: 9ms, generate-params: 0.0ms, application-code: 242ms)
+ GET /docs/coupon 200 in 327ms (next.js: 9ms, generate-params: 0.0ms, application-code: 318ms)
+ GET /docs/coupon-field 200 in 265ms (next.js: 10ms, generate-params: 0.0ms, application-code: 254ms)
+ GET /docs/credit-card 200 in 312ms (next.js: 16ms, generate-params: 0.0ms, application-code: 296ms)
+ GET /docs/credit-card-form 200 in 369ms (next.js: 7ms, generate-params: 6ms, application-code: 355ms)
+ GET /docs/cron-builder 200 in 234ms (next.js: 8ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/crypto-ticker 200 in 380ms (next.js: 9ms, generate-params: 0.0ms, application-code: 370ms)
+ GET /docs/cta-section 200 in 275ms (next.js: 11ms, generate-params: 0.3ms, application-code: 264ms)
+ GET /docs/currency-display 200 in 343ms (next.js: 9ms, generate-params: 0.0ms, application-code: 333ms)
+ GET /docs/currency-select 200 in 258ms (next.js: 13ms, generate-params: 7ms, application-code: 238ms)
+ GET /docs/danger-zone 200 in 314ms (next.js: 11ms, generate-params: 0.0ms, application-code: 302ms)
+ GET /docs/data-grid 200 in 338ms (next.js: 16ms, generate-params: 0.0ms, application-code: 322ms)
+ GET /docs/data-table 200 in 362ms (next.js: 9ms, generate-params: 0.0ms, application-code: 352ms)
+ GET /docs/date-picker 200 in 233ms (next.js: 11ms, generate-params: 0.0ms, application-code: 222ms)
+ GET /docs/date-range-picker 200 in 275ms (next.js: 35ms, generate-params: 0.0ms, application-code: 240ms)
+ GET /docs/description-list 200 in 267ms (next.js: 6ms, generate-params: 6ms, application-code: 255ms)
+ GET /docs/dialog 200 in 253ms (next.js: 14ms, generate-params: 0.0ms, application-code: 240ms)
+ GET /docs/dice 200 in 241ms (next.js: 11ms, generate-params: 0.0ms, application-code: 229ms)
+ GET /docs/diff-editor 200 in 220ms (next.js: 12ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/diff-viewer 200 in 235ms (next.js: 10ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/disco-ball 200 in 245ms (next.js: 7ms, generate-params: 6ms, application-code: 232ms)
+ GET /docs/divider-with-text 200 in 244ms (next.js: 10ms, generate-params: 0.0ms, application-code: 234ms)
+ GET /docs/dm-thread 200 in 233ms (next.js: 6ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/dock 200 in 270ms (next.js: 7ms, generate-params: 0.0ms, application-code: 263ms)
+ GET /docs/donut-chart 200 in 232ms (next.js: 16ms, generate-params: 0.0ms, application-code: 217ms)
+ GET /docs/drag-sort 200 in 238ms (next.js: 7ms, generate-params: 0.0ms, application-code: 230ms)
+ GET /docs/drawer 200 in 237ms (next.js: 6ms, generate-params: 6ms, application-code: 226ms)
+ GET /docs/drawer-nav 200 in 203ms (next.js: 5ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/drink-ticket 200 in 231ms (next.js: 7ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/drive-in-screen 200 in 218ms (next.js: 10ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/dropdown-menu 200 in 233ms (next.js: 7ms, generate-params: 6ms, application-code: 220ms)
+ GET /docs/dropdown-menu-v2 200 in 210ms (next.js: 6ms, generate-params: 0.0ms, application-code: 204ms)
+ GET /docs/dual-slider 200 in 234ms (next.js: 9ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/duration-input 200 in 208ms (next.js: 5ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/email-input 200 in 221ms (next.js: 7ms, generate-params: 6ms, application-code: 208ms)
+ GET /docs/emoji-picker 200 in 187ms (next.js: 6ms, generate-params: 0.0ms, application-code: 181ms)
+ GET /docs/empty 200 in 239ms (next.js: 6ms, generate-params: 0.0ms, application-code: 233ms)
+ GET /docs/empty-col-span 200 in 225ms (next.js: 4ms, generate-params: 5ms, application-code: 216ms)
+ GET /docs/env-editor 200 in 186ms (next.js: 5ms, generate-params: 0.0ms, application-code: 181ms)
+ GET /docs/envelope 200 in 208ms (next.js: 5ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/error-page 200 in 217ms (next.js: 4ms, generate-params: 5ms, application-code: 207ms)
+ GET /docs/event-card 200 in 236ms (next.js: 6ms, generate-params: 0.0ms, application-code: 230ms)
+ GET /docs/exchange-rate 200 in 274ms (next.js: 8ms, generate-params: 0.0ms, application-code: 266ms)
+ GET /docs/fab 200 in 227ms (next.js: 7ms, generate-params: 6ms, application-code: 214ms)
+ GET /docs/faq 200 in 226ms (next.js: 6ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/feature-flag-panel 200 in 185ms (next.js: 5ms, generate-params: 0.0ms, application-code: 180ms)
+ GET /docs/feature-grid 200 in 217ms (next.js: 6ms, generate-params: 0.0ms, application-code: 211ms)
+ GET /docs/feed-masonry 200 in 233ms (next.js: 5ms, generate-params: 5ms, application-code: 222ms)
+ GET /docs/ferris-wheel 200 in 211ms (next.js: 4ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/field 200 in 203ms (next.js: 6ms, generate-params: 0.0ms, application-code: 197ms)
+ GET /docs/field-array 200 in 211ms (next.js: 6ms, generate-params: 5ms, application-code: 200ms)
+ GET /docs/figure 200 in 235ms (next.js: 8ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/file-dropzone 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/file-input 200 in 226ms (next.js: 6ms, generate-params: 7ms, application-code: 213ms)
+ GET /docs/file-upload-list 200 in 233ms (next.js: 6ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/fireworks 200 in 219ms (next.js: 6ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/flip-card 200 in 233ms (next.js: 6ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/flip-clock 200 in 211ms (next.js: 5ms, generate-params: 5ms, application-code: 201ms)
+ GET /docs/flyout-menu 200 in 203ms (next.js: 5ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/flyout-v2 200 in 206ms (next.js: 4ms, generate-params: 0.0ms, application-code: 202ms)
+ GET /docs/focus-trap 200 in 195ms (next.js: 5ms, generate-params: 5ms, application-code: 185ms)
+ GET /docs/follower-list 200 in 218ms (next.js: 6ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/footer 200 in 240ms (next.js: 16ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/footer-minimal 200 in 213ms (next.js: 5ms, generate-params: 5ms, application-code: 202ms)
+ GET /docs/footer-nav 200 in 204ms (next.js: 6ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/forgot-password 200 in 200ms (next.js: 5ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/form-field 200 in 204ms (next.js: 5ms, generate-params: 5ms, application-code: 193ms)
+ GET /docs/form-progress 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/funnel-chart 200 in 192ms (next.js: 4ms, generate-params: 0.0ms, application-code: 187ms)
+ GET /docs/gallery-grid 200 in 229ms (next.js: 6ms, generate-params: 5ms, application-code: 218ms)
+ GET /docs/gantt-lite 200 in 231ms (next.js: 6ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/gauge 200 in 194ms (next.js: 6ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/gift-card 200 in 240ms (next.js: 5ms, generate-params: 5ms, application-code: 230ms)
+ GET /docs/gift-message 200 in 199ms (next.js: 5ms, generate-params: 0.0ms, application-code: 193ms)
+ GET /docs/glossary-list 200 in 233ms (next.js: 5ms, generate-params: 0.0ms, application-code: 228ms)
+ GET /docs/heading 200 in 231ms (next.js: 6ms, generate-params: 6ms, application-code: 219ms)
+ GET /docs/heatmap 200 in 210ms (next.js: 6ms, generate-params: 0.0ms, application-code: 204ms)
+ GET /docs/hero 200 in 224ms (next.js: 5ms, generate-params: 0.0ms, application-code: 219ms)
+ GET /docs/hero-split 200 in 198ms (next.js: 5ms, generate-params: 0.0ms, application-code: 193ms)
+ GET /docs/highlight-text 200 in 307ms (next.js: 6ms, generate-params: 5ms, application-code: 296ms)
+ GET /docs/histogram 200 in 205ms (next.js: 6ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/history-nav 200 in 216ms (next.js: 5ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/hooks 200 in 190ms (next.js: 5ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/hotkey-recorder 200 in 196ms (next.js: 6ms, generate-params: 5ms, application-code: 184ms)
+ GET /docs/hover-card 200 in 191ms (next.js: 5ms, generate-params: 0.0ms, application-code: 187ms)
+ GET /docs/html-preview 200 in 186ms (next.js: 5ms, generate-params: 0.0ms, application-code: 181ms)
+ GET /docs/id-card 200 in 238ms (next.js: 4ms, generate-params: 5ms, application-code: 229ms)
+ GET /docs/image-carousel 200 in 202ms (next.js: 6ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/image-compare 200 in 210ms (next.js: 5ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/image-crop 200 in 205ms (next.js: 6ms, generate-params: 6ms, application-code: 193ms)
+ GET /docs/inbox-list 200 in 232ms (next.js: 7ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/infinite-scroll 200 in 199ms (next.js: 6ms, generate-params: 0.0ms, application-code: 192ms)
+ GET /docs/inline-edit 200 in 210ms (next.js: 5ms, generate-params: 5ms, application-code: 201ms)
+ GET /docs/input 200 in 204ms (next.js: 5ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/input-group 200 in 216ms (next.js: 6ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/installment-picker 200 in 207ms (next.js: 6ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/invite-modal 200 in 235ms (next.js: 5ms, generate-params: 5ms, application-code: 225ms)
+ GET /docs/invoice 200 in 432ms (next.js: 8ms, generate-params: 0.0ms, application-code: 424ms)
+ GET /docs/item 200 in 270ms (next.js: 5ms, generate-params: 0.0ms, application-code: 265ms)
+ GET /docs/json-editor 200 in 183ms (next.js: 6ms, generate-params: 0.0ms, application-code: 177ms)
+ GET /docs/json-viewer 200 in 205ms (next.js: 6ms, generate-params: 5ms, application-code: 193ms)
+ GET /docs/jumbotron 200 in 230ms (next.js: 7ms, generate-params: 0.0ms, application-code: 223ms)
+ GET /docs/kanban-lite 200 in 223ms (next.js: 5ms, generate-params: 0.0ms, application-code: 219ms)
+ GET /docs/kanban-v2 200 in 227ms (next.js: 5ms, generate-params: 5ms, application-code: 217ms)
+ GET /docs/kbd 200 in 197ms (next.js: 6ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/keyboard-nav-helper 200 in 213ms (next.js: 6ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/keypad 200 in 229ms (next.js: 5ms, generate-params: 5ms, application-code: 219ms)
+ GET /docs/label 200 in 202ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/lanyard 200 in 195ms (next.js: 6ms, generate-params: 0.0ms, application-code: 189ms)
+ GET /docs/leaderboard 200 in 224ms (next.js: 5ms, generate-params: 5ms, application-code: 215ms)
+ GET /docs/lightbox 200 in 190ms (next.js: 5ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/like-button 200 in 192ms (next.js: 5ms, generate-params: 0.0ms, application-code: 187ms)
+ GET /docs/line-chart 200 in 210ms (next.js: 7ms, generate-params: 5ms, application-code: 198ms)
+ GET /docs/link-card 200 in 216ms (next.js: 5ms, generate-params: 0.0ms, application-code: 211ms)
+ GET /docs/list 200 in 221ms (next.js: 5ms, generate-params: 0.0ms, application-code: 216ms)
+ GET /docs/listbox 200 in 229ms (next.js: 4ms, generate-params: 7ms, application-code: 218ms)
+ GET /docs/live-badge 200 in 190ms (next.js: 5ms, generate-params: 0.0ms, application-code: 186ms)
+ GET /docs/live-clock 200 in 206ms (next.js: 6ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/load-more 200 in 276ms (next.js: 5ms, generate-params: 5ms, application-code: 266ms)
+ GET /docs/loading-button 200 in 271ms (next.js: 8ms, generate-params: 0.0ms, application-code: 264ms)
+ GET /docs/loading-dots 200 in 219ms (next.js: 6ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/loading-overlay 200 in 213ms (next.js: 5ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/log-viewer 200 in 199ms (next.js: 5ms, generate-params: 6ms, application-code: 188ms)
+ GET /docs/login-form 200 in 207ms (next.js: 6ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/logo-cloud 200 in 244ms (next.js: 4ms, generate-params: 0.0ms, application-code: 239ms)
+ GET /docs/lottery-machine 200 in 213ms (next.js: 7ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/luggage-tag 200 in 244ms (next.js: 7ms, generate-params: 6ms, application-code: 232ms)
+ GET /docs/mailbox 200 in 212ms (next.js: 4ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/maintenance-banner 200 in 208ms (next.js: 6ms, generate-params: 0.0ms, application-code: 202ms)
+ GET /docs/markdown-editor 200 in 181ms (next.js: 6ms, generate-params: 0.0ms, application-code: 175ms)
+ GET /docs/markdown-preview 200 in 201ms (next.js: 5ms, generate-params: 7ms, application-code: 189ms)
+ GET /docs/marquee 200 in 212ms (next.js: 4ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/marquee-bulbs 200 in 206ms (next.js: 5ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/masked-currency 200 in 196ms (next.js: 5ms, generate-params: 6ms, application-code: 186ms)
+ GET /docs/masked-input 200 in 185ms (next.js: 5ms, generate-params: 0.0ms, application-code: 181ms)
+ GET /docs/masonry-columns 200 in 215ms (next.js: 6ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/match-ticker 200 in 217ms (next.js: 5ms, generate-params: 5ms, application-code: 208ms)
+ GET /docs/medal-display 200 in 192ms (next.js: 5ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/media-controls 200 in 188ms (next.js: 5ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/media-embed 200 in 202ms (next.js: 6ms, generate-params: 6ms, application-code: 190ms)
+ GET /docs/media-object 200 in 194ms (next.js: 5ms, generate-params: 0.0ms, application-code: 189ms)
+ GET /docs/mega-menu 200 in 200ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/megaphone 200 in 200ms (next.js: 5ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/mention-highlight 200 in 265ms (next.js: 5ms, generate-params: 5ms, application-code: 255ms)
+ GET /docs/mention-input 200 in 195ms (next.js: 4ms, generate-params: 0.0ms, application-code: 190ms)
+ GET /docs/mention-list 200 in 233ms (next.js: 5ms, generate-params: 0.0ms, application-code: 228ms)
+ GET /docs/menubar 200 in 240ms (next.js: 5ms, generate-params: 5ms, application-code: 230ms)
+ GET /docs/meter 200 in 227ms (next.js: 5ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/metric-card 200 in 252ms (next.js: 5ms, generate-params: 0.0ms, application-code: 247ms)
+ GET /docs/migration-banner 200 in 227ms (next.js: 6ms, generate-params: 6ms, application-code: 215ms)
+ GET /docs/milestone-chart 200 in 191ms (next.js: 5ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/mobile-menu 200 in 212ms (next.js: 5ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/month-picker 200 in 199ms (next.js: 6ms, generate-params: 0.0ms, application-code: 192ms)
+ GET /docs/multi-select 200 in 199ms (next.js: 6ms, generate-params: 6ms, application-code: 188ms)
+ GET /docs/navbar 200 in 202ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/navigation-menu 200 in 204ms (next.js: 5ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/neon-sign 200 in 200ms (next.js: 5ms, generate-params: 5ms, application-code: 190ms)
+ GET /docs/network-graph 200 in 180ms (next.js: 5ms, generate-params: 0.0ms, application-code: 175ms)
+ GET /docs/nfc-badge 200 in 226ms (next.js: 5ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/notification-center 200 in 207ms (next.js: 5ms, generate-params: 5ms, application-code: 197ms)
+ GET /docs/notification-feed 200 in 194ms (next.js: 4ms, generate-params: 0.0ms, application-code: 189ms)
+ GET /docs/now-serving 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/offline-banner 200 in 193ms (next.js: 5ms, generate-params: 5ms, application-code: 183ms)
+ GET /docs/order-card 200 in 241ms (next.js: 5ms, generate-params: 0.0ms, application-code: 236ms)
+ GET /docs/order-tracking 200 in 223ms (next.js: 6ms, generate-params: 0.0ms, application-code: 217ms)
+ GET /docs/org-chart 200 in 205ms (next.js: 6ms, generate-params: 7ms, application-code: 193ms)
+ GET /docs/otp-verify 200 in 217ms (next.js: 6ms, generate-params: 0.0ms, application-code: 211ms)
+ GET /docs/page-header 200 in 238ms (next.js: 5ms, generate-params: 0.0ms, application-code: 233ms)
+ GET /docs/page-tabs 200 in 216ms (next.js: 7ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/pager-dots 200 in 221ms (next.js: 6ms, generate-params: 6ms, application-code: 209ms)
+ GET /docs/pagination 200 in 205ms (next.js: 5ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/pagination-v2 200 in 234ms (next.js: 5ms, generate-params: 0.0ms, application-code: 228ms)
+ GET /docs/passport 200 in 230ms (next.js: 6ms, generate-params: 6ms, application-code: 218ms)
+ GET /docs/password-input 200 in 195ms (next.js: 5ms, generate-params: 0.0ms, application-code: 190ms)
+ GET /docs/password-strength 200 in 203ms (next.js: 5ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/payment-methods 200 in 206ms (next.js: 5ms, generate-params: 5ms, application-code: 197ms)
+ GET /docs/permission-denied 200 in 212ms (next.js: 14ms, generate-params: 0.0ms, application-code: 198ms)
+ GET /docs/permissions-matrix 200 in 188ms (next.js: 5ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/phone-input 200 in 196ms (next.js: 6ms, generate-params: 5ms, application-code: 185ms)
+ GET /docs/pin-input 200 in 187ms (next.js: 5ms, generate-params: 0.0ms, application-code: 182ms)
+ GET /docs/playing-card 200 in 198ms (next.js: 5ms, generate-params: 0.0ms, application-code: 193ms)
+ GET /docs/playlist 200 in 198ms (next.js: 5ms, generate-params: 5ms, application-code: 188ms)
+ GET /docs/podcast-player 200 in 192ms (next.js: 5ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/poll 200 in 194ms (next.js: 6ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/pool-table 200 in 203ms (next.js: 6ms, generate-params: 5ms, application-code: 192ms)
+ GET /docs/popover 200 in 192ms (next.js: 5ms, generate-params: 0.0ms, application-code: 187ms)
+ GET /docs/post-card 200 in 220ms (next.js: 7ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/poster-card 200 in 225ms (next.js: 6ms, generate-params: 5ms, application-code: 214ms)
+ GET /docs/postmark 200 in 196ms (next.js: 4ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/price-compare 200 in 232ms (next.js: 5ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/price-tag 200 in 222ms (next.js: 6ms, generate-params: 6ms, application-code: 210ms)
+ GET /docs/pricing-table 200 in 255ms (next.js: 7ms, generate-params: 0.0ms, application-code: 248ms)
+ GET /docs/prize-wheel 200 in 215ms (next.js: 10ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/product-card 200 in 299ms (next.js: 7ms, generate-params: 5ms, application-code: 287ms)
+ GET /docs/profile-settings 200 in 247ms (next.js: 6ms, generate-params: 0.0ms, application-code: 242ms)
+ GET /docs/progress 200 in 231ms (next.js: 6ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/progress-circle 200 in 202ms (next.js: 5ms, generate-params: 5ms, application-code: 192ms)
+ GET /docs/punch-clock 200 in 199ms (next.js: 6ms, generate-params: 0.0ms, application-code: 193ms)
+ GET /docs/qr-code 200 in 231ms (next.js: 5ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/qr-reader 200 in 232ms (next.js: 5ms, generate-params: 5ms, application-code: 222ms)
+ GET /docs/queue-ticket 200 in 197ms (next.js: 6ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/queued-jobs 200 in 188ms (next.js: 5ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/quick-actions 200 in 204ms (next.js: 5ms, generate-params: 5ms, application-code: 193ms)
+ GET /docs/quiz-card 200 in 233ms (next.js: 5ms, generate-params: 0.0ms, application-code: 228ms)
+ GET /docs/quote 200 in 230ms (next.js: 5ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/quote-wall 200 in 231ms (next.js: 5ms, generate-params: 5ms, application-code: 221ms)
+ GET /docs/radar-chart 200 in 182ms (next.js: 5ms, generate-params: 0.0ms, application-code: 177ms)
+ GET /docs/radio-cards 200 in 208ms (next.js: 5ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/radio-group 200 in 205ms (next.js: 5ms, generate-params: 5ms, application-code: 195ms)
+ GET /docs/radio-tile 200 in 234ms (next.js: 8ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/raffle-ticket 200 in 254ms (next.js: 7ms, generate-params: 0.0ms, application-code: 246ms)
+ GET /docs/rank-list 200 in 508ms (next.js: 33ms, generate-params: 0.0ms, application-code: 475ms)
+ GET /docs/rate-limit-note 200 in 259ms (next.js: 11ms, generate-params: 6ms, application-code: 242ms)
+ GET /docs/rating 200 in 227ms (next.js: 8ms, generate-params: 0.0ms, application-code: 219ms)
+ GET /docs/reaction-bar 200 in 199ms (next.js: 5ms, generate-params: 0.0ms, application-code: 194ms)
+ GET /docs/receipt 200 in 237ms (next.js: 6ms, generate-params: 0.0ms, application-code: 231ms)
+ GET /docs/receipt-printer 200 in 267ms (next.js: 8ms, generate-params: 9ms, application-code: 251ms)
+ GET /docs/recipe-card 200 in 266ms (next.js: 9ms, generate-params: 0.0ms, application-code: 257ms)
+ GET /docs/refund-card 200 in 267ms (next.js: 6ms, generate-params: 0.0ms, application-code: 260ms)
+ GET /docs/regex-tester 200 in 196ms (next.js: 8ms, generate-params: 0.0ms, application-code: 189ms)
+ GET /docs/register-form 200 in 211ms (next.js: 5ms, generate-params: 5ms, application-code: 200ms)
+ GET /docs/resizable 200 in 209ms (next.js: 4ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/responsive-nav 200 in 207ms (next.js: 5ms, generate-params: 0.0ms, application-code: 202ms)
+ GET /docs/result 200 in 202ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/reveal 200 in 203ms (next.js: 6ms, generate-params: 5ms, application-code: 192ms)
+ GET /docs/revolving-door 200 in 209ms (next.js: 5ms, generate-params: 0.0ms, application-code: 204ms)
+ GET /docs/rich-text-editor 200 in 200ms (next.js: 6ms, generate-params: 0.0ms, application-code: 194ms)
+ GET /docs/role-badge 200 in 200ms (next.js: 6ms, generate-params: 0.0ms, application-code: 194ms)
+ GET /docs/route-loader 200 in 208ms (next.js: 5ms, generate-params: 5ms, application-code: 197ms)
+ GET /docs/row-expand 200 in 225ms (next.js: 4ms, generate-params: 0.0ms, application-code: 221ms)
+ GET /docs/rsvp-card 200 in 210ms (next.js: 5ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/safe-vault 200 in 226ms (next.js: 5ms, generate-params: 5ms, application-code: 217ms)
+ GET /docs/sankey-chart 200 in 184ms (next.js: 5ms, generate-params: 0.0ms, application-code: 179ms)
+ GET /docs/save-indicator 200 in 196ms (next.js: 5ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/scatter-plot 200 in 208ms (next.js: 5ms, generate-params: 0.0ms, application-code: 203ms)
+ GET /docs/score-keeper 200 in 265ms (next.js: 5ms, generate-params: 6ms, application-code: 255ms)
+ GET /docs/scoreboard 200 in 278ms (next.js: 6ms, generate-params: 0.0ms, application-code: 272ms)
+ GET /docs/scratch-off 200 in 347ms (next.js: 9ms, generate-params: 0.0ms, application-code: 339ms)
+ GET /docs/screenshot-frame 200 in 211ms (next.js: 5ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/scroll-area 200 in 212ms (next.js: 4ms, generate-params: 5ms, application-code: 203ms)
+ GET /docs/scroll-shadow 200 in 218ms (next.js: 5ms, generate-params: 0.0ms, application-code: 213ms)
+ GET /docs/scroll-spy-nav 200 in 216ms (next.js: 6ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/scroll-spy-v2 200 in 213ms (next.js: 7ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/scroll-top 200 in 238ms (next.js: 8ms, generate-params: 6ms, application-code: 224ms)
+ GET /docs/search-bar 200 in 240ms (next.js: 10ms, generate-params: 0.0ms, application-code: 230ms)
+ GET /docs/search-filter-bar 200 in 210ms (next.js: 5ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/seat-map 200 in 232ms (next.js: 5ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/section-heading 200 in 217ms (next.js: 8ms, generate-params: 6ms, application-code: 203ms)
+ GET /docs/security-score 200 in 197ms (next.js: 5ms, generate-params: 0.0ms, application-code: 193ms)
+ GET /docs/segmented-switch 200 in 199ms (next.js: 5ms, generate-params: 0.0ms, application-code: 194ms)
+ GET /docs/select 200 in 194ms (next.js: 5ms, generate-params: 5ms, application-code: 185ms)
+ GET /docs/separator 200 in 221ms (next.js: 7ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/serial-input 200 in 194ms (next.js: 4ms, generate-params: 0.0ms, application-code: 189ms)
+ GET /docs/session-list 200 in 227ms (next.js: 7ms, generate-params: 6ms, application-code: 213ms)
+ GET /docs/settings-section 200 in 231ms (next.js: 5ms, generate-params: 0.0ms, application-code: 226ms)
+ GET /docs/share-menu 200 in 187ms (next.js: 5ms, generate-params: 0.0ms, application-code: 182ms)
+ GET /docs/sheet 200 in 205ms (next.js: 5ms, generate-params: 6ms, application-code: 194ms)
+ GET /docs/shipping-options 200 in 204ms (next.js: 4ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/sidebar 200 in 233ms (next.js: 4ms, generate-params: 0.0ms, application-code: 229ms)
+ GET /docs/sidebar-v2 200 in 255ms (next.js: 5ms, generate-params: 5ms, application-code: 245ms)
+ GET /docs/signature-pad 200 in 258ms (next.js: 9ms, generate-params: 0.0ms, application-code: 250ms)
+ GET /docs/size-picker 200 in 231ms (next.js: 6ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/skeleton 200 in 221ms (next.js: 7ms, generate-params: 0.0ms, application-code: 214ms)
+ GET /docs/skeleton-v2 200 in 218ms (next.js: 6ms, generate-params: 5ms, application-code: 207ms)
+ GET /docs/skip-link 200 in 195ms (next.js: 5ms, generate-params: 0.0ms, application-code: 190ms)
+ GET /docs/slider 200 in 205ms (next.js: 5ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/slider-ticks 200 in 229ms (next.js: 6ms, generate-params: 0.0ms, application-code: 223ms)
+ GET /docs/slot-machine 200 in 229ms (next.js: 5ms, generate-params: 6ms, application-code: 217ms)
+ GET /docs/snippet-card 200 in 214ms (next.js: 5ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/sparkline 200 in 211ms (next.js: 6ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/speed-dial 200 in 214ms (next.js: 9ms, generate-params: 0.0ms, application-code: 205ms)
+ GET /docs/spinner 200 in 224ms (next.js: 5ms, generate-params: 5ms, application-code: 214ms)
+ GET /docs/split-button 200 in 209ms (next.js: 5ms, generate-params: 0.0ms, application-code: 204ms)
+ GET /docs/split-flap 200 in 318ms (next.js: 5ms, generate-params: 0.0ms, application-code: 313ms)
+ GET /docs/split-screen 200 in 228ms (next.js: 13ms, generate-params: 5ms, application-code: 210ms)
+ GET /docs/spotlight 200 in 212ms (next.js: 4ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/spotlight-card 200 in 212ms (next.js: 5ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/stack 200 in 225ms (next.js: 5ms, generate-params: 5ms, application-code: 215ms)
+ GET /docs/stacked-bar 200 in 174ms (next.js: 4ms, generate-params: 0.0ms, application-code: 170ms)
+ GET /docs/stage-lights 200 in 193ms (next.js: 5ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/stamp-card 200 in 212ms (next.js: 4ms, generate-params: 5ms, application-code: 203ms)
+ GET /docs/stamp-seal 200 in 205ms (next.js: 5ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/star 200 in 242ms (next.js: 7ms, generate-params: 0.0ms, application-code: 234ms)
+ GET /docs/stat-tile 200 in 275ms (next.js: 5ms, generate-params: 5ms, application-code: 265ms)
+ GET /docs/stats-overview 200 in 331ms (next.js: 20ms, generate-params: 0.0ms, application-code: 310ms)
+ GET /docs/status-dot 200 in 226ms (next.js: 13ms, generate-params: 0.0ms, application-code: 213ms)
+ GET /docs/stepper 200 in 204ms (next.js: 5ms, generate-params: 5ms, application-code: 194ms)
+ GET /docs/stepper-v2 200 in 252ms (next.js: 7ms, generate-params: 0.0ms, application-code: 245ms)
+ GET /docs/steps 200 in 250ms (next.js: 7ms, generate-params: 0.0ms, application-code: 243ms)
+ GET /docs/sticky-bar 200 in 241ms (next.js: 7ms, generate-params: 0.0ms, application-code: 234ms)
+ GET /docs/sticky-footer 200 in 212ms (next.js: 9ms, generate-params: 6ms, application-code: 197ms)
+ GET /docs/stock-status 200 in 195ms (next.js: 5ms, generate-params: 0.0ms, application-code: 190ms)
+ GET /docs/stopwatch 200 in 210ms (next.js: 8ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/story-viewer 200 in 216ms (next.js: 9ms, generate-params: 6ms, application-code: 202ms)
+ GET /docs/subscription-card 200 in 224ms (next.js: 6ms, generate-params: 0.0ms, application-code: 219ms)
+ GET /docs/sunburst-chart 200 in 187ms (next.js: 5ms, generate-params: 0.0ms, application-code: 182ms)
+ GET /docs/switch 200 in 232ms (next.js: 4ms, generate-params: 5ms, application-code: 222ms)
+ GET /docs/switch-card 200 in 200ms (next.js: 4ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/sync-status 200 in 196ms (next.js: 4ms, generate-params: 0.0ms, application-code: 192ms)
+ GET /docs/tabbar 200 in 191ms (next.js: 6ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/table 200 in 216ms (next.js: 5ms, generate-params: 5ms, application-code: 207ms)
+ GET /docs/table-summary 200 in 248ms (next.js: 7ms, generate-params: 0.0ms, application-code: 241ms)
+ GET /docs/tabs 200 in 216ms (next.js: 16ms, generate-params: 0.0ms, application-code: 200ms)
+ GET /docs/tag-input 200 in 206ms (next.js: 5ms, generate-params: 6ms, application-code: 194ms)
+ GET /docs/task-list 200 in 213ms (next.js: 6ms, generate-params: 0.0ms, application-code: 207ms)
+ GET /docs/team-grid 200 in 213ms (next.js: 4ms, generate-params: 0.0ms, application-code: 209ms)
+ GET /docs/team-members 200 in 223ms (next.js: 5ms, generate-params: 5ms, application-code: 213ms)
+ GET /docs/terminal 200 in 181ms (next.js: 4ms, generate-params: 0.0ms, application-code: 177ms)
+ GET /docs/testimonial 200 in 226ms (next.js: 4ms, generate-params: 0.0ms, application-code: 222ms)
+ GET /docs/text 200 in 203ms (next.js: 4ms, generate-params: 5ms, application-code: 194ms)
+ GET /docs/text-diff 200 in 202ms (next.js: 8ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/textarea 200 in 209ms (next.js: 20ms, generate-params: 0.0ms, application-code: 189ms)
+ GET /docs/textarea-autosize 200 in 187ms (next.js: 5ms, generate-params: 0.0ms, application-code: 183ms)
+ GET /docs/theme-toggle 200 in 219ms (next.js: 5ms, generate-params: 5ms, application-code: 209ms)
+ GET /docs/thumbnail-strip 200 in 195ms (next.js: 5ms, generate-params: 0.0ms, application-code: 190ms)
+ GET /docs/ticket-booth 200 in 215ms (next.js: 5ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/ticket-card 200 in 212ms (next.js: 4ms, generate-params: 5ms, application-code: 202ms)
+ GET /docs/ticket-fold 200 in 206ms (next.js: 5ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/ticket-stub-v2 200 in 204ms (next.js: 5ms, generate-params: 0.0ms, application-code: 199ms)
+ GET /docs/ticket-validator 200 in 211ms (next.js: 5ms, generate-params: 6ms, application-code: 200ms)
+ GET /docs/tilt-card 200 in 229ms (next.js: 5ms, generate-params: 0.0ms, application-code: 224ms)
+ GET /docs/time-ago 200 in 187ms (next.js: 5ms, generate-params: 0.0ms, application-code: 182ms)
+ GET /docs/time-input 200 in 187ms (next.js: 6ms, generate-params: 0.0ms, application-code: 181ms)
+ GET /docs/time-range-picker 200 in 195ms (next.js: 5ms, generate-params: 5ms, application-code: 185ms)
+ GET /docs/timeline 200 in 259ms (next.js: 5ms, generate-params: 0.0ms, application-code: 254ms)
+ GET /docs/timeline-vertical-v2 200 in 231ms (next.js: 7ms, generate-params: 0.0ms, application-code: 225ms)
+ GET /docs/toast 200 in 196ms (next.js: 7ms, generate-params: 0.0ms, application-code: 188ms)
+ GET /docs/toc 200 in 207ms (next.js: 5ms, generate-params: 5ms, application-code: 197ms)
+ GET /docs/toggle 200 in 216ms (next.js: 6ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/toggle-group 200 in 276ms (next.js: 47ms, generate-params: 0.0ms, application-code: 229ms)
+ GET /docs/tooltip 200 in 256ms (next.js: 64ms, generate-params: 0.0ms, application-code: 192ms)
+ GET /docs/tour 200 in 209ms (next.js: 5ms, generate-params: 5ms, application-code: 199ms)
+ GET /docs/transfer-list 200 in 240ms (next.js: 5ms, generate-params: 0.0ms, application-code: 235ms)
+ GET /docs/tree-nav 200 in 399ms (next.js: 36ms, generate-params: 0.1ms, application-code: 363ms)
+ GET /docs/tree-select 200 in 347ms (next.js: 6ms, generate-params: 0.0ms, application-code: 342ms)
+ GET /docs/tree-table 200 in 274ms (next.js: 14ms, generate-params: 0.0ms, application-code: 260ms)
+ GET /docs/treemap-chart 200 in 224ms (next.js: 5ms, generate-params: 5ms, application-code: 213ms)
+ GET /docs/trend-badge 200 in 228ms (next.js: 8ms, generate-params: 0.0ms, application-code: 220ms)
+ GET /docs/trophy-shelf 200 in 233ms (next.js: 7ms, generate-params: 0.0ms, application-code: 227ms)
+ GET /docs/truncate 200 in 219ms (next.js: 8ms, generate-params: 0.0ms, application-code: 211ms)
+ GET /docs/turnstile-gate 200 in 229ms (next.js: 5ms, generate-params: 5ms, application-code: 218ms)
+ GET /docs/two-column-list 200 in 222ms (next.js: 5ms, generate-params: 0.0ms, application-code: 216ms)
+ GET /docs/two-factor 200 in 222ms (next.js: 5ms, generate-params: 0.0ms, application-code: 216ms)
+ GET /docs/typewriter 200 in 239ms (next.js: 10ms, generate-params: 5ms, application-code: 224ms)
+ GET /docs/typing-indicator 200 in 216ms (next.js: 6ms, generate-params: 0.0ms, application-code: 210ms)
+ GET /docs/upgrade-prompt 200 in 218ms (next.js: 5ms, generate-params: 0.0ms, application-code: 212ms)
+ GET /docs/upload-progress 200 in 208ms (next.js: 6ms, generate-params: 0.0ms, application-code: 202ms)
+ GET /docs/usage-meter 200 in 237ms (next.js: 5ms, generate-params: 5ms, application-code: 227ms)
+ GET /docs/user-card 200 in 273ms (next.js: 12ms, generate-params: 0.0ms, application-code: 261ms)
+ GET /docs/user-table 200 in 723ms (next.js: 10ms, generate-params: 0.0ms, application-code: 713ms)
+ GET /docs/variant-picker 200 in 321ms (next.js: 20ms, generate-params: 6ms, application-code: 296ms)
+ GET /docs/vending-machine 200 in 282ms (next.js: 12ms, generate-params: 0.0ms, application-code: 271ms)
+ GET /docs/version-badge 200 in 522ms (next.js: 16ms, generate-params: 0.0ms, application-code: 506ms)
+ GET /docs/video-frame 200 in 304ms (next.js: 5ms, generate-params: 0.0ms, application-code: 299ms)
+ GET /docs/video-list 200 in 242ms (next.js: 6ms, generate-params: 0.0ms, application-code: 236ms)
+ GET /docs/video-player 200 in 214ms (next.js: 17ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/video-thumbnail 200 in 199ms (next.js: 5ms, generate-params: 5ms, application-code: 188ms)
+ GET /docs/vinyl-record 200 in 200ms (next.js: 5ms, generate-params: 0.0ms, application-code: 195ms)
+ GET /docs/virtual-list 200 in 213ms (next.js: 5ms, generate-params: 0.0ms, application-code: 208ms)
+ GET /docs/voice-message 200 in 202ms (next.js: 5ms, generate-params: 5ms, application-code: 192ms)
+ GET /docs/voice-note-list 200 in 201ms (next.js: 5ms, generate-params: 0.0ms, application-code: 196ms)
+ GET /docs/volume-slider 200 in 206ms (next.js: 5ms, generate-params: 0.0ms, application-code: 202ms)
+ GET /docs/wallet-card 200 in 240ms (next.js: 9ms, generate-params: 6ms, application-code: 226ms)
+ GET /docs/waterfall-chart 200 in 190ms (next.js: 6ms, generate-params: 0.0ms, application-code: 185ms)
+ GET /docs/watermark 200 in 210ms (next.js: 5ms, generate-params: 0.0ms, application-code: 206ms)
+ GET /docs/wax-seal 200 in 200ms (next.js: 4ms, generate-params: 5ms, application-code: 191ms)
+ GET /docs/webhook-list 200 in 183ms (next.js: 5ms, generate-params: 0.0ms, application-code: 178ms)
+ GET /docs/wishlist-button 200 in 228ms (next.js: 5ms, generate-params: 0.0ms, application-code: 223ms)
+ GET /docs/wizard 200 in 211ms (next.js: 7ms, generate-params: 0.0ms, application-code: 204ms)
+ GET /docs/word-cloud 200 in 188ms (next.js: 5ms, generate-params: 5ms, application-code: 178ms)
+ GET /docs/world-map 200 in 198ms (next.js: 7ms, generate-params: 0.0ms, application-code: 191ms)
+ GET /docs/wristband 200 in 223ms (next.js: 6ms, generate-params: 0.0ms, application-code: 217ms)
+ GET /docs/year-picker 200 in 215ms (next.js: 13ms, generate-params: 0.0ms, application-code: 201ms)
+ GET /docs/zoom-image 200 in 218ms (next.js: 5ms, generate-params: 5ms, application-code: 207ms)
+✓ Compiled in 138ms
+ GET /docs 200 in 297ms (next.js: 10ms, application-code: 286ms)
+✓ Compiled in 137ms
+ GET /docs 200 in 128ms (next.js: 10ms, application-code: 118ms)
+✓ Compiled in 1030ms
+ GET /docs 200 in 301ms (next.js: 20ms, application-code: 281ms)
+ GET /docs 200 in 139ms (next.js: 17ms, application-code: 122ms)
+✓ Compiled in 649ms
+ GET /docs 200 in 410ms (next.js: 60ms, application-code: 350ms)
+ GET / 200 in 360ms (next.js: 25ms, application-code: 335ms)
+ GET /docs/histogram 200 in 412ms (next.js: 14ms, generate-params: 8ms, application-code: 390ms)
+ GET /docs/meter 200 in 394ms (next.js: 8ms, generate-params: 5ms, application-code: 381ms)
+ GET /docs/callout 200 in 368ms (next.js: 10ms, generate-params: 5ms, application-code: 353ms)
+ GET /docs/radio-cards 200 in 443ms (next.js: 18ms, generate-params: 9ms, application-code: 416ms)
+ GET /docs/split-button 200 in 528ms (next.js: 29ms, generate-params: 7ms, application-code: 492ms)
+ GET /docs/milestone-chart 200 in 456ms (next.js: 18ms, generate-params: 6ms, application-code: 432ms)
+ GET /docs/trend-badge 200 in 829ms (next.js: 13ms, generate-params: 6ms, application-code: 810ms)
+ GET /docs/stat-tile 200 in 438ms (next.js: 10ms, generate-params: 7ms, application-code: 421ms)
+ GET /docs/badge-ribbon 200 in 500ms (next.js: 18ms, generate-params: 7ms, application-code: 476ms)
+ GET /docs/bullet-chart 200 in 367ms (next.js: 8ms, generate-params: 7ms, application-code: 352ms)
+ GET /docs/route-loader 200 in 436ms (next.js: 16ms, generate-params: 7ms, application-code: 412ms)
+ GET /docs/route-loader 200 in 361ms (next.js: 32ms, generate-params: 6ms, application-code: 324ms)
+ GET /docs 200 in 356ms (next.js: 87ms, application-code: 270ms)
+ GET /docs 200 in 365ms (next.js: 72ms, application-code: 292ms)
+ GET /docs/route-loader 200 in 366ms (next.js: 12ms, generate-params: 7ms, application-code: 347ms)
+✓ Compiled in 485ms
+ GET /docs/route-loader 200 in 333ms (next.js: 7ms, generate-params: 8ms, application-code: 318ms)
+ GET /docs 200 in 282ms (next.js: 13ms, application-code: 269ms)

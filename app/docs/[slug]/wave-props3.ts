@@ -793,4 +793,65 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "onCountryHover", type: "(code: string | null) => void", description: "" },
   ],
   "offline-banner": [],
+  "badge-ribbon": [
+    { name: "title", type: "string", description: "Title shown inside the rosette (default \"GRAND FESTIVAL\")" },
+    { name: "rank", type: "string", description: "Rank text (default \"1ST PRIZE\")" },
+    { name: "award", type: "string", description: "Award subtitle text" },
+    { name: "color", type: "\"gold\" | \"red\" | \"ink\" | \"cream\"", description: "Color variant" },
+  ],
+  "bullet-chart": [
+    { name: "label", type: "string", description: "Label of the metric" },
+    { name: "value", type: "number", description: "Current actual value" },
+    { name: "target", type: "number", description: "Target goal value" },
+    { name: "max", type: "number", description: "Maximum scale value" },
+    { name: "unit", type: "string", description: "Unit suffix (e.g. \" stubs\")" },
+  ],
+  "callout": [
+    { name: "title", type: "string", description: "Optional callout title" },
+    { name: "variant", type: "\"info\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"", description: "Callout tone" },
+    { name: "dismissible", type: "boolean", description: "Whether user can close the callout" },
+    { name: "onDismiss", type: "() => void", description: "Callback on dismiss" },
+  ],
+  "histogram": [
+    { name: "bins", type: "HistogramBin[]", description: "Array of bins with id, label and count" },
+    { name: "height", type: "number", description: "Chart height in pixels (default 180)" },
+  ],
+  "meter": [
+    { name: "value", type: "number", description: "Current numeric value (0 to 100)" },
+    { name: "min", type: "number", description: "Minimum value (default 0)" },
+    { name: "max", type: "number", description: "Maximum value (default 100)" },
+    { name: "label", type: "string", description: "Label shown on top" },
+    { name: "unit", type: "string", description: "Unit symbol (default \"%\")" },
+  ],
+  "milestone-chart": [
+    { name: "milestones", type: "Milestone[]", description: "List of milestones with id, label, date and reached flag" },
+  ],
+  "radio-cards": [
+    { name: "value", type: "string", description: "Controlled selected value" },
+    { name: "defaultValue", type: "string", description: "Initial selected value" },
+    { name: "onValueChange", type: "(val: string) => void", description: "Callback on card selection" },
+    { name: "columns", type: "1 | 2 | 3 | 4", description: "Number of grid columns (default 3)" },
+  ],
+  "route-loader": [
+    { name: "active", type: "boolean", description: "Whether the route loading bar is running" },
+  ],
+  "split-button": [
+    { name: "label", type: "string", description: "Primary button label" },
+    { name: "options", type: "SplitButtonOption[]", description: "List of dropdown options" },
+    { name: "onPrimaryClick", type: "() => void", description: "Callback when primary button clicked" },
+    { name: "onSelectOption", type: "(option: SplitButtonOption) => void", description: "Callback when menu option selected" },
+    { name: "variant", type: "\"default\" | \"accent\" | \"outline\"", description: "Visual variant" },
+  ],
+  "stat-tile": [
+    { name: "label", type: "string", description: "Stat tile label" },
+    { name: "value", type: "string | number", description: "Stat value number or string" },
+    { name: "delta", type: "{ value: string; up: boolean }", description: "Delta change indicator" },
+    { name: "spark", type: "number[]", description: "Optional mini sparkline data array" },
+  ],
+  "trend-badge": [
+    { name: "value", type: "number | string", description: "Value or percentage to display" },
+    { name: "trend", type: "\"up\" | \"down\" | \"neutral\"", description: "Direction of the trend" },
+    { name: "label", type: "string", description: "Optional label below value" },
+    { name: "live", type: "boolean", description: "Whether to show live pulsing dot" },
+  ],
 };

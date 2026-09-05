@@ -11,15 +11,15 @@ import { useSeen } from "@/components/site/seen-store";
 const GUIDES = [
   { href: "/docs", label: "Overview" },
   { href: "/docs/installation", label: "Installation" },
-  { href: "/docs/agents", label: "AI Agents" },
-  { href: "/docs/design", label: "Design" },
+  { href: "/docs/agents", label: "AI Agents (SKILL.md)" },
+  { href: "/docs/design", label: "Design System" },
   { href: "/docs/contributing", label: "Contributing" },
 ];
 
 function Chevron({ open }: { open: boolean }) {
   return (
     <svg
-      className={cn("size-4 shrink-0 text-muted-foreground transition-transform duration-150", !open && "-rotate-90")}
+      className={cn("size-3.5 shrink-0 text-muted-foreground transition-transform duration-150", !open && "-rotate-90")}
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
@@ -33,26 +33,40 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
-function SidebarLink({ href, label, active, isNew = false, seen = true }: { href: string; label: string; active: boolean; isNew?: boolean; seen?: boolean }) {
+function SidebarLink({
+  href,
+  label,
+  active,
+  isNew = false,
+  seen = true,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  isNew?: boolean;
+  seen?: boolean;
+}) {
   return (
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex items-center gap-2.5 rounded-lg px-3 py-2 text-[15px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "flex items-center justify-between gap-2.5 rounded-lg px-3 py-2 text-[15px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         active
           ? "bg-accent font-medium text-accent-foreground"
           : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
       )}
     >
-      <span
-        aria-hidden="true"
-        className={cn(
-          "h-1.5 w-1.5 shrink-0 rounded-full transition-colors",
-          active ? "bg-accent-strong" : "bg-border"
-        )}
-      />
-      <span className="truncate">{label}</span>
+      <span className="flex items-center gap-2.5">
+        <span
+          aria-hidden="true"
+          className={cn(
+            "h-1.5 w-1.5 shrink-0 rounded-full transition-colors",
+            active ? "bg-accent-strong" : "bg-border"
+          )}
+        />
+        <span className="truncate">{label}</span>
+      </span>
       {isNew && !seen ? (
         <span
           title="New"

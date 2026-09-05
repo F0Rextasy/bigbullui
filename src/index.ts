@@ -1051,3 +1051,28 @@ export { FerrisWheel } from "./components/ui/ferris-wheel";
 export type { FerrisWheelProps } from "./components/ui/ferris-wheel";
 export { CarouselRide } from "./components/ui/carousel-ride";
 export type { CarouselRideProps } from "./components/ui/carousel-ride";
+
+// Wave 21 Additions
+export { BadgeRibbon } from "./components/ui/badge-ribbon";
+export type { BadgeRibbonProps } from "./components/ui/badge-ribbon";
+export { BulletChart } from "./components/ui/bullet-chart";
+export type { BulletChartProps } from "./components/ui/bullet-chart";
+export { Callout } from "./components/ui/callout";
+export type { CalloutProps } from "./components/ui/callout";
+export { Histogram } from "./components/ui/histogram";
+export type { HistogramProps, HistogramBin } from "./components/ui/histogram";
+export { Meter } from "./components/ui/meter";
+export type { MeterProps } from "./components/ui/meter";
+export { MilestoneChart } from "./components/ui/milestone-chart";
+export type { MilestoneChartProps, Milestone } from "./components/ui/milestone-chart";
+export { RadioCards, RadioCard, RadioCardHeader, RadioCardPrice, RadioCardPerks } from "./components/ui/radio-cards";
+export type { RadioCardsProps, RadioCardProps, RadioCardHeaderProps, RadioCardPriceProps, RadioCardPerksProps } from "./components/ui/radio-cards";
+export { RouteLoader } from "./components/ui/route-loader";
+export type { RouteLoaderProps } from "./components/ui/route-loader";
+export { SplitButton } from "./components/ui/split-button";
+export type { SplitButtonProps, SplitButtonOption } from "./components/ui/split-button";
+export { StatTile, KpiStrip } from "./components/ui/stat-tile";
+export type { StatTileProps, KpiStripProps } from "./components/ui/stat-tile";
+export { TrendBadge } from "./components/ui/trend-badge";
+export type { TrendBadgeProps, TrendVelocityLevel, TrendBadgeVariant, TrendBadgeSize } from "./components/ui/trend-badge";
+

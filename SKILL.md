@@ -31,7 +31,7 @@ No install needed. Copy files from `src/components/ui/` (plus the `cn` helper at
 
 ## Components
 
-Full catalog lives in `src/lib/registry-site.ts` (source of truth) and on the docs site, grouped as form, display, feedback and navigation — Button, Input, Dialog, Tabs, Toast, Table, Barcode, Ticket Card and many more. Every file is self-contained (imports only `react` + `./lib/utils`).
+Full catalog lives in `src/lib/registry-site.ts` (source of truth) and on the docs site, grouped across 9 categories (Ticket Stub & Retro, Core Form & Inputs, Pickers & Selectors, Charts & Visualization, Data Display & Tables, Feedback & Overlays, Navigation & Menus, Editors & DevTools, Media & Interactive) — 460+ self-contained components (imports only `react` + `./lib/utils`).
 
 ## Rules for generated code
 
