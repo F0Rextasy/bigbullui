@@ -75,15 +75,18 @@ export function MetricCard({
   const isGood = invert ? isNegative : isPositive;
   const isBad = invert ? isPositive : isNegative;
 
+  const trendValue = trend?.value;
+  const trendDirectionProp = trend?.direction;
+
   // Format trend string display
   const formattedTrendValue = React.useMemo(() => {
-    if (!trend?.value) return "";
-    const str = String(trend.value).trim();
+    if (!trendValue) return "";
+    const str = String(trendValue).trim();
     if (trendDirection === "up" && !str.startsWith("+")) {
       return `+${str}`;
     }
     return str;
-  }, [trend?.value, trendDirection]);
+  }, [trendValue, trendDirection]);
 
   // Generate SVG path for sparkline
   const sparklinePath = React.useMemo(() => {

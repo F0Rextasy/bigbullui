@@ -18,6 +18,29 @@ function convert(amount: number, from: string, to: string, rates: Record<string,
   return (amount / f) * t;
 }
 
+function CurrencySelect({
+  side,
+  value,
+  codes,
+  onSelect,
+}: {
+  side: "from" | "to";
+  value: string;
+  codes: string[];
+  onSelect: (side: "from" | "to", code: string) => void;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onSelect(side, e.target.value)}
+      aria-label={side === "from" ? "Source currency" : "Target currency"}
+      className="rounded-md border border-input bg-background px-2 py-1.5 font-mono text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
+    >
+      {codes.map((c) => <option key={c} value={c}>{c}</option>)}
+    </select>
+  );
+}
+
 /** Exchange rate converter: live bidirectional conversion. */
 export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultTo = "USD", className, ...props }: ExchangeRateProps) {
   const codes = Object.keys(rates);
@@ -37,17 +60,6 @@ export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultT
     }
   };
 
-  const Select = ({ side, value }: { side: "from" | "to"; value: string }) => (
-    <select
-      value={value}
-      onChange={(e) => select(side, e.target.value)}
-      aria-label={side === "from" ? "Kaynak para birimi" : "Hedef para birimi"}
-      className="rounded-md border border-input bg-background px-2 py-1.5 font-mono text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
-    >
-      {codes.map((c) => <option key={c} value={c}>{c}</option>)}
-    </select>
-  );
-
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
       <style>{`@keyframes exSwap { from { transform: rotate(0); } to { transform: rotate(180deg); } }`}</style>
@@ -56,10 +68,10 @@ export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultT
           type="number"
           value={amount}
           onChange={(e) => setAmount(Math.max(0, Number(e.target.value)))}
-          aria-label="Miktar"
+          aria-label="Amount"
           className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 font-mono text-sm tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
         />
-        <Select side="from" value={from} />
+        <CurrencySelect side="from" value={from} codes={codes} onSelect={select} />
       </div>
       <div className="my-2 flex justify-center">
         <button
@@ -74,9 +86,9 @@ export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultT
       </div>
       <div className="flex items-center gap-2">
         <output className="min-w-0 flex-1 rounded-md border border-dashed border-accent/50 bg-accent/5 px-3 py-2 font-mono text-sm font-bold tabular-nums text-accent">
-          {result.toLocaleString("tr-TR", { maximumFractionDigits: 2 })}
+          {result.toLocaleString("en-US", { maximumFractionDigits: 2 })}
         </output>
-        <Select side="to" value={to} />
+        <CurrencySelect side="to" value={to} codes={codes} onSelect={select} />
       </div>
       <p className="mt-2 text-center font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
         1 {from} = {convert(1, from, to, rates).toFixed(4)} {to}
