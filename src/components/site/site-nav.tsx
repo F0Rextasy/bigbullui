@@ -22,12 +22,15 @@ export async function SiteNav() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2" aria-label="bigbullui home">
-          <span aria-hidden className="text-[22px] font-bold leading-none">
+          <span aria-hidden className="text-[28px] font-bold leading-none">
             <span className="text-foreground">b</span><span className="-ml-[0.22em] text-accent-strong">b</span>
           </span>
           <span className="text-sm font-semibold tracking-tight">bigbullui</span>
         </Link>
         <nav className="flex items-center gap-4">
+          <Link href="/" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Home
+          </Link>
           <Link href="/docs" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Components
           </Link>
@@ -38,7 +41,7 @@ export async function SiteNav() {
             className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
             title={stars !== null ? `${stars} GitHub stars` : "Star bigbullui on GitHub"}
           >
-            <Star size={14} />
+            <Star size={14} className="text-amber-400" />
             <span className="font-mono text-xs">{stars !== null ? stars : "Star"}</span>
           </a>
           <ThemeToggle />

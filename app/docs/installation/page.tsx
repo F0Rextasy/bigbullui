@@ -1,4 +1,4 @@
-import { CopyButton } from "@/components/ui/copy-button";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export const metadata = { title: "Installation" };
 
@@ -20,19 +20,6 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
   );
 }
 
-function CodeBox({ code }: { code: string }) {
-  return (
-    <div className="overflow-hidden rounded-lg bg-[#08080c]">
-      <div className="flex items-center justify-end px-3 pt-3">
-          <CopyButton value={code} />
-      </div>
-      <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-        <code>{code}</code>
-      </pre>
-    </div>
-  );
-}
-
 export default function InstallationPage() {
   return (
     <article className="space-y-10">
@@ -44,15 +31,15 @@ export default function InstallationPage() {
       </header>
 
       <Step n="A · 01" title="Install the package">
-        <CodeBox code="npm install bigbullui" />
+        <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
       </Step>
 
       <Step n="A · 02" title="Add the design tokens">
-        <CodeBox code={cssSetup} />
+        <CodeBlock code={cssSetup} language="css" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
       </Step>
 
       <Step n="A · 03" title="Use any component">
-        <CodeBox code={npmUsage} />
+        <CodeBlock code={npmUsage} language="tsx" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
       </Step>
 
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/40 p-5">

@@ -19,8 +19,8 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="flex-1">
+      <div className="mx-auto flex max-w-2xl flex-col items-center gap-4">
+        <div className="w-full">
           <Input
             type="search"
             value={query}
@@ -29,7 +29,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
             aria-label="Search components"
           />
         </div>
-        <nav aria-label="Categories" className="flex flex-wrap gap-2">
+        <nav aria-label="Categories" className="flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
             <a
               key={cat.id}

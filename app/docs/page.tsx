@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
-import { CopyButton } from "@/components/ui/copy-button";
+import { CodeBlock } from "@/components/ui/code-block";
 import { DocsExplorer } from "@/components/site/docs-explorer";
 
 export const metadata = { title: "Components" };
@@ -30,33 +30,12 @@ export default function DocsIndex() {
           Quick start
         </span>
         <h2 className="text-lg font-semibold tracking-tight">Install via npm</h2>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value="npm install bigbullui" />
-          </div>
-          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>npm install bigbullui</code>
-          </pre>
-        </div>
+        <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
         <p className="text-sm text-muted-foreground">
           Add the design tokens to your global CSS:
         </p>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value={installCss} />
-          </div>
-          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>{installCss}</code>
-          </pre>
-        </div>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value={installUsage} />
-          </div>
-          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>{installUsage}</code>
-          </pre>
-        </div>
+        <CodeBlock code={installCss} language="css" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+        <CodeBlock code={installUsage} language="tsx" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
       </section>
 
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/40 p-6">
@@ -67,14 +46,7 @@ export default function DocsIndex() {
         <p className="text-sm text-muted-foreground">
           Paste SKILL.md into any coding agent. It covers installation, tokens, components and rules.
         </p>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value={skillMd} />
-          </div>
-          <pre className="max-h-64 overflow-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>{skillMd}</code>
-          </pre>
-        </div>
+        <CodeBlock code={skillMd} language="markdown" maxHeight="256px" showNotches={false} />
       </section>
 
       <DocsExplorer components={components} />

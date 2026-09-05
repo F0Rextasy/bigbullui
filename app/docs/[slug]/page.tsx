@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { ComponentPreview } from "@/components/site/component-preview";
-import { CopyButton } from "@/components/ui/copy-button";
+import { CodeBlock } from "@/components/ui/code-block";
 import { Badge } from "@/components/ui/badge";
 
 export function generateStaticParams() {
@@ -867,14 +867,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Install</h2>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value="npm install bigbullui" />
-          </div>
-          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>npm install bigbullui</code>
-          </pre>
-        </div>
+        <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
         <p className="text-xs text-muted-foreground">
           Then add the tokens — <Link href="/docs/installation" className="underline">full guide</Link>.
         </p>
@@ -882,14 +875,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value={usage[meta.name] ?? ""} />
-          </div>
-          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>{usage[meta.name] ?? ""}</code>
-          </pre>
-        </div>
+        <CodeBlock code={usage[meta.name] ?? ""} language="tsx" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
       </section>
 
       {propsList.length > 0 ? (
@@ -920,14 +906,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source</h2>
-        <div className="overflow-hidden rounded-lg bg-[#08080c]">
-          <div className="flex items-center justify-end px-3 pt-3">
-            <CopyButton value={source} />
-          </div>
-          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
-            <code>{source}</code>
-          </pre>
-        </div>
+        <CodeBlock code={source} language="tsx" maxHeight="480px" showNotches={false} />
         <p className="text-xs text-muted-foreground">
           Copy this file into your project. It only imports React and the{" "}
           <code className="font-mono">cn</code> helper from{" "}

@@ -62,6 +62,18 @@ export function DocSidebar() {
               <span>Installation</span>
               {pathname === "/docs/installation" && <span>•</span>}
             </Link>
+            <Link
+              href="/docs/agents"
+              className={cn(
+                "flex items-center justify-between rounded-md px-2 py-1.5 font-mono text-xs transition-colors",
+                pathname === "/docs/agents"
+                  ? "bg-accent font-bold text-accent-foreground"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+              )}
+            >
+              <span>AI Agents</span>
+              {pathname === "/docs/agents" && <span>•</span>}
+            </Link>
           </div>
         ) : null}
       </div>
