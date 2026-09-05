@@ -15,7 +15,7 @@ export interface ConsolePanelProps extends Omit<React.HTMLAttributes<HTMLDivElem
   onSubmit?: (command: string) => void;
 }
 
-/** Konsol çıktı paneli: log + input satırı + renkli tonlar. */
+/** Interactive console panel: terminal logs + command prompt. */
 export function ConsolePanel({ lines, prompt = ">", onSubmit, className, ...props }: ConsolePanelProps) {
   const [input, setInput] = React.useState("");
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -68,7 +68,7 @@ export function ConsolePanel({ lines, prompt = ">", onSubmit, className, ...prop
             }
           }}
           className="min-w-0 flex-1 bg-transparent text-foreground focus-visible:outline-none"
-          aria-label="Komut girişi"
+          aria-label="Command prompt input"
           spellCheck={false}
           autoComplete="off"
         />

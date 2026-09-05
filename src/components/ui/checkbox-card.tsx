@@ -12,7 +12,7 @@ export interface CheckboxCardProps extends React.HTMLAttributes<HTMLLabelElement
   disabled?: boolean;
 }
 
-/** Kart görünümlü checkbox: kontrol + açıklama + işaret animasyonu. */
+/** Card-style checkbox: selectable frame + description + checkmark. */
 export function CheckboxCard({ title, description, checked, defaultChecked, onCheckedChange, disabled, className, ...props }: CheckboxCardProps) {
   const [internal, setInternal] = React.useState(defaultChecked ?? false);
   const isOn = checked ?? internal;

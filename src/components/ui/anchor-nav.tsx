@@ -10,11 +10,11 @@ export interface AnchorNavItem {
 
 export interface AnchorNavProps extends React.HTMLAttributes<HTMLElement> {
   items: AnchorNavItem[];
-  /** IntersectionObserver ile aktif bölüm izleme */
+  /** Active section tracking via IntersectionObserver */
   activeId?: string;
 }
 
-/** Yan sabit bölüm bağlantıları: dikey çizgi + hareket eden nokta. */
+/** Fixed section anchor links: vertical line + active indicator dot. */
 export function AnchorNav({ items, activeId, className, ...props }: AnchorNavProps) {
   const [internal, setInternal] = React.useState(items[0]?.id);
   const active = activeId ?? internal;
@@ -38,10 +38,10 @@ export function AnchorNav({ items, activeId, className, ...props }: AnchorNavPro
   const activeIdx = items.findIndex((i) => i.id === active);
 
   return (
-    <nav className={cn("relative flex flex-col gap-1 pl-4", className)} aria-label="Bölüm bağlantıları" {...props}>
-      {/* Dikey çizgi */}
+    <nav className={cn("relative flex flex-col gap-1 pl-4", className)} aria-label="Section links" {...props}>
+      {/* Vertical track */}
       <span className="absolute left-[5px] top-1 bottom-1 w-0.5 rounded-full bg-border/50" aria-hidden="true" />
-      {/* Hareket eden nokta çizgisi */}
+      {/* Moving indicator dot */}
       {activeIdx >= 0 && (
         <span
           className="absolute left-[3px] w-1 rounded-full bg-accent transition-all duration-300 motion-reduce:transition-none"

@@ -32,7 +32,7 @@ export function YearPicker({
   const maxYear = to ?? new Date().getFullYear() + 10;
   const years = generateYears(minYear, maxYear);
 
-  const [internalValue, setInternalValue] = React.useState<Number | undefined>(
+  const [internalValue, setInternalValue] = React.useState<number | undefined>(
     controlledValue ?? defaultValue
   );
   const isControlled = controlledValue !== undefined;

@@ -6,7 +6,7 @@ import { cn } from "./lib/utils";
 export interface ColorToken {
   name: string;
   value: string;
-  /** CSS var adı, örn. --accent */
+  /** CSS variable name, e.g. --accent */
   cssVar?: string;
   usage?: string;
 }
@@ -15,7 +15,7 @@ export interface ColorTokenTableProps extends React.HTMLAttributes<HTMLDivElemen
   tokens: ColorToken[];
 }
 
-/** Tema token tablosu: renk örneği + değer + kopyala. */
+/** Theme token table: swatch + CSS variable + copy action. */
 export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTableProps) {
   const [copied, setCopied] = React.useState<string | null>(null);
 
@@ -32,7 +32,7 @@ export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTable
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
             <th className="px-3 py-2 text-left font-medium">Token</th>
-            <th className="px-3 py-2 text-left font-medium">Değer</th>
+            <th className="px-3 py-2 text-left font-medium">Value</th>
             <th className="px-3 py-2 text-right font-medium">Kopyala</th>
           </tr>
         </thead>

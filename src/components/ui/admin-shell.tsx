@@ -12,7 +12,7 @@ export interface AdminShellProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 
-/** Yönetim paneli iskeleti: daraltılabilir yan menü + üst bar + içerik. */
+/** Admin shell layout: collapsible sidebar + topbar + content. */
 export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigate, headerRight, children, className, ...props }: AdminShellProps) {
   const [collapsed, setCollapsed] = React.useState(false);
   const [internalActive, setInternalActive] = React.useState(activeId ?? navItems[0]?.id);
@@ -22,7 +22,7 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
     <div className={cn("flex min-h-[420px] overflow-hidden rounded-lg border border-border bg-background", className)} {...props}>
       <style>{`@keyframes adminIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
 
-      {/* Yan menü */}
+      {/* Sidebar */}
       <aside className={cn("flex shrink-0 flex-col border-r border-border bg-card transition-all duration-300 motion-reduce:transition-none", collapsed ? "w-14" : "w-52")}>
         <div className="flex h-12 items-center gap-2 border-b border-border px-3">
           <span className="flex size-6 shrink-0 items-center justify-center rounded-sm bg-accent font-mono text-[10px] font-black text-accent-foreground">B</span>
@@ -55,13 +55,13 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
         <button
           onClick={() => setCollapsed((c) => !c)}
           className="border-t border-border py-2 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-          aria-label={collapsed ? "Menüyü genişlet" : "Menüyü daralt"}
+          aria-label={collapsed ? "Expand menu" : "Collapse menu"}
         >
           {collapsed ? "»" : "« DARALT"}
         </button>
       </aside>
 
-      {/* Sağ taraf */}
+      {/* Main content area */}
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-12 items-center justify-between border-b border-border px-4">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">

@@ -5,13 +5,13 @@ import { cn } from "./lib/utils";
 
 export interface ApiKeyCardProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
-  /** maskeli gösterilecek anahtar */
+  /** Key displayed with masking */
   apiKey?: string;
   onRegenerate?: () => void;
 }
 
-/** API anahtarı kartı: maskeli değer, göster/kopyala/yenile. */
-export function ApiKeyCard({ label = "API Anahtarı", apiKey = "bb_live_a1b2c3d4e5f6g7h8i9j0", onRegenerate, className, ...props }: ApiKeyCardProps) {
+/** API key card: masked value, show/copy/regenerate. */
+export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7h8i9j0", onRegenerate, className, ...props }: ApiKeyCardProps) {
   const [revealed, setRevealed] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
 
@@ -50,7 +50,7 @@ export function ApiKeyCard({ label = "API Anahtarı", apiKey = "bb_live_a1b2c3d4
         <button
           onClick={() => setRevealed((r) => !r)}
           className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-          aria-label={revealed ? "Anahtarı gizle" : "Anahtarı göster"}
+          aria-label={revealed ? "Hide key" : "Show key"}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
             {revealed ? (
@@ -64,7 +64,7 @@ export function ApiKeyCard({ label = "API Anahtarı", apiKey = "bb_live_a1b2c3d4
           onClick={copy}
           className="shrink-0 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm motion-reduce:transition-none"
         >
-          {copied ? <span className="inline-block animate-[apiKeyStamp_0.3s_ease-out] motion-reduce:animate-none text-accent">✓ Kopyalandı</span> : "Kopyala"}
+          {copied ? <span className="inline-block animate-[apiKeyStamp_0.3s_ease-out] motion-reduce:animate-none text-accent">✓ Copied</span> : "Copy"}
         </button>
       </div>
 

@@ -13,13 +13,13 @@ export interface BillingPanelProps extends React.HTMLAttributes<HTMLDivElement> 
   onUpgrade?: () => void;
 }
 
-/** Faturalandırma paneli: plan + kullanım sayaçları + fatura listesi. */
+/** Billing overview panel: plan + usage meters + invoice history. */
 export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, className, ...props }: BillingPanelProps) {
   return (
     <div className={cn("w-full max-w-2xl space-y-4", className)} {...props}>
       <style>{`@keyframes bpIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-      {/* Plan kartı */}
+      {/* Plan card */}
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-accent/40 bg-accent/5 p-4 animate-[bpIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Mevcut plan</p>
@@ -38,10 +38,10 @@ export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, cla
         </button>
       </div>
 
-      {/* Kullanım sayaçları */}
+      {/* Usage meters */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <UsageMeter label="Proje" used={7} limit={10} />
-        <UsageMeter label="API isteği / ay" used={18400} limit={50000} />
+        <UsageMeter label="API requests / mo" used={18400} limit={50000} />
       </div>
 
       {/* Faturalar */}

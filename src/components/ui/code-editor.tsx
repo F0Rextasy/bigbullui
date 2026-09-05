@@ -11,7 +11,7 @@ export interface CodeEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   readonly?: boolean;
 }
 
-/** Satır numaralı kod düzenleyici: textarea overlay + gutter. */
+/** Code editor with line numbers: overlay textarea + gutter. */
 export function CodeEditor({ value, defaultValue = "", onValueChange, language = "ts", readonly, className, ...props }: CodeEditorProps) {
   const [internal, setInternal] = React.useState(defaultValue);
   const [focused, setFocused] = React.useState(false);
@@ -47,7 +47,7 @@ export function CodeEditor({ value, defaultValue = "", onValueChange, language =
       <style>{`@keyframes ceIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
       <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-3 py-1.5">
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{language}</span>
-        <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{lineCount} satır</span>
+        <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{lineCount} lines</span>
       </div>
       <div className="relative flex max-h-72 overflow-hidden animate-[ceIn_0.3s_ease-out] motion-reduce:animate-none">
         {/* Gutter */}
@@ -66,7 +66,7 @@ export function CodeEditor({ value, defaultValue = "", onValueChange, language =
           onBlur={() => setFocused(false)}
           readOnly={readonly}
           spellCheck={false}
-          aria-label="Kod düzenleyici"
+          aria-label="Code editor"
           className="min-h-32 flex-1 resize-none bg-transparent px-3 py-3 font-mono text-xs leading-5 text-foreground focus-visible:outline-none"
         />
       </div>

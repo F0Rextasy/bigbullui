@@ -5,11 +5,11 @@ import { cn } from "./lib/utils";
 
 export interface CartBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   count: number;
-  /** count değiştiğinde otomatik pulse */
+  /** Pulse animation trigger on count change */
   pulseOnChange?: boolean;
 }
 
-/** Sepet rozeti: count değişince pulse animasyonu. */
+/** Cart badge: animated pulse on quantity update. */
 export function CartBadge({ count, pulseOnChange = true, className, ...props }: CartBadgeProps) {
   const prev = React.useRef(count);
   const [pulse, setPulse] = React.useState(false);
@@ -34,7 +34,7 @@ export function CartBadge({ count, pulseOnChange = true, className, ...props }: 
         className
       )}
       role="status"
-      aria-label={`Sepette ${count} ürün`}
+      aria-label={`${count} items in cart`}
       {...props}
     >
       {count > 99 ? "99+" : count}

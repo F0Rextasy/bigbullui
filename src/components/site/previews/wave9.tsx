@@ -17,20 +17,8 @@ import { MarqueeBulbs } from "@/components/ui/marquee-bulbs";
 import { BackstagePass } from "@/components/ui/backstage-pass";
 import { Wristband } from "@/components/ui/wristband";
 import { Lanyard } from "@/components/ui/lanyard";
-import { DrinkTicket } from "@/components/ui/drink-ticket";
-import { RaffleTicket } from "@/components/ui/raffle-ticket";
-import { SlotMachine } from "@/components/ui/slot-machine";
-import { PrizeWheel } from "@/components/ui/prize-wheel";
-import { Dice } from "@/components/ui/dice";
-import { CoinFlip } from "@/components/ui/coin-flip";
-import { PlayingCard } from "@/components/ui/playing-card";
-import { BingoCard } from "@/components/ui/bingo-card";
 import { Jumbotron } from "@/components/ui/jumbotron";
 import { Fireworks } from "@/components/ui/fireworks";
-import { DiscoBall } from "@/components/ui/disco-ball";
-import { StageLights } from "@/components/ui/stage-lights";
-import { TicketBooth } from "@/components/ui/ticket-booth";
-import { DriveInScreen } from "@/components/ui/drive-in-screen";
 import { TicketStubV2 } from "@/components/ui/ticket-stub-v2";
 
 export const wave9Previews: Record<string, React.ComponentType> = {
@@ -93,63 +81,11 @@ export const wave9Previews: Record<string, React.ComponentType> = {
   "lanyard": function LanyardPreview() {
     return <Lanyard label="Conference 2026">Guest Pass</Lanyard>;
   },
-  "drink-ticket": function DrinkTicketPreview() {
-    return <DrinkTicket code="DRINK-00123" />;
-  },
-  "raffle-ticket": function RaffleTicketPreview() {
-    return <RaffleTicket number="738292" winningNumber="738292" />;
-  },
-  "slot-machine": function SlotMachinePreview() {
-    return <SlotMachine autoPlay={false} />;
-  },
-  "prize-wheel": function PrizeWheelPreview() {
-    return (
-      <PrizeWheel
-        segments={[
-          { label: "Free Drink", tint: "accent" },
-          { label: "20% Off", tint: "destructive" },
-          { label: "Priority Entry", tint: "foreground" },
-          { label: "Merch Pack", tint: "muted" },
-        ]}
-        spinTo={270}
-        onResult={() => {}}
-      />
-    );
-  },
-  "dice": function DicePreview() {
-    return <Dice rolling={true} onRoll={() => {}} />;
-  },
-  "coin-flip": function CoinFlipPreview() {
-    return <CoinFlip result="heads" flipping={true} onFlip={() => {}} />;
-  },
-  "playing-card": function PlayingCardPreview() {
-    return <PlayingCard rank="A" suit="spades" faceDown={false} />;
-  },
-  "bingo-card": function BingoCardPreview() {
-    return (
-      <BingoCard
-        numbers={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]}
-        marked={[5, 10, 15, 20]}
-      />
-    );
-  },
   "jumbotron": function JumbotronPreview() {
     return <Jumbotron title="BIGBULL" home="Team A" away="Team B" score={[42, 38]} />;
   },
   "fireworks": function FireworksPreview() {
     return <Fireworks active={true} bursts={5} />;
-  },
-  "disco-ball": function DiscoBallPreview() {
-    return <DiscoBall size="md" spinning={true} />;
-  },
-  "stage-lights": function StageLightsPreview() {
-    return <StageLights count={4} />;
-  },
-  "ticket-booth": function TicketBoothPreview() {
-    return <TicketBooth label="Main" open={true} />;
-  },
-  "drive-in-screen": function DriveInScreenPreview() {
-    return <DriveInScreen intermission={15} />;
   },
   "ticket-stub-v2": function TicketStubV2Preview() {
     return <TicketStubV2 event="Bigbull Concert" date="09/05/2026" serial="BB-2026-001" tear={false} />;

@@ -9,7 +9,7 @@ export interface CharCounterProps extends React.HTMLAttributes<HTMLSpanElement> 
   label?: string;
 }
 
-/** Karakter sayacı: limit aşımında uyarı animasyonu. */
+/** Character counter: threshold warning and limit clamp. */
 export function CharCounter({ value, max, label, className, ...props }: CharCounterProps) {
   const count = value.length;
   const over = count > max;

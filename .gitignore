@@ -59,3 +59,6 @@ docs/superpowers/
 .tsc-out.txt
 .tsc2.txt
 .wave/
+
+# internal roadmap — never push
+TODO.md

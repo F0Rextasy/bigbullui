@@ -17,24 +17,19 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "anchor-nav": [
     { name: "items", type: "AnchorNavItem[]", description: "" },
-    { name: "activeId", type: "string", description: "IntersectionObserver ile aktif bölüm izleme" },
+    { name: "activeId", type: "string", description: "Tracks active section with IntersectionObserver" },
   ],
   "api-key-card": [
     { name: "label", type: "string", description: "" },
-    { name: "apiKey", type: "string", description: "maskeli gösterilecek anahtar" },
+    { name: "apiKey", type: "string", description: "Key to display with masking" },
     { name: "onRegenerate", type: "() => void", description: "" },
-  ],
-  "arcade-cabinet": [
-    { name: "title", type: "string", description: "" },
-    { name: "onCoinInsert", type: "() => void", description: "" },
-    { name: "score", type: "number", description: "" },
   ],
   "audio-recorder": [
     { name: "onSend", type: "(seconds: number) => void", description: "" },
   ],
   "audit-log": [
     { name: "entries", type: "AuditEntry[]", description: "" },
-    { name: "filter", type: "AuditAction | \"all\"", description: "boş bırakılırsa tüm eylemler" },
+    { name: "filter", type: "AuditAction | \"all\"", description: "Shows all actions if omitted" },
   ],
   "avatar-upload": [
     { name: "initials", type: "string", description: "" },
@@ -47,11 +42,6 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "bento-grid": [
     { name: "cells", type: "BentoCell[]", description: "" },
     { name: "columns", type: "2 | 3 | 4", description: "" },
-  ],
-  "betting-slip": [
-    { name: "picks", type: "BettingPick[]", description: "" },
-    { name: "stake", type: "string", description: "" },
-    { name: "onSubmit", type: "(selections: Record<string, string>) => void", description: "" },
   ],
   "billing-panel": [
     { name: "plan", type: "string", description: "" },
@@ -80,18 +70,14 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "categories", type: "BudgetCategory[]", description: "" },
     { name: "currency", type: "string", description: "" },
   ],
-  "carousel-ride": [
-    { name: "spinning", type: "boolean", description: "" },
-    { name: "horses", type: "number", description: "" },
-  ],
   "cart-badge": [
     { name: "count", type: "number", description: "" },
-    { name: "pulseOnChange", type: "boolean", description: "count değiştiğinde otomatik pulse" },
+    { name: "pulseOnChange", type: "boolean", description: "Automatically pulse when count changes" },
   ],
   "centered-card": [
     { name: "children", type: "React.ReactNode", description: "" },
-    { name: "header", type: "React.ReactNode", description: "üst logo/başlık slotu" },
-    { name: "footer", type: "React.ReactNode", description: "kart altı yardımcı metin" },
+    { name: "header", type: "React.ReactNode", description: "Top logo or title slot" },
+    { name: "footer", type: "React.ReactNode", description: "Footer helper text slot" },
     { name: "maxWidth", type: "\"sm\" | \"md\"", description: "" },
   ],
   "changelog-list": [
@@ -126,7 +112,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "connection-status": [
     { name: "latencyMs", type: "number", description: "" },
-    { name: "online", type: "boolean", description: "bağlantı durumu; verilmezse navigator.onLine simüle edilir" },
+    { name: "online", type: "boolean", description: "Connection status; simulates navigator.onLine if omitted" },
   ],
   "consent-checkbox": [
     { name: "text", type: "string", description: "" },
@@ -236,10 +222,6 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "items", type: "{ id: string; content: React.ReactNode }[]", description: "" },
     { name: "columns", type: "2 | 3", description: "" },
   ],
-  "ferris-wheel": [
-    { name: "spinning", type: "boolean", description: "" },
-    { name: "cabins", type: "number", description: "" },
-  ],
   "field-array": [
     { name: "label", type: "string", description: "" },
     { name: "rows", type: "FieldArrayRow[]", description: "" },
@@ -250,7 +232,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "flip-card": [
     { name: "front", type: "React.ReactNode", description: "" },
     { name: "back", type: "React.ReactNode", description: "" },
-    { name: "trigger", type: "\"hover\" | \"click\"", description: "hover ile mi click ile mi dönsün" },
+    { name: "trigger", type: "\"hover\" | \"click\"", description: "Trigger flip on hover or click" },
   ],
   "flyout-v2": [
     { name: "items", type: "Flyout2Item[]", description: "" },
@@ -290,7 +272,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "title", type: "React.ReactNode", description: "" },
     { name: "description", type: "string", description: "" },
     { name: "actions", type: "React.ReactNode", description: "" },
-    { name: "visual", type: "React.ReactNode", description: "sağ görsel/vurgu slotu" },
+    { name: "visual", type: "React.ReactNode", description: "Right visual or highlight slot" },
   ],
   "history-nav": [
     { name: "entries", type: "HistoryEntry[]", description: "" },
@@ -338,14 +320,9 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "login-form": [
     { name: "onSubmit", type: "(data: { email: string; password: string; remember: boolean }) => void", description: "" },
-    { name: "social", type: "boolean", description: "sosyal sağlayıcı butonları göster" },
+    { name: "social", type: "boolean", description: "Show social login provider buttons" },
     { name: "forgotHref", type: "string", description: "" },
     { name: "registerHref", type: "string", description: "" },
-  ],
-  "lottery-machine": [
-    { name: "onDraw", type: "(numbers: number[]) => void", description: "" },
-    { name: "ballCount", type: "number", description: "" },
-    { name: "pickCount", type: "number", description: "" },
   ],
   "mailbox": [
     { name: "recipient", type: "string", description: "" },
@@ -353,7 +330,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "maintenance-banner": [
     { name: "message", type: "string", description: "" },
-    { name: "startsInMinutes", type: "number", description: "bakım başlangıcına kalan dakika" },
+    { name: "startsInMinutes", type: "number", description: "Minutes remaining until maintenance begins" },
     { name: "onDismiss", type: "() => void", description: "" },
   ],
   "markdown-editor": [
@@ -382,7 +359,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "mega-menu": [
     { name: "trigger", type: "React.ReactNode", description: "" },
     { name: "columns", type: "MegaMenuColumn[]", description: "" },
-    { name: "featured", type: "React.ReactNode", description: "sol alt köşede öne çıkan kutu" },
+    { name: "featured", type: "React.ReactNode", description: "Featured box in bottom-left corner" },
   ],
   "megaphone": [
     { name: "message", type: "string", description: "" },
@@ -422,7 +399,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "otp-verify": [
     { name: "length", type: "number", description: "" },
     { name: "onVerify", type: "(code: string) => void", description: "" },
-    { name: "resendSeconds", type: "number", description: "yeniden gönder için saniye" },
+    { name: "resendSeconds", type: "number", description: "Seconds cooldown before resending" },
   ],
   "page-tabs": [
     { name: "tabs", type: "{ id: string; label: string; param?: string }[]", description: "" },
@@ -434,7 +411,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "page", type: "number", description: "" },
     { name: "defaultPage", type: "number", description: "" },
     { name: "onPageChange", type: "(page: number) => void", description: "" },
-    { name: "infiniteHint", type: "boolean", description: "sonsuz kaydırma tetikleyicisi göster" },
+    { name: "infiniteHint", type: "boolean", description: "Show infinite scroll trigger hint" },
   ],
   "password-input": [
     { name: "onVisibilityChange", type: "(visible: boolean) => void", description: "" },
@@ -453,22 +430,19 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "permissions-matrix": [
     { name: "roles", type: "Role[]", description: "" },
     { name: "permissions", type: "Permission[]", description: "" },
-    { name: "value", type: "Record<string, string[]>", description: "başlangıç yetki haritası: roleId -> permissionId[]" },
+    { name: "value", type: "Record<string, string[]>", description: "Initial permission map: roleId -> permissionId[]" },
     { name: "onValueChange", type: "(value: Record<string, string[]>) => void", description: "" },
   ],
   "poll": [
     { name: "question", type: "string", description: "" },
     { name: "options", type: "PollOption[]", description: "" },
-    { name: "votedId", type: "string", description: "kullanıcı oy verdiyse bu seçeneğin id'si" },
+    { name: "votedId", type: "string", description: "Selected option ID if user already voted" },
     { name: "onVote", type: "(optionId: string) => void", description: "" },
-  ],
-  "pool-table": [
-    { name: "balls", type: "PoolBall[]", description: "" },
   ],
   "poster-card": [
     { name: "title", type: "string", description: "" },
     { name: "subtitle", type: "string", description: "" },
-    { name: "date", type: "{ day: string; month: string }", description: "tarih köşesi: { day, month }" },
+    { name: "date", type: "{ day: string; month: string }", description: "Date badge corner: { day, month }" },
     { name: "gradient", type: "React.ReactNode", description: "" },
   ],
   "price-compare": [
@@ -517,7 +491,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "onReorder", type: "(items: DragSortItem[]) => void", description: "" },
   ],
   "rate-limit-note": [
-    { name: "resetSeconds", type: "number", description: "sıfırlamaya kalan saniye" },
+    { name: "resetSeconds", type: "number", description: "Seconds remaining until reset" },
     { name: "limitLabel", type: "string", description: "" },
   ],
   "recipe-card": [
@@ -548,20 +522,12 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "activeId", type: "string", description: "" },
     { name: "breakpoint", type: "\"sm\" | \"md\" | \"lg\"", description: "" },
   ],
-  "revolving-door": [
-    { name: "spinning", type: "boolean", description: "" },
-    { name: "label", type: "string", description: "" },
-  ],
   "role-badge": [
     { name: "role", type: "RoleTone", description: "" },
     { name: "label", type: "string", description: "" },
   ],
   "row-expand": [
     { name: "items", type: "RowExpandItem[]", description: "" },
-  ],
-  "safe-vault": [
-    { name: "code", type: "string", description: "" },
-    { name: "onOpen", type: "() => void", description: "" },
   ],
   "save-indicator": [
     { name: "status", type: "\"idle\" | \"saving\" | \"saved\" | \"error\"", description: "idle | saving | saved | error" },
@@ -630,12 +596,12 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "split-screen": [
     { name: "left", type: "React.ReactNode", description: "sol taraf (genelde metin/form)" },
-    { name: "right", type: "React.ReactNode", description: "sağ taraf (genelde görsel/vurgu)" },
-    { name: "rightRatio", type: "number", description: "sağ tarafın genişlik oranı (0-1)" },
-    { name: "hideRightOnMobile", type: "boolean", description: "mobilde sağ tarafı gizle" },
+    { name: "right", type: "React.ReactNode", description: "Right side element (typically visual or graphic)" },
+    { name: "rightRatio", type: "number", description: "Right side width ratio (0 to 1)" },
+    { name: "hideRightOnMobile", type: "boolean", description: "Hide right side on mobile screens" },
   ],
   "spotlight-card": [
-    { name: "radius", type: "number", description: "ışık yarıçapı (px)" },
+    { name: "radius", type: "number", description: "Spotlight radius in pixels" },
   ],
   "stats-overview": [
     { name: "tiles", type: "{ label: string; value: string | number; delta?: { value: string; up: boolean }; spark?: number[] }[]", description: "" },
@@ -645,7 +611,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "stepper-v2": [
     { name: "steps", type: "WizardStep[]", description: "" },
     { name: "current", type: "number", description: "" },
-    { name: "vertical", type: "boolean", description: "dikey düzen" },
+    { name: "vertical", type: "boolean", description: "Vertical layout" },
   ],
   "sticky-footer": [
     { name: "left", type: "React.ReactNode", description: "" },
@@ -653,7 +619,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "stock-status": [
     { name: "stock", type: "number", description: "mevcut stok" },
-    { name: "lowAt", type: "number", description: "az stok eşiği" },
+    { name: "lowAt", type: "number", description: "Threshold for low stock warning" },
     { name: "labelInStock", type: "string", description: "" },
   ],
   "subscription-card": [
@@ -705,11 +671,11 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "ticket-validator": [
     { name: "onValidate", type: "(code: string) => void", description: "" },
-    { name: "result", type: "boolean | null", description: "null: bekliyor, true: geçerli, false: geçersiz" },
+    { name: "result", type: "boolean | null", description: "null: pending, true: valid, false: invalid" },
   ],
   "tilt-card": [
-    { name: "maxTilt", type: "number", description: "max eğim derecesi" },
-    { name: "glare", type: "boolean", description: "parıltı katmanı göster" },
+    { name: "maxTilt", type: "number", description: "Maximum tilt angle in degrees" },
+    { name: "glare", type: "boolean", description: "Show glare overlay layer" },
   ],
   "timeline-vertical-v2": [
     { name: "items", type: "Timeline2Item[]", description: "" },
@@ -724,7 +690,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
     { name: "items", type: "{ id: string; label: string; value?: string }[]", description: "" },
   ],
   "two-factor": [
-    { name: "recoveryCodes", type: "string[]", description: "kurtarma kodları; boşsa üretilmiş örnek gösterilir" },
+    { name: "recoveryCodes", type: "string[]", description: "Recovery codes; displays generated sample if omitted" },
     { name: "onConfirm", type: "() => void", description: "" },
   ],
   "upgrade-prompt": [
@@ -749,10 +715,6 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   "user-table": [
     { name: "users", type: "UserRow[]", description: "" },
     { name: "onRemove", type: "(id: string) => void", description: "" },
-  ],
-  "vending-machine": [
-    { name: "products", type: "{ id: string; label: string; slot: string; price: string; inStock?: boolean }[]", description: "" },
-    { name: "onPurchase", type: "(id: string) => void", description: "" },
   ],
   "version-badge": [
     { name: "stage", type: "FeatureStage", description: "" },
@@ -789,7 +751,7 @@ export const wavePropsDocs3: Record<string, { name: string; type: string; descri
   ],
   "world-map": [
     { name: "data", type: "CountryValue[]", description: "" },
-    { name: "height", type: "number", description: "max değere göre renk yoğunluğu" },
+    { name: "height", type: "number", description: "Color density based on maximum value" },
     { name: "onCountryHover", type: "(code: string | null) => void", description: "" },
   ],
   "offline-banner": [],

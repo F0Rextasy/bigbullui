@@ -11,7 +11,7 @@ export function CodeCopy({ code, label = "Copy code" }: { code: string; label?: 
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // clipboard izni yoksa kopyalama atlanır — opsiyonel kolaylık
+      // if clipboard permission fails, copy is skipped — optional convenience
     }
   };
 

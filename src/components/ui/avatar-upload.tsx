@@ -9,7 +9,7 @@ export interface AvatarUploadProps extends Omit<React.HTMLAttributes<HTMLDivElem
   onChange?: (file: File) => void;
 }
 
-/** Avatar yükleme dairesi: hover'da kamera ikonu + yükleme durumu. */
+/** Circular avatar uploader: hover camera overlay + loading spinner. */
 export function AvatarUpload({ initials = "BB", src, onChange, className, ...props }: AvatarUploadProps) {
   const [preview, setPreview] = React.useState<string | null>(src ?? null);
   const [uploading, setUploading] = React.useState(false);
@@ -35,7 +35,7 @@ export function AvatarUpload({ initials = "BB", src, onChange, className, ...pro
         type="button"
         onClick={() => inputRef.current?.click()}
         className="group relative block size-24 overflow-hidden rounded-full border-2 border-dashed border-border bg-card transition-all duration-200 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
-        aria-label="Avatar yükle"
+        aria-label="Upload avatar"
       >
         {preview ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -43,13 +43,13 @@ export function AvatarUpload({ initials = "BB", src, onChange, className, ...pro
         ) : (
           <span className="flex size-full items-center justify-center font-mono text-xl font-bold text-muted-foreground">{initials}</span>
         )}
-        {/* Kamera katmanı */}
+        {/* Camera overlay */}
         <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-200 group-hover:opacity-100 motion-reduce:transition-none">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
         </span>
         {uploading && (
           <span className="absolute inset-0 flex items-center justify-center bg-background/70">
-            <span className="size-6 rounded-full border-2 border-accent border-t-transparent" style={{ animation: "avSpin 0.8s linear infinite" }} aria-label="Yükleniyor" />
+            <span className="size-6 rounded-full border-2 border-accent border-t-transparent" style={{ animation: "avSpin 0.8s linear infinite" }} aria-label="Loading" />
           </span>
         )}
       </button>

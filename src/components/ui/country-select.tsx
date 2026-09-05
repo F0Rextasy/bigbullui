@@ -10,9 +10,9 @@ export interface CountryOption {
 }
 
 export const COUNTRIES: CountryOption[] = [
-  { code: "TR", name: "Türkiye", flag: "🇹🇷" },
+  { code: "TR", name: "Turkey", flag: "🇹🇷" },
   { code: "US", name: "ABD", flag: "🇺🇸" },
-  { code: "GB", name: "İngiltere", flag: "🇬🇧" },
+  { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
   { code: "DE", name: "Almanya", flag: "🇩🇪" },
   { code: "FR", name: "Fransa", flag: "🇫🇷" },
   { code: "JP", name: "Japonya", flag: "🇯🇵" },
@@ -26,7 +26,7 @@ export interface CountrySelectProps extends Omit<React.HTMLAttributes<HTMLDivEle
   onValueChange?: (code: string) => void;
 }
 
-/** Bayraklı ülke seçici dropdown. */
+/** Country selector dropdown with national flag icons. */
 export function CountrySelect({ value, defaultValue, onValueChange, className, ...props }: CountrySelectProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? "TR");
   const [open, setOpen] = React.useState(false);

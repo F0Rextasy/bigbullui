@@ -16,7 +16,7 @@ export interface AddressFormProps extends Omit<React.HTMLAttributes<HTMLFormElem
   onValueChange?: (value: Partial<AddressFormValue>) => void;
 }
 
-/** Adres formu düzeni: sokak, şehir, ilçe, posta kodu grid'i. */
+/** Address form layout: street, city, state, postal code grid. */
 export function AddressForm({ value = {}, onValueChange, className, ...props }: AddressFormProps) {
   const set = (patch: Partial<AddressFormValue>) => onValueChange?.({ ...value, ...patch });
 
@@ -32,12 +32,12 @@ export function AddressForm({ value = {}, onValueChange, className, ...props }: 
       </div>
       <div className="grid grid-cols-2 gap-3 animate-[afIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
         <div className="space-y-1">
-          <label htmlFor="af-city" className={labelCls}>Şehir</label>
-          <input id="af-city" value={value.city ?? ""} onChange={(e) => set({ city: e.target.value })} placeholder="İstanbul" className={inputCls} />
+          <label htmlFor="af-city" className={labelCls}>City</label>
+          <input id="af-city" value={value.city ?? ""} onChange={(e) => set({ city: e.target.value })} placeholder="New York" className={inputCls} />
         </div>
         <div className="space-y-1">
-          <label htmlFor="af-state" className={labelCls}>İlçe</label>
-          <input id="af-state" value={value.state ?? ""} onChange={(e) => set({ state: e.target.value })} placeholder="Kadıköy" className={inputCls} />
+          <label htmlFor="af-state" className={labelCls}>State / Region</label>
+          <input id="af-state" value={value.state ?? ""} onChange={(e) => set({ state: e.target.value })} placeholder="NY" className={inputCls} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3 animate-[afIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
@@ -46,8 +46,8 @@ export function AddressForm({ value = {}, onValueChange, className, ...props }: 
           <input id="af-postal" value={value.postal ?? ""} onChange={(e) => set({ postal: e.target.value })} placeholder="34000" inputMode="numeric" className={cn(inputCls, "font-mono")} />
         </div>
         <div className="space-y-1">
-          <label htmlFor="af-country" className={labelCls}>Ülke</label>
-          <input id="af-country" value={value.country ?? "Türkiye"} onChange={(e) => set({ country: e.target.value })} className={inputCls} />
+          <label htmlFor="af-country" className={labelCls}>Country</label>
+          <input id="af-country" value={value.country ?? "United States"} onChange={(e) => set({ country: e.target.value })} className={inputCls} />
         </div>
       </div>
     </form>

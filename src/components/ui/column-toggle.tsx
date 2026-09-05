@@ -8,7 +8,7 @@ export interface ColumnToggleProps extends Omit<React.HTMLAttributes<HTMLDivElem
   onToggle?: (id: string, visible: boolean) => void;
 }
 
-/** Kolon göster/gizle menüsü — data-grid üstünde kullanılır. */
+/** Column visibility toggle dropdown menu for data grids. */
 export function ColumnToggle({ columns, onToggle, className, ...props }: ColumnToggleProps) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState(

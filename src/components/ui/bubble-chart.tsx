@@ -16,13 +16,13 @@ export interface BubbleChartProps extends React.HTMLAttributes<SVGSVGElement> {
   height?: number;
 }
 
-/** Kabarcık grafiği: x/y konum + boyut kodlu daireler, hover büyütme. */
+/** Bubble chart: x/y positioning + sized circles with hover focus. */
 export function BubbleChart({ points, height = 240, className, ...props }: BubbleChartProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const maxSize = Math.max(...points.map((p) => p.size), 1);
 
   return (
-    <svg viewBox="0 0 100 62" style={{ height }} className={cn("w-full", className)} role="img" aria-label="Kabarcık grafiği" onMouseLeave={() => setHover(null)} {...props}>
+    <svg viewBox="0 0 100 62" style={{ height }} className={cn("w-full", className)} role="img" aria-label="Bubble chart" onMouseLeave={() => setHover(null)} {...props}>
       <style>{`@keyframes bcPop { from { transform: scale(0); opacity: 0; } }`}</style>
       {/* Izgara */}
       {[20, 40, 60, 80].map((x) => <line key={x} x1={x} y1={4} x2={x} y2={58} stroke="var(--border)" strokeWidth="0.2" strokeDasharray="1 1" />)}

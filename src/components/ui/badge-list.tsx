@@ -14,7 +14,7 @@ export interface BadgeListProps extends React.HTMLAttributes<HTMLDivElement> {
   badges: BadgeAward[];
 }
 
-/** Başarı rozetleri grid'i: kilitli/açık durumları + açılma animasyonu. */
+/** Achievement badge grid: locked/unlocked states + reveal animation. */
 export function BadgeList({ badges, className, ...props }: BadgeListProps) {
   return (
     <div className={cn("grid grid-cols-3 gap-3 sm:grid-cols-4", className)} {...props}>

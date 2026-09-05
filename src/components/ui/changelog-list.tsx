@@ -20,11 +20,11 @@ type Section = "added" | "fixed" | "breaking";
 
 const SECTION_META: Record<Section, { label: string; tone: string; prefix: string }> = {
   added: { label: "Eklendi", tone: "text-emerald-600", prefix: "+" },
-  fixed: { label: "Düzeltildi", tone: "text-sky-600", prefix: "~" },
-  breaking: { label: "Kırıcı", tone: "text-destructive", prefix: "!" },
+  fixed: { label: "Fixed", tone: "text-sky-600", prefix: "~" },
+  breaking: { label: "Breaking", tone: "text-destructive", prefix: "!" },
 };
 
-/** Sürüm notları listesi: versiyon + tarih + eklendi/düzeltildi/kırıcı rozetleri. */
+/** Changelog feed: release version + date + category badges. */
 export function ChangelogList({ entries, className, ...props }: ChangelogListProps) {
   return (
     <div className={cn("w-full max-w-md space-y-4", className)} {...props}>

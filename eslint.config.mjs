@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated output and local automation scripts are not shipped source:
+    "dist/**",
+    ".wave/**",
+    "public/clips/**",
   ]),
 ]);
 

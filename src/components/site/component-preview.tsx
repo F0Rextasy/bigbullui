@@ -104,7 +104,6 @@ import { AudioWaveform } from "@/components/ui/audio-waveform";
 import { TicketFold } from "@/components/ui/ticket-fold";
 import { SegmentedSwitch } from "@/components/ui/segmented-switch";
 import { NfcBadge } from "@/components/ui/nfc-badge";
-import { ScratchOff } from "@/components/ui/scratch-off";
 import { SplitFlapBoard } from "@/components/ui/split-flap";
 import { SeatMap } from "@/components/ui/seat-map";
 import { Watermark } from "@/components/ui/watermark";
@@ -1138,29 +1137,6 @@ function AnimatedNfcBadgePreview() {
       <div className="flex items-center justify-between w-full font-mono text-[10px] uppercase text-muted-foreground px-2">
         <span>TAPS LOGGED: {tapCount}</span>
         <span>{lastAdmission ?? "READY AT TURNSTILE"}</span>
-      </div>
-    </div>
-  );
-}
-
-function AnimatedScratchOffPreview() {
-  const [revealedCode, setRevealedCode] = React.useState<string | null>(null);
-
-  return (
-    <div className="flex flex-col items-center gap-4 w-full max-w-xl select-none">
-      <ScratchOff
-        lotteryTitle="BIG BULL RAFFLE // GOLDEN STUB"
-        prizeTitle="GRAND RAFFLE WINNER"
-        prizeAmount="$500 VOUCHER"
-        prizeCode="BULL-JACKPOT-777"
-        serial="NO. #774921-X"
-        revealThreshold={50}
-        onReveal={(code) => setRevealedCode(code)}
-        onReset={() => setRevealedCode(null)}
-      />
-      <div className="flex items-center justify-between w-full font-mono text-[10px] uppercase text-muted-foreground px-2">
-        <span>INTERACTION: DRAG TO SCRATCH (50% THRESHOLD)</span>
-        <span>{revealedCode ? `REDEEM CODE: ${revealedCode}` : "SCRATCH CARD TO REVEAL"}</span>
       </div>
     </div>
   );
@@ -2444,7 +2420,6 @@ const previews: Record<string, React.ComponentType> = {
   "qr-reader": AnimatedQrReaderPreview,
   "audio-waveform": AnimatedAudioWaveformPreview,
   "nfc-badge": AnimatedNfcBadgePreview,
-  "scratch-off": AnimatedScratchOffPreview,
   "ticket-fold": AnimatedTicketFoldPreview,
   "segmented-switch": AnimatedSegmentedSwitchPreview,
   "split-flap": AnimatedSplitFlapPreview,

@@ -5,11 +5,11 @@ import { cn } from "./lib/utils";
 
 export interface ConnectionStatusProps extends React.HTMLAttributes<HTMLSpanElement> {
   latencyMs?: number;
-  /** bağlantı durumu; verilmezse navigator.onLine simüle edilir */
+  /** Connection state; simulated or detects navigator.onLine */
   online?: boolean;
 }
 
-/** Bağlantı durumu rozeti: canlı ping noktası + gecikme. */
+/** Network status badge: live ping pulse indicator + latency. */
 export function ConnectionStatus({ latencyMs, online = true, className, ...props }: ConnectionStatusProps) {
   const tone = !online ? "text-destructive" : latencyMs === undefined ? "text-emerald-600" : latencyMs < 100 ? "text-emerald-600" : latencyMs < 300 ? "text-amber-600" : "text-destructive";
 
@@ -24,7 +24,7 @@ export function ConnectionStatus({ latencyMs, online = true, className, ...props
         {online && <span className="absolute inline-flex size-full rounded-full bg-current" style={{ animation: "csPing 1.6s ease-out infinite" }} aria-hidden="true" />}
         <span className={cn("relative inline-flex size-1.5 rounded-full", online ? "bg-current" : "bg-current")} aria-hidden="true" />
       </span>
-      {!online ? "Bağlantı yok" : latencyMs !== undefined ? `${latencyMs}ms` : "Bağlı"}
+      {!online ? "Offline" : latencyMs !== undefined ? `${latencyMs}ms` : "Online"}
     </span>
   );
 }

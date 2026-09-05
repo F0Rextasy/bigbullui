@@ -12,7 +12,7 @@ export interface ConsentCheckboxProps extends Omit<React.HTMLAttributes<HTMLLabe
   required?: boolean;
 }
 
-/** KVKK/GDPR onay kutusu: link + gerekli işaret + stamp animasyonu. */
+/** Consent checkbox: legal agreement link + stamp effect. */
 export function ConsentCheckbox({ text, linkLabel = "devam et", linkHref = "#", checked, onCheckedChange, required, className, ...props }: ConsentCheckboxProps) {
   const [internal, setInternal] = React.useState(false);
   const isOn = checked ?? internal;
@@ -44,7 +44,7 @@ export function ConsentCheckbox({ text, linkLabel = "devam et", linkHref = "#", 
       </span>
       <span className="text-xs leading-relaxed text-muted-foreground">
         <a href={linkHref} onClick={(e) => e.stopPropagation()} className="text-accent hover:underline">{linkLabel}</a>{" "}
-        için {text}
+        for {text}
         {required && <span className="ml-1 text-destructive" aria-hidden="true">*</span>}
       </span>
     </label>

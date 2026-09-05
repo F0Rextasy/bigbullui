@@ -23,10 +23,10 @@ const PRIORITY_TONE: Record<NonNullable<TaskItem["priority"]>, string> = {
   high: "border-destructive/50 bg-destructive/10 text-destructive",
 };
 
-const PRIORITY_LABEL: Record<NonNullable<TaskItem["priority"]>, string> = { low: "Düşük", med: "Orta", high: "Yüksek" };
+const PRIORITY_LABEL: Record<NonNullable<TaskItem["priority"]>, string> = { low: "Low", med: "Med", high: "High" };
 
-/** Görev listesi: checkbox + atanan + öncelik + ilerleme. */
-export function BoardChecklist({ title = "Görevler", items, onToggle, className, ...props }: BoardChecklistProps) {
+/** Task checklist: checkbox + assignee + priority + progress. */
+export function BoardChecklist({ title = "Tasks", items, onToggle, className, ...props }: BoardChecklistProps) {
   const [list, setList] = React.useState(items);
   React.useEffect(() => setList(items), [items]);
   const doneCount = list.filter((i) => i.done).length;

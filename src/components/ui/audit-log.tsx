@@ -17,7 +17,7 @@ export interface AuditEntry {
 
 export interface AuditLogProps extends React.HTMLAttributes<HTMLDivElement> {
   entries: AuditEntry[];
-  /** boş bırakılırsa tüm eylemler */
+  /** Shows all actions if omitted */
   filter?: AuditAction | "all";
 }
 
@@ -30,14 +30,14 @@ const ACTION_TONE: Record<AuditAction, string> = {
 };
 
 const ACTION_LABEL: Record<AuditAction, string> = {
-  create: "OLUŞTURDU",
-  update: "GÜNCELLEDİ",
-  delete: "SİLDİ",
-  login: "GİRİŞ",
-  export: "DIŞA AKTARDI",
+  create: "CREATED",
+  update: "UPDATED",
+  delete: "DELETED",
+  login: "LOGIN",
+  export: "EXPORTED",
 };
 
-/** Denetim kaydı: kim + ne + ne zaman + IP, eylem renk kodlu. */
+/** Audit log: actor + action + timestamp + IP with status tones. */
 export function AuditLog({ entries, filter = "all", className, ...props }: AuditLogProps) {
   const visible = filter === "all" ? entries : entries.filter((e) => e.action === filter);
 
@@ -68,7 +68,7 @@ export function AuditLog({ entries, filter = "all", className, ...props }: Audit
         </div>
       ))}
       {visible.length === 0 && (
-        <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">Kayıt bulunamadı.</p>
+        <p className="rounded-md border border-dashed border-border p-4 text-center text-sm text-muted-foreground">No audit records found.</p>
       )}
     </div>
   );

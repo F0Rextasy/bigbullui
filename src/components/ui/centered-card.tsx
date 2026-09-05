@@ -5,14 +5,14 @@ import { cn } from "./lib/utils";
 
 export interface CenteredCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  /** üst logo/başlık slotu */
+  /** Top logo/header slot */
   header?: React.ReactNode;
-  /** kart altı yardımcı metin */
+  /** Bottom helper text slot */
   footer?: React.ReactNode;
   maxWidth?: "sm" | "md";
 }
 
-/** Ortalanmış tek kart düzeni — giriş/kayıt sayfaları için. */
+/** Centered single card container for login / registration screens. */
 export function CenteredCard({ children, header, footer, maxWidth = "sm", className, ...props }: CenteredCardProps) {
   return (
     <div className={cn("flex min-h-[420px] w-full items-center justify-center bg-secondary/30 p-6", className)} {...props}>

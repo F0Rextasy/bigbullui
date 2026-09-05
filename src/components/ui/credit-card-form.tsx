@@ -8,7 +8,7 @@ export interface CreditCardFormProps extends Omit<React.HTMLAttributes<HTMLFormE
   onSubmit?: (data: { number: string; name: string; expiry: string; cvv: string }) => void;
 }
 
-/** Kart formu: numara maskeleme + son kullanma + CVV canlı doğrulama. */
+/** Credit card form: formatting + expiry + CVV validation. */
 export function CreditCardForm({ onSubmit, className, ...props }: CreditCardFormProps) {
   const [number, setNumber] = React.useState("");
   const [name, setName] = React.useState("");
@@ -29,7 +29,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
       <style>{`@keyframes ccIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="space-y-1 animate-[ccIn_0.25s_ease-out_both] motion-reduce:animate-none">
-        <label htmlFor="cc-number" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Kart numarası</label>
+        <label htmlFor="cc-number" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Card Number</label>
         <input
           id="cc-number"
           inputMode="numeric"
@@ -46,7 +46,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
       </div>
 
       <div className="space-y-1 animate-[ccIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
-        <label htmlFor="cc-name" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Kart üzerindeki isim</label>
+        <label htmlFor="cc-name" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Name on Card</label>
         <input
           id="cc-name"
           value={name}

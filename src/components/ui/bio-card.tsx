@@ -11,7 +11,7 @@ export interface BioCardProps extends React.HTMLAttributes<HTMLDivElement> {
   onFollow?: () => void;
 }
 
-/** Biyografi kartı: avatar + sosyal ikonlar + takip butonu. */
+/** Bio profile card: avatar + social links + follow button. */
 export function BioCard({ name, initials, bio, links = [], onFollow, className, ...props }: BioCardProps) {
   const [following, setFollowing] = React.useState(false);
 

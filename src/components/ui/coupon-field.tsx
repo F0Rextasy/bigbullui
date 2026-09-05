@@ -8,7 +8,7 @@ export interface CouponFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder?: string;
 }
 
-/** Kupon kodu alanı: doğrulama + indirim uygulama animasyonu. */
+/** Coupon code input: inline validation + voucher apply animation. */
 export function CouponField({ onApply, placeholder = "KUPON KODU", className, ...props }: CouponFieldProps) {
   const [code, setCode] = React.useState("");
   const [state, setState] = React.useState<"idle" | "checking" | "valid" | "invalid">("idle");
@@ -17,7 +17,7 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
     if (code.trim().length < 4) return;
     setState("checking");
     setTimeout(() => {
-      // demo: 4+ karakterli kodlar geçerli
+      // demo: 4+ character codes are valid
       const ok = code.trim().length >= 4;
       setState(ok ? "valid" : "invalid");
       if (ok) onApply?.(code.trim().toUpperCase());
@@ -63,11 +63,11 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
             state === "valid" ? "border-emerald-500 text-emerald-600" : "border-border hover:border-foreground hover:text-foreground"
           )}
         >
-          {state === "checking" ? "…" : state === "valid" ? "✓ Uygulandı" : "Uygula"}
+          {state === "checking" ? "…" : state === "valid" ? "✓ Applied" : "Apply"}
         </button>
       </div>
-      {state === "invalid" && <p className="mt-1 text-xs text-destructive">Kod geçersiz veya süresi dolmuş.</p>}
-      {state === "valid" && <p className="mt-1 text-xs text-emerald-600">İndirim sepete uygulandı!</p>}
+      {state === "invalid" && <p className="mt-1 text-xs text-destructive">Code is invalid or expired.</p>}
+      {state === "valid" && <p className="mt-1 text-xs text-emerald-600">Discount applied to cart!</p>}
     </div>
   );
 }

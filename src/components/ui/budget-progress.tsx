@@ -15,7 +15,7 @@ export interface BudgetProgressProps extends React.HTMLAttributes<HTMLDivElement
   currency?: string;
 }
 
-/** Bütçe harcama çubuğu: kategorili, aşım uyarılı. */
+/** Budget spending tracker: categorized with over-budget warning. */
 export function BudgetProgress({ categories, currency = "₺", className, ...props }: BudgetProgressProps) {
   return (
     <div className={cn("w-full max-w-sm space-y-3", className)} {...props}>
@@ -41,7 +41,7 @@ export function BudgetProgress({ categories, currency = "₺", className, ...pro
                 style={{ width: `${pct}%`, animation: "bpFill 0.6s cubic-bezier(0.16,1,0.3,1) both", animationDelay: `${idx * 70}ms` }}
               />
             </div>
-            {over && <p className="mt-0.5 font-mono text-[9px] text-destructive">Bütçe {(cat.spent - cat.limit).toLocaleString("tr-TR")} {currency} aşıldı</p>}
+            {over && <p className="mt-0.5 font-mono text-[9px] text-destructive">Budget exceeded by {(cat.spent - cat.limit).toLocaleString("en-US")} {currency}</p>}
           </div>
         );
       })}

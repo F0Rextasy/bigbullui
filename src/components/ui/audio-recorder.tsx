@@ -7,7 +7,7 @@ export interface AudioRecorderProps extends React.HTMLAttributes<HTMLDivElement>
   onSend?: (seconds: number) => void;
 }
 
-/** Mikrofon kayıt simülatörü: dalga + süre + gönder. */
+/** Audio recorder simulator: waveform + duration + send. */
 export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProps) {
   const [recording, setRecording] = React.useState(false);
   const [seconds, setSeconds] = React.useState(0);
@@ -37,7 +37,7 @@ export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProp
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           recording ? "bg-destructive text-white animate-pulse motion-reduce:animate-none" : "bg-accent text-accent-foreground hover:bg-accent/90"
         )}
-        aria-label={recording ? "Kaydı durdur ve gönder" : "Kayda başla"}
+        aria-label={recording ? "Stop and submit recording" : "Start recording"}
       >
         {recording ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1" /></svg>

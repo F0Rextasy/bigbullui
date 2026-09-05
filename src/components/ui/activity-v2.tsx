@@ -16,7 +16,7 @@ export interface ActivityV2Props extends React.HTMLAttributes<HTMLDivElement> {
   filters?: string[];
 }
 
-/** Filtrelenebilir etkinlik akışı v2. */
+/** Filterable activity feed v2. */
 export function ActivityV2({ items, filters, className, ...props }: ActivityV2Props) {
   const actions = filters ?? [...new Set(items.map((i) => i.action))];
   const [active, setActive] = React.useState<string | null>(null);

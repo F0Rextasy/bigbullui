@@ -12,9 +12,9 @@ export interface CronBuilderProps extends React.HTMLAttributes<HTMLDivElement> {
 const FIELDS = [
   { key: "minute", label: "Dakika", placeholder: "0-59" },
   { key: "hour", label: "Saat", placeholder: "0-23" },
-  { key: "dom", label: "Ayın günü", placeholder: "1-31" },
+  { key: "dom", label: "Day of month", placeholder: "1-31" },
   { key: "month", label: "Ay", placeholder: "1-12" },
-  { key: "dow", label: "Haftanın günü", placeholder: "0-6" },
+  { key: "dow", label: "Day of week", placeholder: "0-6" },
 ] as const;
 
 const PRESETS = [
@@ -26,16 +26,16 @@ const PRESETS = [
 
 function describe(expr: string): string {
   const parts = expr.trim().split(/\s+/);
-  if (parts.length !== 5) return "5 alan bekleniyor: dakika saat gün ay haftagünü";
+  if (parts.length !== 5) return "5 fields expected: minute hour day month weekday";
   const [min, hour, dom, month, dow] = parts;
   if (min.startsWith("*/")) return `Her ${min.slice(2)} dakikada bir`;
-  if (hour === "*" && dom === "*" && month === "*" && dow === "*") return `Her saat başı ${min}. dakikada`;
-  if (dom === "*" && month === "*" && dow === "*") return `Her gün ${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
-  if (dow !== "*" && dom === "*") return `${dow}. günde ${hour}:${min}`;
-  return `Özel zamanlama: ${expr}`;
+  if (hour === "*" && dom === "*" && month === "*" && dow === "*") return `At minute ${min} past every hour`;
+  if (dom === "*" && month === "*" && dow === "*") return `Every day at ${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
+  if (dow !== "*" && dom === "*") return `On day ${dow} at ${hour}:${min}`;
+  return `Custom schedule: ${expr}`;
 }
 
-/** Cron ifadesi oluşturucu: 5 alan + canlı açıklama + hazır ayarlar. */
+/** Cron expression builder: 5 inputs + human explanation + presets. */
 export function CronBuilder({ value, defaultValue = "0 9 * * *", onValueChange, className, ...props }: CronBuilderProps) {
   const [expr, setExpr] = React.useState(value ?? defaultValue);
   const parts = expr.trim().split(/\s+/);
@@ -52,7 +52,7 @@ export function CronBuilder({ value, defaultValue = "0 9 * * *", onValueChange, 
     <div className={cn("w-full max-w-md space-y-3", className)} {...props}>
       <style>{`@keyframes crIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
-      {/* Hazır ayarlar */}
+      {/* Presets */}
       <div className="flex flex-wrap gap-1.5">
         {PRESETS.map((p) => (
           <button
