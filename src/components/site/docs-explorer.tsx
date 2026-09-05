@@ -5,14 +5,17 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { categories, type ComponentMeta } from "@/lib/registry-site";
 import { useSeen } from "@/components/site/seen-store";
+import { CORE_ESSENTIALS } from "@/components/site/doc-sidebar";
 
 export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
   const [query, setQuery] = React.useState("");
   const [activeCategory, setActiveCategory] = React.useState<string | null>(null);
+  const [onlyCore, setOnlyCore] = React.useState(false);
   const seen = useSeen();
   const q = query.trim().toLowerCase();
 
   const matches = (component: ComponentMeta) =>
+    (!onlyCore || CORE_ESSENTIALS.has(component.name)) &&
     (activeCategory === null || component.category === activeCategory) &&
     (q.length === 0 ||
       component.title.toLowerCase().includes(q) ||
@@ -34,6 +37,18 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
           />
         </div>
         <nav aria-label="Categories" className="flex flex-wrap justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setOnlyCore(!onlyCore)}
+            aria-pressed={onlyCore}
+            className={
+              onlyCore
+                ? "rounded-sm border border-accent bg-accent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-foreground shadow-xs"
+                : "rounded-sm border border-dashed border-accent/60 bg-accent/10 px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent transition-colors hover:bg-accent/20"
+            }
+          >
+            ★ Core Essentials ({CORE_ESSENTIALS.size})
+          </button>
           {categories.map((cat) => {
             const active = activeCategory === cat.id;
             return (

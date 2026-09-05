@@ -160,4 +160,24 @@ describe("bigbullui Component Library Integrity", () => {
     assert.ok(output.includes("USAGE"));
     assert.ok(output.includes("npx bigbullui"));
   });
+
+  it("SEO & LLM files exist and are valid", () => {
+    const sitemapPath = path.join(rootDir, "app", "sitemap.ts");
+    const robotsPath = path.join(rootDir, "app", "robots.ts");
+    const llmsPath = path.join(rootDir, "public", "llms.txt");
+    const llmsFullPath = path.join(rootDir, "public", "llms-full.txt");
+
+    assert.ok(fs.existsSync(sitemapPath), "app/sitemap.ts must exist");
+    assert.ok(fs.existsSync(robotsPath), "app/robots.ts must exist");
+    assert.ok(fs.existsSync(llmsPath), "public/llms.txt must exist");
+    assert.ok(fs.existsSync(llmsFullPath), "public/llms-full.txt must exist");
+
+    const llmsContent = fs.readFileSync(llmsPath, "utf8");
+    assert.ok(llmsContent.includes("# bigbullui"));
+    assert.ok(llmsContent.includes("npx bigbullui"));
+
+    const llmsFullContent = fs.readFileSync(llmsFullPath, "utf8");
+    assert.ok(llmsFullContent.includes("Component Catalog"));
+    assert.ok(llmsFullContent.length > 50000, "llms-full.txt should contain comprehensive catalog");
+  });
 });

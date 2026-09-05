@@ -28,8 +28,8 @@ const Ribbon = ({
   to,
   value,
 }: { from: { x: number; y: number }; to: { x: number; y: number }; value: number }) => {
-  const width = Math.max(1, value * 2); // scale value to pixel width
-  const amperage = width / 2;
+  const width = Math.max(3, value * 20); // scale value to pixel width
+  const amperage = Math.max(width * 4, 40);
 
   // Cubic bezier curve points
   // from bottom-right to to bottom-left with control points
@@ -44,9 +44,9 @@ const Ribbon = ({
       stroke="currentColor"
       strokeWidth={width}
       fill="none"
+      opacity={0.55}
       className={cn(
         "transition-colors duration-300",
-        "hover:stroke-primary",
         "motion-reduce:animate-none",
       )}
     />
@@ -110,17 +110,10 @@ export const SankeyChart = React.forwardRef<SVGSVGElement, SankeyChartProps>(
             ? leftPositions.get(flow.to)!
             : rightPositions.get(flow.to)!;
 
-          // Animate: stroke-dashoffset draw then fade fill
-          const dashOffset = 200 - i * 30;
-          const strokeWidth = Math.max(1, flow.value * 2);
-
           return (
             <g
               key={flow.from + "-" + flow.to}
-              style={{
-                strokeDasharray: `${200 + dashOffset}, 200`,
-                strokeDashoffset: dashOffset,
-              }}
+              className="text-accent"
             >
               <Ribbon
                 from={{ x: fromPos.x, y: fromPos.y }}

@@ -40,51 +40,41 @@ export function StackedBar({
         );
 
         return (
-          <div
-            key={row.label}
-            className="relative flex items-end gap-2 p-2 rounded-md border border-border/60 bg-card"
-          >
-            {/* Segments growing from bottom with staggered delay */}
-            {row.segments.map((seg, segIdx) => {
-              const isAccent = seg.color?.includes("accent") || segIdx === 0;
-              const heightPct = segmentHeights[segIdx];
-              const colorClass = seg.color
-                ? `border-${seg.color}-200 bg-${seg.color}-100 text-${seg.color}-800`
-                : isAccent
+          <div key={row.label}>
+            <div className="relative flex h-44 flex-col items-stretch justify-end gap-1 rounded-md border border-border/60 bg-card p-2">
+              {row.segments.map((seg, segIdx) => {
+                const isAccent = seg.color?.includes("accent") || segIdx === 0;
+                const heightPct = segmentHeights[segIdx];
+                const colorClass = seg.color
                   ? "border-accent bg-accent text-accent-foreground"
-                  : "border-border bg-muted text-muted-foreground";
+                  : isAccent
+                    ? "border-accent bg-accent text-accent-foreground"
+                    : "border-border bg-muted text-muted-foreground";
 
-              return (
-                <div
-                  key={seg.value}
-                  className={cn(
-                    "relative w-24 rounded-t-sm transition-all duration-500",
-                    `motion-reduce:transition-none`,
-                    `delay-${rowIdx * 50}`,
-                    isAccent
-                      ? "animate-[stamp_0.4s_ease-out_both]"
-                      : "",
-                    heightPct > 0
-                      ? `h-[${heightPct}%]`
-                      : "h-[0]",
-                  )}
-                >
-                  <span
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[10px] uppercase text-xs text-muted-foreground"
+                return (
+                  <div
+                    key={`${row.label}-${segIdx}`}
+                    className={cn(
+                      "relative flex items-center justify-center rounded-sm border transition-all duration-500",
+                      "motion-reduce:transition-none",
+                      colorClass,
+                    )}
+                    style={{
+                      height: `${heightPct}%`,
+                      transitionDelay: `${rowIdx * 50}ms`,
+                    }}
+                    title={`${seg.value}`}
                   >
-                    {seg.value}
-                  </span>
-                </div>
-              );
-            })}
-
-            {/* Row label on the left */}
-            <span
-              className="absolute left-2 flex-1 text-[10px] uppercase text-muted-foreground truncate"
-              title={row.label}
-            >
+                    <span className="font-mono text-[10px] font-bold">
+                      {seg.value}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-1 text-center font-mono text-[10px] uppercase text-muted-foreground">
               {row.label}
-            </span>
+            </p>
           </div>
         );
       })}

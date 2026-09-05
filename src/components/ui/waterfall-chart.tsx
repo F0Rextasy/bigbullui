@@ -19,6 +19,10 @@ export function WaterfallChart({
   className,
   ...props
 }: WaterfallChartProps) {
+  if (items.length === 0) {
+    return <div className={cn("w-full", className)} {...props} />;
+  }
+
   const cumulativeValues: number[] = [];
   let runningTotal = 0;
 
@@ -26,6 +30,13 @@ export function WaterfallChart({
     runningTotal += item.value;
     cumulativeValues.push(runningTotal);
   }
+
+  const lo = Math.min(0, ...cumulativeValues);
+  const hi = Math.max(0, ...cumulativeValues);
+  const span = hi - lo || 1;
+  const y = (v: number) => 90 - ((v - lo) / span) * 70;
+  const n = items.length;
+  const x = (i: number) => 10 + (i / Math.max(n - 1, 1)) * 80;
 
   return (
     <div
@@ -56,66 +67,57 @@ export function WaterfallChart({
         {/* Floating bars with connecting guides */}
         {items.map((item, idx) => {
           const isPositive = item.value >= 0;
-  const barColor = isPositive
-    ? "accent"
-    : "destructive";
-  const barHeightPct = Math.abs(item.value / 10) * 100; // scale factor
-  const prevCumulative = idx > 0 ? cumulativeValues[idx - 1] : 0;
-  const currCumulative = cumulativeValues[idx];
-  const prevHeight = prevCumulative / 10 * 100;
-  const currHeight = currCumulative / 10 * 100;
+          const prevCumulative = idx > 0 ? cumulativeValues[idx - 1] : 0;
+          const currCumulative = cumulativeValues[idx];
+          const top = Math.min(y(prevCumulative), y(currCumulative));
+          const bottom = Math.max(y(prevCumulative), y(currCumulative));
 
-  const delay = idx * 50;
-
-  return (
-    <g key={item.label} className="relative">
-      {/* Connecting dashed guide */}
-      <line
-        x1={50}
-        y1={20 + prevHeight}
-        x2={50}
-        y2={20 + currHeight}
-        stroke={barColor}
-        strokeWidth={2}
-        strokeDasharray="3,3"
-        strokeOpacity={0.5}
-        className="motion-reduce:transition-none"
-      />
-
-      {/* The bar */}
-      <rect
-        x="40"
-        y={20 + Math.min(prevHeight, currHeight)}
-        width="10"
-        height={Math.abs(currHeight - prevHeight)}
-        fill={barColor}
-        className={cn(
-          "motion-reduce:transition-none",
-          `animate-[barIn_0.4s_ease-out_both ${delay}ms fill mode]`,
-          isPositive
-            ? "hover:scale-[1.05] transition-transform"
-            : "hover:scale-[0.95] transition-transform",
-        )}
-      />
-    </g>
-  );
-})}
+          return (
+            <g
+              key={item.label}
+              className={cn(isPositive ? "text-accent" : "text-destructive")}
+            >
+              {idx > 0 ? (
+                <line
+                  x1={x(idx - 1) + 5}
+                  y1={y(prevCumulative)}
+                  x2={x(idx) - 5}
+                  y2={y(prevCumulative)}
+                  stroke="currentColor"
+                  strokeWidth={1}
+                  strokeDasharray="3,3"
+                  strokeOpacity={0.5}
+                  className="motion-reduce:transition-none"
+                />
+              ) : null}
+              <rect
+                x={x(idx) - 5}
+                y={top}
+                width={10}
+                height={Math.max(bottom - top, 1.5)}
+                fill="currentColor"
+                opacity={0.85}
+                className="motion-reduce:transition-none"
+              >
+                <title>{`${item.label}: ${item.value >= 0 ? "+" : ""}${item.value}`}</title>
+              </rect>
+            </g>
+          );
+        })}
 
         {/* X-axis labels */}
         <g className="motion-reduce:transition-none">
           {items.map((item, idx) => {
-            const x = 5 + (idx / Math.max(items.length - 1, 1)) * 90;
             return (
               <text
                 key={item.label}
-                x={x}
-                y={98}
-                fontSize="9"
+                x={x(idx)}
+                y={97}
+                fontSize="6"
                 textAnchor="middle"
                 className={cn(
                   "motion-reduce:transition-none",
-                  "text-[9px] uppercase text-muted-foreground rotate-6",
-                  "transform-origin-bottom",
+                  "fill-muted-foreground font-mono uppercase",
                 )}
               >
                 {item.label}

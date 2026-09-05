@@ -1,0 +1,523 @@
+# bigbullui — Full Component & Agent Specification
+
+> Complete catalog of 462 zero-dependency React 19 + Tailwind CSS 4 components with Ticket Stub aesthetic.
+
+## Installation & CLI
+```bash
+# Add components via zero-dep CLI:
+npx bigbullui add <component-name>
+# Or install all-in-one package:
+npm install bigbullui
+```
+
+## Tailwind CSS v4 Setup
+```css
+@import "tailwindcss";
+@import "bigbullui/css";
+```
+
+## Core Architecture Rules
+1. Components in `src/components/ui/*` import ONLY `react` and `./lib/utils`.
+2. No third-party packages (no Radix, no Lucide, no Framer Motion).
+3. All styles use semantic Tailwind tokens (`bg-primary`, `text-muted-foreground`, `border-border`).
+4. Keyboard focus rings (`focus-visible:ring-2 ring-ring`) and `motion-reduce` fallbacks are built-in.
+
+## Component Catalog (462 Components)
+
+### Ticket Stub & Retro (62 components)
+Tickets, stubs, coupons, passes, split-flap, and tactile mechanical controls.
+
+- **Seat Map** (`seat-map`): Interactive arena seating chart matrix grid with row letters, seat numbers, tier types, and price calculator. → https://ui.bigbullapp.com/docs/seat-map
+- **Keypad** (`keypad`): Numeric PIN keypad with tactile mechanical keys, visual pulse, and masked PIN display. → https://ui.bigbullapp.com/docs/keypad
+- **Ticket Card** (`ticket-card`): Complete admission ticket with notched edges and seat details. → https://ui.bigbullapp.com/docs/ticket-card
+- **Coupon** (`coupon`): Discount coupon with scissor cutout lines and promo code copy. → https://ui.bigbullapp.com/docs/coupon
+- **Boarding Pass** (`boarding-pass`): Flight pass with origin, destination and receipt section. → https://ui.bigbullapp.com/docs/boarding-pass
+- **Price Tag** (`price-tag`): Price tag with eyelet string hole and sale mark. → https://ui.bigbullapp.com/docs/price-tag
+- **Luggage Tag** (`luggage-tag`): Baggage claim tag with handle loop and destination code. → https://ui.bigbullapp.com/docs/luggage-tag
+- **Barcode** (`barcode`): Dynamic SVG barcode with mono serial readout. → https://ui.bigbullapp.com/docs/barcode
+- **Stamp Seal** (`stamp-seal`): Rotated rubber stamp badge with double dashed circular ring. → https://ui.bigbullapp.com/docs/stamp-seal
+- **NFC Badge** (`nfc-badge`): Contactless gate pass tap simulator with animated radio wave ripple pulse, status badge, lanyard notch, and admission chime. → https://ui.bigbullapp.com/docs/nfc-badge
+- **Scratch Off** (`scratch-off`): Lottery ticket with interactive foil scratch layer and auto-reveal. → https://ui.bigbullapp.com/docs/scratch-off
+- **QR Reader** (`qr-reader`): Turnstile simulated camera QR and barcode scanner viewfinder with animated laser sweep and targeting reticle. → https://ui.bigbullapp.com/docs/qr-reader
+- **Ticket Fold** (`ticket-fold`): 3D accordion fold pass that unfolds with smooth perspective rotation and tear-away slip. → https://ui.bigbullapp.com/docs/ticket-fold
+- **Split Flap** (`split-flap`): Mechanical departure board with flipping characters and retro terminal styling. → https://ui.bigbullapp.com/docs/split-flap
+- **Watermark** (`watermark`): Repeating watermark pattern with security angle. → https://ui.bigbullapp.com/docs/watermark
+- **Turnstile Gate** (`turnstile-gate`): Mechanical rotor barrier with pass counter, status LED, and push animation. → https://ui.bigbullapp.com/docs/turnstile-gate
+- **Scoreboard** (`scoreboard`): Two-team score card with rolling digit animation → https://ui.bigbullapp.com/docs/scoreboard
+- **Stamp Card** (`stamp-card`): Loyalty punch card with stamped circles and reward row. → https://ui.bigbullapp.com/docs/stamp-card
+- **Id Card** (`id-card`): Employee ID card with hologram shine sweep and barcode. → https://ui.bigbullapp.com/docs/id-card
+- **QueueTicket** (`queue-ticket`): Take-a-number queue ticket with a big tear-off number tab, NOW SERVING ring and queue stats. → https://ui.bigbullapp.com/docs/queue-ticket
+- **Passport** (`passport`): Double-frame passport cover with monogram, holder fields and staggered visa stamp marks. → https://ui.bigbullapp.com/docs/passport
+- **WaxSeal** (`wax-seal`): Circular wax blob with a pressed-in monogram entrance and an optional cracked break state. → https://ui.bigbullapp.com/docs/wax-seal
+- **Envelope** (`envelope`): Envelope whose flap opens with a 3D rotateX and the letter inside rises, on hover or via an open prop. → https://ui.bigbullapp.com/docs/envelope
+- **AirmailLetter** (`airmail-letter`): Airmail bordered letter with red/blue diagonal stripes, mono lines, a postmark corner and an unfold entrance. → https://ui.bigbullapp.com/docs/airmail-letter
+- **Postmark** (`postmark`): Circular postal cancellation stamp with wavy lines, city and date arcs that stamps in on mount. → https://ui.bigbullapp.com/docs/postmark
+- **CassetteTape** (`cassette-tape`): Cassette with two spinning reels, shifting tape amounts and a handwritten-style label with play toggle. → https://ui.bigbullapp.com/docs/cassette-tape
+- **VinylRecord** (`vinyl-record`): Spinning vinyl with radial grooves, center label, a tonearm that slides in and a wobble on drop. → https://ui.bigbullapp.com/docs/vinyl-record
+- **FlipClock** (`flip-clock`): Mechanical split-flap HH:MM clock whose digit cards flip on change with a blinking colon. → https://ui.bigbullapp.com/docs/flip-clock
+- **NeonSign** (`neon-sign`): Neon sign with layered glow text-shadow, flicker-in entrance and a subtle per-letter buzz. → https://ui.bigbullapp.com/docs/neon-sign
+- **MarqueeBulbs** (`marquee-bulbs`): Marquee board framed by chase-blinking bulbs with scrolling center text. → https://ui.bigbullapp.com/docs/marquee-bulbs
+- **BackstagePass** (`backstage-pass`): Laminated ALL ACCESS pass with lanyard hole, rotated stripe strip, shine sweep on hover and fake barcode. → https://ui.bigbullapp.com/docs/backstage-pass
+- **Wristband** (`wristband`): Festival wristband with patterned repeating stripes, snap closure, serial and a subtle breathing animation. → https://ui.bigbullapp.com/docs/wristband
+- **Lanyard** (`lanyard`): Strap with clip that sways gently from the top and holds an attached card slot for children. → https://ui.bigbullapp.com/docs/lanyard
+- **DrinkTicket** (`drink-ticket`): Perforated drink coupon with glyph, GOOD FOR ONE copy and a tear-off stub that rotates on hover. → https://ui.bigbullapp.com/docs/drink-ticket
+- **RaffleTicket** (`raffle-ticket`): Raffle ticket with a big number, matching stub number and a winning highlight that pulses and stamps. → https://ui.bigbullapp.com/docs/raffle-ticket
+- **SlotMachine** (`slot-machine`): Three-reel slot machine with staggered spinning reels, a pulling lever and payline highlight on stop. → https://ui.bigbullapp.com/docs/slot-machine
+- **PrizeWheel** (`prize-wheel`): SVG prize wheel of tinted segments that spins with eased deceleration and a flicking pointer flapper. → https://ui.bigbullapp.com/docs/prize-wheel
+- **Dice** (`dice`): Pair of 3D dice that tumble with rapid face swaps and settle with a bounce on roll. → https://ui.bigbullapp.com/docs/dice
+- **CoinFlip** (`coin-flip`): Coin that rotates on Y through multiple turns, decelerating to a heads or tails face with a stamped result badge. → https://ui.bigbullapp.com/docs/coin-flip
+- **PlayingCard** (`playing-card`): Playing card with corner rank and suit, big center suit, diamond-pattern back and a 3D flip on click. → https://ui.bigbullapp.com/docs/playing-card
+- **BingoCard** (`bingo-card`): 5x5 B-I-N-G-O card whose cells stamp in on toggle with a free center and line-complete sweep highlights. → https://ui.bigbullapp.com/docs/bingo-card
+- **DiscoBall** (`disco-ball`): Tiled mirror sphere that slowly rotates and projects dancing light dots around the room. → https://ui.bigbullapp.com/docs/disco-ball
+- **StageLights** (`stage-lights`): Two to four gradient light cones that sweep alternately over a glowing stage floor ellipse. → https://ui.bigbullapp.com/docs/stage-lights
+- **TicketBooth** (`ticket-booth`): Booth window with TICKETS marquee header, counter ledge, speaker grille dots and a CLOSED flip sign. → https://ui.bigbullapp.com/docs/ticket-booth
+- **DriveInScreen** (`drive-in-screen`): Outdoor cinema screen with projection flicker, a car silhouette row and an intermission countdown slot. → https://ui.bigbullapp.com/docs/drive-in-screen
+- **TicketStubV2** (`ticket-stub-v2`): Rip-off event stub whose tear line detaches the stub with rotate-and-fall on tear, plus serial and barcode. → https://ui.bigbullapp.com/docs/ticket-stub-v2
+- **QR Code** (`qr-code`): Generates QR codes with Reed-Solomon error correction, mask evaluation, and finder patterns. Includes encodeQrMatrix helper. → https://ui.bigbullapp.com/docs/qr-code
+- **Lottery Machine** (`lottery-machine`): Lottery machine with shaking ball cage and stamped number results. → https://ui.bigbullapp.com/docs/lottery-machine
+- **Ticket Validator** (`ticket-validator`): Ticket validator device with blinking green/red result light. → https://ui.bigbullapp.com/docs/ticket-validator
+- **Vending Machine** (`vending-machine`): Vending machine with product grid, coin slot and drop animation. → https://ui.bigbullapp.com/docs/vending-machine
+- **Arcade Cabinet** (`arcade-cabinet`): Retro arcade cabinet with scanline screen, joystick and coin slot. → https://ui.bigbullapp.com/docs/arcade-cabinet
+- **Betting Slip** (`betting-slip`): Betting slip: match picks, odds grid, stake and play button. → https://ui.bigbullapp.com/docs/betting-slip
+- **Punch Clock** (`punch-clock`): Punch clock with live digital time and in/out stamp feed. → https://ui.bigbullapp.com/docs/punch-clock
+- **Mailbox** (`mailbox`): Mailbox with flag raise and letter send animation. → https://ui.bigbullapp.com/docs/mailbox
+- **Safe Vault** (`safe-vault`): Safe vault with dial animation, code entry and open reveal. → https://ui.bigbullapp.com/docs/safe-vault
+- **Medal Display** (`medal-display`): Medal board with gold/silver/bronze tiers and shine sweep. → https://ui.bigbullapp.com/docs/medal-display
+- **Trophy Shelf** (`trophy-shelf`): Trophy shelf with earned/empty slots and drop-in animation. → https://ui.bigbullapp.com/docs/trophy-shelf
+- **Pool Table** (`pool-table`): Pool ball grid organizer with striped/solid ball rendering. → https://ui.bigbullapp.com/docs/pool-table
+- **Revolving Door** (`revolving-door`): Revolving door with rotating panels. → https://ui.bigbullapp.com/docs/revolving-door
+- **Ferris Wheel** (`ferris-wheel`): Ferris wheel with rotating cabins. → https://ui.bigbullapp.com/docs/ferris-wheel
+- **Carousel Ride** (`carousel-ride`): Carousel ride with circling horses. → https://ui.bigbullapp.com/docs/carousel-ride
+- **Badge Ribbon** (`badge-ribbon`): Award rosette badge ribbon with swallow-tail streamers and certified stamp. → https://ui.bigbullapp.com/docs/badge-ribbon
+
+### Core Form & Inputs (53 components)
+Buttons, text inputs, checkboxes, toggles, switches, and sliders.
+
+- **Button** (`button`): Animated button with hover feedback and crisp focus. → https://ui.bigbullapp.com/docs/button
+- **Input** (`input`): Text input with dashed focus border and design tokens. → https://ui.bigbullapp.com/docs/input
+- **Textarea** (`textarea`): Multi-line text area matching Input styling. → https://ui.bigbullapp.com/docs/textarea
+- **Checkbox** (`checkbox`): Crisp checkbox with bold checked states. → https://ui.bigbullapp.com/docs/checkbox
+- **Switch** (`switch`): Two-state toggle switch with sliding thumb. → https://ui.bigbullapp.com/docs/switch
+- **Radio Group** (`radio-group`): Accessible single-select radio button set. → https://ui.bigbullapp.com/docs/radio-group
+- **Slider** (`slider`): Draggable value slider with chunky thumb. → https://ui.bigbullapp.com/docs/slider
+- **Stepper** (`stepper`): Increment and decrement buttons with mono readout. → https://ui.bigbullapp.com/docs/stepper
+- **Rating** (`rating`): Interactive star rating with live hover preview. → https://ui.bigbullapp.com/docs/rating
+- **Copy Button** (`copy-button`): Tactile button with clipboard feedback and check state. → https://ui.bigbullapp.com/docs/copy-button
+- **Search Bar** (`search-bar`): Dashed search field with shortcut keycap and clear action. → https://ui.bigbullapp.com/docs/search-bar
+- **Password Strength** (`password-strength`): Segmented security verification meter with animated strength bars and criteria checklist. → https://ui.bigbullapp.com/docs/password-strength
+- **Inline Edit** (`inline-edit`): Click-to-edit field with focus outline, animated save pulse, and cancel action. → https://ui.bigbullapp.com/docs/inline-edit
+- **Dual Slider** (`dual-slider`): Price range selector with minimum and maximum draggable handles. → https://ui.bigbullapp.com/docs/dual-slider
+- **Segmented Switch** (`segmented-switch`): Mechanical multi-option lever switch with smooth slide carriage. → https://ui.bigbullapp.com/docs/segmented-switch
+- **Toggle Group** (`toggle-group`): Single-choice segmented control with roving tabindex. → https://ui.bigbullapp.com/docs/toggle-group
+- **Label** (`label`): Form label with mono uppercase styling and an animated stamp-red asterisk when required. → https://ui.bigbullapp.com/docs/label
+- **Form Field** (`form-field`): Field wrapper with label, control, description, and error message with a shake-in animation on error. → https://ui.bigbullapp.com/docs/form-field
+- **Field** (`field`): Composable field primitives: Field, FieldLabel, FieldControl, FieldDescription, FieldError, FieldGroup, FieldSet. → https://ui.bigbullapp.com/docs/field
+- **Toggle** (`toggle`): Two-state button with aria-pressed, springy press animation, and default/outline/accent variants. → https://ui.bigbullapp.com/docs/toggle
+- **Input Group** (`input-group`): Input with prefix icon slot, suffix slot, and inner action button; dashed focus ring and animated underline sweep. → https://ui.bigbullapp.com/docs/input-group
+- **Button Group** (`button-group`): Joins buttons with rounded outer corners, internal separators, and sliding hover highlight. → https://ui.bigbullapp.com/docs/button-group
+- **Loading Button** (`loading-button`): Button with loading spinner swap, width locking to avoid jumps, and a brief success check-mark stamp. → https://ui.bigbullapp.com/docs/loading-button
+- **Checkbox Group** (`checkbox-group`): Checkbox options with a select-all row (indeterminate state), animated check fills, and staggered entrance. → https://ui.bigbullapp.com/docs/checkbox-group
+- **Fab** (`fab`): Floating action button fixed in corner with hover growth, ripple press, and tooltip label on hover. → https://ui.bigbullapp.com/docs/fab
+- **Wishlist Button** (`wishlist-button`): Heart wishlist button with pop fill and floating burst. → https://ui.bigbullapp.com/docs/wishlist-button
+- **Add To Cart Button** (`add-to-cart-button`): Add-to-cart button with flying dot arc and check stamp. → https://ui.bigbullapp.com/docs/add-to-cart-button
+- **LikeButton** (`like-button`): Heart/thumb button that fills on click with burst particle animation and count increment. → https://ui.bigbullapp.com/docs/like-button
+- **EmailInput** (`email-input`): Email input with live validation and typo domain suggestions → https://ui.bigbullapp.com/docs/email-input
+- **SliderTicks** (`slider-ticks`): Slider with tick marks, labels, and snap-to-ticks functionality → https://ui.bigbullapp.com/docs/slider-ticks
+- **Hooks** (`hooks`): SSR-safe React hooks: media query, localStorage, intersection, click-outside, copy, hotkey, and debounce. → https://ui.bigbullapp.com/docs/hooks
+- **Focus Trap** (`focus-trap`): Pure TypeScript focus trapping helpers for accessible overlays: getFocusable and trapFocus. → https://ui.bigbullapp.com/docs/focus-trap
+- **Login Form** (`login-form`): Login form with live validation, show/hide password, remember me and social buttons. → https://ui.bigbullapp.com/docs/login-form
+- **Register Form** (`register-form`): Registration form with name, email, animated password strength and terms consent. → https://ui.bigbullapp.com/docs/register-form
+- **Forgot Password** (`forgot-password`): Password reset flow: email input transitions to animated sent confirmation. → https://ui.bigbullapp.com/docs/forgot-password
+- **Form Progress** (`form-progress`): Form completion progress with segmented dashed bars. → https://ui.bigbullapp.com/docs/form-progress
+- **Stepper V2** (`stepper-v2`): Vertical/horizontal stepper v2 with descriptions and done states. → https://ui.bigbullapp.com/docs/stepper-v2
+- **Search Filter Bar** (`search-filter-bar`): Combined search, sort and filter toolbar with animated chips. → https://ui.bigbullapp.com/docs/search-filter-bar
+- **Shipping Options** (`shipping-options`): Shipping option radio cards with carrier, duration and price. → https://ui.bigbullapp.com/docs/shipping-options
+- **Payment Methods** (`payment-methods`): Payment method selector with card, bank, cash, wallet icons. → https://ui.bigbullapp.com/docs/payment-methods
+- **Credit Card Form** (`credit-card-form`): Credit card form with live number formatting and expiry mask. → https://ui.bigbullapp.com/docs/credit-card-form
+- **Installment Picker** (`installment-picker`): Installment plan picker: months, monthly amount, total. → https://ui.bigbullapp.com/docs/installment-picker
+- **Coupon Field** (`coupon-field`): Coupon code field with validation, success check and shake error. → https://ui.bigbullapp.com/docs/coupon-field
+- **Checkbox Card** (`checkbox-card`): Card-style checkbox with title, description and check pop. → https://ui.bigbullapp.com/docs/checkbox-card
+- **Radio Tile** (`radio-tile`): Radio tile with icon, description and sliding dot. → https://ui.bigbullapp.com/docs/radio-tile
+- **Switch Card** (`switch-card`): Switch card combining title, description and toggle. → https://ui.bigbullapp.com/docs/switch-card
+- **Textarea Autosize** (`textarea-autosize`): Auto-growing textarea with min/max height bounds. → https://ui.bigbullapp.com/docs/textarea-autosize
+- **Char Counter** (`char-counter`): Character counter with near-limit and over-limit states. → https://ui.bigbullapp.com/docs/char-counter
+- **Password Input** (`password-input`): Password input with animated show/hide eye toggle. → https://ui.bigbullapp.com/docs/password-input
+- **Consent Checkbox** (`consent-checkbox`): GDPR/KVKK consent checkbox with link and required marker. → https://ui.bigbullapp.com/docs/consent-checkbox
+- **Address Form** (`address-form`): Address form grid: street, city, district, postal, country. → https://ui.bigbullapp.com/docs/address-form
+- **Radio Cards** (`radio-cards`): Rich selectable radio cards with prices, perks and active ticket border. → https://ui.bigbullapp.com/docs/radio-cards
+- **Split Button** (`split-button`): Dual-action button with primary click trigger and dropdown secondary actions. → https://ui.bigbullapp.com/docs/split-button
+
+### Pickers & Selectors (38 components)
+Date, color, time, country, currency, file dropzone, and complex pickers.
+
+- **Select** (`select`): Custom dashed listbox dropdown with keyboard navigation. → https://ui.bigbullapp.com/docs/select
+- **Pin Input** (`pin-input`): Segmented single-character boxes for codes and OTP. → https://ui.bigbullapp.com/docs/pin-input
+- **Combobox** (`combobox`): Filterable searchable dropdown with instant keyboard filter. → https://ui.bigbullapp.com/docs/combobox
+- **File Dropzone** (`file-dropzone`): Drag-and-drop upload zone with dashed borders and file preview. → https://ui.bigbullapp.com/docs/file-dropzone
+- **Color Picker** (`color-picker`): Palette swatch picker with framing and active mark. → https://ui.bigbullapp.com/docs/color-picker
+- **Time Input** (`time-input`): Curtain call showtime selector with hours, minutes, and AM/PM stepper. → https://ui.bigbullapp.com/docs/time-input
+- **Masked Input** (`masked-input`): Formatted code field with auto-formatted delimiters and validation mark. → https://ui.bigbullapp.com/docs/masked-input
+- **Date Picker** (`date-picker`): Date picker input with popover calendar and quick date selection. → https://ui.bigbullapp.com/docs/date-picker
+- **Autocomplete** (`autocomplete`): Typeahead search input with instant suggestions and keyboard select. → https://ui.bigbullapp.com/docs/autocomplete
+- **Tree Select** (`tree-select`): Hierarchical seating dropdown selector with expandable zone nodes. → https://ui.bigbullapp.com/docs/tree-select
+- **Masked Currency** (`masked-currency`): Formatted currency price input with prefix badge and numeric mask. → https://ui.bigbullapp.com/docs/masked-currency
+- **Signature Pad** (`signature-pad`): Interactive canvas endorsement pad with clear action and receipt stamp. → https://ui.bigbullapp.com/docs/signature-pad
+- **Tag Input** (`tag-input`): Tag input with pill chip badges, remove buttons, backspace deletion, and dashed container. → https://ui.bigbullapp.com/docs/tag-input
+- **Calendar** (`calendar`): Month calendar with date selection, month navigation, and today indicator. → https://ui.bigbullapp.com/docs/calendar
+- **File Upload List** (`file-upload-list`): Multi-file upload manager queue with individual file progress percentage bars, file size formatting (KB/MB), file type badges, cancel/retry/remove buttons, and overall upload count status. → https://ui.bigbullapp.com/docs/file-upload-list
+- **Dropdown Menu** (`dropdown-menu`): Popup actions menu with keyboard shortcuts and items. → https://ui.bigbullapp.com/docs/dropdown-menu
+- **Multi Select** (`multi-select`): Trigger + popover picker with search input, checkbox options, and animated removable selection chips. → https://ui.bigbullapp.com/docs/multi-select
+- **Dropdown Menu V2** (`dropdown-menu-v2`): V2 dropdown menu: nested submenus, checkbox items, radio groups, separators, danger items, and shortcut kbd hints. → https://ui.bigbullapp.com/docs/dropdown-menu-v2
+- **Size Picker** (`size-picker`): Size chip picker with out-of-stock strikes and stock dots. → https://ui.bigbullapp.com/docs/size-picker
+- **Variant Picker** (`variant-picker`): Color swatch and size variant picker with animated selection. → https://ui.bigbullapp.com/docs/variant-picker
+- **EmojiPicker** (`emoji-picker`): Panel with category tabs (Smileys, Gestures, Hearts, Objects), search filter, and emoji grid with selection callback. → https://ui.bigbullapp.com/docs/emoji-picker
+- **PhoneInput** (`phone-input`): Phone number input with country code selector and formatted display → https://ui.bigbullapp.com/docs/phone-input
+- **DateRangePicker** (`date-range-picker`): Two-month mini calendar grid for selecting start and end dates with nights count → https://ui.bigbullapp.com/docs/date-range-picker
+- **MonthPicker** (`month-picker`): 12-month grid for selecting a month with year navigation → https://ui.bigbullapp.com/docs/month-picker
+- **YearPicker** (`year-picker`): Year grid with page navigation for selecting a year → https://ui.bigbullapp.com/docs/year-picker
+- **TimeRangePicker** (`time-range-picker`): Two time inputs with duration readout that animates on change → https://ui.bigbullapp.com/docs/time-range-picker
+- **ClockPicker** (`clock-picker`): Analog clock with draggable hands for time selection → https://ui.bigbullapp.com/docs/clock-picker
+- **HotkeyRecorder** (`hotkey-recorder`): Record keyboard hotkey combinations with visual chip display → https://ui.bigbullapp.com/docs/hotkey-recorder
+- **FileInput** (`file-input`): Styled file input with drop chips and selection count animation → https://ui.bigbullapp.com/docs/file-input
+- **Image Crop** (`image-crop`): Canvas-based image cropping with draggable crop rect, rule-of-thirds grid, resize handles, and dataURL output. → https://ui.bigbullapp.com/docs/image-crop
+- **Otp Verify** (`otp-verify`): 6-digit OTP verification with auto-advance, paste support and resend countdown. → https://ui.bigbullapp.com/docs/otp-verify
+- **Two Factor** (`two-factor`): 2FA setup panel with animated QR scan line, recovery codes and copy action. → https://ui.bigbullapp.com/docs/two-factor
+- **Avatar Upload** (`avatar-upload`): Avatar upload circle with hover camera overlay and preview. → https://ui.bigbullapp.com/docs/avatar-upload
+- **Field Array** (`field-array`): Dynamic form rows: add, remove, move up/down. → https://ui.bigbullapp.com/docs/field-array
+- **Currency Select** (`currency-select`): Currency select dropdown with symbols and codes. → https://ui.bigbullapp.com/docs/currency-select
+- **Country Select** (`country-select`): Country select with flag emojis and codes. → https://ui.bigbullapp.com/docs/country-select
+- **Duration Input** (`duration-input`): Duration input: hour/minute/second steppers. → https://ui.bigbullapp.com/docs/duration-input
+- **Serial Input** (`serial-input`): Serial number input: grouped boxes, auto-advance, paste support. → https://ui.bigbullapp.com/docs/serial-input
+
+### Charts & Visualization (25 components)
+Bar, line, bubble, sunburst, sparkline, radar, and data visualizations.
+
+- **Sparkline** (`sparkline`): Lightweight SVG trend sparkline with animated end-point. → https://ui.bigbullapp.com/docs/sparkline
+- **Bar Chart** (`bar-chart`): Mini data bar chart with dashed guideline grids and hover zoom. → https://ui.bigbullapp.com/docs/bar-chart
+- **Donut Chart** (`donut-chart`): Interactive SVG donut and pie chart with segment hover highlight, tooltips, center total readout, and custom color legend. → https://ui.bigbullapp.com/docs/donut-chart
+- **Line Chart** (`line-chart`): Multi-series line chart with stroke-dasharray animation and hover tooltips → https://ui.bigbullapp.com/docs/line-chart
+- **Area Chart** (`area-chart`): Filled area chart with gradient fills and hover highlights → https://ui.bigbullapp.com/docs/area-chart
+- **Stacked Bar Chart** (`stacked-bar`): Horizontal stacked bars with segmented rows and legend chips → https://ui.bigbullapp.com/docs/stacked-bar
+- **Gauge** (`gauge`): Half-donut SVG gauge with needle animation and value readout → https://ui.bigbullapp.com/docs/gauge
+- **Radar Chart** (`radar-chart`): Spider web chart with polygon axes and data polygon animation → https://ui.bigbullapp.com/docs/radar-chart
+- **Heatmap** (`heatmap`): Grid of colored cells showing value intensities with diagonal stagger → https://ui.bigbullapp.com/docs/heatmap
+- **Calendar Heatmap** (`calendar-heatmap`): GitHub-style Git calendar heatmap grid → https://ui.bigbullapp.com/docs/calendar-heatmap
+- **Funnel Chart** (`funnel-chart`): Horizontal funnel stages showing conversion percentages between steps → https://ui.bigbullapp.com/docs/funnel-chart
+- **Scatter Plot** (`scatter-plot`): SVG scatter plot with dashed axes and hover enlargements → https://ui.bigbullapp.com/docs/scatter-plot
+- **Waterfall Chart** (`waterfall-chart`): Floating bars showing incremental changes with connecting guides → https://ui.bigbullapp.com/docs/waterfall-chart
+- **Candlestick Chart** (`candlestick-chart`): OHLC candlestick chart for financial data visualization → https://ui.bigbullapp.com/docs/candlestick-chart
+- **Treemap Chart** (`treemap-chart`): Squarified treemap with recursive rectangles and staggered labels → https://ui.bigbullapp.com/docs/treemap-chart
+- **Sankey Chart** (`sankey-chart`): Two-level flow diagram with bezier ribbons, value-based width, hover tooltips, and entrance animations. → https://ui.bigbullapp.com/docs/sankey-chart
+- **Org Chart** (`org-chart`): Hierarchical tree of boxes with connector lines, expand/collapse nodes, avatar initials, and entrance animations. → https://ui.bigbullapp.com/docs/org-chart
+- **World Map** (`world-map`): Stylized world map grid with region value intensity and hover readout. → https://ui.bigbullapp.com/docs/world-map
+- **Bubble Chart** (`bubble-chart`): Bubble chart with size-coded circles and hover magnify. → https://ui.bigbullapp.com/docs/bubble-chart
+- **Word Cloud** (`word-cloud`): Word cloud with weight-based font sizing and hover accent. → https://ui.bigbullapp.com/docs/word-cloud
+- **Network Graph** (`network-graph`): Node-edge network graph with bezier links and hover highlight. → https://ui.bigbullapp.com/docs/network-graph
+- **Sunburst Chart** (`sunburst-chart`): Two-ring sunburst chart with segment hover dimming. → https://ui.bigbullapp.com/docs/sunburst-chart
+- **Bullet Chart** (`bullet-chart`): Target versus actual progress meter with qualitative ranges and goal marker. → https://ui.bigbullapp.com/docs/bullet-chart
+- **Histogram** (`histogram`): Frequency distribution histogram with hover count readout and grow animation. → https://ui.bigbullapp.com/docs/histogram
+- **Milestone Chart** (`milestone-chart`): Horizontal milestone timeline progress line with reached checkpoints. → https://ui.bigbullapp.com/docs/milestone-chart
+
+### Data Display & Tables (99 components)
+Tables, data grids, metric cards, stat tiles, accordions, and bento layouts.
+
+- **Transfer List** (`transfer-list`): Two-column transfer list between available and claimed items. → https://ui.bigbullapp.com/docs/transfer-list
+- **Card** (`card`): Double-frame surface container with header, content, and footer. → https://ui.bigbullapp.com/docs/card
+- **Avatar** (`avatar`): Initials or photo badge with dashed ring. → https://ui.bigbullapp.com/docs/avatar
+- **Star** (`star`): Current-color star glyph for ratings and counts. → https://ui.bigbullapp.com/docs/star
+- **Table** (`table`): Data table with dashed row dividers and mono headers. → https://ui.bigbullapp.com/docs/table
+- **Timeline** (`timeline`): Vertical chronological events with dashed connection stem. → https://ui.bigbullapp.com/docs/timeline
+- **Data Table** (`data-table`): Sortable, searchable data table with row selection and pagination. → https://ui.bigbullapp.com/docs/data-table
+- **Stack** (`stack`): Stacked container with staggered angles and hover fan-out. → https://ui.bigbullapp.com/docs/stack
+- **Container** (`container`): Centered layout wrapper with notch cutouts. → https://ui.bigbullapp.com/docs/container
+- **Kanban Lite** (`kanban-lite`): Queue and stage progression board with notch cards. → https://ui.bigbullapp.com/docs/kanban-lite
+- **Gantt Lite** (`gantt-lite`): Interactive festival and stage timetable schedule with animated now indicator. → https://ui.bigbullapp.com/docs/gantt-lite
+- **Collapsible** (`collapsible`): Standalone expandable disclosure card with notch header, animated height reveal and status mark. → https://ui.bigbullapp.com/docs/collapsible
+- **Aspect Ratio** (`aspect-ratio`): Proportional media container with preset ratios, framed border, and corner guides. → https://ui.bigbullapp.com/docs/aspect-ratio
+- **Pricing Table** (`pricing-table`): 3-tier matrix with billing switcher, highlighted plan and feature checklist. → https://ui.bigbullapp.com/docs/pricing-table
+- **Metric Card** (`metric-card`): Dashboard KPI card with value, trend delta and period label. → https://ui.bigbullapp.com/docs/metric-card
+- **Activity Feed** (`activity-feed`): Universal user and team activity stream for deployments, invites, edits, and security audits with timeline avatars, action badges, relative timestamps, and event icons. → https://ui.bigbullapp.com/docs/activity-feed
+- **Credit Card** (`credit-card`): Universal payment card visualizer with real-time card number formatting, brand badge detection (Visa, Mastercard, Amex), metallic EMV chip, and interactive 3D flip card to show CVV. → https://ui.bigbullapp.com/docs/credit-card
+- **Empty** (`empty`): Perforated placeholder box for zero-state views. → https://ui.bigbullapp.com/docs/empty
+- **Accordion** (`accordion`): Collapsible disclosure items with smooth height transitions. → https://ui.bigbullapp.com/docs/accordion
+- **Avatar Group** (`avatar-group`): Overlapping avatar stack with +N overflow chip that fans out on hover. → https://ui.bigbullapp.com/docs/avatar-group
+- **Item** (`item`): Generic row surface with leading media, title, description, and trailing actions; hover lift with accent bar slide-in. → https://ui.bigbullapp.com/docs/item
+- **Listbox** (`listbox`): Single/multi selectable list with keyboard navigation, ARIA roles, and check marks that slide in. → https://ui.bigbullapp.com/docs/listbox
+- **List** (`list`): List with dashed, numbered and icon variants plus staggered item entrances and List/ListItem composition. → https://ui.bigbullapp.com/docs/list
+- **Quote** (`quote`): Blockquote with dashed left frame, stamp entrance and mono uppercase cite line. → https://ui.bigbullapp.com/docs/quote
+- **DescriptionList** (`description-list`): Term/description pairs with mono uppercase terms, muted descriptions and staggered row entrances. → https://ui.bigbullapp.com/docs/description-list
+- **LinkCard** (`link-card`): Whole-card link with sliding arrow, darkening border on hover and fade-up entrance. → https://ui.bigbullapp.com/docs/link-card
+- **LogoCloud** (`logo-cloud`): Grid or marquee row of monogram logo tiles in dashed frames with hover reveal. → https://ui.bigbullapp.com/docs/logo-cloud
+- **Faq** (`faq`): Self-contained accordion Q&A with one-open behavior, grid-rows height reveal and rotating plus icon. → https://ui.bigbullapp.com/docs/faq
+- **Testimonial** (`testimonial`): Quote card with initials avatar, name, role and staggered star rating pop-in. → https://ui.bigbullapp.com/docs/testimonial
+- **TeamGrid** (`team-grid`): Grid of member cards with initials avatars, roles, optional links and staggered hover-lift entrances. → https://ui.bigbullapp.com/docs/team-grid
+- **FeatureGrid** (`feature-grid`): Feature tiles with icon slot, stamp-on-hover icons, darkening borders and staggered entrance. → https://ui.bigbullapp.com/docs/feature-grid
+- **Leaderboard** (`leaderboard`): Ranked leaderboard with medal tiles for top 3 and count-up scores → https://ui.bigbullapp.com/docs/leaderboard
+- **Spotlight** (`spotlight`): Full-viewport dim overlay with cutout hole positioned via target ref/bounding box; pulse ring around target; caption card. → https://ui.bigbullapp.com/docs/spotlight
+- **VirtualList** (`virtual-list`): Windowed list for fixed-height rows: scrollTop math, visible slice renders, spacer divs; smooth scroll. → https://ui.bigbullapp.com/docs/virtual-list
+- **Product Card** (`product-card`): Product card with image slot, price, discount badge and wishlist heart. → https://ui.bigbullapp.com/docs/product-card
+- **User Card** (`user-card`): Profile card with avatar, role, meta chips and action slot. → https://ui.bigbullapp.com/docs/user-card
+- **Article Card** (`article-card`): Blog article card with category badge, excerpt and author meta. → https://ui.bigbullapp.com/docs/article-card
+- **Event Card** (`event-card`): Event card with perforated date block, venue and time chips. → https://ui.bigbullapp.com/docs/event-card
+- **Invoice** (`invoice`): Invoice layout with line items, tax breakdown and stamped total. → https://ui.bigbullapp.com/docs/invoice
+- **Receipt** (`receipt`): Thermal receipt with zigzag tear edge, mono lines and barcode footer. → https://ui.bigbullapp.com/docs/receipt
+- **Checkout Summary** (`checkout-summary`): Cart summary with quantity steppers, tax row and checkout CTA. → https://ui.bigbullapp.com/docs/checkout-summary
+- **Order Card** (`order-card`): Order status card with step dots and item summary. → https://ui.bigbullapp.com/docs/order-card
+- **PostCard** (`post-card`): Social post with header, body, gradient media placeholder, and action row with like/comment/share counts. → https://ui.bigbullapp.com/docs/post-card
+- **FollowerList** (`follower-list`): Rows with avatars, names, handles, and Follow buttons that morph between states. → https://ui.bigbullapp.com/docs/follower-list
+- **CurrencyDisplay** (`currency-display`): Formatted money with symbol, mono integer part, smaller muted decimals, optional count-up animation → https://ui.bigbullapp.com/docs/currency-display
+- **ReceiptPrinter** (`receipt-printer`): Thermal printer that feeds mono receipt lines out of a printer slot with a stepped paper animation. → https://ui.bigbullapp.com/docs/receipt-printer
+- **NowServing** (`now-serving`): Split-flap style NOW SERVING board whose digits flip on value change with a blinking chime dot. → https://ui.bigbullapp.com/docs/now-serving
+- **Tilt Card** (`tilt-card`): 3D cursor-tracking tilt card with springy reset and glare highlight. → https://ui.bigbullapp.com/docs/tilt-card
+- **Flip Card** (`flip-card`): Two-face card with rotateY flip animation, hover or click trigger. → https://ui.bigbullapp.com/docs/flip-card
+- **Spotlight Card** (`spotlight-card`): Card with cursor-following radial spotlight glow. → https://ui.bigbullapp.com/docs/spotlight-card
+- **Drag Sort** (`drag-sort`): HTML5 drag-and-drop reorderable list with grab handles and drop indicators. → https://ui.bigbullapp.com/docs/drag-sort
+- **Session List** (`session-list`): Active session manager: device icons, location, revoke buttons. → https://ui.bigbullapp.com/docs/session-list
+- **Stats Overview** (`stats-overview`): Overview layout: KPI tile row, mini bar chart panel and recent records table. → https://ui.bigbullapp.com/docs/stats-overview
+- **User Table** (`user-table`): User management table with role badges, status dots and remove action. → https://ui.bigbullapp.com/docs/user-table
+- **Settings Section** (`settings-section`): Settings section: title, description rows and save confirmation stamp. → https://ui.bigbullapp.com/docs/settings-section
+- **Profile Settings** (`profile-settings`): Profile settings with avatar slot, fields and animated danger zone. → https://ui.bigbullapp.com/docs/profile-settings
+- **Billing Panel** (`billing-panel`): Billing panel: plan card, usage meters and invoice list. → https://ui.bigbullapp.com/docs/billing-panel
+- **Usage Meter** (`usage-meter`): Quota meter with color-coded fill bar and over-limit pulse warning. → https://ui.bigbullapp.com/docs/usage-meter
+- **Team Members** (`team-members`): Team member management: invite input, role chips, remove action. → https://ui.bigbullapp.com/docs/team-members
+- **Bento Grid** (`bento-grid`): Bento grid: variable-sized cells with hover lift and staggered entrance. → https://ui.bigbullapp.com/docs/bento-grid
+- **Split Screen** (`split-screen`): Split layout: left content and right emphasis panel with ratio control. → https://ui.bigbullapp.com/docs/split-screen
+- **Centered Card** (`centered-card`): Centered single card layout for login/register pages. → https://ui.bigbullapp.com/docs/centered-card
+- **Two Column List** (`two-column-list`): Two-column notebook-style list with dashed separators. → https://ui.bigbullapp.com/docs/two-column-list
+- **Masonry Columns** (`masonry-columns`): CSS columns masonry: cards flow by height with break-inside protection. → https://ui.bigbullapp.com/docs/masonry-columns
+- **Data Grid** (`data-grid`): Heavy data grid: sortable columns, pagination, sticky header. → https://ui.bigbullapp.com/docs/data-grid
+- **Tree Table** (`tree-table`): Hierarchical table rows with expand/collapse chevrons. → https://ui.bigbullapp.com/docs/tree-table
+- **Kanban V2** (`kanban-v2`): Drag-and-drop kanban board v2 with animated column transfers. → https://ui.bigbullapp.com/docs/kanban-v2
+- **Board Checklist** (`board-checklist`): Task checklist: checkboxes, assignee, priority badges and progress bar. → https://ui.bigbullapp.com/docs/board-checklist
+- **Task List** (`task-list`): Task rows with assignee chips and priority badges. → https://ui.bigbullapp.com/docs/task-list
+- **Timeline Vertical V2** (`timeline-vertical-v2`): Two-sided vertical timeline v2 with alternating cards. → https://ui.bigbullapp.com/docs/timeline-vertical-v2
+- **Feed Masonry** (`feed-masonry`): Masonry feed of mixed-height content cards. → https://ui.bigbullapp.com/docs/feed-masonry
+- **Inbox List** (`inbox-list`): Email inbox list: unread dots, senders, stars, subject previews. → https://ui.bigbullapp.com/docs/inbox-list
+- **Activity V2** (`activity-v2`): Filterable activity feed v2 with action badges and avatars. → https://ui.bigbullapp.com/docs/activity-v2
+- **Rank List** (`rank-list`): Ranked list with drag-to-reorder and score readouts. → https://ui.bigbullapp.com/docs/rank-list
+- **Table Summary** (`table-summary`): Table footer summary rows with bolded totals in dashed frame. → https://ui.bigbullapp.com/docs/table-summary
+- **Empty Col Span** (`empty-col-span`): Empty table cell placeholder with floating icon animation. → https://ui.bigbullapp.com/docs/empty-col-span
+- **Row Expand** (`row-expand`): Expandable row detail panels with height animation. → https://ui.bigbullapp.com/docs/row-expand
+- **Column Toggle** (`column-toggle`): Column show/hide dropdown menu for data grids. → https://ui.bigbullapp.com/docs/column-toggle
+- **Quiz Card** (`quiz-card`): Mini quiz card with options and correct/incorrect feedback. → https://ui.bigbullapp.com/docs/quiz-card
+- **Bio Card** (`bio-card`): Bio card with social link icons and follow action. → https://ui.bigbullapp.com/docs/bio-card
+- **Badge List** (`badge-list`): Achievement badge grid with earned/locked states and shine sweep. → https://ui.bigbullapp.com/docs/badge-list
+- **Price Compare** (`price-compare`): Price comparison table across sellers with best-offer highlight. → https://ui.bigbullapp.com/docs/price-compare
+- **Cart Badge** (`cart-badge`): Cart count badge that pulses on item add. → https://ui.bigbullapp.com/docs/cart-badge
+- **Order Tracking** (`order-tracking`): Order tracking strip: status dots with dates and courier. → https://ui.bigbullapp.com/docs/order-tracking
+- **Refund Card** (`refund-card`): Refund status card with amount and reason. → https://ui.bigbullapp.com/docs/refund-card
+- **Wallet Card** (`wallet-card`): Wallet balance card with top-up and mini transactions. → https://ui.bigbullapp.com/docs/wallet-card
+- **Crypto Ticker** (`crypto-ticker`): Crypto price ticker with animated up/down arrows. → https://ui.bigbullapp.com/docs/crypto-ticker
+- **Exchange Rate** (`exchange-rate`): Exchange rate converter with two-way live calculation. → https://ui.bigbullapp.com/docs/exchange-rate
+- **Budget Progress** (`budget-progress`): Budget spending bar with category breakdown and overrun warning. → https://ui.bigbullapp.com/docs/budget-progress
+- **Subscription Card** (`subscription-card`): Subscription card: plan, renewal date, features, cancel. → https://ui.bigbullapp.com/docs/subscription-card
+- **Gallery Grid** (`gallery-grid`): Image gallery grid with fullscreen lightbox and keyboard paging. → https://ui.bigbullapp.com/docs/gallery-grid
+- **Poster Card** (`poster-card`): Event poster card with gradient overlay and date corner. → https://ui.bigbullapp.com/docs/poster-card
+- **Quote Wall** (`quote-wall`): Masonry quote wall built on Quote cards. → https://ui.bigbullapp.com/docs/quote-wall
+- **Glossary List** (`glossary-list`): Glossary list with letter index tabs and term definitions. → https://ui.bigbullapp.com/docs/glossary-list
+- **Changelog List** (`changelog-list`): Changelog list: version badges, added/fixed/breaking sections. → https://ui.bigbullapp.com/docs/changelog-list
+- **Recipe Card** (`recipe-card`): Recipe card: ingredients/steps tabs, time and servings. → https://ui.bigbullapp.com/docs/recipe-card
+- **Score Keeper** (`score-keeper`): Two-team score keeper with pulse on score change. → https://ui.bigbullapp.com/docs/score-keeper
+- **Match Ticker** (`match-ticker`): Live match ticker with scrolling scores and LIVE badges. → https://ui.bigbullapp.com/docs/match-ticker
+- **Stat Tile** (`stat-tile`): KPI metric box with big tabular numbers, delta change and sparkline bars. → https://ui.bigbullapp.com/docs/stat-tile
+
+### Feedback & Overlays (51 components)
+Dialogs, sheets, alerts, toasts, callouts, and status badges.
+
+- **Badge** (`badge`): Micro status pill with subtle entrance transition. → https://ui.bigbullapp.com/docs/badge
+- **Progress** (`progress`): Marching striped progress indicator bar. → https://ui.bigbullapp.com/docs/progress
+- **Alert** (`alert`): Notice box with tone bar and status eyebrow. → https://ui.bigbullapp.com/docs/alert
+- **Tooltip** (`tooltip`): Floating helper tooltip on hover and keyboard focus. → https://ui.bigbullapp.com/docs/tooltip
+- **Dialog** (`dialog`): Accessible modal dialog with focus trap and scale animation. → https://ui.bigbullapp.com/docs/dialog
+- **Toast** (`toast`): Transient stacked notices with auto-dismiss. → https://ui.bigbullapp.com/docs/toast
+- **Sheet** (`sheet`): Slide-over drawer panel with focus trap and scroll lock. → https://ui.bigbullapp.com/docs/sheet
+- **Popover** (`popover`): Floating content panel anchored to an interactive trigger. → https://ui.bigbullapp.com/docs/popover
+- **Spinner** (`spinner`): Rotary loading indicator with dashed track and stamp accent. → https://ui.bigbullapp.com/docs/spinner
+- **Skeleton** (`skeleton`): Dashed placeholder box with gentle pulse animation. → https://ui.bigbullapp.com/docs/skeleton
+- **Cookie Banner** (`cookie-banner`): Fixed privacy consent banner with accept and decline actions. → https://ui.bigbullapp.com/docs/cookie-banner
+- **Confetti Burst** (`confetti-burst`): CSS celebration burst with stamp-colored pieces flying outward. → https://ui.bigbullapp.com/docs/confetti-burst
+- **Tour** (`tour`): Interactive step-by-step guided onboarding card with progress indicators. → https://ui.bigbullapp.com/docs/tour
+- **Hover Card** (`hover-card`): Popover preview on hover and focus with configurable delays and alignment. → https://ui.bigbullapp.com/docs/hover-card
+- **Drawer** (`drawer`): Bottom slide-up drawer with pull handle, backdrop blur, and focus trap. → https://ui.bigbullapp.com/docs/drawer
+- **Announcement Bar** (`announcement-bar`): Festival alert and headline announcement ribbon bar with perforated top/bottom tear lines, countdown urgency badge, action CTA button, and dismiss action. → https://ui.bigbullapp.com/docs/announcement-bar
+- **Status Dot** (`status-dot`): Live status beacon with radar sweep pulse, glow rings and occupancy levels. → https://ui.bigbullapp.com/docs/status-dot
+- **Skeleton V2** (`skeleton-v2`): Shimmer sweep skeleton with text-line and card composition presets. → https://ui.bigbullapp.com/docs/skeleton-v2
+- **Alert Dialog** (`alert-dialog`): Confirm/cancel modal with destructive variant for irreversible actions, Escape/backdrop close, and animated content. → https://ui.bigbullapp.com/docs/alert-dialog
+- **Progress Circle** (`progress-circle`): Circular progress ring with stroke-dashoffset animation and center percentage → https://ui.bigbullapp.com/docs/progress-circle
+- **ConfirmDialog** (`confirm-dialog`): Self-contained confirm dialog with focus trap and stamp entrance for confirm button in destructive mode. → https://ui.bigbullapp.com/docs/confirm-dialog
+- **Result** (`result`): Full-panel status screen with icon circle, title, description, and actions slot; confetti-ish subtle burst on success. → https://ui.bigbullapp.com/docs/result
+- **LoadingDots** (`loading-dots`): Three dots bounce in sequence with keyframe animation; sizes sm/md/lg and tone prop. → https://ui.bigbullapp.com/docs/loading-dots
+- **LoadingOverlay** (`loading-overlay`): Absolute/fixed veil with backdrop blur and spinner; fade in/out with opacity transition. → https://ui.bigbullapp.com/docs/loading-overlay
+- **NotificationCenter** (`notification-center`): Bell button with unread badge + dropdown panel with notification rows, mark-all-read, empty state. → https://ui.bigbullapp.com/docs/notification-center
+- **CoachMark** (`coach-mark`): Single floating tip bubble anchored to trigger children with arrow, title, body, dismiss; pop-in with springy scale. → https://ui.bigbullapp.com/docs/coach-mark
+- **Cart Drawer** (`cart-drawer`): Slide-over cart drawer with quantity controls and animated removal. → https://ui.bigbullapp.com/docs/cart-drawer
+- **LiveBadge** (`live-badge`): LIVE indicator with blinking dot, mono uppercase label, and optional viewer count that ticks → https://ui.bigbullapp.com/docs/live-badge
+- **Fireworks** (`fireworks`): Rockets that rise and burst into radial particle rings, looping while active. → https://ui.bigbullapp.com/docs/fireworks
+- **Security Score** (`security-score`): Security score with animated arc gauge and per-check pass/fail list. → https://ui.bigbullapp.com/docs/security-score
+- **Role Badge** (`role-badge`): Role badge set: admin, editor, member, viewer with distinct tones. → https://ui.bigbullapp.com/docs/role-badge
+- **Danger Zone** (`danger-zone`): Red-framed destructive actions area with two-step confirm. → https://ui.bigbullapp.com/docs/danger-zone
+- **Invite Modal** (`invite-modal`): Invite modal with email, role radio group and sent confirmation. → https://ui.bigbullapp.com/docs/invite-modal
+- **Upgrade Prompt** (`upgrade-prompt`): Upgrade call-to-action card with shine sweep, feature list and dismiss. → https://ui.bigbullapp.com/docs/upgrade-prompt
+- **Maintenance Banner** (`maintenance-banner`): Maintenance notification bar with countdown chip and dismiss. → https://ui.bigbullapp.com/docs/maintenance-banner
+- **Offline Banner** (`offline-banner`): Offline banner listening to navigator.onLine with reconnecting state. → https://ui.bigbullapp.com/docs/offline-banner
+- **Error Page** (`error-page`): 404/500/403 full-page layout with stamped code and return action. → https://ui.bigbullapp.com/docs/error-page
+- **Permission Denied** (`permission-denied`): Access denied panel with lock icon and request-access flow. → https://ui.bigbullapp.com/docs/permission-denied
+- **Save Indicator** (`save-indicator`): Auto-save status chip: idle, saving, saved, error states. → https://ui.bigbullapp.com/docs/save-indicator
+- **Connection Status** (`connection-status`): Connection badge with pinging dot and optional latency readout. → https://ui.bigbullapp.com/docs/connection-status
+- **Version Badge** (`version-badge`): Version badge set: new, beta, stable, deprecated tones. → https://ui.bigbullapp.com/docs/version-badge
+- **Sync Status** (`sync-status`): Sync status chip with spinning icon and last-sync timestamp. → https://ui.bigbullapp.com/docs/sync-status
+- **Upload Progress** (`upload-progress`): Single file upload with circular progress ring and cancel. → https://ui.bigbullapp.com/docs/upload-progress
+- **Migration Banner** (`migration-banner`): Data migration banner with progress bar and expandable detail. → https://ui.bigbullapp.com/docs/migration-banner
+- **Rate Limit Note** (`rate-limit-note`): Rate limit notice with countdown timer. → https://ui.bigbullapp.com/docs/rate-limit-note
+- **Notification Feed** (`notification-feed`): Full-page notification feed with type icons and read states. → https://ui.bigbullapp.com/docs/notification-feed
+- **Drawer Nav** (`drawer-nav`): Mobile hamburger drawer sliding from the left with staggered links. → https://ui.bigbullapp.com/docs/drawer-nav
+- **Stock Status** (`stock-status`): Stock status badge: in stock, low stock pulse, sold out. → https://ui.bigbullapp.com/docs/stock-status
+- **Callout** (`callout`): Tactile admission callout note with dashed borders, status tones and dismiss action. → https://ui.bigbullapp.com/docs/callout
+- **Meter** (`meter`): Turnstile capacity meter with notched frame, optimal indicator and tick marks. → https://ui.bigbullapp.com/docs/meter
+- **Trend Badge** (`trend-badge`): Dynamic rate and velocity indicator badge with live pulse indicator. → https://ui.bigbullapp.com/docs/trend-badge
+
+### Navigation & Menus (58 components)
+Tabs, breadcrumbs, steppers, menubars, pagination, command palette, and shells.
+
+- **Kbd** (`kbd`): Keycap indicator with raised bottom border for shortcuts. → https://ui.bigbullapp.com/docs/kbd
+- **Separator** (`separator`): Horizontal or vertical dashed divider. → https://ui.bigbullapp.com/docs/separator
+- **Section Heading** (`section-heading`): Theater and arena section divider banner with dashed rules and zone badges. → https://ui.bigbullapp.com/docs/section-heading
+- **Sticky Bar** (`sticky-bar`): Floating bottom checkout bar with item counter and admission button. → https://ui.bigbullapp.com/docs/sticky-bar
+- **Resizable** (`resizable`): Splitter layout panels with draggable resize handle, min/max limits and collapse button. → https://ui.bigbullapp.com/docs/resizable
+- **Scroll Area** (`scroll-area`): Custom styled scrollable container with customized dashed scrollbar track, thumb indicator, horizontal/vertical support, and perforated top/bottom shadow fades. → https://ui.bigbullapp.com/docs/scroll-area
+- **Tabs** (`tabs`): Segmented panel switch with roving keyboard focus. → https://ui.bigbullapp.com/docs/tabs
+- **Pagination** (`pagination`): Numbered buttons with ellipsis and page stepping. → https://ui.bigbullapp.com/docs/pagination
+- **Breadcrumb** (`breadcrumb`): Hierarchical trail with slash separators. → https://ui.bigbullapp.com/docs/breadcrumb
+- **Steps** (`steps`): Data-driven wizard progression with numbered stamps. → https://ui.bigbullapp.com/docs/steps
+- **Command Palette** (`command-palette`): Modal search command palette with keyboard shortcuts, categorization, and filter. → https://ui.bigbullapp.com/docs/command-palette
+- **Context Menu** (`context-menu`): Right-click menu with smooth reveal, shortcuts, and dashed divider. → https://ui.bigbullapp.com/docs/context-menu
+- **Scroll Top** (`scroll-top`): Floating elevator button that scrolls smoothly to page top. → https://ui.bigbullapp.com/docs/scroll-top
+- **Menubar** (`menubar`): Theater box office menu bar with dropdown menus, shortcuts, and dashed frames. → https://ui.bigbullapp.com/docs/menubar
+- **Navbar** (`navbar`): Navigation bar with brand monogram and active links. → https://ui.bigbullapp.com/docs/navbar
+- **Tree Nav** (`tree-nav`): Hierarchical explorer with collapsible nodes and icons. → https://ui.bigbullapp.com/docs/tree-nav
+- **Sidebar** (`sidebar`): Collapsible navigation sidebar drawer with notch cutouts. → https://ui.bigbullapp.com/docs/sidebar
+- **Breadcrumb Dropdown** (`breadcrumb-dropdown`): Hierarchical route breadcrumb with popover dropdown for intermediate tiers. → https://ui.bigbullapp.com/docs/breadcrumb-dropdown
+- **Dock** (`dock`): Floating application dock bar with hover magnification and active indicators. → https://ui.bigbullapp.com/docs/dock
+- **Navigation Menu** (`navigation-menu`): Horizontal nav bar whose items reveal an animated panel below with height/fade reveal and sliding indicator. → https://ui.bigbullapp.com/docs/navigation-menu
+- **Divider With Text** (`divider-with-text`): Centered label over dashed separator lines with a line-grow scaleX animation on mount. → https://ui.bigbullapp.com/docs/divider-with-text
+- **Heading** (`heading`): Semantic heading with level-based scale, optional mono eyebrow and per-level entrance animation. → https://ui.bigbullapp.com/docs/heading
+- **Text** (`text`): Typographic paragraph primitive with default, muted, small, lead and mono variants. → https://ui.bigbullapp.com/docs/text
+- **PageHeader** (`page-header`): Page title with stamp entrance, fading description, actions slot and optional mono eyebrow. → https://ui.bigbullapp.com/docs/page-header
+- **Hero** (`hero`): Landing hero with accent highlight word, primary/secondary actions and bottom marquee strip. → https://ui.bigbullapp.com/docs/hero
+- **Footer** (`footer`): Site footer with brand monogram, staggered link columns and dashed-top bottom bar. → https://ui.bigbullapp.com/docs/footer
+- **CtaSection** (`cta-section`): Double-frame call-to-action band with stamp-seal corner badge and stamping action button. → https://ui.bigbullapp.com/docs/cta-section
+- **SpeedDial** (`speed-dial`): FAB that fans out mini action buttons in an arc with staggered scale-in when open; Escape closes. → https://ui.bigbullapp.com/docs/speed-dial
+- **InfiniteScroll** (`infinite-scroll`): IntersectionObserver sentinel: when visible calls onLoadMore, shows animated loader row; wraps children. → https://ui.bigbullapp.com/docs/infinite-scroll
+- **ScrollShadow** (`scroll-shadow`): Wrapper with top/bottom shadow indicators that fade in only when scrollable in that direction; dashed scrollbar styling. → https://ui.bigbullapp.com/docs/scroll-shadow
+- **Jumbotron** (`jumbotron`): Oversized scoreboard with pixel-style mono type, scanline sweep and scoreboard slots for home and away. → https://ui.bigbullapp.com/docs/jumbotron
+- **TabBar** (`tabbar`): Fixed bottom navigation bar with sliding active indicator pill and badge support → https://ui.bigbullapp.com/docs/tabbar
+- **PagerDots** (`pager-dots`): Navigation page indicators with active dot that stretches and variant styles → https://ui.bigbullapp.com/docs/pager-dots
+- **Toc** (`toc`): Table of contents with IntersectionObserver scroll-spy and dashed active underline → https://ui.bigbullapp.com/docs/toc
+- **AppShell** (`app-shell`): Page skeleton with top bar, collapsible sidebar, and main content area with built-in skip-link → https://ui.bigbullapp.com/docs/app-shell
+- **SkipLink** (`skip-link`): Accessibility skip-link that becomes visible on keyboard focus with translate animation → https://ui.bigbullapp.com/docs/skip-link
+- **BackLink** (`back-link`): Chevron button with label that slides on hover, with focus ring → https://ui.bigbullapp.com/docs/back-link
+- **FlyoutMenu** (`flyout-menu`): Hover dropdown menu with scale-in origin-top panel and keyboard navigation → https://ui.bigbullapp.com/docs/flyout-menu
+- **ScrollSpyNav** (`scroll-spy-nav`): Horizontal sticky navigation with active pill that slides under the active section, smooth scroll with reduced-motion fallback → https://ui.bigbullapp.com/docs/scroll-spy-nav
+- **Admin Shell** (`admin-shell`): Admin panel skeleton: collapsible sidebar nav, top bar, content area. → https://ui.bigbullapp.com/docs/admin-shell
+- **Sticky Footer** (`sticky-footer`): Sticky bottom bar that stays visible during scroll. → https://ui.bigbullapp.com/docs/sticky-footer
+- **Hero Split** (`hero-split`): Split hero: left text block and right framed visual slot. → https://ui.bigbullapp.com/docs/hero-split
+- **Footer Minimal** (`footer-minimal`): Single-row minimal footer: brand, links, copyright. → https://ui.bigbullapp.com/docs/footer-minimal
+- **Responsive Nav** (`responsive-nav`): Auto-switching nav: desktop horizontal links, mobile hamburger panel. → https://ui.bigbullapp.com/docs/responsive-nav
+- **Keyboard Nav Helper** (`keyboard-nav-helper`): Keyboard shortcut overlay opened with the ? key. → https://ui.bigbullapp.com/docs/keyboard-nav-helper
+- **Wizard** (`wizard`): Multi-step wizard with validation shake, progress markers and summary. → https://ui.bigbullapp.com/docs/wizard
+- **Mega Menu** (`mega-menu`): Full-width mega menu with columns, links and featured box. → https://ui.bigbullapp.com/docs/mega-menu
+- **Footer Nav** (`footer-nav`): Site-map footer with link columns. → https://ui.bigbullapp.com/docs/footer-nav
+- **Anchor Nav** (`anchor-nav`): Sticky section anchor nav with IntersectionObserver spy. → https://ui.bigbullapp.com/docs/anchor-nav
+- **Quick Actions** (`quick-actions`): Quick action toolbar with shortcuts and danger variants. → https://ui.bigbullapp.com/docs/quick-actions
+- **History Nav** (`history-nav`): Back/forward history strip with breadcrumb entries. → https://ui.bigbullapp.com/docs/history-nav
+- **Page Tabs** (`page-tabs`): In-page tabs synced to URL query parameter. → https://ui.bigbullapp.com/docs/page-tabs
+- **Mobile Menu** (`mobile-menu`): Full-screen mobile menu with staggered link entrance. → https://ui.bigbullapp.com/docs/mobile-menu
+- **Sidebar V2** (`sidebar-v2`): Two-level collapsible sidebar v2. → https://ui.bigbullapp.com/docs/sidebar-v2
+- **Flyout V2** (`flyout-v2`): Hover flyout menu v2 with keyboard support. → https://ui.bigbullapp.com/docs/flyout-v2
+- **Scroll Spy V2** (`scroll-spy-v2`): Horizontal scroll-spy nav v2 with sliding active pill. → https://ui.bigbullapp.com/docs/scroll-spy-v2
+- **Pagination V2** (`pagination-v2`): Hybrid pagination: numbered plus infinite scroll trigger. → https://ui.bigbullapp.com/docs/pagination-v2
+- **Route Loader** (`route-loader`): Minimal top progress loader bar with smooth transit animation. → https://ui.bigbullapp.com/docs/route-loader
+
+### Editors & DevTools (25 components)
+Code, markdown, diff, JSON editors, regex tester, cron builder, and console.
+
+- **Code Block** (`code-block`): Code snippet block with filename tab, language badge and copy button. → https://ui.bigbullapp.com/docs/code-block
+- **JSON Viewer** (`json-viewer`): Collapsible JSON tree with mono keys and color-typed values → https://ui.bigbullapp.com/docs/json-viewer
+- **Diff Viewer** (`diff-viewer`): Unified diff viewer showing added/removed/context lines → https://ui.bigbullapp.com/docs/diff-viewer
+- **Terminal** (`terminal`): Fake terminal card with sequential line reveal and blinking cursor → https://ui.bigbullapp.com/docs/terminal
+- **Log Viewer** (`log-viewer`): Scrolling log stream with level badges and filter chips → https://ui.bigbullapp.com/docs/log-viewer
+- **TextDiff** (`text-diff`): Word-level diff showing added/removed words with animation → https://ui.bigbullapp.com/docs/text-diff
+- **Rich Text Editor** (`rich-text-editor`): Minimal contentEditable editor with toolbar (bold, italic, underline, lists, links, quote, code) and word/char counter. → https://ui.bigbullapp.com/docs/rich-text-editor
+- **Api Key Card** (`api-key-card`): API key card with masked value, reveal toggle, copy and regenerate actions. → https://ui.bigbullapp.com/docs/api-key-card
+- **Permissions Matrix** (`permissions-matrix`): Role � permission checkbox matrix with animated check pops. → https://ui.bigbullapp.com/docs/permissions-matrix
+- **Audit Log** (`audit-log`): Audit trail with actor avatars, color-coded action badges and timestamps. → https://ui.bigbullapp.com/docs/audit-log
+- **Webhook List** (`webhook-list`): Webhook list with URL, event chips, test button and remove. → https://ui.bigbullapp.com/docs/webhook-list
+- **Feature Flag Panel** (`feature-flag-panel`): Feature flag panel with toggle switches and rollout percentages. → https://ui.bigbullapp.com/docs/feature-flag-panel
+- **Queued Jobs** (`queued-jobs`): Job queue panel with status, progress bars and cancel action. → https://ui.bigbullapp.com/docs/queued-jobs
+- **Code Editor** (`code-editor`): Code editor: line-number gutter, Tab insertion, scroll sync. → https://ui.bigbullapp.com/docs/code-editor
+- **Markdown Editor** (`markdown-editor`): Markdown write/preview tabs with built-in renderer. → https://ui.bigbullapp.com/docs/markdown-editor
+- **Markdown Preview** (`markdown-preview`): Standalone markdown renderer: headings, lists, code, links, bold. → https://ui.bigbullapp.com/docs/markdown-preview
+- **Html Preview** (`html-preview`): Sandboxed HTML preview frame. → https://ui.bigbullapp.com/docs/html-preview
+- **Diff Editor** (`diff-editor`): Editable side-by-side diff view. → https://ui.bigbullapp.com/docs/diff-editor
+- **Json Editor** (`json-editor`): JSON editor with live validation, error line and format button. → https://ui.bigbullapp.com/docs/json-editor
+- **Regex Tester** (`regex-tester`): Regex tester: pattern, test string, highlighted matches and count. → https://ui.bigbullapp.com/docs/regex-tester
+- **Cron Builder** (`cron-builder`): Cron expression builder: 5 fields, presets, live description. → https://ui.bigbullapp.com/docs/cron-builder
+- **Color Token Table** (`color-token-table`): Theme token table: swatch, value, copy action. → https://ui.bigbullapp.com/docs/color-token-table
+- **Snippet Card** (`snippet-card`): Code snippet card with language badge and copy button. → https://ui.bigbullapp.com/docs/snippet-card
+- **Console Panel** (`console-panel`): Console panel: colored output lines, input row, autoscroll. → https://ui.bigbullapp.com/docs/console-panel
+- **Env Editor** (`env-editor`): Environment variable editor: secret masking, add/remove rows. → https://ui.bigbullapp.com/docs/env-editor
+
+### Media & Interactive (50 components)
+Audio players, waveforms, video frames, lightboxes, and social cards.
+
+- **Mention Input** (`mention-input`): Mention input with instant @ autocomplete popover. → https://ui.bigbullapp.com/docs/mention-input
+- **Theme Toggle** (`theme-toggle`): Theme switcher with day and night flip animation. → https://ui.bigbullapp.com/docs/theme-toggle
+- **Marquee** (`marquee`): Smooth ticker reel that pauses on hover. → https://ui.bigbullapp.com/docs/marquee
+- **Video Frame** (`video-frame`): Cinema screening container with sprocket edges and play overlay. → https://ui.bigbullapp.com/docs/video-frame
+- **Audio Mini** (`audio-mini`): Compact audio player with animated equalizer bars and duration counter. → https://ui.bigbullapp.com/docs/audio-mini
+- **Lightbox** (`lightbox`): Fullscreen media viewer with film frame edges and image paging. → https://ui.bigbullapp.com/docs/lightbox
+- **Stopwatch** (`stopwatch`): Precision timer with lap tear-offs and digital readout. → https://ui.bigbullapp.com/docs/stopwatch
+- **Countup** (`countup`): Mechanical turnstile odometer counter with animated tally and slot frames. → https://ui.bigbullapp.com/docs/countup
+- **Audio Waveform** (`audio-waveform`): Interactive multi-bar audio wave visualizer for concert recordings with live animated frequency bars and timestamp readout. → https://ui.bigbullapp.com/docs/audio-waveform
+- **Countdown** (`countdown`): Live ticking event timer with segmented cards. → https://ui.bigbullapp.com/docs/countdown
+- **Carousel** (`carousel`): Sliding track carousel with prev/next arrows, dot indicators, keyboard arrows, and optional autoplay. → https://ui.bigbullapp.com/docs/carousel
+- **Figure** (`figure`): Framed media figure with double-frame surface and delayed figcaption fade-in. → https://ui.bigbullapp.com/docs/figure
+- **MediaObject** (`media-object`): Horizontal media plus content row with title, description, meta chips and hover lift. → https://ui.bigbullapp.com/docs/media-object
+- **ImageCompare** (`image-compare`): Before/after slider with clip-path inset controlled by draggable divider; BEFORE/AFTER labels. → https://ui.bigbullapp.com/docs/image-compare
+- **ZoomImage** (`zoom-image`): Image with hover magnifier lens tracking cursor; framed double border. → https://ui.bigbullapp.com/docs/zoom-image
+- **Reveal** (`reveal`): IntersectionObserver: children animate in when entering viewport with fade-up/scale variants, delay prop, once re-trigger option. → https://ui.bigbullapp.com/docs/reveal
+- **Gift Card** (`gift-card`): Gift card with ribbon stripe, amount and balance bar. → https://ui.bigbullapp.com/docs/gift-card
+- **Rsvp Card** (`rsvp-card`): Invitation RSVP card with attending toggle and wax stamp. → https://ui.bigbullapp.com/docs/rsvp-card
+- **ChatWindow** (`chat-window`): Full chat panel with message list, input bar, and typing indicator slot. → https://ui.bigbullapp.com/docs/chat-window
+- **ChatBubble** (`chat-bubble`): Single message bubble with tail, status ticks, and hover press feedback. → https://ui.bigbullapp.com/docs/chat-bubble
+- **TypingIndicator** (`typing-indicator`): Three bouncing dots with user name label indicating who is typing. → https://ui.bigbullapp.com/docs/typing-indicator
+- **CommentThread** (`comment-thread`): Nested comments with avatars, collapse/reply actions, and dashed indent guides. → https://ui.bigbullapp.com/docs/comment-thread
+- **ReactionBar** (`reaction-bar`): Emoji buttons with counts, active reaction pops, and hover tooltips. → https://ui.bigbullapp.com/docs/reaction-bar
+- **ShareMenu** (`share-menu`): Platform icon row (X, Facebook, LinkedIn, Link) with copy link feedback and stamp stamp. → https://ui.bigbullapp.com/docs/share-menu
+- **StoryViewer** (`story-viewer`): Circular story ring with progress animation, avatar names, and tap zones for prev/next. → https://ui.bigbullapp.com/docs/story-viewer
+- **VoiceMessage** (`voice-message`): Chat audio bubble with play/pause button and animated waveform bars showing audio duration. → https://ui.bigbullapp.com/docs/voice-message
+- **AudioPlayer** (`audio-player`): Full deck audio player with play/pause morph button, seek bar, time readout, volume slider, and track info → https://ui.bigbullapp.com/docs/audio-player
+- **VideoPlayer** (`video-player`): Video frame with sprocket styling, hover fade-in controls, progress bar with scrub preview → https://ui.bigbullapp.com/docs/video-player
+- **Playlist** (`playlist`): Track rows with equalizer bars for active track, title/artist, duration, and slide-in marker → https://ui.bigbullapp.com/docs/playlist
+- **VolumeSlider** (`volume-slider`): Vertical or horizontal slider with fill animation, mute toggle, and ARIA roles → https://ui.bigbullapp.com/docs/volume-slider
+- **PodcastPlayer** (`podcast-player`): Episode card with art slot, play button, speed selector chips, skip buttons, and chapter ticks → https://ui.bigbullapp.com/docs/podcast-player
+- **VideoThumbnail** (`video-thumbnail`): Poster frame with duration badge, play overlay circle that scales on hover with ripple ring, and title strip → https://ui.bigbullapp.com/docs/video-thumbnail
+- **MediaControls** (`media-controls`): Compact transport bar with prev/play/next/stop buttons, progress micro-bar, and time display → https://ui.bigbullapp.com/docs/media-controls
+- **LiveClock** (`live-clock`): Digital clock showing HH:MM:SS with optional timezone and variant support → https://ui.bigbullapp.com/docs/live-clock
+- **Typewriter** (`typewriter`): Types text char-by-char with blinking block cursor, loops through phrases → https://ui.bigbullapp.com/docs/typewriter
+- **HighlightText** (`highlight-text`): Highlights query matches inside text with accent background and animated reveal → https://ui.bigbullapp.com/docs/highlight-text
+- **Truncate** (`truncate`): Single/multi-line clamp with optional expand toggle (MORE/LESS) → https://ui.bigbullapp.com/docs/truncate
+- **Mention List** (`mention-list`): @mention suggestion panel with avatars and keyboard highlight. → https://ui.bigbullapp.com/docs/mention-list
+- **Dm Thread** (`dm-thread`): Direct message thread: header with presence, bubbles, input. → https://ui.bigbullapp.com/docs/dm-thread
+- **Poll** (`poll`): Interactive poll with animated result bars and vote confirmation. → https://ui.bigbullapp.com/docs/poll
+- **Mention Highlight** (`mention-highlight`): Highlight @mentions and #hashtags inside running text. → https://ui.bigbullapp.com/docs/mention-highlight
+- **Gift Message** (`gift-message`): Gift message card with ribbon wiggle and open animation. → https://ui.bigbullapp.com/docs/gift-message
+- **Voice Note List** (`voice-note-list`): Voice note list: play buttons, waveforms, durations. → https://ui.bigbullapp.com/docs/voice-note-list
+- **Image Carousel** (`image-carousel`): Image carousel with arrows, dots and swipe feel. → https://ui.bigbullapp.com/docs/image-carousel
+- **Thumbnail Strip** (`thumbnail-strip`): Horizontal thumbnail strip with animated selection frame. → https://ui.bigbullapp.com/docs/thumbnail-strip
+- **Video List** (`video-list`): Video results list: thumbnails, duration badges, channel names. → https://ui.bigbullapp.com/docs/video-list
+- **Audio Recorder** (`audio-recorder`): Microphone recording simulator with waveform and send action. → https://ui.bigbullapp.com/docs/audio-recorder
+- **Media Embed** (`media-embed`): Embedded media frame: 16:9, skeleton shimmer, dashed border. → https://ui.bigbullapp.com/docs/media-embed
+- **Screenshot Frame** (`screenshot-frame`): Browser-chrome screenshot frame with URL bar and controls. → https://ui.bigbullapp.com/docs/screenshot-frame
+- **Megaphone** (`megaphone`): Announcement megaphone with animated sound waves. → https://ui.bigbullapp.com/docs/megaphone
+

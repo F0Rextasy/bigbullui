@@ -21,7 +21,16 @@ export function FunnelChart({
   className,
   ...props
 }: FunnelChartProps) {
+  if (stages.length === 0) {
+    return <div className={cn("w-full", className)} {...props} />;
+  }
+
   const maxValue = Math.max(...stages.map((s) => s.value), 1);
+  const n = stages.length;
+  const topY = 6;
+  const bandH = 88 / n;
+  const fullW = 64;
+  const cx = 54;
 
   return (
     <div
@@ -29,80 +38,50 @@ export function FunnelChart({
       style={{ height: `${height}px` }}
     >
       <svg
-        className="w-full h-full"
-        viewBox="0 0 100 100"
-        style={{ overflow: "visible" }}
+        className="h-full w-full"
+        viewBox="0 0 120 100"
+        preserveAspectRatio="xMidYMid meet"
       >
-        {/* Stages - trapezoids drawing in sequence */}
         {stages.map((stage, stageIdx) => {
-          const heightPct = (stage.value / maxValue) * 80;
-          const topWidth = 100 - (stageIdx / (stages.length - 1)) * 20;
-          const bottomWidth = 100 - ((stageIdx + 1) / (stages.length - 1)) * 20;
-
-          const delay = stageIdx * 100;
+          const prevValue = stageIdx === 0 ? maxValue : stages[stageIdx - 1].value;
+          const topW = Math.max((Math.max(prevValue, 0) / maxValue) * fullW, 2);
+          const bottomW = Math.max((Math.max(stage.value, 0) / maxValue) * fullW, 2);
+          const y0 = topY + stageIdx * bandH;
+          const y1 = y0 + bandH - 2;
+          const midY = (y0 + y1) / 2;
+          const conversion = stage.conversion !== undefined ? `${stage.conversion}%` : "-";
 
           return (
-            <polygon
-              key={stage.label}
-              points={
-                `25,${100 - heightPct} ` +
-                `${50 - topWidth / 2},${100 - heightPct} ` +
-                `${50 + topWidth / 2},${100 - heightPct} ` +
-                `${50 + bottomWidth / 2},${100} ` +
-                `${50 - bottomWidth / 2},${100} `
-              }
-              fill={stage.color || "currentColor"}
-              opacity={0.3}
-              className={cn(
-                "motion-reduce:transition-none",
-                `animate-[funnelIn_0.4s_ease-out_both ${delay}ms fill mode]`,
-              )}
-            />
-          );
-        })}
-
-        {/* Conversion % readout */}
-        <g className="text-center pt-2">
-          {stages.map((stage, stageIdx) => {
-            const conversion = stage.conversion !== undefined
-              ? `${stage.conversion}%`
-              : "-";
-            const delay = stageIdx * 100;
-            return (
+            <g key={stage.label}>
+              <polygon
+                points={
+                  `${cx - topW / 2},${y0} ` +
+                  `${cx + topW / 2},${y0} ` +
+                  `${cx + bottomW / 2},${y1} ` +
+                  `${cx - bottomW / 2},${y1}`
+                }
+                fill={stage.color || "currentColor"}
+                opacity={0.28 + (0.5 * (n - stageIdx)) / n}
+              />
               <text
-                key={`conv-${stageIdx}`}
-                x={50}
-                y={80 + stageIdx * 15}
-                fontSize="10"
-                textAnchor="middle"
-                className={cn(
-                  "motion-reduce:transition-none",
-                  `animate-[fade-in_0.2s_ease-out_both ${delay}ms fill mode]`,
-                )}
+                x={cx - fullW / 2 - 3}
+                y={midY + 3}
+                fontSize="7"
+                textAnchor="end"
+                className="motion-reduce:transition-none fill-muted-foreground font-mono uppercase"
+              >
+                {stage.label}
+              </text>
+              <text
+                x={cx + fullW / 2 + 3}
+                y={midY + 3}
+                fontSize="7"
+                textAnchor="start"
+                className="motion-reduce:transition-none fill-foreground font-mono"
               >
                 {conversion}
               </text>
-            );
-          })}
-        </g>
-
-        {/* Stage labels */}
-        {stages.map((stage, stageIdx) => {
-          const delay = stageIdx * 100;
-          return (
-            <text
-              key={`label-${stageIdx}`}
-              x={50}
-              y={95 + stageIdx * 15}
-              fontSize="9"
-              textAnchor="middle"
-              className={cn(
-                "motion-reduce:transition-none",
-                `animate-[fade-in_0.2s_ease-out_both ${delay}ms fill mode]`,
-              )}
-            >
-              {stage.label}
-            </text>
+            </g>
           );
         })}
       </svg>

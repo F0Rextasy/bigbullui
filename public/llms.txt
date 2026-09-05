@@ -1,0 +1,43 @@
+# bigbullui
+
+> An open-source library of 460+ animated, accessible, fully typed React 19 components styled with Tailwind CSS 4 tokens and an artisanal Ticket Stub aesthetic. Zero external dependencies. Copy the code or install via CLI.
+
+## Quick Start
+- [Installation Guide](https://ui.bigbullapp.com/docs/installation): Setup instructions via CLI (`npx bigbullui add <name>`), npm package, or copy-paste.
+- [Design System & Tokens](https://ui.bigbullapp.com/docs/design): Ticket Stub aesthetic tokens (`--background`, `--foreground`, `--accent`, `--border`), CSS variables, and Tailwind CSS v4 setup.
+- [Contributing](https://ui.bigbullapp.com/docs/contributing): How to contribute new zero-dependency components.
+- [Agent Rules](https://ui.bigbullapp.com/docs/agents): Hard rules and conventions for AI assistants and autonomous agents.
+
+## Core Rules for Code Generation
+- Components in `src/components/ui/*` import ONLY `react` and `./lib/utils`.
+- Zero 3rd-party dependencies: NO Radix, Lucide, Framer Motion, CVA, clsx, or Tailwind-merge in UI files.
+- The `cn` utility is 7 lines: `export function cn(...inputs: ClassValue[]): string { return inputs.filter(Boolean).join(" "); }`.
+- Design tokens: Use semantic Tailwind tokens (`bg-primary`, `text-muted-foreground`, `border-border`, `accent`, `ring-ring`). Never hardcode hex values in component code.
+- Interactive states: Every interactive component must include `focus-visible:ring-2 ring-ring` and `motion-reduce` fallbacks.
+
+## CLI Commands
+```bash
+# Initialize bigbullui utils and tokens in your project
+npx bigbullui init
+
+# Add components directly to your codebase
+npx bigbullui add button badge ticket-card
+
+# List all available components or search
+npx bigbullui list
+npx bigbullui list chart
+```
+
+## Component Categories
+- [Ticket Stub & Retro](https://ui.bigbullapp.com/docs): Tickets, stubs, coupons, passes, split-flap, and tactile mechanical controls.
+- [Core Form & Inputs](https://ui.bigbullapp.com/docs): Buttons, inputs, switches, toggles, steppers, sliders.
+- [Pickers & Selectors](https://ui.bigbullapp.com/docs): Date, color, time, currency, file dropzones, tree selectors.
+- [Charts & Visualization](https://ui.bigbullapp.com/docs): Bar, area, bubble, radar, sunburst, sparklines, heatmaps.
+- [Data Display & Tables](https://ui.bigbullapp.com/docs): Tables, data grids, metric cards, stat tiles, accordions, bento grids.
+- [Feedback & Overlays](https://ui.bigbullapp.com/docs): Dialogs, drawers, sheets, toasts, alerts, callouts, status badges.
+- [Navigation & Menus](https://ui.bigbullapp.com/docs): Tabs, breadcrumbs, menubars, pagination, command palette, app shells.
+- [Editors & DevTools](https://ui.bigbullapp.com/docs): Code blocks, markdown editor, regex tester, cron builder, console panels.
+- [Media & Interactive](https://ui.bigbullapp.com/docs): Audio players, waveforms, video thumbnails, social cards, interactive widgets.
+
+## Optional Full Reference
+- [Full LLM Specification](https://ui.bigbullapp.com/llms-full.txt): Complete catalog of all 462 components with descriptions and categories.

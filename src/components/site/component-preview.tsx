@@ -2499,13 +2499,59 @@ import { wave21Previews } from "@/components/site/previews/wave21";
 Object.assign(previews, wave21Previews);
 
 export function ComponentPreview({ name }: { name: string }) {
+  const [isDark, setIsDark] = React.useState(false);
+  const [reloadKey, setReloadKey] = React.useState(0);
+
   const Preview = previews[name];
   if (!Preview) {
     return <p className="text-sm text-muted-foreground font-mono">Preview not available.</p>;
   }
+
   return (
-    <div className="flex min-h-44 items-center justify-center rounded-lg border border-border bg-secondary/50 p-8">
-      <Preview />
+    <div className="overflow-hidden rounded-lg border border-border bg-card shadow-2xs">
+      {/* Interactive Canvas Toolbar */}
+      <div className="flex items-center justify-between border-b border-border bg-secondary/40 px-4 py-2 text-xs">
+        <div className="flex items-center gap-2">
+          <span className="size-2 rounded-full bg-accent/70" aria-hidden="true" />
+          <span className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+            Live Preview
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setReloadKey((k) => k + 1)}
+            title="Reset component state & replay entrance animations"
+            className="cursor-pointer rounded border border-border bg-card px-2 py-0.5 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+          >
+            ↻ Replay
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsDark((d) => !d)}
+            title="Toggle preview canvas between Paper (light) and Night (dark)"
+            className={cn(
+              "cursor-pointer rounded border px-2 py-0.5 font-mono text-[11px] uppercase transition-colors active:scale-95",
+              isDark
+                ? "border-accent bg-accent/15 font-semibold text-accent-strong"
+                : "border-border bg-card text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {isDark ? "🌙 Night" : "☀️ Paper"}
+          </button>
+        </div>
+      </div>
+
+      {/* Render Canvas */}
+      <div
+        key={reloadKey}
+        className={cn(
+          "flex min-h-52 items-center justify-center p-8 transition-colors",
+          isDark ? "dark bg-background text-foreground" : "bg-card text-foreground"
+        )}
+      >
+        <Preview />
+      </div>
     </div>
   );
 }

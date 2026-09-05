@@ -1,44 +1,70 @@
+
 # bigbullui
 
-> Animated React components you own. Open source, MIT licensed.
+> 460+ tactile, copy-paste React 19 + Tailwind CSS 4 components you own. Zero external dependencies. Open source, MIT licensed.
 
 [![npm version](https://badge.fury.io/js/bigbullui.svg)](https://www.npmjs.com/package/bigbullui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/F0Rextasy/bigbullui/blob/main/LICENSE)
+[![React 19](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8.svg)](https://tailwindcss.com)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](https://github.com/F0Rextasy/bigbullui)
 
 ## Features
 
-- **Open source** — MIT licensed, copy the code and own it
-- **Fully typed** — complete TypeScript definitions for every prop
-- **Accessible by default** — WAI-ARIA patterns, keyboard navigation, focus management, `prefers-reduced-motion` support
-- **Light + dark themes** — design tokens switch with a single `.dark` class
-- **Copy-paste friendly** — every file is self-contained, own the code
+- **Zero 3rd-Party Dependencies** — UI files import ONLY React and a 7-line `cn` utility. No Radix or Lucide bloat.
+- **Code You Own** — Run the CLI or copy source files directly into your codebase. No black-box npm lock-in.
+- **Tailwind CSS v4 Native** — Driven entirely by CSS variables and `@theme inline` with warm cream paper and night stub themes.
+- **Accessible by Default** — Full WAI-ARIA support, keyboard roving tabindex, focus rings, and `prefers-reduced-motion` fallbacks.
+- **460+ Crafted Components** — From foundational form controls and data tables to rich charts and retro interactive widgets.
 
-## Install
+## Quick Start (CLI — Recommended)
+
+Initialize bigbullui in your project:
+
+```bash
+npx bigbullui init
+```
+
+Add any component directly to your project:
+
+```bash
+npx bigbullui add button card dialog metric-card
+```
+
+Use immediately in your views:
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export function Example() {
+  return <Button>Get Started</Button>;
+}
+```
+
+---
+
+### Alternative: All-in-One npm Package
 
 ```bash
 npm install bigbullui
 ```
 
-Add the design tokens to your CSS (Tailwind CSS v4 required):
+Add the design tokens to your global CSS:
 
 ```css
 @import "tailwindcss";
 @import "bigbullui/css";
 ```
 
-Use any component:
+Import and use:
 
 ```tsx
-import { Button } from "bigbullui";
-
-export function Example() {
-  return <Button>Admit one</Button>;
-}
+import { Button, Card, MetricCard } from "bigbullui";
 ```
 
-### Copy-paste alternative
+### Manual Copy-Paste Alternative
 
-No install needed. Copy files from [`src/components/ui/`](https://github.com/F0Rextasy/bigbullui/tree/main/src/components/ui) (plus the `cn` helper) into your project, copy the token CSS from [`bigbullui.css`](https://github.com/F0Rextasy/bigbullui/blob/main/bigbullui.css) — done.
+No install needed. Copy files from [`src/components/ui/`](https://github.com/F0Rextasy/bigbullui/tree/main/src/components/ui) (plus the `cn` helper at `src/components/ui/lib/utils.ts`) into your project, copy the token CSS from [`bigbullui.css`](https://github.com/F0Rextasy/bigbullui/blob/main/bigbullui.css) — done.
 
 ## Components
 

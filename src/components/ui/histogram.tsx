@@ -29,7 +29,7 @@ export function Histogram({ bins, height = 180, className, ...props }: Histogram
           return (
             <div
               key={bin.id}
-              className="flex flex-1 flex-col items-center justify-end"
+              className="flex h-full flex-1 flex-col items-center justify-end"
               onMouseEnter={() => setHover(bin.id)}
               onMouseLeave={() => setHover(null)}
             >

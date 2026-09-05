@@ -2208,12 +2208,28 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         <ComponentPreview name={meta.name} />
       </section>
 
-      <section className="space-y-3">
-        <h2 id="install" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Install</h2>
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 id="install" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Installation</h2>
+          <Link
+            href="/docs/installation"
+            className="font-mono text-xs text-accent-strong hover:underline"
+          >
+            Tokens guide &rarr;
+          </Link>
+        </div>
+
+        <div className="space-y-2">
+          <p className="text-xs text-muted-foreground">
+            Add to your project via CLI (zero dependencies, code you own):
+          </p>
+          <CodeBox code={`npx bigbullui add ${meta.name}`} />
+        </div>
+
+        <div className="space-y-2 pt-1">
+          <p className="text-xs text-muted-foreground">Or install the full npm package:</p>
           <CodeBox code="npm install bigbullui" />
-        <p className="text-xs text-muted-foreground">
-          Then add the tokens — <Link href="/docs/installation" className="underline">full guide</Link>.
-        </p>
+        </div>
       </section>
 
       <section className="space-y-3">

@@ -78,10 +78,27 @@ function SidebarLink({
   );
 }
 
+export const CORE_ESSENTIALS = new Set([
+  // Core Forms & Inputs
+  "button", "button-group", "input", "textarea", "checkbox", "switch", "radio-group", "slider",
+  "select", "combobox", "stepper", "pin-input", "rating", "copy-button", "search-bar", "file-dropzone",
+  // Data & Cards
+  "card", "table", "data-table", "metric-card", "stat-tile", "accordion", "bento-grid",
+  // Feedback & Overlays
+  "dialog", "alert-dialog", "sheet", "popover", "tooltip", "toast", "alert", "callout",
+  // Navigation
+  "tabs", "breadcrumb", "pagination", "menubar", "command-palette", "navbar",
+  // Core Elements
+  "badge", "avatar", "separator", "skeleton", "spinner", "progress",
+  // Pickers & Code
+  "calendar", "date-picker", "color-picker", "code-block"
+]);
+
 export function DocSidebar() {
   const pathname = usePathname();
   const seen = useSeen();
 
+  const [filterMode, setFilterMode] = React.useState<"core" | "all">("all");
   const [userToggled, setUserToggled] = React.useState<Record<string, boolean>>({});
 
   const activeGroup = React.useMemo(() => {
@@ -101,8 +118,36 @@ export function DocSidebar() {
   };
 
   return (
-    <nav aria-label="Documentation sidebar" className="space-y-7 pb-16 select-none">
+    <nav aria-label="Documentation sidebar" className="space-y-6 pb-16 select-none">
       <DocsSearch />
+
+      {/* Catalog Filter Mode Toggle */}
+      <div className="grid grid-cols-2 gap-1 rounded-lg border border-border bg-secondary/50 p-1">
+        <button
+          type="button"
+          onClick={() => setFilterMode("core")}
+          className={cn(
+            "rounded-md px-2 py-1 text-center font-mono text-[11px] uppercase tracking-wider transition-colors",
+            filterMode === "core"
+              ? "bg-primary font-semibold text-primary-foreground shadow-xs"
+              : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          Core ({CORE_ESSENTIALS.size})
+        </button>
+        <button
+          type="button"
+          onClick={() => setFilterMode("all")}
+          className={cn(
+            "rounded-md px-2 py-1 text-center font-mono text-[11px] uppercase tracking-wider transition-colors",
+            filterMode === "all"
+              ? "bg-primary font-semibold text-primary-foreground shadow-xs"
+              : "text-muted-foreground hover:text-foreground"
+          )}
+        >
+          All ({components.length})
+        </button>
+      </div>
 
       {/* Guides Section */}
       <section>
@@ -133,9 +178,18 @@ export function DocSidebar() {
 
       {/* Categorized Menus */}
       {categories.map((cat) => {
-        const catItems = components
+        const allCatItems = components
           .filter((c) => c.category === cat.id)
           .sort((a, b) => a.title.localeCompare(b.title));
+        
+        const catItems = filterMode === "core"
+          ? allCatItems.filter((c) => CORE_ESSENTIALS.has(c.name))
+          : allCatItems;
+
+        if (filterMode === "core" && catItems.length === 0) {
+          return null;
+        }
+
         const open = isOpen(cat.id);
 
         return (

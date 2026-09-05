@@ -46,47 +46,52 @@ export function Gauge({
         {/* Progress arc */}
         <path
           d="M50 95 A45 45 0 1 1 50 5 Z"
-          stroke={clampedValue > 80 ? "accent" : "border-border"}
+          stroke="currentColor"
           strokeWidth={8}
           fill="none"
           strokeDasharray={`${45 * Math.PI} ${45 * Math.PI}`}
           transform={`rotate(${rotateDeg} 50 50)`}
-          className="motion-reduce:transition-none"
+          className={cn(
+            "motion-reduce:transition-none",
+            clampedValue > 80 ? "text-accent" : "text-foreground",
+          )}
         />
+        {/* Needle */}
+        <line
+          x1="50"
+          y1="50"
+          x2="50"
+          y2="15"
+          stroke="currentColor"
+          strokeWidth={3}
+          strokeLinecap="round"
+          transform={`rotate(${rotateDeg} 50 50)`}
+          className={cn(
+            "motion-reduce:transition-none",
+            clampedValue > 80 ? "text-destructive" : "text-muted-foreground",
+          )}
+        />
+        {/* Center percentage readout */}
+        <text
+          x="50"
+          y="55"
+          textAnchor="middle"
+          fontSize="18"
+          fontWeight="bold"
+          transform="rotate(-90 50 50)"
+          className={cn(
+            "motion-reduce:transition-none",
+            "fill-current",
+          )}
+        >
+          {clampedValue}%
+        </text>
       </svg>
-
-      {/* Needle */}
-      <line
-        x1="50"
-        y1="50"
-        x2="50"
-        y2="15"
-        stroke={clampedValue > 80 ? "destructive" : "currentColor"}
-        strokeWidth={3}
-        strokeLinecap="round"
-        transform={`rotate(${rotateDeg} 50 50)`}
-        className="motion-reduce:transition-none"
-      />
-
-      {/* Center percentage readout */}
-      <text
-        x="50"
-        y="55"
-        textAnchor="middle"
-        fontSize="18"
-        fontWeight="bold"
-        className={cn(
-          "motion-reduce:transition-none",
-          "fill-current",
-        )}
-      >
-        {clampedValue}%
-      </text>
 
       {/* Label below */}
       {label && (
         <p
-          className="mt-2 text-[10px] uppercase text-muted-foreground text-center"
+          className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-center text-[10px] uppercase text-muted-foreground"
         >
           {label}
         </p>

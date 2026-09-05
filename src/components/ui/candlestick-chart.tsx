@@ -21,11 +21,15 @@ export function CandlestickChart({
   className,
   ...props
 }: CandlestickChartProps) {
-  const xRange = Math.max(...points.map((p, i) => i), points.length - 1) || 1;
-  const priceRange = Math.max(
-    ...points.flatMap((p) => [p.high, p.low]),
-    1,
-  );
+  if (points.length === 0) {
+    return <div className={cn("w-full", className)} {...props} />;
+  }
+
+  const xRange = Math.max(points.length - 1, 1);
+  const lo = Math.min(...points.flatMap((p) => [p.low, p.open, p.close]));
+  const hi = Math.max(...points.flatMap((p) => [p.high, p.open, p.close]));
+  const span = hi - lo || 1;
+  const y = (v: number) => 90 - ((v - lo) / span) * 80;
 
   return (
     <div
@@ -61,43 +65,31 @@ export function CandlestickChart({
         {/* Candlesticks with body grow animation */}
         {points.map((pt, idx) => {
           const x = 5 + (idx / xRange) * 90;
-          const openPct = ((pt.open / priceRange) * 50) + 50;
-          const closePct = ((pt.close / priceRange) * 50) + 50;
-          const highPct = ((pt.high / priceRange) * 50) + 50;
-          const lowPct = ((pt.low / priceRange) * 50) + 50;
-
           const isUp = pt.close >= pt.open;
-          const bodyColor = isUp ? "accent" : "destructive";
-
-          const delay = idx * 40;
 
           return (
-            <g key={pt.label || idx} className="cursor-pointer">
-              {/* Wick (line) */}
+            <g
+              key={pt.label || idx}
+              className={cn("cursor-pointer", isUp ? "text-accent" : "text-destructive")}
+            >
               <line
                 x1={x}
-                y1={95 - highPct * 0.9}
+                y1={y(pt.high)}
                 x2={x}
-                y2={95 - lowPct * 0.9}
-                stroke={bodyColor}
+                y2={y(pt.low)}
+                stroke="currentColor"
                 strokeWidth={1}
                 strokeLinecap="round"
                 opacity={0.8}
                 className="motion-reduce:transition-none"
               />
-
-              {/* Body - grows in from center */}
               <rect
                 x={x - 3}
-                y={95 - Math.max(openPct, closePct) * 0.9}
+                y={y(Math.max(pt.open, pt.close))}
                 width={6}
-                height={Math.abs(openPct - closePct) * 0.9}
-                fill={bodyColor}
-                className={cn(
-                  "motion-reduce:transition-none",
-                  "transform-origin-center",
-                  `animate-[bodyIn_0.2s_ease-out_both ${delay}ms fill mode]`,
-                )}
+                height={Math.max(Math.abs(y(pt.open) - y(pt.close)), 1.5)}
+                fill="currentColor"
+                className="motion-reduce:transition-none"
               />
             </g>
           );

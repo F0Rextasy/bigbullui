@@ -21,11 +21,22 @@ export function Heatmap({
   className,
   ...props
 }: HeatmapProps) {
+  if (rows.length === 0) {
+    return <div className={cn("w-full", className)} {...props} />;
+  }
+
   const maxValue = Math.max(
     ...rows.flatMap((row) => row.cells.map((c) => c.value)),
     0,
   );
-  const cellSize = 80 / columns;
+  const CELL = 22;
+  const GAP = 4;
+  const STEP = CELL + GAP;
+  const LABEL_W = 44;
+  const PAD = 6;
+  const cols = Math.max(...rows.map((r) => Math.min(r.cells.length, columns)), 1);
+  const gridW = LABEL_W + cols * STEP + PAD;
+  const gridH = rows.length * STEP + PAD;
 
   return (
     <div
@@ -33,64 +44,48 @@ export function Heatmap({
       style={{ height: `${height}px` }}
     >
       <svg
-        className="w-full h-full"
-        viewBox="0 0 100 100"
-        style={{ overflow: "visible" }}
+        className="h-full w-full"
+        viewBox={`0 0 ${gridW} ${gridH}`}
+        preserveAspectRatio="xMidYMid meet"
       >
-        {/* Grid cells with fade-in diagonal stagger */}
         {rows.map((row, rowIdx) =>
-          row.cells.map((cell, cellIdx) => {
+          row.cells.slice(0, columns).map((cell, cellIdx) => {
             const value = cell.value;
             const intensity = Math.min(value / (maxValue || 1), 1);
-            const cellX = (cellIdx % columns) * (100 / columns);
-            const cellY = rowIdx * 12 + 10;
             const bgOpacity = 0.1 + intensity * 0.8;
-            const textColor = intensity > 0.5 ? "text-foreground" : "text-muted-foreground";
-
             const delay = rowIdx * 20 + cellIdx * 10;
 
             return (
               <React.Fragment key={`${row.label}-${cellIdx}`}>
               <rect
-                x={cellX}
-                y={cellY}
-                width={100 / columns - 2}
-                height={8}
+                x={PAD + LABEL_W + cellIdx * STEP}
+                y={PAD + rowIdx * STEP}
+                width={CELL}
+                height={CELL}
+                rx={4}
                 fill="currentColor"
                 opacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
                 className={cn(
                   "motion-reduce:transition-none",
                   `animate-[fade-in-up_0.3s_ease-out_both_${delay}ms]`,
                 )}
-              />
-              <text
-                x={cellX + (100 / columns) / 2}
-                y={cellY + 14}
-                textAnchor="middle"
-                fontSize="10"
-                className={cn(
-                  textColor,
-                  "motion-reduce:transition-none",
-                  "select-none",
-                )}
               >
-                {value}
-              </text>
+                <title>{`${row.label}: ${value}`}</title>
+              </rect>
               </React.Fragment>
             );
           }),
         )}
 
-        {/* Column labels */}
         {rows.map((row, rowIdx) => (
           <text
             key={`row-label-${rowIdx}`}
-            x={10}
-            y={rowIdx * 12 + 20}
-            fontSize="10"
+            x={PAD}
+            y={PAD + rowIdx * STEP + 15}
+            fontSize="9"
             className={cn(
               "motion-reduce:transition-none",
-              "text-[10px] uppercase text-muted-foreground capitalize",
+              "fill-muted-foreground font-mono uppercase",
             )}
           >
             {row.label}

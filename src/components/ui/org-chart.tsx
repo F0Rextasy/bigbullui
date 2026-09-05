@@ -39,7 +39,7 @@ const OrgChartInner = ({
     const childrenList = node.children || [];
 
     return (
-      <g key={node.id} style={{ display: "flex", flexDirection: "column" }}>
+      <div key={node.id} className="flex flex-col">
         {/* Expand/collapse button for nodes with children */}
         {childrenList.length > 0 && (
           <button
@@ -162,31 +162,25 @@ const OrgChartInner = ({
             />
           )}
         </div>
-      </g>
+      </div>
     );
   };
 
   return (
-    <svg
-      width={500}
-      height={250}
-      viewBox="0 0 500 250"
+    <div
       className={cn(
-        "relative w-full",
+        "w-full",
         "motion-reduce:animate-none",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
       )}
     >
       {/* Render root nodes */}
-      {root.map((node, i) => (
-        <g key={node.id} style={{ display: "flex", flexDirection: "column" }}>
+      {root.map((node) => (
+        <div key={node.id} className="flex flex-col">
           {renderNode(node, 0)}
-        </g>
+        </div>
       ))}
-
-      {/* Stagger entrance animation */}
-      {/* Nodes animate in sequence via mount order */}
-    </svg>
+    </div>
   );
 };
 
