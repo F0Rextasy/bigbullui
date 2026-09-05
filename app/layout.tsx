@@ -52,6 +52,7 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "W4b6Qs-CKl9UOpioG4RR_QXF6kG3oGyXjQ7prYPflEI",
+    yandex: "8df3ab081fccc489",
   },
 };
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="W4b6Qs-CKl9UOpioG4RR_QXF6kG3oGyXjQ7prYPflEI" />
+        <meta name="yandex-verification" content="8df3ab081fccc489" />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
