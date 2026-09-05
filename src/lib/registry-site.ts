@@ -63,6 +63,7 @@ export const components: ComponentMeta[] = [
   { name: "avatar", title: "Avatar", description: "Initials or photo badge with dashed ring.", category: "display" },
   { name: "progress", title: "Progress", description: "Marching striped progress indicator bar.", category: "display" },
   { name: "kbd", title: "Kbd", description: "Keycap indicator with raised bottom border for shortcuts.", category: "display" },
+  { name: "star", title: "Star", description: "Current-color star glyph for ratings and counts.", category: "display" },
   { name: "separator", title: "Separator", description: "Horizontal or vertical dashed divider.", category: "display" },
   { name: "table", title: "Table", description: "Data table with dashed row dividers and mono headers.", category: "display" },
   { name: "marquee", title: "Marquee", description: "Smooth ticker reel that pauses on hover.", category: "display" },

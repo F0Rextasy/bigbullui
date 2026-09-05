@@ -49,6 +49,7 @@ const usage: Record<string, string> = {
   popover: `import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";\n\n<Popover>\n  <PopoverTrigger>\n    <Button variant="outline">Info</Button>\n  </PopoverTrigger>\n  <PopoverContent>Gate information.</PopoverContent>\n</Popover>`,
   empty: `import { Empty } from "@/components/ui/empty";\n\n<Empty\n  title="NO TICKETS"\n  description="No stubs found in your collection."\n  action={<Button size="sm">Browse events</Button>}\n/>`,
   kbd: `import { Kbd } from "@/components/ui/kbd";\n\n<Kbd>⌘</Kbd> + <Kbd>K</Kbd>`,
+  star: `import { Star } from "@/components/ui/star";\n\n<Star size={20} className="text-accent-strong" />`,
   separator: `import { Separator } from "@/components/ui/separator";\n\n<Separator dashed={true} />`,
   table: `import { Table, TableHead, TableBody, TableRow, TableCell, TableHeaderCell } from "@/components/ui/table";\n\n<Table>\n  <TableHead>\n    <TableRow>\n      <TableHeaderCell>Seat</TableHeaderCell>\n      <TableHeaderCell>Status</TableHeaderCell>\n    </TableRow>\n  </TableHead>\n  <TableBody>\n    <TableRow>\n      <TableCell>A-12</TableCell>\n      <TableCell>Admitted</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`,
   marquee: `import { Marquee } from "@/components/ui/marquee";\n\n<Marquee speed={25}>\n  <span>★ ADMIT ONE ★ BIGBULLUI ★</span>\n</Marquee>`,
@@ -286,6 +287,9 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
   ],
   kbd: [
     { name: "children", type: "React.ReactNode", description: "Keycap label or symbol." },
+  ],
+  star: [
+    { name: "size", type: "number", description: "Width and height in px (default 16)." },
   ],
   separator: [
     { name: "orientation", type: '"horizontal" | "vertical"', description: "Line orientation (default 'horizontal')." },

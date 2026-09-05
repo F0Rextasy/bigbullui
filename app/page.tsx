@@ -75,7 +75,12 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-border bg-secondary">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm text-muted-foreground sm:flex-row">
-          <span className="font-semibold text-foreground">bigbullui</span>
+          <span className="flex items-center gap-2.5">
+            <span aria-hidden className="text-3xl font-bold leading-none">
+              <span className="text-foreground">b</span><span className="-ml-[0.22em] text-accent-strong">b</span>
+            </span>
+            <span className="text-lg font-semibold tracking-tight text-foreground">bigbullui</span>
+          </span>
           <span>© 2026 bigbullui · MIT licensed · Copy the code, own it.</span>
         </div>
       </footer>

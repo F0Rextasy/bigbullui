@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { components, categories, type ComponentCategory } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
+import { DocsSearch } from "@/components/site/docs-search";
 
 export function DocSidebar() {
   const pathname = usePathname();
@@ -24,6 +25,7 @@ export function DocSidebar() {
 
   return (
     <nav aria-label="Documentation sidebar" className="space-y-4 pb-16 select-none">
+      <DocsSearch />
       {/* Guides Section */}
       <div className="rounded-lg border border-border bg-card/60 p-2">
         <button
@@ -66,7 +68,9 @@ export function DocSidebar() {
 
       {/* Categorized Menus */}
       {categories.map((cat) => {
-        const catItems = components.filter((c) => c.category === cat.id);
+          const catItems = components
+            .filter((c) => c.category === cat.id)
+            .sort((a, b) => a.title.localeCompare(b.title));
         const isOpen = openMenus[cat.id] ?? true;
 
         return (

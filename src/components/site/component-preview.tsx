@@ -32,6 +32,7 @@ import { Sheet, SheetDescription, SheetHeader, SheetTitle } from "@/components/u
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Empty } from "@/components/ui/empty";
 import { Kbd } from "@/components/ui/kbd";
+import { Star } from "@/components/ui/star";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "@/components/ui/table";
 import { Marquee } from "@/components/ui/marquee";
@@ -2226,6 +2227,14 @@ const previews: Record<string, React.ComponentType> = {
       <span>to search</span>
       <Kbd className="ml-2">Esc</Kbd>
       <span>to cancel</span>
+    </div>
+  ),
+
+  star: () => (
+    <div className="flex items-center gap-3">
+      <Star size={14} />
+      <Star size={20} className="text-accent-strong" />
+      <Star size={28} />
     </div>
   ),
 

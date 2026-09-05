@@ -22,6 +22,8 @@ export { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter } fr
 export type { DialogProps } from "./components/ui/dialog";
 export { cn } from "./components/ui/lib/utils";
 export type { ClassValue } from "./components/ui/lib/utils";
+export { Star } from "./components/ui/star";
+export type { StarProps } from "./components/ui/star";
 export { Switch } from "./components/ui/switch";
 export type { SwitchProps } from "./components/ui/switch";
 export { Checkbox } from "./components/ui/checkbox";
