@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { SiteNav } from "@/components/site/site-nav";
 import { GlowDivider } from "@/components/site/glow-divider";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBox } from "@/components/site/code-box";
 import { Playground } from "@/components/site/playground";
 import { cn } from "@/components/ui/lib/utils";
 
@@ -24,7 +24,7 @@ export default function Home() {
           either way.
         </p>
         <div className="mx-auto mt-10 max-w-xl text-left">
-          <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code="npm install bigbullui" />
           <div className="mt-6 flex items-center justify-center gap-3">
             <Link
               href="/docs"

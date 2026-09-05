@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBox } from "@/components/site/code-box";
 import { DocsExplorer } from "@/components/site/docs-explorer";
 
 export const metadata = { title: "Components" };
@@ -30,12 +30,12 @@ export default function DocsIndex() {
           Quick start
         </span>
         <h2 className="text-lg font-semibold tracking-tight">Install via npm</h2>
-        <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code="npm install bigbullui" />
         <p className="text-sm text-muted-foreground">
           Add the design tokens to your global CSS:
         </p>
-        <CodeBlock code={installCss} language="css" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
-        <CodeBlock code={installUsage} language="tsx" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code={installCss} />
+          <CodeBox code={installUsage} />
       </section>
 
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/40 p-6">
@@ -46,7 +46,7 @@ export default function DocsIndex() {
         <p className="text-sm text-muted-foreground">
           Paste SKILL.md into any coding agent. It covers installation, tokens, components and rules.
         </p>
-        <CodeBlock code={skillMd} language="markdown" maxHeight="256px" showNotches={false} />
+          <CodeBox code={skillMd} maxHeight="256px" />
       </section>
 
       <DocsExplorer components={components} />

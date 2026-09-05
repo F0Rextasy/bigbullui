@@ -1,4 +1,4 @@
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBox } from "@/components/site/code-box";
 
 export const metadata = { title: "Installation" };
 
@@ -31,15 +31,15 @@ export default function InstallationPage() {
       </header>
 
       <Step n="A · 01" title="Install the package">
-        <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code="npm install bigbullui" />
       </Step>
 
       <Step n="A · 02" title="Add the design tokens">
-        <CodeBlock code={cssSetup} language="css" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code={cssSetup} />
       </Step>
 
       <Step n="A · 03" title="Use any component">
-        <CodeBlock code={npmUsage} language="tsx" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code={npmUsage} />
       </Step>
 
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/40 p-5">

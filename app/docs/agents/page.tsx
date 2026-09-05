@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBox } from "@/components/site/code-box";
 
 export const metadata = { title: "AI Agents" };
 
@@ -47,7 +47,7 @@ export default function AgentsPage() {
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">SKILL.md</h2>
-        <CodeBlock code={skill} language="markdown" maxHeight="480px" showNotches={false} />
+        <CodeBox code={skill} maxHeight="480px" />
       </section>
     </article>
   );

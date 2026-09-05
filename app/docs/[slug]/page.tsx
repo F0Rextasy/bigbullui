@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { ComponentPreview } from "@/components/site/component-preview";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBox } from "@/components/site/code-box";
 import { Badge } from "@/components/ui/badge";
 
 export function generateStaticParams() {
@@ -867,7 +867,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Install</h2>
-        <CodeBlock code="npm install bigbullui" variant="terminal" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code="npm install bigbullui" />
         <p className="text-xs text-muted-foreground">
           Then add the tokens — <Link href="/docs/installation" className="underline">full guide</Link>.
         </p>
@@ -875,7 +875,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
-        <CodeBlock code={usage[meta.name] ?? ""} language="tsx" showLineNumbers={false} allowToggleLineNumbers={false} allowToggleWordWrap={false} showNotches={false} />
+          <CodeBox code={usage[meta.name] ?? ""} />
       </section>
 
       {propsList.length > 0 ? (
@@ -906,7 +906,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source</h2>
-        <CodeBlock code={source} language="tsx" maxHeight="480px" showNotches={false} />
+          <CodeBox code={source} maxHeight="480px" />
         <p className="text-xs text-muted-foreground">
           Copy this file into your project. It only imports React and the{" "}
           <code className="font-mono">cn</code> helper from{" "}

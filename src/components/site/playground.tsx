@@ -18,23 +18,10 @@ import { Stepper } from "@/components/ui/stepper";
 import { PinInput } from "@/components/ui/pin-input";
 import { ToastProvider, useToast } from "@/components/ui/toast";
 
-function DemoRow({ no, label, children }: { no: string; label: string; children: React.ReactNode }) {
+function DemoCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col items-center gap-4 py-7 first:pt-1 last:pb-1">
-      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-        {no} · {label}
-      </span>
-      <div className="flex w-full items-center justify-center">{children}</div>
-    </div>
-  );
-}
-
-function Perforation() {
-  return (
-    <div aria-hidden className="flex items-center gap-3">
-      <div className="h-px flex-1 border-t border-dashed border-border" />
-      <span className="size-2.5 rounded-full border border-dashed border-border" />
-      <div className="h-px flex-1 border-t border-dashed border-border" />
+    <div className="flex min-h-44 items-center justify-center rounded-lg border border-border bg-card p-6">
+      {children}
     </div>
   );
 }
@@ -105,22 +92,22 @@ export function Playground() {
 
   return (
     <ToastProvider>
-      <div className="rounded-lg border-[1.5px] border-foreground bg-card px-6 py-4 outline-1 outline-dashed outline-offset-[-7px] sm:px-10">
-        <DemoRow no="01" label="Switch">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <DemoCard>
           <span className="flex items-center gap-2 text-sm">
             <Switch checked={on} onCheckedChange={setOn} aria-label="Notifications" />
             <span className="font-mono text-xs text-muted-foreground">{on ? "ON" : "OFF"}</span>
           </span>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="02" label="Slider">
+        </DemoCard>
+
+        <DemoCard>
           <span className="flex w-full max-w-xs items-center gap-3">
             <Slider value={volume} onValueChange={setVolume} aria-label="Volume" className="flex-1" />
             <span className="w-12 text-right font-mono text-sm">{volume}%</span>
           </span>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="03" label="Tabs">
+        </DemoCard>
+
+        <DemoCard>
           <Tabs defaultValue="one" className="w-full max-w-xs">
             <TabsList>
               <TabsTrigger value="one">Gate</TabsTrigger>
@@ -131,9 +118,9 @@ export function Playground() {
             <TabsContent value="two">Gate B12, boarding 18:40.</TabsContent>
             <TabsContent value="three">No refunds, rain or shine.</TabsContent>
           </Tabs>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="04" label="Dialog">
+        </DemoCard>
+
+        <DemoCard>
           <span>
             <Button variant="outline" onClick={() => setDialogOpen(true)}>
               Open dialog
@@ -149,9 +136,9 @@ export function Playground() {
               </DialogFooter>
             </Dialog>
           </span>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="05" label="Accordion">
+        </DemoCard>
+
+        <DemoCard>
           <Accordion type="single" defaultValue="a" className="w-full max-w-sm">
             <AccordionItem value="a">
               <AccordionTrigger>What is bigbullui?</AccordionTrigger>
@@ -162,9 +149,9 @@ export function Playground() {
               <AccordionContent>MIT licensed, forever.</AccordionContent>
             </AccordionItem>
           </Accordion>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="06" label="Pickers">
+        </DemoCard>
+
+        <DemoCard>
           <span className="flex flex-col items-start gap-3">
             <span className="flex items-center gap-2 text-sm">
               <Checkbox defaultChecked aria-label="Extra legroom" />
@@ -175,23 +162,23 @@ export function Playground() {
               <RadioItem value="biz">Biz</RadioItem>
             </RadioGroup>
           </span>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="07" label="Progress">
+        </DemoCard>
+
+        <DemoCard>
           <ProgressDemo />
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="08" label="Alert">
+        </DemoCard>
+
+        <DemoCard>
           <AlertDemo />
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="09" label="Tooltip">
+        </DemoCard>
+
+        <DemoCard>
           <Tooltip content="Row C · Seat 12">
             <Button variant="outline">Hover me</Button>
           </Tooltip>
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="10" label="Select">
+        </DemoCard>
+
+        <DemoCard>
           <Select
             defaultValue="window"
             aria-label="Seat"
@@ -201,23 +188,23 @@ export function Playground() {
               { value: "aisle", label: "Aisle" },
             ]}
           />
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="11" label="Rating">
+        </DemoCard>
+
+        <DemoCard>
           <Rating defaultValue={4} aria-label="Rate this show" />
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="12" label="Stepper">
+        </DemoCard>
+
+        <DemoCard>
           <Stepper defaultValue={2} min={0} max={5} aria-label="Tickets" />
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="13" label="Pin input">
+        </DemoCard>
+
+        <DemoCard>
           <PinInput length={4} aria-label="Ticket code" />
-        </DemoRow>
-        <Perforation />
-        <DemoRow no="14" label="Toast">
+        </DemoCard>
+
+        <DemoCard>
           <ToastDemo />
-        </DemoRow>
+        </DemoCard>
       </div>
     </ToastProvider>
   );
