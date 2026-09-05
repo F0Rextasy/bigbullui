@@ -1,8 +1,0 @@
-▲ Next.js 16.3.4
-- Local:         http://localhost:3100
-- Network:       http://100.81.206.61:3100
-✓ Ready in 518ms
-⚠ Warning: Next.js ignored package-lock.json in C:\Users\Extasy because it is outside the current Git repository (C:\Users\Extasy\Desktop\bigbullui).
- To use this directory, set `outputFileTracingRoot` in your Next.js config.
-
-✓ Running next.config.ts took 321ms

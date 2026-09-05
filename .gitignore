@@ -59,6 +59,9 @@ docs/superpowers/
 .tsc-out.txt
 .tsc2.txt
 .wave/
+dev.log
+.qa-server.log
+*.log
 
 # internal roadmap — never push
 TODO.md
