@@ -5,12 +5,12 @@
 ▲ Next.js 16.3.4 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://100.81.206.61:3000
-✓ Ready in 680ms
+✓ Ready in 598ms
 ⚠ Warning: Next.js ignored package-lock.json in C:\Users\Extasy because it is outside the current Git repository (C:\Users\Extasy\Desktop\bigbullui).
  To use this directory, set `turbopack.root` in your Next.js config.
 
-✓ Running next.config.ts took 51ms
+✓ Running next.config.ts took 50ms
 
-⨯ A conflicting public file and page file was found for path /llms.txt https://nextjs.org/docs/messages/conflicting-public-file-page
- GET /llms.txt 500 in 547ms (next.js: 371ms, application-code: 176ms)
- GET /skill.md 200 in 602ms (next.js: 569ms, application-code: 33ms)
+ GET / 200 in 787ms (next.js: 231ms, application-code: 556ms)
+ GET /docs/dialog 200 in 1222ms (next.js: 54ms, generate-params: 677ms, application-code: 491ms)
+ GET /docs/dialog 200 in 414ms (next.js: 7ms, generate-params: 10ms, application-code: 396ms)
