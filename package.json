@@ -3,6 +3,24 @@
   "version": "0.1.0",
   "description": "Animated React components you own. No dependencies beyond React, Tailwind, and SVG.",
   "license": "MIT",
+  "author": "F0Rextasy",
+  "homepage": "https://github.com/F0Rextasy/bigbullui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F0Rextasy/bigbullui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/F0Rextasy/bigbullui/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "tailwindcss",
+    "typescript",
+    "accessible",
+    "zero-dependency"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
