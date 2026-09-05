@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="bigbullui logo">
+  <defs>
+    <mask id="bb-ticket-notch">
+      <rect x="2" y="2" width="60" height="60" rx="10" fill="#ffffff"/>
+      <circle cx="2" cy="32" r="6" fill="#000000"/>
+      <circle cx="62" cy="32" r="6" fill="#000000"/>
+    </mask>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="#F6F0E0" mask="url(#bb-ticket-notch)"/>
+  <rect x="9" y="9" width="46" height="46" rx="6" fill="none" stroke="#17130C" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="32" y="42" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700" fill="#BC3A28">bb</text>
+</svg>

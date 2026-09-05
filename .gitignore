@@ -54,3 +54,8 @@ CLAUDE.md
 docs/superpowers/
 .omo/
 .omx/
+
+# local debug artifacts
+.tsc-out.txt
+.tsc2.txt
+.wave/
