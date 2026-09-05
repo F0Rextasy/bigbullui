@@ -71,5 +71,8 @@
     "tailwindcss": "^4",
     "tsup": "^8",
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
