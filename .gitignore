@@ -45,3 +45,6 @@ dist/
 server.log
 
 .playwright-mcp/
+
+.omocode/
+.omo/
