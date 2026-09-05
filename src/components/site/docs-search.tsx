@@ -4,7 +4,19 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { CommandPalette, type CommandItem } from "@/components/ui/command-palette";
 import { Kbd } from "@/components/ui/kbd";
-import { components } from "@/lib/registry-site";
+import { categories, components } from "@/lib/registry-site";
+
+const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
+  { id: "docs", label: "Components overview", hint: "Browse every component", href: "/docs" },
+  { id: "installation", label: "Installation", hint: "Install the library and tokens", href: "/docs/installation" },
+  { id: "agents", label: "AI Agents", hint: "SKILL.md and agent instructions", href: "/docs/agents" },
+  { id: "design", label: "Design", hint: "Ticket Stub identity and tokens", href: "/docs/design" },
+  { id: "contributing", label: "Contributing", hint: "Add a component to the library", href: "/docs/contributing" },
+];
+
+function categoryName(id: string): string {
+  return categories.find((c) => c.id === id)?.name ?? "Components";
+}
 
 export function DocsSearch() {
   const [open, setOpen] = React.useState(false);
@@ -23,17 +35,20 @@ export function DocsSearch() {
 
   const items: CommandItem[] = React.useMemo(
     () => [
-      { id: "docs", label: "Components overview", category: "Guides", onSelect: () => router.push("/docs") },
-      {
-        id: "installation",
-        label: "Installation",
+      ...GUIDES.map((g) => ({
+        id: g.id,
+        label: g.label,
+        hint: g.hint,
         category: "Guides",
-        onSelect: () => router.push("/docs/installation"),
-      },
+        keywords: ["guide", "docs", g.id],
+        onSelect: () => router.push(g.href),
+      })),
       ...components.map((c) => ({
         id: c.name,
         label: c.title,
-        category: "Components",
+        hint: c.description,
+        category: categoryName(c.category),
+        keywords: [c.name, ...c.name.split("-"), ...c.title.toLowerCase().split(" ")],
         onSelect: () => router.push(`/docs/${c.name}`),
       })),
     ],

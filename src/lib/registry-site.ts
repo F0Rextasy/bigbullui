@@ -5,6 +5,7 @@ export type ComponentMeta = {
   title: string;
   description: string;
   category: ComponentCategory;
+  isNew?: boolean;
 };
 
 export const categories: { id: ComponentCategory; name: string; description: string }[] = [

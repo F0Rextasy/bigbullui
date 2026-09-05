@@ -106,11 +106,9 @@ export function TreemapChart({
   className,
   ...props
 }: TreemapChartProps) {
-  const [rects, setRects] = React.useState<Rect[]>([]);
-
-  React.useEffect(() => {
+  const rects = React.useMemo(() => {
     const root: TreemapItem = { label: "root", value: items.reduce((sum, item) => sum + item.value, 0), children: items };
-    setRects(computeTreemap(root, 5, 5, 200, 200));
+    return computeTreemap(root, 5, 5, 200, 200);
   }, [items]);
 
   if (rects.length === 0) {

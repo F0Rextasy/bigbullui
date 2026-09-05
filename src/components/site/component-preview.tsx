@@ -2469,6 +2469,7 @@ import { waveAdvancedPreviews } from "@/components/site/previews/wave-advanced";
 import { wave1Previews } from "@/components/site/previews/wave1";
 import { wave10Previews } from "@/components/site/previews/wave10";
 import { wave11Previews } from "@/components/site/previews/wave11";
+import { wave12Previews } from "@/components/site/previews/wave12";
 import { wave2Previews } from "@/components/site/previews/wave2";
 import { wave3Previews } from "@/components/site/previews/wave3";
 import { wave4Previews } from "@/components/site/previews/wave4";
@@ -2478,7 +2479,7 @@ import { wave7Previews } from "@/components/site/previews/wave7";
 import { wave8Previews } from "@/components/site/previews/wave8";
 import { wave9Previews } from "@/components/site/previews/wave9";
 
-Object.assign(previews, waveAdvancedPreviews, wave1Previews, wave10Previews, wave11Previews, wave2Previews, wave3Previews, wave4Previews, wave5Previews, wave6Previews, wave7Previews, wave8Previews, wave9Previews);
+Object.assign(previews, waveAdvancedPreviews, wave1Previews, wave10Previews, wave11Previews, wave12Previews, wave2Previews, wave3Previews, wave4Previews, wave5Previews, wave6Previews, wave7Previews, wave8Previews, wave9Previews);
 
 export function ComponentPreview({ name }: { name: string }) {
   const Preview = previews[name];

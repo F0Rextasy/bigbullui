@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { components, categories } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
 import { DocsSearch } from "@/components/site/docs-search";
+import { useSeen } from "@/components/site/seen-store";
 
 const GUIDES = [
   { href: "/docs", label: "Overview" },
@@ -32,7 +33,7 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
-function SidebarLink({ href, label, active }: { href: string; label: string; active: boolean }) {
+function SidebarLink({ href, label, active, isNew = false, seen = true }: { href: string; label: string; active: boolean; isNew?: boolean; seen?: boolean }) {
   return (
     <Link
       href={href}
@@ -52,24 +53,37 @@ function SidebarLink({ href, label, active }: { href: string; label: string; act
         )}
       />
       <span className="truncate">{label}</span>
+      {isNew && !seen ? (
+        <span
+          title="New"
+          aria-label="New component"
+          className="ml-auto size-2 shrink-0 animate-pulse rounded-full bg-accent-strong"
+        />
+      ) : null}
     </Link>
   );
 }
 
 export function DocSidebar() {
   const pathname = usePathname();
+  const seen = useSeen();
 
-  // Keep state of which menus are open (default all open)
-  const [openMenus, setOpenMenus] = React.useState<Record<string, boolean>>({
-    guides: true,
-    form: true,
-    display: true,
-    feedback: true,
-    navigation: true,
-  });
+  const [userToggled, setUserToggled] = React.useState<Record<string, boolean>>({});
+
+  const activeGroup = React.useMemo(() => {
+    const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/design", "/docs/contributing"];
+    if (guidePaths.includes(pathname)) return "guides";
+    const slug = pathname.replace(/^\/docs\//, "");
+    return components.find((c) => c.name === slug)?.category;
+  }, [pathname]);
+
+  const isOpen = (key: string) => {
+    if (key in userToggled) return userToggled[key];
+    return activeGroup === key;
+  };
 
   const toggleMenu = (key: string) => {
-    setOpenMenus((prev) => ({ ...prev, [key]: !prev[key] }));
+    setUserToggled((prev) => ({ ...prev, [key]: !isOpen(key) }));
   };
 
   return (
@@ -86,10 +100,10 @@ export function DocSidebar() {
           <span className="text-[13px] font-semibold tracking-wide text-foreground">
             Getting started
           </span>
-          <Chevron open={openMenus.guides} />
+          <Chevron open={isOpen("guides")} />
         </button>
 
-        {openMenus.guides ? (
+        {isOpen("guides") ? (
           <div className="mt-1 space-y-0.5">
             {GUIDES.map((guide) => (
               <SidebarLink
@@ -108,7 +122,7 @@ export function DocSidebar() {
         const catItems = components
           .filter((c) => c.category === cat.id)
           .sort((a, b) => a.title.localeCompare(b.title));
-        const isOpen = openMenus[cat.id] ?? true;
+        const open = isOpen(cat.id);
 
         return (
           <section key={cat.id}>
@@ -124,11 +138,11 @@ export function DocSidebar() {
                 <span className="rounded-full bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
                   {catItems.length}
                 </span>
-                <Chevron open={isOpen} />
+                <Chevron open={open} />
               </span>
             </button>
 
-            {isOpen ? (
+            {open ? (
               <div className="mt-1 space-y-0.5">
                 {catItems.map((component) => (
                   <SidebarLink
@@ -136,6 +150,8 @@ export function DocSidebar() {
                     href={`/docs/${component.name}`}
                     label={component.title}
                     active={pathname === `/docs/${component.name}`}
+                    isNew={component.isNew}
+                    seen={seen.has(component.name)}
                   />
                 ))}
               </div>

@@ -14,7 +14,7 @@ import { FileInput } from "@/components/ui/file-input";
 import { SliderTicks } from "@/components/ui/slider-ticks";
 
 export const wave11Previews: Record<string, React.ComponentType> = {
-  phoneinput: function PhoneInputPreview() {
+  "phone-input": function PhoneInputPreview() {
     return (
       <PhoneInput
         defaultValue="+1 (555) 123-4567"
@@ -22,7 +22,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  emailinput: function EmailInputPreview() {
+  "email-input": function EmailInputPreview() {
     return (
       <EmailInput
         defaultValue="test@example.com"
@@ -31,7 +31,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  datetherangepicker: function DateRangePickerPreview() {
+  "date-range-picker": function DateRangePickerPreview() {
     return (
       <DateRangePicker
         defaultValue={[
@@ -42,7 +42,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  monthpicker: function MonthPickerPreview() {
+  "month-picker": function MonthPickerPreview() {
     return (
       <MonthPicker
         defaultValue={new Date().getMonth()}
@@ -50,7 +50,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  yearpicker: function YearPickerPreview() {
+  "year-picker": function YearPickerPreview() {
     return (
       <YearPicker
         defaultValue={new Date().getFullYear()}
@@ -58,7 +58,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  timerangepicker: function TimeRangePickerPreview() {
+  "time-range-picker": function TimeRangePickerPreview() {
     return (
       <TimeRangePicker
         defaultValue={["09:00", "17:00"]}
@@ -66,7 +66,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  clockpicker: function ClockPickerPreview() {
+  "clock-picker": function ClockPickerPreview() {
     return (
       <ClockPicker
         defaultValue="09:00"
@@ -74,7 +74,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  hotkeyrecorder: function HotkeyRecorderPreview() {
+  "hotkey-recorder": function HotkeyRecorderPreview() {
     return (
       <HotkeyRecorder
         defaultValue="Ctrl+Shift+Z"
@@ -82,7 +82,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  fileinput: function FileInputPreview() {
+  "file-input": function FileInputPreview() {
     return (
       <FileInput
         multiple
@@ -90,7 +90,7 @@ export const wave11Previews: Record<string, React.ComponentType> = {
       />
     );
   },
-  sliderticks: function SliderTicksPreview() {
+  "slider-ticks": function SliderTicksPreview() {
     return (
       <SliderTicks
         min={0}

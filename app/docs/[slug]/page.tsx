@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { ComponentPreview } from "@/components/site/component-preview";
+import { MarkSeen } from "@/components/site/mark-seen";
 import { CodeBox } from "@/components/site/code-box";
 import { Badge } from "@/components/ui/badge";
 
@@ -1010,7 +1009,17 @@ const waveUsage: Record<string, string> = {
   "image-crop": "import { ImageCrop } from \"@/components/ui/image-crop\";\\n\\n<ImageCrop src=\"image.jpg\" aspect={1.5} onCrop={setDataUrl} />",
   "sankey-chart": "import { SankeyChart } from \"@/components/ui/sankey-chart\";\\n\\n<SankeyChart nodes={nodes} flows={flows} />",
   "org-chart": "import { OrgChart } from \"@/components/ui/org-chart\";\\n\\n<OrgChart root={rootData} />",
+  "announcement-bar": "import { AnnouncementBar } from \"@/components/ui/announcement-bar\";\n\n<AnnouncementBar />",
+  "credit-card": "import { CreditCard } from \"@/components/ui/credit-card\";\n\n<CreditCard cardNumber=\"4111111111111111\" cardHolder=\"ADA BULL\" expiry=\"12/28\" />",
+  "dock": "import { Dock, DockItem } from \"@/components/ui/dock\";\n\n<Dock>\n  <DockItem label=\"Home\" onClick={() => {}} />\n  <DockItem label=\"Search\" onClick={() => {}} />\n</Dock>",
+  "donut-chart": "import { DonutChart } from \"@/components/ui/donut-chart\";\n\n<DonutChart data={[{ label: \"VIP\", value: 40 }, { label: \"General\", value: 60 }]} />",
+  "file-upload-list": "import { FileUploadList } from \"@/components/ui/file-upload-list\";\n\n<FileUploadList files={[{ id: \"f1\", name: \"plan.pdf\", size: 2400000, progress: 72, status: \"uploading\" }]} />",
+  "focus-trap": "import { trapFocus } from \"@/components/ui/lib/focus-trap\";\n\nonKeyDown={(e) => { if (e.key === \"Tab\") trapFocus(containerRef.current, e.nativeEvent); }}",
+  "hooks": "import { useCopy } from \"@/components/ui/lib/hooks\";\n\nconst { copied, copy } = useCopy();\n<button onClick={() => copy(\"BB-2026\")}>{copied ? \"Copied!\" : \"Copy\"}</button>",
+  "status-dot": "import { StatusDot } from \"@/components/ui/status-dot\";\n\n<StatusDot level=\"full\" occupancyPercent={82} waitTime=\"12 min\" />",
 };
+
+Object.assign(usage, waveUsage);
 
 const wavePropsDocs: Record<string, { name: string; type: string; description: string }[]> = {
   "skeleton-v2": [
@@ -1797,16 +1806,181 @@ const wavePropsDocs: Record<string, { name: string; type: string; description: s
   ],
 };
 
-Object.assign(propsDocs, wavePropsDocs);
+const wavePropsDocs2: Record<string, { name: string; type: string; description: string }[]> = {
+  "add-to-cart-button": [
+    { name: "productName", type: "string", description: "Product name shown in the confirmation (required)." },
+    { name: "onAdd", type: "() => void", description: "Callback fired when the item is added (required)." },
+  ],
+  "announcement-bar": [
+    { name: "variant", type: '"festival" | "urgent" | "accent" | "default"', description: "Visual theme (default 'festival')." },
+    { name: "title", type: "React.ReactNode", description: "Main announcement headline." },
+    { name: "description", type: "React.ReactNode", description: "Secondary announcement details." },
+    { name: "actionLabel", type: "string", description: "CTA button text (default 'CLAIM STUB')." },
+    { name: "onAction", type: "() => void", description: "CTA button click handler." },
+    { name: "targetDate", type: "Date | string", description: "Target date for live countdown urgency." },
+    { name: "countdownSeconds", type: "number", description: "Countdown duration in seconds when no date is set." },
+    { name: "dismissible", type: "boolean", description: "Whether the user can close it (default true)." },
+    { name: "open", type: "boolean", description: "Controlled visibility state." },
+    { name: "defaultOpen", type: "boolean", description: "Initial visibility (default true)." },
+  ],
+  "article-card": [
+    { name: "title", type: "string", description: "Article headline (required)." },
+    { name: "excerpt", type: "string", description: "Summary paragraph (required)." },
+    { name: "category", type: "string", description: "Eyebrow category label." },
+    { name: "author", type: "string", description: "Author name." },
+    { name: "readTime", type: "string", description: "Reading time label (e.g. '4 min')." },
+    { name: "image", type: "string", description: "Cover image URL." },
+  ],
+  "cart-drawer": [
+    { name: "open", type: "boolean", description: "Controlled open state (required)." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Open state callback (required)." },
+    { name: "items", type: "{ id: string; title: string; price: string; qty: number }[]", description: "Cart line items (required)." },
+    { name: "onRemove", type: "(id: string) => void", description: "Remove-item callback." },
+    { name: "onQtyChange", type: "(id: string, qty: number) => void", description: "Quantity-change callback." },
+  ],
+  "checkout-summary": [
+    { name: "items", type: "{ id: string; title: string; price: string; qty: number }[]", description: "Summary line items (required)." },
+    { name: "subtotal", type: "string", description: "Subtotal display string." },
+    { name: "tax", type: "string", description: "Tax display string." },
+    { name: "total", type: "string", description: "Grand total display string." },
+    { name: "cta", type: "string", description: "Checkout button label." },
+  ],
+  "credit-card": [
+    { name: "cardNumber", type: "string", description: "15-19 digit card number, raw or formatted." },
+    { name: "cardHolder", type: "string", description: "Cardholder name." },
+    { name: "expiry", type: "string", description: "Expiry string (e.g. '12/28')." },
+    { name: "cvv", type: "string", description: "3-4 digit security code." },
+    { name: "brand", type: 'CardBrand | "auto"', description: "Brand override, auto-detected by default." },
+    { name: "flipped", type: "boolean", description: "Controlled flip state (back shows CVV)." },
+    { name: "onFlipChange", type: "(flipped: boolean) => void", description: "Flip-state callback." },
+    { name: "variant", type: '"default" | "night" | "accent" | "gold" | "minimal"', description: "Visual theme (default 'default')." },
+    { name: "maskNumber", type: "boolean", description: "Mask middle digits (default false)." },
+  ],
+  dock: [
+    { name: "items", type: "DockItemData[]", description: "Dock app items with label and action." },
+    { name: "magnify", type: "boolean", description: "Enable hover magnification (default true)." },
+    { name: "orientation", type: '"horizontal" | "vertical"', description: "Dock axis (default 'horizontal')." },
+    { name: "iconSize", type: "number", description: "Base icon size in px." },
+  ],
+  "donut-chart": [
+    { name: "data", type: "DonutChartDataItem[]", description: "Segments with label and value (required)." },
+    { name: "size", type: "number", description: "SVG size in px (default 220)." },
+    { name: "variant", type: '"donut" | "pie"', description: "Ring or full pie (default 'donut')." },
+    { name: "centerValue", type: "string | number", description: "Center readout value." },
+    { name: "showLegend", type: "boolean", description: "Render legend (default true)." },
+    { name: "onActiveChange", type: "(index: number | null, item: DonutChartDataItem | null) => void", description: "Hover-select callback." },
+  ],
+  "event-card": [
+    { name: "title", type: "string", description: "Event name (required)." },
+    { name: "date", type: "string", description: "Date block string." },
+    { name: "venue", type: "string", description: "Venue name." },
+    { name: "time", type: "string", description: "Showtime string." },
+  ],
+  "file-upload-list": [
+    { name: "files", type: "FileUploadItem[]", description: "Upload queue items (required)." },
+    { name: "onRetry", type: "(id: string) => void", description: "Retry callback per item." },
+    { name: "onRemove", type: "(id: string) => void", description: "Remove callback per item." },
+    { name: "onFilesAdded", type: "(files: File[]) => void", description: "Callback for dropped/selected files." },
+    { name: "maxFiles", type: "number", description: "Queue cap (default 10)." },
+  ],
+  "focus-trap": [
+    { name: "container", type: "HTMLElement", description: "Trap boundary element (trapFocus arg, required)." },
+    { name: "event", type: "KeyboardEvent", description: "Native Tab key event (trapFocus arg, required)." },
+  ],
+  "gift-card": [
+    { name: "amount", type: "string", description: "Gift value string (required)." },
+    { name: "recipient", type: "string", description: "Recipient name (required)." },
+    { name: "message", type: "string", description: "Personal message line." },
+  ],
+  hooks: [
+    { name: "useCopy", type: "() => { copied: boolean; copy: (text: string) => void }", description: "Clipboard copy with copied flag." },
+    { name: "useLocalStorage", type: "<T>(key: string, initial: T) => [T, setter]", description: "Persisted state hook." },
+    { name: "useMediaQuery", type: "(query: string) => boolean", description: "SSR-safe media query match." },
+    { name: "useDebounce", type: "<T>(value: T, delay: number) => T", description: "Debounced value hook." },
+    { name: "useHotkey", type: "(combo, handler) => void", description: "Keyboard shortcut hook." },
+    { name: "useIntersection", type: "(options?) => ref + visible", description: "IntersectionObserver hook." },
+    { name: "useClickOutside", type: "(ref, handler) => void", description: "Outside-click dismissal hook." },
+  ],
+  "id-card": [
+    { name: "name", type: "string", description: "Holder name (required)." },
+    { name: "role", type: "string", description: "Job title (required)." },
+    { name: "department", type: "string", description: "Department (required)." },
+    { name: "badgeNumber", type: "string", description: "Badge ID (required)." },
+  ],
+  invoice: [
+    { name: "number", type: "string", description: "Invoice number (required)." },
+    { name: "items", type: "InvoiceLineItem[]", description: "Line items (required)." },
+    { name: "taxRate", type: "number", description: "Tax rate decimal (e.g. 0.2)." },
+    { name: "status", type: '"draft" | "paid" | "void"', description: "Invoice status stamp." },
+  ],
+  "order-card": [
+    { name: "orderId", type: "string", description: "Order identifier (required)." },
+    { name: "status", type: '"Processing" | "Shipped" | "Delivered" | "Cancelled"', description: "Order status (required)." },
+    { name: "progress", type: "number", description: "Fulfilment progress 0-100." },
+  ],
+  "product-card": [
+    { name: "title", type: "string", description: "Product name (required)." },
+    { name: "price", type: "string", description: "Price string (required)." },
+    { name: "originalPrice", type: "string", description: "Strikethrough compare price." },
+    { name: "discount", type: "number", description: "Discount percent badge." },
+    { name: "onAddToWishlist", type: "() => void", description: "Wishlist toggle callback." },
+  ],
+  receipt: [
+    { name: "items", type: "{ label: string; price: string }[]", description: "Receipt lines (required)." },
+    { name: "total", type: "string", description: "Total string (required)." },
+    { name: "taxRate", type: "number", description: "Tax rate decimal." },
+  ],
+  "rsvp-card": [
+    { name: "eventTitle", type: "string", description: "Event name (required)." },
+    { name: "attending", type: "boolean", description: "Controlled RSVP state." },
+    { name: "onToggle", type: "(attending: boolean) => void", description: "RSVP toggle callback." },
+  ],
+  "size-picker": [
+    { name: "sizes", type: "SizeOption[]", description: "Available sizes with stock flags (required)." },
+    { name: "value", type: "string", description: "Controlled selected size." },
+    { name: "defaultValue", type: "string", description: "Initial selection." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Selection callback." },
+  ],
+  "stamp-card": [
+    { name: "text", type: "string", description: "Stamp headline text." },
+    { name: "subtext", type: "string", description: "Secondary line under the stamp." },
+    { name: "tone", type: '"accent" | "primary" | "destructive"', description: "Ink tone (default 'accent')." },
+  ],
+  "status-dot": [
+    { name: "level", type: '"low" | "moderate" | "full" | "closed"', description: "Occupancy level (default 'low')." },
+    { name: "variant", type: '"booth" | "badge" | "dot"', description: "Display density (default 'booth')." },
+    { name: "gateName", type: "string", description: "Gate label (default 'GATE A-04')." },
+    { name: "occupancyPercent", type: "number", description: "Occupancy 0-100 override." },
+    { name: "waitTime", type: "string", description: "Wait time label." },
+  ],
+  "typing-indicator": [
+    { name: "—", type: "no props", description: "Self-animated three-dot indicator, render as <TypingIndicator />." },
+  ],
+  "user-card": [
+    { name: "name", type: "string", description: "Display name." },
+    { name: "role", type: "string", description: "Role or title line." },
+    { name: "meta", type: "string[]", description: "Extra meta chips." },
+    { name: "onAction", type: "() => void", description: "Card action callback." },
+  ],
+  "variant-picker": [
+    { name: "sizes", type: "string[]", description: "Size options list." },
+    { name: "value", type: "string", description: "Controlled selection." },
+    { name: "onColorChange", type: "(name: string) => void", description: "Color swatch callback." },
+    { name: "onSizeChange", type: "(size: string) => void", description: "Size selection callback." },
+  ],
+  "wishlist-button": [
+    { name: "onToggle", type: "(active: boolean) => void", description: "Wishlist toggle callback." },
+    { name: "size", type: '"sm" | "md" | "lg"', description: "Button size (default 'md')." },
+  ],
+};
+
+Object.assign(propsDocs, wavePropsDocs, wavePropsDocs2);
 
 export default async function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const meta = components.find((component) => component.name === slug);
   if (!meta) notFound();
 
-  const isLib = meta.name === "hooks" || meta.name === "focus-trap";
-  const sourcePath = isLib ? join("src", "components", "ui", "lib", `${meta.name}.ts`) : join("src", "components", "ui", `${meta.name}.tsx`);
-  const source = readFileSync(join(process.cwd(), sourcePath), "utf8");
   const propsList = propsDocs[meta.name] ?? [];
   const idx = components.findIndex((component) => component.name === slug);
   const prev = idx > 0 ? components[idx - 1] : undefined;
@@ -1816,12 +1990,12 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     { id: "install", label: "Install" },
     { id: "usage", label: "Usage" },
     ...(propsList.length > 0 ? [{ id: "props", label: "Props" }] : []),
-    { id: "source", label: "Source" },
   ];
 
   return (
     <div className="flex items-start gap-10">
     <article className="min-w-0 flex-1 space-y-10">
+      <MarkSeen name={meta.name} />
       <header className="space-y-3">
         <div className="flex items-center gap-2">
           <Badge variant="accent">Component</Badge>
@@ -1876,16 +2050,6 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           </div>
         </section>
       ) : null}
-
-      <section className="space-y-3">
-        <h2 id="source" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source</h2>
-          <CodeBox code={source} block maxHeight="480px" />
-        <p className="text-xs text-muted-foreground">
-          Copy this file into your project. It only imports React and the{" "}
-          <code className="font-mono">cn</code> helper from{" "}
-          <code className="font-mono">ui/lib/utils</code> — copy that file too if you do not have it.
-        </p>
-      </section>
 
       <nav aria-label="More components" className="flex items-center justify-between gap-4 border-t border-border pt-6">
         {prev ? (

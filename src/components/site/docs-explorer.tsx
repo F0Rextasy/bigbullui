@@ -4,16 +4,20 @@ import * as React from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { categories, type ComponentMeta } from "@/lib/registry-site";
+import { useSeen } from "@/components/site/seen-store";
 
 export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
   const [query, setQuery] = React.useState("");
+  const [activeCategory, setActiveCategory] = React.useState<string | null>(null);
+  const seen = useSeen();
   const q = query.trim().toLowerCase();
 
   const matches = (component: ComponentMeta) =>
-    q.length === 0 ||
-    component.title.toLowerCase().includes(q) ||
-    component.description.toLowerCase().includes(q) ||
-    component.name.includes(q);
+    (activeCategory === null || component.category === activeCategory) &&
+    (q.length === 0 ||
+      component.title.toLowerCase().includes(q) ||
+      component.description.toLowerCase().includes(q) ||
+      component.name.includes(q));
 
   const total = components.filter(matches).length;
 
@@ -30,23 +34,48 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
           />
         </div>
         <nav aria-label="Categories" className="flex flex-wrap justify-center gap-2">
-          {categories.map((cat) => (
-            <a
-              key={cat.id}
-              href={`#${cat.id}`}
-              className="rounded-sm border border-border px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
-            >
-              {cat.name}
-            </a>
-          ))}
+          {categories.map((cat) => {
+            const active = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setActiveCategory(active ? null : cat.id)}
+                aria-pressed={active}
+                className={
+                  active
+                    ? "rounded-sm border border-foreground bg-primary px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-primary-foreground"
+                    : "rounded-sm border border-border px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+                }
+              >
+                {cat.name}
+              </button>
+            );
+          })}
         </nav>
       </div>
 
-      {q.length > 0 && (
-        <p className="font-mono text-xs text-muted-foreground">
-          {total} result{total === 1 ? "" : "s"} for &ldquo;{query}&rdquo;
-        </p>
-      )}
+      <p className="font-mono text-xs text-muted-foreground">
+        {total} result{total === 1 ? "" : "s"}
+        {q.length > 0 ? ` for \u201C${query}\u201D` : ""}
+        {activeCategory ? ` in ${categories.find((c) => c.id === activeCategory)?.name}` : ""}
+      </p>
+
+      {total === 0 ? (
+        <div className="rounded-lg border border-dashed border-border p-10 text-center">
+          <p className="font-mono text-sm text-muted-foreground">Nothing matches that search.</p>
+          <button
+            type="button"
+            onClick={() => {
+              setQuery("");
+              setActiveCategory(null);
+            }}
+            className="mt-3 rounded-md border border-border px-3 py-1.5 font-mono text-xs uppercase text-foreground transition-colors hover:border-foreground"
+          >
+            Clear search
+          </button>
+        </div>
+      ) : null}
 
       {categories.map((cat) => {
         const items = components.filter((c) => c.category === cat.id && matches(c));
@@ -73,8 +102,17 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
                       <h3 className="font-medium text-foreground transition-colors group-hover:text-primary">
                         {component.title}
                       </h3>
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">
-                        →
+                      <span className="flex items-center gap-1.5">
+                        {component.isNew && !seen.has(component.name) ? (
+                          <span
+                            title="New"
+                            aria-label="New component"
+                            className="size-2 animate-pulse rounded-full bg-accent-strong"
+                          />
+                        ) : null}
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">
+                          →
+                        </span>
                       </span>
                     </div>
                     <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">

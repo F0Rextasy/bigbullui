@@ -41,22 +41,30 @@ export function CalendarHeatmap({
   ...props
 }: CalendarHeatmapProps) {
   // Determine the date range
-  const minDate = data[0]?.date || "2024-01-01";
-  const maxDate = data[data.length - 1]?.date || "2024-12-31";
+  const sorted = React.useMemo(
+    () => [...data].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0)),
+    [data],
+  );
+  const minDate = sorted[0]?.date || "2024-01-01";
+  const maxDate = sorted[sorted.length - 1]?.date || "2024-12-31";
+  const firstYear = new Date(minDate).getFullYear();
+  const oneJan = new Date(firstYear, 0, 1);
+  const byDate = new Map(sorted.map((d) => [d.date, d]));
+
+  const formatYmd = (dt: Date) =>
+    `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
 
   // Get all unique weeks
-  const allWeeks = [...new Set(data.map((d) => getWeekNumber(d.date)))].sort(
+  const allWeeks = [...new Set(sorted.map((d) => getWeekNumber(d.date)))].sort(
     (a, b) => a - b,
   );
 
-  // Build the grid
-  const rows = allWeeks.map((week, weekIdx) => {
+  const rows = allWeeks.map((week) => {
     const daysInWeek: CalendarHeatmapEntry[] = [];
     for (let i = 0; i < 7; i++) {
-      const targetDate = new Date();
-      targetDate.setDate(1 + (week - 1) * 7 + i);
-      const dateStr = targetDate.toISOString().split("T")[0];
-      const entry = data.find((d) => d.date === dateStr);
+      const targetDate = new Date(oneJan);
+      targetDate.setDate(targetDate.getDate() + (week - 1) * 7 + i);
+      const entry = byDate.get(formatYmd(targetDate));
       if (entry) daysInWeek.push(entry);
     }
 
@@ -124,10 +132,8 @@ export function CalendarHeatmap({
                 y={rowIdx * 12 + 25}
                 width={10}
                 height={10}
-                fill={cn(
-                  "currentColor",
-                  `opacity-${Math.round((bgOpacity > 0.9 ? 0.9 : bgOpacity) * 100)}`,
-                )}
+                fill="currentColor"
+                fillOpacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
                 className={cn(
                   "motion-reduce:transition-none",
                   `animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,

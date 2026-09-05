@@ -2,12 +2,14 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export interface QuoteProps {
+  className?: string;
   children?: React.ReactNode;
   cite?: string;
   author?: string;
 }
 
 export function Quote({
+  className,
   children,
   cite,
   author,
@@ -19,7 +21,8 @@ export function Quote({
       className={cn(
         "border-l-2 border-dashed border-border/60 pl-4 my-2",
         "motion-reduce:transition-none",
-        "animate-[stamp_0.4s_ease-out_both]"
+        "animate-[stamp_0.4s_ease-out_both]",
+        className
       )}
     >
       <p className="text-lg line-clamp-3">
