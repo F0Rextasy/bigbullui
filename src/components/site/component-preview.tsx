@@ -115,6 +115,12 @@ import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/componen
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { HoverCard, HoverCardTrigger, HoverCardContent, HoverCardSeatSummary } from "@/components/ui/hover-card";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from "@/components/ui/drawer";
+import { Keypad } from "@/components/ui/keypad";
+import { TagInput } from "@/components/ui/tag-input";
+import { PricingTable } from "@/components/ui/pricing-table";
+import { MetricCard } from "@/components/ui/metric-card";
+import { DonutChart } from "@/components/ui/donut-chart";
+import { Dock, DockItem, DockSeparator } from "@/components/ui/dock";
 import { cn } from "@/components/ui/lib/utils";
 
 
@@ -1613,7 +1619,378 @@ function AnimatedDrawerPreview() {
   );
 }
 
+function AnimatedKeypadPreview() {
+  const [pin, setPin] = React.useState("");
+  const [status, setStatus] = React.useState<"idle" | "validating" | "success" | "error">("idle");
+  const [msg, setMsg] = React.useState<string | undefined>(undefined);
+
+  const handleSubmit = (enteredPin: string) => {
+    if (enteredPin.length < 4) {
+      setStatus("error");
+      setMsg("ENTER COMPLETE 4-DIGIT PIN");
+      setTimeout(() => {
+        setStatus("idle");
+        setMsg(undefined);
+      }, 1500);
+      return;
+    }
+
+    setStatus("validating");
+    setMsg("AUTHENTICATING STUB CREDENTIALS...");
+
+    setTimeout(() => {
+      if (enteredPin === "2026" || enteredPin === "1234") {
+        setStatus("success");
+        setMsg("VALID PASS #8841 · ADMIT 1 ATTENDEE");
+      } else {
+        setStatus("error");
+        setMsg(`DENIED · CODE ${enteredPin} NOT IN REGISTRY`);
+      }
+
+      setTimeout(() => {
+        setStatus("idle");
+        setMsg(undefined);
+      }, 3000);
+    }, 600);
+  };
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div className="flex items-center gap-2">
+        <span className="font-mono text-[10px] text-muted-foreground uppercase">
+          DEMO PASSCODE: <span className="font-bold text-accent">2026</span>
+        </span>
+        <button
+          type="button"
+          onClick={() => {
+            setPin("2026");
+            setStatus("idle");
+            setMsg(undefined);
+          }}
+          className="rounded border border-border px-1.5 py-0.5 font-mono text-[9px] uppercase hover:bg-secondary transition-colors"
+        >
+          FILL 2026
+        </button>
+      </div>
+
+      <Keypad
+        value={pin}
+        onValueChange={setPin}
+        onSubmit={handleSubmit}
+        status={status}
+        statusMessage={msg}
+        maxLength={4}
+        terminalId="TURNSTILE #04"
+        gate="GATE VIP-A"
+      />
+    </div>
+  );
+}
+
+function AnimatedTagInputPreview() {
+  const [tags, setTags] = React.useState<string[]>([
+    "VIP ACCESS",
+    "INDIE ROCK",
+    "MAIN STAGE",
+    "EARLY BIRD",
+  ]);
+
+  return (
+    <div className="w-full max-w-md flex flex-col gap-3">
+      <TagInput
+        value={tags}
+        onChange={setTags}
+        placeholder="Add category, artist, genre..."
+        label="TICKET CATEGORIES & GENRES"
+        serial="TAG-PASS #742"
+        tagVariant="default"
+        suggestions={[
+          "BACKSTAGE",
+          "MATINEE",
+          "ORCHESTRA",
+          "FESTIVAL PASS",
+          "ALL ACCESS",
+        ]}
+      />
+
+      <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground px-1">
+        <span>{tags.length} TAGS SELECTED</span>
+        <span className="text-accent font-semibold">TICKET STUB BADGES</span>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedPricingTablePreview() {
+  const [cycle, setCycle] = React.useState<"monthly" | "annual">("annual");
+
+  return (
+    <div className="w-full max-w-5xl py-2">
+      <PricingTable
+        billingCycle={cycle}
+        onBillingCycleChange={setCycle}
+      />
+    </div>
+  );
+}
+
+function AnimatedMetricCardPreview() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl py-2">
+      <MetricCard
+        title="MONTHLY REVENUE"
+        value="$48,250"
+        serial="MET-01-MRR"
+        trend={{ value: "+14.8%", label: "vs last month" }}
+        sparklineData={[32, 38, 35, 42, 40, 48, 52, 59, 64]}
+        sparklineTone="accent"
+        badge="REALTIME"
+        footerText="Refreshed 2m ago"
+      />
+      <MetricCard
+        title="ACTIVE PASSES"
+        value="1,420"
+        suffix="TIERS"
+        serial="MET-02-PASS"
+        trend={{ value: "+8.2%", label: "vs last 30d" }}
+        progress={78}
+        progressTarget="Target: 1,800"
+        badge="AUDITED"
+        footerText="Active turnstiles: 14"
+      />
+      <MetricCard
+        title="GATE LATENCY"
+        value="18"
+        suffix="ms"
+        serial="MET-03-LAT"
+        trend={{ value: "-12.4%", label: "vs yesterday", invertColors: true }}
+        sparklineData={[42, 36, 31, 28, 25, 22, 19, 18]}
+        sparklineTone="success"
+        badge="OPTIMAL"
+        statusDot="active"
+        footerText="Global edge p99"
+      />
+    </div>
+  );
+}
+
+function AnimatedDonutChartPreview() {
+  const [activeSet, setActiveSet] = React.useState<"admissions" | "revenue">("admissions");
+  const [variant, setVariant] = React.useState<"donut" | "pie">("donut");
+
+  const admissionData = [
+    { label: "VIP Floor", value: 450, tone: "accent" as const, description: "All-access floor tier" },
+    { label: "Orchestra", value: 680, tone: "primary" as const, description: "Lower tier prime reserved" },
+    { label: "Mezzanine", value: 520, tone: "warning" as const, description: "Elevated tier front center" },
+    { label: "Balcony", value: 390, tone: "info" as const, description: "Upper arena rows" },
+    { label: "Press Box", value: 160, tone: "success" as const, description: "Media & staff accreditation" },
+  ];
+
+  const revenueData = [
+    { label: "Season Passes", value: 84000, tone: "accent" as const },
+    { label: "Gate Tickets", value: 46500, tone: "primary" as const },
+    { label: "Merchandise", value: 29800, tone: "warning" as const },
+    { label: "VIP Lounges", value: 18200, tone: "success" as const },
+  ];
+
+  const currentData = activeSet === "admissions" ? admissionData : revenueData;
+
+  return (
+    <div className="w-full max-w-xl flex flex-col items-center gap-4 py-2">
+      <div className="flex flex-wrap items-center justify-between w-full gap-2 px-1">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveSet("admissions")}
+            className={cn(
+              "font-mono text-xs uppercase px-2.5 py-1 rounded-xs border transition-all cursor-pointer",
+              activeSet === "admissions"
+                ? "border-foreground bg-primary text-primary-foreground font-bold shadow-xs"
+                : "border-dashed border-border bg-secondary/50 text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Admissions
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSet("revenue")}
+            className={cn(
+              "font-mono text-xs uppercase px-2.5 py-1 rounded-xs border transition-all cursor-pointer",
+              activeSet === "revenue"
+                ? "border-foreground bg-primary text-primary-foreground font-bold shadow-xs"
+                : "border-dashed border-border bg-secondary/50 text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Revenue ($)
+          </button>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setVariant("donut")}
+            className={cn(
+              "font-mono text-xs uppercase px-2 py-1 rounded-xs border transition-all cursor-pointer",
+              variant === "donut"
+                ? "border-accent text-accent font-bold bg-accent/10"
+                : "border-dashed border-border text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Donut
+          </button>
+          <button
+            type="button"
+            onClick={() => setVariant("pie")}
+            className={cn(
+              "font-mono text-xs uppercase px-2 py-1 rounded-xs border transition-all cursor-pointer",
+              variant === "pie"
+                ? "border-accent text-accent font-bold bg-accent/10"
+                : "border-dashed border-border text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Pie
+          </button>
+        </div>
+      </div>
+
+      <DonutChart
+        data={currentData}
+        variant={variant}
+        size={230}
+        innerRadiusRatio={0.62}
+        title={activeSet === "admissions" ? "SECTOR ADMISSIONS" : "STUB REVENUE"}
+        subtitle={activeSet === "admissions" ? "2,200 CAPACITY MATRIX" : "GROSS BOX OFFICE"}
+        ticketSerial={activeSet === "admissions" ? "№ DNT-401" : "№ REV-992"}
+        formatValue={(val) =>
+          activeSet === "revenue" ? `$${val.toLocaleString()}` : val.toLocaleString()
+        }
+        centerLabel={activeSet === "admissions" ? "TOTAL SEATS" : "GROSS SALES"}
+        className="w-full"
+      />
+    </div>
+  );
+}
+
+function AnimatedDockPreview() {
+  const [activeApp, setActiveApp] = React.useState("terminal");
+  const [notificationCount, setNotificationCount] = React.useState(3);
+
+  return (
+    <div className="w-full flex flex-col items-center justify-center py-6 gap-4">
+      <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+        <span className="size-1.5 rounded-full bg-accent animate-ping" />
+        HOVER TO MAGNIFY · CLICK TO SWITCH ACTIVE STUB APP
+      </div>
+
+      <Dock magnification={1.5} distance={130} iconSize={42}>
+        <DockItem
+          label="Terminal"
+          shortcut="⌘1"
+          active={activeApp === "terminal"}
+          onClick={() => setActiveApp("terminal")}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="4 17 10 11 4 5" />
+              <line x1="12" y1="19" x2="20" y2="19" />
+            </svg>
+          }
+        />
+        <DockItem
+          label="Admissions"
+          shortcut="⌘2"
+          active={activeApp === "admissions"}
+          onClick={() => setActiveApp("admissions")}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+              <path d="M13 5v2" />
+              <path d="M13 17v2" />
+              <path d="M13 11v2" />
+            </svg>
+          }
+        />
+        <DockItem
+          label="Analytics"
+          shortcut="⌘3"
+          badge={notificationCount > 0 ? notificationCount : undefined}
+          active={activeApp === "analytics"}
+          onClick={() => {
+            setActiveApp("analytics");
+            setNotificationCount(0);
+          }}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+          }
+        />
+        <DockItem
+          label="Scanner"
+          shortcut="⌘4"
+          active={activeApp === "scanner"}
+          onClick={() => setActiveApp("scanner")}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+          }
+        />
+
+        <DockSeparator />
+
+        <DockItem
+          label="Seating Map"
+          shortcut="⌘5"
+          active={activeApp === "seating"}
+          onClick={() => setActiveApp("seating")}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="4" width="18" height="16" rx="2" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+              <line x1="9" y1="10" x2="9" y2="20" />
+              <line x1="15" y1="10" x2="15" y2="20" />
+            </svg>
+          }
+        />
+        <DockItem
+          label="VIP Passes"
+          badge="VIP"
+          active={activeApp === "vip"}
+          onClick={() => setActiveApp("vip")}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          }
+        />
+        <DockItem
+          label="Settings"
+          shortcut="⌘,"
+          active={activeApp === "settings"}
+          onClick={() => setActiveApp("settings")}
+          icon={
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+          }
+        />
+      </Dock>
+
+      <div className="font-mono text-[10px] text-muted-foreground">
+        CURRENT WORKSPACE: <span className="font-bold text-accent uppercase">{activeApp}</span>
+      </div>
+    </div>
+  );
+}
+
 /* Master Previews Record for all Components */
+
 const previews: Record<string, React.ComponentType> = {
   collapsible: AnimatedCollapsiblePreview,
   "aspect-ratio": AnimatedAspectRatioPreview,
@@ -2070,6 +2447,12 @@ const previews: Record<string, React.ComponentType> = {
   "scroll-area": AnimatedScrollAreaPreview,
   "hover-card": AnimatedHoverCardPreview,
   drawer: AnimatedDrawerPreview,
+  keypad: AnimatedKeypadPreview,
+  "tag-input": AnimatedTagInputPreview,
+  "pricing-table": AnimatedPricingTablePreview,
+  "metric-card": AnimatedMetricCardPreview,
+  "donut-chart": AnimatedDonutChartPreview,
+  dock: AnimatedDockPreview,
 };
 
 

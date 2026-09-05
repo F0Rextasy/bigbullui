@@ -284,3 +284,100 @@ export type {
   DrawerCloseProps,
 } from "./components/ui/drawer";
 
+// Tactile Box Office & Ticket Tag Controls
+export { Keypad } from "./components/ui/keypad";
+export type { KeypadProps } from "./components/ui/keypad";
+export { TagInput } from "./components/ui/tag-input";
+export type { TagInputProps } from "./components/ui/tag-input";
+
+// Festival Ribbon & Live Turnstile Gate Status
+export { AnnouncementBar } from "./components/ui/announcement-bar";
+export type { AnnouncementBarProps, AnnouncementBarVariant } from "./components/ui/announcement-bar";
+export { StatusDot } from "./components/ui/status-dot";
+export type { StatusDotProps, StatusDotVariant, StatusDotSize, GateOccupancyLevel } from "./components/ui/status-dot";
+
+// SaaS Admissions & Analytics Stubs
+export { PricingTable } from "./components/ui/pricing-table";
+export type {
+  PricingTableProps,
+  PricingTier,
+  PricingFeature,
+  BillingCycle,
+} from "./components/ui/pricing-table";
+
+export { MetricCard } from "./components/ui/metric-card";
+export type {
+  MetricCardProps,
+  MetricCardTrend,
+  TrendDirection,
+} from "./components/ui/metric-card";
+
+// Developer & SaaS Operations Stubs
+export { CodeBlock } from "./components/ui/code-block";
+export type {
+  CodeBlockProps,
+  CodeBlockVariant,
+} from "./components/ui/code-block";
+
+export { ActivityFeed } from "./components/ui/activity-feed";
+export type {
+  ActivityFeedProps,
+  ActivityItem,
+  ActivityActor,
+  ActivityType,
+  ActivityStatus,
+  ActivityBadgeTone,
+} from "./components/ui/activity-feed";
+
+// Dashboards & Layout Stubs
+export { DonutChart } from "./components/ui/donut-chart";
+export type {
+  DonutChartProps,
+  DonutChartDataItem,
+} from "./components/ui/donut-chart";
+
+export {
+  Dock,
+  DockItem,
+  DockSeparator,
+  DockLabel,
+  useDock,
+} from "./components/ui/dock";
+export type {
+  DockProps,
+  DockItemProps,
+  DockSeparatorProps,
+  DockLabelProps,
+  DockItemData,
+  DockContextValue,
+} from "./components/ui/dock";
+
+// Fintech & Dispatch Queue Components
+export {
+  CreditCard,
+  detectCardBrand,
+  formatCardNumber,
+  formatExpiry,
+  maskCardNumber,
+} from "./components/ui/credit-card";
+export type {
+  CreditCardProps,
+  CardBrand,
+  CardVariant,
+  CardSize,
+} from "./components/ui/credit-card";
+
+export {
+  FileUploadList,
+  formatFileSize,
+  getFileCategory,
+} from "./components/ui/file-upload-list";
+export type {
+  FileUploadListProps,
+  FileUploadItem,
+  FileUploadStatus,
+  FileCategory,
+} from "./components/ui/file-upload-list";
+
+
+

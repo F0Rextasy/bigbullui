@@ -55,8 +55,9 @@
   },
   "dependencies": {
     "next": "16.3.4",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "oh-my-codex": "^0.21.3",
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

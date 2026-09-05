@@ -48,7 +48,7 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 
 | File | Component | Description |
 |---|---|---|
-| [`button`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/button.tsx) | Button | Animated button with tactile hover and stamp focus. |
+| [`button`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/button.tsx) | Button | Animated button with hover feedback and crisp focus. |
 | [`input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/input.tsx) | Input | Text input with dashed focus border and design tokens. |
 | [`textarea`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/textarea.tsx) | Textarea | Multi-line text area matching Input styling. |
 | [`checkbox`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/checkbox.tsx) | Checkbox | Crisp checkbox with bold checked states. |
@@ -64,23 +64,23 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`combobox`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/combobox.tsx) | Combobox | Filterable searchable dropdown with instant keyboard filter. |
 | [`file-dropzone`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/file-dropzone.tsx) | File Dropzone | Drag-and-drop upload zone with dashed borders and file preview. |
 | [`color-picker`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/color-picker.tsx) | Color Picker | Palette swatch picker with framing and active mark. |
-| [`password-strength`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/password-strength.tsx) | Password Strength | Segmented security meter with animated bars and criteria checklist. |
-| [`inline-edit`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/inline-edit.tsx) | Inline Edit | Click-to-edit field with animated save pulse and cancel action. |
-| [`time-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/time-input.tsx) | Time Input | Showtime selector with hours, minutes, and AM/PM stepper. |
+| [`password-strength`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/password-strength.tsx) | Password Strength | Segmented security verification meter with animated strength bars and criteria checklist. |
+| [`inline-edit`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/inline-edit.tsx) | Inline Edit | Click-to-edit field with focus outline, animated save pulse, and cancel action. |
+| [`time-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/time-input.tsx) | Time Input | Curtain call showtime selector with hours, minutes, and AM/PM stepper. |
 | [`masked-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/masked-input.tsx) | Masked Input | Formatted code field with auto-formatted delimiters and validation mark. |
 | [`date-picker`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/date-picker.tsx) | Date Picker | Date picker input with popover calendar and quick date selection. |
 | [`dual-slider`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/dual-slider.tsx) | Dual Slider | Price range selector with minimum and maximum draggable handles. |
 | [`mention-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mention-input.tsx) | Mention Input | Mention input with instant @ autocomplete popover. |
 | [`autocomplete`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/autocomplete.tsx) | Autocomplete | Typeahead search input with instant suggestions and keyboard select. |
 | [`transfer-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/transfer-list.tsx) | Transfer List | Two-column transfer list between available and claimed items. |
-| [`tree-select`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tree-select.tsx) | Tree Select | Hierarchical dropdown selector with expandable zone nodes. |
+| [`tree-select`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tree-select.tsx) | Tree Select | Hierarchical seating dropdown selector with expandable zone nodes. |
 | [`masked-currency`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/masked-currency.tsx) | Masked Currency | Formatted currency price input with prefix badge and numeric mask. |
 | [`segmented-switch`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/segmented-switch.tsx) | Segmented Switch | Mechanical multi-option lever switch with smooth slide carriage. |
-| [`theme-toggle`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/theme-toggle.tsx) | Theme Toggle | Theme switcher with day and night pass flip animation. |
+| [`theme-toggle`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/theme-toggle.tsx) | Theme Toggle | Theme switcher with day and night flip animation. |
 | [`signature-pad`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/signature-pad.tsx) | Signature Pad | Interactive canvas endorsement pad with clear action and receipt stamp. |
-| [`seat-map`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/seat-map.tsx) | Seat Map | Interactive seating chart grid with row letters, seat numbers and tiers. |
-| [`keypad`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/keypad.tsx) | Keypad | Numeric PIN keypad with tactile stamped keys and masked display. |
-| [`tag-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tag-input.tsx) | Tag Input | Tag input with pill chip badges, remove buttons and backspace deletion. |
+| [`seat-map`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/seat-map.tsx) | Seat Map | Interactive arena seating chart matrix grid with row letters, seat numbers, tier types, and price calculator. |
+| [`keypad`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/keypad.tsx) | Keypad | Numeric PIN keypad with tactile mechanical keys, visual pulse, and masked PIN display. |
+| [`tag-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tag-input.tsx) | Tag Input | Tag input with pill chip badges, remove buttons, backspace deletion, and dashed container. |
 
 </details>
 
@@ -111,34 +111,34 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`data-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/data-table.tsx) | Data Table | Sortable, searchable data table with row selection and pagination. |
 | [`video-frame`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/video-frame.tsx) | Video Frame | Cinema screening container with sprocket edges and play overlay. |
 | [`audio-mini`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/audio-mini.tsx) | Audio Mini | Compact audio player with animated equalizer bars and duration counter. |
-| [`section-heading`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/section-heading.tsx) | Section Heading | Section divider banner with dashed rules and zone badges. |
+| [`section-heading`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/section-heading.tsx) | Section Heading | Theater and arena section divider banner with dashed rules and zone badges. |
 | [`lightbox`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/lightbox.tsx) | Lightbox | Fullscreen media viewer with film frame edges and image paging. |
-| [`sticky-bar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sticky-bar.tsx) | Sticky Bar | Floating bottom checkout bar with item counter and action button. |
+| [`sticky-bar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sticky-bar.tsx) | Sticky Bar | Floating bottom checkout bar with item counter and admission button. |
 | [`stack`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/stack.tsx) | Stack | Stacked container with staggered angles and hover fan-out. |
 | [`container`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/container.tsx) | Container | Centered layout wrapper with notch cutouts. |
 | [`kanban-lite`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/kanban-lite.tsx) | Kanban Lite | Queue and stage progression board with notch cards. |
-| [`gantt-lite`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/gantt-lite.tsx) | Gantt Lite | Interactive timetable schedule with animated now indicator. |
-| [`stopwatch`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/stopwatch.tsx) | Stopwatch | Timer with lap tear-offs and digital readout. |
-| [`countup`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/countup.tsx) | Countup | Mechanical odometer counter with animated tally and slot frames. |
-| [`nfc-badge`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/nfc-badge.tsx) | NFC Badge | Contactless pass tap simulator with animated ripple pulse and status badge. |
+| [`gantt-lite`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/gantt-lite.tsx) | Gantt Lite | Interactive festival and stage timetable schedule with animated now indicator. |
+| [`stopwatch`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/stopwatch.tsx) | Stopwatch | Precision timer with lap tear-offs and digital readout. |
+| [`countup`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/countup.tsx) | Countup | Mechanical turnstile odometer counter with animated tally and slot frames. |
+| [`nfc-badge`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/nfc-badge.tsx) | NFC Badge | Contactless gate pass tap simulator with animated radio wave ripple pulse, status badge, lanyard notch, and admission chime. |
 | [`scratch-off`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/scratch-off.tsx) | Scratch Off | Lottery ticket with interactive foil scratch layer and auto-reveal. |
-| [`qr-reader`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/qr-reader.tsx) | QR Reader | Simulated camera QR and barcode scanner viewfinder with laser sweep. |
-| [`audio-waveform`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/audio-waveform.tsx) | Audio Waveform | Interactive multi-bar audio wave visualizer with timestamp readout. |
-| [`ticket-fold`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/ticket-fold.tsx) | Ticket Fold | 3D fold ticket pass that unfolds with smooth perspective rotation. |
-| [`split-flap`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/split-flap.tsx) | Split Flap | Mechanical departure board with flipping characters and retro styling. |
-| [`watermark`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/watermark.tsx) | Watermark | Repeating watermark pattern for tickets, badges, and passes. |
-| [`turnstile-gate`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/turnstile-gate.tsx) | Turnstile Gate | Mechanical turnstile rotor barrier with pass counter and status LED. |
-| [`collapsible`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/collapsible.tsx) | Collapsible | Standalone expandable disclosure card with animated height reveal. |
-| [`aspect-ratio`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/aspect-ratio.tsx) | Aspect Ratio | Proportional media container with preset ratios and corner guides. |
-| [`resizable`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/resizable.tsx) | Resizable | Splitter layout panels with draggable resize handle and min/max limits. |
-| [`scroll-area`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/scroll-area.tsx) | Scroll Area | Custom styled scrollable container with dashed scrollbar track. |
+| [`qr-reader`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/qr-reader.tsx) | QR Reader | Turnstile simulated camera QR and barcode scanner viewfinder with animated laser sweep and targeting reticle. |
+| [`audio-waveform`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/audio-waveform.tsx) | Audio Waveform | Interactive multi-bar audio wave visualizer for concert recordings with live animated frequency bars and timestamp readout. |
+| [`ticket-fold`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/ticket-fold.tsx) | Ticket Fold | 3D accordion fold pass that unfolds with smooth perspective rotation and tear-away slip. |
+| [`split-flap`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/split-flap.tsx) | Split Flap | Mechanical departure board with flipping characters and retro terminal styling. |
+| [`watermark`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/watermark.tsx) | Watermark | Repeating watermark pattern with security angle. |
+| [`turnstile-gate`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/turnstile-gate.tsx) | Turnstile Gate | Mechanical rotor barrier with pass counter, status LED, and push animation. |
+| [`collapsible`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/collapsible.tsx) | Collapsible | Standalone expandable disclosure card with notch header, animated height reveal and status mark. |
+| [`aspect-ratio`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/aspect-ratio.tsx) | Aspect Ratio | Proportional media container with preset ratios, framed border, and corner guides. |
+| [`resizable`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/resizable.tsx) | Resizable | Splitter layout panels with draggable resize handle, min/max limits and collapse button. |
+| [`scroll-area`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/scroll-area.tsx) | Scroll Area | Custom styled scrollable container with customized dashed scrollbar track, thumb indicator, horizontal/vertical support, and perforated top/bottom shadow fades. |
 | [`pricing-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/pricing-table.tsx) | Pricing Table | 3-tier matrix with billing switcher, highlighted plan and feature checklist. |
 | [`metric-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/metric-card.tsx) | Metric Card | Dashboard KPI card with value, trend delta and period label. |
 | [`code-block`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/code-block.tsx) | Code Block | Code snippet block with filename tab, language badge and copy button. |
-| [`activity-feed`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/activity-feed.tsx) | Activity Feed | Activity stream with timeline avatars, action badges and timestamps. |
-| [`credit-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/credit-card.tsx) | Credit Card | Payment card visualizer with formatting, brand detection and 3D flip. |
-| [`status-dot`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/status-dot.tsx) | Status Dot | Live status beacon with radar sweep pulse and glow rings. |
-| [`donut-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/donut-chart.tsx) | Donut Chart | Zero-dependency SVG donut and pie chart with hover highlight and legend. |
+| [`activity-feed`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/activity-feed.tsx) | Activity Feed | Universal user and team activity stream for deployments, invites, edits, and security audits with timeline avatars, action badges, relative timestamps, and event icons. |
+| [`credit-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/credit-card.tsx) | Credit Card | Universal payment card visualizer with real-time card number formatting, brand badge detection (Visa, Mastercard, Amex), metallic EMV chip, and interactive 3D flip card to show CVV. |
+| [`status-dot`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/status-dot.tsx) | Status Dot | Live status beacon with radar sweep pulse, glow rings and occupancy levels. |
+| [`donut-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/donut-chart.tsx) | Donut Chart | Interactive zero-dependency SVG donut and pie chart with segment hover highlight, tooltips, center total readout, and custom color legend. |
 
 </details>
 
@@ -147,7 +147,7 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 
 | File | Component | Description |
 |---|---|---|
-| [`file-upload-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/file-upload-list.tsx) | File Upload List | Multi-file upload queue with progress bars and cancel/retry actions. |
+| [`file-upload-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/file-upload-list.tsx) | File Upload List | Multi-file upload manager queue with individual file progress percentage bars, file size formatting (KB/MB), file type badges, cancel/retry/remove buttons, and overall upload count status. |
 | [`alert`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/alert.tsx) | Alert | Notice box with tone bar and status eyebrow. |
 | [`tooltip`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tooltip.tsx) | Tooltip | Floating helper tooltip on hover and keyboard focus. |
 | [`dialog`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/dialog.tsx) | Dialog | Accessible modal dialog with focus trap and scale animation. |
@@ -160,9 +160,9 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`cookie-banner`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/cookie-banner.tsx) | Cookie Banner | Fixed privacy consent banner with accept and decline actions. |
 | [`confetti-burst`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/confetti-burst.tsx) | Confetti Burst | CSS celebration burst with stamp-colored pieces flying outward. |
 | [`tour`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tour.tsx) | Tour | Interactive step-by-step guided onboarding card with progress indicators. |
-| [`hover-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/hover-card.tsx) | Hover Card | Popover preview on hover and focus with configurable delays. |
+| [`hover-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/hover-card.tsx) | Hover Card | Popover preview on hover and focus with configurable delays and alignment. |
 | [`drawer`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/drawer.tsx) | Drawer | Bottom slide-up drawer with pull handle, backdrop blur, and focus trap. |
-| [`announcement-bar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/announcement-bar.tsx) | Announcement Bar | Alert ribbon bar with countdown badge, CTA button, and dismiss action. |
+| [`announcement-bar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/announcement-bar.tsx) | Announcement Bar | Festival alert and headline announcement ribbon bar with perforated top/bottom tear lines, countdown urgency badge, action CTA button, and dismiss action. |
 
 </details>
 
@@ -179,14 +179,14 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`toggle-group`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/toggle-group.tsx) | Toggle Group | Single-choice segmented control with roving tabindex. |
 | [`dropdown-menu`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/dropdown-menu.tsx) | Dropdown Menu | Popup actions menu with keyboard shortcuts and items. |
 | [`countdown`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/countdown.tsx) | Countdown | Live ticking event timer with segmented cards. |
-| [`command-palette`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/command-palette.tsx) | Command Palette | Modal search command palette with keyboard shortcuts and filter. |
+| [`command-palette`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/command-palette.tsx) | Command Palette | Modal search command palette with keyboard shortcuts, categorization, and filter. |
 | [`context-menu`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/context-menu.tsx) | Context Menu | Right-click menu with smooth reveal, shortcuts, and dashed divider. |
 | [`scroll-top`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/scroll-top.tsx) | Scroll Top | Floating elevator button that scrolls smoothly to page top. |
-| [`menubar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/menubar.tsx) | Menubar | Menu bar with dropdown menus, shortcuts, and dashed frames. |
+| [`menubar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/menubar.tsx) | Menubar | Theater box office menu bar with dropdown menus, shortcuts, and dashed frames. |
 | [`navbar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/navbar.tsx) | Navbar | Navigation bar with brand monogram and active links. |
 | [`tree-nav`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tree-nav.tsx) | Tree Nav | Hierarchical explorer with collapsible nodes and icons. |
 | [`sidebar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sidebar.tsx) | Sidebar | Collapsible navigation sidebar drawer with notch cutouts. |
-| [`breadcrumb-dropdown`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/breadcrumb-dropdown.tsx) | Breadcrumb Dropdown | Breadcrumb trail with popover dropdown for intermediate tiers. |
+| [`breadcrumb-dropdown`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/breadcrumb-dropdown.tsx) | Breadcrumb Dropdown | Hierarchical route breadcrumb with popover dropdown for intermediate tiers. |
 | [`dock`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/dock.tsx) | Dock | Floating application dock bar with hover magnification and active indicators. |
 
 </details>

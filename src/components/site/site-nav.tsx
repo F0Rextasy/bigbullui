@@ -17,7 +17,7 @@ export function SiteNav() {
             Components
           </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/F0Rextasy/bigbullui"
             target="_blank"
             rel="noreferrer"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"

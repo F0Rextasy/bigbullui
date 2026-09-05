@@ -78,9 +78,6 @@ export function DocSidebar() {
             >
               <div className="flex items-center gap-2">
                 <span>{cat.name}</span>
-                <span className="rounded-sm bg-secondary px-1.5 py-0.2 font-mono text-[10px] text-muted-foreground">
-                  {catItems.length}
-                </span>
               </div>
               <svg
                 className={cn("size-3.5 transition-transform duration-150", !isOpen && "-rotate-90")}
