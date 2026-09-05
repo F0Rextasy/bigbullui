@@ -96,7 +96,27 @@ import { GanttLite } from "@/components/ui/gantt-lite";
 import { Sidebar } from "@/components/ui/sidebar";
 import { Stopwatch } from "@/components/ui/stopwatch";
 import { Countup } from "@/components/ui/countup";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { SignaturePad } from "@/components/ui/signature-pad";
+import { QrReader } from "@/components/ui/qr-reader";
+import { AudioWaveform } from "@/components/ui/audio-waveform";
+import { TicketFold } from "@/components/ui/ticket-fold";
+import { SegmentedSwitch } from "@/components/ui/segmented-switch";
+import { NfcBadge } from "@/components/ui/nfc-badge";
+import { ScratchOff } from "@/components/ui/scratch-off";
+import { SplitFlapBoard } from "@/components/ui/split-flap";
+import { SeatMap } from "@/components/ui/seat-map";
+import { Watermark } from "@/components/ui/watermark";
+import { BreadcrumbDropdown } from "@/components/ui/breadcrumb-dropdown";
+import { TurnstileGate } from "@/components/ui/turnstile-gate";
+import { Collapsible } from "@/components/ui/collapsible";
+import { AspectRatio, AspectRatioPreset } from "@/components/ui/aspect-ratio";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { HoverCard, HoverCardTrigger, HoverCardContent, HoverCardSeatSummary } from "@/components/ui/hover-card";
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from "@/components/ui/drawer";
 import { cn } from "@/components/ui/lib/utils";
+
 
 
 
@@ -990,8 +1010,613 @@ function AnimatedCountupPreview() {
   );
 }
 
-/* Master Previews Record for all 85 Components */
+function AnimatedThemeTogglePreview() {
+  const [isDark, setIsDark] = React.useState(false);
+
+  return (
+    <div className="flex flex-col items-center gap-6 w-full max-w-md select-none">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          FLIP TO SWITCH SHIFT // DAY &amp; NIGHT PASS
+        </span>
+        <ThemeToggle
+          dark={isDark}
+          onToggle={setIsDark}
+          syncHtmlDark={true}
+          enableSound={true}
+        />
+      </div>
+
+      <div className="flex items-center gap-3 border-t-2 border-dashed border-border pt-4 w-full justify-between">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+          COMPACT POCKET STUB:
+        </span>
+        <ThemeToggle
+          variant="compact"
+          dark={isDark}
+          onToggle={setIsDark}
+          syncHtmlDark={true}
+          enableSound={true}
+        />
+      </div>
+    </div>
+  );
+}
+
+function AnimatedSignaturePadPreview() {
+  const [signatureUrl, setSignatureUrl] = React.useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = React.useState("AWAITING STUB ENDORSEMENT");
+
+  return (
+    <div className="flex flex-col gap-4 w-full max-w-lg select-none">
+      <SignaturePad
+        title="ADMISSION TICKET ENDORSEMENT"
+        stubNumber="PASS #VIP-9942"
+        instruction="AUTHORIZED TICKET HOLDER SIGNATURE"
+        height={150}
+        enableSound={true}
+        onChange={(url) => {
+          setSignatureUrl(url);
+          if (url) setStatusMessage("SIGNATURE CAPTURED // READY TO ENDORSE");
+        }}
+        onClear={() => {
+          setSignatureUrl(null);
+          setStatusMessage("CLEARED // AWAITING NEW SIGNATURE");
+        }}
+        onEndorse={(url) => {
+          setSignatureUrl(url);
+          setStatusMessage("TICKET OFFICIALLY ENDORSED &amp; STAMPED");
+        }}
+      />
+      <div className="flex items-center justify-between font-mono text-[10px] uppercase text-muted-foreground px-1">
+        <span>STATUS: {statusMessage}</span>
+        <span>{signatureUrl ? "INK: CAPTURED" : "PAD: READY"}</span>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedQrReaderPreview() {
+  const [lastScan, setLastScan] = React.useState<string | null>(null);
+
+  return (
+    <div className="flex flex-col items-center gap-4 w-full max-w-md">
+      <QrReader
+        title="TURNSTILE GATE 04B"
+        gateId="SECTOR A // ENTRANCE"
+        onScan={(data) => {
+          setLastScan(`${data.code} · ${data.attendee} (${data.tier})`);
+        }}
+        onReset={() => setLastScan(null)}
+      />
+      {lastScan && (
+        <div className="rounded-md border border-dashed border-emerald-500/60 bg-emerald-500/10 px-3 py-1.5 font-mono text-xs text-emerald-600 dark:text-emerald-400">
+          LOG: {lastScan}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AnimatedAudioWaveformPreview() {
+  return (
+    <div className="w-full max-w-2xl">
+      <AudioWaveform
+        title="CONCERT ARCHIVE // ACT II: OVERTURE"
+        artist="BIGBULL SYMPHONY ORCHESTRA"
+        venue="GRAND ARENA // MAIN STAGE"
+        duration={214}
+        initialTime={42}
+      />
+    </div>
+  );
+}
+
+function AnimatedNfcBadgePreview() {
+  const [tapCount, setTapCount] = React.useState(0);
+  const [lastAdmission, setLastAdmission] = React.useState<string | null>(null);
+
+  return (
+    <div className="flex flex-col items-center gap-4 w-full max-w-sm select-none">
+      <NfcBadge
+        holderName="MAXINE VANCE"
+        passId="NFC-8842-VIP"
+        department="STAGE CREW // AUDIO A1"
+        accessLevel="ALL ACCESS VIP"
+        gate="NORTH TURNSTILE 04"
+        validUntil="FALL 2026"
+        onTap={() => setTapCount((c) => c + 1)}
+        onAdmission={(id) => setLastAdmission(`ADMITTED ${id} AT GATE 04`)}
+      />
+      <div className="flex items-center justify-between w-full font-mono text-[10px] uppercase text-muted-foreground px-2">
+        <span>TAPS LOGGED: {tapCount}</span>
+        <span>{lastAdmission ?? "READY AT TURNSTILE"}</span>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedScratchOffPreview() {
+  const [revealedCode, setRevealedCode] = React.useState<string | null>(null);
+
+  return (
+    <div className="flex flex-col items-center gap-4 w-full max-w-xl select-none">
+      <ScratchOff
+        lotteryTitle="BIG BULL RAFFLE // GOLDEN STUB"
+        prizeTitle="GRAND RAFFLE WINNER"
+        prizeAmount="$500 VOUCHER"
+        prizeCode="BULL-JACKPOT-777"
+        serial="NO. #774921-X"
+        revealThreshold={50}
+        onReveal={(code) => setRevealedCode(code)}
+        onReset={() => setRevealedCode(null)}
+      />
+      <div className="flex items-center justify-between w-full font-mono text-[10px] uppercase text-muted-foreground px-2">
+        <span>INTERACTION: DRAG TO SCRATCH (50% THRESHOLD)</span>
+        <span>{revealedCode ? `REDEEM CODE: ${revealedCode}` : "SCRATCH CARD TO REVEAL"}</span>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedTicketFoldPreview() {
+  const [unfolded, setUnfolded] = React.useState(false);
+  const [torn, setTorn] = React.useState(false);
+
+  return (
+    <div className="flex flex-col items-center gap-4 w-full max-w-md py-4 select-none">
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setUnfolded((prev) => !prev)}
+          className="rounded border border-dashed border-foreground/40 bg-card px-3 py-1 font-mono text-xs font-bold uppercase hover:bg-secondary active:scale-95"
+        >
+          {unfolded ? "Collapse Fold" : "Unfold 3D Pass"}
+        </button>
+        <button
+          type="button"
+          onClick={() => setTorn((prev) => !prev)}
+          className="rounded border border-dashed border-destructive/60 bg-card px-3 py-1 font-mono text-xs font-bold uppercase text-destructive hover:bg-destructive/10 active:scale-95"
+        >
+          {torn ? "Reset Stub" : "Simulate Tear"}
+        </button>
+      </div>
+
+      <TicketFold
+        eventName="HYPERDRIVE LIVE 2026"
+        subtitle="HOLOGRAPHIC SYNTH FESTIVAL"
+        tier="VIP ALL-ACCESS"
+        serial="NO. 8942-X"
+        date="OCT 14, 2026"
+        time="21:00 CEST"
+        venue="SECTOR 7 DOCKLANDS"
+        seatInfo={{ section: "VIP-A", row: "02", seat: "14", gate: "G3" }}
+        holderName="ELENA VANCE // ID 4402"
+        barcodeValue="BB-HYPER-2026"
+        unfolded={unfolded}
+        onFoldChange={setUnfolded}
+        torn={torn}
+        onTear={() => setTorn(true)}
+      />
+    </div>
+  );
+}
+
+function AnimatedSegmentedSwitchPreview() {
+  const [turnstileState, setTurnstileState] = React.useState("ADMIT");
+
+  return (
+    <div className="flex flex-col items-center gap-6 w-full max-w-md py-4 select-none">
+      <SegmentedSwitch
+        value={turnstileState}
+        onChange={setTurnstileState}
+        label="TURNSTILE GATE 04"
+        gateCode="GATE-04"
+        options={[
+          { value: "ADMIT", label: "ADMIT", tone: "success", badge: "01" },
+          { value: "HOLD", label: "HOLD", tone: "warning", badge: "02" },
+          { value: "DENIED", label: "DENIED", tone: "danger", badge: "03" },
+        ]}
+      />
+
+      <div className="flex items-center gap-2 font-mono text-xs">
+        <span className="text-muted-foreground text-[10px] uppercase">QUICK TRIGGER:</span>
+        {(["ADMIT", "HOLD", "DENIED"] as const).map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => setTurnstileState(s)}
+            className={cn(
+              "rounded border border-dashed px-2 py-0.5 text-[10px] font-bold uppercase transition-colors",
+              turnstileState === s
+                ? "border-foreground bg-primary text-primary-foreground"
+                : "border-border bg-card text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AnimatedSplitFlapPreview() {
+  const [boardData, setBoardData] = React.useState([
+    { id: "1", time: "14:10", train: "BB-402", destination: "NEW YORK PENN", track: "04", status: "ON TIME" },
+    { id: "2", time: "14:25", train: "EXP-88", destination: "CHICAGO UNION", track: "08", status: "BOARDING" },
+    { id: "3", time: "14:40", train: "EXP-104", destination: "BOSTON SOUTH", track: "02", status: "DELAYED" },
+    { id: "4", time: "15:00", train: "BB-550", destination: "WASHINGTON DC", track: "11", status: "ON TIME" },
+  ]);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setBoardData((prev) =>
+        prev.map((row, idx) => {
+          if (idx === 1) {
+            return { ...row, status: row.status === "BOARDING" ? "FINAL CALL" : "BOARDING" };
+          }
+          if (idx === 2) {
+            return { ...row, status: row.status === "DELAYED" ? "ON TIME" : "DELAYED" };
+          }
+          return row;
+        })
+      );
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="w-full max-w-2xl select-none">
+      <SplitFlapBoard
+        title="GRAND CENTRAL CONCOURSE"
+        subtitle="MECHANICAL DEPARTURES · SOLARI V4"
+        terminalCode="GCT-M4"
+        rows={boardData}
+        showControls={true}
+      />
+    </div>
+  );
+}
+
+function AnimatedSeatMapPreview() {
+  const [selected, setSelected] = React.useState<string[]>(["B-5", "B-6"]);
+
+  return (
+    <div className="w-full max-w-2xl select-none">
+      <SeatMap
+        venueName="BIGBULL AMPHITHEATER"
+        eventName="SYMPHONY IN BRASS · MAIN STAGE"
+        eventDate="SAT, OCT 24 · 20:00"
+        selectedSeatIds={selected}
+        onSelectionChange={(seats) => setSelected(seats.map((s) => s.id))}
+      />
+    </div>
+  );
+}
+
+function AnimatedWatermarkPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <Watermark text="BIGBULL OFFICIAL PASS • NON-TRANSFERABLE" notched className="p-6">
+        <div className="flex items-center justify-between border-b border-dashed border-border pb-3">
+          <span className="text-xs font-mono font-bold text-foreground">VIP PASS #0042</span>
+          <span className="rounded bg-accent px-2 py-0.5 text-[10px] font-mono font-bold text-accent-foreground">VERIFIED</span>
+        </div>
+        <div className="mt-4 font-mono">
+          <div className="text-sm font-bold text-foreground">ALL-ARENA ACCESS</div>
+          <div className="text-xs text-muted-foreground mt-1">HOLDER: MARCUS AURELIUS // BOX 01</div>
+        </div>
+      </Watermark>
+    </div>
+  );
+}
+
+function AnimatedBreadcrumbDropdownPreview() {
+  const items = [
+    { label: "ARENA", href: "#" },
+    { label: "TIER 1", href: "#" },
+    { label: "SECTION B", href: "#" },
+    { label: "ROW 4", href: "#" },
+    { label: "SEAT 18", active: true },
+  ];
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <BreadcrumbDropdown items={items} maxVisible={3} />
+      <span className="text-[10px] font-mono text-muted-foreground uppercase">
+        Middle tiers automatically collapse into ticket dropdown
+      </span>
+    </div>
+  );
+}
+
+function AnimatedTurnstileGatePreview() {
+  return (
+    <div className="w-full max-w-sm">
+      <TurnstileGate gateName="TURNSTILE NORTH-01" admittedCount={1420} />
+    </div>
+  );
+}
+
+function AnimatedCollapsiblePreview() {
+  const [open, setOpen] = React.useState(true);
+  const [status, setStatus] = React.useState<"valid" | "admitted" | "vip">("valid");
+
+  return (
+    <div className="flex w-full max-w-md flex-col gap-4">
+      {/* Interactive Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-dashed border-border pb-2 text-xs font-mono">
+        <span className="text-muted-foreground uppercase">CONTROL DISCLOSURE:</span>
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="cursor-pointer rounded border border-border bg-card px-2 py-0.5 font-mono text-[10px] font-bold uppercase transition-colors hover:border-foreground"
+          >
+            {open ? "COLLAPSE ALL" : "EXPAND ALL"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatus((s) => (s === "valid" ? "admitted" : s === "admitted" ? "vip" : "valid"))}
+            className="cursor-pointer rounded border border-accent bg-accent/10 px-2 py-0.5 font-mono text-[10px] font-bold text-accent uppercase transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            STAMP: {status.toUpperCase()}
+          </button>
+        </div>
+      </div>
+
+      {/* Standalone Ticket Disclosure Card */}
+      <Collapsible
+        open={open}
+        onOpenChange={setOpen}
+        title="BACKSTAGE VIP PASS"
+        subtitle="Gate 4 · Soundcheck access & Artist lounge"
+        serial="PASS #0942-VIP"
+        badge="ALL ACCESS"
+        status={status}
+      >
+        <div className="space-y-3 font-mono text-xs">
+          <div className="grid grid-cols-3 gap-2 border-y border-dashed border-border/80 py-2.5 text-center">
+            <div>
+              <span className="block text-[9px] uppercase tracking-wider text-muted-foreground">TIER</span>
+              <span className="font-bold text-foreground">VIP GOLD</span>
+            </div>
+            <div>
+              <span className="block text-[9px] uppercase tracking-wider text-muted-foreground">LOUNGE</span>
+              <span className="font-bold text-foreground">ROOM 3B</span>
+            </div>
+            <div>
+              <span className="block text-[9px] uppercase tracking-wider text-muted-foreground">SCAN ID</span>
+              <span className="font-bold text-foreground">#99201</span>
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+            <span>SHOWTIME: 20:30 CST</span>
+            <span className="font-bold text-accent">DOORS OPEN 18:30</span>
+          </div>
+        </div>
+      </Collapsible>
+    </div>
+  );
+}
+
+function AnimatedAspectRatioPreview() {
+  const [selectedRatio, setSelectedRatio] = React.useState<AspectRatioPreset>("16:9");
+  const [perforated, setPerforated] = React.useState(true);
+  const [guides, setGuides] = React.useState(true);
+  const [notches, setNotches] = React.useState(true);
+
+  const presets: AspectRatioPreset[] = ["16:9", "3:1", "2:1", "1:1"];
+
+  return (
+    <div className="flex w-full max-w-lg flex-col items-center gap-4">
+      {/* Ratio Selector Buttons */}
+      <div className="flex flex-wrap items-center justify-center gap-1.5">
+        {presets.map((preset) => (
+          <button
+            key={preset}
+            type="button"
+            onClick={() => setSelectedRatio(preset)}
+            className={cn(
+              "cursor-pointer rounded border px-2.5 py-1 font-mono text-xs font-bold uppercase transition-all duration-150",
+              selectedRatio === preset
+                ? "border-foreground bg-primary text-primary-foreground shadow-xs"
+                : "border-border bg-card text-foreground hover:border-foreground"
+            )}
+          >
+            {preset}
+          </button>
+        ))}
+      </div>
+
+      {/* Frame Feature Toggles */}
+      <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] text-muted-foreground uppercase">
+        <label className="flex cursor-pointer items-center gap-1">
+          <input
+            type="checkbox"
+            checked={perforated}
+            onChange={(e) => setPerforated(e.target.checked)}
+            className="accent-accent"
+          />
+          PERFORATED
+        </label>
+        <label className="flex cursor-pointer items-center gap-1">
+          <input
+            type="checkbox"
+            checked={guides}
+            onChange={(e) => setGuides(e.target.checked)}
+            className="accent-accent"
+          />
+          CORNER GUIDES
+        </label>
+        <label className="flex cursor-pointer items-center gap-1">
+          <input
+            type="checkbox"
+            checked={notches}
+            onChange={(e) => setNotches(e.target.checked)}
+            className="accent-accent"
+          />
+          NOTCHES
+        </label>
+      </div>
+
+      {/* Proportional Container */}
+      <div className="w-full transition-all duration-300">
+        <AspectRatio
+          ratio={selectedRatio}
+          perforated={perforated}
+          cornerGuides={guides}
+          cornerNotches={notches}
+          serial="STUB-REF #7731"
+          variant="stub"
+        >
+          <div className="flex size-full flex-col items-center justify-center bg-radial from-card via-secondary/40 to-muted/80 p-4 text-center">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-accent">
+              ★ OFFICIAL TICKET STUB PROPORTION ★
+            </span>
+            <span className="mt-1 font-mono text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground">
+              {selectedRatio} RATIO
+            </span>
+            <span className="mt-1 font-mono text-[11px] text-muted-foreground">
+              {selectedRatio === "16:9" && "Stage screen & cinema monitor"}
+              {selectedRatio === "3:1" && "Elongated boarding voucher strip"}
+              {selectedRatio === "2:1" && "Classic concert ticket pass"}
+              {selectedRatio === "1:1" && "Square accreditation lanyard badge"}
+            </span>
+          </div>
+        </AspectRatio>
+      </div>
+    </div>
+  );
+}
+
+function AnimatedResizablePreview() {
+  return (
+    <div className="w-full max-w-xl h-64 border-2 border-foreground rounded-lg overflow-hidden bg-card font-mono text-xs">
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel defaultSize={40} minSize={25}>
+          <div className="flex h-full flex-col justify-between p-4 bg-secondary/30">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase">ZONE A // MAIN STAGE</span>
+            <div className="font-bold text-foreground">STAGE CONTROLS</div>
+            <span className="text-[9px] text-muted-foreground">DRAG NOTCH DIVIDER →</span>
+          </div>
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel defaultSize={60} minSize={30}>
+          <div className="flex h-full flex-col justify-between p-4 bg-card">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase">ZONE B // VIP BALCONY</span>
+            <div className="font-bold text-foreground">RESERVED SEATS 01-50</div>
+            <span className="text-[9px] text-accent font-bold">STATUS: ADMITTED</span>
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </div>
+  );
+}
+
+function AnimatedScrollAreaPreview() {
+  const items = Array.from({ length: 15 }, (_, i) => `TICKET PASS #${(1000 + i).toString()} · SEC B ROW ${i + 1}`);
+
+  return (
+    <div className="w-full max-w-xs rounded-lg border-2 border-dashed border-border bg-card p-3">
+      <div className="border-b border-border pb-2 text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground mb-2">
+        SCROLLABLE TICKET LEDGER
+      </div>
+      <ScrollArea className="h-48 w-full">
+        <div className="space-y-1.5 pr-3 font-mono text-xs">
+          {items.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex items-center justify-between rounded border border-border bg-secondary/40 p-2 text-[11px]"
+            >
+              <span>{item}</span>
+              <span className="rounded bg-accent/15 px-1 text-[9px] font-bold text-accent">VIP</span>
+            </div>
+          ))}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+}
+
+function AnimatedHoverCardPreview() {
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <HoverCard openDelay={150} closeDelay={200}>
+        <HoverCardTrigger asChild>
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-md border-2 border-foreground bg-card px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-foreground shadow-xs transition-transform hover:scale-105"
+          >
+            <span className="size-2 rounded-full bg-accent animate-pulse" />
+            HOVER PASS • ROW A SEAT 18
+          </button>
+        </HoverCardTrigger>
+        <HoverCardContent side="bottom" align="center" showBeak>
+          <HoverCardSeatSummary
+            badge="VIP ALL-ACCESS PASS"
+            ticketNo="#TKT-9920-X"
+            attendeeName="Elena Vance"
+            attendeeRole="Lead Guest"
+            status="vip"
+            eventTitle="GLOBAL ADMISSION SUMMIT"
+            date="SEP 18, 2026 • 19:30"
+            venue="Grand Arena"
+            tier="DIAMOND"
+            section="SEC A1"
+            row="ROW 04"
+            seat="SEAT 18"
+            barcode="VIP-ADMIT-ONE"
+          />
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  );
+}
+
+function AnimatedDrawerPreview() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerTrigger asChild>
+          <button
+            type="button"
+            className="rounded-md border-2 border-foreground bg-foreground px-4 py-2 font-mono text-xs font-bold uppercase text-background transition-transform hover:scale-105 active:scale-95"
+          >
+            OPEN ADMISSION DRAWER
+          </button>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>ADMISSION GATE SHEET</DrawerTitle>
+            <DrawerDescription>Pull down or click close to dismiss</DrawerDescription>
+          </DrawerHeader>
+          <DrawerBody>
+            <div className="p-4 rounded-lg border-2 border-dashed border-border bg-secondary/30 font-mono text-xs">
+              <div className="font-bold text-foreground">STUB #BB-4091 VALIDATED</div>
+              <p className="mt-1 text-muted-foreground text-[11px]">Gate 04 North • Section VIP A1 • Seat 18</p>
+            </div>
+          </DrawerBody>
+          <DrawerFooter>
+            <DrawerClose asChild>
+              <button type="button" className="px-3 py-1.5 font-mono text-xs rounded border border-border">
+                CLOSE
+              </button>
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </div>
+  );
+}
+
+/* Master Previews Record for all Components */
 const previews: Record<string, React.ComponentType> = {
+  collapsible: AnimatedCollapsiblePreview,
+  "aspect-ratio": AnimatedAspectRatioPreview,
   button: AnimatedButtonPreview,
   badge: AnimatedBadgePreview,
   progress: AnimatedProgressPreview,
@@ -1428,7 +2053,25 @@ const previews: Record<string, React.ComponentType> = {
   sidebar: AnimatedSidebarPreview,
   stopwatch: AnimatedStopwatchPreview,
   countup: AnimatedCountupPreview,
+  "theme-toggle": AnimatedThemeTogglePreview,
+  "signature-pad": AnimatedSignaturePadPreview,
+  "qr-reader": AnimatedQrReaderPreview,
+  "audio-waveform": AnimatedAudioWaveformPreview,
+  "nfc-badge": AnimatedNfcBadgePreview,
+  "scratch-off": AnimatedScratchOffPreview,
+  "ticket-fold": AnimatedTicketFoldPreview,
+  "segmented-switch": AnimatedSegmentedSwitchPreview,
+  "split-flap": AnimatedSplitFlapPreview,
+  "seat-map": AnimatedSeatMapPreview,
+  watermark: AnimatedWatermarkPreview,
+  "breadcrumb-dropdown": AnimatedBreadcrumbDropdownPreview,
+  "turnstile-gate": AnimatedTurnstileGatePreview,
+  resizable: AnimatedResizablePreview,
+  "scroll-area": AnimatedScrollAreaPreview,
+  "hover-card": AnimatedHoverCardPreview,
+  drawer: AnimatedDrawerPreview,
 };
+
 
 export function ComponentPreview({ name }: { name: string }) {
   const Preview = previews[name];

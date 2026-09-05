@@ -205,3 +205,82 @@ export type { StopwatchProps, LapRecord } from "./components/ui/stopwatch";
 export { Countup } from "./components/ui/countup";
 export type { CountupProps } from "./components/ui/countup";
 
+// Ticket Stub Specials
+export { NfcBadge } from "./components/ui/nfc-badge";
+export type { NfcBadgeProps, NfcStatus } from "./components/ui/nfc-badge";
+export { ScratchOff } from "./components/ui/scratch-off";
+export type { ScratchOffProps } from "./components/ui/scratch-off";
+// Wave 10 Additions
+export { ThemeToggle } from "./components/ui/theme-toggle";
+export type { ThemeToggleProps } from "./components/ui/theme-toggle";
+export { SignaturePad } from "./components/ui/signature-pad";
+export type { SignaturePadProps } from "./components/ui/signature-pad";
+// Wave 11 Additions
+export { QrReader } from "./components/ui/qr-reader";
+export type { QrReaderProps, TicketScanData } from "./components/ui/qr-reader";
+export { AudioWaveform } from "./components/ui/audio-waveform";
+export type { AudioWaveformProps } from "./components/ui/audio-waveform";
+
+// Ticket Stub Mechanics & 3D Folds
+export { TicketFold } from "./components/ui/ticket-fold";
+export type { TicketFoldProps, TicketFoldSeatInfo } from "./components/ui/ticket-fold";
+export { SegmentedSwitch } from "./components/ui/segmented-switch";
+export type { SegmentedSwitchProps, SegmentedSwitchOption, SegmentedSwitchTone } from "./components/ui/segmented-switch";
+
+// Terminal Displays & Security
+export { SplitFlapBoard, SplitFlapText, SplitFlapChar, SplitFlapRow } from "./components/ui/split-flap";
+export type { SplitFlapBoardProps, SplitFlapTextProps, SplitFlapCharProps, SplitFlapRowProps, SplitFlapRowData } from "./components/ui/split-flap";
+export { SeatMap } from "./components/ui/seat-map";
+export type { SeatMapProps, SeatData, SeatTier, SeatTierType } from "./components/ui/seat-map";
+export { Watermark } from "./components/ui/watermark";
+export type { WatermarkProps } from "./components/ui/watermark";
+export { BreadcrumbDropdown } from "./components/ui/breadcrumb-dropdown";
+export type { BreadcrumbDropdownProps, BreadcrumbItemData } from "./components/ui/breadcrumb-dropdown";
+export { TurnstileGate } from "./components/ui/turnstile-gate";
+export type { TurnstileGateProps } from "./components/ui/turnstile-gate";
+
+// Proportional Displays & Disclosures
+export { Collapsible, CollapsibleHeader, CollapsibleTrigger, CollapsibleContent, CollapsibleStamp, useCollapsible } from "./components/ui/collapsible";
+export type { CollapsibleProps, CollapsibleHeaderProps, CollapsibleTriggerProps, CollapsibleContentProps, CollapsibleStampProps, CollapsibleStatus, CollapsibleContextValue } from "./components/ui/collapsible";
+export { AspectRatio, isAspectRatioPreset, ASPECT_RATIO_PRESETS } from "./components/ui/aspect-ratio";
+export type { AspectRatioProps, AspectRatioPreset } from "./components/ui/aspect-ratio";
+
+// Modern Ticket Stub Panes & Containers
+export { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "./components/ui/resizable";
+export type { ResizablePanelGroupProps, ResizablePanelProps, ResizableHandleProps } from "./components/ui/resizable";
+export { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
+export type { ScrollAreaProps, ScrollBarProps } from "./components/ui/scroll-area";
+export {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+  HoverCardSeatSummary,
+  HoverCardHeader,
+  HoverCardTitle,
+  HoverCardDescription,
+  HoverCardFooter,
+} from "./components/ui/hover-card";
+export type {
+  HoverCardProps,
+  HoverCardTriggerProps,
+  HoverCardContentProps,
+  HoverCardSeatSummaryProps,
+} from "./components/ui/hover-card";
+export {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerBody,
+  DrawerFooter,
+  DrawerClose,
+} from "./components/ui/drawer";
+export type {
+  DrawerProps,
+  DrawerTriggerProps,
+  DrawerContentProps,
+  DrawerCloseProps,
+} from "./components/ui/drawer";
+

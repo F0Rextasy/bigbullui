@@ -2,16 +2,15 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { SiteNav } from "@/components/site/site-nav";
 import { GlowDivider } from "@/components/site/glow-divider";
-import { CodeCopy } from "@/components/site/code-copy";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Playground } from "@/components/site/playground";
-import { components, categories } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
 
 function CodeBox({ code }: { code: string }) {
   return (
     <div className="overflow-hidden rounded-lg bg-[#08080c]">
       <div className="flex items-center justify-end px-3 pt-3">
-        <CodeCopy code={code} />
+          <CopyButton value={code} />
       </div>
       <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
         <code>{code}</code>
@@ -64,44 +63,10 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-4xl font-semibold tracking-[-0.03em]">Try it live.</h2>
         <p className="mt-3 text-muted-foreground">
-          Real components, running now. Flip the switch, drag the slider, change the tab.
+          Real components, running now — scroll and touch everything.
         </p>
         <div className="mt-10">
           <Playground />
-        </div>
-      </section>
-
-      <GlowDivider className="mx-auto max-w-4xl" />
-
-      {/* Catalog by category */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-4xl font-semibold tracking-[-0.03em]">Every component, ready to use.</h2>
-        <p className="mt-3 text-muted-foreground">
-          Browse by category — every piece is live in the docs.
-        </p>
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {categories.map((cat) => {
-            const items = components.filter((c) => c.category === cat.id);
-            return (
-              <div key={cat.id} className="rounded-lg border border-border bg-card p-6">
-                <div className="flex items-baseline justify-between">
-                  <h3 className="font-mono text-sm font-bold uppercase tracking-[0.15em]">{cat.name}</h3>
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{cat.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={`/docs/${item.name}`}
-                      className="rounded-sm border border-border px-2.5 py-1 font-mono text-xs transition-colors hover:border-foreground hover:bg-secondary"
-                    >
-                      {item.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
         </div>
       </section>
 

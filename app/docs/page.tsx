@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
-import { CodeCopy } from "@/components/site/code-copy";
+import { CopyButton } from "@/components/ui/copy-button";
 import { DocsExplorer } from "@/components/site/docs-explorer";
 
 export const metadata = { title: "Components" };
@@ -32,7 +32,7 @@ export default function DocsIndex() {
         <h2 className="text-lg font-semibold tracking-tight">Install via npm</h2>
         <div className="overflow-hidden rounded-lg bg-[#08080c]">
           <div className="flex items-center justify-end px-3 pt-3">
-            <CodeCopy code="npm install bigbullui" />
+            <CopyButton value="npm install bigbullui" />
           </div>
           <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
             <code>npm install bigbullui</code>
@@ -43,7 +43,7 @@ export default function DocsIndex() {
         </p>
         <div className="overflow-hidden rounded-lg bg-[#08080c]">
           <div className="flex items-center justify-end px-3 pt-3">
-            <CodeCopy code={installCss} />
+            <CopyButton value={installCss} />
           </div>
           <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
             <code>{installCss}</code>
@@ -51,7 +51,7 @@ export default function DocsIndex() {
         </div>
         <div className="overflow-hidden rounded-lg bg-[#08080c]">
           <div className="flex items-center justify-end px-3 pt-3">
-            <CodeCopy code={installUsage} />
+            <CopyButton value={installUsage} />
           </div>
           <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
             <code>{installUsage}</code>
@@ -69,7 +69,7 @@ export default function DocsIndex() {
         </p>
         <div className="overflow-hidden rounded-lg bg-[#08080c]">
           <div className="flex items-center justify-end px-3 pt-3">
-            <CodeCopy code={skillMd} />
+            <CopyButton value={skillMd} />
           </div>
           <pre className="max-h-64 overflow-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
             <code>{skillMd}</code>

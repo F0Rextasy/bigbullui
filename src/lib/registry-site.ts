@@ -43,6 +43,10 @@ export const components: ComponentMeta[] = [
   { name: "transfer-list", title: "Transfer List", description: "Two-column ticket transfer list between available and claimed stubs.", category: "form" },
   { name: "tree-select", title: "Tree Select", description: "Hierarchical seating dropdown selector with expandable zone nodes.", category: "form" },
   { name: "masked-currency", title: "Masked Currency", description: "Formatted currency price input with prefix badge and numeric mask.", category: "form" },
+  { name: "segmented-switch", title: "Segmented Switch", description: "Mechanical multi-option ticket turnstile lever switch with smooth slide carriage and ticket notch details.", category: "form" },
+  { name: "theme-toggle", title: "Theme Toggle", description: "Ticket stub theme switcher with DAY PASS and NIGHT PASS flip animation, punch notches, and sound feedback.", category: "form" },
+  { name: "signature-pad", title: "Signature Pad", description: "Interactive HTML5 canvas ticket endorsement pad with clear action and SIGNED & ENDORSED receipt stamp.", category: "form" },
+  { name: "seat-map", title: "Seat Map", description: "Interactive arena seating chart matrix grid with row letters, seat numbers, tier types, and price calculator.", category: "form" },
 
   // Display (27)
   { name: "ticket-card", title: "Ticket Card", description: "Complete admission ticket with notched edges and seat details.", category: "display" },
@@ -76,6 +80,19 @@ export const components: ComponentMeta[] = [
   { name: "gantt-lite", title: "Gantt Lite", description: "Interactive festival and stage timetable schedule with animated now indicator.", category: "display" },
   { name: "stopwatch", title: "Stopwatch", description: "Turnstile gate admission timer with lap stub tear-offs and digital readout.", category: "display" },
   { name: "countup", title: "Countup", description: "Mechanical turnstile odometer counter with animated tally and slot frames.", category: "display" },
+  { name: "nfc-badge", title: "NFC Badge", description: "Contactless gate pass tap simulator with animated radio wave ripple pulse, status badge, lanyard notch, and admission chime.", category: "display" },
+  { name: "scratch-off", title: "Scratch Off", description: "Lottery raffle ticket with interactive canvas foil scratch layer, reveal threshold auto-reveal, and perforated frame.", category: "display" },
+  { name: "qr-reader", title: "QR Reader", description: "Turnstile simulated camera QR and barcode scanner viewfinder with animated laser sweep and targeting reticle.", category: "display" },
+  { name: "audio-waveform", title: "Audio Waveform", description: "Interactive multi-bar audio wave visualizer for concert recordings with live animated frequency bars and timestamp readout.", category: "display" },
+  { name: "ticket-fold", title: "Ticket Fold", description: "3D accordion fold ticket pass that unfolds with smooth perspective rotation, perforation crease line, and tear-away slip animation.", category: "display" },
+  { name: "split-flap", title: "Split Flap", description: "Mechanical Solari departure board with flipping characters, sound-ready relay animation, and retro ticket terminal styling.", category: "display" },
+  { name: "watermark", title: "Watermark", description: "Anti-counterfeit repeating watermark pattern for tickets, badges, and passes with security angle.", category: "display" },
+  { name: "turnstile-gate", title: "Turnstile Gate", description: "Mechanical turnstile rotor barrier with pass counter, status LED, and admission push animation.", category: "display" },
+  { name: "collapsible", title: "Collapsible", description: "Standalone expandable disclosure card with ticket notch header, animated height reveal, trigger button, and status stamp.", category: "display" },
+  { name: "aspect-ratio", title: "Aspect Ratio", description: "Proportional ticket stub media and pass container with preset ratios (16:9, 3:1, 2:1, 1:1), perforated frame, and corner punch guides.", category: "display" },
+  { name: "resizable", title: "Resizable", description: "Splitter layout panels with horizontal/vertical orientation, draggable perforated border resize handle, min/max limits, collapse button, and ticket notches.", category: "display" },
+  { name: "scroll-area", title: "Scroll Area", description: "Custom styled scrollable container with customized dashed scrollbar track, thumb indicator, horizontal/vertical support, and perforated top/bottom shadow fades.", category: "display" },
+
 
   // Feedback (12)
   { name: "alert", title: "Alert", description: "Notice box with tone bar and status eyebrow.", category: "feedback" },
@@ -90,8 +107,10 @@ export const components: ComponentMeta[] = [
   { name: "cookie-banner", title: "Cookie Banner", description: "Fixed privacy consent banner with accept and decline actions.", category: "feedback" },
   { name: "confetti-burst", title: "Confetti Burst", description: "CSS celebration burst with stamp-colored pieces flying outward.", category: "feedback" },
   { name: "tour", title: "Tour", description: "Interactive step-by-step guided onboarding card with progress indicators and ticket styling.", category: "feedback" },
+  { name: "hover-card", title: "Hover Card", description: "Ticket stub popover preview that triggers on hover and focus with configurable delays, anchor alignment, pointer beak notch, and attendee seat summary card.", category: "feedback" },
+  { name: "drawer", title: "Drawer", description: "Bottom slide-up admission drawer with touch drag pull handle, perforated ticket notch rim, backdrop blur, and focus trap.", category: "feedback" },
 
-  // Navigation (15)
+  // Navigation (16)
   { name: "tabs", title: "Tabs", description: "Segmented panel switch with roving keyboard focus.", category: "navigation" },
   { name: "accordion", title: "Accordion", description: "Collapsible disclosure items with smooth height transitions.", category: "navigation" },
   { name: "pagination", title: "Pagination", description: "Numbered buttons with ellipsis and page stepping.", category: "navigation" },
@@ -107,4 +126,5 @@ export const components: ComponentMeta[] = [
   { name: "navbar", title: "Navbar", description: "Perforated ticket stub navigation bar with brand monogram and active links.", category: "navigation" },
   { name: "tree-nav", title: "Tree Nav", description: "Hierarchical arena seating explorer with collapsible nodes and ticket icons.", category: "navigation" },
   { name: "sidebar", title: "Sidebar", description: "Collapsible ticket booth navigation sidebar drawer with notch cutouts.", category: "navigation" },
+  { name: "breadcrumb-dropdown", title: "Breadcrumb Dropdown", description: "Hierarchical ticket route breadcrumb trail with popover dropdown for intermediate tiers.", category: "navigation" },
 ];

@@ -1,4 +1,4 @@
-import { CodeCopy } from "@/components/site/code-copy";
+import { CopyButton } from "@/components/ui/copy-button";
 
 export const metadata = { title: "Installation" };
 
@@ -24,7 +24,7 @@ function CodeBox({ code }: { code: string }) {
   return (
     <div className="overflow-hidden rounded-lg bg-[#08080c]">
       <div className="flex items-center justify-end px-3 pt-3">
-        <CodeCopy code={code} />
+          <CopyButton value={code} />
       </div>
       <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
         <code>{code}</code>

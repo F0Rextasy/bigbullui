@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { ComponentPreview } from "@/components/site/component-preview";
-import { CodeCopy } from "@/components/site/code-copy";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Badge } from "@/components/ui/badge";
 
 export function generateStaticParams() {
@@ -109,6 +109,25 @@ const usage: Record<string, string> = {
   sidebar: `import { Sidebar } from "@/components/ui/sidebar";\n\n<Sidebar brand="BIGBULL ARENA" activeId="dashboard" />`,
   stopwatch: `import { Stopwatch } from "@/components/ui/stopwatch";\n\n<Stopwatch autoStart onLap={(lap) => console.log(lap)} />`,
   countup: `import { Countup } from "@/components/ui/countup";\n\n<Countup end={8492} duration={1500} label="TICKETS ADMITTED" />`,
+  "theme-toggle": `import { ThemeToggle } from "@/components/ui/theme-toggle";\n\n<ThemeToggle />\n<ThemeToggle variant="compact" />`,
+  "signature-pad": `import { SignaturePad } from "@/components/ui/signature-pad";\n\n<SignaturePad\n  title="TICKET HOLDER ENDORSEMENT"\n  onEndorse={(dataUrl) => console.log("Endorsed", dataUrl)}\n/>`,
+  "qr-reader": `import { QrReader } from "@/components/ui/qr-reader";\n\n<QrReader onScan={(data) => console.log(data.code, data.attendee)} />`,
+  "audio-waveform": `import { AudioWaveform } from "@/components/ui/audio-waveform";\n\n<AudioWaveform title="LIVE CONCERT" artist="ORCHESTRA" duration={240} />`,
+  "nfc-badge": `import { NfcBadge } from "@/components/ui/nfc-badge";\n\n<NfcBadge holderName="MAXINE VANCE" passId="NFC-8842-VIP" onAdmission={(id) => console.log(id)} />`,
+  "scratch-off": `import { ScratchOff } from "@/components/ui/scratch-off";\n\n<ScratchOff prizeAmount="$500 VOUCHER" prizeCode="BULL-JACKPOT-777" onReveal={(code) => console.log(code)} />`,
+  "ticket-fold": `import { TicketFold } from "@/components/ui/ticket-fold";\n\n<TicketFold eventName="HYPERDRIVE LIVE" tier="VIP" date="OCT 14, 2026" />`,
+  "segmented-switch": `import { SegmentedSwitch } from "@/components/ui/segmented-switch";\n\n<SegmentedSwitch defaultValue="ADMIT" options={["ADMIT", "HOLD", "DENIED"]} onChange={(val) => console.log(val)} />`,
+  "split-flap": `import { SplitFlapBoard } from "@/components/ui/split-flap";\n\n<SplitFlapBoard title="DEPARTURES CONCOURSE" rows={[{ time: "14:10", train: "BB-402", destination: "NEW YORK", track: "04", status: "ON TIME" }]} />`,
+  "seat-map": `import { SeatMap } from "@/components/ui/seat-map";\n\n<SeatMap venueName="BIGBULL AMPHITHEATER" maxSeats={6} onSelectionChange={(seats) => console.log(seats)} />`,
+  watermark: `import { Watermark } from "@/components/ui/watermark";\n\n<Watermark text="OFFICIAL PASS • DO NOT DUPLICATE" notched>\n  <div>Protected Content</div>\n</Watermark>`,
+  "breadcrumb-dropdown": `import { BreadcrumbDropdown } from "@/components/ui/breadcrumb-dropdown";\n\n<BreadcrumbDropdown items={[{ label: "ARENA" }, { label: "TIER 1" }, { label: "SEAT 18", active: true }]} maxVisible={3} />`,
+  "turnstile-gate": `import { TurnstileGate } from "@/components/ui/turnstile-gate";\n\n<TurnstileGate gateName="GATE A-04" admittedCount={384} onAdmit={() => console.log("Admitted")} />`,
+  collapsible: `import { Collapsible } from "@/components/ui/collapsible";\n\n<Collapsible\n  title="VIP ADMISSION PASS"\n  subtitle="Gate 4 · Section B · Row 12"\n  serial="STUB #8841-A"\n  status="valid"\n  defaultOpen={false}\n>\n  <p className="text-xs font-mono text-muted-foreground">\n    Admit one attendee to the main floor amphitheater with backstage lounge credentials.\n  </p>\n</Collapsible>`,
+  "aspect-ratio": `import { AspectRatio } from "@/components/ui/aspect-ratio";\n\n<AspectRatio ratio="16:9" perforated cornerGuides cornerNotches label="STAGE SCREEN">\n  <div className="flex size-full items-center justify-center bg-secondary/40 font-mono text-xs text-muted-foreground">\n    PROPORTIONAL STAGE FEED\n  </div>\n</AspectRatio>`,
+  resizable: `import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";\n\n<ResizablePanelGroup direction="horizontal">\n  <ResizablePanel defaultSize={50}>Left Panel</ResizablePanel>\n  <ResizableHandle withHandle />\n  <ResizablePanel defaultSize={50}>Right Panel</ResizablePanel>\n</ResizablePanelGroup>`,
+  "scroll-area": `import { ScrollArea } from "@/components/ui/scroll-area";\n\n<ScrollArea className="h-64 w-full">\n  <div>Long content with perforated scrollbar</div>\n</ScrollArea>`,
+  "hover-card": `import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";\n\n<HoverCard>\n  <HoverCardTrigger asChild><button>Hover Pass</button></HoverCardTrigger>\n  <HoverCardContent>Ticket details</HoverCardContent>\n</HoverCard>`,
+  drawer: `import { Drawer, DrawerTrigger, DrawerContent } from "@/components/ui/drawer";\n\n<Drawer>\n  <DrawerTrigger asChild><button>Open Drawer</button></DrawerTrigger>\n  <DrawerContent>Sheet content</DrawerContent>\n</Drawer>`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -575,6 +594,149 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "label", type: "string", description: "Eyebrow label above odometer display." },
     { name: "variant", type: '"odometer" | "minimal" | "badge"', description: "Display style variant (default 'odometer')." },
   ],
+  "theme-toggle": [
+    { name: "dark", type: "boolean", description: "Controlled dark mode state." },
+    { name: "defaultDark", type: "boolean", description: "Initial dark state for uncontrolled mode (default false)." },
+    { name: "onToggle", type: "(isDark: boolean) => void", description: "Callback fired when the ticket pass flips." },
+    { name: "syncHtmlDark", type: "boolean", description: "Whether to synchronize 'dark' class on documentElement (default true)." },
+    { name: "enableSound", type: "boolean", description: "Whether to play mechanical hole-punch click sound (default true)." },
+    { name: "variant", type: '"ticket" | "compact"', description: "Display style: full ticket stub or compact pass (default 'ticket')." },
+    { name: "size", type: '"sm" | "default" | "lg"', description: "Size scaling (default 'default')." },
+  ],
+  "signature-pad": [
+    { name: "height", type: "number", description: "Canvas drawing height in pixels (default 160)." },
+    { name: "strokeColor", type: "string", description: "Signature pen stroke color (default 'currentColor')." },
+    { name: "strokeWidth", type: "number", description: "Stroke line width in pixels (default 2.5)." },
+    { name: "title", type: "string", description: "Header receipt title on ticket stub." },
+    { name: "stubNumber", type: "string", description: "Ticket or stub reference number (e.g. 'STUB #BB-8841')." },
+    { name: "instruction", type: "string", description: "Micro instruction text along signature baseline." },
+    { name: "stampText", type: "string", description: "Text stamped on the receipt badge (default 'SIGNED & ENDORSED')." },
+    { name: "defaultEndorsed", type: "boolean", description: "Initial endorsement lock state (default false)." },
+    { name: "disabled", type: "boolean", description: "Whether drawing interaction is disabled." },
+    { name: "enableSound", type: "boolean", description: "Whether to play rubber stamp impact sound (default true)." },
+    { name: "onChange", type: "(dataUrl: string | null) => void", description: "Callback fired when stroke is added." },
+    { name: "onClear", type: "() => void", description: "Callback fired when signature canvas is cleared." },
+    { name: "onEndorse", type: "(dataUrl: string) => void", description: "Callback fired when endorsed, receiving PNG dataURL." },
+  ],
+  "qr-reader": [
+    { name: "title", type: "string", description: "Header title on turnstile scanner frame." },
+    { name: "gateId", type: "string", description: "Gate and turnstile identifier label." },
+    { name: "active", type: "boolean", description: "Whether camera viewfinder is scanning." },
+    { name: "onScan", type: "(data: TicketScanData) => void", description: "Callback when ticket is detected." },
+    { name: "showLaser", type: "boolean", description: "Displays animated red laser sweep line." },
+  ],
+  "audio-waveform": [
+    { name: "title", type: "string", description: "Title of concert recording or audio track." },
+    { name: "artist", type: "string", description: "Performing artist or orchestra." },
+    { name: "duration", type: "number", description: "Total length of audio track in seconds." },
+    { name: "initialTime", type: "number", description: "Starting playback timestamp in seconds." },
+    { name: "barCount", type: "number", description: "Number of frequency bars in spectrum analyzer." },
+    { name: "onPlayPause", type: "(playing: boolean) => void", description: "Callback when play/pause toggles." },
+  ],
+  "nfc-badge": [
+    { name: "holderName", type: "string", description: "Name of credential holder on badge." },
+    { name: "passId", type: "string", description: "Unique NFC credential identification number." },
+    { name: "department", type: "string", description: "Credential department or crew assignment." },
+    { name: "accessLevel", type: "string", description: "Access tier in rotated stamp badge." },
+    { name: "onTap", type: "() => void", description: "Callback when pass or reader is tapped." },
+    { name: "onAdmission", type: "(passId: string) => void", description: "Callback when admission is granted." },
+  ],
+  "scratch-off": [
+    { name: "prizeTitle", type: "string", description: "Headline label above revealed prize value." },
+    { name: "prizeAmount", type: "string", description: "Primary prize value or discount headline." },
+    { name: "prizeCode", type: "string", description: "Secret voucher code under the foil." },
+    { name: "revealThreshold", type: "number", description: "Percentage of foil scratched (0-100) before auto-reveal." },
+    { name: "onReveal", type: "(code: string) => void", description: "Callback when prize is revealed." },
+  ],
+  "ticket-fold": [
+    { name: "eventName", type: "string", description: "Event title displayed on pass." },
+    { name: "tier", type: "string", description: "Admission tier pill badge." },
+    { name: "date", type: "string", description: "Event date string." },
+    { name: "time", type: "string", description: "Showtime string." },
+    { name: "unfolded", type: "boolean", description: "Controlled 3D accordion fold state." },
+    { name: "onFoldChange", type: "(unfolded: boolean) => void", description: "Callback when pass fold changes." },
+    { name: "onTear", type: "() => void", description: "Callback when admission stub is torn off." },
+  ],
+  "segmented-switch": [
+    { name: "options", type: "Array<SegmentedSwitchOption | string>", description: "Array of selectable gate options." },
+    { name: "value", type: "string", description: "Controlled selected option value." },
+    { name: "defaultValue", type: "string", description: "Initial selected option value." },
+    { name: "onChange", type: "(val: string) => void", description: "Callback when segment changes." },
+    { name: "label", type: "string", description: "Header label above switch." },
+  ],
+  "split-flap": [
+    { name: "title", type: "string", description: "Concourse terminal header banner title." },
+    { name: "rows", type: "SplitFlapRowData[]", description: "Departure rows with train, destination, track, status." },
+    { name: "showControls", type: "boolean", description: "Toggles toolbar controls (sound, shuffle, filters)." },
+  ],
+  "seat-map": [
+    { name: "venueName", type: "string", description: "Venue name stamped on ticket header." },
+    { name: "eventName", type: "string", description: "Event name displayed on admission pass." },
+    { name: "selectedSeatIds", type: "string[]", description: "Controlled array of selected seat IDs." },
+    { name: "maxSeats", type: "number", description: "Maximum allowable tickets per reservation." },
+    { name: "onSelectionChange", type: "(seats: SeatData[]) => void", description: "Callback when seat selection changes." },
+  ],
+  watermark: [
+    { name: "text", type: "string", description: "Anti-counterfeit repeating watermark text string." },
+    { name: "repeat", type: "number", description: "Number of repeating text stamps in pattern." },
+    { name: "angle", type: "number", description: "Rotation angle degrees (default -22)." },
+    { name: "opacity", type: "number", description: "Watermark opacity level (default 0.07)." },
+    { name: "notched", type: "boolean", description: "Renders side punch notch cutouts." },
+  ],
+  "breadcrumb-dropdown": [
+    { name: "items", type: "BreadcrumbItemData[]", description: "Hierarchical trail item records." },
+    { name: "maxVisible", type: "number", description: "Maximum items visible before collapsing into dropdown." },
+    { name: "separator", type: "string", description: "Divider separator string (default '/')." },
+  ],
+  "turnstile-gate": [
+    { name: "gateName", type: "string", description: "Gate identifier label (default 'GATE A-04')." },
+    { name: "admittedCount", type: "number", description: "Initial admission count tally." },
+    { name: "locked", type: "boolean", description: "Whether gate barrier is locked." },
+    { name: "onAdmit", type: "() => void", description: "Callback when rotor is successfully pushed." },
+  ],
+  collapsible: [
+    { name: "title", type: "ReactNode", description: "Card title text or element for standalone mode." },
+    { name: "subtitle", type: "ReactNode", description: "Secondary info text below title." },
+    { name: "serial", type: "string", description: "Mono uppercase serial label (default 'STUB #08421')." },
+    { name: "status", type: '"valid" | "admitted" | "void" | "pending" | "vip"', description: "Status stamp preset." },
+    { name: "stampText", type: "string", description: "Custom text inside status stamp." },
+    { name: "open", type: "boolean", description: "Controlled open/expanded state." },
+    { name: "defaultOpen", type: "boolean", description: "Initial open state when uncontrolled (default false)." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Callback triggered when open state toggles." },
+    { name: "notch", type: "boolean", description: "Whether to render ticket punch notch cutouts (default true)." },
+    { name: "disabled", type: "boolean", description: "Disables expand/collapse interaction." },
+  ],
+  "aspect-ratio": [
+    { name: "ratio", type: 'number | "16:9" | "3:1" | "2:1" | "1:1" | "4:3" | "21:9"', description: "Aspect ratio preset or custom numeric ratio (default '16:9')." },
+    { name: "perforated", type: "boolean", description: "Renders dashed ticket perforation frame (default false)." },
+    { name: "cornerGuides", type: "boolean", description: "Renders corner punch registration guide marks (default false)." },
+    { name: "cornerNotches", type: "boolean", description: "Renders ticket punch notches on side edges (default false)." },
+    { name: "label", type: "string", description: "Micro status banner in the top-left corner." },
+    { name: "serial", type: "string", description: "Secondary mono serial identifier." },
+    { name: "variant", type: '"default" | "perforated" | "stub" | "screen"', description: "Visual frame surface styling (default 'default')." },
+  ],
+  resizable: [
+    { name: "direction", type: '"horizontal" | "vertical"', description: "Layout orientation of panels (default 'horizontal')." },
+    { name: "defaultSize", type: "number", description: "Default initial panel percentage size (on ResizablePanel)." },
+    { name: "minSize", type: "number", description: "Minimum allowable percentage size (on ResizablePanel)." },
+    { name: "maxSize", type: "number", description: "Maximum allowable percentage size (on ResizablePanel)." },
+    { name: "withHandle", type: "boolean", description: "Renders tactile grab handle notch on resize border (on ResizableHandle)." },
+  ],
+  "scroll-area": [
+    { name: "className", type: "string", description: "Additional CSS classes for viewport container." },
+    { name: "orientation", type: '"vertical" | "horizontal" | "both"', description: "Scroll axis direction (on ScrollBar)." },
+  ],
+  "hover-card": [
+    { name: "openDelay", type: "number", description: "Delay in ms before hover card reveals (default 200)." },
+    { name: "closeDelay", type: "number", description: "Delay in ms before hover card dismisses (default 250)." },
+    { name: "side", type: '"top" | "bottom"', description: "Placement side relative to trigger (default 'bottom')." },
+    { name: "showBeak", type: "boolean", description: "Renders pointer beak notch directed towards trigger (default true)." },
+  ],
+  drawer: [
+    { name: "open", type: "boolean", description: "Controlled open state of the bottom sheet." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Callback when open state changes." },
+    { name: "dismissThreshold", type: "number", description: "Downward drag distance in px to trigger dismiss (default 80)." },
+  ],
 };
 
 export default async function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -604,10 +766,25 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Install</h2>
+        <div className="overflow-hidden rounded-lg bg-[#08080c]">
+          <div className="flex items-center justify-end px-3 pt-3">
+            <CopyButton value="npm install bigbullui" />
+          </div>
+          <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
+            <code>npm install bigbullui</code>
+          </pre>
+        </div>
+        <p className="text-xs text-muted-foreground">
+          Then add the tokens — <Link href="/docs/installation" className="underline">full guide</Link>.
+        </p>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
         <div className="overflow-hidden rounded-lg bg-[#08080c]">
           <div className="flex items-center justify-end px-3 pt-3">
-            <CodeCopy code={usage[meta.name] ?? ""} />
+            <CopyButton value={usage[meta.name] ?? ""} />
           </div>
           <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
             <code>{usage[meta.name] ?? ""}</code>
@@ -645,7 +822,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source</h2>
         <div className="overflow-hidden rounded-lg bg-[#08080c]">
           <div className="flex items-center justify-end px-3 pt-3">
-            <CodeCopy code={source} />
+            <CopyButton value={source} />
           </div>
           <pre className="overflow-x-auto p-4 pt-2 font-mono text-[13px] leading-relaxed text-[#fafaf7]">
             <code>{source}</code>

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
 import { categories, type ComponentMeta } from "@/lib/registry-site";
 
 export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
@@ -19,14 +20,15 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <input
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search components..."
-          aria-label="Search components"
-          className="h-10 w-full flex-1 rounded-md border-2 border-dashed border-input bg-transparent px-3 font-mono text-sm transition-colors placeholder:text-muted-foreground focus-visible:border-solid focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
+        <div className="flex-1">
+          <Input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search components..."
+            aria-label="Search components"
+          />
+        </div>
         <nav aria-label="Categories" className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <a
