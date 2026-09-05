@@ -759,8 +759,8 @@ function AnimatedLightboxPreview() {
         open={open}
         onOpenChange={setOpen}
         images={[
-          { src: "/stub-1.png", title: "MAIN STAGE PASS", alt: "Section A Row C Seat 12" },
-          { src: "/stub-2.png", title: "VIP BALCONY STUB", alt: "Box Tier Seat 04" },
+          { src: "/stock/stage.jpg", title: "MAIN STAGE PASS", alt: "Section A Row C Seat 12" },
+          { src: "/stock/crowd.jpg", title: "VIP BALCONY STUB", alt: "Box Tier Seat 04" },
         ]}
       />
     </div>
@@ -2471,7 +2471,7 @@ import { wave10Previews } from "@/components/site/previews/wave10";
 import { wave11Previews } from "@/components/site/previews/wave11";
 import { wave12Previews } from "@/components/site/previews/wave12";
 import { wave2Previews } from "@/components/site/previews/wave2";
-import { wave3Previews } from "@/components/site/previews/wave3";
+import { wave20Previews } from "@/components/site/previews/wave20";import { wave3Previews } from "@/components/site/previews/wave3";
 import { wave4Previews } from "@/components/site/previews/wave4";
 import { wave5Previews } from "@/components/site/previews/wave5";
 import { wave6Previews } from "@/components/site/previews/wave6";
@@ -2479,7 +2479,20 @@ import { wave7Previews } from "@/components/site/previews/wave7";
 import { wave8Previews } from "@/components/site/previews/wave8";
 import { wave9Previews } from "@/components/site/previews/wave9";
 
-Object.assign(previews, waveAdvancedPreviews, wave1Previews, wave10Previews, wave11Previews, wave12Previews, wave2Previews, wave3Previews, wave4Previews, wave5Previews, wave6Previews, wave7Previews, wave8Previews, wave9Previews);
+Object.assign(previews, waveAdvancedPreviews, wave1Previews, wave10Previews, wave11Previews, wave12Previews, wave20Previews, wave2Previews, wave3Previews, wave4Previews, wave5Previews, wave6Previews, wave7Previews, wave8Previews, wave9Previews);
+
+import { wave13Previews } from "@/components/site/previews/wave13";
+import { wave14Previews } from "@/components/site/previews/wave14";
+import { wave15Previews } from "@/components/site/previews/wave15";
+import { wave16Previews } from "@/components/site/previews/wave16";
+import { wave17Previews } from "@/components/site/previews/wave17";
+import { wave18Previews } from "@/components/site/previews/wave18";
+
+Object.assign(previews, wave13Previews, wave14Previews, wave15Previews, wave16Previews, wave17Previews, wave18Previews,);
+
+import { wave19Previews } from "@/components/site/previews/wave19";
+
+Object.assign(previews, wave19Previews);
 
 export function ComponentPreview({ name }: { name: string }) {
   const Preview = previews[name];

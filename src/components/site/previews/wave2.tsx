@@ -66,7 +66,7 @@ export const wave2Previews: Record<string, React.ComponentType> = {
   figure: () => {
     return (
       <Figure
-        src="/placeholder-600x400.png"
+        src="/stock/stage.jpg"
         alt="Product illustration"
         caption="Product features illustration"
       />
@@ -128,7 +128,7 @@ export const wave2Previews: Record<string, React.ComponentType> = {
   "media-object": () => {
     return (
       <MediaObject
-        src="/placeholder-400x300.png"
+        src="/stock/crowd.jpg"
         alt="Product screenshot"
         title="Product Title"
         description="A brief description of the product featured in the screenshot."

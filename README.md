@@ -109,6 +109,46 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`file-input`](https://bigbullui.vercel.app/docs/file-input) | FileInput | Styled file input with drop chips and selection count animation |
 | [`slider-ticks`](https://bigbullui.vercel.app/docs/slider-ticks) | SliderTicks | Slider with tick marks, labels, and snap-to-ticks functionality |
 | [`rich-text-editor`](https://bigbullui.vercel.app/docs/rich-text-editor) | Rich Text Editor | Minimal contentEditable editor with toolbar (bold, italic, underline, lists, links, quote, code) and word/char counter. |
+| [`login-form`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/login-form.tsx) | Login Form | Login form with live validation, show/hide password, remember me and social buttons. |
+| [`register-form`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/register-form.tsx) | Register Form | Registration form with name, email, animated password strength and terms consent. |
+| [`forgot-password`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/forgot-password.tsx) | Forgot Password | Password reset flow: email input transitions to animated sent confirmation. |
+| [`otp-verify`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/otp-verify.tsx) | Otp Verify | 6-digit OTP verification with auto-advance, paste support and resend countdown. |
+| [`two-factor`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/two-factor.tsx) | Two Factor | 2FA setup panel with animated QR scan line, recovery codes and copy action. |
+| [`permissions-matrix`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/permissions-matrix.tsx) | Permissions Matrix | Role � permission checkbox matrix with animated check pops. |
+| [`profile-settings`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/profile-settings.tsx) | Profile Settings | Profile settings with avatar slot, fields and animated danger zone. |
+| [`team-members`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/team-members.tsx) | Team Members | Team member management: invite input, role chips, remove action. |
+| [`form-progress`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/form-progress.tsx) | Form Progress | Form completion progress with segmented dashed bars. |
+| [`feature-flag-panel`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/feature-flag-panel.tsx) | Feature Flag Panel | Feature flag panel with toggle switches and rollout percentages. |
+| [`board-checklist`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/board-checklist.tsx) | Board Checklist | Task checklist: checkboxes, assignee, priority badges and progress bar. |
+| [`search-filter-bar`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/search-filter-bar.tsx) | Search Filter Bar | Combined search, sort and filter toolbar with animated chips. |
+| [`avatar-upload`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/avatar-upload.tsx) | Avatar Upload | Avatar upload circle with hover camera overlay and preview. |
+| [`shipping-options`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/shipping-options.tsx) | Shipping Options | Shipping option radio cards with carrier, duration and price. |
+| [`payment-methods`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/payment-methods.tsx) | Payment Methods | Payment method selector with card, bank, cash, wallet icons. |
+| [`credit-card-form`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/credit-card-form.tsx) | Credit Card Form | Credit card form with live number formatting and expiry mask. |
+| [`installment-picker`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/installment-picker.tsx) | Installment Picker | Installment plan picker: months, monthly amount, total. |
+| [`coupon-field`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/coupon-field.tsx) | Coupon Field | Coupon code field with validation, success check and shake error. |
+| [`exchange-rate`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/exchange-rate.tsx) | Exchange Rate | Exchange rate converter with two-way live calculation. |
+| [`audio-recorder`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/audio-recorder.tsx) | Audio Recorder | Microphone recording simulator with waveform and send action. |
+| [`code-editor`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/code-editor.tsx) | Code Editor | Code editor: line-number gutter, Tab insertion, scroll sync. |
+| [`markdown-editor`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/markdown-editor.tsx) | Markdown Editor | Markdown write/preview tabs with built-in renderer. |
+| [`diff-editor`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/diff-editor.tsx) | Diff Editor | Editable side-by-side diff view. |
+| [`json-editor`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/json-editor.tsx) | Json Editor | JSON editor with live validation, error line and format button. |
+| [`regex-tester`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/regex-tester.tsx) | Regex Tester | Regex tester: pattern, test string, highlighted matches and count. |
+| [`cron-builder`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/cron-builder.tsx) | Cron Builder | Cron expression builder: 5 fields, presets, live description. |
+| [`env-editor`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/env-editor.tsx) | Env Editor | Environment variable editor: secret masking, add/remove rows. |
+| [`checkbox-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/checkbox-card.tsx) | Checkbox Card | Card-style checkbox with title, description and check pop. |
+| [`radio-tile`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/radio-tile.tsx) | Radio Tile | Radio tile with icon, description and sliding dot. |
+| [`switch-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/switch-card.tsx) | Switch Card | Switch card combining title, description and toggle. |
+| [`field-array`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/field-array.tsx) | Field Array | Dynamic form rows: add, remove, move up/down. |
+| [`textarea-autosize`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/textarea-autosize.tsx) | Textarea Autosize | Auto-growing textarea with min/max height bounds. |
+| [`password-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/password-input.tsx) | Password Input | Password input with animated show/hide eye toggle. |
+| [`consent-checkbox`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/consent-checkbox.tsx) | Consent Checkbox | GDPR/KVKK consent checkbox with link and required marker. |
+| [`address-form`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/address-form.tsx) | Address Form | Address form grid: street, city, district, postal, country. |
+| [`currency-select`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/currency-select.tsx) | Currency Select | Currency select dropdown with symbols and codes. |
+| [`country-select`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/country-select.tsx) | Country Select | Country select with flag emojis and codes. |
+| [`duration-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/duration-input.tsx) | Duration Input | Duration input: hour/minute/second steppers. |
+| [`serial-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/serial-input.tsx) | Serial Input | Serial number input: grouped boxes, auto-advance, paste support. |
+| [`betting-slip`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/betting-slip.tsx) | Betting Slip | Betting slip: match picks, odds grid, stake and play button. |
 </details>
 
 <details>
@@ -282,6 +322,96 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`image-crop`](https://bigbullui.vercel.app/docs/image-crop) | Image Crop | Canvas-based image cropping with draggable crop rect, rule-of-thirds grid, resize handles, and dataURL output. |
 | [`sankey-chart`](https://bigbullui.vercel.app/docs/sankey-chart) | Sankey Chart | Two-level flow diagram with bezier ribbons, value-based width, hover tooltips, and entrance animations. |
 | [`org-chart`](https://bigbullui.vercel.app/docs/org-chart) | Org Chart | Hierarchical tree of boxes with connector lines, expand/collapse nodes, avatar initials, and entrance animations. |
+| [`tilt-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tilt-card.tsx) | Tilt Card | 3D cursor-tracking tilt card with springy reset and glare highlight. |
+| [`flip-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/flip-card.tsx) | Flip Card | Two-face card with rotateY flip animation, hover or click trigger. |
+| [`spotlight-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/spotlight-card.tsx) | Spotlight Card | Card with cursor-following radial spotlight glow. |
+| [`drag-sort`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/drag-sort.tsx) | Drag Sort | HTML5 drag-and-drop reorderable list with grab handles and drop indicators. |
+| [`api-key-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/api-key-card.tsx) | Api Key Card | API key card with masked value, reveal toggle, copy and regenerate actions. |
+| [`audit-log`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/audit-log.tsx) | Audit Log | Audit trail with actor avatars, color-coded action badges and timestamps. |
+| [`security-score`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/security-score.tsx) | Security Score | Security score with animated arc gauge and per-check pass/fail list. |
+| [`stats-overview`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/stats-overview.tsx) | Stats Overview | Overview layout: KPI tile row, mini bar chart panel and recent records table. |
+| [`user-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/user-table.tsx) | User Table | User management table with role badges, status dots and remove action. |
+| [`role-badge`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/role-badge.tsx) | Role Badge | Role badge set: admin, editor, member, viewer with distinct tones. |
+| [`settings-section`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/settings-section.tsx) | Settings Section | Settings section: title, description rows and save confirmation stamp. |
+| [`billing-panel`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/billing-panel.tsx) | Billing Panel | Billing panel: plan card, usage meters and invoice list. |
+| [`usage-meter`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/usage-meter.tsx) | Usage Meter | Quota meter with color-coded fill bar and over-limit pulse warning. |
+| [`webhook-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/webhook-list.tsx) | Webhook List | Webhook list with URL, event chips, test button and remove. |
+| [`version-badge`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/version-badge.tsx) | Version Badge | Version badge set: new, beta, stable, deprecated tones. |
+| [`queued-jobs`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/queued-jobs.tsx) | Queued Jobs | Job queue panel with status, progress bars and cancel action. |
+| [`upload-progress`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/upload-progress.tsx) | Upload Progress | Single file upload with circular progress ring and cancel. |
+| [`bento-grid`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/bento-grid.tsx) | Bento Grid | Bento grid: variable-sized cells with hover lift and staggered entrance. |
+| [`split-screen`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/split-screen.tsx) | Split Screen | Split layout: left content and right emphasis panel with ratio control. |
+| [`sticky-footer`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sticky-footer.tsx) | Sticky Footer | Sticky bottom bar that stays visible during scroll. |
+| [`centered-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/centered-card.tsx) | Centered Card | Centered single card layout for login/register pages. |
+| [`two-column-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/two-column-list.tsx) | Two Column List | Two-column notebook-style list with dashed separators. |
+| [`masonry-columns`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/masonry-columns.tsx) | Masonry Columns | CSS columns masonry: cards flow by height with break-inside protection. |
+| [`hero-split`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/hero-split.tsx) | Hero Split | Split hero: left text block and right framed visual slot. |
+| [`data-grid`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/data-grid.tsx) | Data Grid | Heavy data grid: sortable columns, pagination, sticky header. |
+| [`tree-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/tree-table.tsx) | Tree Table | Hierarchical table rows with expand/collapse chevrons. |
+| [`kanban-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/kanban-v2.tsx) | Kanban V2 | Drag-and-drop kanban board v2 with animated column transfers. |
+| [`task-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/task-list.tsx) | Task List | Task rows with assignee chips and priority badges. |
+| [`timeline-vertical-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/timeline-vertical-v2.tsx) | Timeline Vertical V2 | Two-sided vertical timeline v2 with alternating cards. |
+| [`feed-masonry`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/feed-masonry.tsx) | Feed Masonry | Masonry feed of mixed-height content cards. |
+| [`inbox-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/inbox-list.tsx) | Inbox List | Email inbox list: unread dots, senders, stars, subject previews. |
+| [`notification-feed`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/notification-feed.tsx) | Notification Feed | Full-page notification feed with type icons and read states. |
+| [`activity-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/activity-v2.tsx) | Activity V2 | Filterable activity feed v2 with action badges and avatars. |
+| [`rank-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/rank-list.tsx) | Rank List | Ranked list with drag-to-reorder and score readouts. |
+| [`table-summary`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/table-summary.tsx) | Table Summary | Table footer summary rows with bolded totals in dashed frame. |
+| [`empty-col-span`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/empty-col-span.tsx) | Empty Col Span | Empty table cell placeholder with floating icon animation. |
+| [`row-expand`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/row-expand.tsx) | Row Expand | Expandable row detail panels with height animation. |
+| [`mention-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mention-list.tsx) | Mention List | @mention suggestion panel with avatars and keyboard highlight. |
+| [`dm-thread`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/dm-thread.tsx) | Dm Thread | Direct message thread: header with presence, bubbles, input. |
+| [`poll`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/poll.tsx) | Poll | Interactive poll with animated result bars and vote confirmation. |
+| [`quiz-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/quiz-card.tsx) | Quiz Card | Mini quiz card with options and correct/incorrect feedback. |
+| [`bio-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/bio-card.tsx) | Bio Card | Bio card with social link icons and follow action. |
+| [`mention-highlight`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mention-highlight.tsx) | Mention Highlight | Highlight @mentions and #hashtags inside running text. |
+| [`badge-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/badge-list.tsx) | Badge List | Achievement badge grid with earned/locked states and shine sweep. |
+| [`gift-message`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/gift-message.tsx) | Gift Message | Gift message card with ribbon wiggle and open animation. |
+| [`voice-note-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/voice-note-list.tsx) | Voice Note List | Voice note list: play buttons, waveforms, durations. |
+| [`price-compare`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/price-compare.tsx) | Price Compare | Price comparison table across sellers with best-offer highlight. |
+| [`cart-badge`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/cart-badge.tsx) | Cart Badge | Cart count badge that pulses on item add. |
+| [`order-tracking`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/order-tracking.tsx) | Order Tracking | Order tracking strip: status dots with dates and courier. |
+| [`refund-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/refund-card.tsx) | Refund Card | Refund status card with amount and reason. |
+| [`wallet-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/wallet-card.tsx) | Wallet Card | Wallet balance card with top-up and mini transactions. |
+| [`crypto-ticker`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/crypto-ticker.tsx) | Crypto Ticker | Crypto price ticker with animated up/down arrows. |
+| [`budget-progress`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/budget-progress.tsx) | Budget Progress | Budget spending bar with category breakdown and overrun warning. |
+| [`subscription-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/subscription-card.tsx) | Subscription Card | Subscription card: plan, renewal date, features, cancel. |
+| [`gallery-grid`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/gallery-grid.tsx) | Gallery Grid | Image gallery grid with fullscreen lightbox and keyboard paging. |
+| [`image-carousel`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/image-carousel.tsx) | Image Carousel | Image carousel with arrows, dots and swipe feel. |
+| [`thumbnail-strip`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/thumbnail-strip.tsx) | Thumbnail Strip | Horizontal thumbnail strip with animated selection frame. |
+| [`video-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/video-list.tsx) | Video List | Video results list: thumbnails, duration badges, channel names. |
+| [`media-embed`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/media-embed.tsx) | Media Embed | Embedded media frame: 16:9, skeleton shimmer, dashed border. |
+| [`poster-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/poster-card.tsx) | Poster Card | Event poster card with gradient overlay and date corner. |
+| [`screenshot-frame`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/screenshot-frame.tsx) | Screenshot Frame | Browser-chrome screenshot frame with URL bar and controls. |
+| [`quote-wall`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/quote-wall.tsx) | Quote Wall | Masonry quote wall built on Quote cards. |
+| [`glossary-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/glossary-list.tsx) | Glossary List | Glossary list with letter index tabs and term definitions. |
+| [`changelog-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/changelog-list.tsx) | Changelog List | Changelog list: version badges, added/fixed/breaking sections. |
+| [`recipe-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/recipe-card.tsx) | Recipe Card | Recipe card: ingredients/steps tabs, time and servings. |
+| [`markdown-preview`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/markdown-preview.tsx) | Markdown Preview | Standalone markdown renderer: headings, lists, code, links, bold. |
+| [`html-preview`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/html-preview.tsx) | Html Preview | Sandboxed HTML preview frame. |
+| [`color-token-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/color-token-table.tsx) | Color Token Table | Theme token table: swatch, value, copy action. |
+| [`snippet-card`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/snippet-card.tsx) | Snippet Card | Code snippet card with language badge and copy button. |
+| [`console-panel`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/console-panel.tsx) | Console Panel | Console panel: colored output lines, input row, autoscroll. |
+| [`world-map`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/world-map.tsx) | World Map | Stylized world map grid with region value intensity and hover readout. |
+| [`bubble-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/bubble-chart.tsx) | Bubble Chart | Bubble chart with size-coded circles and hover magnify. |
+| [`word-cloud`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/word-cloud.tsx) | Word Cloud | Word cloud with weight-based font sizing and hover accent. |
+| [`network-graph`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/network-graph.tsx) | Network Graph | Node-edge network graph with bezier links and hover highlight. |
+| [`sunburst-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sunburst-chart.tsx) | Sunburst Chart | Two-ring sunburst chart with segment hover dimming. |
+| [`lottery-machine`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/lottery-machine.tsx) | Lottery Machine | Lottery machine with shaking ball cage and stamped number results. |
+| [`vending-machine`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/vending-machine.tsx) | Vending Machine | Vending machine with product grid, coin slot and drop animation. |
+| [`arcade-cabinet`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/arcade-cabinet.tsx) | Arcade Cabinet | Retro arcade cabinet with scanline screen, joystick and coin slot. |
+| [`punch-clock`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/punch-clock.tsx) | Punch Clock | Punch clock with live digital time and in/out stamp feed. |
+| [`mailbox`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mailbox.tsx) | Mailbox | Mailbox with flag raise and letter send animation. |
+| [`safe-vault`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/safe-vault.tsx) | Safe Vault | Safe vault with dial animation, code entry and open reveal. |
+| [`medal-display`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/medal-display.tsx) | Medal Display | Medal board with gold/silver/bronze tiers and shine sweep. |
+| [`trophy-shelf`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/trophy-shelf.tsx) | Trophy Shelf | Trophy shelf with earned/empty slots and drop-in animation. |
+| [`megaphone`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/megaphone.tsx) | Megaphone | Announcement megaphone with animated sound waves. |
+| [`score-keeper`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/score-keeper.tsx) | Score Keeper | Two-team score keeper with pulse on score change. |
+| [`match-ticker`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/match-ticker.tsx) | Match Ticker | Live match ticker with scrolling scores and LIVE badges. |
+| [`pool-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/pool-table.tsx) | Pool Table | Pool ball grid organizer with striped/solid ball rendering. |
+| [`revolving-door`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/revolving-door.tsx) | Revolving Door | Revolving door with rotating panels. |
+| [`ferris-wheel`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/ferris-wheel.tsx) | Ferris Wheel | Ferris wheel with rotating cabins. |
+| [`carousel-ride`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/carousel-ride.tsx) | Carousel Ride | Carousel ride with circling horses. |
 </details>
 <details>
 <summary><strong>Feedback</strong> — notices, hints and interruptions</summary>
@@ -319,6 +449,22 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`reaction-bar`](https://bigbullui.vercel.app/docs/reaction-bar) | ReactionBar | Emoji buttons with counts, active reaction pops, and hover tooltips. |
 | [`like-button`](https://bigbullui.vercel.app/docs/like-button) | LikeButton | Heart/thumb button that fills on click with burst particle animation and count increment. |
 | [`now-serving`](https://bigbullui.vercel.app/docs/now-serving) | NowServing | Split-flap style NOW SERVING board whose digits flip on value change with a blinking chime dot. |
+| [`session-list`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/session-list.tsx) | Session List | Active session manager: device icons, location, revoke buttons. |
+| [`danger-zone`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/danger-zone.tsx) | Danger Zone | Red-framed destructive actions area with two-step confirm. |
+| [`invite-modal`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/invite-modal.tsx) | Invite Modal | Invite modal with email, role radio group and sent confirmation. |
+| [`upgrade-prompt`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/upgrade-prompt.tsx) | Upgrade Prompt | Upgrade call-to-action card with shine sweep, feature list and dismiss. |
+| [`maintenance-banner`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/maintenance-banner.tsx) | Maintenance Banner | Maintenance notification bar with countdown chip and dismiss. |
+| [`offline-banner`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/offline-banner.tsx) | Offline Banner | Offline banner listening to navigator.onLine with reconnecting state. |
+| [`error-page`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/error-page.tsx) | Error Page | 404/500/403 full-page layout with stamped code and return action. |
+| [`permission-denied`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/permission-denied.tsx) | Permission Denied | Access denied panel with lock icon and request-access flow. |
+| [`save-indicator`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/save-indicator.tsx) | Save Indicator | Auto-save status chip: idle, saving, saved, error states. |
+| [`connection-status`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/connection-status.tsx) | Connection Status | Connection badge with pinging dot and optional latency readout. |
+| [`sync-status`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sync-status.tsx) | Sync Status | Sync status chip with spinning icon and last-sync timestamp. |
+| [`migration-banner`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/migration-banner.tsx) | Migration Banner | Data migration banner with progress bar and expandable detail. |
+| [`rate-limit-note`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/rate-limit-note.tsx) | Rate Limit Note | Rate limit notice with countdown timer. |
+| [`stock-status`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/stock-status.tsx) | Stock Status | Stock status badge: in stock, low stock pulse, sold out. |
+| [`char-counter`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/char-counter.tsx) | Char Counter | Character counter with near-limit and over-limit states. |
+| [`ticket-validator`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/ticket-validator.tsx) | Ticket Validator | Ticket validator device with blinking green/red result light. |
 </details>
 
 <details>
@@ -359,6 +505,25 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`back-link`](https://bigbullui.vercel.app/docs/back-link) | BackLink | Chevron button with label that slides on hover, with focus ring |
 | [`flyout-menu`](https://bigbullui.vercel.app/docs/flyout-menu) | FlyoutMenu | Hover dropdown menu with scale-in origin-top panel and keyboard navigation |
 | [`scroll-spy-nav`](https://bigbullui.vercel.app/docs/scroll-spy-nav) | ScrollSpyNav | Horizontal sticky navigation with active pill that slides under the active section, smooth scroll with reduced-motion fallback |
+| [`admin-shell`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/admin-shell.tsx) | Admin Shell | Admin panel skeleton: collapsible sidebar nav, top bar, content area. |
+| [`footer-minimal`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/footer-minimal.tsx) | Footer Minimal | Single-row minimal footer: brand, links, copyright. |
+| [`responsive-nav`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/responsive-nav.tsx) | Responsive Nav | Auto-switching nav: desktop horizontal links, mobile hamburger panel. |
+| [`keyboard-nav-helper`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/keyboard-nav-helper.tsx) | Keyboard Nav Helper | Keyboard shortcut overlay opened with the ? key. |
+| [`column-toggle`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/column-toggle.tsx) | Column Toggle | Column show/hide dropdown menu for data grids. |
+| [`wizard`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/wizard.tsx) | Wizard | Multi-step wizard with validation shake, progress markers and summary. |
+| [`stepper-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/stepper-v2.tsx) | Stepper V2 | Vertical/horizontal stepper v2 with descriptions and done states. |
+| [`mega-menu`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mega-menu.tsx) | Mega Menu | Full-width mega menu with columns, links and featured box. |
+| [`drawer-nav`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/drawer-nav.tsx) | Drawer Nav | Mobile hamburger drawer sliding from the left with staggered links. |
+| [`footer-nav`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/footer-nav.tsx) | Footer Nav | Site-map footer with link columns. |
+| [`anchor-nav`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/anchor-nav.tsx) | Anchor Nav | Sticky section anchor nav with IntersectionObserver spy. |
+| [`quick-actions`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/quick-actions.tsx) | Quick Actions | Quick action toolbar with shortcuts and danger variants. |
+| [`history-nav`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/history-nav.tsx) | History Nav | Back/forward history strip with breadcrumb entries. |
+| [`page-tabs`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/page-tabs.tsx) | Page Tabs | In-page tabs synced to URL query parameter. |
+| [`mobile-menu`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mobile-menu.tsx) | Mobile Menu | Full-screen mobile menu with staggered link entrance. |
+| [`sidebar-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sidebar-v2.tsx) | Sidebar V2 | Two-level collapsible sidebar v2. |
+| [`flyout-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/flyout-v2.tsx) | Flyout V2 | Hover flyout menu v2 with keyboard support. |
+| [`scroll-spy-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/scroll-spy-v2.tsx) | Scroll Spy V2 | Horizontal scroll-spy nav v2 with sliding active pill. |
+| [`pagination-v2`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/pagination-v2.tsx) | Pagination V2 | Hybrid pagination: numbered plus infinite scroll trigger. |
 </details>
 
 ## Theming

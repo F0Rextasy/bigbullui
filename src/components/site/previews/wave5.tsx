@@ -27,7 +27,7 @@ export function Wave5Preview() {
         title="Premium Headphones"
         price="$299"
         originalPrice="$399"
-        image="/placeholder-product.jpg"
+        image="/stock/product.jpg"
         discount={25}
       />
 
@@ -46,7 +46,7 @@ export function Wave5Preview() {
         category="Design"
         author="Alex Rivera"
         readTime="8"
-        image="/placeholder-article.jpg"
+        image="/stock/lights.jpg"
       />
 
       {/* Event Card */}

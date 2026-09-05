@@ -48,9 +48,12 @@ export default function Home() {
 
       {/* Live playground */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-4xl font-semibold tracking-[-0.03em]">Try it live.</h2>
-        <p className="mt-3 text-muted-foreground">
-          Real components, running now — scroll and touch everything.
+        <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-accent-strong">
+          Interactive
+        </p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">Touch everything.</h2>
+        <p className="mt-3 max-w-xl text-muted-foreground">
+          Five real scenes running live — sell a ticket, read the dashboard, scan at the gate.
         </p>
         <div className="mt-10">
           <Playground />

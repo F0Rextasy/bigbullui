@@ -114,8 +114,8 @@ export const wave4Previews: Record<string, React.ComponentType> = {
   "image-compare": () => {
     return (
       <ImageCompare
-        before="/placeholder.svg?before"
-        after="/placeholder.svg?after"
+        before="/stock/stage.jpg"
+        after="/stock/crowd.jpg"
         alt="Comparison"
       />
     );
@@ -123,7 +123,7 @@ export const wave4Previews: Record<string, React.ComponentType> = {
   "zoom-image": () => {
     return (
       <ZoomImage
-        src="/placeholder.svg?seed=1"
+        src="/stock/artist.jpg"
         alt="Product image"
         zoom={2}
       />
