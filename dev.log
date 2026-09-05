@@ -5,12 +5,10 @@
 ▲ Next.js 16.3.4 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://100.81.206.61:3000
-✓ Ready in 598ms
+✓ Ready in 587ms
 ⚠ Warning: Next.js ignored package-lock.json in C:\Users\Extasy because it is outside the current Git repository (C:\Users\Extasy\Desktop\bigbullui).
  To use this directory, set `turbopack.root` in your Next.js config.
 
-✓ Running next.config.ts took 50ms
+✓ Running next.config.ts took 47ms
 
- GET / 200 in 787ms (next.js: 231ms, application-code: 556ms)
- GET /docs/dialog 200 in 1222ms (next.js: 54ms, generate-params: 677ms, application-code: 491ms)
- GET /docs/dialog 200 in 414ms (next.js: 7ms, generate-params: 10ms, application-code: 396ms)
+ GET / 200 in 815ms (next.js: 229ms, application-code: 586ms)

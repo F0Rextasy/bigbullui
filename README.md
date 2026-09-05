@@ -1,4 +1,8 @@
 
+<div align="center">
+  <img src="https://ui.bigbullapp.com/logo.svg" alt="bigbullui logo" width="96" />
+</div>
+
 # bigbullui
 
 > 460+ tactile, copy-paste React 19 + Tailwind CSS 4 components you own. Zero external dependencies. Open source, MIT licensed.

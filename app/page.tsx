@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SiteNav } from "@/components/site/site-nav";
 import { GlowDivider } from "@/components/site/glow-divider";
 import { CodeBox } from "@/components/site/code-box";
@@ -238,10 +239,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 sm:py-12 sm:grid-cols-3">
           <div>
             <span className="flex items-center gap-2">
-              <span aria-hidden className="text-2xl font-bold leading-none">
-                <span className="text-foreground">b</span>
-                <span className="-ml-[0.22em] text-accent-strong">b</span>
-              </span>
+              <Image src="/logo.svg" alt="bigbullui logo" width={28} height={28} className="size-7" />
               <span className="text-base font-semibold tracking-tight text-foreground">bigbullui</span>
             </span>
             <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
