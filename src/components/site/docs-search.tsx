@@ -19,6 +19,30 @@ function categoryName(id: string): string {
   return categories.find((c) => c.id === id)?.name ?? "Components";
 }
 
+const SYNONYMS: Record<string, string[]> = {
+  dialog: ["modal", "popup", "pencere"],
+  table: ["tablo", "grid", "liste"],
+  button: ["buton", "btn", "dugme"],
+  card: ["kart", "panel"],
+  input: ["giris", "alan", "field"],
+  chart: ["grafik", "graph"],
+  menu: ["menu", "nav"],
+  toast: ["bildirim", "notice"],
+  ticket: ["bilet", "stub", "kupon"],
+  calendar: ["takvim", "tarih"],
+  search: ["arama", "bul"],
+  theme: ["tema", "dark", "gece"],
+};
+
+function keywordsFor(name: string, title: string): string[] {
+  const base = [name, ...name.split("-"), ...title.toLowerCase().split(" ")];
+  const extra: string[] = [];
+  for (const [key, words] of Object.entries(SYNONYMS)) {
+    if (name.includes(key) || title.toLowerCase().includes(key)) extra.push(...words);
+  }
+  return [...base, ...extra];
+}
+
 export function DocsSearch({
   trigger,
 }: {
@@ -42,7 +66,7 @@ export function DocsSearch({
         label: c.title,
         hint: c.description,
         category: categoryName(c.category),
-        keywords: [c.name, ...c.name.split("-"), ...c.title.toLowerCase().split(" ")],
+        keywords: keywordsFor(c.name, c.title),
         onSelect: () => router.push(`/docs/${c.name}`),
       })),
     ],
