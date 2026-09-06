@@ -20,6 +20,115 @@ export interface CommandPaletteProps {
   placeholder?: string;
 }
 
+const SYNONYMS: Record<string, string> = {
+  buton: "button",
+  düğme: "button",
+  kart: "card",
+  bilet: "ticket",
+  stub: "ticket",
+  tablo: "table",
+  giriş: "input",
+  giris: "input",
+  yükle: "upload",
+  yukle: "upload",
+  dosya: "file",
+  resim: "image",
+  fotograf: "image",
+  ses: "audio",
+  ileti: "message",
+  mesaj: "message",
+  sayfa: "page",
+  menü: "menu",
+  menu: "menu",
+  arama: "search",
+  grafik: "chart",
+  liste: "list",
+  takvim: "calendar",
+  saat: "clock",
+  tarih: "date",
+  fiyat: "price",
+  odeme: "payment",
+  ödeme: "payment",
+  kullanici: "user",
+  kullanıcı: "user",
+  ayarlar: "settings",
+  bildirim: "notification",
+  sifre: "password",
+  şifre: "password",
+  modal: "dialog",
+  pencere: "dialog",
+  sekme: "tabs",
+  rozet: "badge",
+  onay: "confirm",
+  formlar: "form",
+  ticket: "bilet",
+  card: "kart",
+  ticketcard: "ticket card",
+  button: "buton",
+  table: "tablo",
+  search: "arama",
+  chart: "grafik",
+  dialog: "modal",
+  user: "kullanici",
+  file: "dosya",
+  image: "resim",
+};
+
+function normalizeWord(word: string): string {
+  return word
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/ı/g, "i")
+    .replace(/[-_]+/g, " ")
+    .trim();
+}
+
+function expandToken(token: string): string[] {
+  const out = [token];
+  const mapped = SYNONYMS[token];
+  if (mapped && mapped !== token) {
+    for (const w of wordsOf(mapped)) {
+      if (w !== token && !out.includes(w)) out.push(w);
+    }
+  }
+  return out;
+}
+
+function isFuzzyMatch(a: string, b: string): boolean {
+  if (a === b) return true;
+  const lenA = a.length;
+  const lenB = b.length;
+  if (Math.abs(lenA - lenB) > 1) return false;
+  if (lenA < 3 || lenB < 3) return false;
+  let i = 0;
+  let j = 0;
+  let edits = 0;
+  while (i < lenA && j < lenB) {
+    if (a[i] === b[j]) {
+      i += 1;
+      j += 1;
+    } else {
+      edits += 1;
+      if (edits > 1) return false;
+      if (lenA === lenB) {
+        i += 1;
+        j += 1;
+      } else if (lenA > lenB) {
+        i += 1;
+      } else {
+        j += 1;
+      }
+    }
+  }
+  edits += lenA - i + (lenB - j);
+  return edits <= 1;
+}
+
+function wordsOf(text: string): string[] {
+  return normalizeWord(text).split(/\s+/).filter(Boolean);
+}
+
 export function CommandPalette({
   open,
   onOpenChange,
@@ -33,21 +142,37 @@ export function CommandPalette({
   const MAX_RESULTS = 60;
 
   function scoreItem(item: CommandItem, tokens: string[]): number {
-    const label = item.label.toLowerCase();
-    const category = (item.category ?? "").toLowerCase();
-    const hint = (item.hint ?? "").toLowerCase();
-    const keywords = (item.keywords ?? []).map((k) => k.toLowerCase());
+    const labelWords = wordsOf(item.label);
+    const labelFlat = labelWords.join(" ");
+    const labelSmushed = labelWords.join("");
+    const categoryWords = wordsOf(item.category ?? "");
+    const hintWords = wordsOf(item.hint ?? "");
+    const keywordWords = (item.keywords ?? []).flatMap(wordsOf);
+    const keywordSmushed = keywordWords.join("");
     let score = 0;
-    for (const token of tokens) {
+    for (const rawToken of tokens) {
+      const variants = expandToken(rawToken);
+      const tokenSmushed = rawToken.replace(/\s+/g, "");
       let tokenScore = 0;
-      if (label.startsWith(token)) tokenScore = Math.max(tokenScore, 100);
-      else if (label.toLowerCase().includes(token)) tokenScore = Math.max(tokenScore, 50);
-      for (const kw of keywords) {
-        if (kw.startsWith(token)) tokenScore = Math.max(tokenScore, 30);
-        else if (kw.includes(token)) tokenScore = Math.max(tokenScore, 20);
+      const hit = (words: string[], exact: number, prefix: number, sub: number, fuzzy: number) => {
+        for (const w of words) {
+          for (const v of variants) {
+            if (w === v) tokenScore = Math.max(tokenScore, exact);
+            else if (w.startsWith(v)) tokenScore = Math.max(tokenScore, prefix);
+            else if (w.includes(v)) tokenScore = Math.max(tokenScore, sub);
+            else if (isFuzzyMatch(w, v)) tokenScore = Math.max(tokenScore, fuzzy);
+          }
+        }
+      };
+      hit(labelWords, 120, 100, 50, 70);
+      hit(keywordWords, 60, 40, 20, 30);
+      hit(categoryWords, 20, 10, 5, 8);
+      hit(hintWords, 10, 5, 2, 4);
+      if (tokenSmushed.length >= 4) {
+        if (labelSmushed.includes(tokenSmushed)) tokenScore = Math.max(tokenScore, 80);
+        else if (keywordSmushed.includes(tokenSmushed)) tokenScore = Math.max(tokenScore, 35);
       }
-      if (category.includes(token)) tokenScore = Math.max(tokenScore, 10);
-      if (hint.includes(token)) tokenScore = Math.max(tokenScore, 5);
+      if (labelFlat.startsWith(tokens.join(" "))) tokenScore += 30;
       if (tokenScore === 0) return 0;
       score += tokenScore;
     }
@@ -57,7 +182,7 @@ export function CommandPalette({
   const filteredItems = React.useMemo(() => {
     const query = search.trim().toLowerCase();
     if (!query) return items.slice(0, MAX_RESULTS);
-    const tokens = query.split(/\s+/).filter(Boolean);
+    const tokens = wordsOf(query);
     return items
       .map((item) => ({ item, score: scoreItem(item, tokens) }))
       .filter((entry) => entry.score > 0)
@@ -69,7 +194,7 @@ export function CommandPalette({
   const totalMatches = React.useMemo(() => {
     const query = search.trim().toLowerCase();
     if (!query) return items.length;
-    const tokens = query.split(/\s+/).filter(Boolean);
+    const tokens = wordsOf(query);
     return items.filter((item) => scoreItem(item, tokens) > 0).length;
   }, [items, search]);
 
@@ -82,13 +207,18 @@ export function CommandPalette({
       setSearch("");
       setSelectedIndex(0);
       setTimeout(() => inputRef.current?.focus(), 50);
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
           onOpenChange(false);
         }
       };
       document.addEventListener("keydown", handleKeyDown);
-      return () => document.removeEventListener("keydown", handleKeyDown);
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+        document.body.style.overflow = prevOverflow;
+      };
     }
   }, [open, onOpenChange]);
 
@@ -114,7 +244,7 @@ export function CommandPalette({
       <div
         aria-hidden="true"
         onClick={() => onOpenChange(false)}
-        className="fixed inset-0 bg-black/50 backdrop-blur-[2px] animate-[fade-in_0.15s_ease-out_both]"
+        className="fixed inset-0 bg-black/50 backdrop-blur-[2px] animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none"
       />
 
       {/* Palette Card */}
@@ -122,7 +252,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="relative z-50 w-full max-w-xl overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both]"
+        className="relative z-50 w-full max-w-xl overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none"
       >
         {/* Search Header */}
         <div className="flex items-center border-b-2 border-dashed border-border px-4 py-3">
@@ -144,6 +274,18 @@ export function CommandPalette({
           <input
             ref={inputRef}
             type="text"
+            inputMode="search"
+            enterKeyHint="search"
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+            autoComplete="off"
+            role="combobox"
+            aria-expanded={filteredItems.length > 0}
+            aria-controls="command-palette-list"
+            aria-activedescendant={
+              filteredItems[selectedIndex] ? `cmd-item-${filteredItems[selectedIndex].id}` : undefined
+            }
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -151,7 +293,7 @@ export function CommandPalette({
             }}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            className="w-full bg-transparent font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+            className="w-full bg-transparent font-mono text-base text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-sm"
           />
           <span className="font-mono text-[10px] text-muted-foreground uppercase border border-border px-1.5 py-0.5 rounded-sm">
             ESC
@@ -159,7 +301,7 @@ export function CommandPalette({
         </div>
 
         {/* Results List */}
-        <div className="max-h-72 overflow-y-auto p-2">
+        <div id="command-palette-list" role="listbox" aria-label="Search results" className="max-h-72 overflow-y-auto p-2">
           {filteredItems.length === 0 ? (
             <div className="py-6 text-center font-mono text-xs text-muted-foreground">
               NO COMMANDS MATCHING QUERY
@@ -169,13 +311,15 @@ export function CommandPalette({
               const rows: React.ReactNode[] = [];
               let lastCategory: string | undefined;
               let flatIndex = 0;
+              let groupCount = 0;
               for (const item of filteredItems) {
                 const group = item.category ?? "Results";
                 if (group !== lastCategory) {
                   lastCategory = group;
+                  groupCount += 1;
                   rows.push(
                     <div
-                      key={`group-${group}`}
+                      key={`group-${groupCount}-${group}`}
                       className="px-3 pb-1 pt-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground"
                       aria-hidden="true"
                     >
@@ -189,13 +333,16 @@ export function CommandPalette({
                 rows.push(
                   <div
                     key={item.id}
+                    id={`cmd-item-${item.id}`}
+                    role="option"
+                    aria-selected={isSelected}
                     onClick={() => {
                       item.onSelect?.();
                       onOpenChange(false);
                     }}
                     onMouseEnter={() => setSelectedIndex(idx)}
                     className={cn(
-                      "flex cursor-pointer items-center justify-between gap-3 rounded-md px-3 py-2 font-mono text-xs transition-colors select-none",
+                      "flex cursor-pointer items-center justify-between gap-3 rounded-md px-3 py-2.5 font-mono text-xs transition-colors select-none sm:py-2",
                       isSelected
                         ? "bg-accent font-bold text-accent-foreground"
                         : "text-foreground hover:bg-secondary"

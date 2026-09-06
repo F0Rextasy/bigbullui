@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { CommandPalette, type CommandItem } from "@/components/ui/command-palette";
 import { Kbd } from "@/components/ui/kbd";
+import { useSearchPalette } from "@/components/site/search-store";
 import { categories, components } from "@/lib/registry-site";
 
 const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
@@ -23,19 +24,8 @@ export function DocsSearch({
 }: {
   trigger?: (setOpen: (open: boolean) => void) => React.ReactNode;
 } = {}) {
-  const [open, setOpen] = React.useState(false);
+  const { open, setOpen, isHost } = useSearchPalette();
   const router = useRouter();
-
-  React.useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setOpen((v) => !v);
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
 
   const items: CommandItem[] = React.useMemo(
     () => [
@@ -76,12 +66,14 @@ export function DocsSearch({
           </span>
         </button>
       )}
-      <CommandPalette
-        open={open}
-        onOpenChange={setOpen}
-        items={items}
-        placeholder="Search components and guides..."
-      />
+      {isHost ? (
+        <CommandPalette
+          open={open}
+          onOpenChange={setOpen}
+          items={items}
+          placeholder="Search components and guides..."
+        />
+      ) : null}
     </>
   );
 }
