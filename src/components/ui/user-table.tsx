@@ -27,7 +27,7 @@ const ROLE_TONE: Record<UserRow["role"], string> = {
 };
 
 const STATUS_TONE: Record<UserStatus, string> = {
-  active: "text-emerald-600",
+  active: "text-emerald-700 dark:text-emerald-400",
   invited: "text-amber-600",
   suspended: "text-destructive",
 };

@@ -1,0 +1,58 @@
+name: Showcase submission
+description: Submit your site to the Built with bigbullui showcase
+title: "Showcase: [your site name]"
+labels: ["showcase"]
+body:
+  - type: input
+    id: siteName
+    attributes:
+      label: Site name
+      placeholder: Night Stub Wallet
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Live URL
+      description: Publicly reachable link to your deployment
+      placeholder: https://example.com
+    validations:
+      required: true
+  - type: input
+    id: image
+    attributes:
+      label: Preview image URL
+      description: 1200x630 screenshot or ticket card render
+      placeholder: https://example.com/og.png
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One or two sentences on what you built
+      placeholder: Dark theme passbook built from ticket-card, barcode, and stamp-seal.
+    validations:
+      required: true
+  - type: input
+    id: components
+    attributes:
+      label: bigbullui components used
+      description: Comma separated slugs matching /docs/[slug]
+      placeholder: ticket-card, barcode, stamp-seal
+    validations:
+      required: true
+  - type: input
+    id: author
+    attributes:
+      label: Author or team name
+      placeholder: Box Office
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent
+      options:
+        - label: My entry may be listed on ui.bigbullapp.com/showcase with the details above
+          required: true

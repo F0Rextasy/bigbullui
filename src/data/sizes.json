@@ -1,0 +1,3290 @@
+{
+  "updated": "2026-09-07",
+  "sizes": {
+    "accordion": {
+      "raw": 3627,
+      "gzip": 1287,
+      "kb": 1.26
+    },
+    "achievement-toast": {
+      "raw": 1807,
+      "gzip": 803,
+      "kb": 0.78
+    },
+    "action-buttons": {
+      "raw": 2281,
+      "gzip": 989,
+      "kb": 0.97
+    },
+    "action-sheet": {
+      "raw": 1834,
+      "gzip": 844,
+      "kb": 0.82
+    },
+    "activity-calendar": {
+      "raw": 2724,
+      "gzip": 1122,
+      "kb": 1.1
+    },
+    "activity-feed": {
+      "raw": 27859,
+      "gzip": 5932,
+      "kb": 5.79
+    },
+    "activity-v2": {
+      "raw": 2521,
+      "gzip": 961,
+      "kb": 0.94
+    },
+    "add-to-cart-button": {
+      "raw": 1854,
+      "gzip": 868,
+      "kb": 0.85
+    },
+    "address-form": {
+      "raw": 2994,
+      "gzip": 1012,
+      "kb": 0.99
+    },
+    "admin-shell": {
+      "raw": 4139,
+      "gzip": 1515,
+      "kb": 1.48
+    },
+    "agenda-list": {
+      "raw": 2090,
+      "gzip": 942,
+      "kb": 0.92
+    },
+    "agent-artifact-card": {
+      "raw": 2662,
+      "gzip": 1041,
+      "kb": 1.02
+    },
+    "airmail-letter": {
+      "raw": 1143,
+      "gzip": 567,
+      "kb": 0.55
+    },
+    "alert-dialog": {
+      "raw": 4124,
+      "gzip": 1212,
+      "kb": 1.18
+    },
+    "alert": {
+      "raw": 1087,
+      "gzip": 535,
+      "kb": 0.52
+    },
+    "anchor-nav": {
+      "raw": 2356,
+      "gzip": 1065,
+      "kb": 1.04
+    },
+    "announcement-bar": {
+      "raw": 12747,
+      "gzip": 3395,
+      "kb": 3.32
+    },
+    "api-key-card": {
+      "raw": 4145,
+      "gzip": 1566,
+      "kb": 1.53
+    },
+    "api-tester": {
+      "raw": 2282,
+      "gzip": 1000,
+      "kb": 0.98
+    },
+    "app-shell": {
+      "raw": 2096,
+      "gzip": 802,
+      "kb": 0.78
+    },
+    "area-chart": {
+      "raw": 4037,
+      "gzip": 1409,
+      "kb": 1.38
+    },
+    "article-card": {
+      "raw": 2141,
+      "gzip": 825,
+      "kb": 0.81
+    },
+    "aspect-ratio": {
+      "raw": 6157,
+      "gzip": 1812,
+      "kb": 1.77
+    },
+    "audio-mini": {
+      "raw": 3267,
+      "gzip": 1312,
+      "kb": 1.28
+    },
+    "audio-player": {
+      "raw": 5375,
+      "gzip": 1632,
+      "kb": 1.59
+    },
+    "audio-recorder": {
+      "raw": 3349,
+      "gzip": 1412,
+      "kb": 1.38
+    },
+    "audio-toggle": {
+      "raw": 1844,
+      "gzip": 913,
+      "kb": 0.89
+    },
+    "audio-waveform": {
+      "raw": 24160,
+      "gzip": 5918,
+      "kb": 5.78
+    },
+    "audit-log": {
+      "raw": 3014,
+      "gzip": 1245,
+      "kb": 1.22
+    },
+    "audit-timeline": {
+      "raw": 1775,
+      "gzip": 807,
+      "kb": 0.79
+    },
+    "autocomplete": {
+      "raw": 4974,
+      "gzip": 1675,
+      "kb": 1.64
+    },
+    "avatar-group": {
+      "raw": 1778,
+      "gzip": 748,
+      "kb": 0.73
+    },
+    "avatar-upload": {
+      "raw": 2932,
+      "gzip": 1337,
+      "kb": 1.31
+    },
+    "avatar": {
+      "raw": 1335,
+      "gzip": 700,
+      "kb": 0.68
+    },
+    "back-link": {
+      "raw": 899,
+      "gzip": 463,
+      "kb": 0.45
+    },
+    "backstage-pass": {
+      "raw": 1352,
+      "gzip": 544,
+      "kb": 0.53
+    },
+    "badge-list": {
+      "raw": 2453,
+      "gzip": 1104,
+      "kb": 1.08
+    },
+    "badge-printer-template": {
+      "raw": 2347,
+      "gzip": 969,
+      "kb": 0.95
+    },
+    "badge-printer": {
+      "raw": 2767,
+      "gzip": 1121,
+      "kb": 1.09
+    },
+    "badge-ribbon": {
+      "raw": 2600,
+      "gzip": 949,
+      "kb": 0.93
+    },
+    "badge": {
+      "raw": 946,
+      "gzip": 498,
+      "kb": 0.49
+    },
+    "bar-chart": {
+      "raw": 2568,
+      "gzip": 960,
+      "kb": 0.94
+    },
+    "barcode": {
+      "raw": 1840,
+      "gzip": 859,
+      "kb": 0.84
+    },
+    "base64-tool": {
+      "raw": 2632,
+      "gzip": 1082,
+      "kb": 1.06
+    },
+    "battle-pass-track": {
+      "raw": 1647,
+      "gzip": 806,
+      "kb": 0.79
+    },
+    "bento-grid": {
+      "raw": 1758,
+      "gzip": 830,
+      "kb": 0.81
+    },
+    "billing-panel": {
+      "raw": 3558,
+      "gzip": 1287,
+      "kb": 1.26
+    },
+    "bio-card": {
+      "raw": 2479,
+      "gzip": 1059,
+      "kb": 1.03
+    },
+    "board-checklist": {
+      "raw": 4281,
+      "gzip": 1687,
+      "kb": 1.65
+    },
+    "boarding-pass-print": {
+      "raw": 3177,
+      "gzip": 1088,
+      "kb": 1.06
+    },
+    "boarding-pass": {
+      "raw": 5798,
+      "gzip": 1521,
+      "kb": 1.49
+    },
+    "booking-calendar": {
+      "raw": 2224,
+      "gzip": 966,
+      "kb": 0.94
+    },
+    "boss-bar": {
+      "raw": 1963,
+      "gzip": 924,
+      "kb": 0.9
+    },
+    "bottom-sheet": {
+      "raw": 2548,
+      "gzip": 1096,
+      "kb": 1.07
+    },
+    "box-plot": {
+      "raw": 2402,
+      "gzip": 972,
+      "kb": 0.95
+    },
+    "breadcrumb-dropdown": {
+      "raw": 5017,
+      "gzip": 1401,
+      "kb": 1.37
+    },
+    "breadcrumb": {
+      "raw": 1909,
+      "gzip": 728,
+      "kb": 0.71
+    },
+    "bubble-chart": {
+      "raw": 2286,
+      "gzip": 1090,
+      "kb": 1.06
+    },
+    "budget-progress": {
+      "raw": 2183,
+      "gzip": 994,
+      "kb": 0.97
+    },
+    "bug-report": {
+      "raw": 2779,
+      "gzip": 1046,
+      "kb": 1.02
+    },
+    "bulk-actions": {
+      "raw": 1670,
+      "gzip": 753,
+      "kb": 0.74
+    },
+    "bullet-chart": {
+      "raw": 2255,
+      "gzip": 978,
+      "kb": 0.96
+    },
+    "button-group": {
+      "raw": 1593,
+      "gzip": 659,
+      "kb": 0.64
+    },
+    "button": {
+      "raw": 1950,
+      "gzip": 895,
+      "kb": 0.87
+    },
+    "calendar-heatmap": {
+      "raw": 4813,
+      "gzip": 1793,
+      "kb": 1.75
+    },
+    "calendar": {
+      "raw": 4564,
+      "gzip": 1514,
+      "kb": 1.48
+    },
+    "callout": {
+      "raw": 3248,
+      "gzip": 1185,
+      "kb": 1.16
+    },
+    "candlestick-chart": {
+      "raw": 2779,
+      "gzip": 997,
+      "kb": 0.97
+    },
+    "card": {
+      "raw": 1632,
+      "gzip": 616,
+      "kb": 0.6
+    },
+    "cargo-shipping-label": {
+      "raw": 1792,
+      "gzip": 850,
+      "kb": 0.83
+    },
+    "carousel": {
+      "raw": 2846,
+      "gzip": 983,
+      "kb": 0.96
+    },
+    "cart-badge": {
+      "raw": 1313,
+      "gzip": 681,
+      "kb": 0.67
+    },
+    "cart-drawer": {
+      "raw": 5486,
+      "gzip": 1583,
+      "kb": 1.55
+    },
+    "cassette-tape": {
+      "raw": 1171,
+      "gzip": 473,
+      "kb": 0.46
+    },
+    "centered-card": {
+      "raw": 1480,
+      "gzip": 709,
+      "kb": 0.69
+    },
+    "changelog-entry": {
+      "raw": 1806,
+      "gzip": 806,
+      "kb": 0.79
+    },
+    "changelog-list": {
+      "raw": 2627,
+      "gzip": 1116,
+      "kb": 1.09
+    },
+    "char-counter": {
+      "raw": 1052,
+      "gzip": 571,
+      "kb": 0.56
+    },
+    "chat-bubble": {
+      "raw": 2332,
+      "gzip": 797,
+      "kb": 0.78
+    },
+    "chat-thread": {
+      "raw": 1635,
+      "gzip": 786,
+      "kb": 0.77
+    },
+    "chat-window": {
+      "raw": 3238,
+      "gzip": 1199,
+      "kb": 1.17
+    },
+    "checkbox-card": {
+      "raw": 2509,
+      "gzip": 1109,
+      "kb": 1.08
+    },
+    "checkbox-group": {
+      "raw": 3382,
+      "gzip": 1154,
+      "kb": 1.13
+    },
+    "checkbox": {
+      "raw": 1656,
+      "gzip": 781,
+      "kb": 0.76
+    },
+    "checkout-summary": {
+      "raw": 3234,
+      "gzip": 995,
+      "kb": 0.97
+    },
+    "chord-diagram": {
+      "raw": 3174,
+      "gzip": 1219,
+      "kb": 1.19
+    },
+    "citation-bubble": {
+      "raw": 1853,
+      "gzip": 849,
+      "kb": 0.83
+    },
+    "clan-card": {
+      "raw": 1718,
+      "gzip": 796,
+      "kb": 0.78
+    },
+    "clock-picker": {
+      "raw": 7422,
+      "gzip": 2274,
+      "kb": 2.22
+    },
+    "coach-mark": {
+      "raw": 3145,
+      "gzip": 1078,
+      "kb": 1.05
+    },
+    "coat-check-tag": {
+      "raw": 1621,
+      "gzip": 651,
+      "kb": 0.64
+    },
+    "code-block": {
+      "raw": 17544,
+      "gzip": 4543,
+      "kb": 4.44
+    },
+    "code-editor": {
+      "raw": 3134,
+      "gzip": 1310,
+      "kb": 1.28
+    },
+    "code-tabs": {
+      "raw": 2858,
+      "gzip": 1136,
+      "kb": 1.11
+    },
+    "collapsible": {
+      "raw": 9878,
+      "gzip": 2704,
+      "kb": 2.64
+    },
+    "color-contrast": {
+      "raw": 2670,
+      "gzip": 1153,
+      "kb": 1.13
+    },
+    "color-palette-picker": {
+      "raw": 2849,
+      "gzip": 1134,
+      "kb": 1.11
+    },
+    "color-picker": {
+      "raw": 2914,
+      "gzip": 1173,
+      "kb": 1.15
+    },
+    "color-token-table": {
+      "raw": 3080,
+      "gzip": 1183,
+      "kb": 1.16
+    },
+    "column-toggle": {
+      "raw": 2879,
+      "gzip": 1244,
+      "kb": 1.21
+    },
+    "combo-buttons": {
+      "raw": 4182,
+      "gzip": 1537,
+      "kb": 1.5
+    },
+    "combo-counter": {
+      "raw": 1411,
+      "gzip": 719,
+      "kb": 0.7
+    },
+    "combobox-v2": {
+      "raw": 6173,
+      "gzip": 2069,
+      "kb": 2.02
+    },
+    "combobox": {
+      "raw": 5125,
+      "gzip": 1770,
+      "kb": 1.73
+    },
+    "command-k-root": {
+      "raw": 3394,
+      "gzip": 1269,
+      "kb": 1.24
+    },
+    "command-palette": {
+      "raw": 13029,
+      "gzip": 4027,
+      "kb": 3.93
+    },
+    "comment-thread": {
+      "raw": 2074,
+      "gzip": 751,
+      "kb": 0.73
+    },
+    "compare-table": {
+      "raw": 1975,
+      "gzip": 851,
+      "kb": 0.83
+    },
+    "composed-chart": {
+      "raw": 1972,
+      "gzip": 946,
+      "kb": 0.92
+    },
+    "conditional-fields": {
+      "raw": 2333,
+      "gzip": 826,
+      "kb": 0.81
+    },
+    "confetti-burst": {
+      "raw": 1756,
+      "gzip": 873,
+      "kb": 0.85
+    },
+    "confirm-dialog": {
+      "raw": 3350,
+      "gzip": 1145,
+      "kb": 1.12
+    },
+    "connection-status": {
+      "raw": 1530,
+      "gzip": 751,
+      "kb": 0.73
+    },
+    "consent-checkbox": {
+      "raw": 2362,
+      "gzip": 1096,
+      "kb": 1.07
+    },
+    "console-panel": {
+      "raw": 3029,
+      "gzip": 1266,
+      "kb": 1.24
+    },
+    "container": {
+      "raw": 1176,
+      "gzip": 524,
+      "kb": 0.51
+    },
+    "context-menu": {
+      "raw": 3517,
+      "gzip": 1319,
+      "kb": 1.29
+    },
+    "control-chart": {
+      "raw": 2570,
+      "gzip": 1021,
+      "kb": 1
+    },
+    "cookie-banner": {
+      "raw": 2424,
+      "gzip": 982,
+      "kb": 0.96
+    },
+    "cookie-prefs": {
+      "raw": 2761,
+      "gzip": 1116,
+      "kb": 1.09
+    },
+    "copy-button": {
+      "raw": 1952,
+      "gzip": 880,
+      "kb": 0.86
+    },
+    "copy-chip": {
+      "raw": 1800,
+      "gzip": 828,
+      "kb": 0.81
+    },
+    "countdown-start": {
+      "raw": 1439,
+      "gzip": 779,
+      "kb": 0.76
+    },
+    "countdown-v2": {
+      "raw": 1909,
+      "gzip": 887,
+      "kb": 0.87
+    },
+    "countdown": {
+      "raw": 2392,
+      "gzip": 968,
+      "kb": 0.95
+    },
+    "country-select": {
+      "raw": 3425,
+      "gzip": 1315,
+      "kb": 1.28
+    },
+    "countup": {
+      "raw": 3917,
+      "gzip": 1349,
+      "kb": 1.32
+    },
+    "coupon-field": {
+      "raw": 3675,
+      "gzip": 1481,
+      "kb": 1.45
+    },
+    "coupon": {
+      "raw": 3149,
+      "gzip": 1136,
+      "kb": 1.11
+    },
+    "credit-card-form": {
+      "raw": 5157,
+      "gzip": 1471,
+      "kb": 1.44
+    },
+    "credit-card-input": {
+      "raw": 4147,
+      "gzip": 1406,
+      "kb": 1.37
+    },
+    "credit-card": {
+      "raw": 24113,
+      "gzip": 5551,
+      "kb": 5.42
+    },
+    "cron-builder": {
+      "raw": 4070,
+      "gzip": 1620,
+      "kb": 1.58
+    },
+    "cron-humanizer": {
+      "raw": 1783,
+      "gzip": 922,
+      "kb": 0.9
+    },
+    "crosshair-picker": {
+      "raw": 1833,
+      "gzip": 847,
+      "kb": 0.83
+    },
+    "crypto-ticker": {
+      "raw": 1467,
+      "gzip": 724,
+      "kb": 0.71
+    },
+    "csv-importer": {
+      "raw": 2472,
+      "gzip": 1095,
+      "kb": 1.07
+    },
+    "csv-mapper": {
+      "raw": 2103,
+      "gzip": 932,
+      "kb": 0.91
+    },
+    "cta-section": {
+      "raw": 2572,
+      "gzip": 1013,
+      "kb": 0.99
+    },
+    "currency-display": {
+      "raw": 1231,
+      "gzip": 612,
+      "kb": 0.6
+    },
+    "currency-select": {
+      "raw": 3665,
+      "gzip": 1381,
+      "kb": 1.35
+    },
+    "d-pad": {
+      "raw": 2043,
+      "gzip": 926,
+      "kb": 0.9
+    },
+    "daily-rewards": {
+      "raw": 1758,
+      "gzip": 816,
+      "kb": 0.8
+    },
+    "damage-vignette": {
+      "raw": 1430,
+      "gzip": 748,
+      "kb": 0.73
+    },
+    "danger-zone": {
+      "raw": 2757,
+      "gzip": 1074,
+      "kb": 1.05
+    },
+    "data-grid": {
+      "raw": 5415,
+      "gzip": 1824,
+      "kb": 1.78
+    },
+    "data-table": {
+      "raw": 8224,
+      "gzip": 2410,
+      "kb": 2.35
+    },
+    "date-picker": {
+      "raw": 6207,
+      "gzip": 2037,
+      "kb": 1.99
+    },
+    "date-range-picker": {
+      "raw": 8571,
+      "gzip": 2258,
+      "kb": 2.21
+    },
+    "date-time-picker": {
+      "raw": 2708,
+      "gzip": 971,
+      "kb": 0.95
+    },
+    "delete-account": {
+      "raw": 2439,
+      "gzip": 919,
+      "kb": 0.9
+    },
+    "density-plot": {
+      "raw": 2049,
+      "gzip": 981,
+      "kb": 0.96
+    },
+    "density-toggle": {
+      "raw": 1339,
+      "gzip": 660,
+      "kb": 0.64
+    },
+    "deploy-timeline": {
+      "raw": 1999,
+      "gzip": 859,
+      "kb": 0.84
+    },
+    "description-list": {
+      "raw": 1224,
+      "gzip": 546,
+      "kb": 0.53
+    },
+    "devices-list": {
+      "raw": 2170,
+      "gzip": 950,
+      "kb": 0.93
+    },
+    "dialog": {
+      "raw": 4005,
+      "gzip": 1526,
+      "kb": 1.49
+    },
+    "dialogue-box": {
+      "raw": 2236,
+      "gzip": 921,
+      "kb": 0.9
+    },
+    "diff-editor": {
+      "raw": 2615,
+      "gzip": 1030,
+      "kb": 1.01
+    },
+    "diff-viewer": {
+      "raw": 2468,
+      "gzip": 899,
+      "kb": 0.88
+    },
+    "digest-preview": {
+      "raw": 1775,
+      "gzip": 822,
+      "kb": 0.8
+    },
+    "divider-with-text": {
+      "raw": 2366,
+      "gzip": 764,
+      "kb": 0.75
+    },
+    "dm-thread": {
+      "raw": 4715,
+      "gzip": 1771,
+      "kb": 1.73
+    },
+    "dock": {
+      "raw": 13116,
+      "gzip": 3351,
+      "kb": 3.27
+    },
+    "dockable-panels": {
+      "raw": 1544,
+      "gzip": 732,
+      "kb": 0.71
+    },
+    "docs-prop-playground": {
+      "raw": 3863,
+      "gzip": 1382,
+      "kb": 1.35
+    },
+    "docs-stackblitz-button": {
+      "raw": 1392,
+      "gzip": 735,
+      "kb": 0.72
+    },
+    "donut-chart": {
+      "raw": 20160,
+      "gzip": 5256,
+      "kb": 5.13
+    },
+    "donut-multi": {
+      "raw": 2405,
+      "gzip": 992,
+      "kb": 0.97
+    },
+    "drag-sort": {
+      "raw": 3043,
+      "gzip": 1273,
+      "kb": 1.24
+    },
+    "drawer-nav": {
+      "raw": 3105,
+      "gzip": 1300,
+      "kb": 1.27
+    },
+    "drawer": {
+      "raw": 12381,
+      "gzip": 3514,
+      "kb": 3.43
+    },
+    "dropdown-menu-v2": {
+      "raw": 5022,
+      "gzip": 1261,
+      "kb": 1.23
+    },
+    "dropdown-menu": {
+      "raw": 4692,
+      "gzip": 1575,
+      "kb": 1.54
+    },
+    "dual-slider": {
+      "raw": 4042,
+      "gzip": 1257,
+      "kb": 1.23
+    },
+    "duration-input": {
+      "raw": 3369,
+      "gzip": 1227,
+      "kb": 1.2
+    },
+    "email-input": {
+      "raw": 3617,
+      "gzip": 1336,
+      "kb": 1.3
+    },
+    "emoji-picker": {
+      "raw": 2770,
+      "gzip": 1074,
+      "kb": 1.05
+    },
+    "empty-col-span": {
+      "raw": 1353,
+      "gzip": 740,
+      "kb": 0.72
+    },
+    "empty-offline": {
+      "raw": 1587,
+      "gzip": 777,
+      "kb": 0.76
+    },
+    "empty-search": {
+      "raw": 1386,
+      "gzip": 674,
+      "kb": 0.66
+    },
+    "empty": {
+      "raw": 1781,
+      "gzip": 782,
+      "kb": 0.76
+    },
+    "env-editor": {
+      "raw": 4705,
+      "gzip": 1702,
+      "kb": 1.66
+    },
+    "env-switcher": {
+      "raw": 1324,
+      "gzip": 694,
+      "kb": 0.68
+    },
+    "envelope": {
+      "raw": 1418,
+      "gzip": 646,
+      "kb": 0.63
+    },
+    "error-500": {
+      "raw": 1224,
+      "gzip": 647,
+      "kb": 0.63
+    },
+    "error-page": {
+      "raw": 2745,
+      "gzip": 1246,
+      "kb": 1.22
+    },
+    "event-card": {
+      "raw": 2181,
+      "gzip": 822,
+      "kb": 0.8
+    },
+    "exchange-rate": {
+      "raw": 4280,
+      "gzip": 1654,
+      "kb": 1.62
+    },
+    "export-menu": {
+      "raw": 1638,
+      "gzip": 748,
+      "kb": 0.73
+    },
+    "fab": {
+      "raw": 2997,
+      "gzip": 1150,
+      "kb": 1.12
+    },
+    "faq": {
+      "raw": 2287,
+      "gzip": 943,
+      "kb": 0.92
+    },
+    "feature-flag-panel": {
+      "raw": 2938,
+      "gzip": 1200,
+      "kb": 1.17
+    },
+    "feature-grid": {
+      "raw": 1591,
+      "gzip": 695,
+      "kb": 0.68
+    },
+    "feature-vote": {
+      "raw": 2402,
+      "gzip": 1061,
+      "kb": 1.04
+    },
+    "feed-masonry": {
+      "raw": 645,
+      "gzip": 380,
+      "kb": 0.37
+    },
+    "feedback-vote": {
+      "raw": 2022,
+      "gzip": 781,
+      "kb": 0.76
+    },
+    "feedback-widget": {
+      "raw": 4020,
+      "gzip": 1401,
+      "kb": 1.37
+    },
+    "field-array": {
+      "raw": 4348,
+      "gzip": 1442,
+      "kb": 1.41
+    },
+    "field": {
+      "raw": 3413,
+      "gzip": 917,
+      "kb": 0.9
+    },
+    "figure": {
+      "raw": 1371,
+      "gzip": 630,
+      "kb": 0.62
+    },
+    "file-dropzone": {
+      "raw": 4351,
+      "gzip": 1676,
+      "kb": 1.64
+    },
+    "file-image-preview": {
+      "raw": 3806,
+      "gzip": 1494,
+      "kb": 1.46
+    },
+    "file-input": {
+      "raw": 3936,
+      "gzip": 1388,
+      "kb": 1.36
+    },
+    "file-tree": {
+      "raw": 2920,
+      "gzip": 1171,
+      "kb": 1.14
+    },
+    "file-upload-list": {
+      "raw": 29011,
+      "gzip": 6293,
+      "kb": 6.15
+    },
+    "filter-builder": {
+      "raw": 3644,
+      "gzip": 1252,
+      "kb": 1.22
+    },
+    "filters-drawer": {
+      "raw": 2325,
+      "gzip": 996,
+      "kb": 0.97
+    },
+    "fireworks": {
+      "raw": 2579,
+      "gzip": 993,
+      "kb": 0.97
+    },
+    "flight-timeline-card": {
+      "raw": 2317,
+      "gzip": 837,
+      "kb": 0.82
+    },
+    "flip-card": {
+      "raw": 2274,
+      "gzip": 941,
+      "kb": 0.92
+    },
+    "flip-clock": {
+      "raw": 1486,
+      "gzip": 618,
+      "kb": 0.6
+    },
+    "flyout-menu": {
+      "raw": 2428,
+      "gzip": 967,
+      "kb": 0.94
+    },
+    "flyout-v2": {
+      "raw": 2393,
+      "gzip": 1018,
+      "kb": 0.99
+    },
+    "follower-list": {
+      "raw": 2794,
+      "gzip": 1017,
+      "kb": 0.99
+    },
+    "footer-minimal": {
+      "raw": 1528,
+      "gzip": 715,
+      "kb": 0.7
+    },
+    "footer-nav": {
+      "raw": 2050,
+      "gzip": 900,
+      "kb": 0.88
+    },
+    "footer": {
+      "raw": 1817,
+      "gzip": 662,
+      "kb": 0.65
+    },
+    "forgot-password": {
+      "raw": 3922,
+      "gzip": 1436,
+      "kb": 1.4
+    },
+    "form-builder": {
+      "raw": 2864,
+      "gzip": 1115,
+      "kb": 1.09
+    },
+    "form-field": {
+      "raw": 2256,
+      "gzip": 938,
+      "kb": 0.92
+    },
+    "form-progress": {
+      "raw": 1613,
+      "gzip": 831,
+      "kb": 0.81
+    },
+    "form-validation": {
+      "raw": 1670,
+      "gzip": 654,
+      "kb": 0.64
+    },
+    "friend-list": {
+      "raw": 2291,
+      "gzip": 988,
+      "kb": 0.96
+    },
+    "funnel-chart": {
+      "raw": 2605,
+      "gzip": 953,
+      "kb": 0.93
+    },
+    "gacha-pull": {
+      "raw": 1930,
+      "gzip": 881,
+      "kb": 0.86
+    },
+    "gallery-grid": {
+      "raw": 4673,
+      "gzip": 1613,
+      "kb": 1.58
+    },
+    "gallery-lightbox": {
+      "raw": 3234,
+      "gzip": 1163,
+      "kb": 1.14
+    },
+    "gantt-lite": {
+      "raw": 6186,
+      "gzip": 2034,
+      "kb": 1.99
+    },
+    "gauge": {
+      "raw": 2548,
+      "gzip": 939,
+      "kb": 0.92
+    },
+    "gift-card": {
+      "raw": 1382,
+      "gzip": 617,
+      "kb": 0.6
+    },
+    "gift-message": {
+      "raw": 2135,
+      "gzip": 980,
+      "kb": 0.96
+    },
+    "glossary-list": {
+      "raw": 2409,
+      "gzip": 1054,
+      "kb": 1.03
+    },
+    "heading": {
+      "raw": 1385,
+      "gzip": 641,
+      "kb": 0.63
+    },
+    "health-bar": {
+      "raw": 1971,
+      "gzip": 942,
+      "kb": 0.92
+    },
+    "heatmap": {
+      "raw": 2612,
+      "gzip": 1051,
+      "kb": 1.03
+    },
+    "hero-split": {
+      "raw": 1913,
+      "gzip": 853,
+      "kb": 0.83
+    },
+    "hero": {
+      "raw": 3861,
+      "gzip": 1284,
+      "kb": 1.25
+    },
+    "highlight-text": {
+      "raw": 1923,
+      "gzip": 786,
+      "kb": 0.77
+    },
+    "histogram": {
+      "raw": 2158,
+      "gzip": 926,
+      "kb": 0.9
+    },
+    "history-nav": {
+      "raw": 2501,
+      "gzip": 956,
+      "kb": 0.93
+    },
+    "holy-grail": {
+      "raw": 1668,
+      "gzip": 700,
+      "kb": 0.68
+    },
+    "horizon-chart": {
+      "raw": 1838,
+      "gzip": 877,
+      "kb": 0.86
+    },
+    "hotkey-recorder": {
+      "raw": 4666,
+      "gzip": 1461,
+      "kb": 1.43
+    },
+    "hover-card": {
+      "raw": 15853,
+      "gzip": 3479,
+      "kb": 3.4
+    },
+    "html-preview": {
+      "raw": 1144,
+      "gzip": 565,
+      "kb": 0.55
+    },
+    "icicle-chart": {
+      "raw": 2375,
+      "gzip": 1059,
+      "kb": 1.03
+    },
+    "id-card": {
+      "raw": 1658,
+      "gzip": 715,
+      "kb": 0.7
+    },
+    "image-carousel": {
+      "raw": 3357,
+      "gzip": 1246,
+      "kb": 1.22
+    },
+    "image-compare": {
+      "raw": 2916,
+      "gzip": 1027,
+      "kb": 1
+    },
+    "image-crop": {
+      "raw": 10766,
+      "gzip": 2878,
+      "kb": 2.81
+    },
+    "import-review": {
+      "raw": 2918,
+      "gzip": 1033,
+      "kb": 1.01
+    },
+    "inbox-list": {
+      "raw": 3865,
+      "gzip": 1545,
+      "kb": 1.51
+    },
+    "infinite-scroll": {
+      "raw": 1212,
+      "gzip": 572,
+      "kb": 0.56
+    },
+    "inline-edit": {
+      "raw": 4473,
+      "gzip": 1416,
+      "kb": 1.38
+    },
+    "inline-multiselect": {
+      "raw": 4189,
+      "gzip": 1554,
+      "kb": 1.52
+    },
+    "input-group": {
+      "raw": 2057,
+      "gzip": 741,
+      "kb": 0.72
+    },
+    "input-mask-phone": {
+      "raw": 3089,
+      "gzip": 1244,
+      "kb": 1.21
+    },
+    "input-otp": {
+      "raw": 2883,
+      "gzip": 1190,
+      "kb": 1.16
+    },
+    "input": {
+      "raw": 759,
+      "gzip": 420,
+      "kb": 0.41
+    },
+    "install-prompt": {
+      "raw": 1613,
+      "gzip": 730,
+      "kb": 0.71
+    },
+    "installment-picker": {
+      "raw": 3320,
+      "gzip": 1237,
+      "kb": 1.21
+    },
+    "inventory-grid": {
+      "raw": 1404,
+      "gzip": 717,
+      "kb": 0.7
+    },
+    "invite-modal": {
+      "raw": 4012,
+      "gzip": 1580,
+      "kb": 1.54
+    },
+    "invite-team": {
+      "raw": 2598,
+      "gzip": 1050,
+      "kb": 1.03
+    },
+    "invoice": {
+      "raw": 3654,
+      "gzip": 1129,
+      "kb": 1.1
+    },
+    "item-slot": {
+      "raw": 1704,
+      "gzip": 835,
+      "kb": 0.82
+    },
+    "item": {
+      "raw": 2427,
+      "gzip": 715,
+      "kb": 0.7
+    },
+    "joystick": {
+      "raw": 2499,
+      "gzip": 1101,
+      "kb": 1.08
+    },
+    "json-editor": {
+      "raw": 3162,
+      "gzip": 1301,
+      "kb": 1.27
+    },
+    "json-formatter": {
+      "raw": 1889,
+      "gzip": 885,
+      "kb": 0.86
+    },
+    "json-inspector": {
+      "raw": 3902,
+      "gzip": 1198,
+      "kb": 1.17
+    },
+    "json-viewer": {
+      "raw": 3847,
+      "gzip": 1068,
+      "kb": 1.04
+    },
+    "jumbotron": {
+      "raw": 1035,
+      "gzip": 493,
+      "kb": 0.48
+    },
+    "jwt-decoder": {
+      "raw": 1880,
+      "gzip": 929,
+      "kb": 0.91
+    },
+    "kanban-lite": {
+      "raw": 6921,
+      "gzip": 2034,
+      "kb": 1.99
+    },
+    "kanban-v2": {
+      "raw": 3785,
+      "gzip": 1437,
+      "kb": 1.4
+    },
+    "kbd": {
+      "raw": 602,
+      "gzip": 361,
+      "kb": 0.35
+    },
+    "keyboard-nav-helper": {
+      "raw": 2991,
+      "gzip": 1300,
+      "kb": 1.27
+    },
+    "keyboard-shortcuts": {
+      "raw": 1456,
+      "gzip": 663,
+      "kb": 0.65
+    },
+    "keypad": {
+      "raw": 23772,
+      "gzip": 6102,
+      "kb": 5.96
+    },
+    "kill-feed": {
+      "raw": 1594,
+      "gzip": 761,
+      "kb": 0.74
+    },
+    "kpi-strip": {
+      "raw": 2401,
+      "gzip": 1048,
+      "kb": 1.02
+    },
+    "label": {
+      "raw": 871,
+      "gzip": 481,
+      "kb": 0.47
+    },
+    "language-select": {
+      "raw": 4077,
+      "gzip": 1516,
+      "kb": 1.48
+    },
+    "lanyard": {
+      "raw": 897,
+      "gzip": 453,
+      "kb": 0.44
+    },
+    "leaderboard": {
+      "raw": 2480,
+      "gzip": 843,
+      "kb": 0.82
+    },
+    "library-due-date-card": {
+      "raw": 2862,
+      "gzip": 1131,
+      "kb": 1.1
+    },
+    "lightbox": {
+      "raw": 4671,
+      "gzip": 1498,
+      "kb": 1.46
+    },
+    "like-button": {
+      "raw": 1482,
+      "gzip": 778,
+      "kb": 0.76
+    },
+    "line-chart": {
+      "raw": 4119,
+      "gzip": 1574,
+      "kb": 1.54
+    },
+    "link-card": {
+      "raw": 1919,
+      "gzip": 850,
+      "kb": 0.83
+    },
+    "list": {
+      "raw": 3439,
+      "gzip": 1031,
+      "kb": 1.01
+    },
+    "listbox": {
+      "raw": 4403,
+      "gzip": 1495,
+      "kb": 1.46
+    },
+    "live-badge": {
+      "raw": 1658,
+      "gzip": 729,
+      "kb": 0.71
+    },
+    "live-clock": {
+      "raw": 1295,
+      "gzip": 670,
+      "kb": 0.65
+    },
+    "load-more": {
+      "raw": 1503,
+      "gzip": 615,
+      "kb": 0.6
+    },
+    "loading-button": {
+      "raw": 2880,
+      "gzip": 1044,
+      "kb": 1.02
+    },
+    "loading-dots": {
+      "raw": 1430,
+      "gzip": 642,
+      "kb": 0.63
+    },
+    "loading-overlay": {
+      "raw": 1391,
+      "gzip": 530,
+      "kb": 0.52
+    },
+    "log-viewer": {
+      "raw": 3701,
+      "gzip": 1084,
+      "kb": 1.06
+    },
+    "login-form": {
+      "raw": 6476,
+      "gzip": 2003,
+      "kb": 1.96
+    },
+    "logo-cloud": {
+      "raw": 1123,
+      "gzip": 583,
+      "kb": 0.57
+    },
+    "logo-marquee": {
+      "raw": 1141,
+      "gzip": 669,
+      "kb": 0.65
+    },
+    "loot-box": {
+      "raw": 1685,
+      "gzip": 820,
+      "kb": 0.8
+    },
+    "lorem-typer": {
+      "raw": 2571,
+      "gzip": 1130,
+      "kb": 1.1
+    },
+    "low-hp-pulse": {
+      "raw": 1388,
+      "gzip": 737,
+      "kb": 0.72
+    },
+    "luggage-tag": {
+      "raw": 2574,
+      "gzip": 860,
+      "kb": 0.84
+    },
+    "magic-link": {
+      "raw": 2303,
+      "gzip": 925,
+      "kb": 0.9
+    },
+    "mailbox": {
+      "raw": 2667,
+      "gzip": 1133,
+      "kb": 1.11
+    },
+    "maintenance-banner": {
+      "raw": 2445,
+      "gzip": 1133,
+      "kb": 1.11
+    },
+    "maintenance-page": {
+      "raw": 1037,
+      "gzip": 561,
+      "kb": 0.55
+    },
+    "mana-bar": {
+      "raw": 1815,
+      "gzip": 891,
+      "kb": 0.87
+    },
+    "markdown-editor": {
+      "raw": 4728,
+      "gzip": 1849,
+      "kb": 1.81
+    },
+    "markdown-preview": {
+      "raw": 2597,
+      "gzip": 1130,
+      "kb": 1.1
+    },
+    "marquee-bulbs": {
+      "raw": 1162,
+      "gzip": 588,
+      "kb": 0.57
+    },
+    "marquee": {
+      "raw": 1409,
+      "gzip": 565,
+      "kb": 0.55
+    },
+    "masked-currency": {
+      "raw": 2002,
+      "gzip": 897,
+      "kb": 0.88
+    },
+    "masked-input": {
+      "raw": 3089,
+      "gzip": 1202,
+      "kb": 1.17
+    },
+    "masonry-columns": {
+      "raw": 1233,
+      "gzip": 651,
+      "kb": 0.64
+    },
+    "master-detail": {
+      "raw": 2831,
+      "gzip": 1170,
+      "kb": 1.14
+    },
+    "match-ticker": {
+      "raw": 1752,
+      "gzip": 816,
+      "kb": 0.8
+    },
+    "matchmaking-lobby": {
+      "raw": 2610,
+      "gzip": 1056,
+      "kb": 1.03
+    },
+    "matrix-chart": {
+      "raw": 2267,
+      "gzip": 910,
+      "kb": 0.89
+    },
+    "medal-display": {
+      "raw": 2168,
+      "gzip": 958,
+      "kb": 0.94
+    },
+    "media-controls": {
+      "raw": 3660,
+      "gzip": 1215,
+      "kb": 1.19
+    },
+    "media-embed": {
+      "raw": 2172,
+      "gzip": 1092,
+      "kb": 1.07
+    },
+    "media-object": {
+      "raw": 1564,
+      "gzip": 709,
+      "kb": 0.69
+    },
+    "mega-menu": {
+      "raw": 3319,
+      "gzip": 1270,
+      "kb": 1.24
+    },
+    "megaphone": {
+      "raw": 2035,
+      "gzip": 975,
+      "kb": 0.95
+    },
+    "mention-highlight": {
+      "raw": 1147,
+      "gzip": 549,
+      "kb": 0.54
+    },
+    "mention-input": {
+      "raw": 5117,
+      "gzip": 1774,
+      "kb": 1.73
+    },
+    "mention-list": {
+      "raw": 2306,
+      "gzip": 1035,
+      "kb": 1.01
+    },
+    "menubar": {
+      "raw": 4391,
+      "gzip": 1429,
+      "kb": 1.4
+    },
+    "meter": {
+      "raw": 3141,
+      "gzip": 1147,
+      "kb": 1.12
+    },
+    "metric-card": {
+      "raw": 13400,
+      "gzip": 3395,
+      "kb": 3.32
+    },
+    "migration-banner": {
+      "raw": 2647,
+      "gzip": 1132,
+      "kb": 1.11
+    },
+    "milestone-chart": {
+      "raw": 2687,
+      "gzip": 1124,
+      "kb": 1.1
+    },
+    "mini-month": {
+      "raw": 3085,
+      "gzip": 1152,
+      "kb": 1.13
+    },
+    "mobile-menu": {
+      "raw": 2591,
+      "gzip": 1181,
+      "kb": 1.15
+    },
+    "model-picker": {
+      "raw": 3288,
+      "gzip": 1237,
+      "kb": 1.21
+    },
+    "month-picker": {
+      "raw": 3700,
+      "gzip": 1275,
+      "kb": 1.25
+    },
+    "multi-select": {
+      "raw": 4620,
+      "gzip": 1473,
+      "kb": 1.44
+    },
+    "navbar": {
+      "raw": 2150,
+      "gzip": 857,
+      "kb": 0.84
+    },
+    "navigation-menu": {
+      "raw": 1798,
+      "gzip": 704,
+      "kb": 0.69
+    },
+    "neon-sign": {
+      "raw": 1479,
+      "gzip": 622,
+      "kb": 0.61
+    },
+    "network-graph": {
+      "raw": 2997,
+      "gzip": 1272,
+      "kb": 1.24
+    },
+    "newsletter-box": {
+      "raw": 2399,
+      "gzip": 998,
+      "kb": 0.97
+    },
+    "nfc-badge": {
+      "raw": 16397,
+      "gzip": 4172,
+      "kb": 4.07
+    },
+    "notification-center": {
+      "raw": 5487,
+      "gzip": 1663,
+      "kb": 1.62
+    },
+    "notification-feed": {
+      "raw": 2979,
+      "gzip": 1260,
+      "kb": 1.23
+    },
+    "now-serving": {
+      "raw": 1886,
+      "gzip": 800,
+      "kb": 0.78
+    },
+    "nps-survey": {
+      "raw": 2386,
+      "gzip": 1021,
+      "kb": 1
+    },
+    "number-input": {
+      "raw": 2975,
+      "gzip": 1141,
+      "kb": 1.11
+    },
+    "offline-banner": {
+      "raw": 2249,
+      "gzip": 1018,
+      "kb": 0.99
+    },
+    "offline-queue": {
+      "raw": 1782,
+      "gzip": 811,
+      "kb": 0.79
+    },
+    "onboarding-checklist": {
+      "raw": 2883,
+      "gzip": 1232,
+      "kb": 1.2
+    },
+    "onboarding-pager": {
+      "raw": 2622,
+      "gzip": 1078,
+      "kb": 1.05
+    },
+    "order-card": {
+      "raw": 2273,
+      "gzip": 886,
+      "kb": 0.87
+    },
+    "order-tracking": {
+      "raw": 2831,
+      "gzip": 1153,
+      "kb": 1.13
+    },
+    "org-chart": {
+      "raw": 5366,
+      "gzip": 1652,
+      "kb": 1.61
+    },
+    "org-tree-v2": {
+      "raw": 2911,
+      "gzip": 1118,
+      "kb": 1.09
+    },
+    "otp-v2": {
+      "raw": 3135,
+      "gzip": 1350,
+      "kb": 1.32
+    },
+    "otp-verify": {
+      "raw": 3541,
+      "gzip": 1480,
+      "kb": 1.45
+    },
+    "page-header": {
+      "raw": 1383,
+      "gzip": 570,
+      "kb": 0.56
+    },
+    "page-tabs": {
+      "raw": 1976,
+      "gzip": 976,
+      "kb": 0.95
+    },
+    "pager-dots": {
+      "raw": 2888,
+      "gzip": 1000,
+      "kb": 0.98
+    },
+    "pagination-v2": {
+      "raw": 3585,
+      "gzip": 1278,
+      "kb": 1.25
+    },
+    "pagination": {
+      "raw": 3564,
+      "gzip": 1096,
+      "kb": 1.07
+    },
+    "parking-ticket-meter": {
+      "raw": 2233,
+      "gzip": 980,
+      "kb": 0.96
+    },
+    "passkey-button": {
+      "raw": 1303,
+      "gzip": 746,
+      "kb": 0.73
+    },
+    "passport-id-card": {
+      "raw": 2371,
+      "gzip": 837,
+      "kb": 0.82
+    },
+    "passport-stamp-grid": {
+      "raw": 1871,
+      "gzip": 799,
+      "kb": 0.78
+    },
+    "passport": {
+      "raw": 2059,
+      "gzip": 755,
+      "kb": 0.74
+    },
+    "password-input": {
+      "raw": 2146,
+      "gzip": 1019,
+      "kb": 1
+    },
+    "password-strength": {
+      "raw": 3350,
+      "gzip": 1290,
+      "kb": 1.26
+    },
+    "path-breadcrumb": {
+      "raw": 1453,
+      "gzip": 718,
+      "kb": 0.7
+    },
+    "pause-menu": {
+      "raw": 1805,
+      "gzip": 786,
+      "kb": 0.77
+    },
+    "payment-methods": {
+      "raw": 2906,
+      "gzip": 1292,
+      "kb": 1.26
+    },
+    "permission-denied": {
+      "raw": 2359,
+      "gzip": 1090,
+      "kb": 1.06
+    },
+    "permissions-matrix": {
+      "raw": 4050,
+      "gzip": 1459,
+      "kb": 1.42
+    },
+    "phone-input": {
+      "raw": 4659,
+      "gzip": 1643,
+      "kb": 1.6
+    },
+    "pie-interactive": {
+      "raw": 2631,
+      "gzip": 1121,
+      "kb": 1.09
+    },
+    "pin-input": {
+      "raw": 3492,
+      "gzip": 1278,
+      "kb": 1.25
+    },
+    "ping-indicator": {
+      "raw": 1174,
+      "gzip": 659,
+      "kb": 0.64
+    },
+    "pivot-lite": {
+      "raw": 2704,
+      "gzip": 893,
+      "kb": 0.87
+    },
+    "playlist": {
+      "raw": 3010,
+      "gzip": 1069,
+      "kb": 1.04
+    },
+    "podcast-player": {
+      "raw": 5320,
+      "gzip": 1624,
+      "kb": 1.59
+    },
+    "poll-results": {
+      "raw": 2629,
+      "gzip": 1155,
+      "kb": 1.13
+    },
+    "poll": {
+      "raw": 3323,
+      "gzip": 1382,
+      "kb": 1.35
+    },
+    "popover": {
+      "raw": 3421,
+      "gzip": 1253,
+      "kb": 1.22
+    },
+    "post-card": {
+      "raw": 1771,
+      "gzip": 614,
+      "kb": 0.6
+    },
+    "poster-card": {
+      "raw": 1842,
+      "gzip": 867,
+      "kb": 0.85
+    },
+    "postmark": {
+      "raw": 1413,
+      "gzip": 581,
+      "kb": 0.57
+    },
+    "price-compare": {
+      "raw": 2406,
+      "gzip": 1073,
+      "kb": 1.05
+    },
+    "price-tag": {
+      "raw": 1711,
+      "gzip": 733,
+      "kb": 0.72
+    },
+    "pricing-calculator": {
+      "raw": 2440,
+      "gzip": 922,
+      "kb": 0.9
+    },
+    "pricing-slider": {
+      "raw": 3129,
+      "gzip": 1152,
+      "kb": 1.13
+    },
+    "pricing-table": {
+      "raw": 20271,
+      "gzip": 4671,
+      "kb": 4.56
+    },
+    "print-invoice": {
+      "raw": 2460,
+      "gzip": 959,
+      "kb": 0.94
+    },
+    "printable-invoice": {
+      "raw": 3809,
+      "gzip": 1285,
+      "kb": 1.25
+    },
+    "printable-ticket": {
+      "raw": 2900,
+      "gzip": 1063,
+      "kb": 1.04
+    },
+    "product-card": {
+      "raw": 3270,
+      "gzip": 1268,
+      "kb": 1.24
+    },
+    "profile-settings": {
+      "raw": 5467,
+      "gzip": 1513,
+      "kb": 1.48
+    },
+    "progress-circle": {
+      "raw": 2339,
+      "gzip": 885,
+      "kb": 0.86
+    },
+    "progress": {
+      "raw": 902,
+      "gzip": 515,
+      "kb": 0.5
+    },
+    "prompt-box": {
+      "raw": 1801,
+      "gzip": 840,
+      "kb": 0.82
+    },
+    "prompt-diff-compare": {
+      "raw": 2579,
+      "gzip": 979,
+      "kb": 0.96
+    },
+    "prompt-history-drawer": {
+      "raw": 4560,
+      "gzip": 1431,
+      "kb": 1.4
+    },
+    "prompt-history": {
+      "raw": 1958,
+      "gzip": 900,
+      "kb": 0.88
+    },
+    "prompt-input": {
+      "raw": 2746,
+      "gzip": 1098,
+      "kb": 1.07
+    },
+    "pull-refresh": {
+      "raw": 1814,
+      "gzip": 863,
+      "kb": 0.84
+    },
+    "punch-clock": {
+      "raw": 3125,
+      "gzip": 1245,
+      "kb": 1.22
+    },
+    "push-permission": {
+      "raw": 2458,
+      "gzip": 931,
+      "kb": 0.91
+    },
+    "qq-plot": {
+      "raw": 1740,
+      "gzip": 876,
+      "kb": 0.86
+    },
+    "qr-code": {
+      "raw": 7199,
+      "gzip": 2505,
+      "kb": 2.45
+    },
+    "qr-reader": {
+      "raw": 21556,
+      "gzip": 5206,
+      "kb": 5.08
+    },
+    "quest-list": {
+      "raw": 2409,
+      "gzip": 1037,
+      "kb": 1.01
+    },
+    "quest-tracker": {
+      "raw": 1424,
+      "gzip": 740,
+      "kb": 0.72
+    },
+    "queue-ticket": {
+      "raw": 1721,
+      "gzip": 680,
+      "kb": 0.66
+    },
+    "queued-jobs": {
+      "raw": 3369,
+      "gzip": 1397,
+      "kb": 1.36
+    },
+    "quick-actions": {
+      "raw": 1789,
+      "gzip": 880,
+      "kb": 0.86
+    },
+    "quiz-card": {
+      "raw": 2494,
+      "gzip": 1050,
+      "kb": 1.03
+    },
+    "quote-wall": {
+      "raw": 1035,
+      "gzip": 541,
+      "kb": 0.53
+    },
+    "quote": {
+      "raw": 1140,
+      "gzip": 548,
+      "kb": 0.54
+    },
+    "radar-chart": {
+      "raw": 2896,
+      "gzip": 1049,
+      "kb": 1.02
+    },
+    "radial-bar": {
+      "raw": 1948,
+      "gzip": 898,
+      "kb": 0.88
+    },
+    "radio-cards": {
+      "raw": 15024,
+      "gzip": 3839,
+      "kb": 3.75
+    },
+    "radio-group": {
+      "raw": 2376,
+      "gzip": 902,
+      "kb": 0.88
+    },
+    "radio-tile": {
+      "raw": 2085,
+      "gzip": 831,
+      "kb": 0.81
+    },
+    "range-calendar": {
+      "raw": 3561,
+      "gzip": 1359,
+      "kb": 1.33
+    },
+    "rank-list": {
+      "raw": 1031,
+      "gzip": 558,
+      "kb": 0.54
+    },
+    "rate-limit-note": {
+      "raw": 1564,
+      "gzip": 833,
+      "kb": 0.81
+    },
+    "rating": {
+      "raw": 3305,
+      "gzip": 1237,
+      "kb": 1.21
+    },
+    "reaction-bar": {
+      "raw": 1847,
+      "gzip": 692,
+      "kb": 0.68
+    },
+    "receipt-printer": {
+      "raw": 1299,
+      "gzip": 598,
+      "kb": 0.58
+    },
+    "receipt": {
+      "raw": 2169,
+      "gzip": 878,
+      "kb": 0.86
+    },
+    "recent-searches": {
+      "raw": 2147,
+      "gzip": 959,
+      "kb": 0.94
+    },
+    "recipe-card": {
+      "raw": 3376,
+      "gzip": 1287,
+      "kb": 1.26
+    },
+    "recurrence-picker": {
+      "raw": 3035,
+      "gzip": 1213,
+      "kb": 1.18
+    },
+    "refund-card": {
+      "raw": 1740,
+      "gzip": 827,
+      "kb": 0.81
+    },
+    "regex-tester": {
+      "raw": 3798,
+      "gzip": 1397,
+      "kb": 1.36
+    },
+    "regex-visualizer": {
+      "raw": 2214,
+      "gzip": 942,
+      "kb": 0.92
+    },
+    "register-form": {
+      "raw": 5673,
+      "gzip": 1778,
+      "kb": 1.74
+    },
+    "replay-controls": {
+      "raw": 3186,
+      "gzip": 1105,
+      "kb": 1.08
+    },
+    "resizable": {
+      "raw": 20637,
+      "gzip": 4845,
+      "kb": 4.73
+    },
+    "resource-scheduler": {
+      "raw": 2550,
+      "gzip": 1044,
+      "kb": 1.02
+    },
+    "respawn-timer": {
+      "raw": 2296,
+      "gzip": 996,
+      "kb": 0.97
+    },
+    "responsive-nav": {
+      "raw": 3737,
+      "gzip": 1348,
+      "kb": 1.32
+    },
+    "result": {
+      "raw": 4059,
+      "gzip": 1002,
+      "kb": 0.98
+    },
+    "reveal": {
+      "raw": 1312,
+      "gzip": 658,
+      "kb": 0.64
+    },
+    "rich-text-editor": {
+      "raw": 8271,
+      "gzip": 1733,
+      "kb": 1.69
+    },
+    "roadmap-board": {
+      "raw": 1777,
+      "gzip": 766,
+      "kb": 0.75
+    },
+    "role-badge": {
+      "raw": 1385,
+      "gzip": 688,
+      "kb": 0.67
+    },
+    "route-loader": {
+      "raw": 1057,
+      "gzip": 564,
+      "kb": 0.55
+    },
+    "row-expand": {
+      "raw": 2468,
+      "gzip": 1079,
+      "kb": 1.05
+    },
+    "rsvp-card": {
+      "raw": 2050,
+      "gzip": 877,
+      "kb": 0.86
+    },
+    "sample-data": {
+      "raw": 1348,
+      "gzip": 659,
+      "kb": 0.64
+    },
+    "sankey-chart": {
+      "raw": 5683,
+      "gzip": 1614,
+      "kb": 1.58
+    },
+    "save-indicator": {
+      "raw": 1685,
+      "gzip": 736,
+      "kb": 0.72
+    },
+    "saved-searches": {
+      "raw": 2159,
+      "gzip": 909,
+      "kb": 0.89
+    },
+    "scatter-plot": {
+      "raw": 3396,
+      "gzip": 1059,
+      "kb": 1.03
+    },
+    "score-keeper": {
+      "raw": 2945,
+      "gzip": 1149,
+      "kb": 1.12
+    },
+    "score-popup": {
+      "raw": 1442,
+      "gzip": 760,
+      "kb": 0.74
+    },
+    "scoreboard": {
+      "raw": 3090,
+      "gzip": 1077,
+      "kb": 1.05
+    },
+    "scratch-card": {
+      "raw": 3755,
+      "gzip": 1479,
+      "kb": 1.44
+    },
+    "screenshot-frame": {
+      "raw": 1365,
+      "gzip": 670,
+      "kb": 0.65
+    },
+    "scroll-area": {
+      "raw": 18389,
+      "gzip": 3715,
+      "kb": 3.63
+    },
+    "scroll-shadow": {
+      "raw": 2100,
+      "gzip": 731,
+      "kb": 0.71
+    },
+    "scroll-spy-nav": {
+      "raw": 4109,
+      "gzip": 1466,
+      "kb": 1.43
+    },
+    "scroll-spy-v2": {
+      "raw": 2498,
+      "gzip": 1119,
+      "kb": 1.09
+    },
+    "scroll-top": {
+      "raw": 1591,
+      "gzip": 813,
+      "kb": 0.79
+    },
+    "search-bar": {
+      "raw": 3014,
+      "gzip": 1168,
+      "kb": 1.14
+    },
+    "search-command": {
+      "raw": 4206,
+      "gzip": 1481,
+      "kb": 1.45
+    },
+    "search-filter-bar": {
+      "raw": 4197,
+      "gzip": 1568,
+      "kb": 1.53
+    },
+    "seasonal-pumpkin": {
+      "raw": 1108,
+      "gzip": 611,
+      "kb": 0.6
+    },
+    "seasonal-snow": {
+      "raw": 1651,
+      "gzip": 869,
+      "kb": 0.85
+    },
+    "seat-map": {
+      "raw": 22155,
+      "gzip": 5613,
+      "kb": 5.48
+    },
+    "section-heading": {
+      "raw": 1383,
+      "gzip": 609,
+      "kb": 0.59
+    },
+    "security-score": {
+      "raw": 3633,
+      "gzip": 1456,
+      "kb": 1.42
+    },
+    "segmented-switch": {
+      "raw": 17014,
+      "gzip": 4252,
+      "kb": 4.15
+    },
+    "select-v2": {
+      "raw": 4137,
+      "gzip": 1453,
+      "kb": 1.42
+    },
+    "select": {
+      "raw": 5781,
+      "gzip": 1883,
+      "kb": 1.84
+    },
+    "sensitivity-slider": {
+      "raw": 1569,
+      "gzip": 767,
+      "kb": 0.75
+    },
+    "separator": {
+      "raw": 765,
+      "gzip": 393,
+      "kb": 0.38
+    },
+    "serial-input": {
+      "raw": 3205,
+      "gzip": 1336,
+      "kb": 1.3
+    },
+    "session-list": {
+      "raw": 3735,
+      "gzip": 1506,
+      "kb": 1.47
+    },
+    "settings-section": {
+      "raw": 2723,
+      "gzip": 1158,
+      "kb": 1.13
+    },
+    "settings-sheet": {
+      "raw": 2205,
+      "gzip": 818,
+      "kb": 0.8
+    },
+    "share-menu": {
+      "raw": 4946,
+      "gzip": 1397,
+      "kb": 1.36
+    },
+    "sheet": {
+      "raw": 4176,
+      "gzip": 1582,
+      "kb": 1.54
+    },
+    "shift-planner": {
+      "raw": 2288,
+      "gzip": 953,
+      "kb": 0.93
+    },
+    "shipping-options": {
+      "raw": 2995,
+      "gzip": 1169,
+      "kb": 1.14
+    },
+    "shop-grid": {
+      "raw": 1999,
+      "gzip": 882,
+      "kb": 0.86
+    },
+    "shortcut-recorder": {
+      "raw": 2741,
+      "gzip": 1119,
+      "kb": 1.09
+    },
+    "sidebar-layout": {
+      "raw": 800,
+      "gzip": 451,
+      "kb": 0.44
+    },
+    "sidebar-v2": {
+      "raw": 4101,
+      "gzip": 1593,
+      "kb": 1.56
+    },
+    "sidebar": {
+      "raw": 6000,
+      "gzip": 1825,
+      "kb": 1.78
+    },
+    "signature-line": {
+      "raw": 1586,
+      "gzip": 731,
+      "kb": 0.71
+    },
+    "signature-pad": {
+      "raw": 18707,
+      "gzip": 4833,
+      "kb": 4.72
+    },
+    "sitemap-list": {
+      "raw": 1582,
+      "gzip": 753,
+      "kb": 0.74
+    },
+    "size-picker": {
+      "raw": 2892,
+      "gzip": 1022,
+      "kb": 1
+    },
+    "skeleton-v2": {
+      "raw": 2336,
+      "gzip": 959,
+      "kb": 0.94
+    },
+    "skeleton": {
+      "raw": 449,
+      "gzip": 286,
+      "kb": 0.28
+    },
+    "skip-link": {
+      "raw": 651,
+      "gzip": 393,
+      "kb": 0.38
+    },
+    "slider-range-label": {
+      "raw": 3540,
+      "gzip": 1332,
+      "kb": 1.3
+    },
+    "slider-ticks": {
+      "raw": 4723,
+      "gzip": 1659,
+      "kb": 1.62
+    },
+    "slider": {
+      "raw": 2563,
+      "gzip": 927,
+      "kb": 0.91
+    },
+    "smart-search-bar": {
+      "raw": 4392,
+      "gzip": 1645,
+      "kb": 1.61
+    },
+    "snippet-card": {
+      "raw": 1428,
+      "gzip": 697,
+      "kb": 0.68
+    },
+    "social-proof-toast": {
+      "raw": 2067,
+      "gzip": 939,
+      "kb": 0.92
+    },
+    "spark-bars": {
+      "raw": 1433,
+      "gzip": 668,
+      "kb": 0.65
+    },
+    "spark-line-group": {
+      "raw": 1616,
+      "gzip": 786,
+      "kb": 0.77
+    },
+    "sparkline": {
+      "raw": 2410,
+      "gzip": 975,
+      "kb": 0.95
+    },
+    "speed-dial": {
+      "raw": 4878,
+      "gzip": 1531,
+      "kb": 1.5
+    },
+    "spinner": {
+      "raw": 972,
+      "gzip": 509,
+      "kb": 0.5
+    },
+    "split-bill-calculator": {
+      "raw": 3119,
+      "gzip": 1150,
+      "kb": 1.12
+    },
+    "split-button": {
+      "raw": 3893,
+      "gzip": 1336,
+      "kb": 1.3
+    },
+    "split-flap": {
+      "raw": 19127,
+      "gzip": 5418,
+      "kb": 5.29
+    },
+    "split-screen": {
+      "raw": 1629,
+      "gzip": 773,
+      "kb": 0.75
+    },
+    "split-view": {
+      "raw": 2465,
+      "gzip": 1042,
+      "kb": 1.02
+    },
+    "spotlight-card": {
+      "raw": 1888,
+      "gzip": 897,
+      "kb": 0.88
+    },
+    "spotlight": {
+      "raw": 3504,
+      "gzip": 1240,
+      "kb": 1.21
+    },
+    "spreadsheet-lite": {
+      "raw": 1865,
+      "gzip": 843,
+      "kb": 0.82
+    },
+    "sso-row": {
+      "raw": 1428,
+      "gzip": 674,
+      "kb": 0.66
+    },
+    "stack": {
+      "raw": 1222,
+      "gzip": 587,
+      "kb": 0.57
+    },
+    "stacked-bar": {
+      "raw": 2610,
+      "gzip": 925,
+      "kb": 0.9
+    },
+    "stamp-card": {
+      "raw": 1527,
+      "gzip": 667,
+      "kb": 0.65
+    },
+    "stamp-field": {
+      "raw": 2755,
+      "gzip": 1124,
+      "kb": 1.1
+    },
+    "stamp-seal": {
+      "raw": 1676,
+      "gzip": 688,
+      "kb": 0.67
+    },
+    "star-rating-input": {
+      "raw": 2593,
+      "gzip": 1130,
+      "kb": 1.1
+    },
+    "star": {
+      "raw": 547,
+      "gzip": 369,
+      "kb": 0.36
+    },
+    "stat-tile": {
+      "raw": 2344,
+      "gzip": 1051,
+      "kb": 1.03
+    },
+    "stats-band": {
+      "raw": 1339,
+      "gzip": 653,
+      "kb": 0.64
+    },
+    "stats-overview": {
+      "raw": 4011,
+      "gzip": 1383,
+      "kb": 1.35
+    },
+    "status-dot": {
+      "raw": 13473,
+      "gzip": 3550,
+      "kb": 3.47
+    },
+    "status-page": {
+      "raw": 1740,
+      "gzip": 796,
+      "kb": 0.78
+    },
+    "stepper-v2": {
+      "raw": 3639,
+      "gzip": 1311,
+      "kb": 1.28
+    },
+    "stepper": {
+      "raw": 3037,
+      "gzip": 995,
+      "kb": 0.97
+    },
+    "steps": {
+      "raw": 2398,
+      "gzip": 862,
+      "kb": 0.84
+    },
+    "sticky-bar": {
+      "raw": 1729,
+      "gzip": 753,
+      "kb": 0.74
+    },
+    "sticky-footer": {
+      "raw": 1115,
+      "gzip": 546,
+      "kb": 0.53
+    },
+    "sticky-split": {
+      "raw": 1029,
+      "gzip": 527,
+      "kb": 0.51
+    },
+    "stock-status": {
+      "raw": 1351,
+      "gzip": 683,
+      "kb": 0.67
+    },
+    "stopwatch-v2": {
+      "raw": 3524,
+      "gzip": 1276,
+      "kb": 1.25
+    },
+    "stopwatch": {
+      "raw": 5737,
+      "gzip": 1796,
+      "kb": 1.75
+    },
+    "storage-donut": {
+      "raw": 1709,
+      "gzip": 811,
+      "kb": 0.79
+    },
+    "story-ring": {
+      "raw": 1959,
+      "gzip": 922,
+      "kb": 0.9
+    },
+    "story-viewer": {
+      "raw": 2733,
+      "gzip": 1015,
+      "kb": 0.99
+    },
+    "stream-graph": {
+      "raw": 2433,
+      "gzip": 1046,
+      "kb": 1.02
+    },
+    "streaming-text": {
+      "raw": 1998,
+      "gzip": 894,
+      "kb": 0.87
+    },
+    "subscription-card": {
+      "raw": 2427,
+      "gzip": 1079,
+      "kb": 1.05
+    },
+    "suggestion-chips": {
+      "raw": 1275,
+      "gzip": 677,
+      "kb": 0.66
+    },
+    "sunburst-chart": {
+      "raw": 4319,
+      "gzip": 1637,
+      "kb": 1.6
+    },
+    "swipe-actions": {
+      "raw": 2289,
+      "gzip": 1012,
+      "kb": 0.99
+    },
+    "switch-card": {
+      "raw": 2187,
+      "gzip": 915,
+      "kb": 0.89
+    },
+    "switch": {
+      "raw": 1635,
+      "gzip": 734,
+      "kb": 0.72
+    },
+    "sync-status": {
+      "raw": 1672,
+      "gzip": 839,
+      "kb": 0.82
+    },
+    "tabbar-v2": {
+      "raw": 2026,
+      "gzip": 920,
+      "kb": 0.9
+    },
+    "tabbar": {
+      "raw": 2691,
+      "gzip": 1077,
+      "kb": 1.05
+    },
+    "table-empty-col": {
+      "raw": 1191,
+      "gzip": 607,
+      "kb": 0.59
+    },
+    "table-summary": {
+      "raw": 1646,
+      "gzip": 797,
+      "kb": 0.78
+    },
+    "table": {
+      "raw": 1698,
+      "gzip": 531,
+      "kb": 0.52
+    },
+    "tabs": {
+      "raw": 4246,
+      "gzip": 1520,
+      "kb": 1.48
+    },
+    "tag-input": {
+      "raw": 17167,
+      "gzip": 4672,
+      "kb": 4.56
+    },
+    "task-list": {
+      "raw": 2181,
+      "gzip": 1067,
+      "kb": 1.04
+    },
+    "team-frames": {
+      "raw": 3094,
+      "gzip": 1216,
+      "kb": 1.19
+    },
+    "team-grid": {
+      "raw": 2257,
+      "gzip": 892,
+      "kb": 0.87
+    },
+    "team-members": {
+      "raw": 4748,
+      "gzip": 1849,
+      "kb": 1.81
+    },
+    "terminal": {
+      "raw": 3023,
+      "gzip": 1043,
+      "kb": 1.02
+    },
+    "testimonial-carousel": {
+      "raw": 2478,
+      "gzip": 989,
+      "kb": 0.97
+    },
+    "testimonial": {
+      "raw": 2268,
+      "gzip": 993,
+      "kb": 0.97
+    },
+    "text-diff": {
+      "raw": 3303,
+      "gzip": 986,
+      "kb": 0.96
+    },
+    "text": {
+      "raw": 1086,
+      "gzip": 508,
+      "kb": 0.5
+    },
+    "textarea-autosize": {
+      "raw": 1316,
+      "gzip": 631,
+      "kb": 0.62
+    },
+    "textarea": {
+      "raw": 769,
+      "gzip": 420,
+      "kb": 0.41
+    },
+    "theme-preset-picker": {
+      "raw": 2108,
+      "gzip": 929,
+      "kb": 0.91
+    },
+    "theme-stamping-machine": {
+      "raw": 2572,
+      "gzip": 1069,
+      "kb": 1.04
+    },
+    "theme-toggle": {
+      "raw": 15989,
+      "gzip": 4012,
+      "kb": 3.92
+    },
+    "thinking-block": {
+      "raw": 2425,
+      "gzip": 1010,
+      "kb": 0.99
+    },
+    "thumbnail-strip": {
+      "raw": 1957,
+      "gzip": 924,
+      "kb": 0.9
+    },
+    "ticket-card": {
+      "raw": 5230,
+      "gzip": 1424,
+      "kb": 1.39
+    },
+    "ticket-deck-dnd": {
+      "raw": 3261,
+      "gzip": 1227,
+      "kb": 1.2
+    },
+    "ticket-fold": {
+      "raw": 22719,
+      "gzip": 4741,
+      "kb": 4.63
+    },
+    "ticket-stub-v2": {
+      "raw": 2105,
+      "gzip": 835,
+      "kb": 0.82
+    },
+    "ticket-validator": {
+      "raw": 3570,
+      "gzip": 1404,
+      "kb": 1.37
+    },
+    "tilt-card": {
+      "raw": 2168,
+      "gzip": 983,
+      "kb": 0.96
+    },
+    "time-ago": {
+      "raw": 1493,
+      "gzip": 670,
+      "kb": 0.65
+    },
+    "time-input": {
+      "raw": 4212,
+      "gzip": 1218,
+      "kb": 1.19
+    },
+    "time-range-picker": {
+      "raw": 3857,
+      "gzip": 1224,
+      "kb": 1.2
+    },
+    "timeline-gantt": {
+      "raw": 2033,
+      "gzip": 931,
+      "kb": 0.91
+    },
+    "timeline-vertical-v2": {
+      "raw": 1862,
+      "gzip": 864,
+      "kb": 0.84
+    },
+    "timeline": {
+      "raw": 1959,
+      "gzip": 793,
+      "kb": 0.77
+    },
+    "timezone-select": {
+      "raw": 5041,
+      "gzip": 1892,
+      "kb": 1.85
+    },
+    "toast": {
+      "raw": 2920,
+      "gzip": 1145,
+      "kb": 1.12
+    },
+    "toc": {
+      "raw": 2270,
+      "gzip": 911,
+      "kb": 0.89
+    },
+    "toggle-group": {
+      "raw": 3623,
+      "gzip": 1329,
+      "kb": 1.3
+    },
+    "toggle": {
+      "raw": 2010,
+      "gzip": 863,
+      "kb": 0.84
+    },
+    "token-counter": {
+      "raw": 1991,
+      "gzip": 903,
+      "kb": 0.88
+    },
+    "tooltip": {
+      "raw": 1761,
+      "gzip": 826,
+      "kb": 0.81
+    },
+    "tour": {
+      "raw": 3612,
+      "gzip": 1303,
+      "kb": 1.27
+    },
+    "tournament-bracket": {
+      "raw": 2065,
+      "gzip": 878,
+      "kb": 0.86
+    },
+    "train-departure-board": {
+      "raw": 2499,
+      "gzip": 1050,
+      "kb": 1.03
+    },
+    "transfer-list": {
+      "raw": 6253,
+      "gzip": 1634,
+      "kb": 1.6
+    },
+    "tree-nav": {
+      "raw": 3257,
+      "gzip": 1202,
+      "kb": 1.17
+    },
+    "tree-select": {
+      "raw": 5003,
+      "gzip": 1756,
+      "kb": 1.71
+    },
+    "tree-table": {
+      "raw": 3287,
+      "gzip": 1358,
+      "kb": 1.33
+    },
+    "treemap-chart": {
+      "raw": 4183,
+      "gzip": 1480,
+      "kb": 1.45
+    },
+    "trend-badge": {
+      "raw": 9766,
+      "gzip": 2675,
+      "kb": 2.61
+    },
+    "trending-chips": {
+      "raw": 1862,
+      "gzip": 866,
+      "kb": 0.85
+    },
+    "trophy-shelf": {
+      "raw": 1995,
+      "gzip": 908,
+      "kb": 0.89
+    },
+    "truncate": {
+      "raw": 1674,
+      "gzip": 772,
+      "kb": 0.75
+    },
+    "turnstile-gate": {
+      "raw": 3652,
+      "gzip": 1341,
+      "kb": 1.31
+    },
+    "tutorial-highlight": {
+      "raw": 1867,
+      "gzip": 891,
+      "kb": 0.87
+    },
+    "two-column-list": {
+      "raw": 1516,
+      "gzip": 791,
+      "kb": 0.77
+    },
+    "two-factor": {
+      "raw": 4352,
+      "gzip": 1746,
+      "kb": 1.71
+    },
+    "typewriter": {
+      "raw": 2378,
+      "gzip": 884,
+      "kb": 0.86
+    },
+    "typing-indicator": {
+      "raw": 1764,
+      "gzip": 621,
+      "kb": 0.61
+    },
+    "update-toast": {
+      "raw": 1417,
+      "gzip": 689,
+      "kb": 0.67
+    },
+    "upgrade-prompt": {
+      "raw": 3626,
+      "gzip": 1512,
+      "kb": 1.48
+    },
+    "upload-progress": {
+      "raw": 2590,
+      "gzip": 1188,
+      "kb": 1.16
+    },
+    "usage-meter": {
+      "raw": 2272,
+      "gzip": 1007,
+      "kb": 0.98
+    },
+    "usage-quota-ring": {
+      "raw": 1921,
+      "gzip": 915,
+      "kb": 0.89
+    },
+    "user-card": {
+      "raw": 2383,
+      "gzip": 938,
+      "kb": 0.92
+    },
+    "user-table": {
+      "raw": 4838,
+      "gzip": 1613,
+      "kb": 1.58
+    },
+    "variant-picker": {
+      "raw": 3221,
+      "gzip": 1133,
+      "kb": 1.11
+    },
+    "version-badge": {
+      "raw": 1380,
+      "gzip": 686,
+      "kb": 0.67
+    },
+    "video-frame": {
+      "raw": 3690,
+      "gzip": 1374,
+      "kb": 1.34
+    },
+    "video-list": {
+      "raw": 2483,
+      "gzip": 1154,
+      "kb": 1.13
+    },
+    "video-player": {
+      "raw": 4837,
+      "gzip": 1512,
+      "kb": 1.48
+    },
+    "video-thumbnail": {
+      "raw": 2989,
+      "gzip": 1031,
+      "kb": 1.01
+    },
+    "vinyl-record": {
+      "raw": 873,
+      "gzip": 441,
+      "kb": 0.43
+    },
+    "violin-chart": {
+      "raw": 2438,
+      "gzip": 1115,
+      "kb": 1.09
+    },
+    "virtual-card-flipper": {
+      "raw": 2921,
+      "gzip": 1131,
+      "kb": 1.1
+    },
+    "virtual-list": {
+      "raw": 1700,
+      "gzip": 668,
+      "kb": 0.65
+    },
+    "voice-chat-visualizer": {
+      "raw": 1746,
+      "gzip": 824,
+      "kb": 0.8
+    },
+    "voice-indicator": {
+      "raw": 1747,
+      "gzip": 876,
+      "kb": 0.86
+    },
+    "voice-message": {
+      "raw": 3025,
+      "gzip": 1025,
+      "kb": 1
+    },
+    "voice-note-list": {
+      "raw": 2996,
+      "gzip": 1227,
+      "kb": 1.2
+    },
+    "volume-slider": {
+      "raw": 2838,
+      "gzip": 1067,
+      "kb": 1.04
+    },
+    "waitlist-queue-card": {
+      "raw": 2654,
+      "gzip": 1068,
+      "kb": 1.04
+    },
+    "wall-of-love": {
+      "raw": 1430,
+      "gzip": 748,
+      "kb": 0.73
+    },
+    "wallet-card": {
+      "raw": 2354,
+      "gzip": 1059,
+      "kb": 1.03
+    },
+    "warranty-certificate": {
+      "raw": 1577,
+      "gzip": 690,
+      "kb": 0.67
+    },
+    "waterfall-chart": {
+      "raw": 3773,
+      "gzip": 1245,
+      "kb": 1.22
+    },
+    "watermark": {
+      "raw": 1863,
+      "gzip": 835,
+      "kb": 0.82
+    },
+    "wax-seal": {
+      "raw": 980,
+      "gzip": 506,
+      "kb": 0.49
+    },
+    "webhook-list": {
+      "raw": 3119,
+      "gzip": 1284,
+      "kb": 1.25
+    },
+    "webhook-log": {
+      "raw": 1462,
+      "gzip": 706,
+      "kb": 0.69
+    },
+    "wishlist-button": {
+      "raw": 2526,
+      "gzip": 1165,
+      "kb": 1.14
+    },
+    "wizard": {
+      "raw": 4482,
+      "gzip": 1691,
+      "kb": 1.65
+    },
+    "word-cloud": {
+      "raw": 1810,
+      "gzip": 859,
+      "kb": 0.84
+    },
+    "world-map": {
+      "raw": 3872,
+      "gzip": 1637,
+      "kb": 1.6
+    },
+    "wristband": {
+      "raw": 827,
+      "gzip": 442,
+      "kb": 0.43
+    },
+    "xp-bar": {
+      "raw": 1719,
+      "gzip": 792,
+      "kb": 0.77
+    },
+    "year-picker": {
+      "raw": 3863,
+      "gzip": 1308,
+      "kb": 1.28
+    },
+    "zoom-image": {
+      "raw": 1829,
+      "gzip": 762,
+      "kb": 0.74
+    }
+  }
+}

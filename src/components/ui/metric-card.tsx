@@ -347,7 +347,7 @@ export function MetricCard({
         )}
 
         {/* Micro Barcode & Timestamp Footer */}
-        <div className="flex items-center justify-between text-[9px] font-mono text-muted-foreground/80 border-t border-dashed border-border/70 pt-2.5">
+        <div className="flex items-center justify-between text-[9px] font-mono text-muted-foreground border-t border-dashed border-border/70 pt-2.5">
           <span className="truncate pr-2">
             {footerText || "VALIDATED EMISSION"}
           </span>

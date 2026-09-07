@@ -146,7 +146,7 @@ export function NfcBadge({
             className={cn(
               "rotate-[-3deg] rounded-sm border-2 px-2.5 py-0.5 font-mono text-[10px] font-black uppercase tracking-widest shadow-xs",
               currentStatus === "success"
-                ? "border-emerald-600 bg-emerald-500/15 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400"
+                ? "border-emerald-600 bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 dark:border-emerald-400 dark:text-emerald-400"
                 : "border-accent bg-accent/15 text-accent"
             )}
           >

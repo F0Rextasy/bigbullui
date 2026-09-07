@@ -37,7 +37,7 @@ export function WalletCard({ balance, onTopUp, transactions = [], className, ...
           {transactions.slice(0, 4).map((t, idx) => (
             <li key={t.id} className="flex items-center justify-between px-4 py-2 text-sm animate-[wcIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${0.15 + idx * 0.05}s` }}>
               <span className="truncate">{t.label}{t.date && <span className="ml-2 text-[10px] text-muted-foreground">{t.date}</span>}</span>
-              <span className={cn("shrink-0 font-mono text-xs tabular-nums", t.negative ? "text-destructive" : "text-emerald-600")}>
+              <span className={cn("shrink-0 font-mono text-xs tabular-nums", t.negative ? "text-destructive" : "text-emerald-700 dark:text-emerald-400")}>
                 {t.negative ? "−" : "+"}{t.amount}
               </span>
             </li>

@@ -68,7 +68,7 @@ export function TicketValidator({ onValidate, result, className, ...props }: Tic
       >
         Validate
       </button>
-      <p className={cn("mt-2 text-center font-mono text-[10px] uppercase tracking-wider", state === true ? "text-emerald-600" : state === false ? "text-destructive" : "text-muted-foreground")}>
+      <p className={cn("mt-2 text-center font-mono text-[10px] uppercase tracking-wider", state === true ? "text-emerald-700 dark:text-emerald-400" : state === false ? "text-destructive" : "text-muted-foreground")}>
         {state === null ? "Ready" : state ? "✓ VALID" : "✗ INVALID"}
       </p>
     </div>

@@ -3,16 +3,18 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-type TabsContextValue = { value: string; setValue: (v: string) => void; baseId: string };
+type TabsContextValue = { value: string; setValue: (v: string) => void; baseId: string; animated: boolean };
 const TabsCtx = React.createContext<TabsContextValue | null>(null);
 
 export type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 };
 
-export function Tabs({ value, defaultValue, onValueChange, className, children, ...props }: TabsProps) {
+export function Tabs({ value, defaultValue, onValueChange, animated = true, className, children, ...props }: TabsProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? "");
   const current = value ?? internal;
 
@@ -25,7 +27,7 @@ export function Tabs({ value, defaultValue, onValueChange, className, children, 
   );
 
   return (
-    <TabsCtx.Provider value={{ value: current, setValue, baseId: React.useId() }}>
+    <TabsCtx.Provider value={{ value: current, setValue, baseId: React.useId(), animated }}>
       <div className={className} {...props}>
         {children}
       </div>
@@ -59,11 +61,16 @@ export function TabsList({ className, ...props }: React.HTMLAttributes<HTMLDivEl
   );
 }
 
-export type TabsTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & { value: string };
+export type TabsTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  value: string;
+  /** Dual-mode override: false renders instantly with no motion. Defaults to Tabs animated. */
+  animated?: boolean;
+};
 
-export function TabsTrigger({ value, className, onClick, ...props }: TabsTriggerProps) {
+export function TabsTrigger({ value, animated: animatedProp, className, onClick, ...props }: TabsTriggerProps) {
   const ctx = React.useContext(TabsCtx);
   const isActive = ctx?.value === value;
+  const animated = animatedProp ?? ctx?.animated ?? true;
   return (
     <button
       type="button"
@@ -78,7 +85,8 @@ export function TabsTrigger({ value, className, onClick, ...props }: TabsTrigger
         onClick?.(event);
       }}
       className={cn(
-        "relative inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-[4px] px-3 py-1 font-mono text-xs uppercase tracking-[0.12em] transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "relative inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-[4px] px-3 py-1 font-mono text-xs uppercase tracking-[0.12em] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        animated ? "transition-colors motion-reduce:transition-none" : "transition-none",
         isActive && "bg-primary text-primary-foreground shadow-sm",
         className
       )}

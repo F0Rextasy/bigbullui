@@ -11,6 +11,7 @@ import { RadioCards, RadioCard, RadioCardHeader, RadioCardPrice } from "@/compon
 import { RouteLoader } from "@/components/ui/route-loader";
 import { SplitButton } from "@/components/ui/split-button";
 import { StatTile } from "@/components/ui/stat-tile";
+import { KpiStrip } from "@/components/ui/kpi-strip";
 import { TrendBadge } from "@/components/ui/trend-badge";
 
 export const wave21Previews: Record<string, React.ComponentType> = {
@@ -139,6 +140,21 @@ export const wave21Previews: Record<string, React.ComponentType> = {
     return (
       <div className="flex justify-center p-4">
         <TrendBadge value="+24.8%" label="TICKET DEMAND" live />
+      </div>
+    );
+  },
+
+  "kpi-strip": function KpiStripPreview() {
+    return (
+      <div className="w-full p-2">
+        <KpiStrip
+          tiles={[
+            { label: "TOTAL ADMITTED", value: "4,820", delta: { value: "+18%", up: true }, spark: [20, 35, 45, 60, 55, 75, 90] },
+            { label: "VIP CLAIMS", value: "1,204", delta: { value: "+6%", up: true }, spark: [30, 40, 35, 55, 65, 60, 80] },
+            { label: "STANDBY", value: "312", delta: { value: "-3%", up: false }, spark: [70, 60, 65, 50, 45, 40, 30] },
+            { label: "GATE SCANS", value: "9,410", delta: { value: "+24%", up: true }, spark: [15, 30, 50, 45, 70, 85, 95] },
+          ]}
+        />
       </div>
     );
   },

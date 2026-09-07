@@ -24,7 +24,7 @@ export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsPr
   const statusMeta: Record<QueueJobStatus, { label: string; tone: string }> = {
     queued: { label: "Kuyrukta", tone: "text-muted-foreground" },
     running: { label: "Running", tone: "text-accent" },
-    done: { label: "Bitti", tone: "text-emerald-600" },
+    done: { label: "Bitti", tone: "text-emerald-700 dark:text-emerald-400" },
     failed: { label: "Hata", tone: "text-destructive" },
   };
 

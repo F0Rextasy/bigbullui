@@ -48,7 +48,7 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">{name}</p>
-          <p className={cn("text-[10px] uppercase tracking-wider", online ? "text-emerald-600" : "text-muted-foreground")}>
+          <p className={cn("text-[10px] uppercase tracking-wider", online ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground")}>
             {online ? "Online" : "Recently active"}
           </p>
         </div>

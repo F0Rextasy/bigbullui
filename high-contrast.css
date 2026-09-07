@@ -1,0 +1,43 @@
+/* High-contrast support block for bigbullui Ticket Stub surfaces.
+   Import after bigbullui.css when forced-colors mode must stay usable. */
+
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+
+  :where(.bg-card, .bg-secondary, .bg-muted, .bg-background) {
+    background-color: Canvas;
+    color: CanvasText;
+  }
+
+  :where(.border-foreground, .border-border) {
+    border-color: CanvasText;
+  }
+
+  :where(.bg-primary, .bg-accent, .bg-destructive) {
+    background-color: Highlight;
+    color: HighlightText;
+    border-color: HighlightText;
+  }
+
+  :where(.text-foreground, .text-muted-foreground, .text-accent) {
+    color: CanvasText;
+  }
+
+  :where(:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :where(.border-border) {
+    border-color: currentColor;
+  }
+
+  :where(.text-muted-foreground) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}

@@ -25,11 +25,19 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
-    "./css": "./bigbullui.css",
+    "./css": {
+      "types": "./css.d.ts",
+      "default": "./bigbullui.css"
+    },
     "./package.json": "./package.json"
   },
   "bin": {
@@ -40,10 +48,14 @@
     "bin",
     "src/components/ui",
     "bigbullui.css",
+    "css.d.ts",
     "README.md",
     "LICENSE"
   ],
   "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
@@ -51,6 +63,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs",
     "build": "next build",
     "build:lib": "tsup",
     "prepublishOnly": "npm run build:lib",
@@ -63,9 +76,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "next": "16.3.4",
+    "playwright": "^1.63.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwindcss": "^4",

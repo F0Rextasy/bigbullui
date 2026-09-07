@@ -43,7 +43,7 @@ export function SettingsSection({ title, description, rows = [], onSave, classNa
       {(children || rows.length > 0) && (
         <div className="flex items-center justify-end gap-3 border-t border-border px-4 py-3">
           {saved && (
-            <span className="inline-block animate-[setStamp_0.3s_ease-out] motion-reduce:animate-none font-mono text-[10px] uppercase tracking-wider text-emerald-600">
+            <span className="inline-block animate-[setStamp_0.3s_ease-out] motion-reduce:animate-none font-mono text-[10px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
               ✓ Kaydedildi
             </span>
           )}

@@ -11,6 +11,8 @@ export interface SheetProps {
   onOpenChange: (open: boolean) => void;
   side?: "right" | "left";
   children: React.ReactNode;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
 export function Sheet({
@@ -18,6 +20,7 @@ export function Sheet({
   onOpenChange,
   side = "right",
   children,
+  animated = true,
 }: SheetProps) {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
@@ -65,7 +68,7 @@ export function Sheet({
       <div
         aria-hidden="true"
         onClick={() => onOpenChange(false)}
-        className="fixed inset-0 bg-black/50 backdrop-blur-[2px] animate-[fade-in_0.2s_ease-out_both]"
+        className={cn("fixed inset-0 bg-black/50 backdrop-blur-[2px]", animated && "animate-[fade-in_0.2s_ease-out_both]")}
       />
       <div
         ref={contentRef}
@@ -73,10 +76,11 @@ export function Sheet({
         aria-modal="true"
         tabIndex={-1}
         className={cn(
-          "fixed inset-y-0 z-50 flex w-full max-w-md flex-col border-[1.5px] border-foreground bg-card p-6 shadow-xl outline-1 outline-dashed outline-offset-[-7px] transition-transform duration-200 ease-out focus:outline-none",
+          "fixed inset-y-0 z-50 flex w-full max-w-md flex-col border-[1.5px] border-foreground bg-card p-6 shadow-xl outline-1 outline-dashed outline-offset-[-7px] focus:outline-none",
+          animated ? "transition-transform duration-200 ease-out" : "transition-none",
           side === "right"
-            ? "right-0 animate-[fade-in-up_0.25s_ease-out]"
-            : "left-0 animate-[fade-in_0.25s_ease-out]"
+            ? cn("right-0", animated && "animate-[fade-in-up_0.25s_ease-out]")
+            : cn("left-0", animated && "animate-[fade-in_0.25s_ease-out]")
         )}
       >
         {children}

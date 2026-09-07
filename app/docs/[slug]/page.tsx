@@ -7,6 +7,8 @@ import { wavePropsDocs3 } from "./wave-props3";
 import { ComponentPreview } from "@/components/site/component-preview";
 import { MarkSeen } from "@/components/site/mark-seen";
 import { CodeBox } from "@/components/site/code-box";
+import { DocsStackBlitzButton } from "@/components/site/docs-stackblitz-button";
+import sizes from "@/data/sizes.json";
 import { Badge } from "@/components/ui/badge";
 
 export function generateStaticParams() {
@@ -148,6 +150,7 @@ const usage: Record<string, string> = {
   "split-button": `import { SplitButton } from "@/components/ui/split-button";\n\n<SplitButton label="Print Stub" options={[{ id: "pdf", label: "Export PDF" }]} />`,
   "stat-tile": `import { StatTile } from "@/components/ui/stat-tile";\n\n<StatTile label="TOTAL ADMITTED" value="4,820" delta={{ value: "+18%", up: true }} />`,
   "trend-badge": `import { TrendBadge } from "@/components/ui/trend-badge";\n\n<TrendBadge value="+24.8%" label="TICKET DEMAND" live />`,
+  "kpi-strip": `import { KpiStrip } from "@/components/ui/kpi-strip";\n\n<KpiStrip tiles={[{ label: "TOTAL ADMITTED", value: "4,820", delta: { value: "+18%", up: true } }]} />`,
 };
 
 const propsDocs: Record<string, { name: string; type: string; description: string }[]> = {
@@ -1031,6 +1034,66 @@ const waveUsage: Record<string, string> = {
   "focus-trap": "import { trapFocus } from \"@/components/ui/lib/focus-trap\";\n\nonKeyDown={(e) => { if (e.key === \"Tab\") trapFocus(containerRef.current, e.nativeEvent); }}",
   "hooks": "import { useCopy } from \"@/components/ui/lib/hooks\";\n\nconst { copied, copy } = useCopy();\n<button onClick={() => copy(\"BB-2026\")}>{copied ? \"Copied!\" : \"Copy\"}</button>",
   "status-dot": "import { StatusDot } from \"@/components/ui/status-dot\";\n\n<StatusDot level=\"full\" occupancyPercent={82} waitTime=\"12 min\" />",
+  "combobox-v2": "import { ComboboxV2 } from \"@/components/ui/combobox-v2\";\n\n<ComboboxV2 options={[{ value: \"a\", label: \"Orchestra\" }]} />",
+  "select-v2": "import { SelectV2 } from \"@/components/ui/select-v2\";\n\n<SelectV2 groups={[{ label: \"Floor\", options: [{ value: \"a\", label: \"Row A\" }] }]} />",
+  "input-otp": "import { InputOtp } from \"@/components/ui/input-otp\";\n\n<InputOtp length={6} onComplete={(pin) => console.log(pin)} />",
+  "form-validation": "import { useFormField, required } from \"@/components/ui/form-validation\";\n\nconst email = useFormField(\"\", [required()]);",
+  "language-select": "import { LanguageSelect } from \"@/components/ui/language-select\";\n\n<LanguageSelect defaultValue=\"en\" />",
+  "timezone-select": "import { TimezoneSelect } from \"@/components/ui/timezone-select\";\n\n<TimezoneSelect defaultValue=\"UTC\" />",
+  "number-input": "import { NumberInput } from \"@/components/ui/number-input\";\n\n<NumberInput defaultValue={4500} currency=\"$\" />",
+  "search-command": "import { SearchCommand } from \"@/components/ui/search-command\";\n\n<SearchCommand items={[{ id: \"1\", label: \"Print stubs\" }]} />",
+  "slider-range-label": "import { SliderRangeLabel } from \"@/components/ui/slider-range-label\";\n\n<SliderRangeLabel defaultValue={[30, 120]} />",
+  "file-image-preview": "import { FileImagePreview } from \"@/components/ui/file-image-preview\";\n\n<FileImagePreview maxFiles={6} />",
+  "input-mask-phone": "import { InputMaskPhone } from \"@/components/ui/input-mask-phone\";\n\n<InputMaskPhone />",
+  "date-time-picker": "import { DateTimePicker } from \"@/components/ui/date-time-picker\";\n\n<DateTimePicker label=\"Showtime\" />",
+  "range-calendar": "import { RangeCalendar } from \"@/components/ui/range-calendar\";\n\n<RangeCalendar />",
+  "inline-multiselect": "import { InlineMultiselect } from \"@/components/ui/inline-multiselect\";\n\n<InlineMultiselect options={[\"VIP\", \"Balcony\"]} />",
+  "signature-line": "import { SignatureLine } from \"@/components/ui/signature-line\";\n\n<SignatureLine />",
+  "stamp-field": "import { StampField } from \"@/components/ui/stamp-field\";\n\n<StampField />",
+  "credit-card-input": "import { CreditCardInput } from \"@/components/ui/credit-card-input\";\n\n<CreditCardInput />",
+  "activity-calendar": "import { ActivityCalendar } from \"@/components/ui/activity-calendar\";\n\n<ActivityCalendar weeks={12} />",
+  "smart-search-bar": "import { SmartSearchBar } from \"@/components/ui/smart-search-bar\";\n\n<SmartSearchBar />",
+  "star-rating-input": "import { StarRatingInput } from \"@/components/ui/star-rating-input\";\n\n<StarRatingInput defaultValue={4} />",
+  "color-palette-picker": "import { ColorPalettePicker } from \"@/components/ui/color-palette-picker\";\n\n<ColorPalettePicker />",
+  "box-plot": "import { BoxPlot } from \"@/components/ui/box-plot\";\n\n<BoxPlot items={[{ label: \"A\", min: 5, q1: 12, median: 18, q3: 24, max: 32 }]} />",
+  "violin-chart": "import { ViolinChart } from \"@/components/ui/violin-chart\";\n\n<ViolinChart data={[[12, 15, 18], [8, 11, 14]]} />",
+  "spark-bars": "import { SparkBars } from \"@/components/ui/spark-bars\";\n\n<SparkBars data={[4, 9, 6, 14]} />",
+  "spark-line-group": "import { SparkLineGroup } from \"@/components/ui/spark-line-group\";\n\n<SparkLineGroup items={[{ label: \"Revenue\", value: \"$48K\", data: [10, 20, 30] }]} />",
+  "donut-multi": "import { DonutMulti } from \"@/components/ui/donut-multi\";\n\n<DonutMulti rings={[{ label: \"VIP\", value: 72 }]} />",
+  "pie-interactive": "import { PieInteractive } from \"@/components/ui/pie-interactive\";\n\n<PieInteractive slices={[{ label: \"VIP\", value: 40 }]} />",
+  "chord-diagram": "import { ChordDiagram } from \"@/components/ui/chord-diagram\";\n\n<ChordDiagram groups={[\"Web\", \"Gate\"]} links={[{ from: 0, to: 1, value: 60 }]} />",
+  "icicle-chart": "import { IcicleChart } from \"@/components/ui/icicle-chart\";\n\n<IcicleChart root={{ label: \"Sales\", value: 100 }} />",
+  "stream-graph": "import { StreamGraph } from \"@/components/ui/stream-graph\";\n\n<StreamGraph layers={[{ label: \"Web\", data: [10, 20] }]} />",
+  "horizon-chart": "import { HorizonChart } from \"@/components/ui/horizon-chart\";\n\n<HorizonChart data={[4, 9, 6, 14]} />",
+  "density-plot": "import { DensityPlot } from \"@/components/ui/density-plot\";\n\n<DensityPlot values={[12, 15, 18]} />",
+  "qq-plot": "import { QqPlot } from \"@/components/ui/qq-plot\";\n\n<QqPlot sampleA={[10, 20]} sampleB={[12, 19]} />",
+  "control-chart": "import { ControlChart } from \"@/components/ui/control-chart\";\n\n<ControlChart data={[10, 12, 11]} />",
+  "matrix-chart": "import { MatrixChart } from \"@/components/ui/matrix-chart\";\n\n<MatrixChart rows={[\"VIP\"]} columns={[\"Fri\"]} values={[[40]]} />",
+  "org-tree-v2": "import { OrgTreeV2 } from \"@/components/ui/org-tree-v2\";\n\n<OrgTreeV2 root={[{ id: \"1\", label: \"Ada\" }]} />",
+  "table-empty-col": "import { TableEmptyCol } from \"@/components/ui/table-empty-col\";\n\n<table><tbody><tr><TableEmptyCol colSpan={3} message=\"No rows\" /></tr></tbody></table>",
+  "code-tabs": "import { CodeTabs } from \"@/components/ui/code-tabs\";\n\n<CodeTabs tabs={[{ id: \"npm\", label: \"npm\", code: \"npm install bigbullui\" }]} />",
+  "file-tree": "import { FileTree } from \"@/components/ui/file-tree\";\n\n<FileTree nodes={[{ id: \"src\", name: \"src\", kind: \"folder\" }]} />",
+  "json-inspector": "import { JsonInspector } from \"@/components/ui/json-inspector\";\n\n<JsonInspector value={{ stub: \"BB-1\" }} />",
+  "shortcut-recorder": "import { ShortcutRecorder } from \"@/components/ui/shortcut-recorder\";\n\n<ShortcutRecorder />",
+  "pricing-slider": "import { PricingSlider } from \"@/components/ui/pricing-slider\";\n\n<PricingSlider tiers={[{ name: \"Pro\", monthly: 29, annual: 23 }]} />",
+  "virtual-card-flipper": "import { VirtualCardFlipper } from \"@/components/ui/virtual-card-flipper\";\n\n<VirtualCardFlipper holder=\"ADA BULL\" />",
+  "split-bill-calculator": "import { SplitBillCalculator } from \"@/components/ui/split-bill-calculator\";\n\n<SplitBillCalculator defaultTotal={120} />",
+  "sidebar-layout": "import { SidebarLayout } from \"@/components/ui/sidebar-layout\";\n\n<SidebarLayout sidebar={<nav>Menu</nav>}><main>Content</main></SidebarLayout>",
+  "feedback-widget": "import { FeedbackWidget } from \"@/components/ui/feedback-widget\";\n\n<FeedbackWidget />",
+  "badge-printer": "import { BadgePrinter } from \"@/components/ui/badge-printer\";\n\n<BadgePrinter name=\"ADA BULL\" role=\"SPEAKER\" />",
+  "stopwatch-v2": "import { StopwatchV2 } from \"@/components/ui/stopwatch-v2\";\n\n<StopwatchV2 />",
+  "passport-stamp-grid": "import { PassportStampGrid } from \"@/components/ui/passport-stamp-grid\";\n\n<PassportStampGrid stamps={[{ id: \"1\", country: \"TR\", date: \"JUN 26\" }]} />",
+  "library-due-date-card": "import { LibraryDueDateCard } from \"@/components/ui/library-due-date-card\";\n\n<LibraryDueDateCard borrower=\"ADA BULL\" />",
+  "coat-check-tag": "import { CoatCheckTag } from \"@/components/ui/coat-check-tag\";\n\n<CoatCheckTag number=\"042\" />",
+  "warranty-certificate": "import { WarrantyCertificate } from \"@/components/ui/warranty-certificate\";\n\n<WarrantyCertificate product=\"Touring Amplifier\" />",
+  "train-departure-board": "import { TrainDepartureBoard } from \"@/components/ui/train-departure-board\";\n\n<TrainDepartureBoard />",
+  "scratch-card": "import { ScratchCard } from \"@/components/ui/scratch-card\";\n\n<ScratchCard prize=\"20% OFF\" code=\"BB-20\" />",
+  "passport-id-card": "import { PassportIdCard } from \"@/components/ui/passport-id-card\";\n\n<PassportIdCard name=\"ADA BULL\" />",
+  "waitlist-queue-card": "import { WaitlistQueueCard } from \"@/components/ui/waitlist-queue-card\";\n\n<WaitlistQueueCard position={42} total={1200} />",
+  "social-proof-toast": "import { SocialProofToast } from \"@/components/ui/social-proof-toast\";\n\n<SocialProofToast buyer=\"Grace\" item=\"VIP Pass\" />",
+  "cargo-shipping-label": "import { CargoShippingLabel } from \"@/components/ui/cargo-shipping-label\";\n\n<CargoShippingLabel tracking=\"BB-9400\" />",
+  "flight-timeline-card": "import { FlightTimelineCard } from \"@/components/ui/flight-timeline-card\";\n\n<FlightTimelineCard flight=\"BB-402\" />",
+  "parking-ticket-meter": "import { ParkingTicketMeter } from \"@/components/ui/parking-ticket-meter\";\n\n<ParkingTicketMeter plate=\"34 BB 042\" />",
 };
 
 Object.assign(usage, waveUsage);
@@ -1184,23 +1247,24 @@ const wave1225Usage: Record<string, string> = {
   "country-select": "import { CountrySelect } from \"@/components/ui/country-select\";\n\n<CountrySelect />",
   "duration-input": "import { DurationInput } from \"@/components/ui/duration-input\";\n\n<DurationInput />",
   "serial-input": "import { SerialInput } from \"@/components/ui/serial-input\";\n\n<SerialInput />",
-  "lottery-machine": "import { LotteryMachine } from \"@/components/ui/lottery-machine\";\n\n<LotteryMachine />",
   "ticket-validator": "import { TicketValidator } from \"@/components/ui/ticket-validator\";\n\n<TicketValidator />",
-  "vending-machine": "import { VendingMachine } from \"@/components/ui/vending-machine\";\n\n<VendingMachine />",
-  "arcade-cabinet": "import { ArcadeCabinet } from \"@/components/ui/arcade-cabinet\";\n\n<ArcadeCabinet />",
-  "betting-slip": "import { BettingSlip } from \"@/components/ui/betting-slip\";\n\n<BettingSlip />",
   "punch-clock": "import { PunchClock } from \"@/components/ui/punch-clock\";\n\n<PunchClock />",
   "mailbox": "import { Mailbox } from \"@/components/ui/mailbox\";\n\n<Mailbox />",
-  "safe-vault": "import { SafeVault } from \"@/components/ui/safe-vault\";\n\n<SafeVault />",
   "medal-display": "import { MedalDisplay } from \"@/components/ui/medal-display\";\n\n<MedalDisplay />",
   "trophy-shelf": "import { TrophyShelf } from \"@/components/ui/trophy-shelf\";\n\n<TrophyShelf />",
   "megaphone": "import { Megaphone } from \"@/components/ui/megaphone\";\n\n<Megaphone />",
   "score-keeper": "import { ScoreKeeper } from \"@/components/ui/score-keeper\";\n\n<ScoreKeeper />",
   "match-ticker": "import { MatchTicker } from \"@/components/ui/match-ticker\";\n\n<MatchTicker />",
-  "pool-table": "import { PoolTable } from \"@/components/ui/pool-table\";\n\n<PoolTable />",
-  "revolving-door": "import { RevolvingDoor } from \"@/components/ui/revolving-door\";\n\n<RevolvingDoor />",
-  "ferris-wheel": "import { FerrisWheel } from \"@/components/ui/ferris-wheel\";\n\n<FerrisWheel />",
-  "carousel-ride": "import { CarouselRide } from \"@/components/ui/carousel-ride\";\n\n<CarouselRide />",
+  "joystick": "import { Joystick } from \"@/components/ui/joystick\";\n\n<Joystick onMove={(x, y) => console.log(x, y)} />",
+  "d-pad": "import { DPad } from \"@/components/ui/d-pad\";\n\n<DPad onPress={(dir) => console.log(dir)} />",
+  "action-buttons": "import { ActionButtons } from \"@/components/ui/action-buttons\";\n\n<ActionButtons onAction={(id) => console.log(id)} />",
+  "combo-buttons": "import { ComboButtons } from \"@/components/ui/combo-buttons\";\n\n<ComboButtons sequence={[\"A\", \"B\", \"X\"]} onComplete={() => console.log(\"combo\")} />",
+  "health-bar": "import { HealthBar } from \"@/components/ui/health-bar\";\n\n<HealthBar value={72} max={100} />",
+  "mana-bar": "import { ManaBar } from \"@/components/ui/mana-bar\";\n\n<ManaBar value={64} max={100} />",
+  "xp-bar": "import { XpBar } from \"@/components/ui/xp-bar\";\n\n<XpBar value={780} max={1000} level={12} />",
+  "boss-bar": "import { BossBar } from \"@/components/ui/boss-bar\";\n\n<BossBar name=\"Gatekeeper Golem\" value={820} max={1000} phases={3} />",
+  "team-frames": "import { TeamFrames } from \"@/components/ui/team-frames\";\n\n<TeamFrames members={[{ id: \"ada\", name: \"Ada Bull\", hp: 92 }]} />",
+  "damage-vignette": "import { DamageVignette } from \"@/components/ui/damage-vignette\";\n\n<DamageVignette hitKey={hits}>Arena view</DamageVignette>",
 };
 
 Object.assign(usage, wave1225Usage);
@@ -1988,6 +2052,51 @@ const wavePropsDocs: Record<string, { name: string; type: string; description: s
   "org-chart": [
     { name: "root", type: "{ id: string; label: string; role?: string; children?: OrgNode }[]", description: "Root nodes of the hierarchy." },
   ],
+  "joystick": [
+    { name: "size", type: "number", description: "Base diameter in px (default 132)." },
+    { name: "onMove", type: "(x: number, y: number) => void", description: "Normalized -1..1 axes callback." },
+    { name: "onRelease", type: "() => void", description: "Called when the knob snaps back." },
+  ],
+  "d-pad": [
+    { name: "onPress", type: "(direction: DPadDirection) => void", description: "Fires on each directional press." },
+  ],
+  "action-buttons": [
+    { name: "buttons", type: "ActionButton[]", description: "Custom A/B/X/Y cluster (default 4)." },
+    { name: "onAction", type: "(id: string) => void", description: "Fires with the pressed button id." },
+  ],
+  "combo-buttons": [
+    { name: "sequence", type: "string[]", description: "Required input order (required)." },
+    { name: "timeoutMs", type: "number", description: "Window before reset (default 4000)." },
+    { name: "onComplete", type: "() => void", description: "Called when the full sequence lands." },
+  ],
+  "health-bar": [
+    { name: "value", type: "number", description: "Current health (required)." },
+    { name: "max", type: "number", description: "Maximum health (default 100)." },
+    { name: "segments", type: "number", description: "Segment count (default 10)." },
+  ],
+  "mana-bar": [
+    { name: "value", type: "number", description: "Current energy (required)." },
+    { name: "max", type: "number", description: "Maximum energy (default 100)." },
+  ],
+  "xp-bar": [
+    { name: "value", type: "number", description: "Current experience (required)." },
+    { name: "max", type: "number", description: "Level threshold (default 100)." },
+    { name: "level", type: "number", description: "Badge level (default 1)." },
+  ],
+  "boss-bar": [
+    { name: "name", type: "string", description: "Encounter title (required)." },
+    { name: "value", type: "number", description: "Current boss health (required)." },
+    { name: "max", type: "number", description: "Maximum boss health (default 1000)." },
+    { name: "phases", type: "number", description: "Phase tick count (default 3)." },
+  ],
+  "team-frames": [
+    { name: "members", type: "TeamFramesMember[]", description: "Party roster with hp and status (required)." },
+    { name: "onSelect", type: "(id: string) => void", description: "Member select callback." },
+  ],
+  "damage-vignette": [
+    { name: "hitKey", type: "number", description: "Increment to flash the edge vignette (required)." },
+    { name: "intensity", type: "number", description: "Flash opacity (default 0.55)." },
+  ],
 };
 
 const wavePropsDocs2: Record<string, { name: string; type: string; description: string }[]> = {
@@ -2156,6 +2265,308 @@ const wavePropsDocs2: Record<string, { name: string; type: string; description: 
     { name: "onToggle", type: "(active: boolean) => void", description: "Wishlist toggle callback." },
     { name: "size", type: '"sm" | "md" | "lg"', description: "Button size (default 'md')." },
   ],
+  "combobox-v2": [
+    { name: "options", type: "ComboboxV2Option[]", description: "Static options (omit when using loadOptions)." },
+    { name: "loadOptions", type: "(query: string, page: number) => Promise<{ options: ComboboxV2Option[]; hasMore: boolean }>", description: "Async page loader with infinite scroll." },
+    { name: "value", type: "string", description: "Controlled selected value." },
+    { name: "onSelectionChange", type: "(value: string) => void", description: "Selection callback." },
+  ],
+  "select-v2": [
+    { name: "groups", type: "SelectV2Group[]", description: "Option groups with sticky headers (required)." },
+    { name: "value", type: "string", description: "Controlled selected value." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Selection callback." },
+  ],
+  "input-otp": [
+    { name: "length", type: "number", description: "Box count (default 6)." },
+    { name: "value", type: "string", description: "Controlled code string." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Change callback." },
+    { name: "onComplete", type: "(value: string) => void", description: "Fires when all boxes filled." },
+  ],
+  "form-validation": [
+    { name: "useFormField", type: "<T>(initial: T, rules: FormRule<T>[]) => FormFieldState<T>", description: "Field state with touched validation." },
+    { name: "required", type: "(message?) => FormRule", description: "Non-empty rule factory." },
+    { name: "minLength", type: "(min: number, message?) => FormRule<string>", description: "Length rule factory." },
+    { name: "pattern", type: "(re: RegExp, message?) => FormRule<string>", description: "Regex rule factory." },
+  ],
+  "language-select": [
+    { name: "options", type: "LanguageOption[]", description: "Languages with code, label, native (8 built in)." },
+    { name: "value", type: "string", description: "Controlled language code." },
+    { name: "onValueChange", type: "(code: string) => void", description: "Selection callback." },
+  ],
+  "timezone-select": [
+    { name: "value", type: "string", description: "Controlled IANA zone." },
+    { name: "onValueChange", type: "(zone: string) => void", description: "Selection callback." },
+  ],
+  "number-input": [
+    { name: "value", type: "number", description: "Controlled numeric value." },
+    { name: "min", type: "number", description: "Minimum clamp." },
+    { name: "max", type: "number", description: "Maximum clamp." },
+    { name: "step", type: "number", description: "Stepper increment (default 1)." },
+    { name: "currency", type: "string", description: "Prefix badge symbol." },
+    { name: "onValueChange", type: "(value: number) => void", description: "Change callback." },
+  ],
+  "search-command": [
+    { name: "items", type: "SearchCommandItem[]", description: "Searchable rows (required)." },
+    { name: "onSelect", type: "() => void (per item)", description: "Row action callback." },
+    { name: "maxVisible", type: "number", description: "Result cap (default 6)." },
+  ],
+  "slider-range-label": [
+    { name: "value", type: "[number, number]", description: "Controlled range tuple." },
+    { name: "defaultValue", type: "[number, number]", description: "Initial tuple (default [20, 80])." },
+    { name: "onValueChange", type: "(value: [number, number]) => void", description: "Change callback." },
+    { name: "format", type: "(value: number) => string", description: "Label formatter." },
+  ],
+  "file-image-preview": [
+    { name: "accept", type: "string", description: "MIME filter (default 'image/*')." },
+    { name: "multiple", type: "boolean", description: "Allow many files (default true)." },
+    { name: "maxFiles", type: "number", description: "Grid cap (default 6)." },
+    { name: "onFilesChange", type: "(files: File[]) => void", description: "Change callback." },
+  ],
+  "input-mask-phone": [
+    { name: "value", type: "string", description: "Controlled raw digits." },
+    { name: "onValueChange", type: "(value: string, complete: boolean) => void", description: "Change with completion flag." },
+  ],
+  "date-time-picker": [
+    { name: "value", type: "DateTimeValue", description: "Controlled { date, time }." },
+    { name: "onValueChange", type: "(value: DateTimeValue) => void", description: "Change callback." },
+    { name: "minDate", type: "string", description: "Earliest YYYY-MM-DD." },
+  ],
+  "range-calendar": [
+    { name: "start", type: "string", description: "Controlled start YYYY-MM-DD." },
+    { name: "end", type: "string", description: "Controlled end YYYY-MM-DD." },
+    { name: "onRangeChange", type: "(start: string, end: string) => void", description: "Range callback." },
+    { name: "monthOffset", type: "number", description: "Months from current (default 0)." },
+  ],
+  "inline-multiselect": [
+    { name: "options", type: "string[]", description: "Available options (required)." },
+    { name: "value", type: "string[]", description: "Controlled selection." },
+    { name: "onValueChange", type: "(value: string[]) => void", description: "Change callback." },
+  ],
+  "signature-line": [
+    { name: "value", type: "string", description: "Controlled signature text." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Change callback." },
+    { name: "hint", type: "string", description: "Helper microcopy." },
+  ],
+  "stamp-field": [
+    { name: "approver", type: "string", description: "Controlled approver name." },
+    { name: "onApprove", type: "(approver: string, date: string) => void", description: "Stamp callback." },
+  ],
+  "credit-card-input": [
+    { name: "value", type: "Partial<CreditCardInputValue>", description: "Controlled card fields." },
+    { name: "onValueChange", type: "(value: CreditCardInputValue, valid: boolean) => void", description: "Change with validity." },
+  ],
+  "activity-calendar": [
+    { name: "data", type: "Record<string, number>", description: "YYYY-MM-DD to count map." },
+    { name: "weeks", type: "number", description: "Week columns (default 12)." },
+  ],
+  "smart-search-bar": [
+    { name: "value", type: "string", description: "Controlled query." },
+    { name: "onSubmit", type: "(value: string) => void", description: "Submit callback with history save." },
+    { name: "history", type: "string[]", description: "Controlled recent searches." },
+    { name: "shortcut", type: "string", description: "Keycap hint (default 'Ctrl+K')." },
+  ],
+  "star-rating-input": [
+    { name: "value", type: "number", description: "Controlled star count." },
+    { name: "max", type: "number", description: "Star count (default 5)." },
+    { name: "onValueChange", type: "(value: number) => void", description: "Change callback." },
+  ],
+  "color-palette-picker": [
+    { name: "palettes", type: "ColorPalette[]", description: "Preset groups (4 built in)." },
+    { name: "value", type: "string", description: "Controlled hex." },
+    { name: "onValueChange", type: "(hex: string, paletteName: string) => void", description: "Pick callback." },
+  ],
+  "box-plot": [
+    { name: "items", type: "BoxPlotItem[]", description: "Boxes with min, q1, median, q3, max (required)." },
+    { name: "height", type: "number", description: "Chart height (default 260)." },
+  ],
+  "violin-chart": [
+    { name: "data", type: "number[][]", description: "Value groups, one per violin (required)." },
+    { name: "labels", type: "string[]", description: "Group labels." },
+  ],
+  "spark-bars": [
+    { name: "data", type: "number[]", description: "Bar values (required)." },
+    { name: "width", type: "number", description: "SVG width (default 140)." },
+    { name: "height", type: "number", description: "SVG height (default 40)." },
+    { name: "tone", type: '"accent" | "foreground"', description: "Color tone (default 'accent')." },
+  ],
+  "spark-line-group": [
+    { name: "items", type: "SparkLineGroupItem[]", description: "Cards with label, value, data (required)." },
+    { name: "columns", type: "number", description: "Grid columns (default 3)." },
+  ],
+  "donut-multi": [
+    { name: "rings", type: "DonutMultiRing[]", description: "Concentric rings (required)." },
+    { name: "size", type: "number", description: "SVG size (default 200)." },
+    { name: "label", type: "string", description: "Center label." },
+  ],
+  "pie-interactive": [
+    { name: "slices", type: "PieSlice[]", description: "Pie slices (required)." },
+    { name: "size", type: "number", description: "SVG size (default 220)." },
+  ],
+  "chord-diagram": [
+    { name: "groups", type: "string[]", description: "Arc group names (required)." },
+    { name: "links", type: "ChordLink[]", description: "Flow ribbons (required)." },
+    { name: "size", type: "number", description: "SVG size (default 240)." },
+  ],
+  "icicle-chart": [
+    { name: "root", type: "IcicleNode", description: "Hierarchy root (required)." },
+    { name: "height", type: "number", description: "Chart height (default 260)." },
+  ],
+  "stream-graph": [
+    { name: "layers", type: "StreamLayer[]", description: "Stacked layers (required)." },
+    { name: "height", type: "number", description: "Chart height (default 240)." },
+  ],
+  "horizon-chart": [
+    { name: "data", type: "number[]", description: "Series values (required)." },
+    { name: "bands", type: "number", description: "Band count (default 3)." },
+    { name: "width", type: "number", description: "SVG width (default 280)." },
+    { name: "height", type: "number", description: "SVG height (default 64)." },
+  ],
+  "kpi-strip": [
+    { name: "tiles", type: "KpiStripTile[]", description: "Metric tiles with label, value, delta and spark (required)." },
+    { name: "className", type: "string", description: "Grid wrapper styling override." },
+  ],
+  "density-plot": [
+    { name: "values", type: "number[]", description: "Sample values (required)." },
+    { name: "points", type: "number", description: "Curve resolution (default 48)." },
+  ],
+  "qq-plot": [
+    { name: "sampleA", type: "number[]", description: "First sample (required)." },
+    { name: "sampleB", type: "number[]", description: "Second sample (required)." },
+  ],
+  "control-chart": [
+    { name: "data", type: "number[]", description: "Process values (required)." },
+    { name: "sigma", type: "number", description: "Limit width in SD (default 3)." },
+  ],
+  "matrix-chart": [
+    { name: "rows", type: "string[]", description: "Row labels (required)." },
+    { name: "columns", type: "string[]", description: "Column labels (required)." },
+    { name: "values", type: "number[][]", description: "Cell matrix (required)." },
+  ],
+  "org-tree-v2": [
+    { name: "root", type: "OrgTreeV2Node[]", description: "Tree roots (required)." },
+    { name: "orientation", type: '"vertical" | "horizontal"', description: "Layout direction (default 'vertical')." },
+  ],
+  "table-empty-col": [
+    { name: "colSpan", type: "number", description: "Columns to span (default 1)." },
+    { name: "message", type: "string", description: "Empty message (default 'No data')." },
+    { name: "hint", type: "string", description: "Secondary helper line." },
+  ],
+  "code-tabs": [
+    { name: "tabs", type: "CodeTabsTab[]", description: "Tabs with id, label, code (required)." },
+    { name: "defaultTab", type: "string", description: "Initial tab id." },
+    { name: "onCopy", type: "(code: string, tabId: string) => void", description: "Copy callback." },
+  ],
+  "file-tree": [
+    { name: "nodes", type: "FileTreeNode[]", description: "Tree nodes (required)." },
+    { name: "selectedId", type: "string", description: "Controlled selection." },
+    { name: "defaultExpanded", type: "string[]", description: "Initially open folders." },
+    { name: "onSelect", type: "(node: FileTreeNode) => void", description: "Select callback." },
+  ],
+  "json-inspector": [
+    { name: "value", type: "unknown", description: "Value to inspect (required)." },
+    { name: "defaultExpanded", type: "boolean", description: "Expand all initially (default true)." },
+    { name: "maxDepth", type: "number", description: "Nesting cap (default 4)." },
+  ],
+  "shortcut-recorder": [
+    { name: "value", type: "string", description: "Controlled combo string." },
+    { name: "onValueChange", type: "(shortcut: string) => void", description: "Change callback." },
+  ],
+  "pricing-slider": [
+    { name: "tiers", type: "PricingTier[]", description: "Pricing tiers (required)." },
+    { name: "seats", type: "number", description: "Controlled seat count." },
+    { name: "maxSeats", type: "number", description: "Slider max (default 100)." },
+    { name: "currency", type: "string", description: "Currency symbol (default '$')." },
+  ],
+  "virtual-card-flipper": [
+    { name: "number", type: "string", description: "PAN digits." },
+    { name: "holder", type: "string", description: "Cardholder name." },
+    { name: "expiry", type: "string", description: "Expiry string." },
+  ],
+  "split-bill-calculator": [
+    { name: "total", type: "number", description: "Controlled bill total." },
+    { name: "people", type: "SplitBillPerson[]", description: "Diners list." },
+    { name: "currency", type: "string", description: "Currency symbol (default '$')." },
+  ],
+  "sidebar-layout": [
+    { name: "sidebar", type: "React.ReactNode", description: "Sidebar content (required)." },
+    { name: "sidebarWidth", type: "number", description: "Sidebar px (default 260)." },
+    { name: "sticky", type: "boolean", description: "Sticky sidebar (default true)." },
+  ],
+  "feedback-widget": [
+    { name: "onSubmit", type: "(message: string, mood: 'good' | 'bad') => void", description: "Submit callback." },
+    { name: "position", type: '"bottom-right" | "bottom-left"', description: "Corner (default 'bottom-right')." },
+  ],
+  "badge-printer": [
+    { name: "name", type: "string", description: "Badge holder name." },
+    { name: "role", type: "string", description: "Role line." },
+    { name: "onPrint", type: "() => void", description: "Fires when printing finishes." },
+  ],
+  "stopwatch-v2": [
+    { name: "label", type: "string", description: "Header label (default 'CHRONO')." },
+  ],
+  "passport-stamp-grid": [
+    { name: "stamps", type: "PassportStamp[]", description: "Stamps with id, country, date (required)." },
+    { name: "columns", type: "number", description: "Grid columns (default 3)." },
+  ],
+  "library-due-date-card": [
+    { name: "borrower", type: "string", description: "Card holder name." },
+    { name: "cardNo", type: "string", description: "Library card number." },
+    { name: "entries", type: "DueDateEntry[]", description: "Borrowed books." },
+    { name: "onToggle", type: "(id: string, returned: boolean) => void", description: "Return toggle callback." },
+  ],
+  "coat-check-tag": [
+    { name: "number", type: "string", description: "Claim number." },
+    { name: "section", type: "string", description: "Section code." },
+    { name: "holder", type: "string", description: "Holder label." },
+  ],
+  "warranty-certificate": [
+    { name: "product", type: "string", description: "Product name." },
+    { name: "serial", type: "string", description: "Serial number." },
+    { name: "validUntil", type: "string", description: "Expiry label." },
+  ],
+  "train-departure-board": [
+    { name: "title", type: "string", description: "Board header." },
+    { name: "rows", type: "DepartureRow[]", description: "Departure rows." },
+  ],
+  "scratch-card": [
+    { name: "prize", type: "string", description: "Prize headline." },
+    { name: "code", type: "string", description: "Hidden voucher code." },
+    { name: "onReveal", type: "(code: string) => void", description: "Reveal callback." },
+  ],
+  "passport-id-card": [
+    { name: "name", type: "string", description: "Holder name." },
+    { name: "nationality", type: "string", description: "Nationality line." },
+    { name: "idNo", type: "string", description: "Document number." },
+  ],
+  "waitlist-queue-card": [
+    { name: "position", type: "number", description: "Queue position." },
+    { name: "total", type: "number", description: "Queue size." },
+    { name: "code", type: "string", description: "Invite code." },
+    { name: "onInvite", type: "() => void", description: "Invite callback." },
+  ],
+  "social-proof-toast": [
+    { name: "buyer", type: "string", description: "Buyer label." },
+    { name: "item", type: "string", description: "Purchased item." },
+    { name: "duration", type: "number", description: "Visible ms (default 6000)." },
+    { name: "onClose", type: "() => void", description: "Dismiss callback." },
+  ],
+  "cargo-shipping-label": [
+    { name: "tracking", type: "string", description: "Tracking number." },
+    { name: "from", type: "string", description: "Origin line." },
+    { name: "to", type: "string", description: "Destination line." },
+    { name: "fragile", type: "boolean", description: "Fragile stamp (default true)." },
+  ],
+  "flight-timeline-card": [
+    { name: "from", type: "FlightLeg", description: "Origin leg." },
+    { name: "to", type: "FlightLeg", description: "Destination leg." },
+    { name: "flight", type: "string", description: "Flight number." },
+    { name: "delayed", type: "boolean", description: "Delay stamp (default false)." },
+  ],
+  "parking-ticket-meter": [
+    { name: "plate", type: "string", description: "License plate." },
+    { name: "allowanceMin", type: "number", description: "Minutes allowed (default 120)." },
+    { name: "onExpire", type: "() => void", description: "Expiry callback." },
+  ],
 };
 
 Object.assign(propsDocs, wavePropsDocs, wavePropsDocs2, wavePropsDocs3);
@@ -2173,6 +2584,9 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const idx = components.findIndex((component) => component.name === slug);
   const prev = idx > 0 ? components[idx - 1] : undefined;
   const next = idx >= 0 && idx < components.length - 1 ? components[idx + 1] : undefined;
+  const relatedShelf = (meta.related ?? [])
+    .map((name) => components.find((component) => component.name === name))
+    .filter((item): item is (typeof components)[number] => Boolean(item));
 
   const sourceFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
   const sourceCode = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
@@ -2193,10 +2607,16 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     <article className="min-w-0 flex-1 space-y-10">
       <MarkSeen name={meta.name} />
       <header className="space-y-3">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge variant="accent">Component</Badge>
           <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
             {meta.category}
+          </span>
+          <span className="rounded border border-border bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+            {(sizes.sizes as Record<string, { kb: number }>)[meta.name] ? `${(sizes.sizes as Record<string, { kb: number }>)[meta.name].kb} KB gzip` : "Zero dependencies"}
+          </span>
+          <span className="rounded border border-border bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+            Zero dependencies
           </span>
         </div>
         <h1 className="text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">{meta.title}</h1>
@@ -2233,8 +2653,21 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       </section>
 
       <section className="space-y-3">
-        <h2 id="usage" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 id="usage" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
+          <DocsStackBlitzButton name={meta.name} code={usageCode} />
+        </div>
           <CodeBox code={usageCode} block />
+      </section>
+
+      <section aria-label="Usage guidance" className="space-y-2 rounded-lg border-2 border-dashed border-border bg-card p-4">
+        <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground">Usage guidance</h2>
+        <p className="text-sm text-muted-foreground">
+          Use {meta.title} when a ticket stub surface needs {meta.description} Keep props minimal and prefer composition with sibling stubs.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Avoid {meta.title} for long form flows or dense data grids where a dedicated layout block fits better.
+        </p>
       </section>
 
       {sourceCode ? (
@@ -2274,6 +2707,24 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 ))}
               </tbody>
             </table>
+          </div>
+        </section>
+      ) : null}
+
+      {relatedShelf.length > 0 ? (
+        <section className="space-y-3">
+          <h2 id="related" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Pairs well with</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {relatedShelf.map((item) => (
+              <Link
+                key={item.name}
+                href={`/docs/${item.name}`}
+                className="group rounded-lg border-2 border-dashed border-border bg-card p-4 transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span className="font-mono text-sm font-bold uppercase tracking-wider group-hover:text-accent-strong">{item.title}</span>
+                <span className="mt-1 block text-sm text-muted-foreground">{item.description}</span>
+              </Link>
+            ))}
           </div>
         </section>
       ) : null}

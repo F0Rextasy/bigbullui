@@ -266,7 +266,7 @@ export function AudioWaveform({
                 className={cn(
                   "size-2 rounded-full transition-colors",
                   isPlaying
-                    ? "bg-destructive animate-pulse shadow-[0_0_8px_#ef4444]"
+                    ? "bg-destructive animate-pulse shadow-[0_0_8px_var(--color-destructive)]"
                     : "bg-muted-foreground"
                 )}
               />

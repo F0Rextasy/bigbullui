@@ -38,7 +38,7 @@ export function JsonEditor({ value, defaultValue = '{\n  "ad": "bigbullui",\n  "
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">JSON</span>
         <div className="flex items-center gap-2">
           {valid ? (
-            <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-600">✓ Valid</span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">✓ Valid</span>
           ) : (
             <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[jeIn_0.2s_ease-out] motion-reduce:animate-none">✗ Invalid</span>
           )}

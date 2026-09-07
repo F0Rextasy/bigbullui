@@ -1,11 +1,19 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+export type CardProps = React.ComponentProps<"div"> & {
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
+};
+
+function Card({ className, animated = true, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border-[1.5px] border-foreground bg-card text-card-foreground outline-1 outline-dashed outline-offset-[-7px] transition-shadow duration-200 hover:shadow-[5px_5px_0_0_var(--color-border)]",
+        "rounded-lg border-[1.5px] border-foreground bg-card text-card-foreground outline-1 outline-dashed outline-offset-[-7px] min-w-0",
+        animated
+          ? "transition-shadow duration-200 hover:shadow-[5px_5px_0_0_var(--color-border)] motion-reduce:transition-none"
+          : "transition-none",
         className
       )}
       {...props}

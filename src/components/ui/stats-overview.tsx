@@ -26,7 +26,7 @@ export function StatsOverview({ tiles = [], tableTitle = "Recent records", table
             <div className="mt-1.5 flex items-end justify-between gap-2">
               <span className="font-mono text-xl font-bold tabular-nums">{t.value}</span>
               {t.delta && (
-                <span className={cn("font-mono text-[10px] tabular-nums", t.delta.up ? "text-emerald-600" : "text-destructive")}>
+                <span className={cn("font-mono text-[10px] tabular-nums", t.delta.up ? "text-emerald-700 dark:text-emerald-400" : "text-destructive")}>
                   {t.delta.up ? "▲" : "▼"} {t.delta.value}
                 </span>
               )}

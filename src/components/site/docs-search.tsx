@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { CommandPalette, type CommandItem } from "@/components/ui/command-palette";
 import { Kbd } from "@/components/ui/kbd";
@@ -90,14 +91,17 @@ export function DocsSearch({
           </span>
         </button>
       )}
-      {isHost ? (
-        <CommandPalette
-          open={open}
-          onOpenChange={setOpen}
-          items={items}
-          placeholder="Search components and guides..."
-        />
-      ) : null}
+      {isHost && typeof document !== "undefined"
+        ? createPortal(
+            <CommandPalette
+              open={open}
+              onOpenChange={setOpen}
+              items={items}
+              placeholder="Search components and guides..."
+            />,
+            document.body
+          )
+        : null}
     </>
   );
 }

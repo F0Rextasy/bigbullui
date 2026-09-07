@@ -144,7 +144,7 @@ export function HeroShowcase() {
                     <label className="text-xs font-medium text-foreground">Automated Multi-Region Failover</label>
                     <p className="text-[11px] text-muted-foreground">Reroutes traffic on health check failure</p>
                   </div>
-                  <Switch checked={failover} onCheckedChange={setFailover} />
+                  <Switch checked={failover} onCheckedChange={setFailover} aria-label="Automated multi-region failover" />
                 </div>
 
                 <div className="space-y-2">
@@ -152,7 +152,7 @@ export function HeroShowcase() {
                     <span className="font-medium text-foreground">Compute Power Allocation</span>
                     <span className="font-mono text-accent-strong">{compute} Cores</span>
                   </div>
-                  <Slider value={compute} onValueChange={setCompute} min={10} max={128} />
+                  <Slider value={compute} onValueChange={setCompute} min={10} max={128} aria-label="Compute power allocation in cores" />
                 </div>
 
                 <div className="flex items-center gap-3 pt-2">

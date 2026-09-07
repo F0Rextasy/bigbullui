@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
@@ -68,8 +69,9 @@ export function MobileNav({ stars }: { stars: number | null }) {
         </svg>
       </button>
 
-      {/* Slide-out Navigation Drawer */}
-      <Sheet open={open} onOpenChange={setOpen} side="right">
+      {open && typeof document !== "undefined"
+        ? createPortal(
+            <Sheet open={open} onOpenChange={setOpen} side="right">
         <SheetHeader className="border-b border-dashed border-border pb-4 text-left">
           <div className="flex items-center gap-2">
             <Image src="/logo.svg" alt="bigbullui logo" width={28} height={28} className="size-7" />
@@ -144,6 +146,25 @@ export function MobileNav({ stars }: { stars: number | null }) {
               </span>
             </Link>
             <Link
+              href="/blocks"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <span className="flex items-center gap-2.5">
+                <span>🧱</span> Page Blocks
+              </span>
+              <span className="font-mono text-[10px] rounded bg-secondary px-2 py-0.5 text-muted-foreground">
+                31
+              </span>
+            </Link>
+            <Link
+              href="/showcase"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <span>🌟</span> Showcase
+            </Link>
+            <Link
               href="/docs/installation"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
@@ -213,7 +234,10 @@ export function MobileNav({ stars }: { stars: number | null }) {
             Browse 460+ Components
           </Link>
         </div>
-      </Sheet>
+            </Sheet>,
+            document.body
+          )
+        : null}
     </div>
   );
 }

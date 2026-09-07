@@ -19,7 +19,7 @@ export interface NotificationFeedProps extends React.HTMLAttributes<HTMLDivEleme
 
 const TYPE_ICON: Record<string, { bg: string; glyph: string }> = {
   info: { bg: "bg-sky-500/15 text-sky-600", glyph: "i" },
-  success: { bg: "bg-emerald-500/15 text-emerald-600", glyph: "✓" },
+  success: { bg: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400", glyph: "✓" },
   warning: { bg: "bg-amber-500/15 text-amber-600", glyph: "!" },
   error: { bg: "bg-destructive/15 text-destructive", glyph: "×" },
 };

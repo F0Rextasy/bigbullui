@@ -14,7 +14,7 @@ const STATUS = {
   pending: { label: "Beklemede", cls: "border-amber-500/50 bg-amber-500/10 text-amber-600" },
   approved: { label: "Approved", cls: "border-sky-500/50 bg-sky-500/10 text-sky-600" },
   rejected: { label: "Reddedildi", cls: "border-destructive/50 bg-destructive/10 text-destructive" },
-  completed: { label: "Completed", cls: "border-emerald-500/50 bg-emerald-500/10 text-emerald-600" },
+  completed: { label: "Completed", cls: "border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" },
 };
 
 /** Refund status card: resolution state + amount + reason. */

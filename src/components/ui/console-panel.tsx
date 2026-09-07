@@ -34,7 +34,7 @@ export function ConsolePanel({ lines, prompt = ">", onSubmit, className, ...prop
 
   return (
     <div
-      className={cn("w-full overflow-hidden rounded-lg border border-border bg-[#0d0d0d] font-mono text-xs", className)}
+      className={cn("w-full overflow-hidden rounded-lg border border-border bg-card font-mono text-xs", className)}
       onClick={() => inputRef.current?.focus()}
       {...props}
     >

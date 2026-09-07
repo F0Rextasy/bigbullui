@@ -2446,7 +2446,11 @@ import { wave10Previews } from "@/components/site/previews/wave10";
 import { wave11Previews } from "@/components/site/previews/wave11";
 import { wave12Previews } from "@/components/site/previews/wave12";
 import { wave2Previews } from "@/components/site/previews/wave2";
-import { wave20Previews } from "@/components/site/previews/wave20";import { wave3Previews } from "@/components/site/previews/wave3";
+import { wave20Previews } from "@/components/site/previews/wave20";
+import { wave22Previews } from "@/components/site/previews/wave22";
+import { wave23Previews } from "@/components/site/previews/wave23";
+import { wave24Previews } from "@/components/site/previews/wave24";
+import { wave25Previews } from "@/components/site/previews/wave25";import { wave3Previews } from "@/components/site/previews/wave3";
 import { wave4Previews } from "@/components/site/previews/wave4";
 import { wave5Previews } from "@/components/site/previews/wave5";
 import { wave6Previews } from "@/components/site/previews/wave6";
@@ -2454,7 +2458,7 @@ import { wave7Previews } from "@/components/site/previews/wave7";
 import { wave8Previews } from "@/components/site/previews/wave8";
 import { wave9Previews } from "@/components/site/previews/wave9";
 
-Object.assign(previews, waveAdvancedPreviews, wave1Previews, wave10Previews, wave11Previews, wave12Previews, wave20Previews, wave2Previews, wave3Previews, wave4Previews, wave5Previews, wave6Previews, wave7Previews, wave8Previews, wave9Previews);
+Object.assign(previews, waveAdvancedPreviews, wave1Previews, wave10Previews, wave11Previews, wave12Previews, wave20Previews, wave22Previews, wave23Previews, wave24Previews, wave25Previews, wave2Previews, wave3Previews, wave4Previews, wave5Previews, wave6Previews, wave7Previews, wave8Previews, wave9Previews);
 
 import { wave13Previews } from "@/components/site/previews/wave13";
 import { wave14Previews } from "@/components/site/previews/wave14";
@@ -2473,26 +2477,85 @@ import { wave21Previews } from "@/components/site/previews/wave21";
 
 Object.assign(previews, wave21Previews);
 
+import { wave26Previews } from "@/components/site/previews/wave26";
+
+Object.assign(previews, wave26Previews);
+
+import { wave27Previews } from "@/components/site/previews/wave27";
+
+Object.assign(previews, wave27Previews);
+
+import { wave28Previews } from "@/components/site/previews/wave28";
+
+Object.assign(previews, wave28Previews);
+
+import { wave30Previews } from "@/components/site/previews/wave30";
+
+Object.assign(previews, wave30Previews);
+
+import { wave31Previews } from "@/components/site/previews/wave31";
+
+Object.assign(previews, wave31Previews);
+
+import { wave29Previews } from "@/components/site/previews/wave29";
+
+Object.assign(previews, wave29Previews);
+
 export function ComponentPreview({ name }: { name: string }) {
   const [isDark, setIsDark] = React.useState(false);
   const [reloadKey, setReloadKey] = React.useState(0);
+  const [isAnimated, setIsAnimated] = React.useState(true);
+  const [viewport, setViewport] = React.useState<"desktop" | "tablet" | "mobile">("desktop");
 
   const Preview = previews[name];
   if (!Preview) {
     return <p className="text-sm text-muted-foreground font-mono">Preview not available.</p>;
   }
 
+  const viewportWidth = viewport === "mobile" ? "375px" : viewport === "tablet" ? "768px" : "100%";
+
   return (
     <div className="w-full overflow-hidden rounded-lg border border-border bg-card shadow-2xs">
       {/* Interactive Canvas Toolbar */}
-      <div className="flex items-center justify-between border-b border-border bg-secondary/40 px-3 py-2 text-xs sm:px-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/40 px-3 py-2 text-xs sm:px-4">
         <div className="flex items-center gap-2">
           <span className="size-2 rounded-full bg-accent/70" aria-hidden="true" />
           <span className="font-mono text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
             Live Preview
           </span>
         </div>
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center overflow-hidden rounded border border-border bg-card font-mono text-[11px]" role="group" aria-label="Viewport width">
+            {(["mobile", "tablet", "desktop"] as const).map((mode) => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => setViewport(mode)}
+                title={mode === "mobile" ? "Mobile 375px" : mode === "tablet" ? "Tablet 768px" : "Desktop full width"}
+                className={cn(
+                  "cursor-pointer px-2 py-0.5 uppercase transition-colors active:scale-95",
+                  viewport === mode
+                    ? "bg-primary font-semibold text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {mode === "mobile" ? "375" : mode === "tablet" ? "768" : "100%"}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsAnimated((a) => !a)}
+            title="Toggle motion on the preview canvas"
+            className={cn(
+              "cursor-pointer rounded border px-2 py-0.5 font-mono text-[11px] uppercase transition-colors active:scale-95",
+              isAnimated
+                ? "border-accent bg-accent font-semibold text-accent-foreground"
+                : "border-border bg-card text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {isAnimated ? "Motion" : "Static"}
+          </button>
           <button
             type="button"
             onClick={() => setReloadKey((k) => k + 1)}
@@ -2522,10 +2585,13 @@ export function ComponentPreview({ name }: { name: string }) {
         key={reloadKey}
         className={cn(
           "flex min-h-52 w-full items-center justify-center overflow-x-auto p-4 transition-colors sm:p-8",
-          isDark ? "dark bg-background text-foreground" : "bg-card text-foreground"
+          isDark ? "dark bg-background text-foreground" : "bg-card text-foreground",
+          !isAnimated && "[&_*]:animate-none [&_*]:transition-none"
         )}
       >
-        <Preview />
+        <div className="w-full transition-all duration-300" style={{ maxWidth: viewportWidth }}>
+          <Preview />
+        </div>
       </div>
     </div>
   );

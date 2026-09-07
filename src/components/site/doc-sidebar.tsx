@@ -14,6 +14,11 @@ const GUIDES = [
   { href: "/docs/agents", label: "AI Agents (SKILL.md)" },
   { href: "/docs/design", label: "Design System" },
   { href: "/docs/contributing", label: "Contributing" },
+  { href: "/docs/recipes", label: "Recipes" },
+  { href: "/docs/compare", label: "Compare" },
+  { href: "/docs/changelog", label: "Changelog" },
+  { href: "/blocks", label: "Page Blocks" },
+  { href: "/showcase", label: "Showcase" },
 ];
 
 function Chevron({ open }: { open: boolean }) {
@@ -105,7 +110,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
   const [userToggled, setUserToggled] = React.useState<Record<string, boolean>>({});
 
   const activeGroup = React.useMemo(() => {
-    const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/design", "/docs/contributing"];
+    const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/design", "/docs/contributing", "/docs/recipes", "/docs/compare", "/docs/changelog", "/blocks", "/showcase"];
     if (guidePaths.includes(pathname)) return "guides";
     const slug = pathname.replace(/^\/docs\//, "");
     return components.find((c) => c.name === slug)?.category;

@@ -60,14 +60,14 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
             "shrink-0 rounded-md border-2 border-dashed px-4 font-mono text-[10px] uppercase tracking-wider transition-colors motion-reduce:transition-none",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             "disabled:pointer-events-none disabled:opacity-40",
-            state === "valid" ? "border-emerald-500 text-emerald-600" : "border-border hover:border-foreground hover:text-foreground"
+            state === "valid" ? "border-emerald-500 text-emerald-700 dark:text-emerald-400" : "border-border hover:border-foreground hover:text-foreground"
           )}
         >
           {state === "checking" ? "…" : state === "valid" ? "✓ Applied" : "Apply"}
         </button>
       </div>
       {state === "invalid" && <p className="mt-1 text-xs text-destructive">Code is invalid or expired.</p>}
-      {state === "valid" && <p className="mt-1 text-xs text-emerald-600">Discount applied to cart!</p>}
+      {state === "valid" && <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">Discount applied to cart!</p>}
     </div>
   );
 }

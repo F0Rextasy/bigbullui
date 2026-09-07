@@ -70,7 +70,7 @@ const DEFAULT_TIERS: Record<string, SeatTier> = {
     id: "accessible",
     name: "Accessible",
     price: 60,
-    badgeClass: "border-emerald-600 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10",
+    badgeClass: "border-emerald-600 text-emerald-700 dark:text-emerald-400 bg-emerald-500/10",
     description: "Step-free wheelchair companion access",
   },
   sold: {
@@ -380,7 +380,7 @@ export function SeatMap({
                               seat.tier === "balcony" &&
                                 "border-border/60 bg-muted/30 text-muted-foreground hover:text-foreground hover:bg-secondary",
                               seat.tier === "accessible" &&
-                                "border-emerald-600 bg-card text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/15",
+                                "border-emerald-600 bg-card text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/15",
                               isSold &&
                                 "border-border/30 bg-muted/50 text-muted-foreground/30 cursor-not-allowed line-through",
                               // Selected State

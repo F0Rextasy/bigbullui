@@ -25,7 +25,7 @@ export function BulletChart({ label, value, target, max, unit = "", className, .
       <div className="flex items-baseline justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
         <span className="font-mono text-xs tabular-nums">
-          <span className={hit ? "text-emerald-600" : "text-amber-600"}>{value.toLocaleString("tr-TR")}{unit}</span>
+          <span className={hit ? "text-emerald-700 dark:text-emerald-400" : "text-amber-600"}>{value.toLocaleString("tr-TR")}{unit}</span>
           <span className="text-muted-foreground"> / {target.toLocaleString("tr-TR")}{unit} hedef</span>
         </span>
       </div>

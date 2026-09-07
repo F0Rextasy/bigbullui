@@ -268,7 +268,12 @@ function handleList(args) {
       "form", "input", "menubar", "pagination", "popover", "progress",
       "radio-group", "scroll-area", "select", "separator", "sheet", "skeleton",
       "slider", "split-flap", "stamp-card", "switch", "table", "tabs",
-      "textarea", "ticket-stub", "toast", "toggle", "tooltip"
+      "textarea", "ticket-stub", "toast", "toggle", "tooltip",
+      "thinking-block", "prompt-input", "streaming-text", "token-counter",
+      "prompt-history-drawer", "model-picker", "feedback-vote",
+      "agent-artifact-card", "prompt-diff-compare", "voice-chat-visualizer",
+      "citation-bubble", "printable-ticket", "printable-invoice",
+      "boarding-pass-print", "badge-printer-template", "audio-toggle"
     ];
   }
 

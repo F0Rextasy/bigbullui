@@ -208,7 +208,7 @@ export function QrReader({
           <strong
             className={cn(
               "font-bold",
-              scanResult ? "text-emerald-600 dark:text-emerald-400" : "text-foreground"
+              scanResult ? "text-emerald-700 dark:text-emerald-400" : "text-foreground"
             )}
           >
             {scanResult ? "PASS VALIDATED" : isScanning ? "SCANNING RETICLE" : "STANDBY"}

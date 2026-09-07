@@ -20,7 +20,7 @@ export function StockStatus({ stock, lowAt = 5, labelInStock = "Stokta", classNa
     <span
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider",
-        out ? "border-destructive/50 bg-destructive/10 text-destructive" : low ? "border-amber-500/50 bg-amber-500/10 text-amber-600" : "border-emerald-500/50 bg-emerald-500/10 text-emerald-600",
+        out ? "border-destructive/50 bg-destructive/10 text-destructive" : low ? "border-amber-500/50 bg-amber-500/10 text-amber-600" : "border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
         className
       )}
       role="status"

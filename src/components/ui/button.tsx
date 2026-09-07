@@ -9,6 +9,8 @@ type Size = "default" | "sm" | "lg" | "icon";
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
   size?: Size;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 };
 
 const variants: Record<Variant, string> = {
@@ -27,11 +29,14 @@ const sizes: Record<Size, string> = {
 };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "default", size = "default", ...props }, ref) => (
+  ({ className, variant = "default", size = "default", animated = true, ...props }, ref) => (
     <button
       ref={ref}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-mono uppercase tracking-[0.15em] transition-all duration-150 hover:scale-[1.02] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:transition-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
+        "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-mono uppercase tracking-[0.15em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:transition-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+        animated
+          ? "transition-all duration-150 hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
+          : "transition-none",
         variants[variant],
         sizes[size],
         className

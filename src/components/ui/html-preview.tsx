@@ -15,7 +15,7 @@ export function HtmlPreview({ html, title = "HTML Preview", height = "240px", cl
     <div className={cn("overflow-hidden rounded-lg border border-border", className)} {...props}>
       <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-3 py-1.5">
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">HTML Preview</span>
-        <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-emerald-600">sandbox</span>
+        <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">sandbox</span>
       </div>
       <iframe
         title={title}

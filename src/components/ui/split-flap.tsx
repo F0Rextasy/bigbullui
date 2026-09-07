@@ -182,7 +182,7 @@ export function SplitFlapChar({
     default: "text-foreground",
     accent: "text-accent",
     amber: "text-amber-500 dark:text-amber-400",
-    green: "text-emerald-600 dark:text-emerald-400",
+    green: "text-emerald-700 dark:text-emerald-400",
     destructive: "text-destructive",
     muted: "text-muted-foreground",
   }[color];

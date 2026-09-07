@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "version": "0.27.0",
+      "date": "2026-09-06",
+      "title": "Dev-tools, mobile, time, and data waves",
+      "changes": [
+        "Added prompt-box, chat-thread, suggestion-chips, and nine more dev-tool stubs",
+        "Added bottom-sheet, swipe-actions, pull-refresh, tabbar-v2, onboarding-pager, action-sheet",
+        "Added shift-planner, booking-calendar, countdown-v2, timeline-gantt, recurrence-picker",
+        "Added pivot-lite, filter-builder, csv-importer, audit-timeline, compare-table"
+      ]
+    },
+    {
+      "version": "0.26.0",
+      "date": "2026-08-30",
+      "title": "AI surfaces and print templates",
+      "changes": [
+        "Added thinking-block, prompt-input, streaming-text, and token-counter",
+        "Added printable ticket, invoice, boarding pass, and badge templates"
+      ]
+    }
+  ]
+}

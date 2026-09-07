@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Sheet, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { DocSidebar } from "@/components/site/doc-sidebar";
@@ -77,18 +78,22 @@ export function MobileDocsBar() {
         )}
       />
 
-      {/* Slide-out Sidebar Drawer */}
-      <Sheet open={open} onOpenChange={setOpen} side="left">
-        <SheetHeader className="border-b border-dashed border-border pb-3 text-left">
-          <SheetTitle className="text-base font-semibold tracking-tight">Component Catalog</SheetTitle>
-          <SheetDescription className="text-xs">
-            Browse 462 zero-dependency React 19 components.
-          </SheetDescription>
-        </SheetHeader>
-        <div className="flex-1 overflow-y-auto py-4">
-          <DocSidebar onNavigate={() => setOpen(false)} />
-        </div>
-      </Sheet>
+      {open && typeof document !== "undefined"
+        ? createPortal(
+            <Sheet open={open} onOpenChange={setOpen} side="left">
+              <SheetHeader className="border-b border-dashed border-border pb-3 text-left">
+                <SheetTitle className="text-base font-semibold tracking-tight">Component Catalog</SheetTitle>
+                <SheetDescription className="text-xs">
+                  Browse 462 zero-dependency React 19 components.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="flex-1 overflow-y-auto py-4">
+                <DocSidebar onNavigate={() => setOpen(false)} />
+              </div>
+            </Sheet>,
+            document.body
+          )
+        : null}
     </div>
   );
 }

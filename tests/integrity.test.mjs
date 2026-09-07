@@ -178,6 +178,45 @@ describe("bigbullui Component Library Integrity", () => {
 
     const llmsFullContent = fs.readFileSync(llmsFullPath, "utf8");
     assert.ok(llmsFullContent.includes("Component Catalog"));
+    assert.ok(llmsFullContent.includes("AUTO-GENERATED"), "llms-full.txt must carry the auto-generation note");
     assert.ok(llmsFullContent.length > 50000, "llms-full.txt should contain comprehensive catalog");
+  });
+
+  it("dead-preview detector: every preview key must resolve to a UI file or registry entry", () => {
+    const previewsDir = path.join(rootDir, "src", "components", "site", "previews");
+    const previewFiles = fs.readdirSync(previewsDir).filter((f) => f.endsWith(".tsx"));
+    const keyPattern = /"([a-z0-9][a-z0-9-]*)"\s*:\s*(?:function|\()/g;
+    const keys = new Set();
+    for (const file of previewFiles) {
+      const content = fs.readFileSync(path.join(previewsDir, file), "utf8");
+      let m;
+      while ((m = keyPattern.exec(content)) !== null) keys.add(m[1]);
+    }
+    const sitePreviewPath = path.join(rootDir, "src", "components", "site", "component-preview.tsx");
+    if (fs.existsSync(sitePreviewPath)) {
+      const content = fs.readFileSync(sitePreviewPath, "utf8");
+      let m;
+      while ((m = keyPattern.exec(content)) !== null) keys.add(m[1]);
+    }
+    const registryPath = path.join(rootDir, "src", "lib", "registry-site.ts");
+    const registryContent = fs.readFileSync(registryPath, "utf8");
+    const dead = [...keys].filter((slug) => {
+      const hasFile = fs.existsSync(path.join(uiDir, `${slug}.tsx`));
+      const hasRegistry = new RegExp(`name:\\s*["']${slug}["']`).test(registryContent);
+      return !hasFile && !hasRegistry;
+    });
+    assert.deepEqual(dead, [], `Dead previews without UI file or registry entry:\n${dead.join(", ")}`);
+  });
+
+  it("registry entries must all have a UI source file (no dangling docs routes)", () => {
+    const registryPath = path.join(rootDir, "src", "lib", "registry-site.ts");
+    const registryContent = fs.readFileSync(registryPath, "utf8");
+    const names = [...registryContent.matchAll(/name:\s*["']([a-z0-9][a-z0-9-]*)["']/g)].map((m) => m[1]);
+    const dangling = names.filter((slug) => {
+      if (fs.existsSync(path.join(uiDir, `${slug}.tsx`))) return false;
+      if (fs.existsSync(path.join(uiDir, "lib", `${slug}.ts`))) return false;
+      return true;
+    });
+    assert.deepEqual(dangling, [], `Registry entries without UI source file:\n${dangling.join(", ")}`);
   });
 });

@@ -22,7 +22,7 @@ export interface AuditLogProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ACTION_TONE: Record<AuditAction, string> = {
-  create: "border-emerald-500/50 bg-emerald-500/10 text-emerald-600",
+  create: "border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
   update: "border-amber-500/50 bg-amber-500/10 text-amber-600",
   delete: "border-destructive/50 bg-destructive/10 text-destructive",
   login: "border-accent/50 bg-accent/10 text-accent",

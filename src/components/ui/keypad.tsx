@@ -276,7 +276,7 @@ export function Keypad({
       case "success":
         return {
           indicator: "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]",
-          label: "text-emerald-600 dark:text-emerald-400 font-bold",
+          label: "text-emerald-700 dark:text-emerald-400 font-bold",
           border: "border-emerald-500/60",
           bg: "bg-emerald-500/10",
         };

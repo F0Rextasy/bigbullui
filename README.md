@@ -12,6 +12,9 @@
 [![React 19](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8.svg)](https://tailwindcss.com)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](https://github.com/F0Rextasy/bigbullui)
+[![CI](https://github.com/F0Rextasy/bigbullui/actions/workflows/ci.yml/badge.svg)](https://github.com/F0Rextasy/bigbullui/actions/workflows/ci.yml)
+[![publint](https://img.shields.io/badge/publint-clean-success.svg)](https://publint.dev)
+[![attw](https://img.shields.io/badge/attw-type--safe-success.svg)](https://arethetypeswrong.github.io)
 
 ## Features
 
@@ -178,7 +181,6 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`country-select`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/country-select.tsx) | Country Select | Country select with flag emojis and codes. |
 | [`duration-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/duration-input.tsx) | Duration Input | Duration input: hour/minute/second steppers. |
 | [`serial-input`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/serial-input.tsx) | Serial Input | Serial number input: grouped boxes, auto-advance, paste support. |
-| [`betting-slip`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/betting-slip.tsx) | Betting Slip | Betting slip: match picks, odds grid, stake and play button. |
 </details>
 
 <details>
@@ -218,7 +220,6 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`stopwatch`](https://ui.bigbullapp.com/docs/stopwatch) | Stopwatch | Precision timer with lap tear-offs and digital readout. |
 | [`countup`](https://ui.bigbullapp.com/docs/countup) | Countup | Mechanical turnstile odometer counter with animated tally and slot frames. |
 | [`nfc-badge`](https://ui.bigbullapp.com/docs/nfc-badge) | NFC Badge | Contactless gate pass tap simulator with animated radio wave ripple pulse, status badge, lanyard notch, and admission chime. |
-| [`scratch-off`](https://ui.bigbullapp.com/docs/scratch-off) | Scratch Off | Lottery ticket with interactive foil scratch layer and auto-reveal. |
 | [`qr-reader`](https://ui.bigbullapp.com/docs/qr-reader) | QR Reader | Turnstile simulated camera QR and barcode scanner viewfinder with animated laser sweep and targeting reticle. |
 | [`audio-waveform`](https://ui.bigbullapp.com/docs/audio-waveform) | Audio Waveform | Interactive multi-bar audio wave visualizer for concert recordings with live animated frequency bars and timestamp readout. |
 | [`ticket-fold`](https://ui.bigbullapp.com/docs/ticket-fold) | Ticket Fold | 3D accordion fold pass that unfolds with smooth perspective rotation and tear-away slip. |
@@ -332,20 +333,8 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`backstage-pass`](https://ui.bigbullapp.com/docs/backstage-pass) | BackstagePass | Laminated ALL ACCESS pass with lanyard hole, rotated stripe strip, shine sweep on hover and fake barcode. |
 | [`wristband`](https://ui.bigbullapp.com/docs/wristband) | Wristband | Festival wristband with patterned repeating stripes, snap closure, serial and a subtle breathing animation. |
 | [`lanyard`](https://ui.bigbullapp.com/docs/lanyard) | Lanyard | Strap with clip that sways gently from the top and holds an attached card slot for children. |
-| [`drink-ticket`](https://ui.bigbullapp.com/docs/drink-ticket) | DrinkTicket | Perforated drink coupon with glyph, GOOD FOR ONE copy and a tear-off stub that rotates on hover. |
-| [`raffle-ticket`](https://ui.bigbullapp.com/docs/raffle-ticket) | RaffleTicket | Raffle ticket with a big number, matching stub number and a winning highlight that pulses and stamps. |
-| [`slot-machine`](https://ui.bigbullapp.com/docs/slot-machine) | SlotMachine | Three-reel slot machine with staggered spinning reels, a pulling lever and payline highlight on stop. |
-| [`prize-wheel`](https://ui.bigbullapp.com/docs/prize-wheel) | PrizeWheel | SVG prize wheel of tinted segments that spins with eased deceleration and a flicking pointer flapper. |
-| [`dice`](https://ui.bigbullapp.com/docs/dice) | Dice | Pair of 3D dice that tumble with rapid face swaps and settle with a bounce on roll. |
-| [`coin-flip`](https://ui.bigbullapp.com/docs/coin-flip) | CoinFlip | Coin that rotates on Y through multiple turns, decelerating to a heads or tails face with a stamped result badge. |
-| [`playing-card`](https://ui.bigbullapp.com/docs/playing-card) | PlayingCard | Playing card with corner rank and suit, big center suit, diamond-pattern back and a 3D flip on click. |
-| [`bingo-card`](https://ui.bigbullapp.com/docs/bingo-card) | BingoCard | 5x5 B-I-N-G-O card whose cells stamp in on toggle with a free center and line-complete sweep highlights. |
 | [`jumbotron`](https://ui.bigbullapp.com/docs/jumbotron) | Jumbotron | Oversized scoreboard with pixel-style mono type, scanline sweep and scoreboard slots for home and away. |
 | [`fireworks`](https://ui.bigbullapp.com/docs/fireworks) | Fireworks | Rockets that rise and burst into radial particle rings, looping while active. |
-| [`disco-ball`](https://ui.bigbullapp.com/docs/disco-ball) | DiscoBall | Tiled mirror sphere that slowly rotates and projects dancing light dots around the room. |
-| [`stage-lights`](https://ui.bigbullapp.com/docs/stage-lights) | StageLights | Two to four gradient light cones that sweep alternately over a glowing stage floor ellipse. |
-| [`ticket-booth`](https://ui.bigbullapp.com/docs/ticket-booth) | TicketBooth | Booth window with TICKETS marquee header, counter ledge, speaker grille dots and a CLOSED flip sign. |
-| [`drive-in-screen`](https://ui.bigbullapp.com/docs/drive-in-screen) | DriveInScreen | Outdoor cinema screen with projection flicker, a car silhouette row and an intermission countdown slot. |
 | [`ticket-stub-v2`](https://ui.bigbullapp.com/docs/ticket-stub-v2) | TicketStubV2 | Rip-off event stub whose tear line detaches the stub with rotate-and-fall on tear, plus serial and barcode. |
 | [`toc`](https://ui.bigbullapp.com/docs/toc) | Toc | Table of contents with IntersectionObserver scroll-spy and dashed active underline |
 | [`qr-code`](https://ui.bigbullapp.com/docs/qr-code) | QR Code | Generates QR codes with Reed-Solomon error correction, mask evaluation, and finder patterns. Includes encodeQrMatrix helper. |
@@ -427,21 +416,13 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`word-cloud`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/word-cloud.tsx) | Word Cloud | Word cloud with weight-based font sizing and hover accent. |
 | [`network-graph`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/network-graph.tsx) | Network Graph | Node-edge network graph with bezier links and hover highlight. |
 | [`sunburst-chart`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/sunburst-chart.tsx) | Sunburst Chart | Two-ring sunburst chart with segment hover dimming. |
-| [`lottery-machine`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/lottery-machine.tsx) | Lottery Machine | Lottery machine with shaking ball cage and stamped number results. |
-| [`vending-machine`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/vending-machine.tsx) | Vending Machine | Vending machine with product grid, coin slot and drop animation. |
-| [`arcade-cabinet`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/arcade-cabinet.tsx) | Arcade Cabinet | Retro arcade cabinet with scanline screen, joystick and coin slot. |
 | [`punch-clock`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/punch-clock.tsx) | Punch Clock | Punch clock with live digital time and in/out stamp feed. |
 | [`mailbox`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/mailbox.tsx) | Mailbox | Mailbox with flag raise and letter send animation. |
-| [`safe-vault`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/safe-vault.tsx) | Safe Vault | Safe vault with dial animation, code entry and open reveal. |
 | [`medal-display`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/medal-display.tsx) | Medal Display | Medal board with gold/silver/bronze tiers and shine sweep. |
 | [`trophy-shelf`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/trophy-shelf.tsx) | Trophy Shelf | Trophy shelf with earned/empty slots and drop-in animation. |
 | [`megaphone`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/megaphone.tsx) | Megaphone | Announcement megaphone with animated sound waves. |
 | [`score-keeper`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/score-keeper.tsx) | Score Keeper | Two-team score keeper with pulse on score change. |
 | [`match-ticker`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/match-ticker.tsx) | Match Ticker | Live match ticker with scrolling scores and LIVE badges. |
-| [`pool-table`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/pool-table.tsx) | Pool Table | Pool ball grid organizer with striped/solid ball rendering. |
-| [`revolving-door`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/revolving-door.tsx) | Revolving Door | Revolving door with rotating panels. |
-| [`ferris-wheel`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/ferris-wheel.tsx) | Ferris Wheel | Ferris wheel with rotating cabins. |
-| [`carousel-ride`](https://github.com/F0Rextasy/bigbullui/blob/main/src/components/ui/carousel-ride.tsx) | Carousel Ride | Carousel ride with circling horses. |
 </details>
 <details>
 <summary><strong>Feedback</strong> — notices, hints and interruptions</summary>

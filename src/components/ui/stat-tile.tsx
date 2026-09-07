@@ -32,7 +32,7 @@ export function StatTile({ label, value, delta, spark, className, ...props }: St
         )}
       </div>
       {delta && (
-        <p className={cn("mt-1 inline-flex items-center gap-1 font-mono text-[10px] tabular-nums", delta.up ? "text-emerald-600" : "text-destructive")}>
+        <p className={cn("mt-1 inline-flex items-center gap-1 font-mono text-[10px] tabular-nums", delta.up ? "text-emerald-700 dark:text-emerald-400" : "text-destructive")}>
           <span aria-hidden="true">{delta.up ? "▲" : "▼"}</span> {delta.value}
         </p>
       )}

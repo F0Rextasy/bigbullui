@@ -88,7 +88,7 @@ export function TrendBadge({
       stamp: "border-emerald-600/70 bg-emerald-500/10 text-emerald-700 dark:border-emerald-500/80 dark:bg-emerald-950/40 dark:text-emerald-300",
       outline: "border-emerald-600/80 bg-transparent text-emerald-700 dark:border-emerald-400 dark:text-emerald-300",
       solid: "border-emerald-700 bg-emerald-600 text-white dark:border-emerald-400 dark:bg-emerald-500 dark:text-emerald-950",
-      subtle: "border-border bg-card text-emerald-600 dark:text-emerald-400",
+      subtle: "border-border bg-card text-emerald-700 dark:text-emerald-400",
     },
     down: {
       stamp: "border-destructive/70 bg-destructive/10 text-destructive",

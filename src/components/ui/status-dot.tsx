@@ -65,7 +65,7 @@ const levelConfigs: Record<GateOccupancyLevel, LevelConfig> = {
     defaultThroughput: "46 / MIN",
     dotColor: "text-emerald-500",
     dotBg: "bg-emerald-500",
-    textColor: "text-emerald-600 dark:text-emerald-400",
+    textColor: "text-emerald-700 dark:text-emerald-400",
     badgeBorder: "border-emerald-500/40",
     badgeBg: "bg-emerald-500/10",
     glowClass: "shadow-[0_0_12px_rgba(16,185,129,0.55)]",

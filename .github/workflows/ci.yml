@@ -43,5 +43,30 @@ jobs:
       - name: Build library (tsup)
         run: npm run build:lib
 
+      - name: Package lint (publint)
+        run: npx --yes publint --strict
+
+      - name: Type resolution check (attw)
+        run: npx --yes @arethetypeswrong/cli --pack .
+
+      - name: Props coverage report
+        run: node scripts/props-coverage.mjs
+
+      - name: Link scan
+        run: node scripts/scan-links.mjs
+
       - name: Build Next.js documentation site
         run: npm run build
+
+      - name: Install Playwright chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Accessibility scan
+        run: |
+          (npm run start -- -p 3000 &>/tmp/next-start.log & echo $! > /tmp/next-start.pid)
+          for i in $(seq 1 30); do curl -sf http://localhost:3000/ >/dev/null && break; sleep 2; done
+          node scripts/a11y-scan.mjs
+          kill $(cat /tmp/next-start.pid)
+
+      - name: Visual regression manifest check
+        run: node scripts/visual-regression.mjs

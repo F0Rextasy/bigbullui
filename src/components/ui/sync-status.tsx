@@ -14,7 +14,7 @@ export function SyncStatus({ status = "idle", lastSync, className, ...props }: S
   const meta = {
     idle: { text: "Ready", icon: "text-muted-foreground", spin: false },
     syncing: { text: "Senkronize ediliyor…", icon: "text-accent", spin: true },
-    synced: { text: "Senkronize", icon: "text-emerald-600", spin: false },
+    synced: { text: "Senkronize", icon: "text-emerald-700 dark:text-emerald-400", spin: false },
     error: { text: "Sync error", icon: "text-destructive", spin: false },
   }[status];
 

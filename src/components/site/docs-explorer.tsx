@@ -44,7 +44,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
             className={
               onlyCore
                 ? "rounded-sm border border-accent bg-accent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-foreground shadow-xs"
-                : "rounded-sm border border-dashed border-accent/60 bg-accent/10 px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent transition-colors hover:bg-accent/20"
+                : "rounded-sm border border-dashed border-accent/60 bg-transparent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-strong transition-colors hover:bg-accent/10"
             }
           >
             ★ Core Essentials ({CORE_ESSENTIALS.size})

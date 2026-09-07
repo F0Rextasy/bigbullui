@@ -153,7 +153,7 @@ export function SegmentedSwitch({
     if (!isSelected) return "text-muted-foreground hover:text-foreground";
     switch (tone) {
       case "success":
-        return "text-emerald-600 dark:text-emerald-400 font-black";
+        return "text-emerald-700 dark:text-emerald-400 font-black";
       case "warning":
         return "text-amber-600 dark:text-amber-400 font-black";
       case "danger":
@@ -417,7 +417,7 @@ export function SegmentedSwitch({
           <span
             className={cn(
               "font-bold",
-              activeOption?.tone === "success" && "text-emerald-600 dark:text-emerald-400",
+              activeOption?.tone === "success" && "text-emerald-700 dark:text-emerald-400",
               activeOption?.tone === "warning" && "text-amber-600 dark:text-amber-400",
               activeOption?.tone === "danger" && "text-rose-600 dark:text-rose-400",
               activeOption?.tone === "accent" && "text-accent",

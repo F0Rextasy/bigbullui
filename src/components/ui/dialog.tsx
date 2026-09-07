@@ -9,9 +9,11 @@ export type DialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children: React.ReactNode;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 };
 
-export function Dialog({ open, onOpenChange, children }: DialogProps) {
+export function Dialog({ open, onOpenChange, children, animated = true }: DialogProps) {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
 
@@ -58,7 +60,7 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
       <div
         aria-hidden
         onClick={() => onOpenChange(false)}
-        className="absolute inset-0 bg-black/50 backdrop-blur-[2px] animate-[fade-in_0.2s_ease-out_both]"
+        className={cn("absolute inset-0 bg-black/50 backdrop-blur-[2px]", animated && "animate-[fade-in_0.2s_ease-out_both]")}
       />
       <div
         ref={contentRef}
@@ -66,7 +68,8 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
         aria-modal="true"
         tabIndex={-1}
         className={cn(
-          "absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border-[1.5px] border-foreground bg-card p-6 shadow-lg outline-1 outline-dashed outline-offset-[-7px] focus:outline-none animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none"
+          "absolute left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border-[1.5px] border-foreground bg-card p-6 shadow-lg outline-1 outline-dashed outline-offset-[-7px] focus:outline-none",
+          animated && "animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none"
         )}
       >
         {children}

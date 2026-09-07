@@ -1,0 +1,40 @@
+{
+  "bb-button": {
+    "prefix": "bb-button",
+    "body": ["import { Button } from \"@/components/ui/button\";", "", "<Button>${1:Admit one}</Button>"],
+    "description": "bigbullui Button stub"
+  },
+  "bb-ticket": {
+    "prefix": "bb-ticket",
+    "body": [
+      "import { TicketCard } from \"@/components/ui/ticket-card\";",
+      "",
+      "<TicketCard eventName=\"${1:MAIN STAGE}\" status=\"valid\" price=\"${2:$45.00}\" />"
+    ],
+    "description": "bigbullui TicketCard stub"
+  },
+  "bb-card": {
+    "prefix": "bb-card",
+    "body": [
+      "import { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\";",
+      "",
+      "<Card>",
+      "  <CardHeader>",
+      "    <CardTitle>${1:Title}</CardTitle>",
+      "  </CardHeader>",
+      "  <CardContent>${2:Content}</CardContent>",
+      "</Card>"
+    ],
+    "description": "bigbullui Card shell"
+  },
+  "bb-badge": {
+    "prefix": "bb-badge",
+    "body": ["import { Badge } from \"@/components/ui/badge\";", "", "<Badge>${1:New}</Badge>"],
+    "description": "bigbullui Badge pill"
+  },
+  "bb-pricing": {
+    "prefix": "bb-pricing",
+    "body": ["import { PricingTable } from \"@/components/ui/pricing-table\";", "", "<PricingTable />"],
+    "description": "bigbullui PricingTable block"
+  }
+}
