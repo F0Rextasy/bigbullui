@@ -67,6 +67,22 @@ npx tsc --noEmit   # TypeScript check (must be clean)
 - Write English UI copy, no raw apostrophes in JSX text
 - Do not commit secrets, lockfiles for other managers, or editor configs
 - Never publish to npm from a PR — releases are cut by maintainers
+- New components must ship with usage snippet + props rows, or the props-coverage floor check fails the build
+
+## Content direction
+
+- The Ticket Stub look (cream paper, ink, stamp red, dashed borders, mono micro labels) is a general design language — spread it to everyday surfaces (dashboards, forms, marketing), not arcade or gambling themes.
+- Do not propose new casino, betting, lottery, or slot-machine components. Existing ones stay for compatibility, but nothing new in that lane.
+
+## Concurrent editing protocol
+
+Multiple agents or humans may edit this tree at the same time. Shared files are append-only coordination points:
+
+- Shared files: `src/index.ts`, `src/lib/registry-site.ts`, `src/components/site/component-preview.tsx`, wave preview files, `README.md`, `bin/cli.js`.
+- Always `git pull --rebase` before pushing. If a rebase touches a shared file you also edited, re-append your entries at the tail — never resolve by accepting only one side.
+- Append new entries; never reformat or reorder unrelated lines in shared files.
+- Before editing a shared file, check `git status` and recent `git log` for in-flight work on the same region.
+- Run `node --test tests/integrity.test.mjs` after touching shared files — it catches lost barrel, registry, and preview entries immediately.
 
 ## Project structure
 

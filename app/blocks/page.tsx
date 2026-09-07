@@ -29,6 +29,12 @@ import { LandingTestimonials } from "@/components/blocks/landing-testimonials";
 import { LandingCta } from "@/components/blocks/landing-cta";
 import { LandingFooter } from "@/components/blocks/landing-footer";
 import { LandingLogos } from "@/components/blocks/landing-logos";
+import { BlockContact } from "@/components/blocks/block-contact";
+import { BlockTeam } from "@/components/blocks/block-team";
+import { BlockStats } from "@/components/blocks/block-stats";
+import { BlockGallery } from "@/components/blocks/block-gallery";
+import { BlockTimeline } from "@/components/blocks/block-timeline";
+import { BlockNewsletter } from "@/components/blocks/block-newsletter";
 import { CopyBlock } from "@/components/site/copy-block";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -90,6 +96,17 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
       { name: "landing-cta", node: <LandingCta /> },
       { name: "landing-footer", node: <LandingFooter /> },
       { name: "landing-logos", node: <LandingLogos /> },
+    ],
+  },
+  {
+    group: "Content sections",
+    items: [
+      { name: "block-contact", node: <BlockContact /> },
+      { name: "block-team", node: <BlockTeam /> },
+      { name: "block-stats", node: <BlockStats /> },
+      { name: "block-gallery", node: <BlockGallery /> },
+      { name: "block-timeline", node: <BlockTimeline /> },
+      { name: "block-newsletter", node: <BlockNewsletter /> },
     ],
   },
 ];

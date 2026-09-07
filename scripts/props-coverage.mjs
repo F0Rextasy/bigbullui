@@ -1,6 +1,3 @@
-// Props coverage reporter — warns (never fails) for registry components
-// missing prop documentation in app/docs/[slug]/page.tsx or wave-props3.ts.
-// Usage: node scripts/props-coverage.mjs
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,4 +22,25 @@ for (const slug of names) {
     console.log(`WARN props-coverage: no props docs for "${slug}"`);
   }
 }
-console.log(`props-coverage: ${names.length - missing}/${names.length} components documented.`);
+const documented = names.length - missing;
+console.log(`props-coverage: ${documented}/${names.length} components documented.`);
+
+const floorPath = path.join(rootDir, "scripts/props-floor.json");
+if (!fs.existsSync(floorPath)) {
+  fs.writeFileSync(floorPath, JSON.stringify({ documented, total: names.length }, null, 2) + "\n");
+  console.log("props-coverage: floor file created, re-run to enforce.");
+  process.exit(0);
+}
+const floor = JSON.parse(fs.readFileSync(floorPath, "utf8"));
+const floorRatio = floor.documented / Math.max(1, floor.total);
+const nowRatio = documented / Math.max(1, names.length);
+if (nowRatio + 1e-9 < floorRatio) {
+  console.error(
+    `props-coverage: FAIL ratio dropped ${(floorRatio * 100).toFixed(2)}% -> ${(nowRatio * 100).toFixed(2)}%. ` +
+    `New components must ship usage + props docs, or raise the floor deliberately.`
+  );
+  process.exit(1);
+}
+console.log(
+  `props-coverage: floor OK (${(nowRatio * 100).toFixed(2)}% >= ${(floorRatio * 100).toFixed(2)}%).`
+);
