@@ -35,6 +35,32 @@ import { BlockStats } from "@/components/blocks/block-stats";
 import { BlockGallery } from "@/components/blocks/block-gallery";
 import { BlockTimeline } from "@/components/blocks/block-timeline";
 import { BlockNewsletter } from "@/components/blocks/block-newsletter";
+import { AdminLogistics } from "@/components/blocks/admin-logistics";
+import { AdminHr } from "@/components/blocks/admin-hr";
+import { AdminSupport } from "@/components/blocks/admin-support";
+import { AdminMarketing } from "@/components/blocks/admin-marketing";
+import { AdminAcademy } from "@/components/blocks/admin-academy";
+import { AppNotes } from "@/components/blocks/app-notes";
+import { AppInvoices } from "@/components/blocks/app-invoices";
+import { AppContacts } from "@/components/blocks/app-contacts";
+import { AppBookmarks } from "@/components/blocks/app-bookmarks";
+import { AppPlayer } from "@/components/blocks/app-player";
+import { PageProduct } from "@/components/blocks/page-product";
+import { PageCheckout } from "@/components/blocks/page-checkout";
+import { PageCart } from "@/components/blocks/page-cart";
+import { PageStorefront } from "@/components/blocks/page-storefront";
+import { PageOrderSuccess } from "@/components/blocks/page-order-success";
+import { BlockEventLanding } from "@/components/blocks/block-event-landing";
+import { BlockCustomerPortal } from "@/components/blocks/block-customer-portal";
+import { BlockDevApiKeys } from "@/components/blocks/block-dev-api-keys";
+import { BlockLiveChat } from "@/components/blocks/block-live-chat";
+import { BlockUserProfileDossier } from "@/components/blocks/block-user-profile-dossier";
+import { LandingHeroes2 } from "@/components/blocks/landing-heroes-2";
+import { PageBlog } from "@/components/blocks/page-blog";
+import { PageArticle } from "@/components/blocks/page-article";
+import { PageCareers } from "@/components/blocks/page-careers";
+import { PageContact } from "@/components/blocks/page-contact";
+import { PageAbout } from "@/components/blocks/page-about";
 import { CopyBlock } from "@/components/site/copy-block";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -63,6 +89,11 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
       { name: "app-users", node: <AppUsers /> },
       { name: "app-files", node: <AppFiles /> },
       { name: "app-kanban", node: <AppKanban /> },
+      { name: "app-notes", node: <AppNotes /> },
+      { name: "app-invoices", node: <AppInvoices /> },
+      { name: "app-contacts", node: <AppContacts /> },
+      { name: "app-bookmarks", node: <AppBookmarks /> },
+      { name: "app-player", node: <AppPlayer /> },
     ],
   },
   {
@@ -91,6 +122,7 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
     group: "Marketing",
     items: [
       { name: "landing-hero", node: <LandingHero /> },
+      { name: "landing-heroes-2", node: <LandingHeroes2 /> },
       { name: "landing-features", node: <LandingFeatures /> },
       { name: "landing-testimonials", node: <LandingTestimonials /> },
       { name: "landing-cta", node: <LandingCta /> },
@@ -107,6 +139,46 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
       { name: "block-gallery", node: <BlockGallery /> },
       { name: "block-timeline", node: <BlockTimeline /> },
       { name: "block-newsletter", node: <BlockNewsletter /> },
+    ],
+  },
+  {
+    group: "Operations",
+    items: [
+      { name: "admin-logistics", node: <AdminLogistics /> },
+      { name: "admin-hr", node: <AdminHr /> },
+      { name: "admin-support", node: <AdminSupport /> },
+      { name: "admin-marketing", node: <AdminMarketing /> },
+      { name: "admin-academy", node: <AdminAcademy /> },
+    ],
+  },
+  {
+    group: "Storefront",
+    items: [
+      { name: "page-product", node: <PageProduct /> },
+      { name: "page-checkout", node: <PageCheckout /> },
+      { name: "page-cart", node: <PageCart /> },
+      { name: "page-storefront", node: <PageStorefront /> },
+      { name: "page-order-success", node: <PageOrderSuccess /> },
+    ],
+  },
+  {
+    group: "Service pages",
+    items: [
+      { name: "block-event-landing", node: <BlockEventLanding /> },
+      { name: "block-customer-portal", node: <BlockCustomerPortal /> },
+      { name: "block-dev-api-keys", node: <BlockDevApiKeys /> },
+      { name: "block-live-chat", node: <BlockLiveChat /> },
+      { name: "block-user-profile-dossier", node: <BlockUserProfileDossier /> },
+    ],
+  },
+  {
+    group: "Pages",
+    items: [
+      { name: "page-blog", node: <PageBlog /> },
+      { name: "page-article", node: <PageArticle /> },
+      { name: "page-careers", node: <PageCareers /> },
+      { name: "page-contact", node: <PageContact /> },
+      { name: "page-about", node: <PageAbout /> },
     ],
   },
 ];

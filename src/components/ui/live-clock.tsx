@@ -15,14 +15,15 @@ const clockFlipKeyframes = `
 `;
 
 const LiveClock = ({ timezone, variant = "digital" }: LiveClockProps) => {
-  const [time, setTime] = React.useState(new Date());
+  const [time, setTime] = React.useState<Date | null>(null);
 
   React.useEffect(() => {
+    setTime(new Date());
     const tick = setTimeout(() => setTime(new Date()), 1000);
     return () => clearTimeout(tick);
   }, []);
 
-  const formatted = time.toLocaleTimeString("en-US", {
+  const formatted = (time ?? new Date(0)).toLocaleTimeString("en-US", {
     hour12: false,
     timeZone: timezone,
   });

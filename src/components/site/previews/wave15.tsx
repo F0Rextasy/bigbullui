@@ -50,5 +50,5 @@ export const wave15Previews: Record<string, React.ComponentType> = {
   "anchor-nav": () => <AnchorNav items={[{ id: "preview", label: "Preview" }, { id: "usage", label: "Usage" }]} />,
   "quick-actions": () => <QuickActions actions={[{ id: "1", label: "Print", shortcut: "⌘P" }, { id: "2", label: "Delete", danger: true }]} />,
   "history-nav": () => <HistoryNav entries={[{ id: "1", label: "Home" }, { id: "2", label: "Docs" }, { id: "3", label: "Ticket" }]} />,
-  "page-tabs": () => <PageTabs tabs={[{ id: "1", label: "General" }, { id: "2", label: "Details" }]} />,
+  "page-tabs": () => <PageTabs tabs={[{ id: "1", label: "General", param: "general" }, { id: "2", label: "Details", param: "details" }]} />,
 };

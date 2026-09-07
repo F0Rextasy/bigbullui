@@ -622,9 +622,9 @@
       "kb": 0.87
     },
     "countdown": {
-      "raw": 2392,
-      "gzip": 968,
-      "kb": 0.95
+      "raw": 2509,
+      "gzip": 1006,
+      "kb": 0.98
     },
     "country-select": {
       "raw": 3425,
@@ -1477,9 +1477,9 @@
       "kb": 0.71
     },
     "live-clock": {
-      "raw": 1295,
-      "gzip": 670,
-      "kb": 0.65
+      "raw": 1344,
+      "gzip": 694,
+      "kb": 0.68
     },
     "load-more": {
       "raw": 1503,

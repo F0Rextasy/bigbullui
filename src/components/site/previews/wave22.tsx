@@ -26,8 +26,18 @@ import { ColorPalettePicker } from "@/components/ui/color-palette-picker";
 function EmailValidationDemo() {
   const email = useFormField<string>("", [required("Email required")]);
   const password = useFormField<string>("", [required("Password required"), minLength(6)]);
+  const [sent, setSent] = React.useState(false);
   return (
-    <div className="grid w-full max-w-sm gap-3">
+    <form
+      className="grid w-full max-w-sm gap-3"
+      noValidate
+      onSubmit={(event) => {
+        event.preventDefault();
+        email.blur();
+        password.blur();
+        if (!email.error && !password.error && String(email.value) && String(password.value)) setSent(true);
+      }}
+    >
       <label className="block">
         <span className="mb-1 block font-mono text-[11px] uppercase text-muted-foreground">Email</span>
         <input
@@ -51,7 +61,18 @@ function EmailValidationDemo() {
         />
         {password.error ? <span className="mt-1 block font-mono text-[11px] text-destructive">{password.error}</span> : null}
       </label>
-    </div>
+      <button
+        type="submit"
+        className="rounded-md bg-primary px-3 py-2 font-mono text-xs font-bold uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        Validate
+      </button>
+      {sent ? (
+        <span role="status" className="font-mono text-[11px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          Valid. Ready to print.
+        </span>
+      ) : null}
+    </form>
   );
 }
 

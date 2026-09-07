@@ -29,9 +29,16 @@ export function Countdown({
     };
   }, [targetDate]);
 
-  const [timeLeft, setTimeLeft] = React.useState(calculateTimeLeft);
+  const [timeLeft, setTimeLeft] = React.useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    completed: false,
+  });
 
   React.useEffect(() => {
+    setTimeLeft(calculateTimeLeft());
     const timer = setInterval(() => {
       const next = calculateTimeLeft();
       setTimeLeft(next);
