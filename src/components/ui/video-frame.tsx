@@ -85,7 +85,13 @@ export function VideoFrame({
             {/* Visual ticket projector backdrop */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800/40 via-zinc-950/80 to-black" />
             <div className="relative z-10 text-center text-white/50">
-              <span className="text-3xl">🎞️</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-7">
+                <rect x="3" y="4.5" width="18" height="15" rx="1.5" />
+                <path d="M7.5 4.5v15M16.5 4.5v15" strokeDasharray="2.2 1.8" />
+                <path d="M4.5 9.5h3M4.5 14.5h3M16.5 9.5h3M16.5 14.5h3" />
+                <circle cx="12" cy="12" r="2.4" />
+                <circle cx="12" cy="12" r="4.6" strokeDasharray="2 1.8" />
+              </svg>
               <p className="mt-2 text-xs uppercase tracking-widest">SCREENING ROOM 01</p>
             </div>
           </div>

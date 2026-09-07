@@ -15,9 +15,9 @@ export interface MedalDisplayProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 const TIER = {
-  gold: { bg: "bg-amber-400/20", border: "border-amber-400/60", text: "text-amber-600", icon: "🥇" },
-  silver: { bg: "bg-slate-400/15", border: "border-slate-400/50", text: "text-slate-500", icon: "🥈" },
-  bronze: { bg: "bg-orange-400/15", border: "border-orange-400/50", text: "text-orange-600", icon: "🥉" },
+  gold: { bg: "bg-amber-400/20", border: "border-amber-400/60", text: "text-amber-600", rank: "1" },
+  silver: { bg: "bg-slate-400/15", border: "border-slate-400/50", text: "text-slate-500", rank: "2" },
+  bronze: { bg: "bg-orange-400/15", border: "border-orange-400/50", text: "text-orange-600", rank: "3" },
 };
 
 /** Medal showcase: gold/silver/bronze tiers + shine overlay. */
@@ -37,7 +37,12 @@ export function MedalDisplay({ medals, className, ...props }: MedalDisplayProps)
             style={{ animation: `fade-in-up 0.35s ease-out both`, animationDelay: `${idx * 90}ms` }}
           >
             <span className="relative text-2xl" aria-hidden="true">
-              {t.icon}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-6">
+                <path d="M8.5 2.5 12 8l3.5-5.5" />
+                <circle cx="12" cy="14.5" r="6" />
+                <circle cx="12" cy="14.5" r="4" strokeDasharray="2 1.6" />
+                <text x="12" y="17" textAnchor="middle" fontSize="7" fontWeight="700" fill="currentColor" stroke="none" fontFamily="monospace">{t.rank}</text>
+              </svg>
               <span className="absolute inset-0 overflow-hidden">
                 <span className="absolute inset-y-0 w-4 bg-white/30" style={{ animation: "mdShine 2.8s ease-in-out infinite", animationDelay: `${idx * 300}ms` }} />
               </span>

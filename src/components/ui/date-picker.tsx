@@ -85,7 +85,7 @@ export function DatePicker({
         )}
       >
         <div className="flex items-center gap-2">
-          <span className="text-muted-foreground">📅</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-4"><rect x="3.5" y="5" width="17" height="15.5" rx="1.5" /><path d="M3.5 9.8h17M8 3v3.6M16 3v3.6M7.5 13.5h2M11 13.5h2M14.5 13.5h2M7.5 16.8h2M11 16.8h2" /></svg>
           <span className={cn("font-bold uppercase", !selectedDate && "text-muted-foreground font-normal")}>
             {selectedDate ? formatDate(selectedDate) : placeholder}
           </span>

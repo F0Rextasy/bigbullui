@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip } from "@/components/ui/tooltip";
+import { NavIcon } from "@/components/site/nav-icons";
 import { Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -381,7 +382,7 @@ function AnimatedCommandPalettePreview() {
   return (
     <div className="flex flex-col items-center gap-3 select-none">
       <Button variant="outline" onClick={() => setOpen(true)} className="font-mono text-xs">
-        <span className="mr-2">🔍</span> Open Command Palette (⌘K)
+        <NavIcon name="components" size={13} className="mr-2" /> Open Command Palette (⌘K)
       </Button>
       <span className="font-mono text-[11px] text-muted-foreground">
         Press Esc or choose an option to close

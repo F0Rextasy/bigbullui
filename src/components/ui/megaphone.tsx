@@ -21,7 +21,7 @@ export function Megaphone({ message, onAnnounce, className, ...props }: Megaphon
   return (
     <div className={cn("flex w-full max-w-sm items-center gap-3 rounded-lg border border-accent/40 bg-accent/5 p-4", className)} {...props}>
       <style>{`@keyframes mgWave { 0%, 100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(1.6); opacity: 1; } }`}</style>
-      <span className="shrink-0 text-3xl" aria-hidden="true">📣</span>
+      <span className="shrink-0" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-7"><path d="M3.5 10.8v3.2L7 14.6v-4.4L3.5 10.8z" /><path d="M7 10.2L18 5.8v12.4L7 13.8v-3.6z" /><path d="M18.5 9.4a3.6 3.6 0 0 1 0 5.2M9 14.2l1.4 4.6" /></svg></span>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">{message}</p>
         <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">

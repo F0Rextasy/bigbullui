@@ -63,7 +63,13 @@ export function FileTree({ nodes, selectedId: controlledSelected, defaultExpande
           <span aria-hidden className="w-3 text-[10px] text-muted-foreground">
             {node.kind === "folder" ? (isOpen ? "▾" : "▸") : "·"}
           </span>
-          <span aria-hidden className="text-xs">{node.kind === "folder" ? "📁" : "📄"}</span>
+          <span aria-hidden="true" className="text-muted-foreground">
+            {node.kind === "folder" ? (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-4"><path d="M3.5 7a1.5 1.5 0 0 1 1.5-1.5h4.6l2 2.6h7.4a1.5 1.5 0 0 1 1.5 1.5V18a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18z" /></svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-4"><path d="M6.5 3.5H13l4.5 4.5v11a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1v-14.5a1 1 0 0 1 1-1z" /><path d="M13 3.5V8H17.5M9 12.5h6M9 15.8h6" /></svg>
+            )}
+          </span>
           <span className="truncate">{node.name}</span>
         </div>
         {node.kind === "folder" && isOpen ? (

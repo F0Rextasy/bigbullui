@@ -26,7 +26,7 @@ export function GiftMessage({ from, message, onOpen, className, ...props }: Gift
           className="group relative w-full overflow-hidden rounded-lg border-2 border-dashed border-accent/60 bg-card p-6 text-center transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label="Open gift"
         >
-          <span className="mx-auto mb-3 block w-max animate-[gmRibbon_2s_ease-in-out_infinite] motion-reduce:animate-none text-3xl" aria-hidden="true">🎁</span>
+          <span className="mx-auto mb-3 block w-max animate-[gmRibbon_2s_ease-in-out_infinite] motion-reduce:animate-none" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-7"><rect x="4" y="9" width="16" height="3.6" rx="0.5" /><path d="M5.6 12.6v7.9h12.8v-7.9M12 9v11.5M12 9C8 9 6.5 7.8 6.5 6c0-1.2 1-2 2-2 1.8 0 2.6 2.6 3.5 5zM12 9c4 0 5.5-1.2 5.5-3 0-1.2-1-2-2-2-1.8 0-2.6 2.6-3.5 5z" /></svg></span>
           <span className="block font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Gift from {from}</span>
           <span className="mt-1 block text-sm font-medium text-accent">Tap to open</span>
         </button>

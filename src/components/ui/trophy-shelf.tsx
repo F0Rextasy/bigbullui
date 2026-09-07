@@ -21,7 +21,14 @@ export function TrophyShelf({ trophies, className, ...props }: TrophyShelfProps)
                 style={t.earned ? { animation: `trIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both`, animationDelay: `${idx * 120}ms` } : undefined}
                 aria-hidden="true"
               >
-                🏆
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-7">
+                  <path d="M8 4h8v4a4 4 0 0 1-8 0V4Z" />
+                  <path d="M8 5.5H5.5a2 2 0 0 0 2 4H8M16 5.5h2.5a2 2 0 0 1-2 4H16" />
+                  <path d="M12 12v3.5" />
+                  <path d="M9 19.5h6" />
+                  <path d="M9.5 15.5h5V19h-5v-3.5Z" />
+                  <path d="M7.5 21.5h9" strokeDasharray="2 1.6" />
+                </svg>
               </span>
               <span className={cn("h-1 w-full rounded-full", t.earned ? "bg-accent" : "bg-border/40")} aria-hidden="true" />
               <span className={cn("text-center text-[9px] font-medium leading-tight", t.earned ? "text-foreground" : "text-muted-foreground")}>{t.label}</span>

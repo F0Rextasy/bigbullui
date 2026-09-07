@@ -57,7 +57,9 @@ export function FeedbackWidget({ onSubmit, position = "bottom-right", className,
                         mood === m ? "border-accent bg-accent/10 scale-105" : "border-border hover:border-foreground/50",
                       )}
                     >
-                      <span aria-hidden>{m === "good" ? "👍" : "👎"}</span>
+                      <span aria-hidden="true" className="flex justify-center">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={cn("size-5", m === "bad" && "rotate-180")}><path d="M7 11v8H4.6A1.6 1.6 0 0 1 3 17.4v-4.8A1.6 1.6 0 0 1 4.6 11H7z" /><path d="M7 11l3.1-6.6c.4-.9 1.7-.9 2 .1L13.4 9H19a1.5 1.5 0 0 1 1.5 1.8l-1.2 5.3a2 2 0 0 1-2 1.6H7" /></svg>
+                      </span>
                       <span className="sr-only">{m === "good" ? "Good" : "Bad"}</span>
                     </button>
                   ))}

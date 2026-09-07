@@ -32,16 +32,32 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
           className={cn("absolute -right-1 -top-2 text-lg transition-transform duration-300 motion-reduce:transition-none", sent && "animate-[mbFlag_0.4s_ease-out_forwards]")}
           aria-hidden="true"
         >
-          🚩
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-5 text-accent">
+            <path d="M6 21V4" />
+            <path d="M6 4.5h10l-2.5 3.5L16 11.5H6" />
+            <path d="M4 21h4" strokeDasharray="2 1.6" />
+          </svg>
         </span>
         {/* Kutu */}
         <div className={cn("flex size-28 flex-col items-center justify-center rounded-b-lg rounded-t-md border-2 border-dashed border-border bg-card transition-transform duration-200 motion-reduce:transition-none", sent && "animate-[mbBounce_0.4s_ease-out]")}>
           <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">POSTA</span>
-          <span className="mt-1 text-2xl" aria-hidden="true">📬</span>
+          <span className="mt-1 text-2xl" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-6 text-foreground">
+              <path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3V9Z" />
+              <path d="M4 9h16" strokeDasharray="2.5 2" />
+              <path d="M9 5v4M15 5v4" />
+            </svg>
+          </span>
         </div>
         {sent && (
           <span className="absolute inset-x-0 -top-4 flex justify-center" aria-hidden="true">
-            <span className="text-xl" style={{ animation: "mbLetter 0.8s ease-in both" }}>✉️</span>
+            <span className="text-xl" style={{ animation: "mbLetter 0.8s ease-in both" }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-5 text-foreground">
+                <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
+                <path d="M3.5 7 12 13l8.5-6" />
+                <path d="M7 18.5h10" strokeDasharray="2 1.6" />
+              </svg>
+            </span>
           </span>
         )}
       </div>

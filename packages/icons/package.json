@@ -1,0 +1,58 @@
+{
+  "name": "bigbullicons",
+  "version": "1.0.0",
+  "description": "Hand-drawn Ticket Stub stroke icons for bigbullui. Zero dependencies, MIT licensed.",
+  "license": "MIT",
+  "author": "F0Rextasy",
+  "homepage": "https://ui.bigbullapp.com/icons",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F0Rextasy/bigbullui.git",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/F0Rextasy/bigbullui/issues"
+  },
+  "keywords": [
+    "react",
+    "icons",
+    "svg",
+    "ticket stub",
+    "tailwindcss"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "react": "19.2.8",
+    "tsup": "^8",
+    "typescript": "^5"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  }
+}

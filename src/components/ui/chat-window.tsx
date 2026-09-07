@@ -16,6 +16,7 @@ export interface ChatWindowProps {
   messages?: ChatMessage[];
   onSend?: (body: string) => void;
   typing?: boolean;
+  autoFocus?: boolean;
 }
 
 type LocalBubbleProps = { direction: "incoming" | "outgoing"; className?: string; children: React.ReactNode };
@@ -48,7 +49,7 @@ function LocalTyping() {
   );
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing, autoFocus = false }) => {
   const [input, setInput] = React.useState("");
 
   const handleSend = () => {
@@ -103,7 +104,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing }
             onChange={(e) => setInput(e.target.value)}
             placeholder="Message..."
             className="flex-1 rounded-border border-input px-3 py-2 text-sm"
-            autoFocus
+            autoFocus={autoFocus}
           />
           <button
             onClick={handleSend}

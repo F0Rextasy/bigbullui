@@ -30,11 +30,11 @@ export function RecipeCard({ title, minutes, servings, ingredients, steps, class
         <div>
           <h3 className="text-base font-bold">{title}</h3>
           <div className="mt-1 flex gap-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-            <span>⏱ {minutes} dk</span>
-            <span>🍽 {servings} porsiyon</span>
+            <span className="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-3.5"><circle cx="12" cy="13.2" r="6.8" /><path d="M12 9.8v3.4l2.4 1.5M10 3.5h4M12 3.5V6.4" /></svg> {minutes} dk</span>
+            <span className="inline-flex items-center gap-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-3.5"><path d="M4 16.5h16M5.8 16.5a6.2 6.2 0 0 1 12.4 0M12 10.3V8.8M11 8.8h2M3.5 19.5h17" /></svg> {servings} porsiyon</span>
           </div>
         </div>
-        <span className="text-2xl" aria-hidden="true">👨‍🍳</span>
+        <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-6"><path d="M8 20.5v-4.6c-2 0-3.4-1.4-3.4-3.1 0-1.4.8-2.5 2-2.9.3-1.7 1.8-3.2 3.9-3.2.5 0 1 .1 1.5.3.5-.2 1-.3 1.5-.3 2.1 0 3.6 1.5 3.9 3.2 1.2.4 2 1.5 2 2.9 0 1.7-1.4 3.1-3.4 3.1v4.6z" /><path d="M8 20.5h8" /></svg></span>
       </div>
 
       <div className="flex border-b border-border">

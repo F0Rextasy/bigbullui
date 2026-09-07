@@ -48,6 +48,11 @@ export function SiteFooter() {
                   Theme studio
                 </Link>
               </li>
+              <li>
+                <Link href="/icons" className="text-muted-foreground transition-colors hover:text-foreground">
+                  Icon set
+                </Link>
+              </li>
             <li>
               <Link href="/docs/agents" className="text-muted-foreground transition-colors hover:text-foreground">
                 AI Agents (SKILL.md)

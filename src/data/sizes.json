@@ -402,9 +402,9 @@
       "kb": 0.77
     },
     "chat-window": {
-      "raw": 3238,
-      "gzip": 1199,
-      "kb": 1.17
+      "raw": 3292,
+      "gzip": 1214,
+      "kb": 1.19
     },
     "checkbox-card": {
       "raw": 2509,
@@ -737,9 +737,9 @@
       "kb": 2.35
     },
     "date-picker": {
-      "raw": 6207,
-      "gzip": 2037,
-      "kb": 1.99
+      "raw": 6473,
+      "gzip": 2206,
+      "kb": 2.15
     },
     "date-range-picker": {
       "raw": 8571,
@@ -987,9 +987,9 @@
       "kb": 0.76
     },
     "feedback-widget": {
-      "raw": 4020,
-      "gzip": 1401,
-      "kb": 1.37
+      "raw": 4453,
+      "gzip": 1618,
+      "kb": 1.58
     },
     "field-array": {
       "raw": 4348,
@@ -1022,9 +1022,9 @@
       "kb": 1.36
     },
     "file-tree": {
-      "raw": 2920,
-      "gzip": 1171,
-      "kb": 1.14
+      "raw": 3604,
+      "gzip": 1384,
+      "kb": 1.35
     },
     "file-upload-list": {
       "raw": 29011,
@@ -1157,9 +1157,9 @@
       "kb": 0.6
     },
     "gift-message": {
-      "raw": 2135,
-      "gzip": 980,
-      "kb": 0.96
+      "raw": 2503,
+      "gzip": 1184,
+      "kb": 1.16
     },
     "glossary-list": {
       "raw": 2409,
@@ -1442,9 +1442,9 @@
       "kb": 1.1
     },
     "lightbox": {
-      "raw": 4671,
-      "gzip": 1498,
-      "kb": 1.46
+      "raw": 5125,
+      "gzip": 1676,
+      "kb": 1.64
     },
     "like-button": {
       "raw": 1482,
@@ -1547,9 +1547,9 @@
       "kb": 0.9
     },
     "mailbox": {
-      "raw": 2667,
-      "gzip": 1133,
-      "kb": 1.11
+      "raw": 3804,
+      "gzip": 1415,
+      "kb": 1.38
     },
     "maintenance-banner": {
       "raw": 2445,
@@ -1622,9 +1622,9 @@
       "kb": 0.89
     },
     "medal-display": {
-      "raw": 2168,
-      "gzip": 958,
-      "kb": 0.94
+      "raw": 2668,
+      "gzip": 1169,
+      "kb": 1.14
     },
     "media-controls": {
       "raw": 3660,
@@ -1647,9 +1647,9 @@
       "kb": 1.24
     },
     "megaphone": {
-      "raw": 2035,
-      "gzip": 975,
-      "kb": 0.95
+      "raw": 2338,
+      "gzip": 1138,
+      "kb": 1.11
     },
     "mention-highlight": {
       "raw": 1147,
@@ -2192,9 +2192,9 @@
       "kb": 0.94
     },
     "recipe-card": {
-      "raw": 3376,
-      "gzip": 1287,
-      "kb": 1.26
+      "raw": 4306,
+      "gzip": 1593,
+      "kb": 1.56
     },
     "recurrence-picker": {
       "raw": 3035,
@@ -3052,9 +3052,9 @@
       "kb": 0.85
     },
     "trophy-shelf": {
-      "raw": 1995,
-      "gzip": 908,
-      "kb": 0.89
+      "raw": 2522,
+      "gzip": 1107,
+      "kb": 1.08
     },
     "truncate": {
       "raw": 1674,
@@ -3137,9 +3137,9 @@
       "kb": 0.67
     },
     "video-frame": {
-      "raw": 3690,
-      "gzip": 1374,
-      "kb": 1.34
+      "raw": 4186,
+      "gzip": 1572,
+      "kb": 1.54
     },
     "video-list": {
       "raw": 2483,

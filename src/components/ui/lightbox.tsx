@@ -85,7 +85,11 @@ export function Lightbox({
         <div className="relative flex min-h-[260px] flex-1 items-center justify-center bg-secondary/20 p-6">
           <div className="flex flex-col items-center justify-center text-center">
             <div className="size-36 rounded-lg border-2 border-dashed border-border bg-card flex items-center justify-center text-4xl shadow-inner mb-3">
-              🎟️
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-9 text-muted-foreground">
+                <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a2 2 0 0 0 0 5V16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a2 2 0 0 0 0-5V8Z" />
+                <path d="M14 6v12" strokeDasharray="2.5 2" />
+                <circle cx="8.5" cy="12" r="1.6" />
+              </svg>
             </div>
             <p className="font-bold text-sm text-foreground uppercase">{current.title || "ADMISSION PASS"}</p>
             <p className="text-xs text-muted-foreground mt-1">{current.alt || "Official verified stub preview"}</p>
