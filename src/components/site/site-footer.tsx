@@ -38,11 +38,16 @@ export function SiteFooter() {
                 Installation &amp; CLI
               </Link>
             </li>
-            <li>
-              <Link href="/docs/design" className="text-muted-foreground transition-colors hover:text-foreground">
-                Design system &amp; Tokens
-              </Link>
-            </li>
+              <li>
+                <Link href="/docs/design" className="text-muted-foreground transition-colors hover:text-foreground">
+                  Design system &amp; Tokens
+                </Link>
+              </li>
+              <li>
+                <Link href="/theme" className="text-muted-foreground transition-colors hover:text-foreground">
+                  Theme studio
+                </Link>
+              </li>
             <li>
               <Link href="/docs/agents" className="text-muted-foreground transition-colors hover:text-foreground">
                 AI Agents (SKILL.md)

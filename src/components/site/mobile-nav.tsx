@@ -178,6 +178,13 @@ export function MobileNav({ stars }: { stars: number | null }) {
               <NavIcon name="design" /> Design Tokens &amp; Colors
             </Link>
             <Link
+              href="/theme"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <NavIcon name="theme" /> Theme Studio
+            </Link>
+            <Link
               href="/docs/agents"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"

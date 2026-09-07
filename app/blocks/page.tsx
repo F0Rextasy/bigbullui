@@ -61,15 +61,17 @@ import { PageArticle } from "@/components/blocks/page-article";
 import { PageCareers } from "@/components/blocks/page-careers";
 import { PageContact } from "@/components/blocks/page-contact";
 import { PageAbout } from "@/components/blocks/page-about";
-import { CopyBlock } from "@/components/site/copy-block";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
+import { BlocksExplorer, type BlockSection } from "@/components/site/blocks-explorer";
 
 export const metadata = { title: "Blocks" };
 
-const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[] }[] = [
+const SECTIONS: BlockSection[] = [
   {
     group: "Admin dashboards",
+    icon: "dashboard",
+    blurb: "KPIs, ledgers, and back-office desks",
     items: [
       { name: "admin-overview", node: <AdminOverview /> },
       { name: "admin-analytics", node: <AdminAnalytics /> },
@@ -81,6 +83,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "App boards",
+    icon: "app",
+    blurb: "Boards, inboxes, and players",
     items: [
       { name: "app-mail", node: <AppMail /> },
       { name: "app-tasks", node: <AppTasks /> },
@@ -98,6 +102,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Auth passes",
+    icon: "auth",
+    blurb: "Logins, OTP, and recovery flows",
     items: [
       { name: "auth-login", node: <AuthLogin /> },
       { name: "auth-register", node: <AuthRegister /> },
@@ -109,6 +115,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "System pages",
+    icon: "system",
+    blurb: "Settings, pricing, help, and empty states",
     items: [
       { name: "settings-account", node: <SettingsAccount /> },
       { name: "page-pricing", node: <PagePricing /> },
@@ -120,6 +128,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Marketing",
+    icon: "marketing",
+    blurb: "Heroes, features, and footers",
     items: [
       { name: "landing-hero", node: <LandingHero /> },
       { name: "landing-heroes-2", node: <LandingHeroes2 /> },
@@ -132,6 +142,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Content sections",
+    icon: "content",
+    blurb: "Contact, team, stats, and galleries",
     items: [
       { name: "block-contact", node: <BlockContact /> },
       { name: "block-team", node: <BlockTeam /> },
@@ -143,6 +155,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Operations",
+    icon: "operations",
+    blurb: "Logistics, HR, support, and academy desks",
     items: [
       { name: "admin-logistics", node: <AdminLogistics /> },
       { name: "admin-hr", node: <AdminHr /> },
@@ -153,6 +167,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Storefront",
+    icon: "storefront",
+    blurb: "Product, cart, checkout, and confirmation",
     items: [
       { name: "page-product", node: <PageProduct /> },
       { name: "page-checkout", node: <PageCheckout /> },
@@ -163,6 +179,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Service pages",
+    icon: "service",
+    blurb: "Events, portals, API desks, and live chat",
     items: [
       { name: "block-event-landing", node: <BlockEventLanding /> },
       { name: "block-customer-portal", node: <BlockCustomerPortal /> },
@@ -173,6 +191,8 @@ const SECTIONS: { group: string; items: { name: string; node: React.ReactNode }[
   },
   {
     group: "Pages",
+    icon: "pages",
+    blurb: "Blog, careers, contact, and company pages",
     items: [
       { name: "page-blog", node: <PageBlog /> },
       { name: "page-article", node: <PageArticle /> },
@@ -187,7 +207,7 @@ export default function BlocksPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
-      <main className="mx-auto w-full max-w-6xl space-y-12 px-4 py-10 sm:px-6">
+      <main className="mx-auto w-full max-w-6xl space-y-10 px-4 py-10 sm:px-6">
       <header className="space-y-2">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">BIGBULLUI // BLOCKS</p>
         <h1 className="font-mono text-3xl font-black uppercase tracking-tight sm:text-4xl">Ready-to-print page blocks</h1>
@@ -195,25 +215,7 @@ export default function BlocksPage() {
           Full sections composed only from stock primitives. Copy a file from src/components/blocks into your project.
         </p>
       </header>
-      {SECTIONS.map((section) => (
-        <section key={section.group} className="space-y-6">
-          <h2 className="font-mono text-sm font-black uppercase tracking-[0.25em] text-muted-foreground">{section.group}</h2>
-          {section.items.map((item) => (
-            <article key={item.name} id={item.name} className="space-y-3 scroll-mt-24">
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="font-mono text-base font-black uppercase tracking-wider">{item.name}</h3>
-                <div className="flex items-center gap-2">
-                  <CopyBlock name={item.name} />
-                  <code className="rounded border border-dashed border-border bg-card px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
-                    npx bigbullui add {item.name}
-                  </code>
-                </div>
-              </div>
-              {item.node}
-            </article>
-          ))}
-        </section>
-      ))}
+      <BlocksExplorer sections={SECTIONS} />
       </main>
       <SiteFooter />
     </div>
