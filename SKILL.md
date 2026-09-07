@@ -31,7 +31,7 @@ No install needed. Copy files from `src/components/ui/` (plus the `cn` helper at
 
 ## Components
 
-Full catalog lives in `src/lib/registry-site.ts` (source of truth) and on the docs site, grouped across 9 categories (Ticket Stub & Retro, Core Form & Inputs, Pickers & Selectors, Charts & Visualization, Data Display & Tables, Feedback & Overlays, Navigation & Menus, Editors & DevTools, Media & Interactive) — 460+ self-contained components (imports only `react` + `./lib/utils`).
+Full catalog lives in `src/lib/registry-site.ts` (source of truth) and on the docs site, grouped across 9 categories (Ticket Stub & Retro, Core Form & Inputs, Pickers & Selectors, Charts & Visualization, Data Display & Tables, Feedback & Overlays, Navigation & Menus, Editors & DevTools, Media & Interactive) — 650+ self-contained components (imports only `react` + `./lib/utils`). Run `node scripts/generate-readme.mjs` to refresh the README catalog after adding components.
 
 ## Rules for generated code
 
