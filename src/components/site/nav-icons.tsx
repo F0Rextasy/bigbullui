@@ -21,7 +21,12 @@ export type NavIconName =
   | "storefront"
   | "service"
   | "pages"
-  | "theme";
+  | "theme"
+  | "ticket"
+  | "stub"
+  | "perforation"
+  | "stamp"
+  | "gate";
 
 const PATHS: Record<NavIconName, React.ReactNode> = {
   home: <path d="M4 11.5 12 4l8 7.5M6.5 10v9.5h11V10" />,
@@ -43,14 +48,48 @@ const PATHS: Record<NavIconName, React.ReactNode> = {
   service: <path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M18 3v4h-4M6 21v-4h4" />,
   pages: <path d="M8 3.5h11v17H8zM4 7.5h4M4 12h3M4 16.5h4" />,
   theme: <path d="M12 3.5s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11ZM9.5 14.5a2.5 2.5 0 0 0 2.5 2.5" />,
+  ticket: (
+    <>
+      <path d="M4 7.5h16v9H4zM4 7.5a2.5 2.5 0 0 0 0 9M20 7.5a2.5 2.5 0 0 1 0 9" />
+      <path d="M14.5 7.5v9" strokeDasharray="2 2" />
+      <circle cx="9" cy="12" r="1.4" />
+    </>
+  ),
+  stub: (
+    <>
+      <path d="M6 3.5h12v17H6zM6 3.5 4.5 6l1.5 2.5L4.5 11l1.5 2.5L4.5 16l1.5 2.5L6 20.5" />
+      <path d="M9.5 8h5M9.5 12h5" strokeDasharray="2 1.6" />
+    </>
+  ),
+  perforation: (
+    <>
+      <path d="M3 12h2M7 12h1.6M10.6 12h1.6M14.2 12h1.6M17.8 12h1.6M21 12h0.01" strokeDasharray="0.1 2.4" strokeWidth="2.6" strokeLinecap="round" />
+      <path d="M3 5.5h18M3 18.5h18" strokeWidth="1.2" opacity="0.55" />
+    </>
+  ),
+  stamp: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="5.2" strokeDasharray="2.4 1.8" />
+      <path d="M12 8.5v7M8.5 12h7" />
+    </>
+  ),
+  gate: (
+    <>
+      <path d="M4 21V11a8 8 0 0 1 16 0v10M4 21h16" />
+      <path d="M12 11v10" />
+      <circle cx="12" cy="8" r="1.6" />
+    </>
+  ),
 };
 
 export interface NavIconProps extends React.SVGAttributes<SVGSVGElement> {
   name: NavIconName;
   size?: number;
+  animated?: boolean;
 }
 
-export function NavIcon({ name, size = 15, ...props }: NavIconProps) {
+export function NavIcon({ name, size = 15, animated = true, ...props }: NavIconProps) {
   return (
     <svg
       width={size}
@@ -64,7 +103,12 @@ export function NavIcon({ name, size = 15, ...props }: NavIconProps) {
       aria-hidden="true"
       {...props}
     >
-      {PATHS[name]}
+      {animated ? (
+        <style>{`@keyframes navDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } } @media (prefers-reduced-motion: no-preference) { .nav-draw { stroke-dasharray: 1; animation: navDraw 0.55s ease-out backwards; } }`}</style>
+      ) : null}
+      <g pathLength={1} className={animated ? "nav-draw" : undefined}>
+        {PATHS[name]}
+      </g>
     </svg>
   );
 }

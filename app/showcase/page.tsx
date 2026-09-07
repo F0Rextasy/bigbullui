@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
+import { NavIcon } from "@/components/site/nav-icons";
 import showcase from "@/data/showcase.json";
 
 export const metadata = { title: "Showcase" };
@@ -28,8 +29,8 @@ export default function ShowcasePage() {
           issue and we will add you.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <a href="https://github.com/F0Rextasy/bigbullui/issues/new?template=showcase.yml" target="_blank" rel="noreferrer" className="rounded-md border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            Submit your site
+          <a href="https://github.com/F0Rextasy/bigbullui/issues/new?template=showcase.yml" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <NavIcon name="ticket" size={13} /> Submit your site
           </a>
           <a href="https://github.com/F0Rextasy/bigbullui/blob/main/.github/PULL_REQUEST_TEMPLATE/showcase.md" target="_blank" rel="noreferrer" className="rounded-md border border-dashed border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground hover:border-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             PR checklist
@@ -54,7 +55,8 @@ export default function ShowcasePage() {
           </div>
         ) : (
           <div className="mt-6 rounded-lg border-2 border-dashed border-border bg-card p-8 text-center">
-            <p className="font-mono text-sm font-bold uppercase">No community projects listed yet</p>
+            <NavIcon name="stub" size={28} className="mx-auto text-muted-foreground" />
+            <p className="mt-3 font-mono text-sm font-bold uppercase">No community projects listed yet</p>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
               Be the first. Ship something with bigbullui, open an issue with your link, and take
               this spot.
