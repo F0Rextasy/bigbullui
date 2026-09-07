@@ -5,10 +5,11 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { NavIcon } from "@/components/site/nav-icons";
 import { DocsSearch } from "@/components/site/docs-search";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Star } from "@/components/ui/star";
-import { categories } from "@/lib/registry-site";
+import { categories, components } from "@/lib/registry-site";
 
 export function MobileNav({ stars }: { stars: number | null }) {
   const [open, setOpen] = React.useState(false);
@@ -111,7 +112,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
                       <circle cx="11" cy="11" r="8" />
                       <path d="m21 21-4.3-4.3" />
                     </svg>
-                    <span>Search 460+ components...</span>
+                    <span>Search {components.length}+ components...</span>
                   </span>
                   <span className="font-mono text-[10px] rounded border border-border bg-secondary px-1.5 py-0.5">
                     ⌘K
@@ -131,7 +132,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <span>🏠</span> Home
+              <NavIcon name="home" /> Home
             </Link>
             <Link
               href="/docs"
@@ -139,10 +140,10 @@ export function MobileNav({ stars }: { stars: number | null }) {
               className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
               <span className="flex items-center gap-2.5">
-                <span>📦</span> Components
+                <NavIcon name="components" /> Components
               </span>
               <span className="font-mono text-[10px] rounded bg-secondary px-2 py-0.5 text-muted-foreground">
-                462
+                {components.length}
               </span>
             </Link>
             <Link
@@ -151,46 +152,44 @@ export function MobileNav({ stars }: { stars: number | null }) {
               className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
               <span className="flex items-center gap-2.5">
-                <span>🧱</span> Page Blocks
+                <NavIcon name="blocks" /> Page Blocks
               </span>
-              <span className="font-mono text-[10px] rounded bg-secondary px-2 py-0.5 text-muted-foreground">
-                31
-              </span>
+              <span className="font-mono text-[10px] text-muted-foreground">&rarr;</span>
             </Link>
             <Link
               href="/showcase"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <span>🌟</span> Showcase
+              <NavIcon name="showcase" /> Showcase
             </Link>
             <Link
               href="/docs/installation"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <span>⚡</span> Installation Guide
+              <NavIcon name="install" /> Installation Guide
             </Link>
             <Link
               href="/docs/design"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <span>🎨</span> Design Tokens &amp; Colors
+              <NavIcon name="design" /> Design Tokens &amp; Colors
             </Link>
             <Link
               href="/docs/agents"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <span>🤖</span> AI Agent Kit (SKILL.md)
+              <NavIcon name="agents" /> AI Agent Kit (SKILL.md)
             </Link>
             <Link
               href="/docs/contributing"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <span>🤝</span> Contributing
+              <NavIcon name="contribute" /> Contributing
             </Link>
           </div>
 
@@ -231,7 +230,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
             onClick={() => setOpen(false)}
             className="flex items-center justify-center rounded-md bg-primary py-2 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
-            Browse 460+ Components
+            Browse {components.length}+ Components
           </Link>
         </div>
             </Sheet>,
