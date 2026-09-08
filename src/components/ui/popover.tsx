@@ -72,12 +72,15 @@ export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement
   align?: "start" | "center" | "end";
   children: React.ReactNode;
   className?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
 export function PopoverContent({
   align = "center",
   children,
   className,
+  animated = true,
   ...props
 }: PopoverContentProps) {
   const ctx = React.useContext(PopoverCtx);
@@ -114,7 +117,8 @@ export function PopoverContent({
       role="dialog"
       aria-modal="true"
       className={cn(
-        "absolute z-50 mt-2 w-72 rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both]",
+        "absolute z-50 mt-2 w-72 rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px]",
+        animated && "animate-[scale-in_0.15s_ease-out_both]",
         align === "start" && "left-0",
         align === "center" && "left-1/2 -translate-x-1/2",
         align === "end" && "right-0",

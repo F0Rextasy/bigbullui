@@ -34,7 +34,7 @@ export function PageStorefront() {
     <div className="w-full space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT // BROWSE</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT{" // "}BROWSE</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Merch booth</h2>
         </div>
         <Badge variant="accent">{list.length} STUBS</Badge>

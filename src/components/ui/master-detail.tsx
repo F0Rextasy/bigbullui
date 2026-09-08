@@ -42,7 +42,7 @@ export function MasterDetail({
               aria-selected={selected}
               onClick={() => setActiveId(item.id)}
               className={cn(
-                "block w-full border-b border-dashed border-border px-3 py-2.5 text-left transition-colors last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring motion-reduce:transition-none",
+                "block w-full border-b border-dashed border-border px-3 py-2.5 text-start transition-colors last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring motion-reduce:transition-none",
                 selected ? "bg-accent/10" : "hover:bg-secondary/60"
               )}
             >

@@ -78,7 +78,7 @@ export function Wizard({ steps, onFinish, children, className, ...props }: Wizar
           disabled={current === 0}
           className="rounded-md border border-border px-4 py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-30 motion-reduce:transition-none"
         >
-          ← Geri
+          ← Back
         </button>
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{current + 1}/{steps.length}</span>
         <button

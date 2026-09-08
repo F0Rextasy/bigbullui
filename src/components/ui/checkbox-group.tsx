@@ -74,7 +74,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
             )}
             aria-label="Select all"
           />
-          <span className="ml-2 text-sm flex-1 uppercase tracking-[0.15em] text-muted-foreground">
+          <span className="ms-2 text-sm flex-1 uppercase tracking-[0.15em] text-muted-foreground">
             {showAll ? "Deselect all" : "Select all"}
           </span>
         </div>
@@ -98,7 +98,7 @@ const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
                 "motion-reduce:transition-none"
               )}
             />
-            <span className="ml-2 text-sm flex-1 uppercase tracking-[0.15em]">
+            <span className="ms-2 text-sm flex-1 uppercase tracking-[0.15em]">
               {opt.label}
             </span>
           </div>

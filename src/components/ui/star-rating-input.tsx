@@ -71,7 +71,7 @@ export function StarRatingInput({
             </button>
           );
         })}
-        <span className="ml-2 font-mono text-xs text-muted-foreground" aria-live="polite">
+        <span className="ms-2 font-mono text-xs text-muted-foreground" aria-live="polite">
           {shown > 0 ? `${shown}/${max}` : "Tap to rate"}
         </span>
       </div>

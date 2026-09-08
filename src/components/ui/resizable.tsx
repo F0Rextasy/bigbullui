@@ -582,7 +582,7 @@ export function ResizableHandle({
           className={cn(
             "z-10 flex size-5 cursor-pointer items-center justify-center rounded-xs border-2 border-border bg-card font-mono text-[9px] font-bold text-foreground shadow-xs transition-all",
             "hover:border-foreground hover:bg-accent hover:text-accent-foreground hover:scale-110 active:scale-95",
-            isHorizontal ? "mt-2" : "ml-2"
+            isHorizontal ? "mt-2" : "ms-2"
           )}
         >
           {isHorizontal ? (

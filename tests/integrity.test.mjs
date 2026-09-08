@@ -219,4 +219,43 @@ describe("bigbullui Component Library Integrity", () => {
     });
     assert.deepEqual(dangling, [], `Registry entries without UI source file:\n${dangling.join(", ")}`);
   });
+
+  it("semantic tokens only: no raw palette or hex in UI components", () => {
+    // Exempt by nature: fixed-dark device surfaces (qr-reader, split-flap),
+    // medal metals (medal-display), canvas API fallback (signature-pad),
+    // multi-hue data series (donut-chart, confetti-burst), color tools whose
+    // subject matter is literal color, theme-toggle renders both themes fixed.
+    const allow = new Set(["qr-reader.tsx", "split-flap.tsx", "medal-display.tsx", "signature-pad.tsx", "donut-chart.tsx", "confetti-burst.tsx", "color-contrast.tsx", "color-palette-picker.tsx", "color-picker.tsx", "theme-preset-picker.tsx", "theme-stamping-machine.tsx", "theme-toggle.tsx", "variant-picker.tsx"]);
+    const palette = /(emerald|amber|sky|rose|green|yellow|blue|purple|pink|indigo|cyan|teal|lime)-\d+|#[0-9a-fA-F]{6}/;
+    const violations = [];
+    for (const file of uiFiles) {
+      if (allow.has(file)) continue;
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      const m = content.match(palette);
+      if (m) violations.push(`${file}: ${m[0]}`);
+    }
+    assert.deepEqual(violations, [], `Non-semantic palette found (use success/warning/info/destructive):\n${violations.join("\n")}`);
+  });
+
+  it("no phantom foreground tokens (must exist in bigbullui.css)", () => {
+    const phantom = /text-(destructive|success|warning|info)-foreground/;
+    const violations = [];
+    for (const file of uiFiles) {
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      const m = content.match(phantom);
+      if (m) violations.push(`${file}: ${m[0]}`);
+    }
+    assert.deepEqual(violations, [], `Undefined foreground token (renders unstyled):\n${violations.join("\n")}`);
+  });
+
+  it("English UI copy: no Turkish strings in UI components", () => {
+    const turkish = /\b(Aktif|DARALT|hedef|Eklendi|Beklemede|Reddedildi|Onayla|Kapat|Kaydet|Kopyala|Tamamlanan|Toplam|Detay|Bitti|Hata|Kaydedildi|Kaydediliyor|Kaydedilemedi|Stokta|Yenileme|Bakiye ekle|Kuyrukta|Okundu|Sonraki|Sayfalama|Geri|Senkronize|POSTA|bu kaynak|Sonraki sayfa)\b/;
+    const violations = [];
+    for (const file of uiFiles) {
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      const m = content.match(turkish);
+      if (m) violations.push(`${file}: ${m[0]}`);
+    }
+    assert.deepEqual(violations, [], `Turkish UI copy found (DESIGN.md requires English):\n${violations.join("\n")}`);
+  });
 });

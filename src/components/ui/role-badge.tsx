@@ -12,7 +12,7 @@ export interface RoleBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 const TONE: Record<RoleTone, string> = {
   admin: "border-accent/60 bg-accent/10 text-accent",
-  editor: "border-sky-500/50 bg-sky-500/10 text-sky-600",
+  editor: "border-info/50 bg-info/10 text-info",
   member: "border-border bg-secondary text-secondary-foreground",
   viewer: "border-border/60 bg-transparent text-muted-foreground",
   custom: "border-dashed border-border bg-transparent text-foreground",

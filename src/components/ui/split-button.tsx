@@ -104,7 +104,7 @@ export function SplitButton({
                 onSelectOption?.(option);
                 setIsOpen(false);
               }}
-              className="flex w-full cursor-pointer items-center justify-between rounded px-2.5 py-1.5 text-xs font-bold text-foreground transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-30 text-left"
+              className="flex w-full cursor-pointer items-center justify-between rounded px-2.5 py-1.5 text-xs font-bold text-foreground transition-colors hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-30 text-start"
             >
               <span>{option.label}</span>
               {option.shortcut && (

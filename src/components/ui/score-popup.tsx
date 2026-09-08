@@ -14,7 +14,7 @@ export function ScorePopup({ value, label = "PTS", tone = "accent", className, .
   const tones: Record<string, string> = {
     default: "text-foreground border-foreground",
     accent: "text-accent border-accent",
-    success: "text-emerald-700 dark:text-emerald-400 border-emerald-600 dark:text-emerald-400 dark:border-emerald-400",
+    success: "text-success border-success",
   };
   return (
     <div

@@ -19,7 +19,7 @@ export interface TeamFramesProps extends Omit<React.HTMLAttributes<HTMLDivElemen
 }
 
 const statusTone: Record<string, string> = {
-  ready: "bg-emerald-500",
+  ready: "bg-success",
   down: "bg-destructive",
   buffed: "bg-accent",
 };
@@ -39,7 +39,7 @@ export function TeamFrames({ members, onSelect, className, ...props }: TeamFrame
             onClick={() => onSelect?.(m.id)}
             aria-label={`${m.name}, ${m.hp} of ${max} health${m.status ? `, ${m.status}` : ""}`}
             className={cn(
-              "flex min-h-11 items-center gap-2.5 rounded-lg border-2 border-dashed border-border bg-card p-2 text-left transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+              "flex min-h-11 items-center gap-2.5 rounded-lg border-2 border-dashed border-border bg-card p-2 text-start transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               m.active && "border-solid border-accent"
             )}
           >
@@ -60,7 +60,7 @@ export function TeamFrames({ members, onSelect, className, ...props }: TeamFrame
               )}
               <span className="mt-1 block h-1.5 overflow-hidden rounded-full bg-secondary" aria-hidden="true">
                 <span
-                  className={cn("block h-full rounded-full", pct <= 25 ? "bg-destructive" : "bg-emerald-500")}
+                  className={cn("block h-full rounded-full", pct <= 25 ? "bg-destructive" : "bg-success")}
                   style={{ width: `${pct}%` }}
                 />
               </span>

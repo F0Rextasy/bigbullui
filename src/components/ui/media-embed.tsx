@@ -6,7 +6,7 @@ import { cn } from "./lib/utils";
 export interface MediaEmbedProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;
   title?: string;
-  /** 16:9 sabit */
+  /** fixed 16:9 ratio */
   poster?: string;
 }
 

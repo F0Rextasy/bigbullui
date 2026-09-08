@@ -32,7 +32,7 @@ export function CitationBubble({
         {index}
       </button>
       {open && (
-        <span className="absolute bottom-6 left-1/2 z-20 w-60 -translate-x-1/2 rounded-lg border-2 border-foreground bg-card p-2.5 text-left shadow-lg">
+        <span className="absolute bottom-6 left-1/2 z-20 w-60 -translate-x-1/2 rounded-lg border-2 border-foreground bg-card p-2.5 text-start shadow-lg">
           <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
             Source {index}
           </span>

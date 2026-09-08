@@ -121,11 +121,11 @@ export function MetricCard({
 
   const strokeColor =
     sparklineTone === "accent"
-      ? "var(--color-accent, #bc3a28)"
+      ? "var(--color-accent)"
       : sparklineTone === "success"
-      ? "#10b981"
+      ? "var(--color-success)"
       : sparklineTone === "muted"
-      ? "var(--color-muted-foreground, #6f6350)"
+      ? "var(--color-muted-foreground)"
       : "currentColor";
 
   return (
@@ -151,7 +151,7 @@ export function MetricCard({
                 <span className="size-1.5 rounded-full bg-accent animate-ping shrink-0" />
               )}
               {statusDot === "warning" && (
-                <span className="size-1.5 rounded-full bg-amber-500 shrink-0" />
+                <span className="size-1.5 rounded-full bg-warning shrink-0" />
               )}
               {statusDot === "error" && (
                 <span className="size-1.5 rounded-full bg-destructive shrink-0" />
@@ -180,7 +180,7 @@ export function MetricCard({
             {value}
           </span>
           {suffix && (
-            <span className="font-mono text-xs font-semibold text-muted-foreground ml-0.5">
+            <span className="font-mono text-xs font-semibold text-muted-foreground ms-0.5">
               {suffix}
             </span>
           )}
@@ -194,7 +194,7 @@ export function MetricCard({
                 className={cn(
                   "inline-flex items-center gap-1 rounded-xs border border-dashed px-1.5 py-0.5 font-mono text-[11px] font-bold rotate-[-1deg]",
                   isGood &&
-                    "border-emerald-600/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+                    "border-success/40 bg-success/10 text-success",
                   isBad &&
                     "border-destructive/40 bg-destructive/10 text-destructive",
                   !isGood &&
@@ -252,7 +252,7 @@ export function MetricCard({
       <div className="relative flex items-center justify-between py-1">
         {/* Left Cutout Hole */}
         <div
-          className="size-4 rounded-full bg-background border-2 border-foreground -ml-2 shrink-0"
+          className="size-4 rounded-full bg-background border-2 border-foreground -ms-2 shrink-0"
           aria-hidden="true"
         />
 
@@ -261,7 +261,7 @@ export function MetricCard({
 
         {/* Right Cutout Hole */}
         <div
-          className="size-4 rounded-full bg-background border-2 border-foreground -mr-2 shrink-0"
+          className="size-4 rounded-full bg-background border-2 border-foreground -me-2 shrink-0"
           aria-hidden="true"
         />
       </div>
@@ -348,7 +348,7 @@ export function MetricCard({
 
         {/* Micro Barcode & Timestamp Footer */}
         <div className="flex items-center justify-between text-[9px] font-mono text-muted-foreground border-t border-dashed border-border/70 pt-2.5">
-          <span className="truncate pr-2">
+          <span className="truncate pe-2">
             {footerText || "VALIDATED EMISSION"}
           </span>
 
@@ -364,7 +364,7 @@ export function MetricCard({
             <div className="w-1 h-3.5 bg-foreground" />
             <div className="w-0.5 h-3.5 bg-foreground" />
             {barcodeValue && (
-              <span className="ml-1 text-[8px] font-mono uppercase tracking-widest hidden sm:inline">
+              <span className="ms-1 text-[8px] font-mono uppercase tracking-widest hidden sm:inline">
                 {barcodeValue}
               </span>
             )}

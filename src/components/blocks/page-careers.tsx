@@ -41,7 +41,7 @@ export function PageCareers() {
                 <span className="font-mono text-sm font-bold uppercase">{role.title}</span>
                 <Badge variant={selected === role.id ? "accent" : "outline"}>{role.type}</Badge>
               </span>
-              <span className="mt-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{role.team} // {role.place}</span>
+              <span className="mt-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{role.team}{" // "}{role.place}</span>
             </button>
           ))}
         </div>

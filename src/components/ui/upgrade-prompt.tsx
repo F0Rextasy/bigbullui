@@ -36,7 +36,7 @@ export function UpgradePrompt({
       <button
         onClick={() => { setDismissed(true); onDismiss?.(); }}
         className="absolute right-2 top-2 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-        aria-label="Kapat"
+        aria-label="Close"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
       </button>
@@ -48,7 +48,7 @@ export function UpgradePrompt({
         <ul className="mt-3 space-y-1">
           {features.map((f, i) => (
             <li key={f} className="flex items-center gap-2 text-sm animate-[upIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
               {f}
             </li>
           ))}

@@ -32,9 +32,9 @@ export function PasswordStrength({
   const strengthLevel = React.useMemo(() => {
     if (value.length === 0) return { label: "NO TICKET KEY", color: "bg-muted", width: "0%" };
     if (metCount <= 1) return { label: "REVOKED / WEAK", color: "bg-destructive", width: "25%" };
-    if (metCount === 2) return { label: "STANDBY / FAIR", color: "bg-amber-500", width: "50%" };
-    if (metCount === 3) return { label: "VALID / GOOD", color: "bg-amber-600", width: "75%" };
-    return { label: "SECURE / ADMITTED", color: "bg-emerald-600", width: "100%" };
+    if (metCount === 2) return { label: "STANDBY / FAIR", color: "bg-warning", width: "50%" };
+    if (metCount === 3) return { label: "VALID / GOOD", color: "bg-warning", width: "75%" };
+    return { label: "SECURE / ADMITTED", color: "bg-success", width: "100%" };
   }, [value, metCount]);
 
   return (

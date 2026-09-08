@@ -28,7 +28,7 @@ export function CompareTable({ rows = FALLBACK_ROWS, columns = FALLBACK_COLS, cl
       <table className="w-full font-mono text-xs">
         <thead>
           <tr className="border-b-2 border-foreground">
-            <th className="px-3 py-2 text-left text-[10px] uppercase text-muted-foreground">Feature</th>
+            <th className="px-3 py-2 text-start text-[10px] uppercase text-muted-foreground">Feature</th>
             {columns.map((c) => (
               <th key={c.id} className={cn("px-3 py-2 text-center text-[11px] font-black uppercase", c.highlight ? "bg-accent text-accent-foreground" : "bg-secondary text-foreground")}>{c.label}</th>
             ))}

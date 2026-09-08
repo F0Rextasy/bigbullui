@@ -29,7 +29,7 @@ const colorMap: Record<string, string> = {
   green: "bg-green-500 hover:bg-green-400",
   black: "bg-gray-900 hover:bg-gray-800",
   white: "bg-white hover:bg-gray-100",
-  brown: "bg-amber-500 hover:bg-amber-400",
+  brown: "bg-warning hover:bg-warning",
 };
 
 export function VariantPicker({

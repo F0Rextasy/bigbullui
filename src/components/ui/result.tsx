@@ -19,7 +19,7 @@ function getIconClass(status: ResultStatus): string {
     case "error":
       return "bg-destructive/10 text-destructive border-destructive";
     case "warning":
-      return "bg-warning/10 text-warning border-yellow-500/50";
+      return "bg-warning/10 text-warning border-warning/50";
     case "info":
       return "bg-primary/10 text-primary border-primary";
   }

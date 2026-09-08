@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.1.1",
+      "date": "2026-09-08",
+      "title": "Package diet, semantic status tokens, English copy",
+      "changes": [
+        "Removed src/ from published files: tarball ships dist + CLI + CSS only",
+        "New success/warning/info theme tokens; 90 components migrated off raw palette",
+        "English UI copy across 21 strings; Turkish aliases kept in search synonyms",
+        "Fixed notification-center unread badge contrast (white on destructive)",
+        "CLI offline list auto-syncs on prepublish; registry JSONs refreshed (210 files)",
+        "Shipped high-contrast.css with package export; README counts fixed at 659"
+      ]
+    },
+    {
       "version": "0.27.0",
       "date": "2026-09-06",
       "title": "Dev-tools, mobile, time, and data waves",

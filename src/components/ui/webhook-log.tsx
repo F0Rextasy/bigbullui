@@ -15,7 +15,7 @@ export function WebhookLog({ events = [{ id: "w1", event: "stub.sold", code: 200
       <ul className="mt-2 space-y-1 font-mono text-[11px]">
         {events.map((e) => (
           <li key={e.id} className="flex items-center gap-2 rounded border border-dashed border-border bg-background px-2 py-1.5">
-            <span className={cn("rounded px-1.5 py-px text-[10px] font-bold tabular-nums", e.code < 300 ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" : "bg-destructive/10 text-destructive")}>{e.code}</span>
+            <span className={cn("rounded px-1.5 py-px text-[10px] font-bold tabular-nums", e.code < 300 ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive")}>{e.code}</span>
             <span className="flex-1 truncate text-foreground">{e.event}</span>
             <span className="tabular-nums text-muted-foreground">{e.time}</span>
           </li>

@@ -1,11 +1,14 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
-import { createRequire } from "node:module";
 
-const require = createRequire(import.meta.url);
-const axePath = require.resolve("axe-core/axe.min.js");
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const axePath = path.join(rootDir, "node_modules", "axe-core", "axe.min.js");
+if (!fs.existsSync(axePath)) {
+  console.error("a11y-scan: axe-core not installed (comes with npm install).");
+  process.exit(2);
+}
 const base = process.env.BIGBULL_BASE ?? "http://localhost:3000";
 const routes = ["/", "/docs", "/docs/button", "/docs/dialog", "/blocks", "/showcase"];
 

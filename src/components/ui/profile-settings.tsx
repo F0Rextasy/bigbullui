@@ -61,7 +61,7 @@ export function ProfileSettings({ name = "Ada Lovelace", email = "ada@mail.com",
             "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >
-          Kaydet
+          Save
         </button>
       </div>
 

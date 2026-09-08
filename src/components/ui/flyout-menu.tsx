@@ -82,7 +82,7 @@ export function FlyoutMenu({
                   {item.label}
                 </span>
                 {item.shortcut && (
-                  <span className="ml-auto text-xs opacity-60">
+                  <span className="ms-auto text-xs opacity-60">
                     {item.shortcut}
                   </span>
                 )}

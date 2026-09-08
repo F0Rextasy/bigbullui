@@ -79,7 +79,7 @@ export function Combobox({
         aria-expanded={open}
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border-2 border-dashed border-border bg-card px-3 py-2 text-left font-mono text-xs transition-colors",
+          "flex h-10 w-full items-center justify-between rounded-md border-2 border-dashed border-border bg-card px-3 py-2 text-start font-mono text-xs transition-colors",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-foreground",
           disabled && "cursor-not-allowed opacity-50",
           !disabled && "cursor-pointer hover:border-foreground/50"
@@ -89,7 +89,7 @@ export function Combobox({
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <svg
-          className={cn("ml-2 size-4 shrink-0 transition-transform duration-150", open && "rotate-180")}
+          className={cn("ms-2 size-4 shrink-0 transition-transform duration-150", open && "rotate-180")}
           viewBox="0 0 16 16"
           fill="none"
           stroke="currentColor"

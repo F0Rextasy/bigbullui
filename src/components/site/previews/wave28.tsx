@@ -69,7 +69,7 @@ export const wave28Previews: Record<string, React.ComponentType> = {
           <button
             type="button"
             onClick={() => setHp((v) => Math.min(100, v + 15))}
-            className="min-h-11 flex-1 touch-none rounded-md border border-emerald-600/60 font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400"
+            className="min-h-11 flex-1 touch-none rounded-md border border-success/60 font-mono text-xs font-bold text-success"
           >
             HEAL +15
           </button>

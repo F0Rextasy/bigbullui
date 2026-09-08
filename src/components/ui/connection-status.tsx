@@ -11,7 +11,7 @@ export interface ConnectionStatusProps extends React.HTMLAttributes<HTMLSpanElem
 
 /** Network status badge: live ping pulse indicator + latency. */
 export function ConnectionStatus({ latencyMs, online = true, className, ...props }: ConnectionStatusProps) {
-  const tone = !online ? "text-destructive" : latencyMs === undefined ? "text-emerald-700 dark:text-emerald-400" : latencyMs < 100 ? "text-emerald-700 dark:text-emerald-400" : latencyMs < 300 ? "text-amber-600" : "text-destructive";
+  const tone = !online ? "text-destructive" : latencyMs === undefined ? "text-success" : latencyMs < 100 ? "text-success" : latencyMs < 300 ? "text-warning" : "text-destructive";
 
   return (
     <span

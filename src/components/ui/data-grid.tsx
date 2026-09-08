@@ -53,7 +53,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns, rows, row
           <thead className="sticky top-0 z-10 bg-secondary/95 backdrop-blur-sm">
             <tr className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
               {columns.map((col) => (
-                <th key={col.key} className="border-b border-border px-3 py-2.5 text-left font-medium">
+                <th key={col.key} className="border-b border-border px-3 py-2.5 text-start font-medium">
                   {col.sortable ? (
                     <button
                       onClick={() => toggleSort(col.key)}
@@ -107,7 +107,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns, rows, row
               disabled={safePage >= pageCount - 1}
               className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase transition-colors hover:border-foreground/40 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
             >
-              Sonraki
+              Next
             </button>
           </div>
         </div>

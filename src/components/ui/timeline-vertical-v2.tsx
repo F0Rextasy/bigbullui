@@ -24,7 +24,7 @@ export function TimelineVerticalV2({ items, className, ...props }: TimelineVerti
         {items.map((item, idx) => {
           const left = idx % 2 === 0;
           return (
-            <li key={item.id} className={cn("relative flex w-1/2", left ? "pr-6" : "ml-auto pl-6")} style={{ animation: "tv2In 0.35s ease-out both", animationDelay: `${idx * 90}ms` }}>
+            <li key={item.id} className={cn("relative flex w-1/2", left ? "pe-6" : "ms-auto ps-6")} style={{ animation: "tv2In 0.35s ease-out both", animationDelay: `${idx * 90}ms` }}>
               <span className={cn("absolute top-4 size-3 rounded-full border-2 border-accent bg-card", left ? "-right-[7px]" : "-left-[7px]")} aria-hidden="true" />
               <div className="w-full rounded-md border border-border bg-card p-3 transition-colors hover:border-accent/40 motion-reduce:transition-none">
                 <p className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">{item.time}</p>

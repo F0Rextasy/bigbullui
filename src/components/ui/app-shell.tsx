@@ -47,7 +47,7 @@ export function AppShell({
         id="main"
         className={cn(
           "flex-1 overflow-y-auto p-4 sm:p-6",
-          collapsed && "pl-3 pr-0",
+          collapsed && "ps-3 pe-0",
           "transition-left duration-300 ease-out"
         )}
       >
@@ -59,7 +59,7 @@ export function AppShell({
         className={cn(
           "w-64 flex-shrink-0 bg-card border-r border-border/50 transition-colors duration-300 ease-out",
           collapsed && "w-0",
-          !collapsed && "pr-2",
+          !collapsed && "pe-2",
           "accordion"
         )}
       >

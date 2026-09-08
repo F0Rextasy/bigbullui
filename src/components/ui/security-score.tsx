@@ -20,7 +20,7 @@ export function SecurityScore({ checks, className, ...props }: SecurityScoreProp
   const percent = Math.round((passed / Math.max(1, checks.length)) * 100);
   const R = 44;
   const C = Math.PI * R; // half circumference
-  const tone = percent >= 80 ? "text-emerald-500" : percent >= 50 ? "text-amber-500" : "text-destructive";
+  const tone = percent >= 80 ? "text-success" : percent >= 50 ? "text-warning" : "text-destructive";
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-5", className)} {...props}>
@@ -65,7 +65,7 @@ export function SecurityScore({ checks, className, ...props }: SecurityScoreProp
             <span
               className={cn(
                 "mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border",
-                c.passed ? "border-emerald-500 bg-emerald-500/15 text-emerald-500" : "border-destructive/50 bg-destructive/10 text-destructive"
+                c.passed ? "border-success bg-success/15 text-success" : "border-destructive/50 bg-destructive/10 text-destructive"
               )}
               aria-hidden="true"
             >

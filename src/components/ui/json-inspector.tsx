@@ -24,7 +24,7 @@ function renderValue(value: unknown, depth: number, maxDepth: number): React.Rea
       <span>
         [
         {value.map((v, i) => (
-          <span key={i} className="block pl-4">
+          <span key={i} className="block ps-4">
             {renderValue(v, depth + 1, maxDepth)}
             {i < value.length - 1 ? <span className="text-muted-foreground">,</span> : null}
           </span>
@@ -41,7 +41,7 @@ function renderValue(value: unknown, depth: number, maxDepth: number): React.Rea
       <span>
         {"{"}
         {entries.map(([k, v], i) => (
-          <span key={k} className="block pl-4">
+          <span key={k} className="block ps-4">
             <span className="text-foreground">“{k}”</span>
             <span className="text-muted-foreground">: </span>
             {renderValue(v, depth + 1, maxDepth)}
@@ -67,7 +67,7 @@ function Collapsible({ k, children, startOpen }: { k: string; children: React.Re
       >
         {open ? "▾" : "▸"} {k}
       </button>
-      {open ? <span className="block pl-4">{children}</span> : <span className="text-muted-foreground"> …</span>}
+      {open ? <span className="block ps-4">{children}</span> : <span className="text-muted-foreground"> …</span>}
     </span>
   );
 }

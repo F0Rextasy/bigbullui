@@ -32,7 +32,7 @@ export function Faq({ items, defaultOpen = 0, className }: FaqProps) {
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-4 py-4 text-left font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-foreground transition-colors duration-200 hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+              className="flex w-full items-center justify-between gap-4 py-4 text-start font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-foreground transition-colors duration-200 hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             >
               <span>{item.question}</span>
               <svg

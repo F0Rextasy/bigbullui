@@ -16,16 +16,16 @@ export function AgendaList({ items = [{ time: "09:00", title: "Doors open", meta
       {items.map((item) => {
         const isDone = done.includes(item.title);
         return (
-          <li key={item.title} className="relative border-l-2 border-dashed border-border pl-4 pb-3 last:pb-0">
+          <li key={item.title} className="relative border-l-2 border-dashed border-border ps-4 pb-3 last:pb-0">
             <span className={cn("absolute -left-[5px] top-1 size-2 rounded-full border", isDone ? "border-accent bg-accent" : "border-border bg-background")} aria-hidden="true" />
             <button
               type="button"
               onClick={() => setDone((d) => (isDone ? d.filter((x) => x !== item.title) : [...d, item.title]))}
-              className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-pressed={isDone}
             >
               <span className="font-mono text-[10px] tabular-nums text-accent">{item.time}</span>
-              <span className={cn("ml-2 font-mono text-xs font-bold", isDone ? "text-muted-foreground line-through" : "text-foreground")}>{item.title}</span>
+              <span className={cn("ms-2 font-mono text-xs font-bold", isDone ? "text-muted-foreground line-through" : "text-foreground")}>{item.title}</span>
               {item.meta && <span className="block font-mono text-[10px] uppercase text-muted-foreground">{item.meta}</span>}
             </button>
           </li>

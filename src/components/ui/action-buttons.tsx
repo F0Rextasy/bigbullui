@@ -18,7 +18,7 @@ export interface ActionButtonsProps extends Omit<React.HTMLAttributes<HTMLDivEle
 const tones: Record<string, string> = {
   default: "bg-card text-foreground",
   accent: "bg-accent text-accent-foreground border-accent",
-  danger: "bg-destructive text-destructive-foreground border-destructive",
+  danger: "bg-destructive text-white border-destructive",
 };
 
 /** Action buttons: diamond cluster of large touch targets for primary game actions. */

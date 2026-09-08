@@ -44,7 +44,7 @@ export function SectionHeading({
       </div>
 
       {subtitle && (
-        <p className="text-[11px] text-muted-foreground uppercase tracking-wider pl-4.5">
+        <p className="text-[11px] text-muted-foreground uppercase tracking-wider ps-4.5">
           {subtitle}
         </p>
       )}

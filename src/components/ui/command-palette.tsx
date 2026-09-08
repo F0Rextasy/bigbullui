@@ -265,7 +265,7 @@ export function CommandPalette({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-muted-foreground mr-3 shrink-0"
+            className="text-muted-foreground me-3 shrink-0"
             aria-hidden="true"
           >
             <circle cx="11" cy="11" r="8" />

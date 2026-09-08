@@ -121,7 +121,7 @@ export function ComboboxV2({
         <span className={cn("truncate", !selected && "text-muted-foreground")}>
           {selected ? selected.label : placeholder}
         </span>
-        <span aria-hidden className="ml-2 text-xs text-muted-foreground">▾</span>
+        <span aria-hidden className="ms-2 text-xs text-muted-foreground">▾</span>
       </button>
       {open ? (
         <div className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-md border border-border bg-card shadow-lg">

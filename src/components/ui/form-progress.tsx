@@ -10,7 +10,7 @@ export interface FormProgressProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 /** Form completion progress bar: segmented steps + percentage. */
-export function FormProgress({ total, completed, label = "Tamamlanan", className, ...props }: FormProgressProps) {
+export function FormProgress({ total, completed, label = "Completed", className, ...props }: FormProgressProps) {
   const pct = Math.min(100, Math.round((completed / Math.max(1, total)) * 100));
 
   return (

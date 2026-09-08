@@ -47,7 +47,9 @@ jobs:
         run: npx --yes publint --strict
 
       - name: Type resolution check (attw)
-        run: npx --yes @arethetypeswrong/cli --pack .
+        # node16 profile: engines field is >=20; node10 simulation false-positives
+        # on dotted CSS subpaths (e.g. ./high-contrast.css) while all living resolvers pass
+        run: npx --yes @arethetypeswrong/cli --pack . --profile node16
 
       - name: Props coverage report
         run: node scripts/props-coverage.mjs

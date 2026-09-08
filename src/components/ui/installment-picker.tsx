@@ -38,7 +38,7 @@ export function InstallmentPicker({ plans, value, defaultValue, onValueChange, c
                 aria-checked={selected}
                 onClick={() => { setInternal(plan.months); onValueChange?.(plan.months); }}
                 className={cn(
-                  "flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors motion-reduce:transition-none",
+                  "flex w-full items-center gap-3 px-4 py-2.5 text-start transition-colors motion-reduce:transition-none",
                   "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-inset",
                   "animate-[ipIn_0.3s_ease-out_both] motion-reduce:animate-none",
                   selected ? "bg-accent/5" : "hover:bg-secondary/30"
@@ -60,7 +60,7 @@ export function InstallmentPicker({ plans, value, defaultValue, onValueChange, c
                 </span>
                 <span className="shrink-0 text-right">
                   <span className={cn("block font-mono text-sm font-bold tabular-nums", selected && "text-accent")}>{plan.monthly}</span>
-                  <span className="block font-mono text-[10px] tabular-nums text-muted-foreground">Toplam {plan.total}</span>
+                  <span className="block font-mono text-[10px] tabular-nums text-muted-foreground">Total {plan.total}</span>
                 </span>
               </button>
             </li>

@@ -29,7 +29,7 @@ export function AuditTimeline({ events = FALLBACK, className, ...props }: AuditT
       <ol className="mt-3 space-y-3">
         {events.map((e) => (
           <li key={e.id} className="flex items-start gap-3">
-            <span className={cn("mt-1 size-2.5 shrink-0 rounded-full border border-foreground", e.tone === "bad" ? "bg-destructive" : e.tone === "warn" ? "bg-amber-500" : "bg-primary")} aria-hidden="true" />
+            <span className={cn("mt-1 size-2.5 shrink-0 rounded-full border border-foreground", e.tone === "bad" ? "bg-destructive" : e.tone === "warn" ? "bg-warning" : "bg-primary")} aria-hidden="true" />
             <div className="flex-1 border-b border-dashed border-border pb-2">
               <p className="font-mono text-xs text-foreground"><span className="font-bold">{e.actor}</span> {e.action}</p>
               <p className="font-mono text-[10px] uppercase text-muted-foreground">{e.time} stamped</p>

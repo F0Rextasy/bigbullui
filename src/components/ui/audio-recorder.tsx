@@ -60,7 +60,7 @@ export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProp
       {recording && (
         <button
           onClick={stop}
-          className="shrink-0 rounded-md bg-emerald-500 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-emerald-600 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 motion-reduce:transition-none"
+          className="shrink-0 rounded-md bg-success px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-success active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success motion-reduce:transition-none"
         >
           Send
         </button>

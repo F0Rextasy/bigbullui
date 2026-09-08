@@ -68,7 +68,7 @@ function EmailValidationDemo() {
         Validate
       </button>
       {sent ? (
-        <span role="status" className="font-mono text-[11px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+        <span role="status" className="font-mono text-[11px] uppercase tracking-wider text-success">
           Valid. Ready to print.
         </span>
       ) : null}

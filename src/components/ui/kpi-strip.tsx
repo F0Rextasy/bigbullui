@@ -50,7 +50,7 @@ export function KpiStrip({ tiles, className, ...props }: KpiStripProps) {
             <p
               className={cn(
                 "mt-1 inline-flex items-center gap-1 font-mono text-[10px] tabular-nums",
-                tile.delta.up ? "text-emerald-700 dark:text-emerald-400" : "text-destructive"
+                tile.delta.up ? "text-success" : "text-destructive"
               )}
             >
               <span aria-hidden="true">{tile.delta.up ? "▲" : "▼"}</span> {tile.delta.value}

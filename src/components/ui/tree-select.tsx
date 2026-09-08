@@ -76,7 +76,7 @@ export function TreeSelect({
           }}
           style={{ paddingLeft: `${depth * 14 + 6}px` }}
           className={cn(
-            "flex cursor-pointer items-center justify-between rounded-md py-1 pr-2 text-xs transition-colors",
+            "flex cursor-pointer items-center justify-between rounded-md py-1 pe-2 text-xs transition-colors",
             isSelected
               ? "bg-accent font-bold text-accent-foreground shadow-xs"
               : "text-foreground hover:bg-secondary"
@@ -99,7 +99,7 @@ export function TreeSelect({
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="border-l border-dashed border-border/80 ml-3 space-y-0.5 pl-1 animate-[fade-in_0.12s_ease-out]">
+          <div className="border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 animate-[fade-in_0.12s_ease-out]">
             {node.children!.map((child) => renderNode(child, depth + 1))}
           </div>
         )}
@@ -121,7 +121,7 @@ export function TreeSelect({
         <span className={cn("truncate font-bold uppercase", !currentVal && "text-muted-foreground font-normal")}>
           {currentVal || placeholder}
         </span>
-        <span className="text-[10px] text-muted-foreground ml-2">
+        <span className="text-[10px] text-muted-foreground ms-2">
           {isOpen ? "▲" : "▼"}
         </span>
       </button>

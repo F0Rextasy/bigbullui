@@ -45,7 +45,7 @@ function TreeItem({
         }}
         style={{ paddingLeft: `${level * 14 + 6}px` }}
         className={cn(
-          "flex cursor-pointer items-center justify-between rounded-md py-1 pr-2 text-xs transition-colors",
+          "flex cursor-pointer items-center justify-between rounded-md py-1 pe-2 text-xs transition-colors",
           isSelected
             ? "bg-accent font-bold text-accent-foreground shadow-xs"
             : "text-foreground hover:bg-secondary"
@@ -75,7 +75,7 @@ function TreeItem({
       </div>
 
       {hasChildren && isOpen && (
-        <div className="relative border-l border-dashed border-border/80 ml-3 space-y-0.5 pl-1 animate-[fade-in_0.12s_ease-out]">
+        <div className="relative border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 animate-[fade-in_0.12s_ease-out]">
           {node.children!.map((child) => (
             <TreeItem
               key={child.id}

@@ -22,7 +22,7 @@ const categories = categoryMatches.map((m) => ({
 // Parse components
 const componentMatches = [
   ...content.matchAll(
-    /\{\s*name:\s*["']([^"']+)["'],\s*title:\s*["']([^"']+)["'],\s*description:\s*["']([^"']+)["'],\s*category:\s*["']([^"']+)["']/g
+    /\{\s*name:\s*"([^"]+)",\s*title:\s*"((?:[^"\\]|\\.)+)",\s*description:\s*"((?:[^"\\]|\\.)+)",\s*category:\s*"([^"]+)"/g
   ),
 ];
 const components = componentMatches.map((m) => ({
@@ -63,6 +63,21 @@ for (const cat of categories) {
   }
   doc += "\n";
 }
+
+const allNames = [...content.matchAll(/\{\s*name:\s*"([^"]+)"/g)].map((m) => m[1]).filter((n) => !n.includes(" ") && !n.includes("&"));
+const missed = allNames.filter((n) => !components.some((c) => c.name === n));
+if (missed.length > 0) console.log(`generate-llms-full: ${missed.length} entries skipped by parser: ${missed.join(", ")}`);
+const iconSrc = fs.readFileSync(path.join(rootDir, "src", "components", "site", "icon-data.tsx"), "utf8");
+const iconNames = [...iconSrc.matchAll(/^\s*\|\s*"([^"]+)"/gm)].map((m) => m[1]);
+doc += `## Icons (${iconNames.length}, bigbullicons package)\n`;
+doc += "Hand-drawn Ticket Stub stroke icons. Install: `npm install bigbullicons`, use `<StampIcon name=\"ticket\" size={20} />`. ";
+doc += "Props: `name` (required), `size` (default 20), `animated` (default true), `animation` (\"draw\"|\"pulse\"|\"spin\"|\"none\"). ";
+doc += "Gallery: https://ui.bigbullapp.com/icons, per-icon pages at https://ui.bigbullapp.com/icons/<name>, single-icon CLI: `npx bigbullui add icon-<name>`.\n";
+doc += iconNames.slice(0, 60).join(", ") + `, ... (${iconNames.length} total)\n\n`;
+
+doc += "## Page Blocks (63, /blocks)\n";
+doc += "Admin dashboards, app screens, auth flows, pricing, checkout, marketing: https://ui.bigbullapp.com/blocks. ";
+doc += "Registry JSON per block: https://ui.bigbullapp.com/r/<name>.json\n\n";
 
 const outputPath = path.join(rootDir, "public", "llms-full.txt");
 fs.writeFileSync(outputPath, doc, "utf8");

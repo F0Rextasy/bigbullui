@@ -21,14 +21,14 @@ export interface UserTableProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ROLE_TONE: Record<UserRow["role"], string> = {
   admin: "border-accent/60 bg-accent/10 text-accent",
-  editor: "border-sky-500/50 bg-sky-500/10 text-sky-600",
+  editor: "border-info/50 bg-info/10 text-info",
   member: "border-border bg-secondary text-secondary-foreground",
   viewer: "border-border/60 bg-transparent text-muted-foreground",
 };
 
 const STATUS_TONE: Record<UserStatus, string> = {
-  active: "text-emerald-700 dark:text-emerald-400",
-  invited: "text-amber-600",
+  active: "text-success",
+  invited: "text-warning",
   suspended: "text-destructive",
 };
 
@@ -49,9 +49,9 @@ export function UserTable({ users, onRemove, className, ...props }: UserTablePro
         <table className="w-full min-w-max text-sm">
           <thead>
             <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-              <th className="px-4 py-2.5 text-left font-medium">User</th>
-              <th className="px-4 py-2.5 text-left font-medium">Rol</th>
-              <th className="px-4 py-2.5 text-left font-medium">Durum</th>
+              <th className="px-4 py-2.5 text-start font-medium">User</th>
+              <th className="px-4 py-2.5 text-start font-medium">Rol</th>
+              <th className="px-4 py-2.5 text-start font-medium">Durum</th>
               <th className="px-4 py-2.5 text-right font-medium">Action</th>
             </tr>
           </thead>

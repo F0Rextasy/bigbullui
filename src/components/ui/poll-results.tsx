@@ -41,7 +41,7 @@ export function PollResults({
             <div key={o.id} className={cn("rounded-md border px-3 py-2", isWin ? "border-accent" : "border-dashed border-border")}>
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs font-bold">
-                  {o.mine && <span className="mr-1 text-accent" aria-hidden="true">✓</span>}
+                  {o.mine && <span className="me-1 text-accent" aria-hidden="true">✓</span>}
                   {o.label}
                 </span>
                 <span className="font-mono text-xs font-bold tabular-nums">{pct}%</span>

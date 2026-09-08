@@ -65,7 +65,7 @@ export function TreeTable({ nodes, className, ...props }: TreeTableProps) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-            <th className="px-3 py-2 text-left font-medium">Ad</th>
+            <th className="px-3 py-2 text-start font-medium">Ad</th>
             <th className="px-3 py-2 text-right font-medium">Value</th>
           </tr>
         </thead>

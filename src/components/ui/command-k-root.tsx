@@ -67,7 +67,7 @@ export function CommandKRoot({
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="flex w-full items-center justify-between rounded px-2.5 py-2 text-left text-xs font-bold transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+                  className="flex w-full items-center justify-between rounded px-2.5 py-2 text-start text-xs font-bold transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
                 >
                   {i.label}
                   {i.hint && <kbd className="rounded border border-border px-1 font-mono text-[10px] text-muted-foreground">{i.hint}</kbd>}

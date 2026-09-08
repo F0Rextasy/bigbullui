@@ -113,7 +113,7 @@ export function SheetHeader({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("mb-4 flex flex-col gap-1.5 text-left", className)} {...props} />;
+  return <div className={cn("mb-4 flex flex-col gap-1.5 text-start", className)} {...props} />;
 }
 
 export function SheetTitle({

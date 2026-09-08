@@ -27,7 +27,7 @@ export function RowExpandList({ items, className, ...props }: RowExpandListProps
             <button
               onClick={() => setOpenId(open ? null : item.id)}
               aria-expanded={open}
-              className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-secondary/40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-inset motion-reduce:transition-none"
+              className="flex w-full items-center justify-between gap-3 px-4 py-3 text-start transition-colors hover:bg-secondary/40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-inset motion-reduce:transition-none"
             >
               <span className="text-sm font-medium">{item.label}</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cn("shrink-0 text-muted-foreground transition-transform duration-300 motion-reduce:transition-none", open && "rotate-180")} aria-hidden="true">

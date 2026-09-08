@@ -41,7 +41,7 @@ export function SidebarV2({ items, activeId, onNavigate, title = "Menu", classNa
             onClick={() => { if (hasChildren) toggle(item.id); setActive(item.id); onNavigate?.(item.id); }}
             aria-expanded={hasChildren ? isOpen : undefined}
             className={cn(
-              "flex w-full items-center gap-2 rounded-sm text-left text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+              "flex w-full items-center gap-2 rounded-sm text-start text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
               isActive ? "bg-accent/10 font-medium text-accent" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             )}
             style={{ paddingLeft: `${8 + depth * 14}px`, paddingTop: 6, paddingBottom: 6, paddingRight: 8 }}
@@ -69,7 +69,7 @@ export function SidebarV2({ items, activeId, onNavigate, title = "Menu", classNa
         <button
           onClick={() => { setActive(child.id); onNavigate?.(child.id); }}
           className={cn(
-            "flex w-full items-center rounded-sm py-1.5 text-left text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+            "flex w-full items-center rounded-sm py-1.5 text-start text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
             active === child.id ? "text-accent" : "text-muted-foreground hover:text-foreground"
           )}
           style={{ paddingLeft: `${14 + depth * 14}px` }}

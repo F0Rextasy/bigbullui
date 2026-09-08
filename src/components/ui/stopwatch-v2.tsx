@@ -84,7 +84,7 @@ export function StopwatchV2({ label = "CHRONO", className, ...props }: Stopwatch
         </button>
       </div>
       {laps.length > 0 ? (
-        <ol className="mt-3 max-h-28 space-y-1 overflow-y-auto border-t border-dashed border-border pt-2 text-left">
+        <ol className="mt-3 max-h-28 space-y-1 overflow-y-auto border-t border-dashed border-border pt-2 text-start">
           {laps.map((lap, i) => (
             <li key={i} className="flex justify-between font-mono text-[11px] text-muted-foreground">
               <span>LAP {i + 1}</span>

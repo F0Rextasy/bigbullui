@@ -36,7 +36,7 @@ function render(src: string): React.ReactNode {
 
   const flushList = () => {
     if (list.length) {
-      out.push(<ul key={`ul-${out.length}`} className="my-2 list-disc space-y-0.5 pl-5">{list.map((li, i) => <li key={i}>{inline(li)}</li>)}</ul>);
+      out.push(<ul key={`ul-${out.length}`} className="my-2 list-disc space-y-0.5 ps-5">{list.map((li, i) => <li key={i}>{inline(li)}</li>)}</ul>);
       list = [];
     }
   };

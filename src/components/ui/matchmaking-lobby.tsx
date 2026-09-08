@@ -41,12 +41,12 @@ export function MatchmakingLobby({ players, searching = true, onToggleReady, cla
             aria-label={`${p.name} ${p.ready ? "ready" : "not ready"}`}
             className={cn(
               "flex min-h-11 w-full touch-none items-center justify-between rounded-md border px-2.5 font-mono text-xs font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              p.ready ? "border-emerald-600/60 bg-emerald-500/10" : "border-dashed border-border bg-background"
+              p.ready ? "border-success/60 bg-success/10" : "border-dashed border-border bg-background"
             )}
             style={{ touchAction: "none" }}
           >
             <span className="uppercase text-foreground">{p.name}</span>
-            <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-black", p.ready ? "bg-emerald-500 text-white" : "bg-secondary text-muted-foreground")}>
+            <span className={cn("rounded px-1.5 py-0.5 text-[10px] font-black", p.ready ? "bg-success text-white" : "bg-secondary text-muted-foreground")}>
               {p.ready ? "READY" : "WAIT"}
             </span>
           </button>

@@ -115,7 +115,7 @@ export function SmartSearchBar({
                 onValueChange?.(h);
                 submit(h);
               }}
-              className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-left font-mono text-sm transition-colors hover:bg-secondary"
+              className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-start font-mono text-sm transition-colors hover:bg-secondary"
             >
               <span aria-hidden className="text-muted-foreground">◷</span>
               <span className="truncate">{h}</span>

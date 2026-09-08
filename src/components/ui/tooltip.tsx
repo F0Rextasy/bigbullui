@@ -7,9 +7,11 @@ export type TooltipProps = React.HTMLAttributes<HTMLSpanElement> & {
   content: React.ReactNode;
   side?: "top" | "bottom";
   delayMs?: number;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 };
 
-export function Tooltip({ content, side = "top", delayMs = 300, className, children, ...props }: TooltipProps) {
+export function Tooltip({ content, side = "top", delayMs = 300, animated = true, className, children, ...props }: TooltipProps) {
   const [visible, setVisible] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const timer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -45,7 +47,8 @@ export function Tooltip({ content, side = "top", delayMs = 300, className, child
           role="tooltip"
           id={descriptionId}
           className={cn(
-            "pointer-events-none absolute left-1/2 z-50 w-max max-w-64 -translate-x-1/2 rounded-md border border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-primary-foreground animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none",
+            "pointer-events-none absolute left-1/2 z-50 w-max max-w-64 -translate-x-1/2 rounded-md border border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-primary-foreground",
+            animated && "animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none",
             side === "top" ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"
           )}
         >

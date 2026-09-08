@@ -18,7 +18,7 @@ export function AdminMarketing() {
     <div className="w-full space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">HYPE // MARKETING</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">HYPE{" // "}MARKETING</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Campaign ledger</h2>
         </div>
         <Button size="sm">New campaign</Button>
@@ -33,7 +33,7 @@ export function AdminMarketing() {
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="min-w-0">
                   <p className="truncate font-mono text-sm font-black uppercase tracking-wide">{row.name}</p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{row.channel} // {row.budget}</p>
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{row.channel}{" // "}{row.budget}</p>
                 </div>
                 <Badge variant={row.status === "LIVE" ? "accent" : row.status === "ENDING" ? "secondary" : "outline"}>{row.status}</Badge>
               </div>

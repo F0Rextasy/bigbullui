@@ -74,7 +74,7 @@ const DropdownMenuV2 = React.forwardRef<HTMLDivElement, DropdownMenuV2Props>(
                       fill="none"
                       stroke="currentColor"
                       strokeWidth={2}
-                      className="mt-0.5 -ml-0.5 transition-transform group-open:rotate-180"
+                      className="mt-0.5 -ms-0.5 transition-transform group-open:rotate-180"
                     >
                       <path d="M6 9l6 6 6-6" />
                     </svg>
@@ -101,7 +101,7 @@ const DropdownMenuV2 = React.forwardRef<HTMLDivElement, DropdownMenuV2Props>(
                     type="checkbox"
                     className={cn("w-4 h-4 rounded border border-primary bg-primary/10 cursor-pointer", "motion-reduce:transition-none")}
                   />
-                  <span className="ml-2 text-sm">{item.label}</span>
+                  <span className="ms-2 text-sm">{item.label}</span>
                 </div>
               );
             }
@@ -118,7 +118,7 @@ const DropdownMenuV2 = React.forwardRef<HTMLDivElement, DropdownMenuV2Props>(
                       "motion-reduce:transition-none"
                     )}
                   />
-                  <span className="ml-2 text-sm flex-1">{item.label}</span>
+                  <span className="ms-2 text-sm flex-1">{item.label}</span>
                 </div>
               );
             }
@@ -135,8 +135,8 @@ const DropdownMenuV2 = React.forwardRef<HTMLDivElement, DropdownMenuV2Props>(
               >
                 {item.shortcut ? (
                   <>
-                    <span className="ml-2 text-xs opacity-60">{item.shortcut}</span>
-                    <span className="ml-2 text-sm">{item.label}</span>
+                    <span className="ms-2 text-xs opacity-60">{item.shortcut}</span>
+                    <span className="ms-2 text-sm">{item.label}</span>
                   </>
                 ) : (
                   item.label

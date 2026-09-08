@@ -120,7 +120,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
                 onClick={() => toggleOption(opt.value)}
                 onKeyDown={handleKeyDown}
               >
-                <span className="mr-2">{opt.label}</span>
+                <span className="me-2">{opt.label}</span>
               </div>
             ))}
 

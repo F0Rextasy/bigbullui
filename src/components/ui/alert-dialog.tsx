@@ -10,6 +10,8 @@ export type AlertDialogProps = {
   onOpenChange: (open: boolean) => void;
   title?: string;
   description?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
   confirmLabel?: string;
   cancelLabel?: string;
   destructive?: boolean;
@@ -66,6 +68,7 @@ export function AlertDialog({
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
   destructive = false,
+  animated = true,
   onConfirm,
   onCancel,
   className,
@@ -94,8 +97,8 @@ export function AlertDialog({
     >
       <div
         className={cn(
-          "relative w-full max-w-lg bg-card rounded-lg border border-border p-6 shadow-lg transition-all duration-300",
-          "motion-reduce:transition-none",
+          "relative w-full max-w-lg bg-card rounded-lg border border-border p-6 shadow-lg",
+          animated ? "transition-all duration-300 motion-reduce:transition-none" : "transition-none",
           className
         )}
         onClick={(e) => e.stopPropagation()}

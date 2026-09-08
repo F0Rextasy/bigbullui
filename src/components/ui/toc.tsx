@@ -49,7 +49,7 @@ export function Toc({ headings, className }: TocProps) {
       {headings.map((heading, index) => {
         const isActive = index === activeIndex;
         const levelClass = heading.level === 2 ? "text-lg" : "text-base";
-        const indent = heading.level === 3 ? "pl-3" : "";
+        const indent = heading.level === 3 ? "ps-3" : "";
 
         return (
           <button

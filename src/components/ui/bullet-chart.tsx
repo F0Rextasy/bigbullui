@@ -25,8 +25,8 @@ export function BulletChart({ label, value, target, max, unit = "", className, .
       <div className="flex items-baseline justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
         <span className="font-mono text-xs tabular-nums">
-          <span className={hit ? "text-emerald-700 dark:text-emerald-400" : "text-amber-600"}>{value.toLocaleString("tr-TR")}{unit}</span>
-          <span className="text-muted-foreground"> / {target.toLocaleString("tr-TR")}{unit} hedef</span>
+          <span className={hit ? "text-success" : "text-warning"}>{value.toLocaleString("en-US")}{unit}</span>
+          <span className="text-muted-foreground"> / {target.toLocaleString("en-US")}{unit} target</span>
         </span>
       </div>
       <div className="relative mt-2 h-4 overflow-hidden rounded-sm border border-border bg-secondary/50">
@@ -35,14 +35,14 @@ export function BulletChart({ label, value, target, max, unit = "", className, .
         <div className="absolute inset-y-0 left-1/3 w-1/3 bg-secondary/40" aria-hidden="true" />
         {/* Value bar */}
         <div
-          className={cn("absolute inset-y-0 left-0 rounded-r-sm transition-all duration-700 ease-out motion-reduce:transition-none", hit ? "bg-emerald-500/70" : "bg-accent/70")}
+          className={cn("absolute inset-y-0 left-0 rounded-r-sm transition-all duration-700 ease-out motion-reduce:transition-none", hit ? "bg-success/70" : "bg-accent/70")}
           style={{ width: `${vpct}%`, animation: "bltGrow 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
         />
         {/* Target marker */}
         <div className="absolute inset-y-0 w-0.5 bg-foreground" style={{ left: `${tpct}%` }} aria-hidden="true" />
       </div>
       {!hit && (
-        <p className="mt-1 font-mono text-[9px] text-amber-600">
+        <p className="mt-1 font-mono text-[9px] text-warning">
           {(target - value).toLocaleString("en-US")}{unit} to target
         </p>
       )}

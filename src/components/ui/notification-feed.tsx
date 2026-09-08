@@ -18,9 +18,9 @@ export interface NotificationFeedProps extends React.HTMLAttributes<HTMLDivEleme
 }
 
 const TYPE_ICON: Record<string, { bg: string; glyph: string }> = {
-  info: { bg: "bg-sky-500/15 text-sky-600", glyph: "i" },
-  success: { bg: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400", glyph: "✓" },
-  warning: { bg: "bg-amber-500/15 text-amber-600", glyph: "!" },
+  info: { bg: "bg-info/15 text-info", glyph: "i" },
+  success: { bg: "bg-success/15 text-success", glyph: "✓" },
+  warning: { bg: "bg-warning/15 text-warning", glyph: "!" },
   error: { bg: "bg-destructive/15 text-destructive", glyph: "×" },
 };
 
@@ -61,7 +61,7 @@ export function NotificationFeed({ notifications, onMarkRead, className, ...prop
                 onClick={() => mark(n.id)}
                 className="shrink-0 rounded-sm border border-dashed border-border px-2 py-0.5 font-mono text-[9px] uppercase text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               >
-                Okundu
+                Mark read
               </button>
             )}
           </div>

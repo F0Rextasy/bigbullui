@@ -22,7 +22,7 @@ export function AppPlayer() {
     <div className="w-full space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOOTH // PLAYER</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOOTH{" // "}PLAYER</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Show tapes</h2>
         </div>
         <Badge variant="accent">{playing ? "NOW PLAYING" : "PAUSED"}</Badge>
@@ -42,7 +42,7 @@ export function AppPlayer() {
             >
               <span className="min-w-0">
                 <span className="block truncate font-mono text-sm font-bold">{episode.title}</span>
-                <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">EP {episode.id.toUpperCase()} // {episode.length}</span>
+                <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">EP {episode.id.toUpperCase()}{" // "}{episode.length}</span>
               </span>
               <Badge variant={current === episode.id ? "accent" : "outline"}>{current === episode.id ? "CUED" : "QUEUED"}</Badge>
             </button>
@@ -67,7 +67,7 @@ export function AppPlayer() {
               {playing ? "Pause" : "Play"}
             </Button>
             <Button size="sm" variant="outline">Next</Button>
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">CH {active.mark}% // 1X SPEED</span>
+            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">CH {active.mark}%{" // "}1X SPEED</span>
           </div>
         </CardContent>
       </Card>

@@ -43,8 +43,8 @@ export function Sparkline({
 
   const areaData = `${pathData} L ${points[points.length - 1].x} ${height - padding} L ${points[0].x} ${height - padding} Z`;
 
-  const strokeColor = tone === "accent" ? "var(--color-accent, #BC3A28)" : "currentColor";
-  const areaColor = tone === "accent" ? "var(--color-accent, #BC3A28)" : "currentColor";
+  const strokeColor = tone === "accent" ? "var(--color-accent)" : "currentColor";
+  const areaColor = tone === "accent" ? "var(--color-accent)" : "currentColor";
 
   return (
     <svg

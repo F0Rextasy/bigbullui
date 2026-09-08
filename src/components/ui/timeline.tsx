@@ -15,7 +15,7 @@ export interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Timeline({ items, className, ...props }: TimelineProps) {
   return (
-    <div className={cn("relative space-y-6 pl-6", className)} {...props}>
+    <div className={cn("relative space-y-6 ps-6", className)} {...props}>
       {/* Continuous dashed vertical stem */}
       <div className="absolute left-[11px] top-2 bottom-2 w-0 border-l-2 border-dashed border-border" />
 
@@ -26,7 +26,7 @@ export function Timeline({ items, className, ...props }: TimelineProps) {
             {/* Node stamp */}
             <div
               className={cn(
-                "relative z-10 -ml-6 mt-0.5 flex size-6 items-center justify-center rounded-full border-2 bg-card font-mono text-[10px] font-bold shadow-xs",
+                "relative z-10 -ms-6 mt-0.5 flex size-6 items-center justify-center rounded-full border-2 bg-card font-mono text-[10px] font-bold shadow-xs",
                 isAccent ? "border-accent text-accent" : "border-foreground text-foreground"
               )}
             >

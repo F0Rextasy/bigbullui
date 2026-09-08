@@ -5,7 +5,7 @@
 
 # bigbullui
 
-> 653 tactile, copy-paste React 19 + Tailwind CSS 4 components you own. Zero external dependencies. Open source, MIT licensed.
+> 659 tactile, copy-paste React 19 + Tailwind CSS 4 components you own. Zero external dependencies. Open source, MIT licensed.
 
 [![npm version](https://badge.fury.io/js/bigbullui.svg)](https://www.npmjs.com/package/bigbullui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/F0Rextasy/bigbullui/blob/main/LICENSE)
@@ -22,7 +22,7 @@
 - **Code You Own** — Run the CLI or copy source files directly into your codebase. No black-box npm lock-in.
 - **Tailwind CSS v4 Native** — Driven entirely by CSS variables and `@theme inline` with warm cream paper and night stub themes.
 - **Accessible by Default** — Full WAI-ARIA support, keyboard roving tabindex, focus rings, and `prefers-reduced-motion` fallbacks.
-- **653 Crafted Components** — From foundational form controls and data tables to rich charts and retro interactive widgets.
+- **659 Crafted Components** — From foundational form controls and data tables to rich charts and retro interactive widgets.
 
 ## Quick Start (CLI — Recommended)
 
@@ -36,6 +36,12 @@ Add any component directly to your project:
 
 ```bash
 npx bigbullui add button card dialog metric-card
+```
+
+Works with the shadcn CLI too — every component is published as registry JSON:
+
+```bash
+npx shadcn@latest add https://ui.bigbullapp.com/r/button.json
 ```
 
 Use immediately in your views:
@@ -61,6 +67,8 @@ Add the design tokens to your global CSS:
 ```css
 @import "tailwindcss";
 @import "bigbullui/css";
+/* Optional: Windows High Contrast / forced-colors support */
+/* @import "bigbullui/high-contrast.css"; */
 ```
 
 Import and use:
@@ -68,6 +76,22 @@ Import and use:
 ```tsx
 import { Button, Card, MetricCard } from "bigbullui";
 ```
+
+### Companion: bigbullicons (1023 Ticket Stub stroke icons)
+
+```bash
+npm install bigbullicons
+```
+
+```tsx
+import { StampIcon } from "bigbullicons";
+
+export function Example() {
+  return <StampIcon name="ticket" size={20} />;
+}
+```
+
+Browse every icon with live animated previews at [ui.bigbullapp.com/icons](https://ui.bigbullapp.com/icons) — or pull a single icon into any project with `npx bigbullui add icon-ticket`.
 
 ### Manual Copy-Paste Alternative
 

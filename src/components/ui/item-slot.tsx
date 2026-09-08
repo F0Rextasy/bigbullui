@@ -17,7 +17,7 @@ export function ItemSlot({ name = "Medkit", count = 3, rarity = "rare", selected
     common: "border-border",
     rare: "border-primary",
     epic: "border-accent",
-    legendary: "border-amber-500",
+    legendary: "border-warning",
   };
   return (
     <button

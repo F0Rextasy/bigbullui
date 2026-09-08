@@ -94,13 +94,13 @@ export function TicketCard({
       {/* Perforation Divider with Punch Notches */}
       <div className="relative flex md:flex-col items-center justify-between md:py-0">
         {/* Top/Left notch */}
-        <div className="size-5 rounded-full bg-background border-2 border-foreground -ml-2.5 md:ml-0 md:-mt-2.5 shrink-0" />
+        <div className="size-5 rounded-full bg-background border-2 border-foreground -ms-2.5 md:ms-0 md:-mt-2.5 shrink-0" />
         
         {/* Dashed line */}
         <div className="h-0 w-full md:w-0 md:h-full border-t-2 md:border-t-0 md:border-l-2 border-dashed border-border" />
         
         {/* Bottom/Right notch */}
-        <div className="size-5 rounded-full bg-background border-2 border-foreground -mr-2.5 md:mr-0 md:-mb-2.5 shrink-0" />
+        <div className="size-5 rounded-full bg-background border-2 border-foreground -me-2.5 md:me-0 md:-mb-2.5 shrink-0" />
       </div>
 
       {/* Tear-off Stub Portion */}

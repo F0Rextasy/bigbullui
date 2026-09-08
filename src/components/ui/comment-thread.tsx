@@ -34,7 +34,7 @@ const CommentThread: React.FC<CommentThreadProps> = ({
         key={node.id}
         className={cn(
           "flex flex-col gap-1",
-          depth > 0 && "pl-4 border-l-2 border-border/40"
+          depth > 0 && "ps-4 border-l-2 border-border/40"
         )}
       >
         <div className="flex items-start gap-2">
@@ -62,7 +62,7 @@ const CommentThread: React.FC<CommentThreadProps> = ({
         {node.children && node.children.length > 0 && depth < maxDepth && (
           <div
             className={cn(
-              "mt-2 pl-1 border-l-2 border-dashed border-border/30",
+              "mt-2 ps-1 border-l-2 border-dashed border-border/30",
               "motion-reduce:transition-none"
             )}
           >

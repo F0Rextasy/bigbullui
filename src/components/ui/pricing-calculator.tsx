@@ -39,7 +39,7 @@ export function PricingCalculator({ unitPrice = 45, className, ...props }: Prici
       </div>
       <label className="mt-2 flex cursor-pointer items-center justify-between text-xs font-bold">
         VIP upgrade (+$30 / seat)
-        <input type="checkbox" checked={vip} onChange={(e) => setVip(e.target.checked)} className="size-4 accent-[#BC3A28]" />
+        <input type="checkbox" checked={vip} onChange={(e) => setVip(e.target.checked)} className="size-4 accent-accent" />
       </label>
       <div className="mt-3 flex items-center justify-between border-t-2 border-dashed border-border pt-3">
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Estimate</span>

@@ -27,7 +27,7 @@ export function BulkActions({ count = 3, onAction, onClear, className, ...props 
           {a}
         </button>
       ))}
-      <button type="button" onClick={onClear} className="ml-auto font-mono text-[10px] uppercase text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <button type="button" onClick={onClear} className="ms-auto font-mono text-[10px] uppercase text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
         Clear
       </button>
     </div>

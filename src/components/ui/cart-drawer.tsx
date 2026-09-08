@@ -131,7 +131,7 @@ export function CartDrawer({
                 <button
                   onClick={() => onRemove(it.id)}
                   className={cn(
-                    "ml-3 rounded border border-destructive text-destructive text-xs hover:bg-destructive/10 transition-colors",
+                    "ms-3 rounded border border-destructive text-destructive text-xs hover:bg-destructive/10 transition-colors",
                     FocusTrap
                   )}
                   aria-label="remove item"

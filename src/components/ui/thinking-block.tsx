@@ -26,7 +26,7 @@ export function ThinkingBlock({
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <span className="relative flex size-2 shrink-0" aria-hidden="true">
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
@@ -35,7 +35,7 @@ export function ThinkingBlock({
         <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
           {title}
         </span>
-        <span className="ml-auto rounded border border-dashed border-border px-1.5 py-px font-mono text-[10px] text-muted-foreground">
+        <span className="ms-auto rounded border border-dashed border-border px-1.5 py-px font-mono text-[10px] text-muted-foreground">
           {elapsedMs} MS
         </span>
         <span aria-hidden="true" className={cn("font-mono text-xs text-muted-foreground transition-transform motion-reduce:transition-none", open && "rotate-90")}>

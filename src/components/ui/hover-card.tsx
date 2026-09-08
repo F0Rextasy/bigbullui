@@ -238,6 +238,8 @@ export interface HoverCardContentProps extends React.HTMLAttributes<HTMLDivEleme
   showBeak?: boolean;
   children: React.ReactNode;
   className?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
 export function HoverCardContent({
@@ -246,6 +248,7 @@ export function HoverCardContent({
   showBeak = true,
   children,
   className,
+  animated = true,
   ...props
 }: HoverCardContentProps) {
   const ctx = useHoverCardContext();
@@ -262,7 +265,8 @@ export function HoverCardContent({
       onMouseEnter={ctx.handleContentEnter}
       onMouseLeave={ctx.handleContentLeave}
       className={cn(
-        "absolute z-50 w-80 rounded-lg border-2 border-foreground bg-card text-card-foreground p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] outline-border animate-[scale-in_0.16s_ease-out_both] select-none",
+        "absolute z-50 w-80 rounded-lg border-2 border-foreground bg-card text-card-foreground p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] outline-border select-none",
+        animated && "animate-[scale-in_0.16s_ease-out_both]",
         side === "top"
           ? "bottom-[calc(100%+10px)]"
           : "top-[calc(100%+10px)]",
@@ -354,7 +358,7 @@ export function HoverCardSeatSummary({
       .toUpperCase();
 
   return (
-    <div className={cn("flex flex-col text-left", className)} {...props}>
+    <div className={cn("flex flex-col text-start", className)} {...props}>
       {/* Top micro metadata header */}
       <div className="flex items-center justify-between gap-2 border-b border-dashed border-border pb-2.5">
         <span className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-accent">
@@ -488,7 +492,7 @@ export function HoverCardSeatSummary({
 }
 
 export function HoverCardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("mb-2 flex flex-col gap-1 text-left", className)} {...props} />;
+  return <div className={cn("mb-2 flex flex-col gap-1 text-start", className)} {...props} />;
 }
 
 export function HoverCardTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {

@@ -29,9 +29,9 @@ export function SettingsSheet({ open = true, title = "Settings", onClose, classN
       <div className="max-h-64 space-y-2 overflow-y-auto p-3">
         {children ?? (
           <>
-            <div className="flex min-h-11 items-center justify-between rounded-md border border-dashed border-border px-2.5 font-mono text-xs"><span>Music</span><span className="font-bold text-emerald-700 dark:text-emerald-400">ON</span></div>
+            <div className="flex min-h-11 items-center justify-between rounded-md border border-dashed border-border px-2.5 font-mono text-xs"><span>Music</span><span className="font-bold text-success">ON</span></div>
             <div className="flex min-h-11 items-center justify-between rounded-md border border-dashed border-border px-2.5 font-mono text-xs"><span>Haptics</span><span className="font-bold text-muted-foreground">OFF</span></div>
-            <div className="flex min-h-11 items-center justify-between rounded-md border border-dashed border-border px-2.5 font-mono text-xs"><span>Shadows</span><span className="font-bold text-emerald-700 dark:text-emerald-400">HIGH</span></div>
+            <div className="flex min-h-11 items-center justify-between rounded-md border border-dashed border-border px-2.5 font-mono text-xs"><span>Shadows</span><span className="font-bold text-success">HIGH</span></div>
           </>
         )}
       </div>

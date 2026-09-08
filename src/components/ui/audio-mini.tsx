@@ -72,7 +72,7 @@ export function AudioMini({
         </div>
 
         {/* Equalizer Sound Waves */}
-        <div className="flex items-end gap-1 h-5 pl-2">
+        <div className="flex items-end gap-1 h-5 ps-2">
           {[40, 80, 55, 100, 70].map((h, i) => (
             <div
               key={i}

@@ -245,7 +245,7 @@ export function RadioCard({
       onClick={handleClick}
       className={cn(
         // Base ticket frame geometry
-        "relative flex flex-col justify-between rounded-lg border-2 p-5 text-left transition-all duration-200 select-none outline-none",
+        "relative flex flex-col justify-between rounded-lg border-2 p-5 text-start transition-all duration-200 select-none outline-none",
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         // Interactive state
         isDisabled

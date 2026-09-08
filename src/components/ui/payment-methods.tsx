@@ -41,7 +41,7 @@ export function PaymentMethods({ methods, value, defaultValue, onValueChange, cl
             aria-checked={selected}
             onClick={() => { setInternal(m.id); onValueChange?.(m.id); }}
             className={cn(
-              "flex items-center gap-2.5 rounded-md border p-3 text-left transition-all duration-200 motion-reduce:transition-none",
+              "flex items-center gap-2.5 rounded-md border p-3 text-start transition-all duration-200 motion-reduce:transition-none",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               "animate-[pmIn_0.3s_ease-out_both] motion-reduce:animate-none",
               selected ? "border-accent bg-accent/5" : "border-border hover:border-foreground/40"

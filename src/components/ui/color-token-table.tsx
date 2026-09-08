@@ -31,9 +31,9 @@ export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTable
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-            <th className="px-3 py-2 text-left font-medium">Token</th>
-            <th className="px-3 py-2 text-left font-medium">Value</th>
-            <th className="px-3 py-2 text-right font-medium">Kopyala</th>
+            <th className="px-3 py-2 text-start font-medium">Token</th>
+            <th className="px-3 py-2 text-start font-medium">Value</th>
+            <th className="px-3 py-2 text-right font-medium">Copy</th>
           </tr>
         </thead>
         <tbody>

@@ -64,7 +64,7 @@ export function DiffViewer({
         {diffLines.map((line, idx) => {
           const bgClass =
             line.type === "added"
-              ? "bg-emerald-100 text-emerald-800"
+              ? "bg-success text-success"
               : line.type === "removed"
                 ? "bg-destructive/10 text-destructive"
                 : "bg-muted/50 text-muted-foreground";

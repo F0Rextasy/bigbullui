@@ -32,10 +32,10 @@ export function OrderCard({
         <span className="font-mono text-sm uppercase tracking-widest">Order {orderId}</span>
         <span className={cn(
           "px-2 py-0.5 rounded text-xs font-mono uppercase tracking-wider",
-          status === "Processing" && "bg-amber-500 text-amber-100",
-          status === "Shipped" && "bg-green-500 text-green-100",
-          status === "Delivered" && "bg-emerald-500 text-emerald-100",
-          status === "Cancelled" && "bg-destructive text-destructive-foreground",
+          status === "Processing" && "bg-warning text-white",
+          status === "Shipped" && "bg-success text-white",
+          status === "Delivered" && "bg-success text-white",
+          status === "Cancelled" && "bg-destructive text-white",
           StatusEnter
         )}>
           {status}

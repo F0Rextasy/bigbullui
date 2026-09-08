@@ -38,8 +38,8 @@ if (start === -1 || endExcl === 0) {
 }
 const count = entries.length;
 const head = lines.slice(0, start).join("\n")
-  .replace(/460\+ tactile/, `${count} tactile`)
-  .replace(/\*\*460\+ Crafted Components\*\*/, `**${count} Crafted Components**`);
+  .replace(/\d+ tactile/, `${count} tactile`)
+  .replace(/\*\*\d+ Crafted Components\*\*/, `**${count} Crafted Components**`);
 const out = head + "\n" + blocks + lines.slice(endExcl).join("\n");
 fs.writeFileSync(readmePath, out);
 console.log(`generate-readme: ${count} components across ${SECTIONS.length} sections`);

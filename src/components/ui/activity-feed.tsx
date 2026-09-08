@@ -279,7 +279,7 @@ const badgeVariants: Record<ActivityBadgeTone, string> = {
   default: "border-foreground/50 bg-secondary text-foreground",
   accent: "border-accent text-accent bg-accent/10",
   success: "border-foreground bg-primary text-primary-foreground",
-  warning: "border-amber-600/70 text-amber-700 dark:text-amber-300 bg-amber-500/10",
+  warning: "border-warning/70 text-warning bg-warning/10",
   destructive: "border-destructive text-destructive bg-destructive/10",
   outline: "border-dashed border-border bg-transparent text-muted-foreground",
 };
@@ -382,7 +382,7 @@ export function ActivityFeed({
       {allowFiltering && (
         <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-dashed border-border bg-secondary/30 px-3.5 py-2 sm:px-4">
           <div className="flex items-center gap-1.5">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground mr-1">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground me-1">
               FILTER:
             </span>
             {[
@@ -450,7 +450,7 @@ export function ActivityFeed({
                 )}
 
                 {/* Timeline Items */}
-                <div className="relative pl-7 sm:pl-9 space-y-5">
+                <div className="relative ps-7 sm:ps-9 space-y-5">
                   {/* Vertical Continuous Perforation Stem */}
                   <div
                     className="absolute left-3 sm:left-4 top-2 bottom-2 w-0 border-l-2 border-dashed border-border"

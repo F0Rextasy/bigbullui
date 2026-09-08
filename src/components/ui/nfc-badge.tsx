@@ -146,7 +146,7 @@ export function NfcBadge({
             className={cn(
               "rotate-[-3deg] rounded-sm border-2 px-2.5 py-0.5 font-mono text-[10px] font-black uppercase tracking-widest shadow-xs",
               currentStatus === "success"
-                ? "border-emerald-600 bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 dark:border-emerald-400 dark:text-emerald-400"
+                ? "border-success bg-success/15 text-success"
                 : "border-accent bg-accent/15 text-accent"
             )}
           >
@@ -193,7 +193,7 @@ export function NfcBadge({
             currentStatus === "scanning" &&
               "border-accent bg-accent/10 shadow-inner ring-2 ring-accent/30",
             currentStatus === "success" &&
-              "border-emerald-600 bg-emerald-500/10 dark:border-emerald-400",
+              "border-success bg-success/10",
             currentStatus === "denied" &&
               "border-destructive bg-destructive/10"
           )}
@@ -208,7 +208,7 @@ export function NfcBadge({
                 currentStatus === "scanning"
                   ? "border-accent animate-ping"
                   : currentStatus === "success"
-                  ? "border-emerald-500 animate-ping"
+                  ? "border-success animate-ping"
                   : "group-hover:border-foreground/40 group-hover:animate-ping"
               )}
             />
@@ -217,7 +217,7 @@ export function NfcBadge({
               className={cn(
                 "absolute -inset-2 rounded-full border border-dashed opacity-0 transition-opacity",
                 currentStatus === "scanning" && "border-accent animate-pulse opacity-100",
-                currentStatus === "success" && "border-emerald-500 animate-pulse opacity-100",
+                currentStatus === "success" && "border-success animate-pulse opacity-100",
                 currentStatus === "idle" && "group-hover:opacity-40"
               )}
             />
@@ -228,7 +228,7 @@ export function NfcBadge({
                 "flex size-14 items-center justify-center rounded-full border-2 transition-transform duration-200 group-hover:scale-105",
                 currentStatus === "idle" && "border-foreground bg-card text-foreground shadow-xs",
                 currentStatus === "scanning" && "border-accent bg-accent text-accent-foreground scale-110 shadow-md",
-                currentStatus === "success" && "border-emerald-600 bg-emerald-600 text-white scale-110 shadow-md",
+                currentStatus === "success" && "border-success bg-success text-white scale-110 shadow-md",
                 currentStatus === "denied" && "border-destructive bg-destructive text-white"
               )}
             >
@@ -301,7 +301,7 @@ export function NfcBadge({
                 currentStatus === "scanning" &&
                   "border-accent bg-accent text-accent-foreground animate-pulse",
                 currentStatus === "success" &&
-                  "border-emerald-600 bg-emerald-600 text-white font-bold",
+                  "border-success bg-success text-white font-bold",
                 currentStatus === "denied" &&
                   "border-destructive bg-destructive text-white font-bold"
               )}
@@ -331,7 +331,7 @@ export function NfcBadge({
           {/* Successful Admission Chime Visual Indicator */}
           {showChimeVisual && currentStatus === "success" && (
             <div
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded border border-emerald-500/40 bg-emerald-500/15 px-3 py-1.5 text-emerald-700 dark:text-emerald-300 animate-in fade-in zoom-in-95 duration-200"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded border border-success/40 bg-success/15 px-3 py-1.5 text-success animate-in fade-in zoom-in-95 duration-200"
               aria-live="polite"
             >
               {/* Chime Bell Icon */}

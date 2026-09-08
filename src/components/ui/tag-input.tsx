@@ -370,7 +370,7 @@ export function TagInput({
                   }}
                   aria-label={`Remove tag ${tag}`}
                   className={cn(
-                    "ml-0.5 flex size-4 items-center justify-center rounded-full border text-muted-foreground transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-accent",
+                    "ms-0.5 flex size-4 items-center justify-center rounded-full border text-muted-foreground transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-accent",
                     isPendingDelete
                       ? "border-destructive bg-destructive text-white"
                       : "border-border/80 bg-secondary/80 hover:border-destructive hover:bg-destructive hover:text-white active:scale-90"

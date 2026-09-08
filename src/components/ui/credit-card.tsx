@@ -559,7 +559,7 @@ function BrandBadge({ brand, mini = false }: { brand: CardBrand; mini?: boolean 
       >
         <div className="flex items-center">
           <div className="size-3.5 sm:size-4 rounded-full bg-accent" />
-          <div className="-ml-2 size-3.5 sm:size-4 rounded-full bg-muted-foreground/60" />
+          <div className="-ms-2 size-3.5 sm:size-4 rounded-full bg-muted-foreground/60" />
         </div>
         {!mini && (
           <span className="hidden sm:inline font-mono text-[9px] font-black tracking-tight text-foreground">

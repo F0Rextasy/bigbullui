@@ -12,10 +12,10 @@ export interface SaveIndicatorProps extends React.HTMLAttributes<HTMLSpanElement
 /** Autosave state indicator: smooth state transitions with checkmark. */
 export function SaveIndicator({ status = "idle", label, className, ...props }: SaveIndicatorProps) {
   const meta: Record<string, { text: string; tone: string; icon: React.ReactNode }> = {
-    idle: { text: "Kaydedildi", tone: "text-muted-foreground", icon: <span className="size-1.5 rounded-full bg-border" /> },
-    saving: { text: "Kaydediliyor…", tone: "text-muted-foreground", icon: <span className="size-2.5 rounded-full border-2 border-border border-t-accent animate-spin motion-reduce:animate-none" /> },
-    saved: { text: "✓ Kaydedildi", tone: "text-emerald-700 dark:text-emerald-400", icon: <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse motion-reduce:animate-none" /> },
-    error: { text: "Kaydedilemedi", tone: "text-destructive", icon: <span className="size-1.5 rounded-full bg-destructive animate-pulse motion-reduce:animate-none" /> },
+    idle: { text: "Saved", tone: "text-muted-foreground", icon: <span className="size-1.5 rounded-full bg-border" /> },
+    saving: { text: "Saving…", tone: "text-muted-foreground", icon: <span className="size-2.5 rounded-full border-2 border-border border-t-accent animate-spin motion-reduce:animate-none" /> },
+    saved: { text: "✓ Saved", tone: "text-success", icon: <span className="size-1.5 rounded-full bg-success animate-pulse motion-reduce:animate-none" /> },
+    error: { text: "Save failed", tone: "text-destructive", icon: <span className="size-1.5 rounded-full bg-destructive animate-pulse motion-reduce:animate-none" /> },
   };
   const m = meta[status];
 

@@ -20,7 +20,7 @@ export function AdminSupport() {
     <div className="w-full space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DESK // SUPPORT QUEUE</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DESK{" // "}SUPPORT QUEUE</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Ticket inbox</h2>
         </div>
         <Badge variant="accent">3 OPEN</Badge>
@@ -41,7 +41,7 @@ export function AdminSupport() {
               >
                 <Avatar name={ticket.who} size="sm" />
                 <span className="min-w-0 flex-1">
-                  <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{ticket.id} // {ticket.who}</span>
+                  <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{ticket.id}{" // "}{ticket.who}</span>
                   <span className="block truncate font-mono text-sm font-bold">{ticket.subject}</span>
                 </span>
                 <Badge variant={ticket.tone}>{ticket.sla}</Badge>

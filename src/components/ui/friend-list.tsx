@@ -28,7 +28,7 @@ export function FriendList({ friends, onInvite, className, ...props }: FriendLis
         <div key={f.id} role="listitem" className="flex min-h-11 items-center gap-2.5 rounded-md border border-border bg-card px-2.5 py-1.5">
           <span className="relative flex size-11 shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-secondary font-mono text-[10px] font-black" aria-hidden="true">
             {f.name.slice(0, 1)}
-            <span className={cn("absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-card", f.online ? "bg-emerald-500" : "bg-muted-foreground")} />
+            <span className={cn("absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-card", f.online ? "bg-success" : "bg-muted-foreground")} />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block truncate font-mono text-xs font-bold uppercase text-foreground">{f.name}</span>

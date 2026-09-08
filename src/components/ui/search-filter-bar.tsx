@@ -62,7 +62,7 @@ export function SearchFilterBar({
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
           aria-label={placeholder}
-          className="w-full rounded-md border border-input bg-background py-1.5 pl-8 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
+          className="w-full rounded-md border border-input bg-background py-1.5 ps-8 pe-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
         />
       </div>
 

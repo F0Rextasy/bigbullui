@@ -81,7 +81,7 @@ export function ComboButtons({
             style={{ animationDuration: `${timeoutMs}ms` }}
           />
         )}
-        {done && <div className="h-full w-full rounded-full bg-emerald-500" />}
+        {done && <div className="h-full w-full rounded-full bg-success" />}
       </div>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {options.map((g) => (
@@ -99,13 +99,13 @@ export function ComboButtons({
         <button
           type="button"
           onClick={() => setCycle((c) => c + 1)}
-          className="ml-auto min-h-11 touch-none rounded-md px-3 font-mono text-[11px] uppercase text-muted-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="ms-auto min-h-11 touch-none rounded-md px-3 font-mono text-[11px] uppercase text-muted-foreground underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Reset
         </button>
       </div>
       {done && (
-        <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+        <p className="mt-2 font-mono text-[11px] font-bold uppercase tracking-wider text-success">
           Combo complete
         </p>
       )}

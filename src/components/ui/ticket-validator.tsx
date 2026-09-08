@@ -37,7 +37,7 @@ export function TicketValidator({ onValidate, result, className, ...props }: Tic
           className={cn(
             "flex size-14 items-center justify-center rounded-full border-4 transition-colors duration-300 motion-reduce:transition-none",
             state === null && "border-border bg-secondary",
-            state === true && "border-emerald-500 bg-emerald-500/20",
+            state === true && "border-success bg-success/20",
             state === false && "border-destructive bg-destructive/20 animate-[tvShake_0.3s_ease-out] motion-reduce:animate-none"
           )}
           role="status"
@@ -46,7 +46,7 @@ export function TicketValidator({ onValidate, result, className, ...props }: Tic
             className={cn(
               "size-5 rounded-full",
               state === null && "bg-border",
-              state === true && "bg-emerald-500 animate-[tvBlink_0.8s_ease-in-out_2] motion-reduce:animate-none",
+              state === true && "bg-success animate-[tvBlink_0.8s_ease-in-out_2] motion-reduce:animate-none",
               state === false && "bg-destructive animate-[tvBlink_0.5s_ease-in-out_3] motion-reduce:animate-none"
             )}
           />
@@ -68,7 +68,7 @@ export function TicketValidator({ onValidate, result, className, ...props }: Tic
       >
         Validate
       </button>
-      <p className={cn("mt-2 text-center font-mono text-[10px] uppercase tracking-wider", state === true ? "text-emerald-700 dark:text-emerald-400" : state === false ? "text-destructive" : "text-muted-foreground")}>
+      <p className={cn("mt-2 text-center font-mono text-[10px] uppercase tracking-wider", state === true ? "text-success" : state === false ? "text-destructive" : "text-muted-foreground")}>
         {state === null ? "Ready" : state ? "✓ VALID" : "✗ INVALID"}
       </p>
     </div>

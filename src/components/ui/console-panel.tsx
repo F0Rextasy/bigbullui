@@ -29,7 +29,7 @@ export function ConsolePanel({ lines, prompt = ">", onSubmit, className, ...prop
     input: "text-accent",
     output: "text-foreground/90",
     error: "text-destructive",
-    accent: "text-emerald-500",
+    accent: "text-success",
   };
 
   return (
@@ -43,14 +43,14 @@ export function ConsolePanel({ lines, prompt = ">", onSubmit, className, ...prop
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">konsol</span>
         <span className="flex gap-1" aria-hidden="true">
           <span className="size-1.5 rounded-full bg-destructive/70" />
-          <span className="size-1.5 rounded-full bg-amber-500/70" />
-          <span className="size-1.5 rounded-full bg-emerald-500/70" />
+          <span className="size-1.5 rounded-full bg-warning/70" />
+          <span className="size-1.5 rounded-full bg-success/70" />
         </span>
       </div>
       <div ref={scrollRef} className="max-h-56 overflow-y-auto p-3">
         {lines.map((line, idx) => (
           <div key={line.id} className={cn("leading-5 animate-[cpIn_0.2s_ease-out_both] motion-reduce:animate-none", toneClass[line.tone ?? "output"])} style={{ animationDelay: `${Math.min(idx, 20) * 25}ms` }}>
-            {line.tone === "input" && <span className="mr-1 text-muted-foreground">{prompt}</span>}
+            {line.tone === "input" && <span className="me-1 text-muted-foreground">{prompt}</span>}
             {line.text}
           </div>
         ))}

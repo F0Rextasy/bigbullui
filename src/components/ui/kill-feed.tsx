@@ -34,7 +34,7 @@ export function KillFeed({ entries, max = 5, className, ...props }: KillFeedProp
       {rows.map((e) => (
         <div key={e.id} className="flex min-h-11 items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1.5 font-mono text-[11px]">
           <span className="font-bold text-foreground">{e.killer}</span>
-          <span className="rounded bg-destructive px-1.5 py-0.5 text-[9px] font-black uppercase text-destructive-foreground" aria-hidden="true">
+          <span className="rounded bg-destructive px-1.5 py-0.5 text-[9px] font-black uppercase text-white" aria-hidden="true">
             {e.weapon ?? "HIT"}
           </span>
           <span className="text-muted-foreground" aria-hidden="true">→</span>

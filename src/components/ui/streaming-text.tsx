@@ -58,7 +58,7 @@ export function StreamingText({
           <span
             aria-hidden="true"
             className={cn(
-              "ml-0.5 inline-block h-4 w-2 translate-y-0.5 bg-accent",
+              "ms-0.5 inline-block h-4 w-2 translate-y-0.5 bg-accent",
               streaming ? "animate-pulse motion-reduce:animate-none" : "opacity-40",
             )}
           />

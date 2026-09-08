@@ -31,7 +31,7 @@ export function OnboardingChecklist({ steps = [{ id: "s1", label: "Create venue"
                 type="button"
                 aria-pressed={isDone}
                 onClick={() => toggle(s.id)}
-                className="flex w-full items-center gap-2.5 rounded-md border border-dashed border-border px-2.5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex w-full items-center gap-2.5 rounded-md border border-dashed border-border px-2.5 py-2 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <span className={cn("flex size-5 shrink-0 items-center justify-center rounded-full border font-mono text-[10px]", isDone ? "border-accent bg-accent text-accent-foreground" : "border-border text-transparent")} aria-hidden="true">✓</span>
                 <span className="min-w-0 flex-1">

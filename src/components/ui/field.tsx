@@ -49,7 +49,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           <FieldLabel htmlFor={htmlFor} className={cn("block text-sm font-medium text-foreground", "motion-reduce:transition-none")}>
             {label}
             {required && (
-              <span className="ml-1 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+              <span className="ms-1 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
                 *
               </span>
             )}

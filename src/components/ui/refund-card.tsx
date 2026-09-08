@@ -11,10 +11,10 @@ export interface RefundCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const STATUS = {
-  pending: { label: "Beklemede", cls: "border-amber-500/50 bg-amber-500/10 text-amber-600" },
-  approved: { label: "Approved", cls: "border-sky-500/50 bg-sky-500/10 text-sky-600" },
-  rejected: { label: "Reddedildi", cls: "border-destructive/50 bg-destructive/10 text-destructive" },
-  completed: { label: "Completed", cls: "border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" },
+  pending: { label: "Pending", cls: "border-warning/50 bg-warning/10 text-warning" },
+  approved: { label: "Approved", cls: "border-info/50 bg-info/10 text-info" },
+  rejected: { label: "Rejected", cls: "border-destructive/50 bg-destructive/10 text-destructive" },
+  completed: { label: "Completed", cls: "border-success/50 bg-success/10 text-success" },
 };
 
 /** Refund status card: resolution state + amount + reason. */

@@ -1097,7 +1097,7 @@ function AnimatedQrReaderPreview() {
         onReset={() => setLastScan(null)}
       />
       {lastScan && (
-        <div className="rounded-md border border-dashed border-emerald-500/60 bg-emerald-500/10 px-3 py-1.5 font-mono text-xs text-emerald-600 dark:text-emerald-400">
+        <div className="rounded-md border border-dashed border-success/60 bg-success/10 px-3 py-1.5 font-mono text-xs text-success">
           LOG: {lastScan}
         </div>
       )}

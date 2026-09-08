@@ -25,7 +25,7 @@ export function CookiePrefs({ onSave, className, ...props }: CookiePrefsProps) {
           <li key={c.id} className="flex items-center justify-between py-2">
             <span className="text-xs font-bold">
               {c.label}
-              {c.locked && <span className="ml-1.5 font-mono text-[10px] uppercase text-muted-foreground">Locked</span>}
+              {c.locked && <span className="ms-1.5 font-mono text-[10px] uppercase text-muted-foreground">Locked</span>}
             </span>
             <button
               type="button"

@@ -132,7 +132,7 @@ export function Sidebar({
                     type="button"
                     onClick={() => handleSelect(item.id)}
                     className={cn(
-                      "flex w-full cursor-pointer items-center justify-between rounded px-2.5 py-1.5 text-xs font-medium transition-all text-left",
+                      "flex w-full cursor-pointer items-center justify-between rounded px-2.5 py-1.5 text-xs font-medium transition-all text-start",
                       isActive
                         ? "border border-foreground bg-foreground text-background font-bold shadow-xs"
                         : "text-foreground hover:bg-secondary border border-transparent"
@@ -145,7 +145,7 @@ export function Sidebar({
                     {!isCollapsed && item.badge && (
                       <span
                         className={cn(
-                          "ml-2 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase",
+                          "ms-2 rounded px-1.5 py-0.5 text-[9px] font-bold uppercase",
                           isActive
                             ? "bg-background text-foreground"
                             : "border border-border bg-secondary text-muted-foreground"
@@ -167,11 +167,11 @@ export function Sidebar({
         {!isCollapsed ? (
           <div className="flex items-center justify-between text-[10px] text-muted-foreground">
             <span>TERMINAL #04</span>
-            <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="size-2 rounded-full bg-success animate-pulse" />
           </div>
         ) : (
           <div className="flex justify-center">
-            <span className="size-2 rounded-full bg-emerald-500" />
+            <span className="size-2 rounded-full bg-success" />
           </div>
         )}
       </div>

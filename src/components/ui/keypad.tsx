@@ -275,10 +275,10 @@ export function Keypad({
     switch (status) {
       case "success":
         return {
-          indicator: "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]",
-          label: "text-emerald-700 dark:text-emerald-400 font-bold",
-          border: "border-emerald-500/60",
-          bg: "bg-emerald-500/10",
+          indicator: "bg-success shadow-[0_0_8px_rgba(16,185,129,0.7)]",
+          label: "text-success font-bold",
+          border: "border-success/60",
+          bg: "bg-success/10",
         };
       case "error":
         return {
@@ -289,10 +289,10 @@ export function Keypad({
         };
       case "validating":
         return {
-          indicator: "bg-amber-500 animate-ping",
-          label: "text-amber-600 dark:text-amber-400 font-bold",
-          border: "border-amber-500/60",
-          bg: "bg-amber-500/10",
+          indicator: "bg-warning animate-ping",
+          label: "text-warning font-bold",
+          border: "border-warning/60",
+          bg: "bg-warning/10",
         };
       default:
         return {
@@ -329,7 +329,7 @@ export function Keypad({
         "relative w-full max-w-sm select-none rounded-xl border-2 border-dashed border-border bg-card p-4 font-mono shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-accent/40",
         disabled && "opacity-60 pointer-events-none cursor-not-allowed",
         status === "error" && "border-destructive/60",
-        status === "success" && "border-emerald-500/60",
+        status === "success" && "border-success/60",
         className
       )}
       {...props}
@@ -429,7 +429,7 @@ export function Keypad({
           className={cn(
             "relative flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-secondary/20 p-3 shadow-inner transition-colors",
             status === "error" && "border-destructive/60 bg-destructive/5",
-            status === "success" && "border-emerald-500/60 bg-emerald-500/5"
+            status === "success" && "border-success/60 bg-success/5"
           )}
         >
           {Array.from({ length: maxLength }).map((_, idx) => {
@@ -447,7 +447,7 @@ export function Keypad({
                     : "border-dashed border-border/80 bg-secondary/40 text-muted-foreground/40",
                   isCurrent && "border-solid border-accent ring-2 ring-accent/30 bg-card/80 animate-pulse",
                   status === "error" && "border-destructive text-destructive",
-                  status === "success" && "border-emerald-500 text-emerald-500"
+                  status === "success" && "border-success text-success"
                 )}
               >
                 {/* Punch registration notch on top edge of each slot */}

@@ -28,7 +28,7 @@ export function VoiceChatVisualizer({
       <div className="flex items-center gap-2">
         <span className={cn("size-2 rounded-full", active ? "animate-pulse bg-accent motion-reduce:animate-none" : "bg-border")} aria-hidden="true" />
         <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
-        <p className="ml-auto font-mono text-[10px] uppercase text-muted-foreground">{active ? "Speaking" : "Idle"}</p>
+        <p className="ms-auto font-mono text-[10px] uppercase text-muted-foreground">{active ? "Speaking" : "Idle"}</p>
       </div>
       <div className="mt-2.5 flex h-10 items-center gap-1" aria-hidden="true">
         {Array.from({ length: bars }).map((_, i) => (

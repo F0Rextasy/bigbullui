@@ -546,7 +546,7 @@ export function SplitFlapBoard({
         {/* Filter Pills */}
         {showControls && (
           <div className="mt-3.5 pt-3 border-t border-dashed border-border/60 flex items-center gap-1.5 overflow-x-auto">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground mr-1">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground me-1">
               FILTER:
             </span>
             {["ALL", "ON TIME", "BOARDING", "DELAYED"].map((f) => (
@@ -600,7 +600,7 @@ export function SplitFlapBoard({
       </div>
 
       {/* Terminal Footer Stub */}
-      <div className="p-3 bg-secondary/50 border-t-2 border-dashed border-border flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <div className="p-3 bg-secondary/50 border-t-2 border-dashed border-border flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-start">
         <div className="font-mono text-[10px] tracking-wider uppercase text-muted-foreground">
           ★ SOLARI PROTOCOL V4.2 · TICKETS MUST BE VALIDATED AT GATE ENTRANCE ★
         </div>

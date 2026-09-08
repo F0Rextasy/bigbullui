@@ -25,7 +25,7 @@ export function ChatThread({ messages = FALLBACK, title = "Box office thread", c
   return (
     <div className={cn("w-full rounded-lg border-2 border-foreground bg-card p-4 shadow-md", className)} {...props}>
       <p className="border-b border-dashed border-border pb-2 font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{title}</p>
-      <ol className="mt-3 space-y-3 border-l-2 border-dashed border-border pl-4">
+      <ol className="mt-3 space-y-3 border-l-2 border-dashed border-border ps-4">
         {messages.map((m) => (
           <li key={m.id} className="flex flex-col gap-1">
             <span className={cn("w-fit rounded px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase", m.role === "user" ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground")}>

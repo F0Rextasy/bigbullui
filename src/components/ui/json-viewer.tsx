@@ -75,13 +75,13 @@ function renderJsonValue(
           </svg>
           {depth > 0 ? " collapse" : ""}
         </button>
-        <span className="ml-2 text-[10px] text-muted-foreground">{indent}[</span>
+        <span className="ms-2 text-[10px] text-muted-foreground">{indent}[</span>
         {value.map((item, idx) => (
           <React.Fragment key={idx}>
             {renderJsonValue(item, depth + 1)}
           </React.Fragment>
         ))}
-        <span className="ml-2 text-[10px] text-muted-foreground">{indent}]</span>
+        <span className="ms-2 text-[10px] text-muted-foreground">{indent}]</span>
       </div>
     );
   }
@@ -112,15 +112,15 @@ function renderJsonValue(
           </svg>
           {depth > 0 ? " collapse" : ""}
         </button>
-        <span className="ml-2 text-[10px] text-muted-foreground">{indent}{"{"}</span>
+        <span className="ms-2 text-[10px] text-muted-foreground">{indent}{"{"}</span>
         {keys.map((key) => (
           <React.Fragment key={key}>
-            <span className={cn("text-accent-foreground", "ml-2")}>{key}</span>
-            <span className="ml-2 text-[10px] text-muted-foreground">{":"}</span>
+            <span className={cn("text-accent-foreground", "ms-2")}>{key}</span>
+            <span className="ms-2 text-[10px] text-muted-foreground">{":"}</span>
             {renderJsonValue(value[key as keyof JsonObject], depth + 1)}
           </React.Fragment>
         ))}
-        <span className="ml-2 text-[10px] text-muted-foreground">{indent}{"}"}</span>
+        <span className="ms-2 text-[10px] text-muted-foreground">{indent}{"}"}</span>
       </div>
     );
   }

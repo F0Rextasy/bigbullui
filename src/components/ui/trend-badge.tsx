@@ -85,10 +85,10 @@ export function TrendBadge({
   // Styling based on trend direction & variants
   const toneStyles: Record<TrendDirection, Record<TrendBadgeVariant, string>> = {
     up: {
-      stamp: "border-emerald-600/70 bg-emerald-500/10 text-emerald-700 dark:border-emerald-500/80 dark:bg-emerald-950/40 dark:text-emerald-300",
-      outline: "border-emerald-600/80 bg-transparent text-emerald-700 dark:border-emerald-400 dark:text-emerald-300",
-      solid: "border-emerald-700 bg-emerald-600 text-white dark:border-emerald-400 dark:bg-emerald-500 dark:text-emerald-950",
-      subtle: "border-border bg-card text-emerald-700 dark:text-emerald-400",
+      stamp: "border-success/70 bg-success/10 text-success/80/40",
+      outline: "border-success/80 bg-transparent text-success",
+      solid: "border-success bg-success text-white",
+      subtle: "border-border bg-card text-success",
     },
     down: {
       stamp: "border-destructive/70 bg-destructive/10 text-destructive",
@@ -288,7 +288,7 @@ export function TrendBadge({
 
       {/* Timeframe Tag (e.g. 'vs last hr', '24h') */}
       {timeframe && (
-        <span className="text-[9px] uppercase tracking-widest opacity-65 font-mono border-l border-dashed border-current/40 pl-1.5 ml-0.5">
+        <span className="text-[9px] uppercase tracking-widest opacity-65 font-mono border-l border-dashed border-current/40 ps-1.5 ms-0.5">
           {timeframe}
         </span>
       )}

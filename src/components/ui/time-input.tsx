@@ -106,7 +106,7 @@ export function TimeInput({
           <button
             type="button"
             onClick={() => handleHourStep(12)}
-            className="ml-1 rounded-md border border-dashed border-border bg-secondary px-2 py-2 text-xs font-bold text-foreground hover:bg-foreground hover:text-background cursor-pointer transition-colors"
+            className="ms-1 rounded-md border border-dashed border-border bg-secondary px-2 py-2 text-xs font-bold text-foreground hover:bg-foreground hover:text-background cursor-pointer transition-colors"
           >
             {hours >= 12 ? "PM" : "AM"}
           </button>

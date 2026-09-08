@@ -42,7 +42,7 @@ export function ModelPicker({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex cursor-pointer items-center gap-2 rounded border-2 border-foreground bg-card px-3 py-1.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex cursor-pointer items-center gap-2 rounded border-2 border-foreground bg-card px-3 py-1.5 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <span className="inline-flex size-6 items-center justify-center rounded border border-accent/50 bg-accent/10 font-mono text-[10px] font-bold text-accent" aria-hidden="true">
           AI
@@ -53,7 +53,7 @@ export function ModelPicker({
             {selected?.meta ?? "—"}
           </span>
         </span>
-        <span aria-hidden="true" className={cn("ml-1 font-mono text-xs text-muted-foreground transition-transform motion-reduce:transition-none", open && "rotate-180")}>
+        <span aria-hidden="true" className={cn("ms-1 font-mono text-xs text-muted-foreground transition-transform motion-reduce:transition-none", open && "rotate-180")}>
           ▾
         </span>
       </button>
@@ -73,7 +73,7 @@ export function ModelPicker({
                   aria-selected={active}
                   onClick={() => pick(m.id)}
                   className={cn(
-                    "flex w-full cursor-pointer items-center justify-between rounded px-2.5 py-2 text-left hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    "flex w-full cursor-pointer items-center justify-between rounded px-2.5 py-2 text-start hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     active && "bg-secondary",
                   )}
                 >

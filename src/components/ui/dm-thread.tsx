@@ -44,11 +44,11 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
           <span className="flex size-9 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[10px] font-bold">
             {initials}
           </span>
-          {online && <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full border-2 border-card bg-emerald-500" aria-label="Online" />}
+          {online && <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full border-2 border-card bg-success" aria-label="Online" />}
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">{name}</p>
-          <p className={cn("text-[10px] uppercase tracking-wider", online ? "text-emerald-700 dark:text-emerald-400" : "text-muted-foreground")}>
+          <p className={cn("text-[10px] uppercase tracking-wider", online ? "text-success" : "text-muted-foreground")}>
             {online ? "Online" : "Recently active"}
           </p>
         </div>

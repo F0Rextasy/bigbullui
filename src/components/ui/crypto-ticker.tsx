@@ -24,7 +24,7 @@ export function CryptoTicker({ entries, className, ...props }: CryptoTickerProps
           <div key={`${e.symbol}-${idx}`} className="flex shrink-0 items-center gap-1.5 font-mono text-xs">
             <span className="font-bold">{e.symbol}</span>
             <span className="tabular-nums text-foreground">{e.price}</span>
-            <span className={cn("inline-flex items-center gap-0.5 tabular-nums", e.change >= 0 ? "text-emerald-500" : "text-destructive")}>
+            <span className={cn("inline-flex items-center gap-0.5 tabular-nums", e.change >= 0 ? "text-success" : "text-destructive")}>
               <span aria-hidden="true">{e.change >= 0 ? "▲" : "▼"}</span>
               {Math.abs(e.change).toFixed(1)}%
             </span>

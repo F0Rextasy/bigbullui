@@ -8,7 +8,7 @@ export interface TaskListProps extends Omit<React.HTMLAttributes<HTMLUListElemen
   onToggle?: (id: string) => void;
 }
 
-const PRI: Record<string, string> = { low: "text-muted-foreground", med: "text-amber-600", high: "text-destructive" };
+const PRI: Record<string, string> = { low: "text-muted-foreground", med: "text-warning", high: "text-destructive" };
 
 /** Task list item rows: assignee chip + priority dot indicator. */
 export function TaskList({ tasks, onToggle, className, ...props }: TaskListProps) {
@@ -33,7 +33,7 @@ export function TaskList({ tasks, onToggle, className, ...props }: TaskListProps
           />
           <span className={cn("min-w-0 flex-1 truncate text-sm transition-colors motion-reduce:transition-none", t.done && "text-muted-foreground line-through")}>{t.label}</span>
           {t.assignee && <span className="shrink-0 rounded-full bg-secondary px-1.5 py-px font-mono text-[9px] text-secondary-foreground">{t.assignee}</span>}
-          {t.priority && <span className={cn("size-1.5 shrink-0 rounded-full", t.priority === "high" ? "bg-destructive" : t.priority === "med" ? "bg-amber-500" : "bg-border")} aria-label={t.priority} />}
+          {t.priority && <span className={cn("size-1.5 shrink-0 rounded-full", t.priority === "high" ? "bg-destructive" : t.priority === "med" ? "bg-warning" : "bg-border")} aria-label={t.priority} />}
         </li>
       ))}
     </ul>

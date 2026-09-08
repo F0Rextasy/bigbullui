@@ -16,7 +16,7 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         htmlFor={htmlFor}
         className={cn(
           "block cursor-default select-none overflow-hidden rounded-md px-2 py-1 m-1 text-sm font-medium text-muted-foreground",
-          required && "after:content-['*'] after:absolute after:right-0 after:text-red-500 after:text-[10px] after:font-medium motion-reduce:animate-none",
+          required && "after:content-['*'] after:absolute after:right-0 after:text-destructive after:text-[10px] after:font-medium motion-reduce:animate-none",
           className
         )}
         {...props}

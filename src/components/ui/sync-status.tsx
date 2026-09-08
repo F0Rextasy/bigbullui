@@ -13,8 +13,8 @@ export interface SyncStatusProps extends React.HTMLAttributes<HTMLSpanElement> {
 export function SyncStatus({ status = "idle", lastSync, className, ...props }: SyncStatusProps) {
   const meta = {
     idle: { text: "Ready", icon: "text-muted-foreground", spin: false },
-    syncing: { text: "Senkronize ediliyor…", icon: "text-accent", spin: true },
-    synced: { text: "Senkronize", icon: "text-emerald-700 dark:text-emerald-400", spin: false },
+    syncing: { text: "Syncing…", icon: "text-accent", spin: true },
+    synced: { text: "Synced", icon: "text-success", spin: false },
     error: { text: "Sync error", icon: "text-destructive", spin: false },
   }[status];
 

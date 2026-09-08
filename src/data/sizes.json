@@ -2,9 +2,9 @@
   "updated": "2026-09-08",
   "sizes": {
     "accordion": {
-      "raw": 3627,
-      "gzip": 1287,
-      "kb": 1.26
+      "raw": 3960,
+      "gzip": 1361,
+      "kb": 1.33
     },
     "achievement-toast": {
       "raw": 1807,
@@ -12,8 +12,8 @@
       "kb": 0.78
     },
     "action-buttons": {
-      "raw": 2281,
-      "gzip": 989,
+      "raw": 2264,
+      "gzip": 991,
       "kb": 0.97
     },
     "action-sheet": {
@@ -27,13 +27,13 @@
       "kb": 1.1
     },
     "activity-feed": {
-      "raw": 27859,
-      "gzip": 5932,
-      "kb": 5.79
+      "raw": 27159,
+      "gzip": 5884,
+      "kb": 5.75
     },
     "activity-v2": {
-      "raw": 2521,
-      "gzip": 961,
+      "raw": 2464,
+      "gzip": 958,
       "kb": 0.94
     },
     "add-to-cart-button": {
@@ -47,13 +47,13 @@
       "kb": 0.99
     },
     "admin-shell": {
-      "raw": 4139,
-      "gzip": 1515,
-      "kb": 1.48
+      "raw": 4142,
+      "gzip": 1510,
+      "kb": 1.47
     },
     "agenda-list": {
-      "raw": 2090,
-      "gzip": 942,
+      "raw": 2091,
+      "gzip": 943,
       "kb": 0.92
     },
     "agent-artifact-card": {
@@ -67,9 +67,9 @@
       "kb": 0.55
     },
     "alert-dialog": {
-      "raw": 4124,
-      "gzip": 1212,
-      "kb": 1.18
+      "raw": 4270,
+      "gzip": 1284,
+      "kb": 1.25
     },
     "alert": {
       "raw": 1087,
@@ -82,19 +82,19 @@
       "kb": 1.04
     },
     "announcement-bar": {
-      "raw": 12747,
-      "gzip": 3395,
-      "kb": 3.32
+      "raw": 12401,
+      "gzip": 3379,
+      "kb": 3.3
     },
     "api-key-card": {
-      "raw": 4145,
-      "gzip": 1566,
-      "kb": 1.53
+      "raw": 4029,
+      "gzip": 1539,
+      "kb": 1.5
     },
     "api-tester": {
-      "raw": 2282,
-      "gzip": 1000,
-      "kb": 0.98
+      "raw": 2248,
+      "gzip": 983,
+      "kb": 0.96
     },
     "app-shell": {
       "raw": 2096,
@@ -117,8 +117,8 @@
       "kb": 1.77
     },
     "audio-mini": {
-      "raw": 3267,
-      "gzip": 1312,
+      "raw": 3266,
+      "gzip": 1310,
       "kb": 1.28
     },
     "audio-player": {
@@ -127,9 +127,9 @@
       "kb": 1.59
     },
     "audio-recorder": {
-      "raw": 3349,
-      "gzip": 1412,
-      "kb": 1.38
+      "raw": 3267,
+      "gzip": 1396,
+      "kb": 1.36
     },
     "audio-toggle": {
       "raw": 1844,
@@ -137,24 +137,24 @@
       "kb": 0.89
     },
     "audio-waveform": {
-      "raw": 24160,
+      "raw": 24149,
       "gzip": 5918,
       "kb": 5.78
     },
     "audit-log": {
-      "raw": 3014,
-      "gzip": 1245,
-      "kb": 1.22
+      "raw": 2974,
+      "gzip": 1228,
+      "kb": 1.2
     },
     "audit-timeline": {
-      "raw": 1775,
-      "gzip": 807,
+      "raw": 1773,
+      "gzip": 804,
       "kb": 0.79
     },
     "autocomplete": {
-      "raw": 4974,
-      "gzip": 1675,
-      "kb": 1.64
+      "raw": 4973,
+      "gzip": 1671,
+      "kb": 1.63
     },
     "avatar-group": {
       "raw": 1778,
@@ -197,9 +197,9 @@
       "kb": 1.09
     },
     "badge-ribbon": {
-      "raw": 2600,
-      "gzip": 949,
-      "kb": 0.93
+      "raw": 2521,
+      "gzip": 940,
+      "kb": 0.92
     },
     "badge": {
       "raw": 946,
@@ -207,13 +207,13 @@
       "kb": 0.49
     },
     "bar-chart": {
-      "raw": 2568,
-      "gzip": 960,
-      "kb": 0.94
+      "raw": 2567,
+      "gzip": 956,
+      "kb": 0.93
     },
     "barcode": {
-      "raw": 1840,
-      "gzip": 859,
+      "raw": 1839,
+      "gzip": 856,
       "kb": 0.84
     },
     "base64-tool": {
@@ -232,9 +232,9 @@
       "kb": 0.81
     },
     "billing-panel": {
-      "raw": 3558,
-      "gzip": 1287,
-      "kb": 1.26
+      "raw": 3488,
+      "gzip": 1278,
+      "kb": 1.25
     },
     "bio-card": {
       "raw": 2479,
@@ -242,9 +242,9 @@
       "kb": 1.03
     },
     "board-checklist": {
-      "raw": 4281,
-      "gzip": 1687,
-      "kb": 1.65
+      "raw": 4275,
+      "gzip": 1682,
+      "kb": 1.64
     },
     "boarding-pass-print": {
       "raw": 3177,
@@ -252,9 +252,9 @@
       "kb": 1.06
     },
     "boarding-pass": {
-      "raw": 5798,
-      "gzip": 1521,
-      "kb": 1.49
+      "raw": 5797,
+      "gzip": 1517,
+      "kb": 1.48
     },
     "booking-calendar": {
       "raw": 2224,
@@ -282,8 +282,8 @@
       "kb": 1.37
     },
     "breadcrumb": {
-      "raw": 1909,
-      "gzip": 728,
+      "raw": 1908,
+      "gzip": 725,
       "kb": 0.71
     },
     "bubble-chart": {
@@ -292,8 +292,8 @@
       "kb": 1.06
     },
     "budget-progress": {
-      "raw": 2183,
-      "gzip": 994,
+      "raw": 2181,
+      "gzip": 992,
       "kb": 0.97
     },
     "bug-report": {
@@ -307,9 +307,9 @@
       "kb": 0.74
     },
     "bullet-chart": {
-      "raw": 2255,
-      "gzip": 978,
-      "kb": 0.96
+      "raw": 2222,
+      "gzip": 955,
+      "kb": 0.93
     },
     "button-group": {
       "raw": 1593,
@@ -327,14 +327,14 @@
       "kb": 1.75
     },
     "calendar": {
-      "raw": 4564,
-      "gzip": 1514,
+      "raw": 4563,
+      "gzip": 1512,
       "kb": 1.48
     },
     "callout": {
-      "raw": 3248,
-      "gzip": 1185,
-      "kb": 1.16
+      "raw": 3053,
+      "gzip": 1136,
+      "kb": 1.11
     },
     "candlestick-chart": {
       "raw": 2779,
@@ -382,14 +382,14 @@
       "kb": 0.79
     },
     "changelog-list": {
-      "raw": 2627,
-      "gzip": 1116,
-      "kb": 1.09
+      "raw": 2596,
+      "gzip": 1099,
+      "kb": 1.07
     },
     "char-counter": {
-      "raw": 1052,
-      "gzip": 571,
-      "kb": 0.56
+      "raw": 1050,
+      "gzip": 566,
+      "kb": 0.55
     },
     "chat-bubble": {
       "raw": 2332,
@@ -423,7 +423,7 @@
     },
     "checkout-summary": {
       "raw": 3268,
-      "gzip": 1017,
+      "gzip": 1016,
       "kb": 0.99
     },
     "chord-diagram": {
@@ -432,8 +432,8 @@
       "kb": 1.19
     },
     "citation-bubble": {
-      "raw": 1853,
-      "gzip": 849,
+      "raw": 1854,
+      "gzip": 850,
       "kb": 0.83
     },
     "clan-card": {
@@ -457,9 +457,9 @@
       "kb": 0.64
     },
     "code-block": {
-      "raw": 17544,
-      "gzip": 4543,
-      "kb": 4.44
+      "raw": 17098,
+      "gzip": 4518,
+      "kb": 4.41
     },
     "code-editor": {
       "raw": 3134,
@@ -487,13 +487,13 @@
       "kb": 1.11
     },
     "color-picker": {
-      "raw": 2914,
-      "gzip": 1173,
-      "kb": 1.15
+      "raw": 2913,
+      "gzip": 1170,
+      "kb": 1.14
     },
     "color-token-table": {
-      "raw": 3080,
-      "gzip": 1183,
+      "raw": 3079,
+      "gzip": 1184,
       "kb": 1.16
     },
     "column-toggle": {
@@ -502,9 +502,9 @@
       "kb": 1.21
     },
     "combo-buttons": {
-      "raw": 4182,
-      "gzip": 1537,
-      "kb": 1.5
+      "raw": 4152,
+      "gzip": 1520,
+      "kb": 1.48
     },
     "combo-counter": {
       "raw": 1411,
@@ -518,18 +518,18 @@
     },
     "combobox": {
       "raw": 5125,
-      "gzip": 1770,
-      "kb": 1.73
+      "gzip": 1765,
+      "kb": 1.72
     },
     "command-k-root": {
-      "raw": 3394,
-      "gzip": 1269,
+      "raw": 3395,
+      "gzip": 1270,
       "kb": 1.24
     },
     "command-palette": {
-      "raw": 13029,
-      "gzip": 4027,
-      "kb": 3.93
+      "raw": 12718,
+      "gzip": 3969,
+      "kb": 3.88
     },
     "comment-thread": {
       "raw": 2074,
@@ -537,7 +537,7 @@
       "kb": 0.73
     },
     "compare-table": {
-      "raw": 1975,
+      "raw": 1976,
       "gzip": 851,
       "kb": 0.83
     },
@@ -552,8 +552,8 @@
       "kb": 0.81
     },
     "confetti-burst": {
-      "raw": 1756,
-      "gzip": 873,
+      "raw": 1755,
+      "gzip": 870,
       "kb": 0.85
     },
     "confirm-dialog": {
@@ -562,9 +562,9 @@
       "kb": 1.12
     },
     "connection-status": {
-      "raw": 1530,
-      "gzip": 751,
-      "kb": 0.73
+      "raw": 1476,
+      "gzip": 736,
+      "kb": 0.72
     },
     "consent-checkbox": {
       "raw": 2362,
@@ -572,19 +572,19 @@
       "kb": 1.07
     },
     "console-panel": {
-      "raw": 3029,
-      "gzip": 1266,
-      "kb": 1.24
+      "raw": 3019,
+      "gzip": 1262,
+      "kb": 1.23
     },
     "container": {
-      "raw": 1176,
-      "gzip": 524,
+      "raw": 1175,
+      "gzip": 522,
       "kb": 0.51
     },
     "context-menu": {
-      "raw": 3517,
-      "gzip": 1319,
-      "kb": 1.29
+      "raw": 3653,
+      "gzip": 1379,
+      "kb": 1.35
     },
     "control-chart": {
       "raw": 2570,
@@ -592,8 +592,8 @@
       "kb": 1
     },
     "cookie-banner": {
-      "raw": 2424,
-      "gzip": 982,
+      "raw": 2423,
+      "gzip": 979,
       "kb": 0.96
     },
     "cookie-prefs": {
@@ -602,8 +602,8 @@
       "kb": 1.09
     },
     "copy-button": {
-      "raw": 1952,
-      "gzip": 880,
+      "raw": 1951,
+      "gzip": 879,
       "kb": 0.86
     },
     "copy-chip": {
@@ -622,14 +622,14 @@
       "kb": 0.87
     },
     "countdown": {
-      "raw": 2509,
-      "gzip": 1006,
-      "kb": 0.98
+      "raw": 2498,
+      "gzip": 993,
+      "kb": 0.97
     },
     "country-select": {
-      "raw": 3425,
-      "gzip": 1315,
-      "kb": 1.28
+      "raw": 3427,
+      "gzip": 1316,
+      "kb": 1.29
     },
     "countup": {
       "raw": 3917,
@@ -637,19 +637,19 @@
       "kb": 1.32
     },
     "coupon-field": {
-      "raw": 3675,
-      "gzip": 1481,
-      "kb": 1.45
+      "raw": 3611,
+      "gzip": 1466,
+      "kb": 1.43
     },
     "coupon": {
-      "raw": 3149,
-      "gzip": 1136,
+      "raw": 3148,
+      "gzip": 1132,
       "kb": 1.11
     },
     "credit-card-form": {
-      "raw": 5157,
-      "gzip": 1471,
-      "kb": 1.44
+      "raw": 5056,
+      "gzip": 1460,
+      "kb": 1.43
     },
     "credit-card-input": {
       "raw": 4147,
@@ -657,9 +657,9 @@
       "kb": 1.37
     },
     "credit-card": {
-      "raw": 24113,
-      "gzip": 5551,
-      "kb": 5.42
+      "raw": 23474,
+      "gzip": 5517,
+      "kb": 5.39
     },
     "cron-builder": {
       "raw": 4070,
@@ -677,9 +677,9 @@
       "kb": 0.83
     },
     "crypto-ticker": {
-      "raw": 1467,
-      "gzip": 724,
-      "kb": 0.71
+      "raw": 1427,
+      "gzip": 710,
+      "kb": 0.69
     },
     "csv-importer": {
       "raw": 2472,
@@ -702,9 +702,9 @@
       "kb": 0.6
     },
     "currency-select": {
-      "raw": 3665,
-      "gzip": 1381,
-      "kb": 1.35
+      "raw": 3592,
+      "gzip": 1376,
+      "kb": 1.34
     },
     "d-pad": {
       "raw": 2043,
@@ -722,23 +722,23 @@
       "kb": 0.73
     },
     "danger-zone": {
-      "raw": 2757,
-      "gzip": 1074,
-      "kb": 1.05
+      "raw": 2714,
+      "gzip": 1066,
+      "kb": 1.04
     },
     "data-grid": {
-      "raw": 5415,
-      "gzip": 1824,
-      "kb": 1.78
+      "raw": 5296,
+      "gzip": 1812,
+      "kb": 1.77
     },
     "data-table": {
       "raw": 8224,
-      "gzip": 2410,
+      "gzip": 2406,
       "kb": 2.35
     },
     "date-picker": {
-      "raw": 6473,
-      "gzip": 2206,
+      "raw": 6472,
+      "gzip": 2204,
       "kb": 2.15
     },
     "date-range-picker": {
@@ -782,8 +782,8 @@
       "kb": 0.93
     },
     "dialog": {
-      "raw": 4005,
-      "gzip": 1526,
+      "raw": 4006,
+      "gzip": 1527,
       "kb": 1.49
     },
     "dialogue-box": {
@@ -792,14 +792,14 @@
       "kb": 0.9
     },
     "diff-editor": {
-      "raw": 2615,
-      "gzip": 1030,
-      "kb": 1.01
+      "raw": 2549,
+      "gzip": 1021,
+      "kb": 1
     },
     "diff-viewer": {
-      "raw": 2468,
-      "gzip": 899,
-      "kb": 0.88
+      "raw": 2460,
+      "gzip": 895,
+      "kb": 0.87
     },
     "digest-preview": {
       "raw": 1775,
@@ -812,14 +812,14 @@
       "kb": 0.75
     },
     "dm-thread": {
-      "raw": 4715,
-      "gzip": 1771,
-      "kb": 1.73
+      "raw": 4586,
+      "gzip": 1749,
+      "kb": 1.71
     },
     "dock": {
-      "raw": 13116,
-      "gzip": 3351,
-      "kb": 3.27
+      "raw": 12713,
+      "gzip": 3326,
+      "kb": 3.25
     },
     "dockable-panels": {
       "raw": 1544,
@@ -837,9 +837,9 @@
       "kb": 0.72
     },
     "donut-chart": {
-      "raw": 20160,
-      "gzip": 5256,
-      "kb": 5.13
+      "raw": 19644,
+      "gzip": 5226,
+      "kb": 5.1
     },
     "donut-multi": {
       "raw": 2405,
@@ -847,17 +847,17 @@
       "kb": 0.97
     },
     "drag-sort": {
-      "raw": 3043,
-      "gzip": 1273,
-      "kb": 1.24
+      "raw": 2974,
+      "gzip": 1263,
+      "kb": 1.23
     },
     "drawer-nav": {
-      "raw": 3105,
-      "gzip": 1300,
-      "kb": 1.27
+      "raw": 3036,
+      "gzip": 1292,
+      "kb": 1.26
     },
     "drawer": {
-      "raw": 12381,
+      "raw": 12382,
       "gzip": 3514,
       "kb": 3.43
     },
@@ -867,23 +867,23 @@
       "kb": 1.23
     },
     "dropdown-menu": {
-      "raw": 4692,
-      "gzip": 1575,
-      "kb": 1.54
+      "raw": 4829,
+      "gzip": 1636,
+      "kb": 1.6
     },
     "dual-slider": {
-      "raw": 4042,
-      "gzip": 1257,
-      "kb": 1.23
+      "raw": 4041,
+      "gzip": 1254,
+      "kb": 1.22
     },
     "duration-input": {
-      "raw": 3369,
-      "gzip": 1227,
-      "kb": 1.2
+      "raw": 3301,
+      "gzip": 1219,
+      "kb": 1.19
     },
     "email-input": {
-      "raw": 3617,
-      "gzip": 1336,
+      "raw": 3621,
+      "gzip": 1332,
       "kb": 1.3
     },
     "emoji-picker": {
@@ -892,9 +892,9 @@
       "kb": 1.05
     },
     "empty-col-span": {
-      "raw": 1353,
-      "gzip": 740,
-      "kb": 0.72
+      "raw": 1326,
+      "gzip": 732,
+      "kb": 0.71
     },
     "empty-offline": {
       "raw": 1587,
@@ -907,19 +907,19 @@
       "kb": 0.66
     },
     "empty": {
-      "raw": 1781,
-      "gzip": 782,
+      "raw": 1780,
+      "gzip": 778,
       "kb": 0.76
     },
     "env-editor": {
-      "raw": 4705,
-      "gzip": 1702,
-      "kb": 1.66
+      "raw": 4619,
+      "gzip": 1693,
+      "kb": 1.65
     },
     "env-switcher": {
-      "raw": 1324,
-      "gzip": 694,
-      "kb": 0.68
+      "raw": 1318,
+      "gzip": 688,
+      "kb": 0.67
     },
     "envelope": {
       "raw": 1418,
@@ -932,9 +932,9 @@
       "kb": 0.63
     },
     "error-page": {
-      "raw": 2745,
-      "gzip": 1246,
-      "kb": 1.22
+      "raw": 2689,
+      "gzip": 1238,
+      "kb": 1.21
     },
     "event-card": {
       "raw": 2181,
@@ -942,13 +942,13 @@
       "kb": 0.8
     },
     "exchange-rate": {
-      "raw": 4280,
-      "gzip": 1654,
-      "kb": 1.62
+      "raw": 4182,
+      "gzip": 1644,
+      "kb": 1.61
     },
     "export-menu": {
-      "raw": 1638,
-      "gzip": 748,
+      "raw": 1639,
+      "gzip": 750,
       "kb": 0.73
     },
     "fab": {
@@ -957,14 +957,14 @@
       "kb": 1.12
     },
     "faq": {
-      "raw": 2287,
-      "gzip": 943,
+      "raw": 2288,
+      "gzip": 942,
       "kb": 0.92
     },
     "feature-flag-panel": {
-      "raw": 2938,
-      "gzip": 1200,
-      "kb": 1.17
+      "raw": 2870,
+      "gzip": 1190,
+      "kb": 1.16
     },
     "feature-grid": {
       "raw": 1591,
@@ -977,9 +977,9 @@
       "kb": 1.04
     },
     "feed-masonry": {
-      "raw": 645,
-      "gzip": 380,
-      "kb": 0.37
+      "raw": 626,
+      "gzip": 373,
+      "kb": 0.36
     },
     "feedback-vote": {
       "raw": 2022,
@@ -992,9 +992,9 @@
       "kb": 1.58
     },
     "field-array": {
-      "raw": 4348,
-      "gzip": 1442,
-      "kb": 1.41
+      "raw": 4283,
+      "gzip": 1435,
+      "kb": 1.4
     },
     "field": {
       "raw": 3413,
@@ -1007,9 +1007,9 @@
       "kb": 0.62
     },
     "file-dropzone": {
-      "raw": 4351,
-      "gzip": 1676,
-      "kb": 1.64
+      "raw": 4350,
+      "gzip": 1672,
+      "kb": 1.63
     },
     "file-image-preview": {
       "raw": 3806,
@@ -1027,9 +1027,9 @@
       "kb": 1.35
     },
     "file-upload-list": {
-      "raw": 29011,
-      "gzip": 6293,
-      "kb": 6.15
+      "raw": 28248,
+      "gzip": 6266,
+      "kb": 6.12
     },
     "filter-builder": {
       "raw": 3644,
@@ -1052,9 +1052,9 @@
       "kb": 0.82
     },
     "flip-card": {
-      "raw": 2274,
-      "gzip": 941,
-      "kb": 0.92
+      "raw": 2218,
+      "gzip": 934,
+      "kb": 0.91
     },
     "flip-clock": {
       "raw": 1486,
@@ -1067,8 +1067,8 @@
       "kb": 0.94
     },
     "flyout-v2": {
-      "raw": 2393,
-      "gzip": 1018,
+      "raw": 2347,
+      "gzip": 1011,
       "kb": 0.99
     },
     "follower-list": {
@@ -1077,14 +1077,14 @@
       "kb": 0.99
     },
     "footer-minimal": {
-      "raw": 1528,
-      "gzip": 715,
-      "kb": 0.7
+      "raw": 1500,
+      "gzip": 709,
+      "kb": 0.69
     },
     "footer-nav": {
-      "raw": 2050,
-      "gzip": 900,
-      "kb": 0.88
+      "raw": 2008,
+      "gzip": 895,
+      "kb": 0.87
     },
     "footer": {
       "raw": 1817,
@@ -1092,9 +1092,9 @@
       "kb": 0.65
     },
     "forgot-password": {
-      "raw": 3922,
-      "gzip": 1436,
-      "kb": 1.4
+      "raw": 3827,
+      "gzip": 1423,
+      "kb": 1.39
     },
     "form-builder": {
       "raw": 2864,
@@ -1107,9 +1107,9 @@
       "kb": 0.92
     },
     "form-progress": {
-      "raw": 1613,
-      "gzip": 831,
-      "kb": 0.81
+      "raw": 1575,
+      "gzip": 819,
+      "kb": 0.8
     },
     "form-validation": {
       "raw": 1670,
@@ -1117,8 +1117,8 @@
       "kb": 0.64
     },
     "friend-list": {
-      "raw": 2291,
-      "gzip": 988,
+      "raw": 2287,
+      "gzip": 982,
       "kb": 0.96
     },
     "funnel-chart": {
@@ -1132,9 +1132,9 @@
       "kb": 0.86
     },
     "gallery-grid": {
-      "raw": 4673,
-      "gzip": 1613,
-      "kb": 1.58
+      "raw": 4586,
+      "gzip": 1604,
+      "kb": 1.57
     },
     "gallery-lightbox": {
       "raw": 3234,
@@ -1142,7 +1142,7 @@
       "kb": 1.14
     },
     "gantt-lite": {
-      "raw": 6186,
+      "raw": 6187,
       "gzip": 2034,
       "kb": 1.99
     },
@@ -1157,14 +1157,14 @@
       "kb": 0.6
     },
     "gift-message": {
-      "raw": 2503,
-      "gzip": 1184,
-      "kb": 1.16
+      "raw": 2462,
+      "gzip": 1178,
+      "kb": 1.15
     },
     "glossary-list": {
-      "raw": 2409,
-      "gzip": 1054,
-      "kb": 1.03
+      "raw": 2353,
+      "gzip": 1046,
+      "kb": 1.02
     },
     "heading": {
       "raw": 1385,
@@ -1172,8 +1172,8 @@
       "kb": 0.63
     },
     "health-bar": {
-      "raw": 1971,
-      "gzip": 942,
+      "raw": 1967,
+      "gzip": 939,
       "kb": 0.92
     },
     "heatmap": {
@@ -1182,9 +1182,9 @@
       "kb": 1.03
     },
     "hero-split": {
-      "raw": 1913,
-      "gzip": 853,
-      "kb": 0.83
+      "raw": 1876,
+      "gzip": 844,
+      "kb": 0.82
     },
     "hero": {
       "raw": 3861,
@@ -1197,13 +1197,13 @@
       "kb": 0.77
     },
     "histogram": {
-      "raw": 2158,
-      "gzip": 926,
+      "raw": 2100,
+      "gzip": 920,
       "kb": 0.9
     },
     "history-nav": {
-      "raw": 2501,
-      "gzip": 956,
+      "raw": 2448,
+      "gzip": 949,
       "kb": 0.93
     },
     "holy-grail": {
@@ -1222,14 +1222,14 @@
       "kb": 1.43
     },
     "hover-card": {
-      "raw": 15853,
-      "gzip": 3479,
-      "kb": 3.4
+      "raw": 15993,
+      "gzip": 3539,
+      "kb": 3.46
     },
     "html-preview": {
-      "raw": 1144,
-      "gzip": 565,
-      "kb": 0.55
+      "raw": 1081,
+      "gzip": 545,
+      "kb": 0.53
     },
     "icicle-chart": {
       "raw": 2375,
@@ -1242,9 +1242,9 @@
       "kb": 0.7
     },
     "image-carousel": {
-      "raw": 3357,
-      "gzip": 1246,
-      "kb": 1.22
+      "raw": 3289,
+      "gzip": 1237,
+      "kb": 1.21
     },
     "image-compare": {
       "raw": 2916,
@@ -1262,9 +1262,9 @@
       "kb": 1.01
     },
     "inbox-list": {
-      "raw": 3865,
-      "gzip": 1545,
-      "kb": 1.51
+      "raw": 3864,
+      "gzip": 1540,
+      "kb": 1.5
     },
     "infinite-scroll": {
       "raw": 1212,
@@ -1272,8 +1272,8 @@
       "kb": 0.56
     },
     "inline-edit": {
-      "raw": 4473,
-      "gzip": 1416,
+      "raw": 4472,
+      "gzip": 1414,
       "kb": 1.38
     },
     "inline-multiselect": {
@@ -1283,7 +1283,7 @@
     },
     "input-group": {
       "raw": 2057,
-      "gzip": 741,
+      "gzip": 740,
       "kb": 0.72
     },
     "input-mask-phone": {
@@ -1308,7 +1308,7 @@
     },
     "installment-picker": {
       "raw": 3320,
-      "gzip": 1237,
+      "gzip": 1235,
       "kb": 1.21
     },
     "inventory-grid": {
@@ -1317,8 +1317,8 @@
       "kb": 0.7
     },
     "invite-modal": {
-      "raw": 4012,
-      "gzip": 1580,
+      "raw": 4004,
+      "gzip": 1577,
       "kb": 1.54
     },
     "invite-team": {
@@ -1327,14 +1327,14 @@
       "kb": 1.03
     },
     "invoice": {
-      "raw": 3654,
+      "raw": 3655,
       "gzip": 1129,
       "kb": 1.1
     },
     "item-slot": {
-      "raw": 1704,
-      "gzip": 835,
-      "kb": 0.82
+      "raw": 1702,
+      "gzip": 832,
+      "kb": 0.81
     },
     "item": {
       "raw": 2427,
@@ -1347,9 +1347,9 @@
       "kb": 1.08
     },
     "json-editor": {
-      "raw": 3162,
-      "gzip": 1301,
-      "kb": 1.27
+      "raw": 3140,
+      "gzip": 1291,
+      "kb": 1.26
     },
     "json-formatter": {
       "raw": 1889,
@@ -1387,8 +1387,8 @@
       "kb": 1.4
     },
     "kbd": {
-      "raw": 602,
-      "gzip": 361,
+      "raw": 601,
+      "gzip": 358,
       "kb": 0.35
     },
     "keyboard-nav-helper": {
@@ -1402,23 +1402,23 @@
       "kb": 0.65
     },
     "keypad": {
-      "raw": 23772,
-      "gzip": 6102,
-      "kb": 5.96
+      "raw": 23086,
+      "gzip": 6033,
+      "kb": 5.89
     },
     "kill-feed": {
-      "raw": 1594,
-      "gzip": 761,
-      "kb": 0.74
+      "raw": 1577,
+      "gzip": 764,
+      "kb": 0.75
     },
     "kpi-strip": {
-      "raw": 2401,
-      "gzip": 1048,
-      "kb": 1.02
+      "raw": 2375,
+      "gzip": 1037,
+      "kb": 1.01
     },
     "label": {
-      "raw": 871,
-      "gzip": 481,
+      "raw": 875,
+      "gzip": 483,
       "kb": 0.47
     },
     "language-select": {
@@ -1437,14 +1437,14 @@
       "kb": 0.82
     },
     "library-due-date-card": {
-      "raw": 2862,
+      "raw": 2863,
       "gzip": 1131,
       "kb": 1.1
     },
     "lightbox": {
-      "raw": 5125,
-      "gzip": 1676,
-      "kb": 1.64
+      "raw": 5118,
+      "gzip": 1672,
+      "kb": 1.63
     },
     "like-button": {
       "raw": 1482,
@@ -1482,7 +1482,7 @@
       "kb": 0.68
     },
     "load-more": {
-      "raw": 1503,
+      "raw": 1504,
       "gzip": 615,
       "kb": 0.6
     },
@@ -1502,14 +1502,14 @@
       "kb": 0.52
     },
     "log-viewer": {
-      "raw": 3701,
-      "gzip": 1084,
-      "kb": 1.06
+      "raw": 3669,
+      "gzip": 1076,
+      "kb": 1.05
     },
     "login-form": {
-      "raw": 6476,
-      "gzip": 2003,
-      "kb": 1.96
+      "raw": 6472,
+      "gzip": 2000,
+      "kb": 1.95
     },
     "logo-cloud": {
       "raw": 1123,
@@ -1537,8 +1537,8 @@
       "kb": 0.72
     },
     "luggage-tag": {
-      "raw": 2574,
-      "gzip": 860,
+      "raw": 2573,
+      "gzip": 856,
       "kb": 0.84
     },
     "magic-link": {
@@ -1547,14 +1547,14 @@
       "kb": 0.9
     },
     "mailbox": {
-      "raw": 3804,
-      "gzip": 1415,
-      "kb": 1.38
+      "raw": 3799,
+      "gzip": 1402,
+      "kb": 1.37
     },
     "maintenance-banner": {
-      "raw": 2445,
-      "gzip": 1133,
-      "kb": 1.11
+      "raw": 2433,
+      "gzip": 1128,
+      "kb": 1.1
     },
     "maintenance-page": {
       "raw": 1037,
@@ -1562,8 +1562,8 @@
       "kb": 0.55
     },
     "mana-bar": {
-      "raw": 1815,
-      "gzip": 891,
+      "raw": 1812,
+      "gzip": 889,
       "kb": 0.87
     },
     "markdown-editor": {
@@ -1582,18 +1582,18 @@
       "kb": 0.57
     },
     "marquee": {
-      "raw": 1409,
-      "gzip": 565,
+      "raw": 1408,
+      "gzip": 562,
       "kb": 0.55
     },
     "masked-currency": {
-      "raw": 2002,
-      "gzip": 897,
-      "kb": 0.88
+      "raw": 2001,
+      "gzip": 894,
+      "kb": 0.87
     },
     "masked-input": {
-      "raw": 3089,
-      "gzip": 1202,
+      "raw": 3088,
+      "gzip": 1198,
       "kb": 1.17
     },
     "masonry-columns": {
@@ -1602,7 +1602,7 @@
       "kb": 0.64
     },
     "master-detail": {
-      "raw": 2831,
+      "raw": 2832,
       "gzip": 1170,
       "kb": 1.14
     },
@@ -1612,9 +1612,9 @@
       "kb": 0.8
     },
     "matchmaking-lobby": {
-      "raw": 2610,
-      "gzip": 1056,
-      "kb": 1.03
+      "raw": 2598,
+      "gzip": 1047,
+      "kb": 1.02
     },
     "matrix-chart": {
       "raw": 2267,
@@ -1632,7 +1632,7 @@
       "kb": 1.19
     },
     "media-embed": {
-      "raw": 2172,
+      "raw": 2178,
       "gzip": 1092,
       "kb": 1.07
     },
@@ -1657,34 +1657,34 @@
       "kb": 0.54
     },
     "mention-input": {
-      "raw": 5117,
-      "gzip": 1774,
+      "raw": 5116,
+      "gzip": 1770,
       "kb": 1.73
     },
     "mention-list": {
-      "raw": 2306,
+      "raw": 2307,
       "gzip": 1035,
       "kb": 1.01
     },
     "menubar": {
-      "raw": 4391,
-      "gzip": 1429,
-      "kb": 1.4
+      "raw": 4525,
+      "gzip": 1495,
+      "kb": 1.46
     },
     "meter": {
-      "raw": 3141,
-      "gzip": 1147,
-      "kb": 1.12
+      "raw": 3033,
+      "gzip": 1135,
+      "kb": 1.11
     },
     "metric-card": {
-      "raw": 13400,
-      "gzip": 3395,
-      "kb": 3.32
+      "raw": 12983,
+      "gzip": 3339,
+      "kb": 3.26
     },
     "migration-banner": {
-      "raw": 2647,
-      "gzip": 1132,
-      "kb": 1.11
+      "raw": 2631,
+      "gzip": 1126,
+      "kb": 1.1
     },
     "milestone-chart": {
       "raw": 2687,
@@ -1698,11 +1698,11 @@
     },
     "mobile-menu": {
       "raw": 2591,
-      "gzip": 1181,
+      "gzip": 1180,
       "kb": 1.15
     },
     "model-picker": {
-      "raw": 3288,
+      "raw": 3290,
       "gzip": 1237,
       "kb": 1.21
     },
@@ -1717,9 +1717,9 @@
       "kb": 1.44
     },
     "navbar": {
-      "raw": 2150,
-      "gzip": 857,
-      "kb": 0.84
+      "raw": 2149,
+      "gzip": 853,
+      "kb": 0.83
     },
     "navigation-menu": {
       "raw": 1798,
@@ -1742,19 +1742,19 @@
       "kb": 0.97
     },
     "nfc-badge": {
-      "raw": 16397,
-      "gzip": 4172,
-      "kb": 4.07
+      "raw": 16227,
+      "gzip": 4131,
+      "kb": 4.03
     },
     "notification-center": {
-      "raw": 5487,
-      "gzip": 1663,
+      "raw": 5479,
+      "gzip": 1661,
       "kb": 1.62
     },
     "notification-feed": {
-      "raw": 2979,
-      "gzip": 1260,
-      "kb": 1.23
+      "raw": 2942,
+      "gzip": 1238,
+      "kb": 1.21
     },
     "now-serving": {
       "raw": 1886,
@@ -1772,8 +1772,8 @@
       "kb": 1.11
     },
     "offline-banner": {
-      "raw": 2249,
-      "gzip": 1018,
+      "raw": 2233,
+      "gzip": 1009,
       "kb": 0.99
     },
     "offline-queue": {
@@ -1782,7 +1782,7 @@
       "kb": 0.79
     },
     "onboarding-checklist": {
-      "raw": 2883,
+      "raw": 2884,
       "gzip": 1232,
       "kb": 1.2
     },
@@ -1792,9 +1792,9 @@
       "kb": 1.05
     },
     "order-card": {
-      "raw": 2273,
-      "gzip": 886,
-      "kb": 0.87
+      "raw": 2234,
+      "gzip": 868,
+      "kb": 0.85
     },
     "order-tracking": {
       "raw": 2831,
@@ -1837,13 +1837,13 @@
       "kb": 0.98
     },
     "pagination-v2": {
-      "raw": 3585,
-      "gzip": 1278,
-      "kb": 1.25
+      "raw": 3584,
+      "gzip": 1266,
+      "kb": 1.24
     },
     "pagination": {
-      "raw": 3564,
-      "gzip": 1096,
+      "raw": 3563,
+      "gzip": 1094,
       "kb": 1.07
     },
     "parking-ticket-meter": {
@@ -1877,9 +1877,9 @@
       "kb": 1
     },
     "password-strength": {
-      "raw": 3350,
-      "gzip": 1290,
-      "kb": 1.26
+      "raw": 3341,
+      "gzip": 1282,
+      "kb": 1.25
     },
     "path-breadcrumb": {
       "raw": 1453,
@@ -1892,17 +1892,17 @@
       "kb": 0.77
     },
     "payment-methods": {
-      "raw": 2906,
+      "raw": 2907,
       "gzip": 1292,
       "kb": 1.26
     },
     "permission-denied": {
-      "raw": 2359,
-      "gzip": 1090,
+      "raw": 2363,
+      "gzip": 1088,
       "kb": 1.06
     },
     "permissions-matrix": {
-      "raw": 4050,
+      "raw": 4051,
       "gzip": 1459,
       "kb": 1.42
     },
@@ -1917,18 +1917,18 @@
       "kb": 1.09
     },
     "pin-input": {
-      "raw": 3492,
-      "gzip": 1278,
+      "raw": 3491,
+      "gzip": 1276,
       "kb": 1.25
     },
     "ping-indicator": {
-      "raw": 1174,
-      "gzip": 659,
-      "kb": 0.64
+      "raw": 1122,
+      "gzip": 638,
+      "kb": 0.62
     },
     "pivot-lite": {
-      "raw": 2704,
-      "gzip": 893,
+      "raw": 2705,
+      "gzip": 894,
       "kb": 0.87
     },
     "playlist": {
@@ -1943,18 +1943,18 @@
     },
     "poll-results": {
       "raw": 2629,
-      "gzip": 1155,
+      "gzip": 1154,
       "kb": 1.13
     },
     "poll": {
-      "raw": 3323,
-      "gzip": 1382,
+      "raw": 3324,
+      "gzip": 1383,
       "kb": 1.35
     },
     "popover": {
-      "raw": 3421,
-      "gzip": 1253,
-      "kb": 1.22
+      "raw": 3558,
+      "gzip": 1311,
+      "kb": 1.28
     },
     "post-card": {
       "raw": 1771,
@@ -1972,19 +1972,19 @@
       "kb": 0.57
     },
     "price-compare": {
-      "raw": 2406,
-      "gzip": 1073,
-      "kb": 1.05
+      "raw": 2404,
+      "gzip": 1065,
+      "kb": 1.04
     },
     "price-tag": {
-      "raw": 1711,
-      "gzip": 733,
-      "kb": 0.72
+      "raw": 1710,
+      "gzip": 730,
+      "kb": 0.71
     },
     "pricing-calculator": {
-      "raw": 2440,
-      "gzip": 922,
-      "kb": 0.9
+      "raw": 2437,
+      "gzip": 914,
+      "kb": 0.89
     },
     "pricing-slider": {
       "raw": 3129,
@@ -1992,9 +1992,9 @@
       "kb": 1.13
     },
     "pricing-table": {
-      "raw": 20271,
-      "gzip": 4671,
-      "kb": 4.56
+      "raw": 19809,
+      "gzip": 4653,
+      "kb": 4.54
     },
     "print-invoice": {
       "raw": 2460,
@@ -2002,8 +2002,8 @@
       "kb": 0.94
     },
     "printable-invoice": {
-      "raw": 3809,
-      "gzip": 1285,
+      "raw": 3810,
+      "gzip": 1284,
       "kb": 1.25
     },
     "printable-ticket": {
@@ -2012,14 +2012,14 @@
       "kb": 1.04
     },
     "product-card": {
-      "raw": 3270,
-      "gzip": 1268,
+      "raw": 3253,
+      "gzip": 1271,
       "kb": 1.24
     },
     "profile-settings": {
-      "raw": 5467,
-      "gzip": 1513,
-      "kb": 1.48
+      "raw": 5465,
+      "gzip": 1510,
+      "kb": 1.47
     },
     "progress-circle": {
       "raw": 2339,
@@ -2027,9 +2027,9 @@
       "kb": 0.86
     },
     "progress": {
-      "raw": 902,
-      "gzip": 515,
-      "kb": 0.5
+      "raw": 990,
+      "gzip": 547,
+      "kb": 0.53
     },
     "prompt-box": {
       "raw": 1801,
@@ -2062,9 +2062,9 @@
       "kb": 0.84
     },
     "punch-clock": {
-      "raw": 3125,
-      "gzip": 1245,
-      "kb": 1.22
+      "raw": 3061,
+      "gzip": 1230,
+      "kb": 1.2
     },
     "push-permission": {
       "raw": 2458,
@@ -2087,8 +2087,8 @@
       "kb": 5.08
     },
     "quest-list": {
-      "raw": 2409,
-      "gzip": 1037,
+      "raw": 2405,
+      "gzip": 1034,
       "kb": 1.01
     },
     "quest-tracker": {
@@ -2102,9 +2102,9 @@
       "kb": 0.66
     },
     "queued-jobs": {
-      "raw": 3369,
-      "gzip": 1397,
-      "kb": 1.36
+      "raw": 3338,
+      "gzip": 1378,
+      "kb": 1.35
     },
     "quick-actions": {
       "raw": 1789,
@@ -2112,9 +2112,9 @@
       "kb": 0.86
     },
     "quiz-card": {
-      "raw": 2494,
-      "gzip": 1050,
-      "kb": 1.03
+      "raw": 2483,
+      "gzip": 1044,
+      "kb": 1.02
     },
     "quote-wall": {
       "raw": 1035,
@@ -2137,9 +2137,9 @@
       "kb": 0.88
     },
     "radio-cards": {
-      "raw": 15024,
-      "gzip": 3839,
-      "kb": 3.75
+      "raw": 14566,
+      "gzip": 3817,
+      "kb": 3.73
     },
     "radio-group": {
       "raw": 2376,
@@ -2162,13 +2162,13 @@
       "kb": 0.54
     },
     "rate-limit-note": {
-      "raw": 1564,
-      "gzip": 833,
+      "raw": 1556,
+      "gzip": 828,
       "kb": 0.81
     },
     "rating": {
-      "raw": 3305,
-      "gzip": 1237,
+      "raw": 3304,
+      "gzip": 1234,
       "kb": 1.21
     },
     "reaction-bar": {
@@ -2187,8 +2187,8 @@
       "kb": 0.86
     },
     "recent-searches": {
-      "raw": 2147,
-      "gzip": 959,
+      "raw": 2148,
+      "gzip": 961,
       "kb": 0.94
     },
     "recipe-card": {
@@ -2202,9 +2202,9 @@
       "kb": 1.18
     },
     "refund-card": {
-      "raw": 1740,
-      "gzip": 827,
-      "kb": 0.81
+      "raw": 1687,
+      "gzip": 806,
+      "kb": 0.79
     },
     "regex-tester": {
       "raw": 3798,
@@ -2217,13 +2217,13 @@
       "kb": 0.92
     },
     "register-form": {
-      "raw": 5673,
-      "gzip": 1778,
-      "kb": 1.74
+      "raw": 5667,
+      "gzip": 1776,
+      "kb": 1.73
     },
     "replay-controls": {
       "raw": 3186,
-      "gzip": 1105,
+      "gzip": 1104,
       "kb": 1.08
     },
     "resizable": {
@@ -2247,9 +2247,9 @@
       "kb": 1.32
     },
     "result": {
-      "raw": 4059,
-      "gzip": 1002,
-      "kb": 0.98
+      "raw": 4056,
+      "gzip": 995,
+      "kb": 0.97
     },
     "reveal": {
       "raw": 1312,
@@ -2267,8 +2267,8 @@
       "kb": 0.75
     },
     "role-badge": {
-      "raw": 1385,
-      "gzip": 688,
+      "raw": 1376,
+      "gzip": 683,
       "kb": 0.67
     },
     "route-loader": {
@@ -2277,7 +2277,7 @@
       "kb": 0.55
     },
     "row-expand": {
-      "raw": 2468,
+      "raw": 2469,
       "gzip": 1079,
       "kb": 1.05
     },
@@ -2297,9 +2297,9 @@
       "kb": 1.58
     },
     "save-indicator": {
-      "raw": 1685,
-      "gzip": 736,
-      "kb": 0.72
+      "raw": 1637,
+      "gzip": 712,
+      "kb": 0.7
     },
     "saved-searches": {
       "raw": 2159,
@@ -2317,9 +2317,9 @@
       "kb": 1.12
     },
     "score-popup": {
-      "raw": 1442,
-      "gzip": 760,
-      "kb": 0.74
+      "raw": 1366,
+      "gzip": 734,
+      "kb": 0.72
     },
     "scoreboard": {
       "raw": 3090,
@@ -2332,8 +2332,8 @@
       "kb": 1.44
     },
     "screenshot-frame": {
-      "raw": 1365,
-      "gzip": 670,
+      "raw": 1359,
+      "gzip": 669,
       "kb": 0.65
     },
     "scroll-area": {
@@ -2357,13 +2357,13 @@
       "kb": 1.09
     },
     "scroll-top": {
-      "raw": 1591,
-      "gzip": 813,
+      "raw": 1590,
+      "gzip": 810,
       "kb": 0.79
     },
     "search-bar": {
-      "raw": 3014,
-      "gzip": 1168,
+      "raw": 3013,
+      "gzip": 1165,
       "kb": 1.14
     },
     "search-command": {
@@ -2387,24 +2387,24 @@
       "kb": 0.85
     },
     "seat-map": {
-      "raw": 22155,
-      "gzip": 5613,
-      "kb": 5.48
+      "raw": 22087,
+      "gzip": 5594,
+      "kb": 5.46
     },
     "section-heading": {
-      "raw": 1383,
-      "gzip": 609,
+      "raw": 1382,
+      "gzip": 607,
       "kb": 0.59
     },
     "security-score": {
-      "raw": 3633,
-      "gzip": 1456,
+      "raw": 3615,
+      "gzip": 1454,
       "kb": 1.42
     },
     "segmented-switch": {
-      "raw": 17014,
-      "gzip": 4252,
-      "kb": 4.15
+      "raw": 16880,
+      "gzip": 4210,
+      "kb": 4.11
     },
     "select-v2": {
       "raw": 4137,
@@ -2412,9 +2412,9 @@
       "kb": 1.42
     },
     "select": {
-      "raw": 5781,
-      "gzip": 1883,
-      "kb": 1.84
+      "raw": 5960,
+      "gzip": 1968,
+      "kb": 1.92
     },
     "sensitivity-slider": {
       "raw": 1569,
@@ -2422,8 +2422,8 @@
       "kb": 0.75
     },
     "separator": {
-      "raw": 765,
-      "gzip": 393,
+      "raw": 764,
+      "gzip": 391,
       "kb": 0.38
     },
     "serial-input": {
@@ -2437,14 +2437,14 @@
       "kb": 1.47
     },
     "settings-section": {
-      "raw": 2723,
-      "gzip": 1158,
-      "kb": 1.13
+      "raw": 2690,
+      "gzip": 1139,
+      "kb": 1.11
     },
     "settings-sheet": {
-      "raw": 2205,
-      "gzip": 818,
-      "kb": 0.8
+      "raw": 2153,
+      "gzip": 803,
+      "kb": 0.78
     },
     "share-menu": {
       "raw": 4946,
@@ -2452,9 +2452,9 @@
       "kb": 1.36
     },
     "sheet": {
-      "raw": 4176,
-      "gzip": 1582,
-      "kb": 1.54
+      "raw": 4144,
+      "gzip": 1560,
+      "kb": 1.52
     },
     "shift-planner": {
       "raw": 2288,
@@ -2462,7 +2462,7 @@
       "kb": 0.93
     },
     "shipping-options": {
-      "raw": 2995,
+      "raw": 2996,
       "gzip": 1169,
       "kb": 1.14
     },
@@ -2472,8 +2472,8 @@
       "kb": 0.86
     },
     "shortcut-recorder": {
-      "raw": 2741,
-      "gzip": 1119,
+      "raw": 2742,
+      "gzip": 1120,
       "kb": 1.09
     },
     "sidebar-layout": {
@@ -2482,13 +2482,13 @@
       "kb": 0.44
     },
     "sidebar-v2": {
-      "raw": 4101,
-      "gzip": 1593,
+      "raw": 4103,
+      "gzip": 1594,
       "kb": 1.56
     },
     "sidebar": {
-      "raw": 6000,
-      "gzip": 1825,
+      "raw": 5993,
+      "gzip": 1822,
       "kb": 1.78
     },
     "signature-line": {
@@ -2497,8 +2497,8 @@
       "kb": 0.71
     },
     "signature-pad": {
-      "raw": 18707,
-      "gzip": 4833,
+      "raw": 18703,
+      "gzip": 4830,
       "kb": 4.72
     },
     "sitemap-list": {
@@ -2517,8 +2517,8 @@
       "kb": 0.94
     },
     "skeleton": {
-      "raw": 449,
-      "gzip": 286,
+      "raw": 448,
+      "gzip": 284,
       "kb": 0.28
     },
     "skip-link": {
@@ -2542,9 +2542,9 @@
       "kb": 0.91
     },
     "smart-search-bar": {
-      "raw": 4392,
-      "gzip": 1645,
-      "kb": 1.61
+      "raw": 4393,
+      "gzip": 1642,
+      "kb": 1.6
     },
     "snippet-card": {
       "raw": 1428,
@@ -2567,9 +2567,9 @@
       "kb": 0.77
     },
     "sparkline": {
-      "raw": 2410,
-      "gzip": 975,
-      "kb": 0.95
+      "raw": 2391,
+      "gzip": 961,
+      "kb": 0.94
     },
     "speed-dial": {
       "raw": 4878,
@@ -2577,8 +2577,8 @@
       "kb": 1.5
     },
     "spinner": {
-      "raw": 972,
-      "gzip": 509,
+      "raw": 971,
+      "gzip": 507,
       "kb": 0.5
     },
     "split-bill-calculator": {
@@ -2587,12 +2587,12 @@
       "kb": 1.12
     },
     "split-button": {
-      "raw": 3893,
-      "gzip": 1336,
-      "kb": 1.3
+      "raw": 3773,
+      "gzip": 1324,
+      "kb": 1.29
     },
     "split-flap": {
-      "raw": 19127,
+      "raw": 19128,
       "gzip": 5418,
       "kb": 5.29
     },
@@ -2627,8 +2627,8 @@
       "kb": 0.66
     },
     "stack": {
-      "raw": 1222,
-      "gzip": 587,
+      "raw": 1221,
+      "gzip": 586,
       "kb": 0.57
     },
     "stacked-bar": {
@@ -2647,8 +2647,8 @@
       "kb": 1.1
     },
     "stamp-seal": {
-      "raw": 1676,
-      "gzip": 688,
+      "raw": 1675,
+      "gzip": 685,
       "kb": 0.67
     },
     "star-rating-input": {
@@ -2662,9 +2662,9 @@
       "kb": 0.36
     },
     "stat-tile": {
-      "raw": 2344,
-      "gzip": 1051,
-      "kb": 1.03
+      "raw": 2318,
+      "gzip": 1039,
+      "kb": 1.01
     },
     "stats-band": {
       "raw": 1339,
@@ -2672,19 +2672,19 @@
       "kb": 0.64
     },
     "stats-overview": {
-      "raw": 4011,
-      "gzip": 1383,
-      "kb": 1.35
+      "raw": 3985,
+      "gzip": 1370,
+      "kb": 1.34
     },
     "status-dot": {
-      "raw": 13473,
-      "gzip": 3550,
-      "kb": 3.47
+      "raw": 12971,
+      "gzip": 3511,
+      "kb": 3.43
     },
     "status-page": {
-      "raw": 1740,
-      "gzip": 796,
-      "kb": 0.78
+      "raw": 1700,
+      "gzip": 777,
+      "kb": 0.76
     },
     "stepper-v2": {
       "raw": 3639,
@@ -2692,19 +2692,19 @@
       "kb": 1.28
     },
     "stepper": {
-      "raw": 3037,
-      "gzip": 995,
+      "raw": 3036,
+      "gzip": 993,
       "kb": 0.97
     },
     "steps": {
-      "raw": 2398,
-      "gzip": 862,
+      "raw": 2397,
+      "gzip": 859,
       "kb": 0.84
     },
     "sticky-bar": {
-      "raw": 1729,
-      "gzip": 753,
-      "kb": 0.74
+      "raw": 1728,
+      "gzip": 748,
+      "kb": 0.73
     },
     "sticky-footer": {
       "raw": 1115,
@@ -2717,13 +2717,13 @@
       "kb": 0.51
     },
     "stock-status": {
-      "raw": 1351,
-      "gzip": 683,
-      "kb": 0.67
+      "raw": 1313,
+      "gzip": 663,
+      "kb": 0.65
     },
     "stopwatch-v2": {
-      "raw": 3524,
-      "gzip": 1276,
+      "raw": 3525,
+      "gzip": 1277,
       "kb": 1.25
     },
     "stopwatch": {
@@ -2757,8 +2757,8 @@
       "kb": 0.87
     },
     "subscription-card": {
-      "raw": 2427,
-      "gzip": 1079,
+      "raw": 2421,
+      "gzip": 1075,
       "kb": 1.05
     },
     "suggestion-chips": {
@@ -2787,9 +2787,9 @@
       "kb": 0.72
     },
     "sync-status": {
-      "raw": 1672,
-      "gzip": 839,
-      "kb": 0.82
+      "raw": 1630,
+      "gzip": 815,
+      "kb": 0.8
     },
     "tabbar-v2": {
       "raw": 2026,
@@ -2812,8 +2812,8 @@
       "kb": 0.78
     },
     "table": {
-      "raw": 1698,
-      "gzip": 531,
+      "raw": 1699,
+      "gzip": 528,
       "kb": 0.52
     },
     "tabs": {
@@ -2822,19 +2822,19 @@
       "kb": 1.48
     },
     "tag-input": {
-      "raw": 17167,
-      "gzip": 4672,
-      "kb": 4.56
+      "raw": 16698,
+      "gzip": 4640,
+      "kb": 4.53
     },
     "task-list": {
-      "raw": 2181,
-      "gzip": 1067,
+      "raw": 2177,
+      "gzip": 1061,
       "kb": 1.04
     },
     "team-frames": {
-      "raw": 3094,
-      "gzip": 1216,
-      "kb": 1.19
+      "raw": 3087,
+      "gzip": 1212,
+      "kb": 1.18
     },
     "team-grid": {
       "raw": 2257,
@@ -2842,14 +2842,14 @@
       "kb": 0.87
     },
     "team-members": {
-      "raw": 4748,
-      "gzip": 1849,
-      "kb": 1.81
+      "raw": 4739,
+      "gzip": 1844,
+      "kb": 1.8
     },
     "terminal": {
-      "raw": 3023,
-      "gzip": 1043,
-      "kb": 1.02
+      "raw": 3011,
+      "gzip": 1037,
+      "kb": 1.01
     },
     "testimonial-carousel": {
       "raw": 2478,
@@ -2892,12 +2892,12 @@
       "kb": 1.04
     },
     "theme-toggle": {
-      "raw": 15989,
-      "gzip": 4012,
+      "raw": 15990,
+      "gzip": 4013,
       "kb": 3.92
     },
     "thinking-block": {
-      "raw": 2425,
+      "raw": 2426,
       "gzip": 1010,
       "kb": 0.99
     },
@@ -2907,8 +2907,8 @@
       "kb": 0.9
     },
     "ticket-card": {
-      "raw": 5230,
-      "gzip": 1424,
+      "raw": 5229,
+      "gzip": 1421,
       "kb": 1.39
     },
     "ticket-deck-dnd": {
@@ -2917,9 +2917,9 @@
       "kb": 1.2
     },
     "ticket-fold": {
-      "raw": 22719,
-      "gzip": 4741,
-      "kb": 4.63
+      "raw": 22676,
+      "gzip": 4728,
+      "kb": 4.62
     },
     "ticket-stub-v2": {
       "raw": 2105,
@@ -2927,9 +2927,9 @@
       "kb": 0.82
     },
     "ticket-validator": {
-      "raw": 3570,
-      "gzip": 1404,
-      "kb": 1.37
+      "raw": 3532,
+      "gzip": 1390,
+      "kb": 1.36
     },
     "tilt-card": {
       "raw": 2168,
@@ -2942,8 +2942,8 @@
       "kb": 0.65
     },
     "time-input": {
-      "raw": 4212,
-      "gzip": 1218,
+      "raw": 4211,
+      "gzip": 1214,
       "kb": 1.19
     },
     "time-range-picker": {
@@ -2962,8 +2962,8 @@
       "kb": 0.84
     },
     "timeline": {
-      "raw": 1959,
-      "gzip": 793,
+      "raw": 1958,
+      "gzip": 790,
       "kb": 0.77
     },
     "timezone-select": {
@@ -2972,8 +2972,8 @@
       "kb": 1.85
     },
     "toast": {
-      "raw": 2920,
-      "gzip": 1145,
+      "raw": 2919,
+      "gzip": 1143,
       "kb": 1.12
     },
     "toc": {
@@ -2982,9 +2982,9 @@
       "kb": 0.89
     },
     "toggle-group": {
-      "raw": 3623,
-      "gzip": 1329,
-      "kb": 1.3
+      "raw": 3622,
+      "gzip": 1326,
+      "kb": 1.29
     },
     "toggle": {
       "raw": 2010,
@@ -2997,13 +2997,13 @@
       "kb": 0.88
     },
     "tooltip": {
-      "raw": 1761,
-      "gzip": 826,
-      "kb": 0.81
+      "raw": 1901,
+      "gzip": 897,
+      "kb": 0.88
     },
     "tour": {
-      "raw": 3612,
-      "gzip": 1303,
+      "raw": 3611,
+      "gzip": 1300,
       "kb": 1.27
     },
     "tournament-bracket": {
@@ -3017,22 +3017,22 @@
       "kb": 1.03
     },
     "transfer-list": {
-      "raw": 6253,
-      "gzip": 1634,
-      "kb": 1.6
+      "raw": 6252,
+      "gzip": 1631,
+      "kb": 1.59
     },
     "tree-nav": {
-      "raw": 3257,
-      "gzip": 1202,
+      "raw": 3256,
+      "gzip": 1198,
       "kb": 1.17
     },
     "tree-select": {
-      "raw": 5003,
-      "gzip": 1756,
+      "raw": 5002,
+      "gzip": 1752,
       "kb": 1.71
     },
     "tree-table": {
-      "raw": 3287,
+      "raw": 3288,
       "gzip": 1358,
       "kb": 1.33
     },
@@ -3042,9 +3042,9 @@
       "kb": 1.45
     },
     "trend-badge": {
-      "raw": 9766,
-      "gzip": 2675,
-      "kb": 2.61
+      "raw": 9237,
+      "gzip": 2603,
+      "kb": 2.54
     },
     "trending-chips": {
       "raw": 1862,
@@ -3062,8 +3062,8 @@
       "kb": 0.75
     },
     "turnstile-gate": {
-      "raw": 3652,
-      "gzip": 1341,
+      "raw": 3648,
+      "gzip": 1338,
       "kb": 1.31
     },
     "tutorial-highlight": {
@@ -3097,23 +3097,23 @@
       "kb": 0.67
     },
     "upgrade-prompt": {
-      "raw": 3626,
-      "gzip": 1512,
-      "kb": 1.48
+      "raw": 3622,
+      "gzip": 1506,
+      "kb": 1.47
     },
     "upload-progress": {
-      "raw": 2590,
-      "gzip": 1188,
+      "raw": 2586,
+      "gzip": 1185,
       "kb": 1.16
     },
     "usage-meter": {
-      "raw": 2272,
-      "gzip": 1007,
+      "raw": 2268,
+      "gzip": 1004,
       "kb": 0.98
     },
     "usage-quota-ring": {
-      "raw": 1921,
-      "gzip": 915,
+      "raw": 1919,
+      "gzip": 914,
       "kb": 0.89
     },
     "user-card": {
@@ -3122,27 +3122,27 @@
       "kb": 0.92
     },
     "user-table": {
-      "raw": 4838,
-      "gzip": 1613,
-      "kb": 1.58
+      "raw": 4804,
+      "gzip": 1598,
+      "kb": 1.56
     },
     "variant-picker": {
-      "raw": 3221,
-      "gzip": 1133,
+      "raw": 3217,
+      "gzip": 1134,
       "kb": 1.11
     },
     "version-badge": {
-      "raw": 1380,
-      "gzip": 686,
-      "kb": 0.67
+      "raw": 1340,
+      "gzip": 670,
+      "kb": 0.65
     },
     "video-frame": {
-      "raw": 4186,
-      "gzip": 1572,
-      "kb": 1.54
+      "raw": 4179,
+      "gzip": 1565,
+      "kb": 1.53
     },
     "video-list": {
-      "raw": 2483,
+      "raw": 2484,
       "gzip": 1154,
       "kb": 1.13
     },
@@ -3182,9 +3182,9 @@
       "kb": 0.8
     },
     "voice-indicator": {
-      "raw": 1747,
-      "gzip": 876,
-      "kb": 0.86
+      "raw": 1726,
+      "gzip": 871,
+      "kb": 0.85
     },
     "voice-message": {
       "raw": 3025,
@@ -3212,9 +3212,9 @@
       "kb": 0.73
     },
     "wallet-card": {
-      "raw": 2354,
-      "gzip": 1059,
-      "kb": 1.03
+      "raw": 2326,
+      "gzip": 1046,
+      "kb": 1.02
     },
     "warranty-certificate": {
       "raw": 1577,
@@ -3237,14 +3237,14 @@
       "kb": 0.49
     },
     "webhook-list": {
-      "raw": 3119,
-      "gzip": 1284,
+      "raw": 3115,
+      "gzip": 1281,
       "kb": 1.25
     },
     "webhook-log": {
-      "raw": 1462,
-      "gzip": 706,
-      "kb": 0.69
+      "raw": 1432,
+      "gzip": 691,
+      "kb": 0.67
     },
     "wishlist-button": {
       "raw": 2526,
@@ -3267,8 +3267,8 @@
       "kb": 1.6
     },
     "wristband": {
-      "raw": 827,
-      "gzip": 442,
+      "raw": 810,
+      "gzip": 444,
       "kb": 0.43
     },
     "xp-bar": {

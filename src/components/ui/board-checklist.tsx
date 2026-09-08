@@ -19,7 +19,7 @@ export interface BoardChecklistProps extends Omit<React.HTMLAttributes<HTMLDivEl
 
 const PRIORITY_TONE: Record<NonNullable<TaskItem["priority"]>, string> = {
   low: "border-border bg-secondary text-muted-foreground",
-  med: "border-amber-500/50 bg-amber-500/10 text-amber-600",
+  med: "border-warning/50 bg-warning/10 text-warning",
   high: "border-destructive/50 bg-destructive/10 text-destructive",
 };
 

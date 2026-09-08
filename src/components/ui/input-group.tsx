@@ -20,7 +20,7 @@ const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
           className
         )}
       >
-        <div className="absolute left-0 inset-y-0 pl-2 flex items-center pointer-events-none">
+        <div className="absolute left-0 inset-y-0 ps-2 flex items-center pointer-events-none">
           {/* Prefix slot */}
         </div>
 
@@ -38,7 +38,7 @@ const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
         </div>
 
         {/* Suffix slot */}
-        <div className="absolute right-0 inset-y-0 pr-2 flex items-center pointer-events-none">
+        <div className="absolute right-0 inset-y-0 pe-2 flex items-center pointer-events-none">
           {/* Action button slot */}
         </div>
 

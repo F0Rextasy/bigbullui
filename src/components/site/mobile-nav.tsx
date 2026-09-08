@@ -229,7 +229,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
             rel="noreferrer"
             className="flex items-center justify-center gap-2 rounded-md border border-border bg-secondary/50 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary"
           >
-            <Star size={14} className="text-amber-400" />
+            <Star size={14} className="text-warning" />
             <span>Star on GitHub {stars !== null ? `(${stars})` : ""}</span>
           </a>
           <Link

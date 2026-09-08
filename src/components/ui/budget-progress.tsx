@@ -36,7 +36,7 @@ export function BudgetProgress({ categories, currency = "₺", className, ...pro
               <div
                 className={cn(
                   "h-full origin-left rounded-full transition-colors duration-300 motion-reduce:transition-none",
-                  over ? "bg-destructive" : warn ? "bg-amber-500" : "bg-accent"
+                  over ? "bg-destructive" : warn ? "bg-warning" : "bg-accent"
                 )}
                 style={{ width: `${pct}%`, animation: "bpFill 0.6s cubic-bezier(0.16,1,0.3,1) both", animationDelay: `${idx * 70}ms` }}
               />

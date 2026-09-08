@@ -42,7 +42,7 @@ export function QuestList({ quests, onTrack, className, ...props }: QuestListPro
               </button>
             </div>
             <div className="mt-2 h-2 overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuemin={0} aria-valuemax={q.goal} aria-valuenow={q.progress} aria-label={q.title}>
-              <div className={cn("h-full transition-[width] duration-500 motion-reduce:transition-none", done ? "bg-emerald-500" : "bg-accent")} style={{ width: `${pct}%` }} />
+              <div className={cn("h-full transition-[width] duration-500 motion-reduce:transition-none", done ? "bg-success" : "bg-accent")} style={{ width: `${pct}%` }} />
             </div>
             <p className="mt-1 font-mono text-[10px] tabular-nums text-muted-foreground">{q.progress}/{q.goal}</p>
           </div>

@@ -19,8 +19,8 @@ export interface ChangelogListProps extends React.HTMLAttributes<HTMLDivElement>
 type Section = "added" | "fixed" | "breaking";
 
 const SECTION_META: Record<Section, { label: string; tone: string; prefix: string }> = {
-  added: { label: "Eklendi", tone: "text-emerald-700 dark:text-emerald-400", prefix: "+" },
-  fixed: { label: "Fixed", tone: "text-sky-600", prefix: "~" },
+  added: { label: "Added", tone: "text-success", prefix: "+" },
+  fixed: { label: "Fixed", tone: "text-info", prefix: "~" },
   breaking: { label: "Breaking", tone: "text-destructive", prefix: "!" },
 };
 

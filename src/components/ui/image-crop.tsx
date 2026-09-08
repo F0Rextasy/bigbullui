@@ -196,7 +196,7 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
             className={cn(
               "absolute inset-0 overflow-hidden",
               "after:block after:w-1 after:h-[1px] after:bg-border/50 after:content-['']",
-              "after:mr-1/3 after:mb-1/3",
+              "after:me-1/3 after:mb-1/3",
               "after:rotate-90 after:absolute after/inset-1/3 after:h-full after:w-full",
               "motion-reduce:transition-none",
             )}

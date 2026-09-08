@@ -19,7 +19,7 @@ export function DevicesList({ devices = [{ id: "d1", name: "MacBook Pro", locati
           <li key={d.id} className="flex items-center gap-2 rounded-md border border-dashed border-border bg-background px-2.5 py-2">
             <span className="flex size-7 items-center justify-center rounded border border-border bg-card font-mono text-[10px] font-bold text-accent" aria-hidden="true">◈</span>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-mono text-xs font-bold text-foreground">{d.name} {d.current && <span className="ml-1 rounded bg-accent px-1 py-px text-[9px] uppercase text-accent-foreground">This device</span>}</p>
+              <p className="truncate font-mono text-xs font-bold text-foreground">{d.name} {d.current && <span className="ms-1 rounded bg-accent px-1 py-px text-[9px] uppercase text-accent-foreground">This device</span>}</p>
               <p className="font-mono text-[10px] uppercase text-muted-foreground">{d.location}</p>
             </div>
             {!d.current && (

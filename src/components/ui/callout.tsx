@@ -16,17 +16,17 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const VARIANT_STYLES = {
   info: "border-foreground bg-card text-foreground",
-  success: "border-emerald-600 bg-emerald-500/10 text-emerald-950 dark:text-emerald-200",
-  warning: "border-amber-500 bg-amber-500/10 text-amber-950 dark:text-amber-200",
+  success: "border-success bg-success/10 text-success",
+  warning: "border-warning bg-warning/10 text-warning",
   danger: "border-destructive bg-destructive/10 text-destructive",
   neutral: "border-border bg-secondary/50 text-foreground",
 };
 
 const VARIANT_BADGES = {
   info: "bg-foreground text-background",
-  success: "bg-emerald-600 text-white",
-  warning: "bg-amber-500 text-black",
-  danger: "bg-destructive text-destructive-foreground",
+  success: "bg-success text-white",
+  warning: "bg-warning text-black",
+  danger: "bg-destructive text-white",
   neutral: "bg-secondary text-foreground",
 };
 

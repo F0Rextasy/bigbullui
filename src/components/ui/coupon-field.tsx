@@ -44,11 +44,11 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
               "w-full rounded-md border border-dashed border-border bg-background px-3 py-2 font-mono text-sm uppercase tracking-widest",
               "transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               state === "invalid" && "border-destructive animate-[cfShake_0.3s_ease-out] motion-reduce:animate-none",
-              state === "valid" && "border-emerald-500"
+              state === "valid" && "border-success"
             )}
           />
           {state === "valid" && (
-            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-emerald-500" aria-hidden="true">
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-success" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" style={{ strokeDasharray: 20, animation: "cfCheck 0.3s ease-out both" }} /></svg>
             </span>
           )}
@@ -60,14 +60,14 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
             "shrink-0 rounded-md border-2 border-dashed px-4 font-mono text-[10px] uppercase tracking-wider transition-colors motion-reduce:transition-none",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             "disabled:pointer-events-none disabled:opacity-40",
-            state === "valid" ? "border-emerald-500 text-emerald-700 dark:text-emerald-400" : "border-border hover:border-foreground hover:text-foreground"
+            state === "valid" ? "border-success text-success" : "border-border hover:border-foreground hover:text-foreground"
           )}
         >
           {state === "checking" ? "…" : state === "valid" ? "✓ Applied" : "Apply"}
         </button>
       </div>
       {state === "invalid" && <p className="mt-1 text-xs text-destructive">Code is invalid or expired.</p>}
-      {state === "valid" && <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">Discount applied to cart!</p>}
+      {state === "valid" && <p className="mt-1 text-xs text-success">Discount applied to cart!</p>}
     </div>
   );
 }

@@ -55,7 +55,7 @@ const CopyChip = ({ value, label = "COPY" }: CopyChipProps) => {
       <span className="font-mono text-sm">
         {value}
       </span>
-      <span className="ml-2 text-xs">
+      <span className="ms-2 text-xs">
         {label}
       </span>
       {copied && (

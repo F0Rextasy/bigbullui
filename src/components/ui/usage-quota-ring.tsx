@@ -20,7 +20,7 @@ export function UsageQuotaRing({ used = 780, limit = 1000, label = "API calls", 
       <div className="relative size-20 shrink-0" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
         <svg viewBox="0 0 76 76" className="size-full -rotate-90">
           <circle cx="38" cy="38" r={r} fill="none" strokeWidth="8" className="stroke-border/60" />
-          <circle cx="38" cy="38" r={r} fill="none" strokeWidth="8" strokeLinecap="round" className={cn(over ? "stroke-destructive" : pct >= 80 ? "stroke-amber-500" : "stroke-accent", "transition-all duration-700 motion-reduce:transition-none")} strokeDasharray={c} strokeDashoffset={c - (c * Math.min(100, pct)) / 100} />
+          <circle cx="38" cy="38" r={r} fill="none" strokeWidth="8" strokeLinecap="round" className={cn(over ? "stroke-destructive" : pct >= 80 ? "stroke-warning" : "stroke-accent", "transition-all duration-700 motion-reduce:transition-none")} strokeDasharray={c} strokeDashoffset={c - (c * Math.min(100, pct)) / 100} />
         </svg>
         <span className="absolute inset-0 flex items-center justify-center font-mono text-xs font-bold tabular-nums text-foreground">{pct}%</span>
       </div>

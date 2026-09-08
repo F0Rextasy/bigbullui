@@ -38,7 +38,7 @@ export function AnchorNav({ items, activeId, className, ...props }: AnchorNavPro
   const activeIdx = items.findIndex((i) => i.id === active);
 
   return (
-    <nav className={cn("relative flex flex-col gap-1 pl-4", className)} aria-label="Section links" {...props}>
+    <nav className={cn("relative flex flex-col gap-1 ps-4", className)} aria-label="Section links" {...props}>
       {/* Vertical track */}
       <span className="absolute left-[5px] top-1 bottom-1 w-0.5 rounded-full bg-border/50" aria-hidden="true" />
       {/* Moving indicator dot */}
@@ -55,7 +55,7 @@ export function AnchorNav({ items, activeId, className, ...props }: AnchorNavPro
           href={`#${item.id}`}
           onClick={(e) => { e.preventDefault(); setInternal(item.id); document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" }); }}
           className={cn(
-            "relative z-10 py-1 pl-3 text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm",
+            "relative z-10 py-1 ps-3 text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm",
             active === item.id ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"
           )}
         >

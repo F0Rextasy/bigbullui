@@ -26,16 +26,16 @@ export function OfflineBanner({ className, ...props }: React.HTMLAttributes<HTML
   if (online && !reconnecting) return null;
 
   return (
-    <div className={cn("flex items-center justify-center gap-2 border-b px-4 py-1.5", online ? "border-emerald-500/40 bg-emerald-500/10" : "border-destructive/40 bg-destructive/10", className)} role="status" {...props}>
+    <div className={cn("flex items-center justify-center gap-2 border-b px-4 py-1.5", online ? "border-success/40 bg-success/10" : "border-destructive/40 bg-destructive/10", className)} role="status" {...props}>
       <style>{`@keyframes obDots { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }`}</style>
       {reconnecting ? (
         <>
           <span className="flex gap-0.5" aria-hidden="true">
             {[0, 1, 2].map((i) => (
-              <span key={i} className="size-1 rounded-full bg-emerald-600" style={{ animation: "obDots 1s ease-in-out infinite", animationDelay: `${i * 150}ms` }} />
+              <span key={i} className="size-1 rounded-full bg-success" style={{ animation: "obDots 1s ease-in-out infinite", animationDelay: `${i * 150}ms` }} />
             ))}
           </span>
-          <span className="text-xs text-emerald-700">Reconnecting to network…</span>
+          <span className="text-xs text-success">Reconnecting to network…</span>
         </>
       ) : (
         <>

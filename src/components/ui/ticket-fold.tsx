@@ -229,7 +229,7 @@ export function TicketFold({
           {/* Left Notch */}
           <div
             aria-hidden="true"
-            className="size-5 -ml-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
+            className="size-5 -ms-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
           />
           {/* Crease Line with micro text */}
           <div className="relative flex-1 py-1">
@@ -241,7 +241,7 @@ export function TicketFold({
           {/* Right Notch */}
           <div
             aria-hidden="true"
-            className="size-5 -mr-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
+            className="size-5 -me-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
           />
         </div>
 
@@ -323,7 +323,7 @@ export function TicketFold({
             </div>
 
             {/* Perforation Warning Strip */}
-            <div className="mt-3 rounded border border-dashed border-amber-500/40 bg-amber-500/10 px-2.5 py-1 text-center font-mono text-[9px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+            <div className="mt-3 rounded border border-dashed border-warning/40 bg-warning/10 px-2.5 py-1 text-center font-mono text-[9px] font-bold uppercase tracking-wider text-warning">
               * RETAIN FULL ACCORDION PASS UNTIL TURNSTILE SCAN COMPLETE *
             </div>
           </div>
@@ -341,7 +341,7 @@ export function TicketFold({
           {/* Left Notch */}
           <div
             aria-hidden="true"
-            className="size-5 -ml-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
+            className="size-5 -ms-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
           />
           {/* Tear Crease line with scissor icon */}
           <div className="relative flex-1 py-1 flex items-center justify-center">
@@ -373,7 +373,7 @@ export function TicketFold({
           {/* Right Notch */}
           <div
             aria-hidden="true"
-            className="size-5 -mr-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
+            className="size-5 -me-2.5 rounded-full border-2 border-foreground bg-background shrink-0 shadow-inner"
           />
         </div>
 
@@ -449,7 +449,7 @@ export function TicketFold({
                 <button
                   type="button"
                   onClick={handleTearSlip}
-                  className="group inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-destructive/80 bg-card px-2.5 py-1 font-mono text-[10px] font-black uppercase tracking-wider text-destructive shadow-sm transition-all hover:bg-destructive hover:text-destructive-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="group inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-destructive/80 bg-card px-2.5 py-1 font-mono text-[10px] font-black uppercase tracking-wider text-destructive shadow-sm transition-all hover:bg-destructive hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <svg
                     width="11"

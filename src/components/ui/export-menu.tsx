@@ -30,7 +30,7 @@ export function ExportMenu({ onExport, className, ...props }: ExportMenuProps) {
               type="button"
               role="menuitem"
               onClick={() => { onExport?.(f); setOpen(false); }}
-              className="w-full rounded px-2 py-1.5 text-left font-mono text-[11px] uppercase text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="w-full rounded px-2 py-1.5 text-start font-mono text-[11px] uppercase text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {f}
             </button>

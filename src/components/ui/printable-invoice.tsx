@@ -57,7 +57,7 @@ export function PrintableInvoice({
         <table className="w-full text-xs">
           <thead>
             <tr className="border-y border-dashed border-border font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-              <th className="py-1 text-left font-bold">Item</th>
+              <th className="py-1 text-start font-bold">Item</th>
               <th className="py-1 text-right font-bold">Qty</th>
               <th className="py-1 text-right font-bold">Amount</th>
             </tr>

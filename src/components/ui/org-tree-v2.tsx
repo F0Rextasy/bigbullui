@@ -57,7 +57,7 @@ export function OrgTreeV2({ root, orientation = "vertical", className, ...props 
       <div key={node.id} className={cn("flex", orientation === "vertical" ? "flex-col items-center" : "flex-row items-start")}>
         <NodeCard node={node} onToggle={() => toggle(node.id)} expanded={!collapsed.has(node.id)} hasKids={(node.children ?? []).length > 0} />
         {kids.length > 0 ? (
-          <div className={cn("flex gap-4 pt-4", orientation === "vertical" ? "flex-row items-start border-t-2 border-dashed border-border/60" : "flex-col items-start border-l-2 border-dashed border-border/60 pl-4")}>
+          <div className={cn("flex gap-4 pt-4", orientation === "vertical" ? "flex-row items-start border-t-2 border-dashed border-border/60" : "flex-col items-start border-l-2 border-dashed border-border/60 ps-4")}>
             {kids.map((kid) => (
               <div key={kid.id}>{renderNode(kid)}</div>
             ))}

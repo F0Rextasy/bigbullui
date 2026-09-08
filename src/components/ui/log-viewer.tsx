@@ -28,8 +28,8 @@ export function LogViewer({
   );
 
   const levelClass = {
-    INFO: "bg-emerald-100 text-emerald-800",
-    WARN: "bg-emerald-100 text-emerald-800",
+    INFO: "bg-success text-success",
+    WARN: "bg-success text-success",
     ERROR: "bg-destructive/10 text-destructive",
   };
 
@@ -60,7 +60,7 @@ export function LogViewer({
           className={cn(
             "px-3 py-1 rounded text-[9px] uppercase",
             filterLevel === "INFO"
-              ? "bg-emerald-100 text-emerald-800"
+              ? "bg-success text-success"
               : "text-muted-foreground hover:text-foreground transition-colors",
           )}
         >
@@ -71,7 +71,7 @@ export function LogViewer({
           className={cn(
             "px-3 py-1 rounded text-[9px] uppercase",
             filterLevel === "WARN"
-              ? "bg-emerald-100 text-emerald-800"
+              ? "bg-success text-success"
               : "text-muted-foreground hover:text-foreground transition-colors",
           )}
         >
@@ -110,12 +110,12 @@ export function LogViewer({
                 className={cn(
                   "inline-block px-2 py-0.5 rounded text-[8px] uppercase",
                   levelBg,
-                  "mr-1",
+                  "me-1",
                 )}
               >
                 {entry.level}
               </span>
-              <span className="ml-2 break-all">{entry.message}</span>
+              <span className="ms-2 break-all">{entry.message}</span>
             </div>
           );
         })}

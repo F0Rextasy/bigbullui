@@ -25,13 +25,13 @@ export function VoiceIndicator({ name = "ADA", speaking = true, muted = false, l
         {[0.5, 0.9, 0.65, 1, 0.55].map((h, i) => (
           <span
             key={i}
-            className={cn("w-1 origin-bottom rounded-full motion-reduce:animate-none", muted ? "bg-muted-foreground" : speaking ? "bg-emerald-500 animate-[voiceBar_0.7s_ease-in-out_infinite]" : "bg-secondary")}
+            className={cn("w-1 origin-bottom rounded-full motion-reduce:animate-none", muted ? "bg-muted-foreground" : speaking ? "bg-success animate-[voiceBar_0.7s_ease-in-out_infinite]" : "bg-secondary")}
             style={{ height: `${Math.round(h * level * 24)}px`, animationDelay: `${i * 90}ms` }}
           />
         ))}
       </span>
       <span className="font-mono text-xs font-bold uppercase text-foreground">{name}</span>
-      <span className={cn("ml-auto rounded px-1.5 py-0.5 font-mono text-[10px] font-black", muted ? "bg-destructive text-destructive-foreground" : "bg-secondary text-muted-foreground")}>
+      <span className={cn("ms-auto rounded px-1.5 py-0.5 font-mono text-[10px] font-black", muted ? "bg-destructive text-white" : "bg-secondary text-muted-foreground")}>
         {muted ? "MUTED" : "LIVE"}
       </span>
     </div>

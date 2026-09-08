@@ -52,9 +52,9 @@ const TONE_COLORS: Record<string, string> = {
   primary: "var(--color-foreground, #17130c)",
   secondary: "var(--color-muted-foreground, #6f6350)",
   muted: "var(--color-muted-foreground, #6f6350)",
-  warning: "#d97706",
-  success: "#059669",
-  info: "#2563eb",
+  warning: "var(--color-warning)",
+  success: "var(--color-success)",
+  info: "var(--color-info)",
 };
 
 interface SliceArc {
@@ -435,7 +435,7 @@ export function DonutChart({
             key={slice.index}
             type="button"
             className={cn(
-              "group flex items-center justify-between gap-2 px-2 py-1 rounded-xs border border-transparent text-left transition-all duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
+              "group flex items-center justify-between gap-2 px-2 py-1 rounded-xs border border-transparent text-start transition-all duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
               isHovered
                 ? "border-dashed border-foreground/40 bg-secondary shadow-xs scale-[1.02]"
                 : "hover:border-dashed hover:border-border hover:bg-secondary/40"

@@ -302,7 +302,7 @@ export function PricingTable({
                 {/* Left Cutout Notch */}
                 <div
                   className={cn(
-                    "size-5 rounded-full bg-background border-2 -ml-2.5 shrink-0 transition-colors",
+                    "size-5 rounded-full bg-background border-2 -ms-2.5 shrink-0 transition-colors",
                     isPopular ? "border-accent" : "border-foreground"
                   )}
                   aria-hidden="true"
@@ -314,7 +314,7 @@ export function PricingTable({
                 {/* Right Cutout Notch */}
                 <div
                   className={cn(
-                    "size-5 rounded-full bg-background border-2 -mr-2.5 shrink-0 transition-colors",
+                    "size-5 rounded-full bg-background border-2 -me-2.5 shrink-0 transition-colors",
                     isPopular ? "border-accent" : "border-foreground"
                   )}
                   aria-hidden="true"
@@ -374,7 +374,7 @@ export function PricingTable({
                               {featObj.text}
                             </span>
                             {featObj.isNew && (
-                              <span className="ml-1.5 rounded-xs border border-dashed border-accent px-1 py-0.2 text-[8px] font-extrabold uppercase tracking-tight text-accent bg-accent/10">
+                              <span className="ms-1.5 rounded-xs border border-dashed border-accent px-1 py-0.2 text-[8px] font-extrabold uppercase tracking-tight text-accent bg-accent/10">
                                 NEW
                               </span>
                             )}

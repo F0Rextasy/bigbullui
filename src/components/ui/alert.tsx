@@ -24,7 +24,7 @@ const eyebrows: Record<Tone, string> = {
 
 export function Alert({ tone = "info", title, className, children }: AlertProps) {
   return (
-    <div role="alert" className={cn("relative rounded-md border border-border bg-card p-4 pl-5", className)}>
+    <div role="alert" className={cn("relative rounded-md border border-border bg-card p-4 ps-5", className)}>
       <span aria-hidden className={cn("absolute bottom-3 left-2 top-3 w-1 rounded-full", bars[tone])} />
       <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
         {eyebrows[tone]}

@@ -25,7 +25,7 @@ export function ApiTester({ onSend, className, ...props }: ApiTesterProps) {
         <input value={url} onChange={(e) => setUrl(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") send(); }} aria-label="Request URL" className="min-w-0 flex-1 rounded-md border border-dashed border-border bg-background px-2.5 py-1.5 font-mono text-xs text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
         <button type="button" onClick={send} className="shrink-0 rounded-md bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Send</button>
       </div>
-      {status && <p className="mt-2 rounded border border-dashed border-emerald-500/50 bg-emerald-500/10 px-2 py-1 font-mono text-[11px] text-emerald-700 dark:text-emerald-400" role="status">{method} {url} → {status}</p>}
+      {status && <p className="mt-2 rounded border border-dashed border-success/50 bg-success/10 px-2 py-1 font-mono text-[11px] text-success" role="status">{method} {url} → {status}</p>}
     </div>
   );
 }

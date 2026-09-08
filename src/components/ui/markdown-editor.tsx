@@ -20,7 +20,7 @@ function renderMarkdown(src: string): React.ReactNode {
   const flushList = () => {
     if (listItems.length) {
       out.push(
-        <ul key={`ul-${out.length}`} className="my-2 list-disc space-y-0.5 pl-5">
+        <ul key={`ul-${out.length}`} className="my-2 list-disc space-y-0.5 ps-5">
           {listItems.map((li, i) => <li key={i}>{inline(li)}</li>)}
         </ul>
       );

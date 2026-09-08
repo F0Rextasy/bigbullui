@@ -54,7 +54,7 @@ export function LibraryDueDateCard({
               type="button"
               onClick={() => toggle(entry)}
               aria-pressed={done}
-              className="flex w-full cursor-pointer items-center gap-3 py-2 text-left transition-opacity hover:opacity-80"
+              className="flex w-full cursor-pointer items-center gap-3 py-2 text-start transition-opacity hover:opacity-80"
             >
               <span
                 aria-hidden

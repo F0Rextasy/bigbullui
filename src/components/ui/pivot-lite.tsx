@@ -31,7 +31,7 @@ export function PivotLite({ rows = FALLBACK, className, ...props }: PivotLitePro
       <table className="w-full font-mono text-xs">
         <thead>
           <tr className="border-b-2 border-foreground bg-secondary">
-            <th className="px-3 py-2 text-left text-[10px] uppercase text-muted-foreground">Section</th>
+            <th className="px-3 py-2 text-start text-[10px] uppercase text-muted-foreground">Section</th>
             {tiers.map((t) => <th key={t} className="px-3 py-2 text-right text-[10px] uppercase text-muted-foreground">{t}</th>)}
             <th className="px-3 py-2 text-right text-[10px] uppercase text-accent">Total</th>
           </tr>

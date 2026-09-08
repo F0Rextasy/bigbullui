@@ -37,7 +37,7 @@ export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...prop
       <div className="mt-3 grid grid-cols-2 gap-2">
         <button
           onClick={() => punch("in")}
-          className="rounded-md border-2 border-emerald-500/50 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400 transition-colors hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 motion-reduce:transition-none"
+          className="rounded-md border-2 border-success/50 py-1.5 font-mono text-[10px] uppercase tracking-wider text-success transition-colors hover:bg-success hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success motion-reduce:transition-none"
         >
           Clock In
         </button>
@@ -56,7 +56,7 @@ export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...prop
             key={`${p.time}-${p.type}-${idx}`}
             className="flex items-center justify-between rounded-sm border border-dashed border-border/60 bg-secondary/30 px-2 py-1 font-mono text-[10px] animate-[pcFeed_0.3s_ease-out_both] motion-reduce:animate-none"
           >
-            <span className={p.type === "in" ? "text-emerald-700 dark:text-emerald-400" : "text-destructive"}>{p.type === "in" ? "↓ IN" : "↑ OUT"}</span>
+            <span className={p.type === "in" ? "text-success" : "text-destructive"}>{p.type === "in" ? "↓ IN" : "↑ OUT"}</span>
             <span className="tabular-nums text-foreground">{p.time}</span>
           </li>
         ))}

@@ -53,7 +53,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
             </div>
             <span className={cn(
               "shrink-0 rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider",
-              m.role === "admin" ? "border-accent/60 bg-accent/10 text-accent" : m.role === "editor" ? "border-sky-500/50 bg-sky-500/10 text-sky-600" : "border-border bg-secondary text-secondary-foreground"
+              m.role === "admin" ? "border-accent/60 bg-accent/10 text-accent" : m.role === "editor" ? "border-info/50 bg-info/10 text-info" : "border-border bg-secondary text-secondary-foreground"
             )}>
               {m.role}
             </span>

@@ -49,7 +49,7 @@ function tokenizeLine(line: string, isTerminal: boolean): React.ReactNode {
       const [, promptSymbol, command] = promptMatch;
       return (
         <>
-          <span className="select-none font-bold text-accent mr-2">{promptSymbol}</span>
+          <span className="select-none font-bold text-accent me-2">{promptSymbol}</span>
           <span className="font-semibold text-foreground">{command}</span>
         </>
       );
@@ -389,7 +389,7 @@ export function CodeBlock({
                 >
                   {hasLineNumbers && (
                     <span
-                      className="select-none min-w-[2.2rem] pr-3 text-right font-mono text-[11px] text-muted-foreground/60 border-r border-dashed border-border/80 mr-3 shrink-0"
+                      className="select-none min-w-[2.2rem] pe-3 text-right font-mono text-[11px] text-muted-foreground/60 border-r border-dashed border-border/80 me-3 shrink-0"
                       aria-hidden="true"
                     >
                       {lineNum}

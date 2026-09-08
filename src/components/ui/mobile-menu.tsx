@@ -34,7 +34,7 @@ export function MobileMenu({ items, open, onOpenChange, className, ...props }: M
         <button
           onClick={() => onOpenChange(false)}
           className="rounded-sm p-1.5 text-foreground transition-transform duration-200 hover:rotate-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
-          aria-label="Kapat"
+          aria-label="Close"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
         </button>

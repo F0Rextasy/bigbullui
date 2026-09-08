@@ -114,11 +114,11 @@ export function Countup({
 
       {/* Mechanical odometer slot display */}
       <div className="flex items-center rounded border border-foreground bg-secondary/80 px-3 py-1.5 shadow-inner">
-        {prefix && <span className="mr-1 text-sm font-bold text-muted-foreground">{prefix}</span>}
+        {prefix && <span className="me-1 text-sm font-bold text-muted-foreground">{prefix}</span>}
         <span className="text-2xl font-black tracking-wider tabular-nums text-foreground sm:text-3xl">
           {formattedValue}
         </span>
-        {suffix && <span className="ml-1 text-xs font-bold text-muted-foreground">{suffix}</span>}
+        {suffix && <span className="ms-1 text-xs font-bold text-muted-foreground">{suffix}</span>}
       </div>
     </div>
   );

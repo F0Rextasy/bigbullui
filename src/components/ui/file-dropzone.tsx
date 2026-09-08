@@ -115,7 +115,7 @@ export function FileDropzone({
                   e.stopPropagation();
                   removeFile(idx);
                 }}
-                className="text-muted-foreground hover:text-destructive cursor-pointer font-bold ml-2"
+                className="text-muted-foreground hover:text-destructive cursor-pointer font-bold ms-2"
                 aria-label={`Remove ${file.name}`}
               >
                 ✕

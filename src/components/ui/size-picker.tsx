@@ -82,7 +82,7 @@ export function SizePicker({
                 </span>
               )}
               {isOutOfStock && (
-                <span className="ml-1 text-xxs opacity-50">OOS</span>
+                <span className="ms-1 text-xxs opacity-50">OOS</span>
               )}
             </span>
           </button>

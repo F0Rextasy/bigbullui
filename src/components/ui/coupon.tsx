@@ -49,9 +49,9 @@ export function Coupon({
 
       {/* Center Perforation Cutout with Scissors */}
       <div className="relative flex sm:flex-col items-center justify-between">
-        <div className="size-4 rounded-full bg-background border-2 border-foreground -ml-2 sm:ml-0 sm:-mt-2 shrink-0" />
+        <div className="size-4 rounded-full bg-background border-2 border-foreground -ms-2 sm:ms-0 sm:-mt-2 shrink-0" />
         <div className="h-0 w-full sm:w-0 sm:h-full border-t-2 sm:border-t-0 sm:border-l-2 border-dashed border-border" />
-        <div className="size-4 rounded-full bg-background border-2 border-foreground -mr-2 sm:mr-0 sm:-mb-2 shrink-0" />
+        <div className="size-4 rounded-full bg-background border-2 border-foreground -me-2 sm:me-0 sm:-mb-2 shrink-0" />
       </div>
 
       {/* Right Content Area */}

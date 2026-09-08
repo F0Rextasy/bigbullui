@@ -45,7 +45,7 @@ export function ConsentCheckbox({ text, linkLabel = "devam et", linkHref = "#", 
       <span className="text-xs leading-relaxed text-muted-foreground">
         <a href={linkHref} onClick={(e) => e.stopPropagation()} className="text-accent hover:underline">{linkLabel}</a>{" "}
         for {text}
-        {required && <span className="ml-1 text-destructive" aria-hidden="true">*</span>}
+        {required && <span className="ms-1 text-destructive" aria-hidden="true">*</span>}
       </span>
     </label>
   );

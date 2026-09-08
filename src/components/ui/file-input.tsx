@@ -56,7 +56,7 @@ export function FileInput({
   );
 
   const chipClass = cn(
-    "inline-flex items-center rounded-md bg-secondary/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.15em] text-secondary-foreground mr-1 mb-1",
+    "inline-flex items-center rounded-md bg-secondary/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.15em] text-secondary-foreground me-1 mb-1",
   );
 
   return (
@@ -94,7 +94,7 @@ export function FileInput({
               <span>{name}</span>
               <button
                 onClick={() => removeFile(idx)}
-                className="ml-1 text-[10px] uppercase tracking-[0.15em] hover:text-destructive transition-colors"
+                className="ms-1 text-[10px] uppercase tracking-[0.15em] hover:text-destructive transition-colors"
               >
                 ×
               </button>

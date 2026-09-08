@@ -31,7 +31,7 @@ export function ManaBar({ value, max = 100, label = "MP", className, ...props }:
       >
         <div className="relative h-full w-full overflow-hidden rounded-[3px] bg-secondary">
           <div
-            className="h-full rounded-[3px] bg-sky-500 transition-[width] duration-300 motion-reduce:transition-none"
+            className="h-full rounded-[3px] bg-info transition-[width] duration-300 motion-reduce:transition-none"
             style={{ width: `${pct}%` }}
           />
           <span aria-hidden="true" className="absolute inset-y-0 w-1/3 bg-white/25 blur-[2px] animate-[mpShimmer_2.2s_ease-in-out_infinite] motion-reduce:animate-none" />

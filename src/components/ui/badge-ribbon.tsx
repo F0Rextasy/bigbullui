@@ -21,7 +21,7 @@ export function BadgeRibbon({
 }: BadgeRibbonProps) {
   const COLOR_MAP = {
     red: "bg-accent text-accent-foreground border-foreground",
-    gold: "bg-amber-500 text-background border-foreground",
+    gold: "bg-warning text-background border-foreground",
     ink: "bg-foreground text-background border-foreground",
     cream: "bg-card text-foreground border-foreground",
   };

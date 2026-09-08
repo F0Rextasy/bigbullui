@@ -20,7 +20,7 @@ function validate(src: string): { valid: boolean; error?: string } {
 }
 
 /** Indented JSON editor with live syntax validation and format action. */
-export function JsonEditor({ value, defaultValue = '{\n  "ad": "bigbullui",\n  "surum": "0.1.0"\n}', onValueChange, height = "200px", className, ...props }: JsonEditorProps) {
+export function JsonEditor({ value, defaultValue = '{\n  "name": "bigbullui",\n  "version": "0.1.0"\n}', onValueChange, height = "200px", className, ...props }: JsonEditorProps) {
   const [internal, setInternal] = React.useState(defaultValue);
   const src = value ?? internal;
   const { valid, error } = validate(src);
@@ -38,7 +38,7 @@ export function JsonEditor({ value, defaultValue = '{\n  "ad": "bigbullui",\n  "
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">JSON</span>
         <div className="flex items-center gap-2">
           {valid ? (
-            <span className="font-mono text-[9px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">✓ Valid</span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-success">✓ Valid</span>
           ) : (
             <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[jeIn_0.2s_ease-out] motion-reduce:animate-none">✗ Invalid</span>
           )}

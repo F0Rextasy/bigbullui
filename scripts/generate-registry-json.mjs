@@ -36,10 +36,13 @@ console.log(`generate-registry-json: ${written} items in public/r/`);
 const cliPath = path.join(rootDir, "bin", "cli.js");
 let cli = fs.readFileSync(cliPath, "utf8");
 const listLiteral = JSON.stringify(slugs);
-const next = cli.replace(/allFiles = \[[^\]]*\];/s, `allFiles = ${listLiteral};`);
-if (next !== cli) {
+const listPattern = /allFiles = \[[^\]]*\];/s;
+if (!listPattern.test(cli)) {
+  console.log("generate-registry-json: cli.js pattern not found, list NOT synced");
+} else if (cli.includes(`allFiles = ${listLiteral};`)) {
+  console.log(`generate-registry-json: cli.js offline list already in sync (${slugs.length} slugs)`);
+} else {
+  const next = cli.replace(listPattern, `allFiles = ${listLiteral};`);
   fs.writeFileSync(cliPath, next);
   console.log(`generate-registry-json: cli.js offline list synced (${slugs.length} slugs)`);
-} else {
-  console.log("generate-registry-json: cli.js pattern not found, list NOT synced");
 }

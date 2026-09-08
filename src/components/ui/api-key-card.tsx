@@ -38,8 +38,8 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
       `}</style>
       <div className="flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
-        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-          <span className="size-1 rounded-full bg-emerald-500 animate-pulse motion-reduce:animate-none" /> Aktif
+        <span className="inline-flex items-center gap-1 rounded-full border border-success/50 bg-success/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-success">
+          <span className="size-1 rounded-full bg-success animate-pulse motion-reduce:animate-none" /> Active
         </span>
       </div>
 

@@ -62,10 +62,13 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
               All
             </button>
             {sections.map((section) => (
-              <a
+              <button
                 key={section.group}
-                href={`#group-${slugify(section.group)}`}
-                onClick={() => setActive(section.group)}
+                type="button"
+                onClick={() => {
+                  setActive(section.group);
+                  document.getElementById(`group-${slugify(section.group)}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
                 aria-pressed={active === section.group}
                 className={
                   active === section.group
@@ -75,7 +78,7 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
               >
                 <NavIcon name={section.icon} size={12} />
                 {section.group}
-              </a>
+              </button>
             ))}
           </div>
         </div>

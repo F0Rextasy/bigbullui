@@ -35,7 +35,7 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
               onClick={() => { setInternalActive(item.id); onNavigate?.(item.id); }}
               aria-current={active === item.id ? "page" : undefined}
               className={cn(
-                "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-left text-xs transition-all duration-150 motion-reduce:transition-none",
+                "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-start text-xs transition-all duration-150 motion-reduce:transition-none",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 "animate-[adminIn_0.25s_ease-out_both] motion-reduce:animate-none",
                 active === item.id
@@ -57,7 +57,7 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
           className="border-t border-border py-2 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label={collapsed ? "Expand menu" : "Collapse menu"}
         >
-          {collapsed ? "»" : "« DARALT"}
+          {collapsed ? "»" : "« Collapse"}
         </button>
       </aside>
 

@@ -23,7 +23,7 @@ export function LoadMore({ items, onLoadMore }: LoadMoreProps) {
       <button
         onClick={handleClick}
         className={cn(
-          "w-full py-3 px-4 text-left text-sm font-medium text-primary uppercase tracking-wider",
+          "w-full py-3 px-4 text-start text-sm font-medium text-primary uppercase tracking-wider",
           "hover:bg-primary/10 transition-colors",
           "motion-reduce:transition-none",
           "motion-reduce:animate-none",

@@ -324,7 +324,7 @@ export function DrawerContent({
 }
 
 export function DrawerHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex flex-col gap-1.5 px-6 py-2 text-left", className)} {...props} />;
+  return <div className={cn("flex flex-col gap-1.5 px-6 py-2 text-start", className)} {...props} />;
 }
 
 export function DrawerTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {

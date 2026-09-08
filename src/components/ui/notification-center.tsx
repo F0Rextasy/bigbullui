@@ -70,7 +70,7 @@ export function NotificationCenter({ notifications }: NotificationCenterProps) {
         {unreadCount > 0 && (
           <span
             className={cn(
-              "absolute -top-1 -right-1 w-5 h-5 rounded-full bg-destructive text-destructive flex items-center justify-center text-xs font-bold",
+            "absolute -top-1 -right-1 w-5 h-5 rounded-full bg-destructive text-white flex items-center justify-center text-xs font-bold",
               "motion-reduce:animate-none",
             )}
           >
@@ -120,7 +120,7 @@ export function NotificationCenter({ notifications }: NotificationCenterProps) {
                     )}
                     style={{ animationName: "fadeIn", animationDuration: "200ms", animationDelay: delay, animationFillMode: "forwards" }}
                   >
-                    <div className={cn("w-3 h-3 rounded-full", isUnread ? "bg-destructive" : "bg-muted-foreground", "mr-3")}> </div>
+                    <div className={cn("w-3 h-3 rounded-full", isUnread ? "bg-destructive" : "bg-muted-foreground", "me-3")}> </div>
                     <div className="flex-1 min-w-0">
                       <p className={cn("font-medium", "motion-reduce:animate-none")}>
                         {notif.title}

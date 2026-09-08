@@ -10,7 +10,7 @@ export interface PermissionDeniedProps extends React.HTMLAttributes<HTMLDivEleme
 }
 
 /** Permission denied state panel: lock icon + request access. */
-export function PermissionDenied({ resource = "bu kaynak", onRequestAccess, requested, className, ...props }: PermissionDeniedProps) {
+export function PermissionDenied({ resource = "this resource", onRequestAccess, requested, className, ...props }: PermissionDeniedProps) {
   const [sent, setSent] = React.useState(false);
   const isSent = requested ?? sent;
 

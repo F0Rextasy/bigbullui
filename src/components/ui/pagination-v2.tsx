@@ -37,7 +37,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
   }, [totalPages, current]);
 
   return (
-    <nav className={cn("flex flex-col items-center gap-2", className)} aria-label="Sayfalama" {...props}>
+      <nav className={cn("flex flex-col items-center gap-2", className)} aria-label="Pagination" {...props}>
       <ul className="flex items-center gap-1">
         <li>
           <button
@@ -72,7 +72,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
             onClick={() => go(current + 1)}
             disabled={current >= totalPages}
             className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-            aria-label="Sonraki sayfa"
+            aria-label="Next page"
           >
             →
           </button>

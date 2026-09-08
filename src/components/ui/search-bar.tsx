@@ -68,7 +68,7 @@ export function SearchBar({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="shrink-0 text-muted-foreground mr-2"
+        className="shrink-0 text-muted-foreground me-2"
         aria-hidden="true"
       >
         <circle cx="11" cy="11" r="8" />
@@ -91,12 +91,12 @@ export function SearchBar({
           type="button"
           onClick={handleClear}
           aria-label="Clear search"
-          className="ml-2 cursor-pointer font-mono text-xs text-muted-foreground hover:text-foreground"
+          className="ms-2 cursor-pointer font-mono text-xs text-muted-foreground hover:text-foreground"
         >
           ✕
         </button>
       ) : shortcut ? (
-        <kbd className="ml-2 hidden sm:inline-flex items-center rounded-sm border border-border bg-secondary px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground select-none">
+        <kbd className="ms-2 hidden sm:inline-flex items-center rounded-sm border border-border bg-secondary px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground select-none">
           {shortcut}
         </kbd>
       ) : null}

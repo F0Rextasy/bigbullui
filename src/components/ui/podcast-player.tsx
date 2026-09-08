@@ -136,7 +136,7 @@ export function PodcastPlayer({
             return (
               <span
                 key={chapter.title}
-                className="mr-2"
+                className="me-2"
                 style={{ flexBasis: `${percent}%` }}
               >
                 {formatTime(chapter.time)}

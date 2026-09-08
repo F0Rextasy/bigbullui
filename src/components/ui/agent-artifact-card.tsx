@@ -43,7 +43,7 @@ export function AgentArtifactCard({
           {kind}
         </span>
         <p className="truncate text-xs font-bold text-foreground">{title}</p>
-        <span className="ml-auto shrink-0 font-mono text-[10px] text-muted-foreground">{version}</span>
+        <span className="ms-auto shrink-0 font-mono text-[10px] text-muted-foreground">{version}</span>
       </div>
       <div className="m-3 rounded border border-dashed border-border bg-background p-2.5">
         <p className="font-mono text-xs leading-5 text-foreground">{snippet}</p>

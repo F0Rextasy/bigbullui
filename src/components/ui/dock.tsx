@@ -338,7 +338,7 @@ export function DockItem({
       <div
         className={cn(
           "flex items-center justify-center transition-all duration-200",
-          orientation === "horizontal" ? "h-2 w-full pt-1" : "w-2 h-full pl-1"
+          orientation === "horizontal" ? "h-2 w-full pt-1" : "w-2 h-full ps-1"
         )}
       >
         {active ? (

@@ -26,7 +26,7 @@ export function VideoList({ videos, onSelect, className, ...props }: VideoListPr
         <button
           key={v.id}
           onClick={() => onSelect?.(v.id)}
-          className="flex w-full gap-3 rounded-md border border-border bg-card p-2 text-left animate-[vlIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex w-full gap-3 rounded-md border border-border bg-card p-2 text-start animate-[vlIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           style={{ animationDelay: `${idx * 50}ms` }}
         >
           <span className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-sm bg-secondary">

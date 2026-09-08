@@ -36,12 +36,12 @@ export function Terminal({
       {/* Title bar */}
       <div className="flex items-center border-b border-border/60 bg-black/20 p-2">
         <div className="w-full flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span className="w-2 h-2 rounded-full bg-emerald-300"></span>
+          <span className="w-2 h-2 rounded-full bg-success"></span>
+          <span className="w-2 h-2 rounded-full bg-success"></span>
+          <span className="w-2 h-2 rounded-full bg-success"></span>
           <span className="text-[10px] uppercase text-muted-foreground">terminal</span>
         </div>
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ms-auto flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-gray-300"></span>
           <span className="w-2 h-2 rounded-full bg-gray-400"></span>
         </div>

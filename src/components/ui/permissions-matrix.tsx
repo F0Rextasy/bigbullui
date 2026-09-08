@@ -46,7 +46,7 @@ export function PermissionsMatrix({ roles, permissions, value, onValueChange, cl
         <table className="w-full min-w-max text-sm">
           <thead>
             <tr className="border-b border-border bg-secondary/60">
-              <th className="px-3 py-2 text-left font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Permission</th>
+              <th className="px-3 py-2 text-start font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Permission</th>
               {roles.map((r) => (
                 <th key={r.id} className="px-3 py-2 text-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{r.label}</th>
               ))}

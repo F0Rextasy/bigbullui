@@ -83,7 +83,7 @@ export function LanguageSelect({
         <span className="truncate">
           {selected ? `${selected.native} · ${selected.code.toUpperCase()}` : "Select language"}
         </span>
-        <span aria-hidden className="ml-2 text-xs text-muted-foreground">▾</span>
+        <span aria-hidden className="ms-2 text-xs text-muted-foreground">▾</span>
       </button>
       {open ? (
         <div role="listbox" className="absolute inset-x-0 top-full z-50 mt-1 max-h-56 overflow-y-auto rounded-md border border-border bg-card p-1 shadow-lg">

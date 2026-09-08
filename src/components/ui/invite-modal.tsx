@@ -76,7 +76,7 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
           </>
         ) : (
           <div className="py-8 text-center">
-            <span className="inline-flex size-10 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-500 animate-[invScale_0.3s_cubic-bezier(0.34,1.56,0.64,1)_both] motion-reduce:animate-none">
+            <span className="inline-flex size-10 items-center justify-center rounded-full bg-success/15 text-success animate-[invScale_0.3s_cubic-bezier(0.34,1.56,0.64,1)_both] motion-reduce:animate-none">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
             </span>
             <p className="mt-3 text-sm font-medium">Invitation sent</p>

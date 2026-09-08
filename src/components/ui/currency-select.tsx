@@ -42,7 +42,7 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
         )}
       >
         <span className="font-mono text-base font-bold text-accent">{active.symbol}</span>
-        <span className="flex-1 text-left">{active.label}</span>
+        <span className="flex-1 text-start">{active.label}</span>
         <span className="font-mono text-[10px] text-muted-foreground">{active.code}</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cn("shrink-0 text-muted-foreground transition-transform duration-200 motion-reduce:transition-none", open && "rotate-180")} aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
       </button>
@@ -62,7 +62,7 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
                   )}
                 >
                   <span className="font-mono font-bold">{c.symbol}</span>
-                  <span className="flex-1 text-left">{c.label}</span>
+                  <span className="flex-1 text-start">{c.label}</span>
                   <span className="font-mono text-[10px] text-muted-foreground">{c.code}</span>
                 </button>
               </li>

@@ -21,9 +21,11 @@ export interface MenubarMenu {
 export interface MenubarProps extends React.HTMLAttributes<HTMLDivElement> {
   menus: MenubarMenu[];
   className?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
-export function Menubar({ menus, className, ...props }: MenubarProps) {
+export function Menubar({ menus, className, animated = true, ...props }: MenubarProps) {
   const [activeMenuId, setActiveMenuId] = React.useState<string | null>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -83,7 +85,7 @@ export function Menubar({ menus, className, ...props }: MenubarProps) {
             {isOpen && (
               <div
                 role="menu"
-                className="absolute left-0 top-full z-50 mt-1 min-w-[170px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] animate-[scale-in_0.12s_ease-out_both] text-xs"
+                className={cn("absolute left-0 top-full z-50 mt-1 min-w-[170px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] text-xs", animated && "animate-[scale-in_0.12s_ease-out_both]")}
               >
                 {menu.items.map((item, idx) => {
                   if (item === "separator") {
@@ -105,7 +107,7 @@ export function Menubar({ menus, className, ...props }: MenubarProps) {
                         setActiveMenuId(null);
                       }}
                       className={cn(
-                        "flex w-full cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 text-left text-xs transition-colors",
+                        "flex w-full cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 text-start text-xs transition-colors",
                         item.danger
                           ? "text-destructive hover:bg-destructive hover:text-white"
                           : "text-foreground hover:bg-accent hover:text-accent-foreground",

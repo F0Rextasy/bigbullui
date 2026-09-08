@@ -12,7 +12,7 @@ export function Wristband({ text, variant = "general" }: WristbandProps) {
   const variantClasses = {
     general: "bg-secondary text-secondary-foreground",
     vip: "bg-accent text-accent-foreground",
-    media: "bg-destructive text-destructive-foreground",
+    media: "bg-destructive text-white",
   };
 
   return (

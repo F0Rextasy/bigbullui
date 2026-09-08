@@ -70,7 +70,7 @@ const DEFAULT_TIERS: Record<string, SeatTier> = {
     id: "accessible",
     name: "Accessible",
     price: 60,
-    badgeClass: "border-emerald-600 text-emerald-700 dark:text-emerald-400 bg-emerald-500/10",
+    badgeClass: "border-success text-success bg-success/10",
     description: "Step-free wheelchair companion access",
   },
   sold: {
@@ -380,7 +380,7 @@ export function SeatMap({
                               seat.tier === "balcony" &&
                                 "border-border/60 bg-muted/30 text-muted-foreground hover:text-foreground hover:bg-secondary",
                               seat.tier === "accessible" &&
-                                "border-emerald-600 bg-card text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/15",
+                                "border-success bg-card text-success hover:bg-success/15",
                               isSold &&
                                 "border-border/30 bg-muted/50 text-muted-foreground/30 cursor-not-allowed line-through",
                               // Selected State
@@ -481,7 +481,7 @@ export function SeatMap({
                 NO SEATS CURRENTLY RESERVED · CLICK AVAILABLE SEATS ABOVE
               </div>
             ) : (
-              <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1">
+              <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pe-1">
                 {selectedSeatsList.map((s) => (
                   <span
                     key={s.id}
@@ -499,7 +499,7 @@ export function SeatMap({
                     <button
                       type="button"
                       onClick={() => handleToggleSeat(s)}
-                      className="ml-0.5 text-muted-foreground hover:text-destructive font-bold focus-visible:outline-hidden"
+                      className="ms-0.5 text-muted-foreground hover:text-destructive font-bold focus-visible:outline-hidden"
                       title={`Remove seat ${s.id}`}
                     >
                       ×

@@ -12,7 +12,7 @@ export interface StockStatusProps extends React.HTMLAttributes<HTMLSpanElement> 
 }
 
 /** Stock availability indicator: in-stock / low / out of stock + pulse. */
-export function StockStatus({ stock, lowAt = 5, labelInStock = "Stokta", className, ...props }: StockStatusProps) {
+export function StockStatus({ stock, lowAt = 5, labelInStock = "In stock", className, ...props }: StockStatusProps) {
   const out = stock <= 0;
   const low = stock > 0 && stock <= lowAt;
 
@@ -20,7 +20,7 @@ export function StockStatus({ stock, lowAt = 5, labelInStock = "Stokta", classNa
     <span
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider",
-        out ? "border-destructive/50 bg-destructive/10 text-destructive" : low ? "border-amber-500/50 bg-amber-500/10 text-amber-600" : "border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+        out ? "border-destructive/50 bg-destructive/10 text-destructive" : low ? "border-warning/50 bg-warning/10 text-warning" : "border-success/50 bg-success/10 text-success",
         className
       )}
       role="status"

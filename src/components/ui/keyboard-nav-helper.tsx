@@ -44,7 +44,7 @@ export function KeyboardNavHelper({ shortcuts, className, ...props }: KeyboardNa
           <button
             onClick={() => setOpen(false)}
             className="rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-            aria-label="Kapat"
+            aria-label="Close"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
           </button>

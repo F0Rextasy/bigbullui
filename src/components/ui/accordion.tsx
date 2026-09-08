@@ -55,9 +55,11 @@ type AccordionTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   value?: string;
   isOpen?: boolean;
   contentId?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 };
 
-export function AccordionTrigger({ value, isOpen, contentId, className, children, onClick, ...props }: AccordionTriggerProps) {
+export function AccordionTrigger({ value, isOpen, contentId, animated = true, className, children, onClick, ...props }: AccordionTriggerProps) {
   const ctx = React.useContext(AccordionCtx);
   return (
     <h3 className="flex">
@@ -70,7 +72,7 @@ export function AccordionTrigger({ value, isOpen, contentId, className, children
           onClick?.(event);
         }}
         className={cn(
-          "flex flex-1 cursor-pointer items-center justify-between gap-4 py-4 text-left text-sm font-medium transition-colors hover:text-muted-foreground",
+          "flex flex-1 cursor-pointer items-center justify-between gap-4 py-4 text-start text-sm font-medium transition-colors hover:text-muted-foreground",
           className
         )}
         {...props}
@@ -79,7 +81,7 @@ export function AccordionTrigger({ value, isOpen, contentId, className, children
         <svg
           width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
           strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden
-          className={cn("shrink-0 text-muted-foreground transition-transform duration-200", isOpen && "rotate-45")}
+          className={cn("shrink-0 text-muted-foreground", animated ? "transition-transform duration-200 motion-reduce:transition-none" : "transition-none", isOpen && "rotate-45")}
         >
           <path d="M12 5v14M5 12h14" />
         </svg>
@@ -91,16 +93,19 @@ export function AccordionTrigger({ value, isOpen, contentId, className, children
 type AccordionContentProps = React.HTMLAttributes<HTMLDivElement> & {
   isOpen?: boolean;
   contentId?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 };
 
-export function AccordionContent({ isOpen, contentId, className, children, ...props }: AccordionContentProps) {
+export function AccordionContent({ isOpen, contentId, animated = true, className, children, ...props }: AccordionContentProps) {
   return (
     <div
       id={contentId}
       role="region"
       hidden={!isOpen}
       className={cn(
-        "grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none",
+        "grid ease-out",
+        animated ? "transition-[grid-template-rows] duration-200 motion-reduce:transition-none" : "transition-none",
         isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
       )}
       {...props}

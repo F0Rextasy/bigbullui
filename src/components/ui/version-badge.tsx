@@ -11,8 +11,8 @@ export interface VersionBadgeProps extends React.HTMLAttributes<HTMLSpanElement>
 }
 
 const STAGE: Record<FeatureStage, { label: string; tone: string }> = {
-  new: { label: "Yeni", tone: "border-emerald-500/50 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" },
-  beta: { label: "Beta", tone: "border-amber-500/50 bg-amber-500/10 text-amber-600" },
+  new: { label: "Yeni", tone: "border-success/50 bg-success/10 text-success" },
+  beta: { label: "Beta", tone: "border-warning/50 bg-warning/10 text-warning" },
   deprecated: { label: "Deprecated", tone: "border-destructive/50 bg-destructive/10 text-destructive" },
   stable: { label: "Stable", tone: "border-border bg-secondary text-secondary-foreground" },
 };

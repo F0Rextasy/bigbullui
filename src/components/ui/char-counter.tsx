@@ -19,7 +19,7 @@ export function CharCounter({ value, max, label, className, ...props }: CharCoun
     <span
       className={cn(
         "inline-flex items-center gap-1 font-mono text-[10px] tabular-nums transition-colors duration-200 motion-reduce:transition-none",
-        over ? "text-destructive" : near ? "text-amber-600" : "text-muted-foreground",
+        over ? "text-destructive" : near ? "text-warning" : "text-muted-foreground",
         over && "animate-pulse motion-reduce:animate-none",
         className
       )}

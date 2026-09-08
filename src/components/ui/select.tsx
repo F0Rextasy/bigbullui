@@ -18,6 +18,8 @@ export interface SelectProps {
   name?: string;
   className?: string;
   "aria-label"?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
 export function Select({
@@ -30,6 +32,7 @@ export function Select({
   name,
   className,
   "aria-label": ariaLabel,
+  animated = true,
 }: SelectProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
@@ -111,7 +114,7 @@ export function Select({
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border-2 border-dashed border-border bg-card px-3 py-2 text-left font-mono text-sm transition-colors",
+          "flex h-10 w-full items-center justify-between rounded-md border-2 border-dashed border-border bg-card px-3 py-2 text-start font-mono text-sm transition-colors",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-foreground",
           disabled && "cursor-not-allowed opacity-50",
           !disabled && "cursor-pointer hover:border-foreground/50"
@@ -121,7 +124,7 @@ export function Select({
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <svg
-          className={cn("ml-2 size-4 shrink-0 transition-transform duration-150", open && "rotate-180")}
+          className={cn("ms-2 size-4 shrink-0", animated ? "transition-transform duration-150 motion-reduce:transition-none" : "transition-none", open && "rotate-180")}
           viewBox="0 0 16 16"
           fill="none"
           stroke="currentColor"
@@ -159,7 +162,7 @@ export function Select({
               >
                 <span className="truncate">{option.label}</span>
                 {isSelected ? (
-                  <span className="ml-2 font-mono text-[10px] uppercase tracking-wider text-accent-foreground">
+                  <span className="ms-2 font-mono text-[10px] uppercase tracking-wider text-accent-foreground">
                     ✓
                   </span>
                 ) : null}

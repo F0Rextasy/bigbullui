@@ -48,7 +48,7 @@ export function LiveBadge({
 
       {/* MONO uppercase label */}
       <span className={cn(
-        "ml-2 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground",
+        "ms-2 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground",
         motionReduceClass
       )}>
         LIVE
@@ -57,7 +57,7 @@ export function LiveBadge({
       {/* Optional viewer count that ticks */}
       {viewers !== undefined && viewers > 0 && (
         <span className={cn(
-          "ml-2 font-mono text-sm text-foreground",
+          "ms-2 font-mono text-sm text-foreground",
           motionReduceClass
         )}>
           {viewers}+ viewers

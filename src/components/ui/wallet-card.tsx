@@ -29,15 +29,15 @@ export function WalletCard({ balance, onTopUp, transactions = [], className, ...
           onClick={onTopUp}
           className="mt-3 rounded-md border border-accent/60 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         >
-          + Bakiye ekle
+          + Add funds
         </button>
       </div>
       {transactions.length > 0 && (
         <ul className="divide-y divide-border/60">
           {transactions.slice(0, 4).map((t, idx) => (
             <li key={t.id} className="flex items-center justify-between px-4 py-2 text-sm animate-[wcIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${0.15 + idx * 0.05}s` }}>
-              <span className="truncate">{t.label}{t.date && <span className="ml-2 text-[10px] text-muted-foreground">{t.date}</span>}</span>
-              <span className={cn("shrink-0 font-mono text-xs tabular-nums", t.negative ? "text-destructive" : "text-emerald-700 dark:text-emerald-400")}>
+              <span className="truncate">{t.label}{t.date && <span className="ms-2 text-[10px] text-muted-foreground">{t.date}</span>}</span>
+              <span className={cn("shrink-0 font-mono text-xs tabular-nums", t.negative ? "text-destructive" : "text-success")}>
                 {t.negative ? "−" : "+"}{t.amount}
               </span>
             </li>

@@ -45,7 +45,7 @@ export function CountrySelect({ value, defaultValue, onValueChange, className, .
         )}
       >
         <span className="text-base" aria-hidden="true">{active.flag}</span>
-        <span className="flex-1 text-left">{active.name}</span>
+        <span className="flex-1 text-start">{active.name}</span>
         <span className="font-mono text-[10px] text-muted-foreground">{active.code}</span>
       </button>
       {open && (
@@ -64,7 +64,7 @@ export function CountrySelect({ value, defaultValue, onValueChange, className, .
                   )}
                 >
                   <span aria-hidden="true">{c.flag}</span>
-                  <span className="flex-1 text-left">{c.name}</span>
+                  <span className="flex-1 text-start">{c.name}</span>
                   <span className="font-mono text-[10px] text-muted-foreground">{c.code}</span>
                 </button>
               </li>

@@ -58,7 +58,7 @@ export function PromptInput({
           type="button"
           onClick={submit}
           disabled={!value.trim()}
-          className="ml-auto cursor-pointer rounded border-2 border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="ms-auto cursor-pointer rounded border-2 border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Send
         </button>

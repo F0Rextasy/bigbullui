@@ -111,7 +111,7 @@ const Listbox = React.forwardRef<HTMLDivElement, ListboxProps>(
                 onClick={() => toggleOption(opt.value)}
                 onKeyDown={handleKeyDown}
               >
-                <span className="mr-2 inline-flex items-center gap-2">
+                <span className="me-2 inline-flex items-center gap-2">
                   {value.includes(opt.value) ? (
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                       <path d="M20 6L9 17l-5-5" />

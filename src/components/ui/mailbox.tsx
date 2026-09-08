@@ -8,7 +8,7 @@ export interface MailboxProps extends React.HTMLAttributes<HTMLDivElement> {
   onSend?: () => void;
 }
 
-/** Posta kutusu: mektup girer + bayrak kalkar. */
+/** Mailbox: letter slides in + flag raises. */
 export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...props }: MailboxProps) {
   const [sent, setSent] = React.useState(false);
 
@@ -38,9 +38,9 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
             <path d="M4 21h4" strokeDasharray="2 1.6" />
           </svg>
         </span>
-        {/* Kutu */}
+        {/* Box */}
         <div className={cn("flex size-28 flex-col items-center justify-center rounded-b-lg rounded-t-md border-2 border-dashed border-border bg-card transition-transform duration-200 motion-reduce:transition-none", sent && "animate-[mbBounce_0.4s_ease-out]")}>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">POSTA</span>
+          <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">MAIL</span>
           <span className="mt-1 text-2xl" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-6 text-foreground">
               <path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3V9Z" />

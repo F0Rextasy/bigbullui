@@ -210,7 +210,7 @@ export function ThemeToggle({
         />
 
         {/* Toggle label & indicator */}
-        <span className="flex items-center gap-2 pl-2">
+        <span className="flex items-center gap-2 ps-2">
           <span
             className={cn(
               "size-2 rounded-full border border-foreground transition-all duration-200",
@@ -225,7 +225,7 @@ export function ThemeToggle({
         {/* Icon & Stamp badge */}
         <span
           className={cn(
-            "ml-3 rounded border border-dashed px-1.5 py-0.5 text-[9px] font-black transition-colors duration-200",
+            "ms-3 rounded border border-dashed px-1.5 py-0.5 text-[9px] font-black transition-colors duration-200",
             activeDark
               ? "border-accent bg-accent/15 text-accent"
               : "border-foreground bg-foreground/10 text-foreground"
@@ -255,7 +255,7 @@ export function ThemeToggle({
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         className={cn(
-          "relative block w-full text-left font-mono cursor-pointer transition-transform duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground rounded-md",
+          "relative block w-full text-start font-mono cursor-pointer transition-transform duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground rounded-md",
           isPunching && "scale-95",
           sizeStyles
         )}
@@ -286,7 +286,7 @@ export function ThemeToggle({
             />
 
             {/* Left Ticket Main Body */}
-            <div className="flex-1 pr-3 border-r-2 border-dashed border-[#d8c9ac]">
+            <div className="flex-1 pe-3 border-r-2 border-dashed border-[#d8c9ac]">
               {/* Header Micro-label */}
               <div className="flex items-center justify-between text-[9px] uppercase tracking-widest text-[#6f6350] mb-1">
                 <span>ADMISSION STUB</span>
@@ -314,7 +314,7 @@ export function ThemeToggle({
             </div>
 
             {/* Right Perforated Tear-off Stub */}
-            <div className="w-16 pl-3 flex flex-col items-center justify-center text-center shrink-0">
+            <div className="w-16 ps-3 flex flex-col items-center justify-center text-center shrink-0">
               <span className="text-[8px] font-bold tracking-widest text-[#6f6350] uppercase">
                 SHIFT
               </span>
@@ -349,7 +349,7 @@ export function ThemeToggle({
             />
 
             {/* Left Ticket Main Body */}
-            <div className="flex-1 pr-3 border-r-2 border-dashed border-[#3a3122]">
+            <div className="flex-1 pe-3 border-r-2 border-dashed border-[#3a3122]">
               {/* Header Micro-label */}
               <div className="flex items-center justify-between text-[9px] uppercase tracking-widest text-[#a89a7e] mb-1">
                 <span>NIGHT CURTAIN</span>
@@ -377,7 +377,7 @@ export function ThemeToggle({
             </div>
 
             {/* Right Perforated Tear-off Stub */}
-            <div className="w-16 pl-3 flex flex-col items-center justify-center text-center shrink-0">
+            <div className="w-16 ps-3 flex flex-col items-center justify-center text-center shrink-0">
               <span className="text-[8px] font-bold tracking-widest text-[#a89a7e] uppercase">
                 SHIFT
               </span>

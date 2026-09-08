@@ -27,7 +27,7 @@ export function TrendingChips({ items = [{ label: " courtside", hot: true }, { l
               active === chip.label ? "border-accent bg-accent text-accent-foreground" : "text-foreground hover:border-accent/60"
             )}
           >
-            {chip.hot && <span className="mr-1 inline-block size-1.5 rounded-full bg-accent" aria-hidden="true" />}
+            {chip.hot && <span className="me-1 inline-block size-1.5 rounded-full bg-accent" aria-hidden="true" />}
             {chip.label.trim()}
           </button>
         ))}

@@ -30,7 +30,7 @@ export function RecentSearches({ items = ["ticket stub", "vip pass", "gate 3"], 
             <button
               type="button"
               onClick={() => onSelect?.(item)}
-              className="flex w-full items-center gap-2 rounded-md border border-dashed border-border bg-background px-2.5 py-1.5 text-left font-mono text-xs text-foreground transition-colors hover:border-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex w-full items-center gap-2 rounded-md border border-dashed border-border bg-background px-2.5 py-1.5 text-start font-mono text-xs text-foreground transition-colors hover:border-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
               {item}

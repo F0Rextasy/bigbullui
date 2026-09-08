@@ -72,12 +72,15 @@ export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivEl
   align?: "start" | "center" | "end";
   children: React.ReactNode;
   className?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
 export function DropdownMenuContent({
   align = "start",
   children,
   className,
+  animated = true,
   ...props
 }: DropdownMenuContentProps) {
   const ctx = React.useContext(DropdownMenuCtx);
@@ -113,7 +116,8 @@ export function DropdownMenuContent({
       ref={contentRef}
       role="menu"
       className={cn(
-        "absolute z-50 mt-1.5 min-w-[180px] rounded-md border-[1.5px] border-foreground bg-card p-1 shadow-lg outline-1 outline-dashed outline-offset-[-5px] animate-[scale-in_0.15s_ease-out_both]",
+        "absolute z-50 mt-1.5 min-w-[180px] rounded-md border-[1.5px] border-foreground bg-card p-1 shadow-lg outline-1 outline-dashed outline-offset-[-5px]",
+        animated && "animate-[scale-in_0.15s_ease-out_both]",
         align === "start" && "left-0",
         align === "center" && "left-1/2 -translate-x-1/2",
         align === "end" && "right-0",
@@ -158,7 +162,7 @@ export function DropdownMenuItem({
     >
       <span>{children}</span>
       {shortcut ? (
-        <span className="font-mono text-[10px] text-muted-foreground ml-3 tracking-wider">
+        <span className="font-mono text-[10px] text-muted-foreground ms-3 tracking-wider">
           {shortcut}
         </span>
       ) : null}

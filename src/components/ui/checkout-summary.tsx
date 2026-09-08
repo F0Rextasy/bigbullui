@@ -72,9 +72,9 @@ export function CheckoutSummary({
         <span className="font-mono text-right">{subtotal}</span>
 
         {tax && (
-          <div className="ml-2 flex items-baseline gap-2">
+          <div className="ms-2 flex items-baseline gap-2">
             <span className="text-sm font-mono text-muted-foreground">Tax</span>
-            <span className="font-mono text-right ml-2">{tax}</span>
+            <span className="font-mono text-right ms-2">{tax}</span>
           </div>
         )}
 

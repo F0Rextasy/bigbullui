@@ -99,7 +99,7 @@ export function TimezoneSelect({
         className="flex w-full cursor-pointer items-center justify-between rounded-md border border-border bg-card px-3 py-2 font-mono text-sm transition-colors hover:border-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <span className="truncate">{selected ? `${selected.label} (${selected.offset})` : "Select timezone"}</span>
-        <span aria-hidden className="ml-2 text-xs text-muted-foreground">▾</span>
+        <span aria-hidden className="ms-2 text-xs text-muted-foreground">▾</span>
       </button>
       {open ? (
         <div className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-md border border-border bg-card shadow-lg">
@@ -131,7 +131,7 @@ export function TimezoneSelect({
                 )}
               >
                 <span className="truncate">{z.label}</span>
-                <span className="ml-2 shrink-0 text-[11px] text-muted-foreground">{z.offset}</span>
+                <span className="ms-2 shrink-0 text-[11px] text-muted-foreground">{z.offset}</span>
               </div>
             ))}
             {visible.length === 0 ? (

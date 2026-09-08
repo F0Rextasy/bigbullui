@@ -22,10 +22,10 @@ export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsPr
   const [list, setList] = React.useState(jobs);
 
   const statusMeta: Record<QueueJobStatus, { label: string; tone: string }> = {
-    queued: { label: "Kuyrukta", tone: "text-muted-foreground" },
+    queued: { label: "Queued", tone: "text-muted-foreground" },
     running: { label: "Running", tone: "text-accent" },
-    done: { label: "Bitti", tone: "text-emerald-700 dark:text-emerald-400" },
-    failed: { label: "Hata", tone: "text-destructive" },
+    done: { label: "Done", tone: "text-success" },
+    failed: { label: "Failed", tone: "text-destructive" },
   };
 
   return (
@@ -40,7 +40,7 @@ export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsPr
             style={{ animationDelay: `${idx * 55}ms` }}
           >
             <div className="flex items-center gap-2">
-              <span className={cn("size-1.5 shrink-0 rounded-full", job.status === "running" ? "bg-accent animate-pulse motion-reduce:animate-none" : job.status === "done" ? "bg-emerald-500" : job.status === "failed" ? "bg-destructive" : "bg-border")} aria-hidden="true" />
+              <span className={cn("size-1.5 shrink-0 rounded-full", job.status === "running" ? "bg-accent animate-pulse motion-reduce:animate-none" : job.status === "done" ? "bg-success" : job.status === "failed" ? "bg-destructive" : "bg-border")} aria-hidden="true" />
               <span className="min-w-0 flex-1 truncate text-sm">{job.label}</span>
               <span className={cn("shrink-0 font-mono text-[10px] uppercase tracking-wider", m.tone)}>{m.label}</span>
               {(job.status === "queued" || job.status === "running") && (

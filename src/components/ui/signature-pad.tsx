@@ -371,7 +371,7 @@ export function SignaturePad({
             </span>
           ) : hasSignature ? (
             <span className="flex items-center gap-1.5 rounded border border-border bg-card px-2 py-0.5 text-[10px] font-bold text-foreground uppercase tracking-wider">
-              <span className="size-1.5 rounded-full bg-emerald-600" />
+              <span className="size-1.5 rounded-full bg-success" />
               SIGNATURE READY
             </span>
           ) : (

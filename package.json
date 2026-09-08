@@ -1,7 +1,7 @@
 {
   "name": "bigbullui",
-  "version": "1.1.0",
-  "description": "Open-source React components you own. Copy-paste friendly, MIT licensed.",
+  "version": "1.1.1",
+  "description": "Copy-paste Ticket-Stub UI: 650+ zero-dependency React 19 components, blocks and CLI for Tailwind CSS v4. MIT licensed.",
   "license": "MIT",
   "author": "F0Rextasy",
   "homepage": "https://ui.bigbullapp.com",
@@ -17,8 +17,16 @@
     "components",
     "ui",
     "tailwindcss",
+    "tailwind-v4",
     "typescript",
-    "accessible"
+    "accessible",
+    "shadcn",
+    "shadcn-ui",
+    "copy-paste",
+    "ticket-stub",
+    "blocks",
+    "cli",
+    "icons"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -38,6 +46,15 @@
       "types": "./css.d.ts",
       "default": "./bigbullui.css"
     },
+    "./high-contrast.css": {
+      "types": "./high-contrast.d.ts",
+      "default": "./high-contrast.css"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
+    },
     "./package.json": "./package.json"
   },
   "bin": {
@@ -48,7 +65,9 @@
     "bin",
     "src/components/ui",
     "bigbullui.css",
+    "high-contrast.css",
     "css.d.ts",
+    "high-contrast.d.ts",
     "README.md",
     "LICENSE"
   ],
@@ -66,7 +85,7 @@
     "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs",
     "build": "next build",
     "build:lib": "tsup",
-    "prepublishOnly": "npm run build:lib",
+    "prepublishOnly": "node scripts/generate-registry-json.mjs && npm run build:lib",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test tests/integrity.test.mjs"

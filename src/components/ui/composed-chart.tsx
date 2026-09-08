@@ -32,8 +32,8 @@ export function ComposedChart({ bars = [30, 55, 42, 70, 58, 84, 66], line = [22,
         ))}
       </svg>
       <div className="mt-1 flex gap-3 font-mono text-[10px] uppercase text-muted-foreground">
-        <span><span className="mr-1 inline-block size-2 bg-secondary" aria-hidden="true" />Bars</span>
-        <span><span className="mr-1 inline-block size-2 rounded-full bg-accent" aria-hidden="true" />Line</span>
+        <span><span className="me-1 inline-block size-2 bg-secondary" aria-hidden="true" />Bars</span>
+        <span><span className="me-1 inline-block size-2 rounded-full bg-accent" aria-hidden="true" />Line</span>
       </div>
     </div>
   );

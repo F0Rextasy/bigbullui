@@ -16,12 +16,15 @@ export interface ContextMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   items: (ContextMenuItem | "separator")[];
   children: React.ReactNode;
   className?: string;
+  /** Dual-mode: false renders instantly with no motion. Default true. */
+  animated?: boolean;
 }
 
 export function ContextMenu({
   items,
   children,
   className,
+  animated = true,
   ...props
 }: ContextMenuProps) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -72,7 +75,7 @@ export function ContextMenu({
             left: `${position.x}px`,
             top: `${position.y}px`,
           }}
-          className="z-50 min-w-[180px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] animate-[scale-in_0.12s_ease-out_both] font-mono text-xs select-none"
+          className={cn("z-50 min-w-[180px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] font-mono text-xs select-none", animated && "animate-[scale-in_0.12s_ease-out_both]")}
         >
           {items.map((item, idx) => {
             if (item === "separator") {
@@ -94,7 +97,7 @@ export function ContextMenu({
                   setIsOpen(false);
                 }}
                 className={cn(
-                  "flex w-full cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 text-left text-xs transition-colors",
+                  "flex w-full cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 text-start text-xs transition-colors",
                   item.danger
                     ? "text-destructive hover:bg-destructive hover:text-white"
                     : "text-foreground hover:bg-accent hover:text-accent-foreground",

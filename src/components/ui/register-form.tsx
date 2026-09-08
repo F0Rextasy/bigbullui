@@ -19,7 +19,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const strength = password.length === 0 ? 0 : password.length < 6 ? 1 : password.length < 10 ? 2 : /[A-Z]/.test(password) && /[0-9]/.test(password) ? 3 : 2;
   const strengthLabels = ["", "WEAK", "MEDIUM", "STRONG"];
-  const strengthColors = ["", "bg-destructive", "bg-amber-500", "bg-emerald-500"];
+  const strengthColors = ["", "bg-destructive", "bg-warning", "bg-success"];
 
   const valid = name.trim().length >= 2 && emailValid && password.length >= 6 && agreed;
 

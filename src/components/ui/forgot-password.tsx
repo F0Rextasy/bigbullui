@@ -59,8 +59,8 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
         </div>
       ) : (
         <div className="space-y-4 text-center animate-[forgotSwap_0.3s_ease-out_both] motion-reduce:animate-none">
-          <div className="mx-auto flex size-14 items-center justify-center rounded-full border-2 border-emerald-500 bg-emerald-500/10">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500">
+          <div className="mx-auto flex size-14 items-center justify-center rounded-full border-2 border-success bg-success/10">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success">
               <path d="M20 6L9 17l-5-5" style={{ strokeDasharray: 24, animation: "forgotCheck 0.4s ease-out 0.15s both" }} />
             </svg>
           </div>

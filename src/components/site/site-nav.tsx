@@ -55,7 +55,7 @@ export async function SiteNav() {
             className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
             title={stars !== null ? `${stars} GitHub stars` : "Star bigbullui on GitHub"}
           >
-            <Star size={14} className="text-amber-400" />
+            <Star size={14} className="text-warning" />
             <span className="font-mono text-xs">{stars !== null ? stars : "Star"}</span>
           </a>
           <ThemeToggle />

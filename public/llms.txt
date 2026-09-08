@@ -1,10 +1,10 @@
 # bigbullui
 
-> An open-source library of 460+ animated, accessible, fully typed React 19 components styled with Tailwind CSS 4 tokens and an artisanal Ticket Stub aesthetic. Zero external dependencies. Copy the code or install via CLI.
+> An open-source library of 659 accessible, fully typed React 19 components styled with Tailwind CSS 4 tokens and an artisanal Ticket Stub aesthetic. Zero external dependencies. Copy the code or install via CLI.
 
 ## Quick Start
 - [Installation Guide](https://ui.bigbullapp.com/docs/installation): Setup instructions via CLI (`npx bigbullui add <name>`), npm package, or copy-paste.
-- [Design System & Tokens](https://ui.bigbullapp.com/docs/design): Ticket Stub aesthetic tokens (`--background`, `--foreground`, `--accent`, `--border`), CSS variables, and Tailwind CSS v4 setup.
+- [Design System & Tokens](https://ui.bigbullapp.com/docs/design): Ticket Stub aesthetic tokens (`--background`, `--foreground`, `--accent`, `--success`, `--warning`, `--info`, `--border`), CSS variables, and Tailwind CSS v4 setup. Optional `bigbullui/high-contrast.css` for forced-colors support.
 - [Contributing](https://ui.bigbullapp.com/docs/contributing): How to contribute new zero-dependency components.
 - [Agent Rules](https://ui.bigbullapp.com/docs/agents): Hard rules and conventions for AI assistants and autonomous agents.
 
@@ -39,5 +39,13 @@ npx bigbullui list chart
 - [Editors & DevTools](https://ui.bigbullapp.com/docs): Code blocks, markdown editor, regex tester, cron builder, console panels.
 - [Media & Interactive](https://ui.bigbullapp.com/docs): Audio players, waveforms, video thumbnails, social cards, interactive widgets.
 
+## Icons (1023, separate package)
+- [Icon Gallery](https://ui.bigbullapp.com/icons): 1023 hand-drawn Ticket Stub stroke icons with live animated previews and per-icon pages (`/icons/<name>`).
+- Install: `npm install bigbullicons`, use `<StampIcon name="ticket" size={20} />` (props: `name`, `size=20`, `animated`, `animation="draw"|"pulse"|"spin"|"none"`).
+- Or single icon via CLI: `npx bigbullui add icon-ticket`.
+
+## Page Blocks (63)
+- [Blocks](https://ui.bigbullapp.com/blocks): Ready admin dashboards, app screens (mail, chat, kanban), auth flows, pricing, checkout, and marketing sections with copy-paste code. Also consumable via `npx shadcn@latest add https://ui.bigbullapp.com/r/<name>.json`.
+
 ## Optional Full Reference
-- [Full LLM Specification](https://ui.bigbullapp.com/llms-full.txt): Complete catalog of all 462 components with descriptions and categories.
+- [Full LLM Specification](https://ui.bigbullapp.com/llms-full.txt): Complete catalog of all 659 components with descriptions and categories.

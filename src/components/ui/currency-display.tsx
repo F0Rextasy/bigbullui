@@ -42,7 +42,7 @@ const CurrencyDisplay = ({
       <span className="text-xs opacity-60">
         .{parts[1] || "00"}
       </span>
-      <span className="ml-1 text-xs uppercase tracking-wider">
+      <span className="ms-1 text-xs uppercase tracking-wider">
         {currency}
       </span>
     </div>

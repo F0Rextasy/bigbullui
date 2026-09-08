@@ -21,7 +21,7 @@ export function ListItem({ id, title, content, variant = "dashed", className, ch
       key={id}
       className={cn(
         "flex items-start gap-3 animate-[fade-in-up_0.3s_ease-out_both] motion-reduce:animate-none",
-        variant === "dashed" && "border-l-2 border-dashed border-border pl-4",
+        variant === "dashed" && "border-l-2 border-dashed border-border ps-4",
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ export function List({ items, variant = "dashed", className, children, ...props 
               key={item.id}
               className={cn(
                 "flex items-start gap-3 animate-[fade-in-up_0.3s_ease-out_both] motion-reduce:animate-none",
-                variant === "dashed" && "border-l-2 border-dashed border-border pl-4"
+                variant === "dashed" && "border-l-2 border-dashed border-border ps-4"
               )}
               style={{ animationDelay: `${index * 40}ms` }}
             >

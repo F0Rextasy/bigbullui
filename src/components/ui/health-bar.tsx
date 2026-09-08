@@ -42,7 +42,7 @@ export function HealthBar({ value, max = 100, label = "HP", segments = 10, class
             aria-hidden="true"
             className={cn(
               "h-full flex-1 rounded-[2px] transition-colors motion-reduce:transition-none",
-              i < filled ? (low ? "bg-destructive" : "bg-emerald-500") : "bg-secondary"
+              i < filled ? (low ? "bg-destructive" : "bg-success") : "bg-secondary"
             )}
           />
         ))}

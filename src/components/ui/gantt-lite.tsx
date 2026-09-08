@@ -107,7 +107,7 @@ export function GanttLite({
             return (
               <div key={stage} className="relative flex items-center py-3 min-h-[56px]">
                 {/* Stage label */}
-                <div className="w-36 shrink-0 pr-3">
+                <div className="w-36 shrink-0 pe-3">
                   <div className="text-xs font-bold uppercase text-foreground truncate">
                     {stage}
                   </div>
@@ -132,7 +132,7 @@ export function GanttLite({
                           width: `${widthPercent}%`,
                         }}
                         className={cn(
-                          "absolute top-1 bottom-1 flex items-center justify-between rounded px-2 text-left cursor-pointer border shadow-xs transition-all hover:scale-[1.02] hover:z-30 hover:shadow-md",
+                          "absolute top-1 bottom-1 flex items-center justify-between rounded px-2 text-start cursor-pointer border shadow-xs transition-all hover:scale-[1.02] hover:z-30 hover:shadow-md",
                           TIER_COLORS[item.tier || "SUPPORT"]
                         )}
                       >
@@ -140,7 +140,7 @@ export function GanttLite({
                           {item.title}
                         </span>
                         {item.tier && (
-                          <span className="ml-1 shrink-0 rounded bg-background/80 px-1 py-0.2 text-[8px] text-foreground">
+                          <span className="ms-1 shrink-0 rounded bg-background/80 px-1 py-0.2 text-[8px] text-foreground">
                             {item.tier}
                           </span>
                         )}

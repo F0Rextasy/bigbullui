@@ -14,7 +14,7 @@ export function EnvSwitcher({ value = "production", envs = ["production", "stagi
   const [v, setV] = React.useState(value);
   return (
     <div className={cn("inline-flex items-center gap-1 rounded-md border border-border bg-card p-1", className)} role="group" aria-label="Environment" {...props}>
-      <span className={cn("size-2 rounded-full", v === "production" ? "bg-emerald-500" : "bg-amber-500")} aria-hidden="true" />
+      <span className={cn("size-2 rounded-full", v === "production" ? "bg-success" : "bg-warning")} aria-hidden="true" />
       {envs.map((e) => (
         <button
           key={e}

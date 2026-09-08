@@ -19,7 +19,7 @@ export function TableHead({
   return (
     <thead
       className={cn(
-        "border-b-2 border-dashed border-border bg-secondary/60 text-left font-mono text-xs uppercase tracking-wider text-muted-foreground",
+        "border-b-2 border-dashed border-border bg-secondary/60 text-start font-mono text-xs uppercase tracking-wider text-muted-foreground",
         className
       )}
       {...props}
@@ -55,7 +55,7 @@ export function TableHeaderCell({
 }: React.ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
-      className={cn("h-10 px-4 text-left align-middle font-medium font-mono text-xs", className)}
+      className={cn("h-10 px-4 text-start align-middle font-medium font-mono text-xs", className)}
       {...props}
     />
   );

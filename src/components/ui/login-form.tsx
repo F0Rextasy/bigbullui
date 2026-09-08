@@ -54,7 +54,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             "w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-all duration-200",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
             email.length > 0 && !emailValid && "border-destructive",
-            emailValid && "border-emerald-500"
+            emailValid && "border-success"
           )}
           placeholder="ornek@mail.com"
           aria-invalid={!!errors.email}
@@ -71,7 +71,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={cn(
-              "w-full rounded-md border border-input bg-background px-3 py-2 pr-16 text-sm transition-all duration-200",
+              "w-full rounded-md border border-input bg-background px-3 py-2 pe-16 text-sm transition-all duration-200",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               errors.password && "border-destructive"
             )}

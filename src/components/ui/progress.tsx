@@ -5,15 +5,17 @@ export type ProgressProps = {
   value: number;
   max?: number;
   className?: string;
+  label?: string;
 };
 
-export function Progress({ value, max = 100, className }: ProgressProps) {
+export function Progress({ value, max = 100, className, label }: ProgressProps) {
   const clamped = Math.min(Math.max(value, 0), max);
   const percent = (clamped / max) * 100;
 
   return (
     <div
       role="progressbar"
+      aria-label={label ?? `Progress ${Math.round(percent)}%`}
       aria-valuenow={clamped}
       aria-valuemin={0}
       aria-valuemax={max}

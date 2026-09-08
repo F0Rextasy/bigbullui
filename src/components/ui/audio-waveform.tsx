@@ -524,7 +524,7 @@ export function AudioWaveform({
       <div className="relative flex lg:flex-col items-center justify-between pointer-events-none">
         {/* Top/Left notch */}
         <div
-          className="size-5 rounded-full bg-background border-2 border-foreground -ml-2.5 lg:ml-0 lg:-mt-2.5 shrink-0 z-20"
+          className="size-5 rounded-full bg-background border-2 border-foreground -ms-2.5 lg:ms-0 lg:-mt-2.5 shrink-0 z-20"
           aria-hidden="true"
         />
 
@@ -536,7 +536,7 @@ export function AudioWaveform({
 
         {/* Bottom/Right notch */}
         <div
-          className="size-5 rounded-full bg-background border-2 border-foreground -mr-2.5 lg:mr-0 lg:-mb-2.5 shrink-0 z-20"
+          className="size-5 rounded-full bg-background border-2 border-foreground -me-2.5 lg:me-0 lg:-mb-2.5 shrink-0 z-20"
           aria-hidden="true"
         />
       </div>
@@ -544,7 +544,7 @@ export function AudioWaveform({
       {/* Right Stub Section: Audio Soundboard Log */}
       <div className="w-full lg:w-56 bg-secondary/40 p-5 flex flex-col justify-between border-t-2 lg:border-t-0 border-foreground">
         <div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground block text-center lg:text-left">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground block text-center lg:text-start">
             AUDIO RECEIPT
           </span>
           <div className="mt-1 font-mono text-xs font-bold text-foreground truncate">
@@ -580,8 +580,8 @@ export function AudioWaveform({
                         seg >= 7
                           ? "bg-destructive"
                           : seg >= 5
-                          ? "bg-amber-500"
-                          : "bg-emerald-500",
+                          ? "bg-warning"
+                          : "bg-success",
                         active ? "opacity-100" : "opacity-20"
                       )}
                     />
@@ -603,8 +603,8 @@ export function AudioWaveform({
                         seg >= 7
                           ? "bg-destructive"
                           : seg >= 5
-                          ? "bg-amber-500"
-                          : "bg-emerald-500",
+                          ? "bg-warning"
+                          : "bg-success",
                         active ? "opacity-100" : "opacity-20"
                       )}
                     />

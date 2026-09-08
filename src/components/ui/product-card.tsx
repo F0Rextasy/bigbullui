@@ -16,7 +16,7 @@ export interface ProductCardProps {
 const Entrance = "animate-fade-in-up fade-in-up-0s";
 const Pulse = "wishlist-heart-corner-pulse";
 
-const badgeClass = "absolute -top-1.5 -right-1.5 rounded-xs bg-destructive text-destructive-foreground text-xs font-bold uppercase tracking-widest px-1.5 py-0.5";
+const badgeClass = "absolute -top-1.5 -right-1.5 rounded-xs bg-destructive text-white text-xs font-bold uppercase tracking-widest px-1.5 py-0.5";
 
 export function ProductCard({
   title,

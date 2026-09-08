@@ -50,7 +50,7 @@ export function ReplayControls({ duration = 120, onSeek, className, ...props }: 
         >
           ▸▸
         </button>
-        <span className="ml-auto font-mono text-[11px] tabular-nums text-muted-foreground" role="timer">{fmt(time)} / {fmt(duration)}</span>
+        <span className="ms-auto font-mono text-[11px] tabular-nums text-muted-foreground" role="timer">{fmt(time)} / {fmt(duration)}</span>
       </div>
       <input
         type="range"

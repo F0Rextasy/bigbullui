@@ -376,9 +376,9 @@ export function FileUploadList({
 
       {/* Perforation Notch Divider */}
       <div className="relative flex items-center justify-between" aria-hidden="true">
-        <div className="size-4 rounded-full bg-background border-2 border-foreground -ml-2 shrink-0" />
+        <div className="size-4 rounded-full bg-background border-2 border-foreground -ms-2 shrink-0" />
         <div className="h-0 w-full border-t-2 border-dashed border-border" />
-        <div className="size-4 rounded-full bg-background border-2 border-foreground -mr-2 shrink-0" />
+        <div className="size-4 rounded-full bg-background border-2 border-foreground -me-2 shrink-0" />
       </div>
 
       {/* =========================================================================

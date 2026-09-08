@@ -27,7 +27,7 @@ export function UploadProgress({ filename, progress, onCancel, className, ...pro
             stroke="currentColor"
             strokeWidth="3"
             strokeLinecap="round"
-            className={done ? "text-emerald-500" : "text-accent"}
+            className={done ? "text-success" : "text-accent"}
             strokeDasharray={C}
             strokeDashoffset={C - (C * Math.min(100, progress)) / 100}
             style={{ transition: "stroke-dashoffset 0.4s ease-out" }}

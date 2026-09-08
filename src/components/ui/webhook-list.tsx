@@ -30,7 +30,7 @@ export function WebhookList({ webhooks, onTest, onRemove, className, ...props }:
           style={{ animationDelay: `${idx * 60}ms` }}
         >
           <div className="flex items-center gap-2">
-            <span className={cn("size-1.5 shrink-0 rounded-full", w.active ? "bg-emerald-500 animate-pulse motion-reduce:animate-none" : "bg-border")} aria-hidden="true" />
+            <span className={cn("size-1.5 shrink-0 rounded-full", w.active ? "bg-success animate-pulse motion-reduce:animate-none" : "bg-border")} aria-hidden="true" />
             <code className="min-w-0 flex-1 truncate font-mono text-xs text-foreground">{w.url}</code>
             <button
               onClick={() => { onTest?.(w.id); setTested(w.id); setTimeout(() => setTested(null), 1500); }}

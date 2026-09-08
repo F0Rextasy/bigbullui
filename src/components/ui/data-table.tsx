@@ -119,7 +119,7 @@ export function DataTable<T extends Record<string, unknown>>({
 
       {/* Ticket Table */}
       <div className="overflow-x-auto rounded-lg border-2 border-foreground bg-card shadow-sm outline-1 outline-dashed outline-offset-[-5px]">
-        <table className="w-full border-collapse text-left text-xs">
+        <table className="w-full border-collapse text-start text-xs">
           <thead>
             <tr className="border-b-2 border-dashed border-border bg-secondary/60">
               <th className="p-3 w-10 text-center">

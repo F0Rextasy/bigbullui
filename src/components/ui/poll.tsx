@@ -40,7 +40,7 @@ export function Poll({ question, options, votedId, onVote, className, ...props }
               disabled={hasVoted}
               aria-pressed={isMine}
               className={cn(
-                "relative w-full overflow-hidden rounded-md border px-3 py-2 text-left transition-colors duration-200 motion-reduce:transition-none",
+                "relative w-full overflow-hidden rounded-md border px-3 py-2 text-start transition-colors duration-200 motion-reduce:transition-none",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 hasVoted ? "cursor-default" : "hover:border-foreground/40",
                 isMine ? "border-accent" : "border-border"
@@ -56,7 +56,7 @@ export function Poll({ question, options, votedId, onVote, className, ...props }
               )}
               <span className="relative flex items-center justify-between gap-2">
                 <span className={cn("text-sm", isMine && "font-medium text-accent")}>
-                  {isMine && <span className="mr-1" aria-hidden="true">✓</span>}
+                  {isMine && <span className="me-1" aria-hidden="true">✓</span>}
                   {opt.label}
                 </span>
                 {hasVoted && <span className="font-mono text-xs tabular-nums text-muted-foreground">%{pct}</span>}

@@ -64,7 +64,7 @@ export function Invoice({
         <table className="w-full">
           <thead>
             <tr className="text-xs uppercase tracking-wider text-muted-foreground">
-              <th className="text-left">Item</th>
+              <th className="text-start">Item</th>
               <th className="text-center">Qty</th>
               <th className="text-right">Price</th>
             </tr>
@@ -96,7 +96,7 @@ export function Invoice({
         {taxRate > 0 && (
           <div className="flex items-baseline justify-between">
             <span className="text-sm font-mono text-muted-foreground">Tax ({taxRate * 100}%)</span>
-            <span className="font-mono text-right ml-2">{tax.toFixed(2)}</span>
+            <span className="font-mono text-right ms-2">{tax.toFixed(2)}</span>
           </div>
         )}
         <div className={cn("flex items-baseline justify-between pt-1", TotalRise)}>
