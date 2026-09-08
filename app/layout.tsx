@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     siteName: "bigbullui",
     title: "bigbullui — Animated React components you own",
     description:
-      "An open-source library of 460+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
+      "An open-source library of 650+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
   },
   twitter: {
     card: "summary_large_image",
     title: "bigbullui — Animated React components you own",
     description:
-      "An open-source library of 460+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
+      "An open-source library of 650+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
     creator: "@F0Rextasy",
   },
   icons: {
@@ -67,7 +67,7 @@ const jsonLd = {
       "url": "https://ui.bigbullapp.com",
       "name": "bigbullui",
       "description":
-        "An open-source library of 460+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
+        "An open-source library of 650+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
       "publisher": {
         "@type": "Person",
         "name": "F0Rextasy",

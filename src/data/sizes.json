@@ -422,9 +422,9 @@
       "kb": 0.76
     },
     "checkout-summary": {
-      "raw": 3234,
-      "gzip": 995,
-      "kb": 0.97
+      "raw": 3268,
+      "gzip": 1017,
+      "kb": 0.99
     },
     "chord-diagram": {
       "raw": 3174,

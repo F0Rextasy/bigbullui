@@ -29,6 +29,8 @@ const c = {
 const GITHUB_RAW_BASE =
   "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 
+const REGISTRY_ICON_BASE = "https://ui.bigbullapp.com/r/icons";
+
 const UTILS_CONTENT = `export type ClassValue = string | number | boolean | null | undefined;
 
 /** Minimal class merger: truthy values joined by space. */
@@ -141,6 +143,46 @@ async function getComponentContent(slug) {
   return await fetchUrl(remoteUrl);
 }
 
+async function getIconContent(slug) {
+  const iconName = slug.startsWith("icon-") ? slug.slice("icon-".length) : slug;
+  const localCandidates = [
+    path.resolve(__dirname, "..", "public", "r", "icons", `${iconName}.json`),
+    path.resolve(__dirname, "..", "public", "r", "icons", `${slug}.json`),
+  ];
+  for (const p of localCandidates) {
+    if (fs.existsSync(p)) {
+      try {
+        const reg = JSON.parse(fs.readFileSync(p, "utf8"));
+        const content = reg && reg.files && reg.files[0] && reg.files[0].content;
+        if (typeof content === "string" && content.length > 0) {
+          return content;
+        }
+      } catch {
+        // Corrupt local file: fall through to remote fetch
+      }
+    }
+  }
+
+  const remoteUrl = `${REGISTRY_ICON_BASE}/${iconName}.json`;
+  const offlineMessage = `Could not fetch "${slug}" from ${remoteUrl}. You appear to be offline — check your connection and try again.`;
+  let raw;
+  try {
+    raw = await fetchUrl(remoteUrl);
+  } catch {
+    throw new Error(offlineMessage);
+  }
+  try {
+    const reg = JSON.parse(raw);
+    const content = reg && reg.files && reg.files[0] && reg.files[0].content;
+    if (typeof content !== "string" || content.length === 0) {
+      throw new Error("empty");
+    }
+    return content;
+  } catch {
+    throw new Error(offlineMessage);
+  }
+}
+
 function ensureUtils(targetDir) {
   const utilsDir = path.join(targetDir, "lib");
   const utilsFile = path.join(utilsDir, "utils.ts");
@@ -209,6 +251,18 @@ async function handleAdd(args) {
     if (fs.existsSync(targetPath) && !force) {
       console.log(`  ${c.yellow}↷${c.reset} Skipped ${c.bold}${slug}${c.reset} (already exists, use -f to overwrite)`);
       skippedCount++;
+      continue;
+    }
+
+    if (slug.startsWith("icon-")) {
+      try {
+        const content = await getIconContent(slug);
+        fs.writeFileSync(targetPath, content, "utf8");
+        console.log(`  ${c.green}✓${c.reset} Added ${c.bold}${slug}${c.reset}`);
+        addedCount++;
+      } catch (err) {
+        console.error(`  ${c.red}✗${c.reset} Failed to add ${c.bold}${slug}${c.reset}: ${err.message}`);
+      }
       continue;
     }
 

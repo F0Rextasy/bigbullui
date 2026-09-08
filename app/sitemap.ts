@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { components } from "@/lib/registry-site";
+import { NAV_ICON_NAMES } from "@/components/site/icon-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://ui.bigbullapp.com";
@@ -74,5 +75,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...componentRoutes];
+  const iconRoutes: MetadataRoute.Sitemap = NAV_ICON_NAMES.map((name) => ({
+    url: `${siteUrl}/icons/${name}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  return [...staticRoutes, ...componentRoutes, ...iconRoutes];
 }

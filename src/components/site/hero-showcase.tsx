@@ -50,7 +50,7 @@ export function HeroShowcase() {
           href="/docs"
           className="font-mono text-xs uppercase tracking-wider text-accent-strong hover:underline"
         >
-          View all 460+ components &rarr;
+          View all 650+ components &rarr;
         </Link>
       </div>
 

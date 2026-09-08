@@ -248,12 +248,14 @@ export default function Home() {
               Tried our icon package yet?
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Every icon on this site is hand-drawn in the Ticket Stub language — no Lucide, no
-              emoji, no external sets. Use the same artwork in your own apps with the standalone
-              package.
+              1000+ hand-drawn icons in the Ticket Stub language — no Lucide, no
+              emoji, no external sets. Browse by category with live Draw / Pulse /
+              Spin previews, open any icon on its own page, or pull a single icon
+              into your project.
             </p>
             <div className="mt-4 space-y-2">
               <CodeBox code="npm install bigbullicons" />
+              <CodeBox code="npx bigbullui add icon-ticket" />
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link

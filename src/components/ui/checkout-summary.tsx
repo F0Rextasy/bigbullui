@@ -40,7 +40,7 @@ export function CheckoutSummary({
               StepSlide
             )}
           >
-            <span className="font-medium line-clamp-1">{it.title}</span>
+            <span className="font-medium line-clamp-1 min-w-0">{it.title}</span>
             <div className="flex items-baseline gap-2">
               <button
                 className={cn(
@@ -67,7 +67,7 @@ export function CheckoutSummary({
       </div>
 
       {/* Totals */}
-      <div className="mt-4 flex items-baseline justify-between pt-4 border-t border-border/50">
+      <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 pt-4 border-t border-border/50">
         <span className="text-sm font-mono text-muted-foreground">Subtotal</span>
         <span className="font-mono text-right">{subtotal}</span>
 

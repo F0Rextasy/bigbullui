@@ -32,7 +32,7 @@ export function BlockLiveChat() {
 
   return (
     <div className="relative mx-auto w-full max-w-md rounded-lg border border-border bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-7px] outline-border">
-      <div className="mb-3 flex items-center gap-3">
+      <div className="mb-3 flex flex-wrap items-center gap-3">
         <StatusDot level="low" size="sm" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-mono text-xs font-bold uppercase tracking-wider">Box office chat</p>

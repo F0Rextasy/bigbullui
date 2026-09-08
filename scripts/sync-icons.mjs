@@ -41,10 +41,19 @@ function parseEntries(source) {
   return entries;
 }
 
+const SET_CATEGORIES = {
+  "set-core.tsx": "Essentials",
+  "set-a.tsx": "Arrows & Direction",
+  "set-b.tsx": "Media & Playback",
+  "set-c.tsx": "Files & Office",
+  "set-d.tsx": "Commerce & Shopping",
+  "set-e.tsx": "Weather & Nature",
+};
+
 const all = [];
 for (const file of ["set-core.tsx", "set-a.tsx", "set-b.tsx", "set-c.tsx", "set-d.tsx", "set-e.tsx"]) {
   const src = fs.readFileSync(path.join(setsDir, file), "utf8");
-  all.push(...parseEntries(src));
+  for (const e of parseEntries(src)) all.push({ ...e, category: SET_CATEGORIES[file] });
 }
 const seen = new Set();
 const dupes = all.filter((e) => (seen.has(e.name) ? true : (seen.add(e.name), false))).map((e) => e.name);
@@ -57,20 +66,37 @@ console.log(`sync-icons: ${all.length} icons parsed`);
 const typeUnion = all.map((e) => `  | "${e.name}"`).join("\n");
 const paths = all.map((e) => `  ${JSON.stringify(e.name)}: ${e.value},`).join("\n");
 
-const out = `"use client";
-
-import * as React from "react";
+const dataOut = `import * as React from "react";
 
 export type NavIconName =
 ${typeUnion};
 
-const PATHS: Record<NavIconName, React.ReactNode> = {
+export const ICON_PATHS: Record<NavIconName, React.ReactNode> = {
 ${paths}
 };
 
 export const NAV_ICON_NAMES: NavIconName[] = [
 ${all.map((e) => `  "${e.name}",`).join("\n")}
 ];
+
+export const NAV_ICON_CATEGORIES: Record<string, string> = {
+${all.map((e) => `  ${JSON.stringify(e.name)}: ${JSON.stringify(e.category)},`).join("\n")}
+};
+
+export const NAV_CATEGORIES: { name: string; count: number }[] = [
+${Object.entries(all.reduce((acc, e) => { acc[e.category] = (acc[e.category] ?? 0) + 1; return acc; }, {})).map(([name, count]) => `  { name: ${JSON.stringify(name)}, count: ${count} },`).join("\n")}
+];
+`;
+fs.writeFileSync(path.join(rootDir, "src/components/site/icon-data.tsx"), dataOut);
+console.log("sync-icons: icon-data.tsx regenerated");
+
+const clientOut = `"use client";
+
+import * as React from "react";
+import { ICON_PATHS, type NavIconName } from "./icon-data";
+
+export type { NavIconName };
+export { NAV_ICON_NAMES, NAV_ICON_CATEGORIES, NAV_CATEGORIES } from "./icon-data";
 
 const NAV_ANIMATION_CSS = \`@keyframes navDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } } @keyframes navPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.75; } } @keyframes navSpin { to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .nav-draw { stroke-dasharray: 1; animation: navDraw 0.55s ease-out backwards; } .nav-pulse { transform-origin: center; transform-box: fill-box; animation: navPulse 1.6s ease-in-out infinite; } .nav-spin { transform-origin: center; transform-box: fill-box; animation: navSpin 1.4s linear infinite; } }\`;
 
@@ -117,11 +143,11 @@ export function NavIcon({ name, size = 15, animated = true, animation = "draw", 
       {...props}
     >
       <g pathLength={1} className={cls}>
-        {PATHS[name]}
+        {ICON_PATHS[name]}
       </g>
     </svg>
   );
 }
 `;
-fs.writeFileSync(path.join(rootDir, "src/components/site/nav-icons.tsx"), out);
+fs.writeFileSync(path.join(rootDir, "src/components/site/nav-icons.tsx"), clientOut);
 console.log("sync-icons: nav-icons.tsx regenerated");
