@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { GlowDivider } from "@/components/site/glow-divider";
 import { CodeBox } from "@/components/site/code-box";
 import { HeroShowcase } from "@/components/site/hero-showcase";
+import { NavIcon } from "@/components/site/nav-icons";
 import { categories, components } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
 
@@ -231,6 +232,58 @@ export default function Home() {
               </Link>
             );
           })}
+        </div>
+      </section>
+
+      <GlowDivider className="mx-auto max-w-5xl" />
+
+      {/* Own icon package */}
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
+        <div className="grid items-center gap-8 lg:grid-cols-2">
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
+              Zero-dependency icons
+            </p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+              Tried our icon package yet?
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Every icon on this site is hand-drawn in the Ticket Stub language — no Lucide, no
+              emoji, no external sets. Use the same artwork in your own apps with the standalone
+              package.
+            </p>
+            <div className="mt-4 space-y-2">
+              <CodeBox code="npm install bigbullicons" />
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href="/icons"
+                className="inline-flex h-9 cursor-pointer items-center rounded-md bg-primary px-4 text-xs font-medium text-primary-foreground transition-all duration-150 hover:scale-[1.02] active:scale-[0.97]"
+              >
+                Browse the icon set
+              </Link>
+              <a
+                href="https://www.npmjs.com/package/bigbullicons"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-9 cursor-pointer items-center rounded-md border border-border bg-transparent px-4 text-xs font-medium transition-colors hover:bg-secondary"
+              >
+                bigbullicons on npm
+              </a>
+            </div>
+          </div>
+          <div className="grid min-w-0 grid-cols-6 gap-2 sm:grid-cols-8 lg:grid-cols-6" aria-hidden="true">
+            {(
+              ["ticket", "stub", "stamp", "gate", "blocks", "showcase", "theme", "perforation", "dashboard", "storefront", "service", "auth"] as const
+            ).map((name) => (
+              <span
+                key={name}
+                className="flex aspect-square items-center justify-center rounded-lg border border-border bg-card text-foreground transition-colors hover:border-foreground/50 hover:text-accent-strong"
+              >
+                <NavIcon name={name} size={22} />
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
