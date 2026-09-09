@@ -7,6 +7,8 @@ import { PRESETS, buildCss } from "@/components/site/theme-studio";
 import { CopyButton } from "@/components/ui/copy-button";
 import { cn } from "@/components/ui/lib/utils";
 
+const STARTER_FORK = "https://stackblitz.com/fork/github/F0Rextasy/bigbullui/tree/main/packages/create-app/template?file=app%2Fpage.tsx&title=bigbullui-starter";
+
 const DEFAULT_COMPONENTS = ["button", "card", "badge", "input", "dialog"];
 
 /** Bundle builder: pick components + icons + theme, get one install command. */
@@ -160,9 +162,17 @@ export function BundleBuilder() {
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
           4 · Install your bundle
         </p>
-        <div className="mt-2 flex items-center gap-2 rounded-md border border-dashed border-border bg-background p-3">
+        <div className="mt-2 flex flex-wrap items-center gap-2 rounded-md border border-dashed border-border bg-background p-3">
           <code className="min-w-0 flex-1 break-all font-mono text-xs">{command}</code>
           <CopyButton value={command} />
+          <a
+            href={STARTER_FORK}
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 rounded-md border border-border bg-card px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            Open starter in StackBlitz
+          </a>
         </div>
         <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
           then paste theme tokens

@@ -2,14 +2,16 @@
 
 import * as React from "react";
 
+const STARTER = "F0Rextasy/bigbullui/tree/main/packages/create-app/template";
+
 function buildStackBlitzUrl(name: string, code: string): string {
   const params = new URLSearchParams({
-    file: "App.tsx",
+    file: "app/page.tsx",
     title: `bigbullui - ${name}`,
     description: `Live demo of ${name} from bigbullui`,
   });
   void code;
-  return `https://stackblitz.com/fork/github/bigbullui-starter?${params.toString()}`;
+  return `https://stackblitz.com/fork/github/${STARTER}?${params.toString()}`;
 }
 
 export function DocsStackBlitzButton({ name, code }: { name: string; code: string }) {
