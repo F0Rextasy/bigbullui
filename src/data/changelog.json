@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.2.0",
+      "date": "2026-09-10",
+      "title": "MCP server, bundle builder, block registry, starter",
+      "changes": [
+        "Zero-dependency MCP server: list/get components, blocks, icons and theme from AI assistants (npx bigbullui-mcp)",
+        "New /create page: pick components, icons and theme, get one install command + StackBlitz starter export",
+        "All 63 page blocks published as shadcn registry entries with bundled dependencies",
+        "New create-bigbull-app starter scaffold (Next.js + Tailwind v4 + bigbullui)",
+        "Component registry indexes (components/blocks/icons.json) for tooling"
+      ]
+    },
+    {
       "version": "1.1.1",
       "date": "2026-09-08",
       "title": "Package diet, semantic status tokens, English copy",
