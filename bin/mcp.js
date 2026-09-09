@@ -105,6 +105,11 @@ const TOOLS = [
     },
   },
   {
+    name: "get_icon",
+    description: "Get one icon's registry entry (component source + page). Or pull it via `npx bigbullui add icon-<name>`.",
+    inputSchema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] },
+  },
+  {
     name: "get_theme",
     description: "Get the Ticket Stub design tokens (bigbullui.css): CSS variables, dark theme, keyframes. Required setup: `@import \"tailwindcss\"; @import \"bigbullui/css\";`",
     inputSchema: { type: "object", properties: {} },
@@ -158,6 +163,14 @@ async function callTool(name, args) {
       .slice(0, limit)
       .map((n) => ({ name: n, page: `${SITE}/icons/${n}` }));
     return { count: hits.length, total: idx.count, icons: hits };
+  }
+  if (name === "get_icon") {
+    const slug = String(a.name || "").replace(/^icon-/, "");
+    if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`Invalid icon name: ${a.name}`);
+    const reg = await loadJson(`public/r/icons/${slug}.json`, `${SITE}/r/icons/${slug}.json`).catch(() => null);
+    if (!reg) throw new Error(`Unknown icon: ${slug}. Use list_icons to discover names.`);
+    const file = reg.files && reg.files[0];
+    return { name: slug, page: `${SITE}/icons/${slug}`, install: `npx bigbullui add icon-${slug}`, source: file && typeof file.content === "string" ? file.content.slice(0, 20000) : null };
   }
   if (name === "get_theme") {
     const css = await loadText("bigbullui.css", `${GITHUB_RAW}/bigbullui.css`);
