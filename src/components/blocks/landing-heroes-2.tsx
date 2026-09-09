@@ -35,7 +35,7 @@ export function LandingHeroes2() {
           <span className="size-2 rounded-full bg-border" aria-hidden="true" />
           <span className="size-2 rounded-full bg-border" aria-hidden="true" />
           <span className="size-2 rounded-full bg-accent" aria-hidden="true" />
-          <p className="ml-2 truncate font-mono text-[10px] uppercase tracking-widest text-muted-foreground">app.bigbull — nightly audit</p>
+          <p className="ms-2 truncate font-mono text-[10px] uppercase tracking-widest text-muted-foreground">app.bigbull — nightly audit</p>
         </div>
         <div className="grid gap-3 p-4 sm:grid-cols-3">
           {SHOT_ROWS.map((row) => (

@@ -80,7 +80,7 @@ export function ThemeStudio() {
                   setActivePreset(preset.id);
                 }}
                 aria-pressed={activePreset === preset.id}
-                className="rounded-md border border-border bg-card p-2 text-left transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-md border border-border bg-card p-2 text-start transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <span className="flex overflow-hidden rounded-sm border border-border" aria-hidden="true">
                   {[preset.vars.background, preset.vars.foreground, preset.vars.accent].map((color) => (

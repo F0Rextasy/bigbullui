@@ -40,7 +40,7 @@ export function AppCalendar() {
                   key={cell.day}
                   type="button"
                   onClick={() => setSelected(cell.day)}
-                  className={`min-h-20 cursor-pointer rounded-md border p-1.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selected === cell.day ? "border-foreground bg-primary text-primary-foreground" : "border-dashed border-border bg-card hover:border-foreground"}`}
+                  className={`min-h-20 cursor-pointer rounded-md border p-1.5 text-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selected === cell.day ? "border-foreground bg-primary text-primary-foreground" : "border-dashed border-border bg-card hover:border-foreground"}`}
                 >
                   <span className="font-mono text-xs font-black">{String(cell.day).padStart(2, "0")}</span>
                   <span className="mt-1 block space-y-1">

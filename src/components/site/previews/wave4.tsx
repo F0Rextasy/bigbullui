@@ -178,7 +178,7 @@ export const wave4Previews: Record<string, React.ComponentType> = {
   reveal: () => {
     return (
       <Reveal delay={0}>
-        <div className="p-4 bg-card text-left">
+        <div className="p-4 bg-card text-start">
           Content reveals when scrolling into view
         </div>
       </Reveal>

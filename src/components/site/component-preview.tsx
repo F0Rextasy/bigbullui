@@ -209,7 +209,7 @@ function AnimatedBadgePreview() {
   return (
     <div className="flex flex-wrap justify-center gap-3">
       <Badge className="animate-[scale-in_0.3s_ease-out]">
-        <span className="mr-1.5 size-1.5 rounded-full bg-primary-foreground animate-pulse" />
+        <span className="me-1.5 size-1.5 rounded-full bg-primary-foreground animate-pulse" />
         LIVE ADMISSION
       </Badge>
       <Badge variant="accent" className="animate-[scale-in_0.3s_ease-out]">
@@ -382,7 +382,7 @@ function AnimatedCommandPalettePreview() {
   return (
     <div className="flex flex-col items-center gap-3 select-none">
       <Button variant="outline" onClick={() => setOpen(true)} className="font-mono text-xs">
-        <NavIcon name="components" size={13} className="mr-2" /> Open Command Palette (⌘K)
+        <NavIcon name="components" size={13} className="me-2" /> Open Command Palette (⌘K)
       </Button>
       <span className="font-mono text-[11px] text-muted-foreground">
         Press Esc or choose an option to close
@@ -753,7 +753,7 @@ function AnimatedLightboxPreview() {
   return (
     <div className="flex flex-col items-center gap-3">
       <Button variant="outline" onClick={() => setOpen(true)} className="font-mono text-xs">
-        <span className="mr-2">🎟️</span> Open Ticket Lightbox
+        <span className="me-2">🎟️</span> Open Ticket Lightbox
       </Button>
       <Lightbox
         open={open}
@@ -1508,7 +1508,7 @@ function AnimatedScrollAreaPreview() {
         SCROLLABLE TICKET LEDGER
       </div>
       <ScrollArea className="h-48 w-full">
-        <div className="space-y-1.5 pr-3 font-mono text-xs">
+        <div className="space-y-1.5 pe-3 font-mono text-xs">
           {items.map((item, idx) => (
             <div
               key={idx}
@@ -2202,7 +2202,7 @@ const previews: Record<string, React.ComponentType> = {
       <Kbd>⌘</Kbd>
       <Kbd>K</Kbd>
       <span>to search</span>
-      <Kbd className="ml-2">Esc</Kbd>
+      <Kbd className="ms-2">Esc</Kbd>
       <span>to cancel</span>
     </div>
   ),

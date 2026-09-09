@@ -16,7 +16,7 @@ export function BlockTimeline() {
       <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Running order</h2>
       <ol className="relative space-y-5 before:absolute before:bottom-2 before:left-[15px] before:top-2 before:border-l-2 before:border-dashed before:border-border">
         {STEPS.map((step, index) => (
-          <li key={step.title} className="relative flex gap-4 pl-1">
+          <li key={step.title} className="relative flex gap-4 ps-1">
             <span aria-hidden="true" className="z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-card font-mono text-xs font-black text-foreground">
               {index + 1}
             </span>

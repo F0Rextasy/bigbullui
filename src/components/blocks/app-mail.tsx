@@ -47,14 +47,14 @@ export function AppMail() {
               key={message.id}
               type="button"
               onClick={() => setActive(message.id)}
-              className={`w-full cursor-pointer px-4 py-3 text-left transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${active === message.id ? "bg-secondary/60" : ""}`}
+              className={`w-full cursor-pointer px-4 py-3 text-start transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${active === message.id ? "bg-secondary/60" : ""}`}
             >
               <span className="flex items-center justify-between gap-2">
                 <span className="font-mono text-xs font-black uppercase">{message.from}</span>
                 <span className="font-mono text-[10px] text-muted-foreground">{message.time}</span>
               </span>
               <span className="mt-0.5 block truncate font-mono text-xs font-bold">
-                {message.unread && <span className="mr-1.5 inline-block size-1.5 rounded-full bg-accent" />}
+                {message.unread && <span className="me-1.5 inline-block size-1.5 rounded-full bg-accent" />}
                 {message.subject}
               </span>
               <span className="mt-0.5 block truncate text-xs text-muted-foreground">{message.preview}</span>

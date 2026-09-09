@@ -35,7 +35,7 @@ export function PageCareers() {
               key={role.id}
               type="button"
               onClick={() => { setSelected(role.id); setApplied(false); }}
-              className={`w-full rounded-md border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selected === role.id ? "border-accent bg-card" : "border-dashed border-border bg-card hover:border-foreground/40"}`}
+              className={`w-full rounded-md border p-4 text-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selected === role.id ? "border-accent bg-card" : "border-dashed border-border bg-card hover:border-foreground/40"}`}
             >
               <span className="flex flex-wrap items-center justify-between gap-2">
                 <span className="font-mono text-sm font-bold uppercase">{role.title}</span>

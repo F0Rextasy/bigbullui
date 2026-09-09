@@ -31,7 +31,7 @@ export function AppChat() {
             key={thread.id}
             type="button"
             onClick={() => setActive(thread.id)}
-            className={`flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${active === thread.id ? "bg-secondary/60" : ""}`}
+            className={`flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-start transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${active === thread.id ? "bg-secondary/60" : ""}`}
           >
             <Avatar name={thread.name} size="sm" />
             <span className="min-w-0 flex-1">

@@ -24,7 +24,7 @@ export function PagePricing() {
           <Button size="sm" variant={annual ? "outline" : "default"} onClick={() => setAnnual(false)}>Monthly</Button>
         </div>
       </div>
-      <div className="grid gap-4 text-left md:grid-cols-3">
+      <div className="grid gap-4 text-start md:grid-cols-3">
         {TIERS.map((tier) => (
           <Card key={tier.name} className={tier.hot ? "border-accent" : undefined}>
             <CardHeader>

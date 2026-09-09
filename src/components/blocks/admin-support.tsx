@@ -37,7 +37,7 @@ export function AdminSupport() {
                 type="button"
                 onClick={() => setActive(ticket.id)}
                 aria-pressed={active === ticket.id}
-                className="flex w-full items-center gap-3 rounded-md border-2 border-dashed border-border bg-card p-3 text-left transition-colors hover:border-solid hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+                className="flex w-full items-center gap-3 rounded-md border-2 border-dashed border-border bg-card p-3 text-start transition-colors hover:border-solid hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
               >
                 <Avatar name={ticket.who} size="sm" />
                 <span className="min-w-0 flex-1">

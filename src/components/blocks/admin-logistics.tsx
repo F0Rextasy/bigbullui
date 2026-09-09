@@ -74,7 +74,7 @@ export function AdminLogistics() {
             <CardTitle>Status timeline</CardTitle>
           </CardHeader>
           <CardContent>
-            <ol className="relative space-y-4 border-l-2 border-dashed border-border pl-4">
+            <ol className="relative space-y-4 border-l-2 border-dashed border-border ps-4">
               {TIMELINE.map((step) => (
                 <li key={step.label} className="relative">
                   <span aria-hidden className="absolute -left-[21px] top-1 size-2.5 rounded-full border-2 border-foreground bg-accent motion-reduce:transition-none" />

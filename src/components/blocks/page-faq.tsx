@@ -37,7 +37,7 @@ export function PageFaq() {
         </CardContent>
       </Card>
       <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-        Still stuck? <Button size="sm" variant="outline" className="ml-2">Open a ticket</Button>
+        Still stuck? <Button size="sm" variant="outline" className="ms-2">Open a ticket</Button>
       </p>
     </div>
   );

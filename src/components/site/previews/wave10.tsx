@@ -64,10 +64,10 @@ export const wave10Previews: Record<string, React.ComponentType> = {
           <nav>
             <ul className="space-y-2">
               <li>
-                <button className="rounded-md py-1 pl-2 pr-4 text-sm">Nav Item</button>
+                <button className="rounded-md py-1 ps-2 pe-4 text-sm">Nav Item</button>
               </li>
               <li>
-                <button className="rounded-md py-1 pl-2 pr-4 text-sm">Nav Item</button>
+                <button className="rounded-md py-1 ps-2 pe-4 text-sm">Nav Item</button>
               </li>
             </ul>
           </nav>

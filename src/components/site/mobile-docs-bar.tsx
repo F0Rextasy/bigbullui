@@ -81,7 +81,7 @@ export function MobileDocsBar() {
       {open && typeof document !== "undefined"
         ? createPortal(
             <Sheet open={open} onOpenChange={setOpen} side="left">
-              <SheetHeader className="border-b border-dashed border-border pb-3 text-left">
+              <SheetHeader className="border-b border-dashed border-border pb-3 text-start">
                 <SheetTitle className="text-base font-semibold tracking-tight">Component Catalog</SheetTitle>
                 <SheetDescription className="text-xs">
                   Browse 462 zero-dependency React 19 components.

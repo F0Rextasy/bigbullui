@@ -81,7 +81,7 @@ function SidebarLink({
         <span
           title="New"
           aria-label="New component"
-          className="ml-auto size-2 shrink-0 animate-pulse rounded-full bg-accent-strong"
+          className="ms-auto size-2 shrink-0 animate-pulse rounded-full bg-accent-strong"
         />
       ) : null}
     </Link>
@@ -164,7 +164,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
         <button
           type="button"
           onClick={() => toggleMenu("guides")}
-          className="flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <span className="text-[13px] font-semibold tracking-wide text-foreground">
             Getting started
@@ -208,7 +208,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
             <button
               type="button"
               onClick={() => toggleMenu(cat.id)}
-              className="flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <span className="text-[13px] font-semibold tracking-wide text-foreground">
                 {cat.name}

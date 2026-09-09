@@ -38,7 +38,7 @@ export function AppPlayer() {
               type="button"
               onClick={() => { setCurrent(episode.id); setPlaying(true); }}
               aria-pressed={current === episode.id}
-              className="flex w-full items-center justify-between gap-3 rounded-md border-2 border-dashed border-border p-3 text-left transition-colors hover:border-solid hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+              className="flex w-full items-center justify-between gap-3 rounded-md border-2 border-dashed border-border p-3 text-start transition-colors hover:border-solid hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             >
               <span className="min-w-0">
                 <span className="block truncate font-mono text-sm font-bold">{episode.title}</span>
@@ -67,7 +67,7 @@ export function AppPlayer() {
               {playing ? "Pause" : "Play"}
             </Button>
             <Button size="sm" variant="outline">Next</Button>
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">CH {active.mark}%{" // "}1X SPEED</span>
+            <span className="ms-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">CH {active.mark}%{" // "}1X SPEED</span>
           </div>
         </CardContent>
       </Card>

@@ -73,7 +73,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
       {open && typeof document !== "undefined"
         ? createPortal(
             <Sheet open={open} onOpenChange={setOpen} side="right">
-        <SheetHeader className="border-b border-dashed border-border pb-4 text-left">
+        <SheetHeader className="border-b border-dashed border-border pb-4 text-start">
           <div className="flex items-center gap-2">
             <Image src="/logo.svg" alt="bigbullui logo" width={28} height={28} className="size-7" />
             <SheetTitle className="text-base font-semibold tracking-tight">bigbullui</SheetTitle>
