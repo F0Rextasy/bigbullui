@@ -1,12 +1,16 @@
 import changelog from "@/data/changelog.json";
 
+function esc(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 export async function GET() {
   const items = changelog.entries
     .map(
       (e) => `    <item>
-      <title>${e.version} ${e.title}</title>
+      <title>${esc(e.version)} ${esc(e.title)}</title>
       <pubDate>${new Date(e.date).toUTCString()}</pubDate>
-      <description>${e.changes.join(" ")}</description>
+      <description>${esc(e.changes.join(" "))}</description>
     </item>`
     )
     .join("\n");
