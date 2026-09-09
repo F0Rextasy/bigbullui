@@ -25,6 +25,17 @@ export type NavIconName =
   | "perforation"
   | "stamp"
   | "gate"
+  | "settings"
+  | "user"
+  | "users"
+  | "sparkles"
+  | "plus"
+  | "check"
+  | "x"
+  | "menu"
+  | "lock-open"
+  | "star-outline"
+  | "edit"
   | "arrow-up"
   | "arrow-down"
   | "arrow-left"
@@ -1115,6 +1126,54 @@ export const ICON_PATHS: Record<NavIconName, React.ReactNode> = {
       <path d="M12 11v10" />
       <circle cx="12" cy="8" r="1.6" />
     </>
+  ),
+  "settings": (
+    <>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  "user": (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+    </>
+  ),
+  "users": (
+    <>
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5M16 8.5a3 3 0 1 0-2-5.2M17.5 14.7c2 .7 4 2.2 4 4.3" />
+    </>
+  ),
+  "sparkles": (
+    <>
+      <path d="M12 4v3M12 17v3M4 12h3M17 12h3" />
+      <path d="M12 9.5 14 12l-2 2.5L10 12l2-2.5Z" />
+    </>
+  ),
+  "plus": (
+    <path d="M12 5v14M5 12h14" />
+  ),
+  "check": (
+    <path d="M4.5 12.5 10 18 19.5 6.5" />
+  ),
+  "x": (
+    <path d="M6 6l12 12M18 6 6 18" />
+  ),
+  "menu": (
+    <path d="M4 7h16M4 12h16M4 17h16" />
+  ),
+  "lock-open": (
+    <>
+      <path d="M6 11V8a6 6 0 0 1 11.5-2.5" />
+      <path d="M5 11h14v9.5H5zM12 15v2.5" />
+    </>
+  ),
+  "star-outline": (
+    <path d="M12 3.5 14.7 9l6.3.7-4.7 4.2 1.3 6.1L12 16.8 6.4 20l1.3-6.1L3 9.7 9.3 9 12 3.5Z" />
+  ),
+  "edit": (
+    <path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1ZM14.5 6.5l3 3" />
   ),
   "arrow-up": <path d="M12 20V6M6.5 11.5 12 6l5.5 5.5" />,
   "arrow-down": <path d="M12 4v14M6.5 12.5 12 18l5.5-5.5" />,
@@ -2419,6 +2478,17 @@ export const NAV_ICON_NAMES: NavIconName[] = [
   "perforation",
   "stamp",
   "gate",
+  "settings",
+  "user",
+  "users",
+  "sparkles",
+  "plus",
+  "check",
+  "x",
+  "menu",
+  "lock-open",
+  "star-outline",
+  "edit",
   "arrow-up",
   "arrow-down",
   "arrow-left",
@@ -3445,6 +3515,17 @@ export const NAV_ICON_CATEGORIES: Record<string, string> = {
   "perforation": "Essentials",
   "stamp": "Essentials",
   "gate": "Essentials",
+  "settings": "Essentials",
+  "user": "Essentials",
+  "users": "Essentials",
+  "sparkles": "Essentials",
+  "plus": "Essentials",
+  "check": "Essentials",
+  "x": "Essentials",
+  "menu": "Essentials",
+  "lock-open": "Essentials",
+  "star-outline": "Essentials",
+  "edit": "Essentials",
   "arrow-up": "Arrows & Direction",
   "arrow-down": "Arrows & Direction",
   "arrow-left": "Arrows & Direction",
@@ -4447,7 +4528,7 @@ export const NAV_ICON_CATEGORIES: Record<string, string> = {
 };
 
 export const NAV_CATEGORIES: { name: string; count: number }[] = [
-  { name: "Essentials", count: 24 },
+  { name: "Essentials", count: 35 },
   { name: "Arrows & Direction", count: 200 },
   { name: "Media & Playback", count: 200 },
   { name: "Files & Office", count: 200 },

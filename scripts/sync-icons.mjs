@@ -91,6 +91,12 @@ fs.writeFileSync(path.join(rootDir, "src/components/site/icon-data.tsx"), dataOu
 console.log("sync-icons: icon-data.tsx regenerated");
 
 const clientOut = `"use client";
+// Site-chrome icon palette (Ticket Stub): single-file ownership.
+// Spec — 24x24 viewBox, fill none, stroke currentColor, strokeWidth 1.8,
+// round caps + joins, default sizes 12 (inline) / 15 (nav) / 17 (feature).
+// Per-glyph strokeWidth inside ICON_PATHS is optical correction, not drift.
+// Brand glyphs (Star, logo) and functional marks (chevrons, hamburger)
+// keep their own files. Footer stays icon-free by design.
 
 import * as React from "react";
 import { ICON_PATHS, type NavIconName } from "./icon-data";
