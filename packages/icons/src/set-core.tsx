@@ -314,4 +314,82 @@ export const SET_CORE_ICONS: Record<string, React.ReactNode> = {
       <path d="M8.5 9.5h.01M12 9.5h.01M15.5 9.5h.01" />
     </>
   ),
+  wifi: (
+    <path d="M4.5 10a11 11 0 0 1 15 0M7.5 13.5a7 7 0 0 1 9 0M12 18.5h.01" />
+  ),
+  signal: (
+    <path d="M5 20v-3M10 20v-7M15 20V9M20 20V5" />
+  ),
+  "signal-off": (
+    <path d="M5 20v-3M10 20v-7M15 20V9M4 4l16 16" />
+  ),
+  battery: (
+    <>
+      <rect x="3" y="8" width="15" height="8" rx="1.5" />
+      <path d="M21 11v2M6.5 12H11" />
+    </>
+  ),
+  bluetooth: (
+    <path d="m7 7 10 10-5 5V2l5 5L7 17" />
+  ),
+  "sun-medium": (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" />
+    </>
+  ),
+  moon: (
+    <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" />
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17M12 3.5c-4.5 4.5-4.5 12.5 0 17M12 3.5c4.5 4.5 4.5 12.5 0 17" />
+    </>
+  ),
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M15.5 8.5 13.5 13.5 8.5 15.5 10.5 10.5 15.5 8.5Z" />
+    </>
+  ),
+  qr: (
+    <>
+      <rect x="4" y="4" width="6" height="6" rx="1" />
+      <rect x="14" y="4" width="6" height="6" rx="1" />
+      <rect x="4" y="14" width="6" height="6" rx="1" />
+      <path d="M14 14h2.5v2.5H14M20 14v6M14 20h6" />
+    </>
+  ),
+  plug: (
+    <path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 0 1-10 0V8ZM12 17v4" />
+  ),
+  fingerprint: (
+    <path d="M12 11a2 2 0 0 1 2 2c0 2.5-.5 4.5-1.5 6.5M12 11a2 2 0 0 0-2 2c0 1.5.2 3 .7 4.4M12 8a5 5 0 0 1 5 5c0 3-.8 5.4-2 7.4M12 8a5 5 0 0 0-5 5c0 1.8.3 3.4.9 4.9M12 4.5A8.5 8.5 0 0 1 20.5 13c0 2.8-.7 5.2-1.8 7.2M12 4.5A8.5 8.5 0 0 0 3.5 13c0 1.5.2 3 .7 4.3" />
+  ),
+  satellite: (
+    <>
+      <path d="M4 14a8 8 0 0 1 8-8M4 14l-1.5 6.5L9 19M4 14l3-3" />
+      <circle cx="12" cy="12" r="1.5" />
+    </>
+  ),
+  "sim-card": (
+    <>
+      <path d="M6 3.5h8L19 8.5V20.5H6V3.5Z" />
+      <rect x="10" y="12" width="4.5" height="5" rx="1" />
+    </>
+  ),
+  "cart-mini": (
+    <>
+      <path d="M3 4h2l2.5 11h10L20 7H7" />
+      <circle cx="9.5" cy="19" r="1.2" />
+      <circle cx="16.5" cy="19" r="1.2" />
+    </>
+  ),
+  "receipt-mini": (
+    <>
+      <path d="M6 3.5h12V20l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4L6 20V3.5Z" />
+      <path d="M9 8h6M9 11.5h6" />
+    </>
+  ),
 };
