@@ -1,6 +1,7 @@
-// Visual regression placeholder - captures preview screenshots and diffs them.
-// Usage: node scripts/visual-regression.mjs [--update]
-// Requires Playwright only when executed with --capture; default mode is a manifest check.
+// Preview manifest check - verifies every preview file is indexed.
+// NOTE: this performs no pixel diffing. Real screenshot comparison lives
+// outside this script (CI artifacts + manual review); do not mistake a green
+// run for "no visual changes".
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

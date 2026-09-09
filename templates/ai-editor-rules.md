@@ -9,8 +9,13 @@ so generated components match the bigbullui Ticket Stub system.
 - Never use `as any`, `@ts-ignore`, or `@ts-expect-error`.
 - No raw apostrophes in JSX text.
 - Design tokens live in `bigbullui.css` (`:root` + `.dark`). Components use ONLY
-  semantic Tailwind tokens (`bg-primary`, `text-muted-foreground`, `border-border`).
-- Never hard-code hex colors in component sources.
+  semantic Tailwind tokens (`bg-primary`, `text-muted-foreground`, `border-border`,
+  plus status roles `success` / `warning` / `info` / `destructive`). Never use raw
+  palettes (`emerald-*`, `amber-*`, …) or hard-code hex colors in component sources.
+- Interactive components accept `animated?: boolean` (default `true`); `false`
+  renders with `transition-none` and no entrance keyframes.
+- Use logical props (`ms-`, `me-`, `ps-`, `pe-`, `text-start`) instead of
+  physical ones (`ml-`, `mr-`, `pl-`, `pr-`, `text-left`) for RTL support.
 
 ## Ticket Stub identity
 
