@@ -82,7 +82,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs",
+    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-icon-registry.mjs",
     "build": "next build",
     "build:lib": "tsup",
     "prepublishOnly": "node scripts/generate-registry-json.mjs && npm run build:lib",

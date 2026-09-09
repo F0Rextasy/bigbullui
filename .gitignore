@@ -65,3 +65,8 @@ dev.log
 
 # internal roadmap — never push
 TODO.md
+
+# generated artifacts (rebuilt by prebuild/prepublishOnly — never commit)
+public/r/
+public/llms-full.txt
+src/data/sizes.json
