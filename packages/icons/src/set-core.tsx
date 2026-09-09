@@ -214,4 +214,104 @@ export const SET_CORE_ICONS: Record<string, React.ReactNode> = {
   refresh: (
     <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8M21 3v5h-5" />
   ),
+  "map-pin": (
+    <>
+      <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </>
+  ),
+  phone: (
+    <path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+  ),
+  message: (
+    <path d="M4 5.5h16V16H9.5L4 20.5V5.5Z" />
+  ),
+  send: (
+    <path d="M20 4 10.5 13.5M20 4l-6.5 16-3-6.5L4 10.5 20 4Z" />
+  ),
+  archive: (
+    <path d="M4 4h16v4H4zM6 8v12h12V8M10 12h4" />
+  ),
+  "bookmark-check": (
+    <>
+      <path d="M7 3.5h10v17l-5-3.5-5 3.5V3.5Z" />
+      <path d="M10 12.5l2 2 3.5-3.8" />
+    </>
+  ),
+  "bookmark-x": (
+    <>
+      <path d="M7 3.5h10v17l-5-3.5-5 3.5V3.5Z" />
+      <path d="M10.5 12.5l3 3M13.5 12.5l-3 3" />
+    </>
+  ),
+  "image-plus": (
+    <>
+      <rect x="4" y="5" width="16" height="14" rx="1.5" />
+      <circle cx="9" cy="10" r="1.5" />
+      <path d="M4 17l5-5 4 4M18 8v6M15 11h6" />
+    </>
+  ),
+  mic: (
+    <>
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M6 11a6 6 0 0 0 12 0M12 17v4" />
+    </>
+  ),
+  "mic-off": (
+    <path d="M9 5.5A3 3 0 0 1 12 4.5a3 3 0 0 1 3 3V11M6 10.5a6 6 0 0 0 11 3.5M12 17v4M4 4l16 16" />
+  ),
+  volume: (
+    <>
+      <path d="M4 10v4h3l4 4V6l-4 4H4Z" />
+      <path d="M15 9a4 4 0 0 1 0 6M17.5 6.5a8 8 0 0 1 0 11" />
+    </>
+  ),
+  "volume-x": (
+    <>
+      <path d="M4 10v4h3l4 4V6l-4 4H4Z" />
+      <path d="M15 9.5l5 5M20 9.5l-5 5" />
+    </>
+  ),
+  alarm: (
+    <>
+      <circle cx="12" cy="13" r="7" />
+      <path d="M12 10v3l2 1.5M5.5 4 4 2.5M18.5 4 20 2.5" />
+    </>
+  ),
+  "phone-call": (
+    <>
+      <path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+      <path d="M14.5 8.5a3.5 3.5 0 0 1 0 5" />
+    </>
+  ),
+  "phone-off": (
+    <path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2ZM4 4l16 16" />
+  ),
+  voicemail: (
+    <>
+      <rect x="3" y="6" width="18" height="12" rx="2" />
+      <path d="M8 10v4M12 9v6M16 10v4" />
+    </>
+  ),
+  video: (
+    <>
+      <rect x="3" y="7" width="12" height="10" rx="1.5" />
+      <path d="M15 10.5 20.5 7v10L15 13.5" />
+    </>
+  ),
+  "video-off": (
+    <>
+      <rect x="3" y="7" width="12" height="10" rx="1.5" />
+      <path d="M15 10.5 20.5 7v10L15 13.5M3.5 3.5l17 17" />
+    </>
+  ),
+  "message-circle": (
+    <path d="M12 3.5c4.7 0 8.5 3.6 8.5 8s-3.8 8-8.5 8c-1 0-2-.2-2.9-.5L5 20l.9-3.4A7.6 7.6 0 0 1 3.5 11.5C3.5 7.1 7.3 3.5 12 3.5Z" />
+  ),
+  "message-square": (
+    <>
+      <path d="M4 4.5h16V16H9.5L4 20.5V4.5Z" />
+      <path d="M8.5 9.5h.01M12 9.5h.01M15.5 9.5h.01" />
+    </>
+  ),
 };
