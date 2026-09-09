@@ -36,6 +36,26 @@ export type NavIconName =
   | "lock-open"
   | "star-outline"
   | "edit"
+  | "download"
+  | "upload"
+  | "share"
+  | "link"
+  | "external"
+  | "check-double"
+  | "info"
+  | "alert-triangle"
+  | "help"
+  | "filter"
+  | "sort"
+  | "grid"
+  | "list"
+  | "more"
+  | "undo"
+  | "redo"
+  | "maximize"
+  | "minimize"
+  | "history"
+  | "refresh"
   | "arrow-up"
   | "arrow-down"
   | "arrow-left"
@@ -1174,6 +1194,81 @@ export const ICON_PATHS: Record<NavIconName, React.ReactNode> = {
   ),
   "edit": (
     <path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1ZM14.5 6.5l3 3" />
+  ),
+  "download": (
+    <path d="M12 4v11M7 11l5 5 5-5M4 20h16" />
+  ),
+  "upload": (
+    <path d="M12 15V4M7 8l5-5 5 5M4 20h16" />
+  ),
+  "share": (
+    <>
+      <circle cx="7" cy="12" r="2.5" />
+      <circle cx="16" cy="6" r="2.5" />
+      <circle cx="16" cy="18" r="2.5" />
+      <path d="M9.2 10.8 13.8 7.2M9.2 13.2l4.6 3.6" />
+    </>
+  ),
+  "link": (
+    <path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1.5 1.5M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1.5-1.5" />
+  ),
+  "external": (
+    <path d="M14 3.5h6.5V10M20.5 3.5 11 13M9 5H6.5A2.5 2.5 0 0 0 4 7.5V18.5A2.5 2.5 0 0 0 6.5 21H17.5A2.5 2.5 0 0 0 20 18.5V16" />
+  ),
+  "check-double": (
+    <path d="M2.5 13 7.5 18 13.5 10M11.5 15.5 13 17 20.5 8" />
+  ),
+  "info": (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 11v5M12 7.5h.01" />
+    </>
+  ),
+  "alert-triangle": (
+    <path d="M12 4 2.5 20h19L12 4ZM12 10v4.5M12 17.5h.01" />
+  ),
+  "help": (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M9.5 9.5A2.5 2.5 0 0 1 12 8c1.4 0 2.5 1 2.5 2.2 0 1.7-2.2 2-2.5 3.3M12 17h.01" />
+    </>
+  ),
+  "filter": (
+    <path d="M4 5h16l-6 7v6l-4 2v-8L4 5Z" />
+  ),
+  "sort": (
+    <path d="M8 5v14M8 19l-3.5-3.5M8 19l3.5-3.5M16 19V5M16 5l-3.5 3.5M16 5l3.5 3.5" />
+  ),
+  "grid": (
+    <path d="M6.5 6.5h.01M12 6.5h.01M17.5 6.5h.01M6.5 12h.01M12 12h.01M17.5 12h.01M6.5 17.5h.01M12 17.5h.01M17.5 17.5h.01" />
+  ),
+  "list": (
+    <path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01" />
+  ),
+  "more": (
+    <path d="M5.5 12h.01M12 12h.01M18.5 12h.01" />
+  ),
+  "undo": (
+    <path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3" />
+  ),
+  "redo": (
+    <path d="M15 14l5-5-5-5M20 9H10a6 6 0 0 0 0 12h3" />
+  ),
+  "maximize": (
+    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+  ),
+  "minimize": (
+    <path d="M4 14h6v6M20 10h-6V4M14 10l7 7M10 14l-7 7" />
+  ),
+  "history": (
+    <>
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+      <path d="M12 7v5l4 2" />
+    </>
+  ),
+  "refresh": (
+    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8M21 3v5h-5" />
   ),
   "arrow-up": <path d="M12 20V6M6.5 11.5 12 6l5.5 5.5" />,
   "arrow-down": <path d="M12 4v14M6.5 12.5 12 18l5.5-5.5" />,
@@ -2489,6 +2584,26 @@ export const NAV_ICON_NAMES: NavIconName[] = [
   "lock-open",
   "star-outline",
   "edit",
+  "download",
+  "upload",
+  "share",
+  "link",
+  "external",
+  "check-double",
+  "info",
+  "alert-triangle",
+  "help",
+  "filter",
+  "sort",
+  "grid",
+  "list",
+  "more",
+  "undo",
+  "redo",
+  "maximize",
+  "minimize",
+  "history",
+  "refresh",
   "arrow-up",
   "arrow-down",
   "arrow-left",
@@ -3526,6 +3641,26 @@ export const NAV_ICON_CATEGORIES: Record<string, string> = {
   "lock-open": "Essentials",
   "star-outline": "Essentials",
   "edit": "Essentials",
+  "download": "Essentials",
+  "upload": "Essentials",
+  "share": "Essentials",
+  "link": "Essentials",
+  "external": "Essentials",
+  "check-double": "Essentials",
+  "info": "Essentials",
+  "alert-triangle": "Essentials",
+  "help": "Essentials",
+  "filter": "Essentials",
+  "sort": "Essentials",
+  "grid": "Essentials",
+  "list": "Essentials",
+  "more": "Essentials",
+  "undo": "Essentials",
+  "redo": "Essentials",
+  "maximize": "Essentials",
+  "minimize": "Essentials",
+  "history": "Essentials",
+  "refresh": "Essentials",
   "arrow-up": "Arrows & Direction",
   "arrow-down": "Arrows & Direction",
   "arrow-left": "Arrows & Direction",
@@ -4528,7 +4663,7 @@ export const NAV_ICON_CATEGORIES: Record<string, string> = {
 };
 
 export const NAV_CATEGORIES: { name: string; count: number }[] = [
-  { name: "Essentials", count: 35 },
+  { name: "Essentials", count: 55 },
   { name: "Arrows & Direction", count: 200 },
   { name: "Media & Playback", count: 200 },
   { name: "Files & Office", count: 200 },
