@@ -69,4 +69,5 @@ TODO.md
 # generated artifacts (rebuilt by prebuild/prepublishOnly — never commit)
 public/r/
 public/llms-full.txt
+public/*.json
 src/data/sizes.json

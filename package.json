@@ -58,7 +58,8 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "bigbullui": "./bin/cli.js"
+    "bigbullui": "./bin/cli.js",
+    "bigbullui-mcp": "./bin/mcp.js"
   },
   "files": [
     "dist",

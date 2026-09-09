@@ -42,6 +42,14 @@ Works with the shadcn CLI too — every component is published as registry JSON:
 
 ```bash
 npx shadcn@latest add https://ui.bigbullapp.com/r/button.json
+# Full page blocks work too (block source + its components bundled):
+npx shadcn@latest add https://ui.bigbullapp.com/r/admin-overview.json
+```
+
+Works with AI coding assistants via MCP (zero backend — runs locally):
+
+```bash
+claude mcp add bigbullui -- npx -y bigbullui mcp
 ```
 
 Use immediately in your views:
