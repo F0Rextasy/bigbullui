@@ -70,6 +70,9 @@ import { BlockHotel } from "@/components/blocks/block-hotel";
 import { BlockJobBoard } from "@/components/blocks/block-job-board";
 import { BlockPortfolio } from "@/components/blocks/block-portfolio";
 import { BlockGym } from "@/components/blocks/block-gym";
+import { BlockCarRental } from "@/components/blocks/block-car-rental";
+import { BlockPetAdoption } from "@/components/blocks/block-pet-adoption";
+import { BlockConference } from "@/components/blocks/block-conference";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { BlocksExplorer, type BlockSection } from "@/components/site/blocks-explorer";
@@ -212,6 +215,9 @@ const SECTIONS: BlockSection[] = [
       { name: "block-job-board", node: <BlockJobBoard /> },
       { name: "block-portfolio", node: <BlockPortfolio /> },
       { name: "block-gym", node: <BlockGym /> },
+      { name: "block-car-rental", node: <BlockCarRental /> },
+      { name: "block-pet-adoption", node: <BlockPetAdoption /> },
+      { name: "block-conference", node: <BlockConference /> },
     ],
   },
   {
