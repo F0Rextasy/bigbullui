@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { CopyButton } from "@/components/ui/copy-button";
 
-type ThemeVars = {
+export type ThemeVars = {
   background: string;
   foreground: string;
   accent: string;
@@ -15,7 +15,7 @@ type ThemeVars = {
   card: string;
 };
 
-const PRESETS: { id: string; label: string; vars: ThemeVars }[] = [
+export const PRESETS: { id: string; label: string; vars: ThemeVars }[] = [
   {
     id: "classic-cream",
     label: "Classic Cream",
@@ -51,7 +51,7 @@ const FIELDS: { key: keyof ThemeVars; label: string }[] = [
   { key: "card", label: "Card" },
 ];
 
-function buildCss(vars: ThemeVars): string {
+export function buildCss(vars: ThemeVars): string {
   return `:root {\n  --background: ${vars.background};\n  --foreground: ${vars.foreground};\n  --accent: ${vars.accent};\n  --muted: ${vars.muted};\n  --card: ${vars.card};\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --color-accent: var(--accent);\n  --color-muted: var(--muted);\n  --color-card: var(--card);\n}`;
 }
 

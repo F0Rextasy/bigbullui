@@ -164,6 +164,13 @@ export function MobileNav({ stars }: { stars: number | null }) {
               <NavIcon name="showcase" /> Showcase
             </Link>
             <Link
+              href="/create"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+            >
+              <NavIcon name="blocks" /> Create Bundle
+            </Link>
+            <Link
               href="/docs/installation"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"

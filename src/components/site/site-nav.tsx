@@ -48,6 +48,9 @@ export async function SiteNav() {
           <Link href="/showcase" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Showcase
           </Link>
+          <Link href="/create" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            Create
+          </Link>
           <a
             href="https://github.com/F0Rextasy/bigbullui"
             target="_blank"
