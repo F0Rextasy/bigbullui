@@ -1,0 +1,24 @@
+{
+  "name": "create-bigbull-app",
+  "version": "1.0.0",
+  "description": "Scaffold a Next.js + Tailwind CSS v4 + bigbullui starter in one command. MIT licensed.",
+  "license": "MIT",
+  "author": "F0Rextasy",
+  "homepage": "https://ui.bigbullapp.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F0Rextasy/bigbullui.git",
+    "directory": "packages/create-app"
+  },
+  "bin": {
+    "create-bigbull-app": "./bin/create.js"
+  },
+  "files": [
+    "bin",
+    "template",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}
