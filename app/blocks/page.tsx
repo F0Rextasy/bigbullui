@@ -61,6 +61,15 @@ import { PageArticle } from "@/components/blocks/page-article";
 import { PageCareers } from "@/components/blocks/page-careers";
 import { PageContact } from "@/components/blocks/page-contact";
 import { PageAbout } from "@/components/blocks/page-about";
+import { BlockRestaurant } from "@/components/blocks/block-restaurant";
+import { BlockRealEstate } from "@/components/blocks/block-real-estate";
+import { BlockCourse } from "@/components/blocks/block-course";
+import { BlockClinic } from "@/components/blocks/block-clinic";
+import { BlockEventTicketing } from "@/components/blocks/block-event-ticketing";
+import { BlockHotel } from "@/components/blocks/block-hotel";
+import { BlockJobBoard } from "@/components/blocks/block-job-board";
+import { BlockPortfolio } from "@/components/blocks/block-portfolio";
+import { BlockGym } from "@/components/blocks/block-gym";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { BlocksExplorer, type BlockSection } from "@/components/site/blocks-explorer";
@@ -187,6 +196,22 @@ const SECTIONS: BlockSection[] = [
       { name: "block-dev-api-keys", node: <BlockDevApiKeys /> },
       { name: "block-live-chat", node: <BlockLiveChat /> },
       { name: "block-user-profile-dossier", node: <BlockUserProfileDossier /> },
+    ],
+  },
+  {
+    group: "Bookings & local",
+    icon: "ticket",
+    blurb: "Reservations, rentals, and appointments",
+    items: [
+      { name: "block-restaurant", node: <BlockRestaurant /> },
+      { name: "block-real-estate", node: <BlockRealEstate /> },
+      { name: "block-course", node: <BlockCourse /> },
+      { name: "block-clinic", node: <BlockClinic /> },
+      { name: "block-event-ticketing", node: <BlockEventTicketing /> },
+      { name: "block-hotel", node: <BlockHotel /> },
+      { name: "block-job-board", node: <BlockJobBoard /> },
+      { name: "block-portfolio", node: <BlockPortfolio /> },
+      { name: "block-gym", node: <BlockGym /> },
     ],
   },
   {
