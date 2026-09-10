@@ -54,6 +54,8 @@ function printHelp() {
   console.log(`    ${c.cyan}npx bigbullui${c.reset} <command> [options]\n`);
   console.log(`  ${c.bold}COMMANDS${c.reset}`);
   console.log(`    ${c.green}add${c.reset} <...components>    Add one or more components to your project`);
+  console.log(`    ${c.green}update${c.reset} [components]     Check installed components against the registry (use -f to apply)`);
+  console.log(`    ${c.green}doctor${c.reset}                 Diagnose setup: deps, tokens, utils, dark mode`);
   console.log(`    ${c.green}list${c.reset} [filter]          List available components (optional search filter)`);
   console.log(`    ${c.green}init${c.reset}                   Initialize bigbullui utils and tokens in your project`);
   console.log(`    ${c.green}tokens${c.reset}                 Export bigbullui.css design tokens locally`);
@@ -381,6 +383,111 @@ function handleTokens() {
   }
 }
 
+async function handleUpdate(args) {
+  let customDir = null;
+  let force = false;
+  const slugs = [];
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === "-d" || arg === "--dir") customDir = args[++i];
+    else if (arg === "-f" || arg === "--force") force = true;
+    else if (!arg.startsWith("-")) slugs.push(arg.replace(/\.tsx$/, ""));
+  }
+  const targetDir = detectTargetDir(customDir);
+  if (!fs.existsSync(targetDir)) {
+    console.error(`  ${c.red}Error:${c.reset} No components installed yet (looked in ${path.relative(process.cwd(), targetDir)}). Run ${c.green}npx bigbullui add button${c.reset} first.`);
+    process.exit(1);
+  }
+  let local = fs.readdirSync(targetDir).filter((f) => f.endsWith(".tsx")).map((f) => f.replace(/\.tsx$/, ""));
+  if (slugs.length > 0) {
+    for (const s of slugs) {
+      if (!local.includes(s)) console.log(`  ${c.yellow}!${c.reset} ${c.bold}${s}${c.reset} is not installed here — skipping.`);
+    }
+    local = local.filter((s) => slugs.includes(s));
+  }
+  if (local.length === 0) {
+    console.log(`  Nothing to check.`);
+    return;
+  }
+  console.log(`  Checking ${local.length} installed component(s)...\n`);
+  const outdated = [];
+  for (const slug of local) {
+    let latest;
+    try {
+      latest = await getComponentContent(slug);
+    } catch {
+      console.error(`  ${c.red}✗${c.reset} Could not fetch ${c.bold}${slug}${c.reset} (offline?). Skipping.`);
+      continue;
+    }
+    const current = fs.readFileSync(path.join(targetDir, `${slug}.tsx`), "utf8");
+    if (current !== latest) outdated.push(slug);
+  }
+  const cssSource = path.resolve(__dirname, "..", "bigbullui.css");
+  const cssLocal = path.join(process.cwd(), "bigbullui.css");
+  let cssStale = false;
+  if (fs.existsSync(cssLocal) && fs.existsSync(cssSource)) {
+    cssStale = fs.readFileSync(cssLocal, "utf8") !== fs.readFileSync(cssSource, "utf8");
+  }
+  if (outdated.length === 0 && !cssStale) {
+    console.log(`  ${c.green}✓${c.reset} Everything is up to date.`);
+    return;
+  }
+  for (const slug of outdated) console.log(`  ${c.yellow}●${c.reset} ${c.bold}${slug}${c.reset} has updates.`);
+  if (cssStale) console.log(`  ${c.yellow}●${c.reset} ${c.bold}bigbullui.css${c.reset} has updates.`);
+  console.log("");
+  if (!force) {
+    console.log(`  Run with ${c.yellow}-f${c.reset} to apply, or update one piece: ${c.green}npx bigbullui add <name> -f${c.reset}\n`);
+    return;
+  }
+  for (const slug of outdated) {
+    fs.writeFileSync(path.join(targetDir, `${slug}.tsx`), await getComponentContent(slug), "utf8");
+    console.log(`  ${c.green}✓${c.reset} Updated ${c.bold}${slug}${c.reset}`);
+  }
+  if (cssStale) {
+    fs.copyFileSync(cssSource, cssLocal);
+    console.log(`  ${c.green}✓${c.reset} Updated ${c.bold}bigbullui.css${c.reset}`);
+  }
+  console.log("");
+}
+
+function handleDoctor() {
+  printBanner();
+  const cwd = process.cwd();
+  const checks = [];
+  const major = Number(process.versions.node.split(".")[0]);
+  checks.push({ label: `Node ${process.versions.node} (>= 20)`, ok: major >= 20, hint: "Install Node.js 20 or newer." });
+  const hasTailwind = fs.existsSync(path.join(cwd, "node_modules", "tailwindcss"));
+  checks.push({ label: "tailwindcss installed", ok: hasTailwind, hint: "Run npm install -D tailwindcss @tailwindcss/postcss." });
+  const hasCss = fs.existsSync(path.join(cwd, "bigbullui.css"));
+  checks.push({ label: "bigbullui.css in project root", ok: hasCss, hint: "Run npx bigbullui tokens." });
+  const cssFiles = ["app/globals.css", "src/index.css", "src/globals.css", "styles/globals.css"]
+    .map((p) => path.join(cwd, p))
+    .filter((p) => fs.existsSync(p));
+  const wired = cssFiles.some((p) => {
+    const t = fs.readFileSync(p, "utf8");
+    return t.includes("bigbullui/css") || t.includes("bigbullui.css");
+  });
+  checks.push({ label: "tokens imported in global CSS", ok: wired, hint: 'Add @import "bigbullui/css"; after tailwindcss.' });
+  const targetDir = detectTargetDir();
+  const hasUtils = fs.existsSync(path.join(targetDir, "lib", "utils.ts")) || fs.existsSync(path.join(targetDir, "utils.ts"));
+  checks.push({ label: "cn() utils present", ok: hasUtils, hint: "Run npx bigbullui init." });
+  let failed = 0;
+  for (const check of checks) {
+    if (check.ok) console.log(`  ${c.green}✓${c.reset} ${check.label}`);
+    else {
+      failed += 1;
+      console.log(`  ${c.red}✗${c.reset} ${check.label}\n    ${c.dim}${check.hint}${c.reset}`);
+    }
+  }
+  console.log("");
+  if (failed > 0) {
+    console.log(`  ${failed} check(s) need attention.\n`);
+    process.exitCode = 1;
+  } else {
+    console.log(`  ${c.bold}Healthy. Happy stamping.${c.reset}\n`);
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const command = args[0];
@@ -398,6 +505,12 @@ async function main() {
       break;
     case "tokens":
       handleTokens();
+      break;
+    case "update":
+      await handleUpdate(args.slice(1));
+      break;
+    case "doctor":
+      handleDoctor();
       break;
     case "-h":
     case "--help":
