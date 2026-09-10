@@ -99,3 +99,10 @@ Multiple agents or humans may edit this tree at the same time. Shared files are 
 ## Questions
 
 Open a [GitHub Issue](https://github.com/F0Rextasy/bigbullui/issues) — bugs, ideas, and component requests are all welcome.
+
+## Deprecation policy
+
+- Registry entries carry an optional `status`: `stable` (default), `experimental`, or `deprecated`.
+- `experimental` means the API may still change; use freely, pin versions if it matters.
+- `deprecated` means: do not use in new code. The entry stays for two minor versions with a migration note in `src/data/changelog.json`, then it is removed (barrel, registry, preview, props docs go together).
+- Never remove a component in a patch release.

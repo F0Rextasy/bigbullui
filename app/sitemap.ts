@@ -1,6 +1,16 @@
 import type { MetadataRoute } from "next";
+import { statSync } from "node:fs";
+import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { NAV_ICON_NAMES } from "@/components/site/icon-data";
+
+function mtime(rel: string): Date {
+  try {
+    return statSync(join(process.cwd(), rel)).mtime;
+  } catch {
+    return new Date();
+  }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://ui.bigbullapp.com";
@@ -61,6 +71,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${siteUrl}/packages`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/benchmarks`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${siteUrl}/dep-graph`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${siteUrl}/docs/shortcuts`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${siteUrl}/docs/migrate`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${siteUrl}/docs/recipes`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -76,14 +116,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const componentRoutes: MetadataRoute.Sitemap = components.map((comp) => ({
     url: `${siteUrl}/docs/${comp.name}`,
-    lastModified: new Date(),
+    lastModified: mtime(`src/components/ui/${comp.name}.tsx`),
     changeFrequency: "weekly",
     priority: 0.7,
   }));
 
   const iconRoutes: MetadataRoute.Sitemap = NAV_ICON_NAMES.map((name) => ({
     url: `${siteUrl}/icons/${name}`,
-    lastModified: new Date(),
+    lastModified: mtime("src/components/site/icon-data.tsx"),
     changeFrequency: "monthly",
     priority: 0.5,
   }));

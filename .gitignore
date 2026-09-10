@@ -71,3 +71,4 @@ public/r/
 public/llms-full.txt
 public/*.json
 src/data/sizes.json
+src/data/dep-graph.json

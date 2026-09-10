@@ -178,9 +178,33 @@ const SCENES = [
 ] as const;
 
 export function Playground() {
+  const [scene, setScene] = React.useState<string>(() => {
+    if (typeof window === "undefined") return "box";
+    const q = new URLSearchParams(window.location.search).get("scene");
+    return SCENES.some((s) => s.id === q) ? (q as string) : "box";
+  });
+  const [copied, setCopied] = React.useState(false);
+  const share = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("scene", scene);
+    window.history.replaceState(null, "", url.toString());
+    void navigator.clipboard?.writeText(url.toString()).catch(() => {});
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1500);
+  };
   return (
     <ToastProvider>
-      <Tabs defaultValue="box" className="w-full">
+      <Tabs
+        value={scene}
+        onValueChange={(v) => {
+          setScene(v);
+          const url = new URL(window.location.href);
+          url.searchParams.set("scene", v);
+          window.history.replaceState(null, "", url.toString());
+        }}
+        className="w-full"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
         <TabsList className="flex h-auto flex-wrap justify-start gap-2 bg-transparent p-0">
           {SCENES.map((s) => (
             <TabsTrigger
@@ -192,6 +216,14 @@ export function Playground() {
             </TabsTrigger>
           ))}
         </TabsList>
+          <button
+            type="button"
+            onClick={share}
+            className="rounded-sm border border-dashed border-border px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {copied ? "Link copied" : "Share scene"}
+          </button>
+        </div>
         <div className="mt-6">
           <TabsContent value="box">
             <SceneFrame label="Scene 01 — Sell tickets" docs="/docs/ticket-card">

@@ -50,6 +50,7 @@ export const metadata: Metadata = {
     icon: "/icon.svg",
     apple: "/apple-icon.png",
   },
+  manifest: "/manifest.json",
   verification: {
     google: "W4b6Qs-CKl9UOpioG4RR_QXF6kG3oGyXjQ7prYPflEI",
     yandex: "8df3ab081fccc489",

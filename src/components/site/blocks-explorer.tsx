@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { CopyBlock } from "@/components/site/copy-block";
 import { NavIcon, type NavIconName } from "@/components/site/nav-icons";
 
@@ -121,10 +122,10 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="font-mono text-base font-black uppercase tracking-wider">{item.name}</h3>
                 <div className="flex items-center gap-2">
+                  <Link href={`/blocks/${item.name}`} className="rounded border border-border px-2 py-0.5 font-mono text-[11px] uppercase text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    Open ↗
+                  </Link>
                   <CopyBlock name={item.name} />
-                  <code className="rounded border border-dashed border-border bg-card px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
-                    npx bigbullui add {item.name}
-                  </code>
                 </div>
               </div>
               <div className="min-w-0">{item.node}</div>

@@ -2604,6 +2604,31 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
 
   return (
     <div className="flex items-start gap-10">
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Docs", item: "https://ui.bigbullapp.com/docs" },
+                { "@type": "ListItem", position: 2, name: meta.title, item: `https://ui.bigbullapp.com/docs/${meta.name}` },
+              ],
+            },
+            {
+              "@type": "SoftwareSourceCode",
+              name: `bigbullui ${meta.title}`,
+              description: meta.description,
+              codeRepository: "https://github.com/F0Rextasy/bigbullui",
+              programmingLanguage: "TypeScript",
+              license: "https://opensource.org/licenses/MIT",
+            },
+          ],
+        }),
+      }}
+    />
     <article className="min-w-0 flex-1 space-y-10">
       <MarkSeen name={meta.name} />
       <header className="space-y-3">

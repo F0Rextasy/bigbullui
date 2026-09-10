@@ -16,6 +16,12 @@ export type ComponentMeta = {
   category: ComponentCategory;
   isNew?: boolean;
   related?: string[];
+  /**
+   * Lifecycle status. Default (absent) means stable.
+   * experimental: new API, may change. deprecated: do not use in new code,
+   * removed after two minor versions with a migration note in the changelog.
+   */
+  status?: "stable" | "experimental" | "deprecated";
 };
 
 export const categories: { id: ComponentCategory; name: string; description: string }[] = [

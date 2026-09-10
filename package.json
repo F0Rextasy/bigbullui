@@ -83,13 +83,13 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-icon-registry.mjs",
+    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-icon-registry.mjs && node scripts/dep-graph.mjs",
     "build": "next build",
     "build:lib": "tsup",
     "prepublishOnly": "node scripts/generate-registry-json.mjs && npm run build:lib",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test tests/integrity.test.mjs"
+    "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
