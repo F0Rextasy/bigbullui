@@ -258,4 +258,28 @@ describe("bigbullui Component Library Integrity", () => {
     }
     assert.deepEqual(violations, [], `Turkish UI copy found (DESIGN.md requires English):\n${violations.join("\n")}`);
   });
+
+  it("contrast gate: status text tokens pass WCAG AA on page background", () => {
+    const css = fs.readFileSync(path.join(rootDir, "bigbullui.css"), "utf8");
+    const root = css.slice(css.indexOf(":root"), css.indexOf("\n.dark"));
+    const vars = {};
+    for (const m of root.matchAll(/--([a-z-]+):\s*(#[0-9a-fA-F]{6})/g)) vars[m[1]] = m[2];
+    const lum = (hex) => {
+      const c = [0, 2, 4].map((i) => {
+        const v = parseInt(hex.slice(i + 1, i + 3), 16) / 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+    };
+    const ratio = (a, b) => {
+      const x = lum(vars[a]), y = lum(vars[b]);
+      return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+    };
+    const pairs = [["success", "background"], ["warning", "background"], ["info", "background"], ["destructive", "background"], ["muted-foreground", "background"], ["foreground", "background"], ["accent", "background"]];
+    const failures = pairs
+      .map(([fg, bg]) => ({ fg, bg, r: ratio(fg, bg) }))
+      .filter((p) => p.r < 4.5)
+      .map((p) => `${p.fg} on ${p.bg}: ${p.r.toFixed(2)}:1`);
+    assert.deepEqual(failures, [], `Text tokens below WCAG AA 4.5:1:\n${failures.join("\n")}`);
+  });
 });

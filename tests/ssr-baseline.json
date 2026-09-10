@@ -1,0 +1,546 @@
+{
+ "files": 657,
+ "crashes": {
+  "activity-feed": [
+   "ActivityFeed:Cannot read properties of undefined (reading 'forEach')"
+  ],
+  "activity-v2": [
+   "ActivityV2:Cannot read properties of undefined (reading 'map')"
+  ],
+  "airmail-letter": [
+   "AirmailLetter:Cannot read properties of undefined (reading 'map')"
+  ],
+  "anchor-nav": [
+   "AnchorNav:Cannot read properties of undefined (reading '0')"
+  ],
+  "area-chart": [
+   "AreaChart:Cannot read properties of undefined (reading 'flatMap')"
+  ],
+  "audit-log": [
+   "AuditLog:Cannot read properties of undefined (reading 'map')"
+  ],
+  "badge-list": [
+   "BadgeList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "bar-chart": [
+   "BarChart:Cannot read properties of undefined (reading 'map')"
+  ],
+  "barcode": [
+   "Barcode:Cannot read properties of undefined (reading 'length')"
+  ],
+  "bento-grid": [
+   "BentoGrid:Cannot read properties of undefined (reading 'map')"
+  ],
+  "board-checklist": [
+   "BoardChecklist:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "box-plot": [
+   "BoxPlot:Cannot read properties of undefined (reading 'length')"
+  ],
+  "breadcrumb-dropdown": [
+   "BreadcrumbDropdown:Cannot read properties of undefined (reading 'length')"
+  ],
+  "bubble-chart": [
+   "BubbleChart:Cannot read properties of undefined (reading 'map')"
+  ],
+  "budget-progress": [
+   "BudgetProgress:Cannot read properties of undefined (reading 'map')"
+  ],
+  "bullet-chart": [
+   "BulletChart:Cannot read properties of undefined (reading 'toLocaleString')"
+  ],
+  "calendar-heatmap": [
+   "CalendarHeatmap:Cannot read properties of undefined (reading 'length')"
+  ],
+  "candlestick-chart": [
+   "CandlestickChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "changelog-list": [
+   "ChangelogList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "char-counter": [
+   "CharCounter:Cannot read properties of undefined (reading 'length')"
+  ],
+  "checkout-summary": [
+   "CheckoutSummary:Cannot read properties of undefined (reading 'map')"
+  ],
+  "chord-diagram": [
+   "ChordDiagram:Cannot read properties of undefined (reading 'length')"
+  ],
+  "code-block": [
+   "CodeBlock:Cannot read properties of undefined (reading 'length')"
+  ],
+  "code-tabs": [
+   "CodeTabs:Cannot read properties of undefined (reading '0')"
+  ],
+  "collapsible": [
+   "CollapsibleContent:useCollapsible must be used within a Collapsible",
+   "CollapsibleTrigger:useCollapsible must be used within a Collapsible"
+  ],
+  "color-token-table": [
+   "ColorTokenTable:Cannot read properties of undefined (reading 'map')"
+  ],
+  "column-toggle": [
+   "ColumnToggle:Cannot read properties of undefined (reading 'map')"
+  ],
+  "combobox": [
+   "Combobox:Cannot read properties of undefined (reading 'find')"
+  ],
+  "command-palette": [
+   "CommandPalette:Cannot read properties of undefined (reading 'slice')"
+  ],
+  "comment-thread": [
+   "CommentThread:Cannot read properties of undefined (reading 'map')"
+  ],
+  "console-panel": [
+   "ConsolePanel:Cannot read properties of undefined (reading 'length')"
+  ],
+  "control-chart": [
+   "ControlChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "crypto-ticker": [
+   "CryptoTicker:entries is not iterable"
+  ],
+  "danger-zone": [
+   "DangerZone:Cannot read properties of undefined (reading 'map')"
+  ],
+  "data-grid": [
+   "DataGrid:Cannot read properties of undefined (reading 'length')"
+  ],
+  "data-table": [
+   "DataTable:Cannot read properties of undefined (reading 'length')"
+  ],
+  "density-plot": [
+   "DensityPlot:Cannot read properties of undefined (reading 'length')"
+  ],
+  "diff-editor": [
+   "DiffEditor:Cannot read properties of undefined (reading 'split')"
+  ],
+  "diff-viewer": [
+   "DiffViewer:Cannot read properties of undefined (reading 'split')"
+  ],
+  "dm-thread": [
+   "DmThread:Cannot read properties of undefined (reading 'length')"
+  ],
+  "donut-chart": [
+   "DonutChart:Cannot read properties of undefined (reading 'reduce')"
+  ],
+  "donut-multi": [
+   "DonutMulti:Cannot read properties of undefined (reading 'length')"
+  ],
+  "drag-sort": [
+   "DragSort:Cannot read properties of undefined (reading 'map')"
+  ],
+  "drawer": [
+   "DrawerClose:Drawer subcomponents must be used within a Drawer root",
+   "DrawerContent:Drawer subcomponents must be used within a Drawer root",
+   "DrawerDescription:Drawer subcomponents must be used within a Drawer root",
+   "DrawerTitle:Drawer subcomponents must be used within a Drawer root",
+   "DrawerTrigger:Drawer subcomponents must be used within a Drawer root"
+  ],
+  "dropdown-menu": [
+   "DropdownMenuTrigger:DropdownMenuTrigger must be used within DropdownMenu"
+  ],
+  "faq": [
+   "Faq:Cannot read properties of undefined (reading 'map')"
+  ],
+  "feature-flag-panel": [
+   "FeatureFlagPanel:Cannot read properties of undefined (reading 'map')"
+  ],
+  "feature-grid": [
+   "FeatureGrid:Cannot read properties of undefined (reading 'map')"
+  ],
+  "feed-masonry": [
+   "FeedMasonry:Cannot read properties of undefined (reading 'map')"
+  ],
+  "field-array": [
+   "FieldArray:Cannot read properties of undefined (reading 'length')"
+  ],
+  "file-tree": [
+   "FileTree:Cannot read properties of undefined (reading 'map')"
+  ],
+  "flip-clock": [
+   "FlipClock:Cannot read properties of undefined (reading 'split')"
+  ],
+  "flyout-v2": [
+   "FlyoutV2:Cannot read properties of undefined (reading 'map')"
+  ],
+  "follower-list": [
+   "FollowerList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "footer-nav": [
+   "FooterNav:Cannot read properties of undefined (reading 'map')"
+  ],
+  "funnel-chart": [
+   "FunnelChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "gallery-grid": [
+   "GalleryGrid:Cannot read properties of undefined (reading 'length')"
+  ],
+  "glossary-list": [
+   "GlossaryList:terms is not iterable"
+  ],
+  "heatmap": [
+   "Heatmap:Cannot read properties of undefined (reading 'length')"
+  ],
+  "histogram": [
+   "Histogram:Cannot read properties of undefined (reading 'map')"
+  ],
+  "history-nav": [
+   "HistoryNav:Cannot read properties of undefined (reading 'slice')"
+  ],
+  "horizon-chart": [
+   "HorizonChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "hover-card": [
+   "HoverCardContent:HoverCard subcomponents must be used within a HoverCard root",
+   "HoverCardSeatSummary:Cannot read properties of undefined (reading 'split')",
+   "HoverCardTrigger:HoverCard subcomponents must be used within a HoverCard root"
+  ],
+  "icicle-chart": [
+   "IcicleChart:Cannot read properties of undefined (reading 'label')"
+  ],
+  "id-card": [
+   "IdCard:Cannot read properties of undefined (reading 'split')"
+  ],
+  "image-carousel": [
+   "ImageCarousel:Cannot read properties of undefined (reading 'length')"
+  ],
+  "inbox-list": [
+   "InboxList:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "inline-multiselect": [
+   "InlineMultiselect:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "installment-picker": [
+   "InstallmentPicker:Cannot read properties of undefined (reading '0')"
+  ],
+  "invoice": [
+   "Invoice:Cannot read properties of undefined (reading 'reduce')"
+  ],
+  "kanban-v2": [
+   "KanbanV2:Cannot read properties of undefined (reading 'map')"
+  ],
+  "kpi-strip": [
+   "KpiStrip:Cannot read properties of undefined (reading 'map')"
+  ],
+  "leaderboard": [
+   "Leaderboard:Cannot read properties of undefined (reading 'map')"
+  ],
+  "lightbox": [
+   "Lightbox:Cannot read properties of undefined (reading 'length')"
+  ],
+  "line-chart": [
+   "LineChart:Cannot read properties of undefined (reading 'flatMap')"
+  ],
+  "log-viewer": [
+   "LogViewer:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "markdown-preview": [
+   "MarkdownPreview:Cannot read properties of undefined (reading 'split')"
+  ],
+  "marquee-bulbs": [
+   "MarqueeBulbs:Cannot read properties of undefined (reading 'length')"
+  ],
+  "masonry-columns": [
+   "MasonryColumns:Cannot read properties of undefined (reading 'map')"
+  ],
+  "match-ticker": [
+   "MatchTicker:matches is not iterable"
+  ],
+  "matrix-chart": [
+   "MatrixChart:Cannot read properties of undefined (reading 'flat')"
+  ],
+  "medal-display": [
+   "MedalDisplay:Cannot read properties of undefined (reading 'map')"
+  ],
+  "mention-highlight": [
+   "MentionHighlight:Cannot read properties of undefined (reading 'split')"
+  ],
+  "mention-list": [
+   "MentionList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "menubar": [
+   "Menubar:Cannot read properties of undefined (reading 'map')"
+  ],
+  "milestone-chart": [
+   "MilestoneChart:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "neon-sign": [
+   "NeonSign:Cannot read properties of undefined (reading 'split')"
+  ],
+  "network-graph": [
+   "NetworkGraph:Cannot read properties of undefined (reading 'map')"
+  ],
+  "notification-center": [
+   "NotificationCenter:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "notification-feed": [
+   "NotificationFeed:Cannot read properties of undefined (reading 'map')"
+  ],
+  "now-serving": [
+   "NowServing:Cannot read properties of undefined (reading 'split')"
+  ],
+  "order-tracking": [
+   "OrderTracking:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "org-tree-v2": [
+   "OrgTreeV2:Cannot read properties of undefined (reading 'map')"
+  ],
+  "page-tabs": [
+   "PageTabs:Cannot read properties of undefined (reading '0')"
+  ],
+  "passport-stamp-grid": [
+   "PassportStampGrid:Cannot read properties of undefined (reading 'map')"
+  ],
+  "payment-methods": [
+   "PaymentMethods:Cannot read properties of undefined (reading '0')"
+  ],
+  "permissions-matrix": [
+   "PermissionsMatrix:roles is not iterable"
+  ],
+  "pie-interactive": [
+   "PieInteractive:Cannot read properties of undefined (reading 'reduce')"
+  ],
+  "playlist": [
+   "Playlist:Cannot read properties of undefined (reading 'map')"
+  ],
+  "poll": [
+   "Poll:Cannot read properties of undefined (reading 'reduce')"
+  ],
+  "popover": [
+   "PopoverTrigger:PopoverTrigger must be used within Popover"
+  ],
+  "price-compare": [
+   "PriceCompare:offers is not iterable"
+  ],
+  "pricing-slider": [
+   "PricingSlider:Cannot read properties of undefined (reading 'length')"
+  ],
+  "prompt-diff-compare": [
+   "PromptDiffCompare:Cannot read properties of undefined (reading 'split')"
+  ],
+  "qq-plot": [
+   "QqPlot:Cannot read properties of undefined (reading 'slice')"
+  ],
+  "queued-jobs": [
+   "QueuedJobs:Cannot read properties of undefined (reading 'map')"
+  ],
+  "quick-actions": [
+   "QuickActions:Cannot read properties of undefined (reading 'map')"
+  ],
+  "quiz-card": [
+   "QuizCard:Cannot read properties of undefined (reading 'map')"
+  ],
+  "quote-wall": [
+   "QuoteWall:Cannot read properties of undefined (reading 'map')"
+  ],
+  "radar-chart": [
+   "RadarChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "radio-cards": [
+   "RadioCard:RadioCard components must be used within a RadioCards provider.",
+   "RadioCardPerks:Cannot read properties of undefined (reading 'map')"
+  ],
+  "rank-list": [
+   "RankList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "reaction-bar": [
+   "ReactionBar:Cannot read properties of undefined (reading 'map')"
+  ],
+  "receipt-printer": [
+   "ReceiptPrinter:Cannot read properties of undefined (reading 'map')"
+  ],
+  "receipt": [
+   "Receipt:Cannot read properties of undefined (reading 'reduce')"
+  ],
+  "recipe-card": [
+   "RecipeCard:Cannot read properties of undefined (reading 'length')"
+  ],
+  "refund-card": [
+   "RefundCard:Cannot read properties of undefined (reading 'cls')"
+  ],
+  "resizable": [
+   "ResizableHandle:Resizable subcomponents must be used within a ResizablePanelGroup",
+   "ResizablePanel:Resizable subcomponents must be used within a ResizablePanelGroup"
+  ],
+  "responsive-nav": [
+   "ResponsiveNav:Cannot read properties of undefined (reading 'map')"
+  ],
+  "row-expand": [
+   "RowExpandList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "scatter-plot": [
+   "ScatterPlot:Cannot read properties of undefined (reading 'map')"
+  ],
+  "score-keeper": [
+   "ScoreKeeper:Cannot read properties of undefined (reading '0')"
+  ],
+  "scoreboard": [
+   "Scoreboard:Cannot read properties of undefined (reading 'map')"
+  ],
+  "scroll-spy-nav": [
+   "ScrollSpyNav:Cannot read properties of undefined (reading 'map')"
+  ],
+  "scroll-spy-v2": [
+   "ScrollSpyV2:Cannot read properties of undefined (reading '0')"
+  ],
+  "search-command": [
+   "SearchCommand:Cannot read properties of undefined (reading 'slice')"
+  ],
+  "security-score": [
+   "SecurityScore:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "select-v2": [
+   "SelectV2:Cannot read properties of undefined (reading 'flatMap')"
+  ],
+  "select": [
+   "Select:Cannot read properties of undefined (reading 'find')"
+  ],
+  "session-list": [
+   "SessionList:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "shipping-options": [
+   "ShippingOptions:Cannot read properties of undefined (reading 'find')"
+  ],
+  "sidebar-v2": [
+   "SidebarV2:Cannot read properties of undefined (reading '0')"
+  ],
+  "size-picker": [
+   "SizePicker:Cannot read properties of undefined (reading 'map')"
+  ],
+  "spark-bars": [
+   "SparkBars:Cannot read properties of undefined (reading 'length')"
+  ],
+  "spark-line-group": [
+   "SparkLineGroup:Cannot read properties of undefined (reading 'map')"
+  ],
+  "split-flap": [
+   "SplitFlapRow:Cannot read properties of undefined (reading 'toUpperCase')"
+  ],
+  "stacked-bar": [
+   "StackedBar:Cannot read properties of undefined (reading 'map')",
+   "StackedBarChart:Cannot read properties of undefined (reading 'map')"
+  ],
+  "stat-tile": [
+   "KpiStrip:Cannot read properties of undefined (reading 'map')"
+  ],
+  "stepper-v2": [
+   "StepperV2:Cannot read properties of undefined (reading 'map')"
+  ],
+  "steps": [
+   "Steps:Cannot read properties of undefined (reading 'map')"
+  ],
+  "story-viewer": [
+   "StoryViewer:Cannot read properties of undefined (reading 'map')"
+  ],
+  "stream-graph": [
+   "StreamGraph:Cannot read properties of undefined (reading 'length')"
+  ],
+  "streaming-text": [
+   "StreamingText:Cannot read properties of undefined (reading 'length')"
+  ],
+  "sunburst-chart": [
+   "SunburstChart:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "tabbar": [
+   "TabBar:Cannot read properties of undefined (reading '0')"
+  ],
+  "table-summary": [
+   "TableSummary:Cannot read properties of undefined (reading 'map')"
+  ],
+  "tabs": [
+   "TabsContent:Cannot read properties of null (reading 'baseId')"
+  ],
+  "task-list": [
+   "TaskList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "team-frames": [
+   "TeamFrames:Cannot read properties of undefined (reading 'map')"
+  ],
+  "team-grid": [
+   "TeamGrid:Cannot read properties of undefined (reading 'map')"
+  ],
+  "team-members": [
+   "TeamMembers:Cannot read properties of undefined (reading 'length')"
+  ],
+  "terminal": [
+   "Terminal:Cannot read properties of undefined (reading 'map')"
+  ],
+  "text-diff": [
+   "TextDiff:Cannot read properties of undefined (reading 'split')"
+  ],
+  "thumbnail-strip": [
+   "ThumbnailStrip:Cannot read properties of undefined (reading '0')"
+  ],
+  "timeline-vertical-v2": [
+   "TimelineVerticalV2:Cannot read properties of undefined (reading 'map')"
+  ],
+  "timeline": [
+   "Timeline:Cannot read properties of undefined (reading 'map')"
+  ],
+  "toc": [
+   "Toc:Cannot read properties of undefined (reading 'map')"
+  ],
+  "tour": [
+   "Tour:Cannot read properties of undefined (reading '0')"
+  ],
+  "tree-nav": [
+   "TreeNav:Cannot read properties of undefined (reading 'map')"
+  ],
+  "tree-table": [
+   "TreeTable:Cannot read properties of undefined (reading 'map')"
+  ],
+  "treemap-chart": [
+   "TreemapChart:Cannot read properties of undefined (reading 'reduce')"
+  ],
+  "trophy-shelf": [
+   "TrophyShelf:Cannot read properties of undefined (reading 'map')"
+  ],
+  "two-column-list": [
+   "TwoColumnList:Cannot read properties of undefined (reading 'length')"
+  ],
+  "typewriter": [
+   "Typewriter:Cannot read properties of undefined (reading '0')"
+  ],
+  "usage-meter": [
+   "UsageMeter:Cannot read properties of undefined (reading 'toLocaleString')"
+  ],
+  "user-table": [
+   "UserTable:Cannot read properties of undefined (reading 'filter')"
+  ],
+  "variant-picker": [
+   "VariantPicker:Cannot read properties of undefined (reading 'map')"
+  ],
+  "version-badge": [
+   "VersionBadge:Cannot read properties of undefined (reading 'tone')"
+  ],
+  "video-list": [
+   "VideoList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "violin-chart": [
+   "ViolinChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "virtual-list": [
+   "VirtualList:Cannot read properties of undefined (reading 'length')"
+  ],
+  "voice-note-list": [
+   "VoiceNoteList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "waterfall-chart": [
+   "WaterfallChart:Cannot read properties of undefined (reading 'length')"
+  ],
+  "webhook-list": [
+   "WebhookList:Cannot read properties of undefined (reading 'map')"
+  ],
+  "wizard": [
+   "Wizard:Cannot read properties of undefined (reading '0')"
+  ],
+  "word-cloud": [
+   "WordCloud:Cannot read properties of undefined (reading 'map')"
+  ],
+  "world-map": [
+   "WorldMap:Cannot read properties of undefined (reading 'map')"
+  ]
+ }
+}
