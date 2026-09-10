@@ -1,0 +1,33 @@
+name: Publish to npm
+
+# Runs when a GitHub Release is published (manually or by release-please).
+# One-time setup on npmjs.com per package (bigbullui, bigbullicons,
+# create-bigbull-app): package Settings > Publishing access > require OIDC
+# (trusted publisher: this repo + this workflow). Afterwards no tokens needed.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js with registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+      - name: Publish with provenance
+        # Pure OIDC: no long-lived tokens. Requires the one-time trusted
+        # publisher setup on npmjs.com (see header comment).
+        run: npm publish --provenance --access public

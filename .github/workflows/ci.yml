@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit production dependencies
+        run: npm audit --omit=dev
+
       - name: Run component integrity test suite
         run: npm test
 
@@ -72,3 +75,33 @@ jobs:
 
       - name: Visual regression manifest check
         run: node scripts/visual-regression.mjs
+
+      - name: Size report
+        run: node scripts/size-report.mjs
+
+  windows-smoke:
+    name: Windows smoke (paths, CRLF, scripts)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test
+
+      - name: Type check (tsc --noEmit)
+        run: npx tsc --noEmit
+
+      - name: Registry + sizes generators (CRLF-safe)
+        run: |
+          node scripts/generate-registry-json.mjs
+          node scripts/calc-sizes.mjs

@@ -1,0 +1,31 @@
+name: Component request
+description: Propose a new component, block, or icon set
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [Component, Block, Icon set]
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Proposed slug
+      description: kebab-case, e.g. boarding-pass
+      placeholder: boarding-pass
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it needed
+      description: Use case + where existing pieces fall short
+    validations:
+      required: true
+  - type: textarea
+    id: sketch
+    attributes:
+      label: Sketch or reference
+      description: ASCII, link, or screenshot of the desired look

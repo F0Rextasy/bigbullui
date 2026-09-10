@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a broken component, block, icon, or docs page
+labels: [bug]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: Component, block, or page slug (e.g. ticket-card) or URL
+      placeholder: ticket-card
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options: [Docs site, npm package, CLI, MCP server, starter]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens vs what should happen
+      placeholder: Clicking X does Y, expected Z
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Steps, code snippet, or screen recording
+      render: tsx
