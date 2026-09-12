@@ -39,13 +39,16 @@ npx bigbullui list chart
 - [Editors & DevTools](https://ui.bigbullapp.com/docs): Code blocks, markdown editor, regex tester, cron builder, console panels.
 - [Media & Interactive](https://ui.bigbullapp.com/docs): Audio players, waveforms, video thumbnails, social cards, interactive widgets.
 
-## Icons (1023, separate package)
-- [Icon Gallery](https://ui.bigbullapp.com/icons): 1023 hand-drawn Ticket Stub stroke icons with live animated previews and per-icon pages (`/icons/<name>`).
+## Icons (1099, separate package)
+- [Icon Gallery](https://ui.bigbullapp.com/icons): 1099 hand-drawn Ticket Stub stroke icons with live animated previews and per-icon pages (`/icons/<name>`).
 - Install: `npm install bigbullicons`, use `<StampIcon name="ticket" size={20} />` (props: `name`, `size=20`, `animated`, `animation="draw"|"pulse"|"spin"|"none"`).
 - Or single icon via CLI: `npx bigbullui add icon-ticket`.
 
-## Page Blocks (63)
-- [Blocks](https://ui.bigbullapp.com/blocks): Ready admin dashboards, app screens (mail, chat, kanban), auth flows, pricing, checkout, and marketing sections with copy-paste code. Also consumable via `npx shadcn@latest add https://ui.bigbullapp.com/r/<name>.json`.
+## Page Blocks (75)
+- [Blocks](https://ui.bigbullapp.com/blocks): Ready admin dashboards, app screens (mail, chat, kanban), auth flows, pricing, checkout, bookings and marketing sections with copy-paste code. Also consumable via `npx shadcn@latest add https://ui.bigbullapp.com/r/<name>.json`.
 
-## Optional Full Reference
+## For AI coding assistants
+- MCP server (no backend, runs locally): `claude mcp add bigbullui -- npx -y bigbullui mcp`. Tools: list_components, get_component, list_blocks, list_icons, get_icon, get_theme.
+- [Agent rules](https://ui.bigbullapp.com/skill.md): system prompt for generating bigbullui code (imports, tokens, motion, a11y).
+- Per-component markdown: `https://ui.bigbullapp.com/md/<slug>` (props + source in one file, e.g. `/md/button`).
 - [Full LLM Specification](https://ui.bigbullapp.com/llms-full.txt): Complete catalog of all 659 components with descriptions and categories.

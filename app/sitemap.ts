@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { statSync } from "node:fs";
+import { statSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { NAV_ICON_NAMES } from "@/components/site/icon-data";
@@ -12,6 +12,15 @@ function mtime(rel: string): Date {
   }
 }
 
+function blockSlugs(): string[] {
+  try {
+    return readdirSync(join(process.cwd(), "src", "components", "blocks"))
+      .filter((f) => f.endsWith(".tsx"))
+      .map((f) => f.replace(/\.tsx$/, ""));
+  } catch {
+    return [];
+  }
+}
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://ui.bigbullapp.com";
 
@@ -112,7 +121,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.6,
     },
+    {
+      url: `${siteUrl}/docs/faq`,
+      lastModified: mtime("app/docs/faq/page.tsx"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
+
+  const blockRoutes: MetadataRoute.Sitemap = blockSlugs().map((slug) => ({
+    url: `${siteUrl}/blocks/${slug}`,
+    lastModified: mtime(`src/components/blocks/${slug}.tsx`),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
 
   const componentRoutes: MetadataRoute.Sitemap = components.map((comp) => ({
     url: `${siteUrl}/docs/${comp.name}`,
@@ -128,5 +150,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...componentRoutes, ...iconRoutes];
+  return [...staticRoutes, ...componentRoutes, ...iconRoutes, ...blockRoutes];
 }
