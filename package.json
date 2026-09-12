@@ -26,7 +26,11 @@
     "ticket-stub",
     "blocks",
     "cli",
-    "icons"
+    "icons",
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ai-agents"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
