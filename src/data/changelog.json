@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.3.0",
+      "date": "2026-09-12",
+      "title": "67 icons, 12 blocks, GEO layer, quality gates",
+      "changes": [
+        "67 new hand-drawn Essentials icons (1090 total); Essentials category complete at 100",
+        "12 new booking-vertical page blocks (75 total) with per-block URLs (/blocks/<slug>)",
+        "GEO layer: AI-bot robots rules, FAQ page with schema, 1850-URL sitemap, refreshed llms.txt",
+        "New pages: /packages, /benchmarks, /dep-graph, /docs/shortcuts, /docs/migrate, /docs/faq, per-component /md markdown",
+        "Theme studio: radius + typeface controls, shadcn/tweakcn theme importer",
+        "CLI: update (registry diff) and doctor (setup diagnosis) commands",
+        "Quality gates: SSR sweep, contrast floor, size budgets, CLI e2e (24 tests green)"
+      ]
+    },
+    {
       "version": "1.2.0",
       "date": "2026-09-10",
       "title": "MCP server, bundle builder, block registry, starter",
