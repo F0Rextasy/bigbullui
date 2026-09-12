@@ -92,6 +92,15 @@ export type NavIconName =
   | "sim-card"
   | "cart-mini"
   | "receipt-mini"
+  | "save"
+  | "thermometer"
+  | "umbrella"
+  | "bike"
+  | "car"
+  | "plane"
+  | "train"
+  | "rocket"
+  | "brightness"
   | "arrow-up"
   | "arrow-down"
   | "arrow-left"
@@ -1484,6 +1493,59 @@ export const ICON_PATHS: Record<NavIconName, React.ReactNode> = {
       <path d="M9 8h6M9 11.5h6" />
     </>
   ),
+  "save": (
+    <>
+      <path d="M5 4h11l3 3v13H5V4Z" />
+      <path d="M8 4v5h7V4M8 20v-6h8v6" />
+    </>
+  ),
+  "thermometer": (
+    <path d="M14 4v10.54a4 4 0 1 0-4 0V4a2 2 0 0 1 4 0Z" />
+  ),
+  "umbrella": (
+    <>
+      <path d="M12 3c-4 0-8 3.5-8 8h16c0-4.5-4-8-8-8Z" />
+      <path d="M12 11v8a1.8 1.8 0 0 0 3.6 0" />
+    </>
+  ),
+  "bike": (
+    <>
+      <circle cx="6" cy="17" r="3" />
+      <circle cx="18" cy="17" r="3" />
+      <path d="M6 17l3.5-8H15l3 8M9 5.5h3M12.5 9 15 5" />
+    </>
+  ),
+  "car": (
+    <>
+      <path d="M3.5 16v-4l2-4.5h12L20 12v4h-2" />
+      <circle cx="8" cy="17.5" r="1.8" />
+      <circle cx="16.5" cy="17.5" r="1.8" />
+      <path d="M3.5 16H6M10 16h4.5" />
+    </>
+  ),
+  "plane": (
+    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.5c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z" />
+  ),
+  "train": (
+    <>
+      <rect x="6" y="3" width="12" height="13" rx="2" />
+      <path d="M6 10h12M9 20l-2 1.5M15 20l2 1.5M9.5 13.5h.01M14.5 13.5h.01" />
+    </>
+  ),
+  "rocket": (
+    <>
+      <path d="M12 15c-1.8 0-3.2-.9-4.2-2.3C6 10.5 5.5 7.5 5.5 4.5c3 0 5.8.7 7.7 2.3 1.4 1.9 2.3 4.7 2.3 4.7s-1.5 3.5-3.5 3.5Z" />
+      <circle cx="12" cy="9" r="1.5" />
+      <path d="M9.6 15 7 19.5M14.4 15 17 19.5" />
+      <path d="M12 16.2c-.9 1.3-.9 2.7 0 4" />
+    </>
+  ),
+  "brightness": (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 4v16M4.5 12H7M6.4 6.4l1.8 1.8M6.4 17.6l1.8-1.8" />
+    </>
+  ),
   "arrow-up": <path d="M12 20V6M6.5 11.5 12 6l5.5 5.5" />,
   "arrow-down": <path d="M12 4v14M6.5 12.5 12 18l5.5-5.5" />,
   "arrow-left": <path d="M20 12H6M11.5 6.5 6 12l5.5 5.5" />,
@@ -2854,6 +2916,15 @@ export const NAV_ICON_NAMES: NavIconName[] = [
   "sim-card",
   "cart-mini",
   "receipt-mini",
+  "save",
+  "thermometer",
+  "umbrella",
+  "bike",
+  "car",
+  "plane",
+  "train",
+  "rocket",
+  "brightness",
   "arrow-up",
   "arrow-down",
   "arrow-left",
@@ -3947,6 +4018,15 @@ export const NAV_ICON_CATEGORIES: Record<string, string> = {
   "sim-card": "Essentials",
   "cart-mini": "Essentials",
   "receipt-mini": "Essentials",
+  "save": "Essentials",
+  "thermometer": "Essentials",
+  "umbrella": "Essentials",
+  "bike": "Essentials",
+  "car": "Essentials",
+  "plane": "Essentials",
+  "train": "Essentials",
+  "rocket": "Essentials",
+  "brightness": "Essentials",
   "arrow-up": "Arrows & Direction",
   "arrow-down": "Arrows & Direction",
   "arrow-left": "Arrows & Direction",
@@ -4949,7 +5029,7 @@ export const NAV_ICON_CATEGORIES: Record<string, string> = {
 };
 
 export const NAV_CATEGORIES: { name: string; count: number }[] = [
-  { name: "Essentials", count: 91 },
+  { name: "Essentials", count: 100 },
   { name: "Arrows & Direction", count: 200 },
   { name: "Media & Playback", count: 200 },
   { name: "Files & Office", count: 200 },
