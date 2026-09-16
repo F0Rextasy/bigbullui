@@ -56,10 +56,10 @@ export async function SiteNav() {
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            title={stars !== null ? `${stars} GitHub stars` : "Star bigbullui on GitHub"}
+            title={stars !== null && stars >= 50 ? `${stars} GitHub stars` : "Star bigbullui on GitHub"}
           >
             <Star size={14} className="text-warning" />
-            <span className="font-mono text-xs">{stars !== null ? stars : "Star"}</span>
+            <span className="font-mono text-xs">{stars !== null && stars >= 50 ? stars : "Star"}</span>
           </a>
           <ThemeToggle />
           <Link

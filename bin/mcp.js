@@ -17,7 +17,7 @@ const https = require("node:https");
 
 const SITE = "https://ui.bigbullapp.com";
 const GITHUB_RAW = "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
-const VERSION = "1.1.1";
+const VERSION = "1.4.0";
 
 function packageRoot() {
   return path.resolve(__dirname, "..");

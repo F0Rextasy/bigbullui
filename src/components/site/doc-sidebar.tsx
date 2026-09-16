@@ -12,6 +12,7 @@ const GUIDES = [
   { href: "/docs", label: "Overview" },
   { href: "/docs/installation", label: "Installation" },
   { href: "/docs/agents", label: "AI Agents (SKILL.md)" },
+  { href: "/docs/mcp", label: "MCP Server" },
   { href: "/docs/design", label: "Design System" },
   { href: "/docs/contributing", label: "Contributing" },
   { href: "/docs/recipes", label: "Recipes" },
@@ -110,9 +111,8 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
 
   const [filterMode, setFilterMode] = React.useState<"core" | "all">("all");
   const [userToggled, setUserToggled] = React.useState<Record<string, boolean>>({});
-
   const activeGroup = React.useMemo(() => {
-    const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/design", "/docs/contributing", "/docs/recipes", "/docs/compare", "/docs/changelog", "/blocks", "/showcase", "/theme", "/icons"];
+    const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/mcp", "/docs/design", "/docs/contributing", "/docs/recipes", "/docs/compare", "/docs/changelog", "/blocks", "/showcase", "/theme", "/icons"];
     if (guidePaths.includes(pathname)) return "guides";
     const slug = pathname.replace(/^\/docs\//, "");
     return components.find((c) => c.name === slug)?.category;

@@ -22,6 +22,7 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
 
 const cliInit = `npx bigbullui init`;
 const cliAdd = `npx bigbullui add button badge ticket-card`;
+const mcpAdd = `claude mcp add bigbullui -- npx -y bigbullui mcp`;
 
 export default function InstallationPage() {
   return (
@@ -47,7 +48,7 @@ export default function InstallationPage() {
               Directly drops zero-dependency component source code into your project.
             </p>
           </div>
-          <span className="font-mono text-xs text-muted-foreground">🎫 CLI v0.2</span>
+          <span className="font-mono text-xs text-muted-foreground">🎫 CLI v1.3</span>
         </div>
 
         <div className="space-y-5">
@@ -95,6 +96,14 @@ export default function InstallationPage() {
         </div>
       </section>
 
+      {/* METHOD D: MCP */}
+      <section className="space-y-3 rounded-lg border border-border p-5">
+        <h2 className="text-base font-semibold tracking-tight">Method D · AI assistant (MCP)</h2>
+        <p className="text-sm text-muted-foreground">
+          No install in your project. Point your agent at the registry with one command. Details: <a className="underline" href="/docs/mcp">/docs/mcp</a>.
+        </p>
+        <CodeBox code={mcpAdd} />
+      </section>
       {/* METHOD C: MANUAL */}
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/30 p-5">
         <h2 className="text-base font-semibold tracking-tight">Method C · Manual copy-paste</h2>

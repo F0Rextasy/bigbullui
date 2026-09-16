@@ -78,7 +78,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
             <Image src="/logo.svg" alt="bigbullui logo" width={28} height={28} className="size-7" />
             <SheetTitle className="text-base font-semibold tracking-tight">bigbullui</SheetTitle>
             <span className="rounded bg-accent/15 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-accent-strong">
-              v0.2
+              v1.3
             </span>
           </div>
           <SheetDescription className="text-xs">
@@ -237,7 +237,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
             className="flex items-center justify-center gap-2 rounded-md border border-border bg-secondary/50 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary"
           >
             <Star size={14} className="text-warning" />
-            <span>Star on GitHub {stars !== null ? `(${stars})` : ""}</span>
+            <span>Star on GitHub {stars !== null && stars >= 50 ? `(${stars})` : ""}</span>
           </a>
           <Link
             href="/docs"

@@ -43,7 +43,7 @@ export default function Home() {
         {/* Release / Announcement Pill */}
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1 text-xs transition-colors hover:bg-secondary">
           <span className="flex h-2 w-2 rounded-full bg-accent" />
-          <span className="font-mono text-muted-foreground">bigbullui CLI v0.2 released</span>
+          <span className="font-mono text-muted-foreground">bigbullui CLI v1.3 released</span>
           <span className="text-muted-foreground">&middot;</span>
           <Link href="/docs/installation" className="font-medium text-accent-strong hover:underline">
             Get started &rarr;

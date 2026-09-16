@@ -302,6 +302,7 @@ async function handleAdd(args) {
   }
 
   console.log(`\n  ${c.bold}Done!${c.reset} ${c.green}${addedCount} added${c.reset}${skippedCount > 0 ? `, ${c.yellow}${skippedCount} skipped${c.reset}` : ""}.`);
+  console.log(`  ${c.dim}Enjoying bigbullui? Star us:${c.reset} https://github.com/F0Rextasy/bigbullui`);
   console.log(`  ${c.dim}Import from:${c.reset} ${path.relative(process.cwd(), targetDir).replace(/\\/g, "/")}\n`);
 }
 

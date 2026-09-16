@@ -17,6 +17,7 @@ export function MobileDocsBar() {
     if (pathname === "/docs") return "Components Overview";
     if (pathname === "/docs/installation") return "Installation";
     if (pathname === "/docs/agents") return "AI Agent Kit";
+    if (pathname === "/docs/mcp") return "MCP Server";
     if (pathname === "/docs/design") return "Design Tokens";
     if (pathname === "/docs/contributing") return "Contributing";
     const slug = pathname.replace(/^\/docs\//, "");
