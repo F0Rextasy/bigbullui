@@ -21,6 +21,30 @@ const StripeEnter = "invoice-stripe-enter";
 const TotalRise = "invoice-total-rise";
 const Pulse = "invoice-status-pulse";
 
+/** Parse a display price string ("$1,234.56", "1.234,56", "($5)", "-$5") into a number. Invalid input yields 0, never NaN. */
+function parsePrice(raw: string): number {
+  const s = raw.trim();
+  if (!s) return 0;
+  const negative = /^\(.*\)$/.test(s) || /^-/.test(s);
+  const cleaned = s.replace(/[^0-9.,]/g, "");
+  if (!cleaned) return 0;
+  let normalized = cleaned;
+  const lastDot = cleaned.lastIndexOf(".");
+  const lastComma = cleaned.lastIndexOf(",");
+  if (lastDot >= 0 && lastComma >= 0) {
+    normalized =
+      lastComma > lastDot
+        ? cleaned.replace(/\./g, "").replace(",", ".")
+        : cleaned.replace(/,/g, "");
+  } else if (lastComma >= 0) {
+    normalized =
+      cleaned.length - lastComma - 1 <= 2 ? cleaned.replace(",", ".") : cleaned.replace(/,/g, "");
+  }
+  const n = parseFloat(normalized);
+  if (Number.isNaN(n)) return 0;
+  return negative ? -Math.abs(n) : n;
+}
+
 export function Invoice({
   number,
   items,
@@ -28,7 +52,7 @@ export function Invoice({
   status = "draft",
   className,
 }: InvoiceProps) {
-  const subtotal = items.reduce((sum, it) => sum + parseFloat(it.price) * it.qty, 0);
+  const subtotal = items.reduce((sum, it) => sum + parsePrice(it.price) * it.qty, 0);
   const tax = subtotal * taxRate;
   const total = subtotal + tax;
 

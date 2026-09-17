@@ -77,7 +77,7 @@ export function ScatterPlot({
                 className={cn(
                   "transition-all duration-300",
                   "motion-reduce:transition-none",
-                  `animate-[scale-in_0.15s_ease-out_both ${delay}ms fill mode]`,
+                  "animate-[scale-in_0.15s_ease-out_both]",
                   "group-hover:scale-150",
                 )}
               />

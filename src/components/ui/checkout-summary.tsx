@@ -3,13 +3,22 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
+export interface CheckoutSummaryItem {
+  id: string;
+  title: string;
+  price: string;
+  qty: number;
+}
+
 export interface CheckoutSummaryProps {
-  items: { id: string; title: string; price: string; qty: number }[];
+  items: CheckoutSummaryItem[];
   subtotal?: string;
   tax?: string;
   total?: string;
   cta?: string;
   className?: string;
+  onQtyChange?: (id: string, qty: number) => void;
+  onCheckout?: () => void;
 }
 
 const StepSlide = "checkout-step-slide";
@@ -22,7 +31,21 @@ export function CheckoutSummary({
   total = "$0.00",
   cta = "Checkout",
   className,
+  onQtyChange,
+  onCheckout,
 }: CheckoutSummaryProps) {
+  const [localQtys, setLocalQtys] = React.useState<Record<string, number>>({});
+  const qtyOf = (it: CheckoutSummaryItem) => localQtys[it.id] ?? it.qty;
+  const bump = (id: string, d: number) => {
+    const current = items.find((it) => it.id === id);
+    if (!current) return;
+    const next = Math.max(1, qtyOf(current) + d);
+    if (onQtyChange) {
+      onQtyChange(id, next);
+      return;
+    }
+    setLocalQtys((prev) => ({ ...prev, [id]: next }));
+  };
   return (
     <div
       className={cn(
@@ -32,9 +55,9 @@ export function CheckoutSummary({
     >
       {/* Items section */}
       <div className="space-y-3 max-h-80 overflow-y-auto">
-        {items.map((it, i) => (
+        {items.map((it) => (
           <div
-            key={i}
+            key={it.id}
             className={cn(
               "flex items-baseline justify-between py-2 border-b border-border/50 last:border-0",
               StepSlide
@@ -43,21 +66,25 @@ export function CheckoutSummary({
             <span className="font-medium line-clamp-1 min-w-0">{it.title}</span>
             <div className="flex items-baseline gap-2">
               <button
+                type="button"
+                onClick={() => bump(it.id, -1)}
                 className={cn(
                   "rounded border border-border w-6 h-6 flex items-center justify-center text-xs font-mono",
                   "motion-reduce:transition-none"
                 )}
-                aria-label="decrease qty"
+                aria-label={`Decrease quantity of ${it.title}`}
               >
                 −
               </button>
-              <span className="font-mono w-8 text-center">{it.qty}</span>
+              <span className="font-mono w-8 text-center" aria-live="polite">{qtyOf(it)}</span>
               <button
+                type="button"
+                onClick={() => bump(it.id, 1)}
                 className={cn(
                   "rounded border border-border w-6 h-6 flex items-center justify-center text-xs font-mono",
                   "motion-reduce:transition-none"
                 )}
-                aria-label="increase qty"
+                aria-label={`Increase quantity of ${it.title}`}
               >
                 +
               </button>
@@ -87,6 +114,8 @@ export function CheckoutSummary({
       {/* CTA */}
       {cta && (
         <button
+          type="button"
+          onClick={() => onCheckout?.()}
           className={cn(
             "mt-4 w-full rounded-md bg-accent text-accent-foreground px-4 py-2 text-sm font-semibold uppercase tracking-widest hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-150 motion-reduce:transition-none motion-reduce:focus-visible:ring-0",
             FadeIn

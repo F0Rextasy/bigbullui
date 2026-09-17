@@ -20,12 +20,16 @@ export function Envelope({ open = false, onOpenChange, sender, recipient, letter
       )}
       onClick={() => onOpenChange && onOpenChange(!open)}
     >
+      <style>{`@keyframes envFlapOpen { from { transform: rotateX(-85deg); opacity: 0.4; } to { transform: rotateX(0deg); opacity: 1; } }`}</style>
       <div
         className={cn(
-          "rounded-t-2xl border-b border-border bg-secondary p-3",
-          "transform-origin-top",
-          open ? "animate-flip-open" : "animate-flap-closed"
+          "rounded-t-2xl border-b border-border bg-secondary p-3"
         )}
+        style={{
+          transformOrigin: "top",
+          transform: open ? "rotateX(0deg)" : "rotateX(-12deg)",
+          animation: open ? "envFlapOpen 0.45s ease-out both" : undefined,
+        }}
       >
         <div className="flex items-center justify-between">
           <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-muted-foreground">
@@ -37,7 +41,10 @@ export function Envelope({ open = false, onOpenChange, sender, recipient, letter
         </div>
       </div>
 
-      <div className="mt-3 p-3 bg-muted rounded-sm">
+      <div
+        className="mt-3 p-3 bg-muted rounded-sm transition-transform duration-300 motion-reduce:transition-none"
+        style={open ? { transform: "translateY(-8px)" } : undefined}
+      >
         {letter}
       </div>
 

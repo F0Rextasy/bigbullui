@@ -21,15 +21,19 @@ import { DropdownMenuV2 } from "@/components/ui/dropdown-menu-v2";
 
 export const wave1Previews: Record<string, React.ComponentType> = {
   "alert-dialog": () => {
+    const [open, setOpen] = React.useState(false);
     return (
+      <div>
+        <button type="button" onClick={() => setOpen(true)} className="rounded-md border border-border px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Delete item</button>
       <AlertDialog
-        open={true}
-        onOpenChange={() => {}}
+        open={open}
+        onOpenChange={setOpen}
         title="Delete item"
         description="This action is irreversible. Are you sure?"
         confirmLabel="Delete"
         cancelLabel="Keep"
       />
+      </div>
     );
   },
 

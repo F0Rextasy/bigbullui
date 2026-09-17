@@ -31,7 +31,7 @@ export const wave14Previews: Record<string, React.ComponentType> = {
   "webhook-list": () => <WebhookList webhooks={[{ id: "1", url: "https://api.example.com/hook", events: ["order.created"], active: true }]} />,
   "upgrade-prompt": () => <UpgradePrompt />,
   "maintenance-banner": () => <MaintenanceBanner />,
-  "offline-banner": () => <OfflineBanner />,
+  "offline-banner": () => <div className="space-y-3"><p className="text-sm text-muted-foreground">Disconnect your network to see the offline warning. It disappears after reconnection.</p><OfflineBanner /></div>,
   "error-page": () => <ErrorPage />,
   "permission-denied": () => <PermissionDenied />,
   "form-progress": () => <FormProgress total={5} completed={3} />,

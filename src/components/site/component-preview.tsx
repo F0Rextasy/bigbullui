@@ -1029,7 +1029,7 @@ function AnimatedThemeTogglePreview() {
         <ThemeToggle
           dark={isDark}
           onToggle={setIsDark}
-          syncHtmlDark={true}
+          syncHtmlDark={false}
           enableSound={true}
         />
       </div>
@@ -1042,7 +1042,7 @@ function AnimatedThemeTogglePreview() {
           variant="compact"
           dark={isDark}
           onToggle={setIsDark}
-          syncHtmlDark={true}
+          syncHtmlDark={false}
           enableSound={true}
         />
       </div>
@@ -2586,7 +2586,7 @@ export function ComponentPreview({ name }: { name: string }) {
         key={reloadKey}
         className={cn(
           "flex min-h-52 w-full items-center justify-center overflow-x-auto p-4 transition-colors sm:p-8",
-          isDark ? "dark bg-background text-foreground" : "bg-card text-foreground",
+          isDark ? "dark bg-background text-foreground" : "light bg-card text-foreground",
           !isAnimated && "[&_*]:animate-none [&_*]:transition-none"
         )}
       >

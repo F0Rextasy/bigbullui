@@ -14,7 +14,7 @@ export function LoadingOverlay({ active, label }: LoadingOverlayProps) {
       className={cn(
         "fixed inset-0 z-40 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300",
         "motion-reduce:animate-none",
-        active ? "opacity-100" : "opacity-0",
+        active ? "opacity-100" : "pointer-events-none invisible opacity-0",
         "motion-reduce:transition-none",
       )}
     >

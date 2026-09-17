@@ -41,7 +41,7 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
     <div className={cn("w-full max-w-md space-y-3", className)} {...props}>
       <style>{`@keyframes rtIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="space-y-1">
-        <label htmlFor="rt-pattern" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Desen</label>
+        <label htmlFor="rt-pattern" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Pattern</label>
         <input
           id="rt-pattern"
           value={pattern}
@@ -56,7 +56,7 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
         {error && <p className="text-xs text-destructive animate-[rtIn_0.2s_ease-out] motion-reduce:animate-none">{error}</p>}
       </div>
       <div className="space-y-1">
-        <label htmlFor="rt-test" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Test dizesi</label>
+        <label htmlFor="rt-test" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Test string</label>
         <textarea
           id="rt-test"
           value={test}

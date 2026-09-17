@@ -17,4 +17,4 @@ We aim to acknowledge within 72 hours and ship a fix or mitigation within 14 day
 
 ## Scope Notes
 
-This library ships UI source with zero runtime dependencies, which keeps the attack surface small. The docs site (`/create`, StackBlitz export, MCP server) runs entirely client-side or locally — no tokens, cookies, or tracking are collected by the library itself.
+This library ships UI source with zero runtime dependencies, which keeps the attack surface small. The docs site (StackBlitz export, MCP server) runs entirely client-side or locally — no tokens, cookies, or tracking are collected by the library itself.

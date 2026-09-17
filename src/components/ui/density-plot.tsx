@@ -33,7 +33,7 @@ export function DensityPlot({ values, points = 48, height = 180, label, classNam
   const H = 80;
   const px = (x: number) => 5 + ((x - lo) / span) * 90;
   const py = (d: number) => 88 - (d / peak) * 76;
-  const line = curve.map(([x, d]) => `${px(x)},${py(d)}`).join(" ");
+  const line = curve.map(([x, d]) => `${px(x).toFixed(4)},${py(d).toFixed(4)}`).join(" ");
 
   return (
     <div className={cn("w-full", className)} style={{ height: `${height}px` }} {...props}>

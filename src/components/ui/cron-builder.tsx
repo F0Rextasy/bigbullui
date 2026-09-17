@@ -10,25 +10,25 @@ export interface CronBuilderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const FIELDS = [
-  { key: "minute", label: "Dakika", placeholder: "0-59" },
-  { key: "hour", label: "Saat", placeholder: "0-23" },
+  { key: "minute", label: "Minute", placeholder: "0-59" },
+  { key: "hour", label: "Hour", placeholder: "0-23" },
   { key: "dom", label: "Day of month", placeholder: "1-31" },
-  { key: "month", label: "Ay", placeholder: "1-12" },
+  { key: "month", label: "Month", placeholder: "1-12" },
   { key: "dow", label: "Day of week", placeholder: "0-6" },
 ] as const;
 
 const PRESETS = [
-  { expr: "*/5 * * * *", label: "Her 5 dakika" },
-  { expr: "0 * * * *", label: "Saatlik" },
-  { expr: "0 9 * * *", label: "Her sabah 09:00" },
-  { expr: "0 0 * * 1", label: "Pazartesi gece" },
+  { expr: "*/5 * * * *", label: "Every 5 minutes" },
+  { expr: "0 * * * *", label: "Hourly" },
+  { expr: "0 9 * * *", label: "Daily 09:00" },
+  { expr: "0 0 * * 1", label: "Monday midnight" },
 ];
 
 function describe(expr: string): string {
   const parts = expr.trim().split(/\s+/);
   if (parts.length !== 5) return "5 fields expected: minute hour day month weekday";
   const [min, hour, dom, month, dow] = parts;
-  if (min.startsWith("*/")) return `Her ${min.slice(2)} dakikada bir`;
+  if (min.startsWith("*/")) return `Every ${min.slice(2)} minutes`;
   if (hour === "*" && dom === "*" && month === "*" && dow === "*") return `At minute ${min} past every hour`;
   if (dom === "*" && month === "*" && dow === "*") return `Every day at ${hour.padStart(2, "0")}:${min.padStart(2, "0")}`;
   if (dow !== "*" && dom === "*") return `On day ${dow} at ${hour}:${min}`;
@@ -68,7 +68,7 @@ export function CronBuilder({ value, defaultValue = "0 9 * * *", onValueChange, 
         ))}
       </div>
 
-      {/* 5 alan */}
+      {/* 5 fields */}
       <div className="grid grid-cols-5 gap-1.5 animate-[crIn_0.3s_ease-out_both] motion-reduce:animate-none">
         {FIELDS.map((f, i) => (
           <div key={f.key} className="space-y-1">

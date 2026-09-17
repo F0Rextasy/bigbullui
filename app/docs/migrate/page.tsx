@@ -8,7 +8,7 @@ const ROWS: [string, string, string][] = [
   ["Add one piece", "npx shadcn@latest add button", "npx bigbullui add button"],
   ["Tokens", "CSS variables in :root", "@import \"bigbullui/css\" — same idea, Ticket Stub values"],
   ["Dark mode", ".dark class", ".dark class — identical mechanism"],
-  ["Theming", "tweakcn / css override", "/theme studio or /create, copy CSS variables"],
+  ["Theming", "tweakcn / css override", "override CSS variables, copy preset from docs/design"],
   ["Registry", "shadcn registry JSON", "Compatible: npx shadcn@latest add https://ui.bigbullapp.com/r/button.json"],
   ["Ownership", "Copy-paste into your repo", "Same: files live in your repo, MIT"],
 ];

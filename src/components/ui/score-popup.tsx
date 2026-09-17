@@ -24,8 +24,7 @@ export function ScorePopup({ value, label = "PTS", tone = "accent", className, .
       style={{ touchAction: "none" }}
       {...props}
     >
-      <style>{`@keyframes scoreUp { 0% { transform: translateY(6px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-6px); opacity: 1; } }`}</style>
-      <span className="animate-[scoreUp_0.6s_ease-out] font-mono text-lg font-black tabular-nums motion-reduce:animate-none" aria-hidden="true">
+      <span className="animate-[score-up_0.6s_ease-out] font-mono text-lg font-black tabular-nums motion-reduce:animate-none" aria-hidden="true">
         +{value}
       </span>
       <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">{label}</span>

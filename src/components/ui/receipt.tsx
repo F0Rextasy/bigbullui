@@ -34,7 +34,6 @@ export function Receipt({
       <div className="border-b border-border/80 pb-4 mb-4">
         <div className="flex items-center justify-between">
           <span className="font-mono text-xs uppercase tracking-widest text-muted-thermal">THERMAL RECEIPT</span>
-          <span className="font-mono text-xs uppercase tracking-wider">#{Math.random().toString(36).slice(2, 8).toUpperCase()}</span>
         </div>
       </div>
 

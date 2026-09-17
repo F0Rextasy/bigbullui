@@ -28,7 +28,18 @@ import { CartBadge } from "@/components/ui/cart-badge";
 import { OrderTracking } from "@/components/ui/order-tracking";
 
 export const wave16Previews: Record<string, React.ComponentType> = {
-  "mobile-menu": () => <MobileMenu open={false} onOpenChange={() => {}} items={[{ id: "1", label: "Navigation" }]} />,
+  "mobile-menu": () => {
+    const [open, setOpen] = React.useState(false);
+    return (
+      <div>
+        <button type="button" onClick={() => setOpen(true)} className="rounded-md border border-border px-3 py-1.5 text-xs">
+          Open menu
+        </button>
+        <MobileMenu open={open} onOpenChange={setOpen} items={[{ id: "1", label: "Home", href: "#" }, { id: "2", label: "Docs", href: "#" }, { id: "3", label: "Tickets", href: "#" }]} />
+        <p className="mt-2 text-sm text-muted-foreground">Menu {open ? "open" : "closed"}</p>
+      </div>
+    );
+  },
   "sidebar-v2": () => <SidebarV2 items={[{ id: "1", label: "General", children: [{ id: "1a", label: "Profile" }] }]} />,
   "flyout-v2": () => <FlyoutV2 items={[{ id: "1", label: "Tickets", children: [{ id: "a", label: "Purchase" }] }]} />,
   "scroll-spy-v2": () => <ScrollSpyV2 sections={[{ id: "a", label: "Section A" }, { id: "b", label: "Section B" }]} />,

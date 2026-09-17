@@ -2,9 +2,6 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
-import { Input } from "./input";
-import { Button } from "./button";
-
 export interface InviteModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -18,6 +15,15 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
   const [role, setRole] = React.useState(roles[roles.length - 1]);
   const [sent, setSent] = React.useState(false);
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onOpenChange(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, onOpenChange]);
 
   if (!open) return null;
 
@@ -38,14 +44,15 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
             <h3 className="text-sm font-semibold">Invite team member</h3>
             <p className="mt-1 text-xs text-muted-foreground">An invitation email will be dispatched immediately.</p>
             <div className="mt-4 space-y-3">
-              <Input
+              <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="yeni@uye.com"
+                placeholder="ada@example.com"
                 aria-label="Invitation email"
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               />
-              <div className="flex gap-1.5" role="radiogroup" aria-label="Rol">
+              <div className="flex gap-1.5" role="radiogroup" aria-label="Role">
                 {roles.map((r) => (
                   <button
                     key={r}
@@ -64,14 +71,21 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
               </div>
             </div>
             <div className="mt-5 flex justify-end gap-2">
-              <Button variant="outline" size="sm" onClick={() => onOpenChange(false)}>Cancel</Button>
-              <Button
-                size="sm"
+              <button
+                type="button"
+                onClick={() => onOpenChange(false)}
+                className="rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
                 disabled={!valid}
                 onClick={() => { onSend?.(email, role); setSent(true); setTimeout(() => { setSent(false); setEmail(""); onOpenChange(false); }, 1500); }}
+                className="rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
               >
                 Send Invite
-              </Button>
+              </button>
             </div>
           </>
         ) : (

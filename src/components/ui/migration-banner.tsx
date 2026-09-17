@@ -28,7 +28,7 @@ export function MigrationBanner({ title = "Migrating data to new system", progre
             <div className="h-full rounded-full bg-info transition-all duration-700 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
           </div>
         </div>
-        <span className="shrink-0 font-mono text-[10px] tabular-nums text-info">%{pct}</span>
+        <span className="shrink-0 font-mono text-[10px] tabular-nums text-info">{pct}%</span>
         {detail && (
           <button
             onClick={() => setOpen((o) => !o)}

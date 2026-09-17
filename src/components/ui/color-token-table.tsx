@@ -20,7 +20,7 @@ export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTable
   const [copied, setCopied] = React.useState<string | null>(null);
 
   const copy = (token: ColorToken) => {
-    try { void navigator.clipboard?.writeText(token.cssVar ?? token.value); } catch { /* yoksay */ }
+    try { void navigator.clipboard?.writeText(token.cssVar ?? token.value); } catch { /* ignore */ }
     setCopied(token.name);
     setTimeout(() => setCopied(null), 1400);
   };
@@ -56,9 +56,9 @@ export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTable
                 <button
                   onClick={() => copy(token)}
                   className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm motion-reduce:transition-none"
-                  aria-label={`${token.name} kopyala`}
+                  aria-label={`${token.name} copy`}
                 >
-                  {copied === token.name ? "✓" : "KOPYALA"}
+                  {copied === token.name ? "✓" : "COPY"}
                 </button>
               </td>
             </tr>

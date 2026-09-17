@@ -5,7 +5,7 @@ import { cn } from "./lib/utils";
 
 // Deterministic emoji arrays by category
 const emojiCategories = {
-  smileys: ["😀", "😁", "😂", "🤣", "😃", "😄", "😁", "😆", "😅", "😊"],
+  smileys: ["😀", "😁", "😂", "🤣", "😃", "😄", "😆", "😅", "😊"],
   gestures: ["👍", "👎", "👋", "🤝", "🙏", "✊", "👊", "🤘", "🤙", "💪"],
   hearts: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "💔", "❣️"],
   objects: ["💻", "📱", "💾", "🎮", "📚", "🎨", "🎵", "📸", "🎤", "📠"],

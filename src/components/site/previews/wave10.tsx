@@ -99,6 +99,7 @@ export const wave10Previews: Record<string, React.ComponentType> = {
   },
 
   "flyout-menu": () => {
+    const [selected, setSelected] = React.useState("none");
     const items = [
       { id: "1", label: "Option 1", shortcut: "⌘1" },
       { id: "2", label: "Option 2", shortcut: "⌘2" },
@@ -106,11 +107,14 @@ export const wave10Previews: Record<string, React.ComponentType> = {
     ];
 
     return (
-      <FlyoutMenu
-        trigger={<div className="px-4 py-2 bg-secondary text-secondary-foreground">Menu</div>}
-        items={items}
-        onSelect={(id) => console.log(id)}
-      />
+      <div className="flex min-h-40 flex-col items-start gap-2">
+        <FlyoutMenu
+          trigger={<button type="button" className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground">Menu ▾</button>}
+          items={items}
+          onSelect={setSelected}
+        />
+        <p className="text-sm text-muted-foreground">Selected: {selected} (click trigger, ArrowDown opens)</p>
+      </div>
     );
   },
 

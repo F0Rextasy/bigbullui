@@ -78,7 +78,7 @@ export default function Home() {
             Documentation
           </Link>
           <div className="w-full sm:w-auto">
-            <CodeBox code="npx bigbullui add button" />
+            <CodeBox code="npm install bigbullui" />
           </div>
         </div>
 

@@ -48,12 +48,16 @@ export const wave7Previews: Record<string, React.ComponentType> = {
   },
 
   "volume-slider": () => {
+    const [vol, setVol] = React.useState(0.7);
     return (
-      <VolumeSlider
-        value={0.7}
-        onValueChange={() => {}}
-        orientation="horizontal"
-      />
+      <div>
+        <VolumeSlider
+          defaultValue={0.7}
+          onValueChange={setVol}
+          orientation="horizontal"
+        />
+        <p className="mt-2 text-sm text-muted-foreground">Volume: {Math.round(vol * 100)}%</p>
+      </div>
     );
   },
 

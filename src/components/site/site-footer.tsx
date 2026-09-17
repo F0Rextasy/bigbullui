@@ -44,11 +44,6 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/theme" className="text-muted-foreground transition-colors hover:text-foreground">
-                  Theme studio
-                </Link>
-              </li>
-              <li>
                 <Link href="/icons" className="text-muted-foreground transition-colors hover:text-foreground">
                   Icon set
                 </Link>

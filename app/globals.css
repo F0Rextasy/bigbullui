@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "../bigbullui.css";
 
+/* Preview theme boundaries must override the surrounding site's theme. */
+@custom-variant dark (&:is(.dark *):not(:where(.light, .light *)));
+
 @layer base {
   * {
     border-color: var(--color-border);

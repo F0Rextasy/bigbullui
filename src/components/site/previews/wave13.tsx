@@ -49,5 +49,8 @@ export const wave13Previews: Record<string, React.ComponentType> = {
   "billing-panel": () => <UsageMeter label="Quota" used={70} limit={100} />,
   "usage-meter": () => <UsageMeter label="Quota" used={70} limit={100} />,
   "team-members": () => <TeamMembers members={[{ id: "1", name: "Ada", initials: "AL", role: "admin" }]} />,
-  "invite-modal": () => <InviteModal open={false} onOpenChange={() => {}} />,
+  "invite-modal": function InviteModalPreview() {
+    const [open, setOpen] = React.useState(false);
+    return <div><button type="button" onClick={() => setOpen(true)} className="rounded border border-border px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring">Invite teammate</button><InviteModal open={open} onOpenChange={setOpen} /></div>;
+  },
 };

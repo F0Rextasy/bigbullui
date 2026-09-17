@@ -32,13 +32,13 @@ export function MaintenanceBanner({ message = "Scheduled maintenance in progress
       <p className="min-w-0 flex-1 truncate text-xs text-foreground">{message}</p>
       {hasCountdown && mins > 0 && (
         <span className="shrink-0 rounded-full border border-warning/50 bg-background px-2 py-0.5 font-mono text-[10px] tabular-nums text-warning">
-          ~{mins} dk
+          ~{mins} min
         </span>
       )}
       <button
         onClick={() => { setDismissed(true); onDismiss?.(); }}
         className="shrink-0 rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-        aria-label="Bildirimi kapat"
+        aria-label="Dismiss announcement"
       >
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
       </button>

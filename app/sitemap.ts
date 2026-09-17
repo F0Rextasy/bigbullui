@@ -68,22 +68,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${siteUrl}/theme`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/icons`,
-      lastModified: new Date(),
+      url: `${siteUrl}/docs/help`,
+      lastModified: mtime("app/docs/help/page.tsx"),
       changeFrequency: "monthly",
       priority: 0.7,
-    },
-    {
-      url: `${siteUrl}/create`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
       url: `${siteUrl}/packages`,
@@ -126,12 +114,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.6,
-    },
-    {
-      url: `${siteUrl}/docs/faq`,
-      lastModified: mtime("app/docs/faq/page.tsx"),
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
   ];
 

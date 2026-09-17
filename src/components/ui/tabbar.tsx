@@ -64,7 +64,7 @@ export function TabBar({
                 fill="currentColor"
                 focusable="false"
               >
-                <path d="M{item.icon}" />
+                <path d={item.icon} />
               </svg>
             )}
             <span className="text-[10px] uppercase tracking-[0.15em]">

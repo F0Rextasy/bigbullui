@@ -15,6 +15,9 @@ export interface JsonViewerProps extends React.HTMLAttributes<HTMLDivElement> {
 function renderJsonValue(
   value: JsonValue,
   depth: number,
+  toggle: (path: string) => void,
+  collapsed: Record<string, true>,
+  path: string,
 ): React.ReactNode {
   const indent = "  ".repeat(depth);
 
@@ -44,20 +47,20 @@ function renderJsonValue(
 
   if (typeof value === "string") {
     return (
-      <span key="str" className="text-accent-foreground">
-        {indent}&quot;{value.replace(/"/g, "&quot;")}&quot;
+      <span key={`str-${path}`} className="text-accent-foreground">
+        {indent}&quot;{value}&quot;
       </span>
     );
   }
 
   if (Array.isArray(value)) {
+    const isCollapsed = collapsed[path] === true;
     return (
-      <div key="arr" className={cn(
-        "motion-reduce:transition-none",
-        "collapse",
-      )}>
+      <div key={`arr-${path}`} className="motion-reduce:transition-none">
         <button
-          onClick={() => {/* toggle */}}
+          onClick={() => toggle(path)}
+          aria-expanded={!isCollapsed}
+          aria-label={isCollapsed ? "Expand array" : "Collapse array"}
           className={cn(
             "cursor-pointer text-[10px] uppercase text-muted-foreground hover:text-foreground transition-colors",
             "flex items-center gap-1",
@@ -70,15 +73,16 @@ function renderJsonValue(
             fill="none"
             stroke="currentColor"
             strokeWidth={2}
+            style={{ transform: isCollapsed ? "rotate(-90deg)" : "none" }}
           >
             <path d="M6 9l6 6 6-6" />
           </svg>
           {depth > 0 ? " collapse" : ""}
         </button>
         <span className="ms-2 text-[10px] text-muted-foreground">{indent}[</span>
-        {value.map((item, idx) => (
+        {!isCollapsed && value.map((item, idx) => (
           <React.Fragment key={idx}>
-            {renderJsonValue(item, depth + 1)}
+            {renderJsonValue(item, depth + 1, toggle, collapsed, `${path}/${idx}`)}
           </React.Fragment>
         ))}
         <span className="ms-2 text-[10px] text-muted-foreground">{indent}]</span>
@@ -88,13 +92,13 @@ function renderJsonValue(
 
   if (typeof value === "object") {
     const keys = Object.keys(value);
+    const isCollapsed = collapsed[path] === true;
     return (
-      <div key="obj" className={cn(
-        "motion-reduce:transition-none",
-        "collapse",
-      )}>
+      <div key={`obj-${path}`} className="motion-reduce:transition-none">
         <button
-          onClick={() => {/* toggle */}}
+          onClick={() => toggle(path)}
+          aria-expanded={!isCollapsed}
+          aria-label={isCollapsed ? "Expand object" : "Collapse object"}
           className={cn(
             "cursor-pointer text-[10px] uppercase text-muted-foreground hover:text-foreground transition-colors",
             "flex items-center gap-1",
@@ -107,17 +111,18 @@ function renderJsonValue(
             fill="none"
             stroke="currentColor"
             strokeWidth={2}
+            style={{ transform: isCollapsed ? "rotate(-90deg)" : "none" }}
           >
             <path d="M6 9l6 6 6-6" />
           </svg>
           {depth > 0 ? " collapse" : ""}
         </button>
         <span className="ms-2 text-[10px] text-muted-foreground">{indent}{"{"}</span>
-        {keys.map((key) => (
+        {!isCollapsed && keys.map((key) => (
           <React.Fragment key={key}>
             <span className={cn("text-accent-foreground", "ms-2")}>{key}</span>
             <span className="ms-2 text-[10px] text-muted-foreground">{":"}</span>
-            {renderJsonValue(value[key as keyof JsonObject], depth + 1)}
+            {renderJsonValue(value[key as keyof JsonObject], depth + 1, toggle, collapsed, `${path}/${key}`)}
           </React.Fragment>
         ))}
         <span className="ms-2 text-[10px] text-muted-foreground">{indent}{"}"}</span>
@@ -133,6 +138,15 @@ export function JsonViewer({
   className,
   ...props
 }: JsonViewerProps) {
+  const [collapsed, setCollapsed] = React.useState<Record<string, true>>({});
+  const toggle = React.useCallback((path: string) => {
+    setCollapsed((prev) => {
+      const next = { ...prev };
+      if (next[path]) delete next[path];
+      else next[path] = true;
+      return next;
+    });
+  }, []);
   return (
     <div
       className={cn(
@@ -142,7 +156,7 @@ export function JsonViewer({
       )}
       {...props}
     >
-      {renderJsonValue(value, 0)}
+      {renderJsonValue(value, 0, toggle, collapsed, "root")}
     </div>
   );
 }

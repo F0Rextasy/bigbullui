@@ -1,7 +1,7 @@
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 
-export const metadata = { title: "FAQ" };
+export const metadata = { title: "Help & FAQ", alternates: { canonical: "/docs/help" } };
 
 const QA: { q: string; a: string }[] = [
   { q: "What is bigbullui?", a: "An open-source React 19 + Tailwind CSS v4 component library with a Ticket-Stub aesthetic: 659 copy-paste components, 75 page blocks, and 1099 hand-drawn stroke icons. MIT licensed, zero runtime dependencies." },
@@ -11,18 +11,21 @@ const QA: { q: string; a: string }[] = [
   { q: "How does dark mode work?", a: "Toggle the dark class on <html>. All tokens switch automatically; every component works in both themes without prop changes." },
   { q: "Is it accessible?", a: "Components ship WAI-ARIA roles, keyboard navigation, visible focus rings, and motion-reduce fallbacks. The docs run automated axe scans in CI." },
   { q: "Is it really zero-dependency?", a: "UI files import only react and a 7-line cn() helper. No Radix, Lucide, Framer Motion, or CVA in component sources — enforced by tests." },
-  { q: "How do I theme it?", a: "Override the CSS variables from bigbullui.css, use the /theme studio (presets + fine tune + shadcn import), or pick a ready theme in /create." },
+  { q: "How do I theme it?", a: "Override the CSS variables from bigbullui.css (see the Design System page) or copy a ready preset from docs/design." },
   { q: "Does it support RTL?", a: "Yes. Spacing uses logical props (ms-, me-, ps-, pe-, text-start), so layouts flip automatically under dir=\"rtl\"." },
   { q: "Can I use just the icons?", a: "Yes: npm i bigbullicons gives you the 1090 icons without components, or pull one with npx bigbullui add icon-ticket." },
 ];
 
-export default function FaqPage() {
+export default function HelpPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
       <main className="mx-auto w-full max-w-3xl px-4 py-10">
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Docs</p>
-        <h1 className="mt-1 font-mono text-2xl font-black uppercase">FAQ</h1>
+        <h1 className="mt-1 font-mono text-2xl font-black uppercase">Help &amp; FAQ</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          General library questions live here. For the accordion Q&amp;A building block, see <a href="/docs/faq" className="underline underline-offset-2">the Faq component</a>.
+        </p>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

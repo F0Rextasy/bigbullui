@@ -58,7 +58,13 @@ export const wave9Previews: Record<string, React.ComponentType> = {
     return <Postmark city="Springfield" date="09/05/2026" serial="PM-8842" />;
   },
   "cassette-tape": function CassetteTapePreview() {
-    return <CassetteTape title="Retro Vibes" playing={true} />;
+    const [playing, setPlaying] = React.useState(true);
+    return (
+      <div className="flex flex-col items-start gap-2">
+        <CassetteTape title="Retro Vibes" playing={playing} onToggle={() => setPlaying((p) => !p)} />
+        <p className="text-sm text-muted-foreground">Tape {playing ? "playing" : "paused"} (toggle with the Play/Pause button)</p>
+      </div>
+    );
   },
   "vinyl-record": function VinylRecordPreview() {
     return <VinylRecord label="Side A" playing={false} />;

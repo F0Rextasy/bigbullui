@@ -34,7 +34,7 @@ export function DiffEditor({ before, after, readOnly, onBeforeChange, onAfterCha
       <style>{`@keyframes deIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
       <div className="grid grid-cols-2 divide-x divide-border border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
         <span className="px-3 py-1.5">Original</span>
-        <span className="px-3 py-1.5">Sonra</span>
+        <span className="px-3 py-1.5">After</span>
       </div>
       <div className="grid max-h-64 grid-cols-2 divide-x divide-border overflow-auto">
         <textarea

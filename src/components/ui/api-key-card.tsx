@@ -18,7 +18,7 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
   const masked = apiKey.slice(0, 8) + "•".repeat(Math.max(4, apiKey.length - 12)) + apiKey.slice(-4);
 
   const copy = () => {
-    try { void navigator.clipboard?.writeText(apiKey); } catch { /* yoksay */ }
+    try { void navigator.clipboard?.writeText(apiKey); } catch { /* ignore */ }
     setCopied(true);
     setTimeout(() => setCopied(false), 1600);
   };

@@ -1,6 +1,33 @@
 {
   "entries": [
     {
+      "version": "1.4.1",
+      "date": "2026-09-17",
+      "title": "Simpler installation and repaired component previews",
+      "changes": [
+        "Removed Create and Theme Studio routes and navigation; homepage now shows npm install bigbullui",
+        "Moved the documentation FAQ guide to /docs/help so /docs/faq displays the FAQ component",
+        "Isolated Paper and Night preview themes and prevented demo toggles from changing the site theme",
+        "Separated commerce previews and connected interactive modal, menu, slider and loading demos",
+        "Fixed clock and volume dragging, scroll shadows, duration rendering, SVG paths and hydration errors",
+        "Corrected escaped usage snippets and podcast property documentation"
+      ]
+    },
+    {
+      "version": "1.4.0",
+      "date": "2026-09-17",
+      "title": "MCP setup, smaller package, and project discovery",
+      "changes": [
+        "Added /docs/mcp with local MCP setup instructions and links from installation and navigation",
+        "Added repository MCP configuration and synchronized the MCP server version",
+        "Removed duplicate component source files from the npm package payload; source remains available through the CLI and repository",
+        "Added three first-party showcase entries with working project links",
+        "Updated CLI setup labels and added a GitHub link after component installation",
+        "Hide the navigation star count below 50 while keeping the GitHub link visible",
+        "Added discoverable SKILL.md metadata and a project-local find-skills helper"
+      ]
+    },
+    {
       "version": "1.3.0",
       "date": "2026-09-12",
       "title": "67 icons, 12 blocks, GEO layer, quality gates",

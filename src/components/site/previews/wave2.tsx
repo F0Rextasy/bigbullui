@@ -22,10 +22,11 @@ import { CtaSection } from "@/components/ui/cta-section";
 export const wave2Previews: Record<string, React.ComponentType> = {
   heading: () => {
     return (
-      <Heading level={1} eyebrow="Banner Edition">
+      <div className="space-y-3">
+        <Heading level={1} eyebrow="Banner Edition">Banner Heading</Heading>
         <Heading level={2}>Main Heading</Heading>
         <Heading level={3} size="sm">Sub Heading</Heading>
-      </Heading>
+      </div>
     );
   },
 

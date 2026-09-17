@@ -22,7 +22,7 @@ export function FlipClock({ time, className }: FlipClockProps) {
         <FlipDigit key={i} value={parseInt(digit, 10) || 0} index={i} />
       ))}
 
-      <div className="self-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground :">
+      <div className="self-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
         :
       </div>
     </div>

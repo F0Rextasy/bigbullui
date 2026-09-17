@@ -51,12 +51,13 @@ export function TimeRangePicker({
     return `${h12.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")} ${ampm}`;
   };
 
-  const durationMinutes = Math.max(
-    0,
-    ((new Date(`2000-01-01T${endTime}`).getTime() -
+  const rawDurationMinutes =
+    (new Date(`2000-01-01T${endTime}`).getTime() -
       new Date(`2000-01-01T${startTime}`).getTime()) /
-      60000)
-  );
+    60000;
+  const durationMinutes = Number.isFinite(rawDurationMinutes)
+    ? Math.max(0, rawDurationMinutes)
+    : 0;
   const durationHours = durationMinutes / 60;
 
   const startClasses = cn(

@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* Ticket Stub — light: warm cream stub */
-:root {
+:root, .light {
   --background: #f6f0e0;
   --foreground: #17130c;
   --muted: #ece3cc;
@@ -113,6 +113,11 @@
   15% { opacity: 0.9; }
   85% { opacity: 0.9; }
   50% { top: 100%; opacity: 0.9; }
+}
+@keyframes score-up {
+  0% { transform: translateY(6px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-6px); opacity: 1; }
 }
 @keyframes pulse-ring {
   0% { transform: scale(0.95); opacity: 0.8; }

@@ -27,7 +27,23 @@ import { HistoryNav } from "@/components/ui/history-nav";
 import { PageTabs } from "@/components/ui/page-tabs";
 
 export const wave15Previews: Record<string, React.ComponentType> = {
-  "keyboard-nav-helper": () => <KeyboardNavHelper shortcuts={[{ keys: ["⌘", "K"], label: "Command palette" }]} />,
+  "keyboard-nav-helper": () => {
+    const shortcuts = [
+      { keys: ["⌘", "K"], label: "Command palette" },
+      { keys: ["?"], label: "Toggle this help" },
+      { keys: ["Esc"], label: "Close dialog" },
+    ];
+    const show = () => document.dispatchEvent(new KeyboardEvent("keydown", { key: "?" }));
+    return (
+      <div>
+        <button type="button" onClick={show} className="rounded-md border border-border px-3 py-1.5 text-xs">
+          Show shortcuts
+        </button>
+        <p className="mt-2 text-sm text-muted-foreground">Press ? to toggle the shortcuts dialog, Esc to close.</p>
+        <KeyboardNavHelper shortcuts={shortcuts} />
+      </div>
+    );
+  },
   "data-grid": () => <DataGrid columns={[{ key: "name", header: "Name", sortable: true }, { key: "qty", header: "Qty" }]} rows={[{ name: "Ticket", qty: 2 }, { name: "VIP", qty: 1 }]} />,
   "tree-table": () => <TreeTable nodes={[{ id: "1", label: "Main", value: "10", children: [{ id: "1a", label: "Sub", value: "4" }] }]} />,
   "kanban-v2": () => <KanbanV2 columns={[{ id: "todo", title: "Todo", cards: [{ id: "c1", label: "Print ticket" }] }]} />,
@@ -44,8 +60,11 @@ export const wave15Previews: Record<string, React.ComponentType> = {
   "column-toggle": () => <ColumnToggle columns={[{ id: "name", label: "Name" }, { id: "qty", label: "Qty", visible: false }]} />,
   "wizard": () => <Wizard steps={[{ id: "1", title: "Seat" }, { id: "2", title: "Payment" }]}><div /><div /></Wizard>,
   "stepper-v2": () => <StepperV2 current={1} steps={[{ id: "1", title: "Seat" }, { id: "2", title: "Payment" }]} />,
-  "mega-menu": () => <MegaMenu trigger={<button className="rounded-md border border-border px-3 py-1.5 text-xs">Menu ▾</button>} columns={[{ title: "Tickets", links: [{ label: "Purchase" }] }]} />,
-  "drawer-nav": () => <DrawerNav open={false} onOpenChange={() => {}} items={[{ id: "1", label: "Navigation" }]} />,
+  "mega-menu": () => <MegaMenu trigger="Menu ▾" columns={[{ title: "Tickets", links: [{ label: "Purchase" }] }]} />,
+  "drawer-nav": function DrawerNavPreview() {
+    const [open, setOpen] = React.useState(false);
+    return <div><button type="button" onClick={() => setOpen(true)} className="rounded border border-border px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring">Open navigation</button><DrawerNav open={open} onOpenChange={setOpen} items={[{ id: "1", label: "Navigation" }]} /></div>;
+  },
   "footer-nav": () => <FooterNav columns={[{ title: "Product", links: [{ label: "Tickets" }] }]} />,
   "anchor-nav": () => <AnchorNav items={[{ id: "preview", label: "Preview" }, { id: "usage", label: "Usage" }]} />,
   "quick-actions": () => <QuickActions actions={[{ id: "1", label: "Print", shortcut: "⌘P" }, { id: "2", label: "Delete", danger: true }]} />,

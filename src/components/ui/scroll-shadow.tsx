@@ -23,14 +23,14 @@ export function ScrollShadow({ className, children }: ScrollShadowProps) {
       const hasScrollBottom = scrollTop + clientHeight < scrollHeight;
 
       if (ref.current === element) {
-        const shadowTop = ref.current.querySelector<HTMLElement>("[data-shadow-top]");
-        const shadowBottom = ref.current.querySelector<HTMLElement>("[data-shadow-bottom]");
+        const shadowTop = element.parentElement?.querySelector<HTMLElement>("[data-shadow-top]");
+        const shadowBottom = element.parentElement?.querySelector<HTMLElement>("[data-shadow-bottom]");
 
         if (shadowTop) {
-          shadowTop.style.opacity = hasScrollTop ? "0" : "1";
+          shadowTop.style.opacity = hasScrollTop ? "1" : "0";
         }
         if (shadowBottom) {
-          shadowBottom.style.opacity = hasScrollBottom ? "0" : "1";
+          shadowBottom.style.opacity = hasScrollBottom ? "1" : "0";
         }
       }
     };
@@ -42,34 +42,32 @@ export function ScrollShadow({ className, children }: ScrollShadowProps) {
 
   return (
     <div
-      ref={ref}
+      
       className={cn(
-        "relative h-64 overflow-auto",
+        "relative h-64 overflow-hidden",
         "motion-reduce:animate-none",
         className,
       )}
     >
+      <div ref={ref} className="h-full overflow-auto">
+        <div className="relative bg-card p-4">{children}</div>
+      </div>
       <div
         className={cn(
-          "absolute top-0 left-0 right-1 w-full h-px bg-gradient-to-b from-border/20 via-transparent to-transparent",
-          "data-shadow-top",
-          "motion-reduce:animate-none",
+          "pointer-events-none absolute top-0 left-0 h-8 w-full bg-gradient-to-b from-border/30 via-transparent to-transparent transition-opacity",
+          "motion-reduce:transition-none",
         )}
-      >
-        {/* Top shadow */}
-      </div>
+        data-shadow-top=""
+      />
 
       <div
         className={cn(
-          "absolute bottom-0 left-0 right-1 w-full h-px bg-gradient-to-t from-border/20 via-transparent to-transparent",
-          "data-shadow-bottom",
-          "motion-reduce:animate-none",
+          "pointer-events-none absolute bottom-0 left-0 h-8 w-full bg-gradient-to-t from-border/30 via-transparent to-transparent transition-opacity",
+          "motion-reduce:transition-none",
         )}
-      >
-        {/* Bottom shadow */}
-      </div>
+        data-shadow-bottom=""
+      />
 
-      <div className="relative p-4 bg-card">{children}</div>
     </div>
   );
 }

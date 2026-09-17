@@ -22,17 +22,21 @@ import { Reveal } from "@/components/ui/reveal";
 
 export const wave4Previews: Record<string, React.ComponentType> = {
   "confirm-dialog": () => {
+    const [open, setOpen] = React.useState(false);
     return (
+      <div>
+        <button type="button" onClick={() => setOpen(true)} className="rounded border border-border px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring">Delete item</button>
       <ConfirmDialog
-        open={true}
-        onOpenChange={() => {}}
+        open={open}
+        onOpenChange={setOpen}
         title="Delete item"
         description="Are you sure you want to delete this item?"
         confirmLabel="Delete"
         destructive={true}
-        onConfirm={() => {}}
-        onCancel={() => {}}
+        onConfirm={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
       />
+      </div>
     );
   },
   result: () => {
@@ -49,7 +53,13 @@ export const wave4Previews: Record<string, React.ComponentType> = {
     return <LoadingDots size="md" tone="default" />;
   },
   "loading-overlay": () => {
-    return <LoadingOverlay active={true} label="Loading data..." />;
+    const [active, setActive] = React.useState(false);
+    React.useEffect(() => {
+      if (!active) return;
+      const timer = window.setTimeout(() => setActive(false), 1200);
+      return () => window.clearTimeout(timer);
+    }, [active]);
+    return <div><button type="button" onClick={() => setActive(true)} className="rounded border border-border px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring">Load data</button><LoadingOverlay active={active} label="Loading data..." /></div>;
   },
   fab: () => {
     return (
@@ -91,14 +101,18 @@ export const wave4Previews: Record<string, React.ComponentType> = {
     );
   },
   spotlight: () => {
-    const ref = React.useRef<HTMLElement>(null);
+    const ref = React.useRef<HTMLButtonElement>(null);
+    const [active, setActive] = React.useState(false);
     return (
-      <Spotlight
+      <div>
+        <button ref={ref} type="button" onClick={() => setActive(true)} className="rounded border border-border px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring">Highlight this feature</button>
+      {active && <Spotlight
         targetRef={ref}
         padding={24}
         title="Feature highlight"
-        description="This is a spotlight highlighting a target area"
-      />
+        description="Press Escape to dismiss the feature highlight."
+      />}
+      </div>
     );
   },
   "coach-mark": () => {
@@ -169,9 +183,13 @@ export const wave4Previews: Record<string, React.ComponentType> = {
   "scroll-shadow": () => {
     return (
       <ScrollShadow>
-        <div className="p-4 bg-card h-full">
-          {/* Content with scroll */}
-        </div>
+        <ul className="space-y-2 font-mono text-xs uppercase tracking-wider">
+          {Array.from({ length: 24 }, (_, i) => (
+            <li key={i} className="rounded-sm border border-dashed border-border bg-card px-3 py-2 text-muted-foreground">
+              ROW {String(i + 1).padStart(2, "0")} — SCROLL TO SEE STAMP SHADOWS
+            </li>
+          ))}
+        </ul>
       </ScrollShadow>
     );
   },
