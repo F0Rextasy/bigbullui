@@ -125,6 +125,50 @@ describe("bigbullui Component Library Integrity", () => {
     const utilsContent = fs.readFileSync(utilsPath, "utf8");
     assert.match(utilsContent, /export\s+function\s+cn\b/);
   });
+  it("shadcn registry: components install out of the box (utils.json + deps)", () => {
+    const rDir = path.join(rootDir, "public", "r");
+    assert.ok(fs.existsSync(path.join(rDir, "utils.json")), "public/r/utils.json must exist");
+    const utilsItem = JSON.parse(fs.readFileSync(path.join(rDir, "utils.json"), "utf8"));
+    assert.equal(utilsItem.type, "registry:lib");
+    assert.equal(utilsItem.files[0].target, "@ui/lib/utils.ts");
+    assert.match(utilsItem.files[0].content, /export\s+function\s+cn\b/);
+    const byPath = (files, p) => files.find((f) => f.path === p);
+    const checked = ["button", "stat-tile", "admin-overview", "form-validation"];
+    for (const slug of checked) {
+      const item = JSON.parse(fs.readFileSync(path.join(rDir, `${slug}.json`), "utf8"));
+      const targetByPath = {};
+      for (const f of item.files) targetByPath[f.path] = f.target;
+      for (const f of item.files) {
+        if (f.path.startsWith("src/components/ui/")) {
+          assert.ok(f.target && f.target.startsWith("@ui/"), `${slug}: ${f.path} needs a @ui/ target`);
+        }
+        if (f.path.startsWith("src/components/blocks/")) {
+          assert.ok(f.target && f.target.startsWith("@components/"), `${slug}: ${f.path} needs a @components/ target`);
+        }
+      }
+      const needsUtils = item.files.some((f) => typeof f.content === "string" && f.content.includes('"./lib/utils"'));
+      if (needsUtils) {
+        assert.ok((item.registryDependencies || []).includes("https://ui.bigbullapp.com/r/utils.json"), `${slug} must declare the utils registryDependency`);
+      } else {
+        assert.ok(!(item.registryDependencies || []).length, `${slug} must not declare unneeded registryDependencies`);
+      }
+      // Sibling imports bundled in the same item must resolve to bundled files.
+      for (const f of item.files) {
+        const content = typeof f.content === "string" ? f.content : "";
+        for (const m of content.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
+          if (m[1] === "lib") {
+            assert.ok(byPath(item.files, "src/components/ui/lib/utils.ts") || targetByPath["src/components/ui/lib/utils.ts"] === "@ui/lib/utils.ts" || utilsItem, `${slug}: ./lib dep needs utils coverage`);
+            continue;
+          }
+          assert.ok(byPath(item.files, `src/components/ui/${m[1]}.tsx`), `${slug}: sibling ./${m[1]} must be bundled`);
+        }
+      }
+    }
+    assert.deepEqual(
+      JSON.parse(fs.readFileSync(path.join(rDir, "stat-tile.json"), "utf8")).files.map((f) => f.path),
+      ["src/components/ui/stat-tile.tsx", "src/components/ui/tilt-card.tsx"]
+    );
+  });
 
   it("bigbullui.css defines core design tokens", () => {
     const cssPath = path.join(rootDir, "bigbullui.css");

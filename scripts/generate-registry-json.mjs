@@ -19,6 +19,32 @@ const slugs = fs
   .map((f) => f.replace(/\.tsx$/, ""))
   .sort();
 
+const UTILS_SOURCE = fs.readFileSync(path.join(uiDir, "lib", "utils.ts"), "utf8");
+const siblingDeps = {};
+
+for (const slug of slugs) {
+  const source = fs.readFileSync(path.join(uiDir, `${slug}.tsx`), "utf8");
+  const deps = new Set();
+  for (const m of source.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
+    if (m[1] !== "lib") deps.add(m[1]);
+  }
+  if (deps.size > 0) siblingDeps[slug] = [...deps].sort();
+}
+
+// Shared cn() helper as a registry:lib item so shadcn CLI installs it automatically.
+// Every ui file imports exactly one of: "./lib/utils" (656 files) or nothing (form-validation).
+// Target is @ui/lib/utils.ts (NOT @lib): the CLI only rewrites "@/..." imports, so the
+// relative "./lib/utils" import in installed files must keep resolving next to the component.
+fs.writeFileSync(
+  path.join(outDir, "utils.json"),
+  JSON.stringify({
+    name: "utils",
+    title: "Utils",
+    type: "registry:lib",
+    files: [{ path: "src/components/ui/lib/utils.ts", type: "registry:lib", target: "@ui/lib/utils.ts", content: UTILS_SOURCE }],
+  })
+);
+
 let written = 0;
 for (const slug of slugs) {
   const source = fs.readFileSync(path.join(uiDir, `${slug}.tsx`), "utf8");
@@ -26,8 +52,17 @@ for (const slug of slugs) {
     name: slug,
     title: titles[slug] ?? slug,
     type: "registry:ui",
-    files: [{ path: `src/components/ui/${slug}.tsx`, type: "registry:ui", content: source }],
+    files: [
+      { path: `src/components/ui/${slug}.tsx`, type: "registry:ui", target: `@ui/${slug}.tsx`, content: source },
+      ...(siblingDeps[slug] ?? []).map((dep) => ({
+        path: `src/components/ui/${dep}.tsx`,
+        type: "registry:ui",
+        target: `@ui/${dep}.tsx`,
+        content: fs.readFileSync(path.join(uiDir, `${dep}.tsx`), "utf8"),
+      })),
+    ],
   };
+  if (source.includes('"./lib/utils"')) item.registryDependencies = ["https://ui.bigbullapp.com/r/utils.json"];
   fs.writeFileSync(path.join(outDir, `${slug}.json`), JSON.stringify(item));
   written += 1;
 }
@@ -40,14 +75,24 @@ const blockSlugList = fs.existsSync(blkDir) ? fs.readdirSync(blkDir).filter((f) 
 let blockCount = 0;
 for (const slug of blockSlugList) {
   const blockSrc = fs.readFileSync(path.join(blkDir, `${slug}.tsx`), "utf8");
-  const files = [{ path: `src/components/blocks/${slug}.tsx`, type: "registry:block", content: blockSrc }];
-  for (const dep of blockSrc.matchAll(/from\s+["']\.\.\/ui\/([a-z0-9-]+)["']/g)) {
-    const depPath = path.join(uiDir, `${dep[1]}.tsx`);
-    if (fs.existsSync(depPath) && !files.some((f) => f.path.endsWith(`${dep[1]}.tsx`))) {
-      files.push({ path: `src/components/ui/${dep[1]}.tsx`, type: "registry:ui", content: fs.readFileSync(depPath, "utf8") });
+  const files = [{ path: `src/components/blocks/${slug}.tsx`, type: "registry:block", target: `@components/${slug}.tsx`, content: blockSrc }];
+  const uiDeps = new Set();
+  for (const dep of blockSrc.matchAll(/from\s+["']\.\.\/ui\/([a-z0-9-]+)["']/g)) uiDeps.add(dep[1]);
+  const queue = [...uiDeps];
+  while (queue.length > 0) {
+    const dep = queue.shift();
+    if (files.some((f) => f.path.endsWith(`/${dep}.tsx`))) continue;
+    const depPath = path.join(uiDir, `${dep}.tsx`);
+    if (!fs.existsSync(depPath)) continue;
+    const depSrc = fs.readFileSync(depPath, "utf8");
+    files.push({ path: `src/components/ui/${dep}.tsx`, type: "registry:ui", target: `@ui/${dep}.tsx`, content: depSrc });
+    for (const m of depSrc.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
+      if (m[1] !== "lib") queue.push(m[1]);
     }
   }
-  fs.writeFileSync(path.join(outDir, `${slug}.json`), JSON.stringify({ name: slug, title: toTitle(slug), type: "registry:block", files }));
+  const item = { name: slug, title: toTitle(slug), type: "registry:block", files };
+  if (files.some((f) => f.content.includes('"./lib/utils"'))) item.registryDependencies = ["https://ui.bigbullapp.com/r/utils.json"];
+  fs.writeFileSync(path.join(outDir, `${slug}.json`), JSON.stringify(item));
   blockCount += 1;
 }
 console.log(`generate-registry-json: ${blockCount} blocks in public/r/`);
