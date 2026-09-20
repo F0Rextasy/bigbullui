@@ -2,6 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -125,7 +126,10 @@ describe("bigbullui Component Library Integrity", () => {
     const utilsContent = fs.readFileSync(utilsPath, "utf8");
     assert.match(utilsContent, /export\s+function\s+cn\b/);
   });
+
   it("shadcn registry: components install out of the box (utils.json + deps)", () => {
+    execFileSync(process.execPath, ["scripts/generate-registry-json.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
+    execFileSync(process.execPath, ["scripts/generate-llms-full.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
     const rDir = path.join(rootDir, "public", "r");
     assert.ok(fs.existsSync(path.join(rDir, "utils.json")), "public/r/utils.json must exist");
     const utilsItem = JSON.parse(fs.readFileSync(path.join(rDir, "utils.json"), "utf8"));

@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
-const root = path.dirname(path.dirname(new URL(import.meta.url).pathname.replace(/^\//, "")));
+const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const need = createRequire(import.meta.url);
 
 export async function runSweep() {
