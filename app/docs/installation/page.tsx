@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CodeBox } from "@/components/site/code-box";
 
 export const metadata = { title: "Installation" };
@@ -100,7 +101,7 @@ export default function InstallationPage() {
       <section className="space-y-3 rounded-lg border border-border p-5">
         <h2 className="text-base font-semibold tracking-tight">Method D · AI assistant (MCP)</h2>
         <p className="text-sm text-muted-foreground">
-          No install in your project. Point your agent at the registry with one command. Details: <a className="underline" href="/docs/mcp">/docs/mcp</a>.
+          No install in your project. Point your agent at the registry with one command. Details: <Link className="underline" href="/docs/mcp">/docs/mcp</Link>.
         </p>
         <CodeBox code={mcpAdd} />
       </section>

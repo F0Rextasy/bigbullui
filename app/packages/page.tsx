@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 
@@ -32,7 +33,7 @@ export default function PackagesPage() {
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">npm packages</p>
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Packages</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Three packages, one system. Prefer copy-paste instead? Every file works standalone — see <a className="underline" href="/docs/installation">installation</a>.
+          Three packages, one system. Prefer copy-paste instead? Every file works standalone — see <Link className="underline" href="/docs/installation">installation</Link>.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {PACKAGES.map((p) => (

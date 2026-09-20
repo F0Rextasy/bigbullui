@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports -- scaffolder runs on plain Node, require() is intentional */
 /* Zero-dependency scaffolder: copies template/, names it, optionally installs. */
 
 const fs = require("node:fs");
