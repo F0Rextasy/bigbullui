@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.0...bigbullui-v1.5.1) (2026-10-29)
+
+
+### Bug Fixes
+
+* **ci:** call publish from release-please via reusable workflow ([537e4fa](https://github.com/F0Rextasy/bigbullui/commit/537e4fafebbffcb4026c95ac5ceaff094ff334f1))
+
 ## [1.5.0](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.4.1...bigbullui-v1.5.0) (2026-10-29)
 
 
