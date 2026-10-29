@@ -56,10 +56,5 @@ jobs:
 
       - name: Publish with provenance
         if: steps.check.outputs.skip == 'false'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        # npm needs an explicit auth token for the registry; provenance still
-        # comes from the GitHub OIDC token (id-token: write).
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > "$HOME/.npmrc"
-          npm publish "./${{ matrix.package }}" --provenance --access public
+        # OIDC is attempted first; verbose surfaces the registry's exchange error.
+        run: npm publish "./${{ matrix.package }}" --provenance --access public --loglevel verbose
