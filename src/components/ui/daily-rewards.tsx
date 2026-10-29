@@ -13,7 +13,7 @@ export interface DailyRewardsProps extends React.HTMLAttributes<HTMLDivElement> 
 export function DailyRewards({ claimed = 3, total = 7, onClaim, className, ...props }: DailyRewardsProps) {
   const current = Math.min(total, claimed + 1);
   return (
-    <div role="list" aria-label="Daily rewards" className={cn("grid touch-none grid-cols-7 gap-1 select-none", className)} style={{ touchAction: "none" }} {...props}>
+    <div role="group" aria-label="Daily rewards" className={cn("grid touch-none grid-cols-7 gap-1 select-none", className)} style={{ touchAction: "none" }} {...props}>
       {Array.from({ length: total }).map((_, i) => {
         const day = i + 1;
         const done = day <= claimed;
@@ -22,7 +22,6 @@ export function DailyRewards({ claimed = 3, total = 7, onClaim, className, ...pr
           <button
             key={day}
             type="button"
-            role="listitem"
             disabled={done}
             onClick={() => onClaim?.(day)}
             aria-label={done ? `Day ${day} claimed` : `Claim day ${day}`}

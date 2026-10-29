@@ -66,7 +66,7 @@ const variantStyles: Record<AnnouncementBarVariant, {
   },
   accent: {
     container: "bg-accent/10 text-foreground border-accent/40",
-    badge: "border-accent/40 bg-accent/20 text-accent font-bold",
+    badge: "border-accent bg-accent text-accent-foreground font-bold",
     urgency: "border-accent bg-accent text-accent-foreground font-bold",
     button: "border-foreground/20 bg-foreground text-background hover:bg-foreground/90",
   },
@@ -278,7 +278,7 @@ export function AnnouncementBar({
               )}
               {description && (
                 <span className="text-muted-foreground hidden md:inline">
-                  — {description}
+                  · {description}
                 </span>
               )}
             </div>

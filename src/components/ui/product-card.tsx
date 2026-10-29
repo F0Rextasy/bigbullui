@@ -65,7 +65,7 @@ export function ProductCard({
         <div className="flex items-baseline gap-1.5">
           <span className="font-mono text-[15px] font-semibold">{price}</span>
           {originalPrice && (
-            <span className="line-through text-muted-foreground text-xs opacity-60">{originalPrice}</span>
+            <span className="line-through text-muted-foreground text-xs">{originalPrice}</span>
           )}
         </div>
 

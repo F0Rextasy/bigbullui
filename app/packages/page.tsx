@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
+import catalog from "@/data/catalog.json";
 
 export const metadata = { title: "Packages" };
 
@@ -14,7 +14,7 @@ const PACKAGES = [
   {
     name: "bigbullicons",
     version: "npm i bigbullicons",
-    when: "Only the 1090 stroke icons, no components. Smallest footprint for icon-only use.",
+    when: `Only the ${catalog.packageIcons} stroke icons shipped in bigbullicons, no components. Smallest footprint for icon-only use.`,
     code: 'import { StampIcon } from "bigbullicons";\n\n<StampIcon name="ticket" size={20} />',
   },
   {
@@ -33,11 +33,11 @@ export default function PackagesPage() {
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">npm packages</p>
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Packages</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Three packages, one system. Prefer copy-paste instead? Every file works standalone — see <Link className="underline" href="/docs/installation">installation</Link>.
+          Install one package, or copy single files with the CLI. Everything below is MIT licensed and works standalone.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           {PACKAGES.map((p) => (
-            <article key={p.name} className="rounded-lg border-2 border-foreground bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-5px] outline-border">
+            <article key={p.name} className="min-w-0 rounded-lg border-2 border-foreground bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-5px] outline-border">
               <h2 className="font-mono text-sm font-black">{p.name}</h2>
               <p className="mt-1 rounded bg-secondary px-2 py-1 font-mono text-[11px]">{p.version}</p>
               <p className="mt-2 text-xs text-muted-foreground">{p.when}</p>

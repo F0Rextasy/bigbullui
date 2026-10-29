@@ -250,9 +250,6 @@ export function FileUploadList({
         tabIndex={-1}
       />
 
-      {/* =========================================================================
-          HEADER: Overall Queue Manifest & Aggregate Progress
-         ========================================================================= */}
       <div className="p-4 sm:p-5 bg-card border-b-2 border-foreground">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -381,9 +378,6 @@ export function FileUploadList({
         <div className="size-4 rounded-full bg-background border-2 border-foreground -me-2 shrink-0" />
       </div>
 
-      {/* =========================================================================
-          FILE LIST QUEUE ITEMS
-         ========================================================================= */}
       {files.length === 0 ? (
         <div
           onClick={() => allowAdd && inputRef.current?.click()}

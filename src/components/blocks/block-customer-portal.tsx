@@ -42,7 +42,7 @@ export function BlockCustomerPortal() {
             {TICKETS.map((ticket) => (
               <div key={ticket.id} className="flex min-w-0 items-center gap-3 rounded-md border border-dashed border-border p-3">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-mono text-xs font-bold">{ticket.id} — {ticket.subject}</p>
+                  <p className="truncate font-mono text-xs font-bold">{ticket.id}: {ticket.subject}</p>
                   <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">UPDATED {ticket.updated}</p>
                 </div>
                 <Badge variant={ticket.status === "RESOLVED" ? "accent" : ticket.status === "TRIAGE" ? "default" : "outline"}>

@@ -1,4 +1,6 @@
 import { CodeBox } from "@/components/site/code-box";
+import { components } from "@/lib/registry-site";
+import { NAV_ICON_NAMES } from "@/components/site/icon-data";
 
 export const metadata = { title: "MCP Server" };
 
@@ -11,10 +13,10 @@ const JSON_CFG = `{
 const SMOKE = `echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | npx -y bigbullui mcp`;
 
 const TOOLS = [
-  ["list_components", "Search 650+ components by text and category."],
+  ["list_components", `Search ${components.length} components by text and category.`],
   ["get_component", "Full TSX source + docs URL for one slug."],
   ["list_blocks", "75 ready page blocks (admin, auth, pricing, marketing)."],
-  ["list_icons", "1099 stroke icons, free-text filter."],
+  ["list_icons", `${NAV_ICON_NAMES.length} stroke icons, free-text filter.`],
   ["get_icon", "One icon source + page link."],
   ["get_theme", "Ticket Stub tokens, setup snippet, keyframes."],
 ];
@@ -26,7 +28,7 @@ export default function McpPage() {
         <h1 className="text-4xl font-semibold tracking-[-0.03em]">MCP Server</h1>
         <p className="text-muted-foreground">
           Zero-backend MCP server over stdio. The agent queries the registry, blocks, icons and
-          theme — no library install needed in the user project.
+          theme. No library install needed in the user project.
         </p>
       </header>
 

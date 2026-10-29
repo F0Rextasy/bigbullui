@@ -344,9 +344,6 @@ export function SignaturePad({
         aria-hidden="true"
       />
 
-      {/* ============================================================ */}
-      {/* HEADER SECTION: TICKET STUB BANNER                           */}
-      {/* ============================================================ */}
       <div className="flex items-center justify-between border-b-2 border-dashed border-border px-4 py-2.5 bg-secondary/50">
         <div className="flex flex-col">
           <span className="text-[9px] uppercase tracking-widest text-muted-foreground font-bold">
@@ -383,9 +380,6 @@ export function SignaturePad({
         </div>
       </div>
 
-      {/* ============================================================ */}
-      {/* MAIN CANVAS AREA                                             */}
-      {/* ============================================================ */}
       <div
         className="relative bg-card overflow-hidden"
         style={{ height: `${height}px` }}
@@ -433,9 +427,6 @@ export function SignaturePad({
           style={{ height: `${height}px` }}
         />
 
-        {/* ============================================================ */}
-        {/* RUBBER STAMP "SIGNED & ENDORSED" BADGE                       */}
-        {/* ============================================================ */}
         {isEndorsed && (
           <div
             className="pointer-events-none absolute right-8 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 transform -rotate-12 select-none"
@@ -468,9 +459,6 @@ export function SignaturePad({
         aria-hidden="true"
       />
 
-      {/* ============================================================ */}
-      {/* FOOTER CONTROLS & RECEIPT ACTIONS                            */}
-      {/* ============================================================ */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-t-2 border-dashed border-border px-4 py-2.5 bg-secondary/30">
         <div className="text-[9px] text-muted-foreground uppercase tracking-wider">
           ENDORSEMENT BINDS TICKET TO BEARER

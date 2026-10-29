@@ -26,7 +26,7 @@ export function InventoryGrid({ slots = 12, filled = 7, onPick, className, ...pr
           )}
           style={{ touchAction: "none" }}
         >
-          {i < filled ? `×${(i % 9) + 1}` : "—"}
+          {i < filled ? `×${(i % 9) + 1}` : "-"}
         </button>
       ))}
     </div>

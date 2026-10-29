@@ -49,7 +49,7 @@ const DEFAULT_TIERS: Record<string, SeatTier> = {
     id: "vip",
     name: "VIP Prime",
     price: 135,
-    badgeClass: "border-accent text-accent bg-accent/10",
+    badgeClass: "border-accent bg-accent text-accent-foreground",
     description: "Front rows with priority acoustic center",
   },
   orchestra: {
@@ -77,7 +77,7 @@ const DEFAULT_TIERS: Record<string, SeatTier> = {
     id: "sold",
     name: "Sold Out",
     price: 0,
-    badgeClass: "border-border/50 text-muted-foreground/50 bg-muted/40 line-through",
+    badgeClass: "border-border/50 text-muted-foreground bg-muted/40 line-through",
     description: "Seat unavailable for purchase",
   },
 };
@@ -312,7 +312,7 @@ export function SeatMap({
         </div>
 
         {limitNotice && (
-          <div className="mt-3 rounded border border-accent bg-accent/10 px-3 py-1.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-accent animate-pulse">
+          <div className="mt-3 rounded border border-accent bg-accent/10 px-3 py-1.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-foreground animate-pulse">
             ★ MAXIMUM LIMIT REACHED ({maxSeats} TICKETS PER ADMISSION) ★
           </div>
         )}

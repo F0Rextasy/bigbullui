@@ -14,7 +14,7 @@ import { Rating } from "@/components/ui/rating";
 import { Stepper } from "@/components/ui/stepper";
 import { PinInput } from "@/components/ui/pin-input";
 
-export function HeroShowcase() {
+export function HeroShowcase({ total }: { total: number }) {
   // Interactive state
   const [activeTab, setActiveTab] = React.useState("dashboard");
   const [failover, setFailover] = React.useState(true);
@@ -31,7 +31,7 @@ export function HeroShowcase() {
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-xl border-2 border-border bg-card shadow-sm">
+    <div className="animate-rise w-full overflow-hidden rounded-xl border-2 border-border bg-card shadow-sm">
       {/* Top Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/40 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
@@ -48,15 +48,15 @@ export function HeroShowcase() {
         {/* Action Link */}
         <Link
           href="/docs"
-          className="font-mono text-xs uppercase tracking-wider text-accent-strong hover:underline"
+          className="inline-flex items-center py-3.5 -my-3.5 font-mono text-xs uppercase tracking-wider text-accent-strong hover:underline"
         >
-          View all 650+ components &rarr;
+          View all {total} components
         </Link>
       </div>
 
       {/* Tabs Navigation */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="p-4 sm:p-6">
-        <div className="flex items-center overflow-x-auto pb-2">
+        <div className="flex items-center overflow-x-auto pb-2 max-sm:[mask-image:linear-gradient(to_right,black_84%,transparent)]">
           <TabsList className="inline-flex shrink-0 gap-1.5 whitespace-nowrap rounded-lg border border-border bg-secondary/50 p-1">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="forms">Forms &amp; Auth</TabsTrigger>
@@ -159,9 +159,6 @@ export function HeroShowcase() {
                   <Button size="sm" variant="default" onClick={handleSave}>
                     {saved ? "Saved ✓" : "Apply Config"}
                   </Button>
-                  <Button size="sm" variant="outline">
-                    View Logs
-                  </Button>
                 </div>
               </div>
             </div>
@@ -258,7 +255,7 @@ export function HeroShowcase() {
         <TabsContent value="feedback" className="space-y-6 pt-4">
           <div className="space-y-4">
             <Alert tone="accent" title="SYSTEM NOTIFICATION">
-              All 462 components are self-contained with zero 3rd-party dependencies. Copy, paste, and run anywhere.
+              All {total} components are self-contained with zero 3rd-party dependencies. Copy, paste, and run anywhere.
             </Alert>
             <Alert tone="info">
               Tailwind CSS v4 inline themes fully supported with dynamic light/dark tokens.

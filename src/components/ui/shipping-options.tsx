@@ -55,7 +55,7 @@ export function ShippingOptions({ options, value, defaultValue, onValueChange, c
               <span className="flex items-center gap-2">
                 <span className="truncate text-sm font-medium">{opt.carrier}</span>
                 {opt.recommended && (
-                  <span className="shrink-0 rounded-full border border-accent/50 bg-accent/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-accent">Recommended</span>
+                  <span className="shrink-0 rounded-full border border-accent bg-accent px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-accent-foreground">Recommended</span>
                 )}
               </span>
               <span className="block text-xs text-muted-foreground">{opt.duration}</span>

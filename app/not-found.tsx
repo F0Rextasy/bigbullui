@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 
 export const metadata = {
-  title: "404 — Void Ticket",
+  title: "404: Void Ticket",
 };
 
 export default function NotFound() {

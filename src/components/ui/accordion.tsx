@@ -7,12 +7,10 @@ type AccordionContextValue = { open: string | null; toggle: (id: string) => void
 const AccordionCtx = React.createContext<AccordionContextValue | null>(null);
 
 export type AccordionProps = React.HTMLAttributes<HTMLDivElement> & {
-  type?: "single";
-  collapsible?: boolean;
   defaultValue?: string;
 };
 
-export function Accordion({ type: _type, collapsible: _collapsible, defaultValue, className, children, ...props }: AccordionProps) {
+export function Accordion({ defaultValue, className, children, ...props }: AccordionProps) {
   const [open, setOpen] = React.useState<string | null>(defaultValue ?? null);
   const toggle = React.useCallback((id: string) => {
     setOpen((current) => (current === id ? null : id));

@@ -53,7 +53,7 @@ export function TreeTable({ nodes, className, ...props }: TreeTableProps) {
               <span className="text-sm">{node.label}</span>
             </div>
           </td>
-          <td className="px-3 py-2 text-right font-mono text-xs tabular-nums text-muted-foreground">{node.value ?? "—"}</td>
+          <td className="px-3 py-2 text-right font-mono text-xs tabular-nums text-muted-foreground">{node.value ?? "-"}</td>
         </tr>
         {node.children && expanded.has(node.id) && renderRows(node.children, depth + 1)}
       </React.Fragment>

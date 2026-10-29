@@ -28,12 +28,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = () => {
-      if ((localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system") {
-        setResolved(apply("system"));
-      }
+      const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
+      if (stored === "system") setResolved(apply("system"));
+    };
+    const syncFromStorage = () => {
+      const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
+      setThemeState(stored);
+      setResolved(stored === "dark" || (stored === "system" && systemDark()) ? "dark" : "light");
     };
     media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
+    window.addEventListener("bigbullui-theme-change", syncFromStorage);
+    return () => {
+      media.removeEventListener("change", onChange);
+      window.removeEventListener("bigbullui-theme-change", syncFromStorage);
+    };
   }, []);
 
   const setTheme = React.useCallback((next: Theme) => {

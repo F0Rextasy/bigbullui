@@ -186,7 +186,7 @@ export const wave4Previews: Record<string, React.ComponentType> = {
         <ul className="space-y-2 font-mono text-xs uppercase tracking-wider">
           {Array.from({ length: 24 }, (_, i) => (
             <li key={i} className="rounded-sm border border-dashed border-border bg-card px-3 py-2 text-muted-foreground">
-              ROW {String(i + 1).padStart(2, "0")} — SCROLL TO SEE STAMP SHADOWS
+              ROW {String(i + 1).padStart(2, "0")}: SCROLL TO SEE STAMP SHADOWS
             </li>
           ))}
         </ul>

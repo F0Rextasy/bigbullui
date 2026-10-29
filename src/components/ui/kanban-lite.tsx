@@ -28,22 +28,22 @@ const DEFAULT_COLUMNS: KanbanColumn[] = [
     id: "issued",
     title: "1. ISSUED",
     tickets: [
-      { id: "t-101", code: "#TK-4821", title: "Elena Rostova", seat: "Row A • Seat 04", tier: "VIP" },
-      { id: "t-102", code: "#TK-9920", title: "Marcus Vance", seat: "Row H • Seat 12", tier: "GA" },
+      { id: "t-101", code: "#TK-4821", title: "Attendee 1", seat: "Row A • Seat 04", tier: "VIP" },
+      { id: "t-102", code: "#TK-9920", title: "Attendee 2", seat: "Row H • Seat 12", tier: "GA" },
     ],
   },
   {
     id: "checked",
     title: "2. SECURITY CHECK",
     tickets: [
-      { id: "t-103", code: "#TK-3312", title: "Dmitri Hall", seat: "Gate 4 • Box 01", tier: "PRESS" },
+      { id: "t-103", code: "#TK-3312", title: "Attendee 3", seat: "Gate 4 • Box 01", tier: "PRESS" },
     ],
   },
   {
     id: "admitted",
     title: "3. ADMITTED",
     tickets: [
-      { id: "t-104", code: "#TK-1104", title: "Sarah Jenkins", seat: "Row C • Seat 09", tier: "GA" },
+      { id: "t-104", code: "#TK-1104", title: "Attendee 4", seat: "Row C • Seat 09", tier: "GA" },
     ],
   },
 ];

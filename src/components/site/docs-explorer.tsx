@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import { categories, type ComponentMeta } from "@/lib/registry-site";
+import { categories, type ComponentMeta } from "@/lib/registry-categories";
 import { useSeen } from "@/components/site/seen-store";
 import { CORE_ESSENTIALS } from "@/components/site/doc-sidebar";
 
@@ -13,6 +13,16 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
   const [onlyCore, setOnlyCore] = React.useState(false);
   const seen = useSeen();
   const q = query.trim().toLowerCase();
+
+  React.useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (categories.some((c) => c.id === hash)) setActiveCategory(hash);
+  }, []);
+
+  const selectCategory = (id: string | null) => {
+    setActiveCategory(id);
+    window.history.replaceState(null, "", id ? `#${id}` : window.location.pathname);
+  };
 
   const matches = (component: ComponentMeta) =>
     (!onlyCore || CORE_ESSENTIALS.has(component.name)) &&
@@ -34,6 +44,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search components..."
             aria-label="Search components"
+            className="min-h-11"
           />
         </div>
         <nav aria-label="Categories" className="flex flex-wrap justify-center gap-2">
@@ -43,8 +54,8 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
             aria-pressed={onlyCore}
             className={
               onlyCore
-                ? "rounded-sm border border-accent bg-accent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-foreground shadow-xs"
-                : "rounded-sm border border-dashed border-accent/60 bg-transparent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-strong transition-colors hover:bg-accent/10"
+                ? "min-h-11 rounded-sm border border-accent bg-accent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-foreground shadow-xs sm:min-h-0"
+                : "min-h-11 rounded-sm border border-dashed border-accent/60 bg-transparent px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-accent-strong transition-colors hover:bg-accent/10 sm:min-h-0"
             }
           >
             ★ Core Essentials ({CORE_ESSENTIALS.size})
@@ -55,12 +66,12 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(active ? null : cat.id)}
+                onClick={() => selectCategory(active ? null : cat.id)}
                 aria-pressed={active}
                 className={
                   active
-                    ? "rounded-sm border border-foreground bg-primary px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-primary-foreground"
-                    : "rounded-sm border border-border px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+                    ? "min-h-11 rounded-sm border border-foreground bg-primary px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-primary-foreground sm:min-h-0"
+                    : "min-h-11 rounded-sm border border-border px-2.5 py-1 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground sm:min-h-0"
                 }
               >
                 {cat.name}
@@ -83,7 +94,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
             type="button"
             onClick={() => {
               setQuery("");
-              setActiveCategory(null);
+              selectCategory(null);
             }}
             className="mt-3 rounded-md border border-border px-3 py-1.5 font-mono text-xs uppercase text-foreground transition-colors hover:border-foreground"
           >

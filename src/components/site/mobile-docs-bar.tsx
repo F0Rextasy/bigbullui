@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Sheet, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { DocSidebar } from "@/components/site/doc-sidebar";
 import { DocsSearch } from "@/components/site/docs-search";
-import { components } from "@/lib/registry-site";
+import catalog from "@/data/catalog.json";
 
 export function MobileDocsBar() {
   const [open, setOpen] = React.useState(false);
@@ -21,7 +21,7 @@ export function MobileDocsBar() {
     if (pathname === "/docs/design") return "Design Tokens";
     if (pathname === "/docs/contributing") return "Contributing";
     const slug = pathname.replace(/^\/docs\//, "");
-    const comp = components.find((c) => c.name === slug);
+    const comp = catalog.items.find((c) => c.name === slug);
     return comp ? comp.title : "Documentation";
   }, [pathname]);
 
@@ -31,7 +31,7 @@ export function MobileDocsBar() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-md border border-dashed border-border bg-card px-2.5 py-1.5 text-xs font-medium text-foreground shadow-2xs transition-colors hover:border-foreground/50 active:scale-95"
+        className="flex min-h-11 items-center gap-2 rounded-md border border-dashed border-border bg-card px-2.5 py-1.5 text-xs font-medium text-foreground shadow-2xs transition-colors hover:border-foreground/50 active:scale-95"
       >
         <svg
           width="14"
@@ -60,7 +60,7 @@ export function MobileDocsBar() {
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
-            className="flex items-center gap-1.5 rounded-md border border-border bg-secondary/50 px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+            className="flex min-h-11 items-center gap-1.5 rounded-md border border-border bg-secondary/50 px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground active:scale-95"
           >
             <svg
               width="13"
@@ -85,7 +85,7 @@ export function MobileDocsBar() {
               <SheetHeader className="border-b border-dashed border-border pb-3 text-start">
                 <SheetTitle className="text-base font-semibold tracking-tight">Component Catalog</SheetTitle>
                 <SheetDescription className="text-xs">
-                  Browse 462 zero-dependency React 19 components.
+                  Browse {catalog.total} zero-dependency React 19 components.
                 </SheetDescription>
               </SheetHeader>
               <div className="flex-1 overflow-y-auto py-4">

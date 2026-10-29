@@ -212,7 +212,7 @@ const propsDocs: Record<string, { name: string; type: string; description: strin
     { name: "max", type: "number", description: "Maximum value (default 100)." },
   ],
   avatar: [
-    { name: "name", type: "string", description: "Full name — used for initials and aria-label (required)." },
+    { name: "name", type: "string", description: "Full name, used for initials and aria-label (required)." },
     { name: "src", type: "string", description: "Photo URL, falls back to initials on error." },
     { name: "size", type: '"sm" | "md" | "lg"', description: "Avatar size (default md)." },
   ],
@@ -2239,7 +2239,7 @@ const wavePropsDocs2: Record<string, { name: string; type: string; description: 
     { name: "waitTime", type: "string", description: "Wait time label." },
   ],
   "typing-indicator": [
-    { name: "—", type: "no props", description: "Self-animated three-dot indicator, render as <TypingIndicator />." },
+    { name: "-", type: "no props", description: "Self-animated three-dot indicator, render as <TypingIndicator />." },
   ],
   "user-card": [
     { name: "name", type: "string", description: "Display name." },
@@ -2672,19 +2672,9 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       <section className="space-y-3">
         <div className="flex items-center justify-between gap-2">
           <h2 id="usage" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
-          <DocsStackBlitzButton name={meta.name} code={usageCode} />
+          <DocsStackBlitzButton name={meta.name} />
         </div>
           <CodeBox code={usageCode} block />
-      </section>
-
-      <section aria-label="Usage guidance" className="space-y-2 rounded-lg border-2 border-dashed border-border bg-card p-4">
-        <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-muted-foreground">Usage guidance</h2>
-        <p className="text-sm text-muted-foreground">
-          Use {meta.title} when a ticket stub surface needs {meta.description} Keep props minimal and prefer composition with sibling stubs.
-        </p>
-        <p className="text-sm text-muted-foreground">
-          Avoid {meta.title} for long form flows or dense data grids where a dedicated layout block fits better.
-        </p>
       </section>
 
       {sourceCode ? (

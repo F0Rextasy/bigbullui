@@ -249,9 +249,6 @@ export function CreditCard({
           interactive ? "cursor-pointer" : "cursor-default"
         )}
       >
-        {/* =========================================================================
-            FRONT FACE
-           ========================================================================= */}
         <div
           className={cn(
             "absolute inset-0 h-full w-full rounded-xl border-2 p-4 sm:p-5 shadow-md [backface-visibility:hidden] flex flex-col justify-between overflow-hidden",
@@ -417,9 +414,6 @@ export function CreditCard({
           </div>
         </div>
 
-        {/* =========================================================================
-            BACK FACE (CVV / Magnetic Stripe / Signature Strip)
-           ========================================================================= */}
         <div
           className={cn(
             "absolute inset-0 h-full w-full rounded-xl border-2 shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-between overflow-hidden",

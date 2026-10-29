@@ -20,13 +20,13 @@ export default function DocsIndex() {
           <div className="flex items-center gap-2 text-xs font-mono">
             <Link
               href="/docs/installation"
-              className="rounded-md border border-border px-2.5 py-1 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+              className="inline-flex min-h-11 items-center rounded-md border border-border px-2.5 py-1 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
             >
               Setup guide &rarr;
             </Link>
             <Link
               href="/docs/agents"
-              className="rounded-md border border-border px-2.5 py-1 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+              className="inline-flex min-h-11 items-center rounded-md border border-border px-2.5 py-1 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
             >
               AI agent kit &rarr;
             </Link>

@@ -56,7 +56,7 @@ export function TicketCard({
               SEC
             </span>
             <span className="font-mono text-sm font-bold text-foreground">
-              {seatInfo.section || "—"}
+              {seatInfo.section || "-"}
             </span>
           </div>
           <div>
@@ -64,7 +64,7 @@ export function TicketCard({
               ROW
             </span>
             <span className="font-mono text-sm font-bold text-foreground">
-              {seatInfo.row || "—"}
+              {seatInfo.row || "-"}
             </span>
           </div>
           <div>
@@ -72,7 +72,7 @@ export function TicketCard({
               SEAT
             </span>
             <span className="font-mono text-sm font-bold text-foreground">
-              {seatInfo.seat || "—"}
+              {seatInfo.seat || "-"}
             </span>
           </div>
           <div>
@@ -80,7 +80,7 @@ export function TicketCard({
               GATE
             </span>
             <span className="font-mono text-sm font-bold text-foreground">
-              {seatInfo.gate || "—"}
+              {seatInfo.gate || "-"}
             </span>
           </div>
         </div>

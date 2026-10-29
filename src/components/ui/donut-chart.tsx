@@ -37,21 +37,21 @@ export interface DonutChartProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const DEFAULT_COLORS: string[] = [
-  "var(--color-accent, #bc3a28)",
-  "var(--color-foreground, #17130c)",
-  "#d97706", // warm amber
-  "#2563eb", // admission blue
-  "#059669", // emerald gate
-  "#7c3aed", // violet stamp
-  "#db2777", // pink stub
-  "#4b5563", // charcoal gray
+  "var(--color-accent)",
+  "var(--color-foreground)",
+  "var(--color-warning)",
+  "var(--color-info)",
+  "var(--color-success)",
+  "var(--color-destructive)",
+  "var(--color-muted-foreground)",
+  "var(--color-border)",
 ];
 
 const TONE_COLORS: Record<string, string> = {
-  accent: "var(--color-accent, #bc3a28)",
-  primary: "var(--color-foreground, #17130c)",
-  secondary: "var(--color-muted-foreground, #6f6350)",
-  muted: "var(--color-muted-foreground, #6f6350)",
+  accent: "var(--color-accent)",
+  primary: "var(--color-foreground)",
+  secondary: "var(--color-muted-foreground)",
+  muted: "var(--color-muted-foreground)",
   warning: "var(--color-warning)",
   success: "var(--color-success)",
   info: "var(--color-info)",
@@ -304,7 +304,7 @@ export function DonutChart({
                   key={slice.index}
                   d={slice.pathData}
                   fill={slice.color}
-                  stroke="var(--color-card, #fffdf5)"
+                  stroke="var(--color-card)"
                   strokeWidth={1.5}
                   strokeLinejoin="round"
                   className={cn(

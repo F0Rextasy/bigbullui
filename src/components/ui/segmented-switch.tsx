@@ -184,9 +184,6 @@ export function SegmentedSwitch({
       aria-disabled={disabled}
       {...props}
     >
-      {/* =========================================================================
-          TURNSTILE RATCHET HEADER & METADATA BAR
-         ========================================================================= */}
       <div className="mb-2 flex items-center justify-between px-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
         <div className="flex items-center gap-2">
           {/* Animated Turnstile Ratchet Lever Icon */}
@@ -240,9 +237,6 @@ export function SegmentedSwitch({
         </div>
       </div>
 
-      {/* =========================================================================
-          MECHANICAL SWITCH BODY CONTAINER (WITH NOTCHES)
-         ========================================================================= */}
       <div
         className={cn(
           "relative rounded-xl border-2 border-foreground bg-secondary/50 p-1 shadow-sm transition-all",
@@ -262,9 +256,6 @@ export function SegmentedSwitch({
 
         {/* Inner Track */}
         <div className="relative flex w-full items-stretch">
-          {/* =====================================================================
-              SLIDING MECHANICAL LEVER CARRIAGE (SHUTTLE)
-             ===================================================================== */}
           <div
             aria-hidden="true"
             className="absolute top-0 bottom-0 z-10 pointer-events-none p-0.5"
@@ -294,9 +285,6 @@ export function SegmentedSwitch({
             </div>
           </div>
 
-          {/* =====================================================================
-              SEGMENT BUTTONS & NOTCH DIVIDERS
-             ===================================================================== */}
           {options.map((opt, index) => {
             const isSelected = opt.value === currentValue;
             const isLast = index === options.length - 1;
@@ -407,9 +395,6 @@ export function SegmentedSwitch({
         </div>
       </div>
 
-      {/* =========================================================================
-          STATUS FOOTER FEEDBACK
-         ========================================================================= */}
       <div className="mt-2 flex items-center justify-between px-1 text-[9px] font-semibold text-muted-foreground uppercase tracking-widest">
         <span>STATE: [{activeOption?.value || "N/A"}]</span>
         <span className="flex items-center gap-1">

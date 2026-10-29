@@ -1,6 +1,7 @@
 {
   "name": "bigbullicons",
   "version": "1.2.0",
+  "type": "commonjs",
   "description": "Hand-drawn Ticket Stub stroke icons for bigbullui. Zero dependencies, MIT licensed.",
   "license": "MIT",
   "author": "F0Rextasy",
@@ -43,6 +44,9 @@
     "LICENSE"
   ],
   "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "peerDependencies": {
     "react": ">=18"
   },

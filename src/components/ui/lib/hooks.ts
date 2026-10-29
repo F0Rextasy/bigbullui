@@ -119,7 +119,7 @@ export function useHotkey(
   options?: { meta?: boolean; shift?: boolean; alt?: boolean },
 ) {
   React.useEffect(() => {
-    const handler = (event: KeyboardEvent) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       const conditions: boolean[] = [];
       if (options?.meta) conditions.push(event.metaKey);
       if (options?.shift) conditions.push(event.shiftKey);
@@ -131,8 +131,8 @@ export function useHotkey(
       }
     };
 
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [key, handler, options]);
 }
 

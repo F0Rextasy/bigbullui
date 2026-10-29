@@ -32,7 +32,7 @@ export const wave25Previews: Record<string, React.ComponentType> = {
           stamps={[
             { id: "1", country: "TR", date: "JUN 26", unlocked: true },
             { id: "2", country: "DE", date: "JUL 02", unlocked: true },
-            { id: "3", country: "JP", date: "—", unlocked: false },
+            { id: "3", country: "JP", date: "-", unlocked: false },
           ]}
         />
       </div>

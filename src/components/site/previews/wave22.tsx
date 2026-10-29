@@ -116,7 +116,7 @@ export const wave22Previews: Record<string, React.ComponentType> = {
     return (
       <div className="flex flex-col items-center gap-2">
         <InputOtp value={pin} onValueChange={setPin} label="Gate code" />
-        <span className="font-mono text-[11px] text-muted-foreground">Value: {pin || "—"}</span>
+        <span className="font-mono text-[11px] text-muted-foreground">Value: {pin || "-"}</span>
       </div>
     );
   },
@@ -224,7 +224,7 @@ export const wave22Previews: Record<string, React.ComponentType> = {
           }}
         />
         <span className="font-mono text-[11px] text-muted-foreground">
-          {start || "—"} → {end || "—"}
+          {start || "-"} → {end || "-"}
         </span>
       </div>
     );

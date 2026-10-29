@@ -115,7 +115,7 @@ export const wave24Previews: Record<string, React.ComponentType> = {
         }
       >
         <div className="rounded-lg border border-dashed border-border p-6 font-mono text-xs text-muted-foreground">
-          Fluid content area — shrinks and grows with the viewport.
+          Fluid content area: shrinks and grows with the viewport.
         </div>
       </SidebarLayout>
     );

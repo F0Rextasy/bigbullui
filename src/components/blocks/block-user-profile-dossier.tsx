@@ -55,7 +55,7 @@ export function BlockUserProfileDossier() {
             </div>
             <div className="min-w-0">
               <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">STANDING</p>
-              <p className="font-mono text-xs font-bold text-accent">VERIFIED HOLDER</p>
+              <p className="font-mono text-xs font-bold text-foreground">VERIFIED HOLDER</p>
             </div>
           </div>
         </CardContent>

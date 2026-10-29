@@ -54,7 +54,7 @@ export function VirtualCardFlipper({
               <span className="font-mono text-sm italic tabular-nums">··· 123</span>
             </div>
             <p className="mt-auto p-4 font-mono text-[10px] uppercase text-muted-foreground">
-              Authorized signature — not transferable
+              Authorized signature, not transferable
             </p>
           </div>
         </div>

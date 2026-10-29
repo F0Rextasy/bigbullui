@@ -9,6 +9,8 @@ export async function GET() {
     .map(
       (e) => `    <item>
       <title>${esc(e.version)} ${esc(e.title)}</title>
+      <link>https://ui.bigbullapp.com/docs/changelog</link>
+      <guid isPermaLink="false">bigbullui-${esc(e.version)}</guid>
       <pubDate>${new Date(e.date).toUTCString()}</pubDate>
       <description>${esc(e.changes.join(" "))}</description>
     </item>`
@@ -18,7 +20,7 @@ export async function GET() {
 <rss version="2.0">
   <channel>
     <title>bigbullui changelog</title>
-    <link>https://ui.bigbullapp.com/docs</link>
+    <link>https://ui.bigbullapp.com/</link>
     <description>Release notes for bigbullui ticket stub components.</description>
 ${items}
   </channel>

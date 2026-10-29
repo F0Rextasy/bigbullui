@@ -23,7 +23,8 @@ const scanTargets = [
   "src/lib/registry-site.ts",
   "src/index.ts",
 ];
-for (const entry of fs.readdirSync(path.join(rootDir, ".wave"))) {
+const waveDir = path.join(rootDir, ".wave");
+for (const entry of fs.existsSync(waveDir) ? fs.readdirSync(waveDir) : []) {
   if (/\.(json|md|txt)$/.test(entry)) scanTargets.push(`.wave/${entry}`);
 }
 

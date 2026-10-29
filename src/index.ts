@@ -1400,7 +1400,7 @@ export type { DigestPreviewProps } from "./components/ui/digest-preview";
 export { useTicketAudio } from "./components/ui/lib/use-ticket-audio";
 export type { UseTicketAudioOptions, UseTicketAudioResult } from "./components/ui/lib/use-ticket-audio";
 
-// Wave 31b — batch-2 index repair (concurrent-edit recovery)
+// Wave 31b; batch-2 index repair (concurrent-edit recovery)
 export { AgendaList } from "./components/ui/agenda-list";
 export type { AgendaListProps } from "./components/ui/agenda-list";
 export { ApiTester } from "./components/ui/api-tester";

@@ -55,7 +55,7 @@ export function PieInteractive({ slices, size = 220, className, ...props }: PieI
               tabIndex={0}
               role="img"
               aria-label={`${s.label}: ${s.value}`}
-              className={cn(SLICE_TONES[i % SLICE_TONES.length], "cursor-pointer outline-none transition-opacity motion-reduce:transition-none")}
+              className={cn(SLICE_TONES[i % SLICE_TONES.length], "cursor-pointer transition-opacity motion-reduce:transition-none")}
             >
               <title>{`${s.label}: ${s.value}`}</title>
             </path>

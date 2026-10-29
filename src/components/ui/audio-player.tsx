@@ -131,7 +131,7 @@ export function AudioPlayer({
             max={duration}
             value={progress}
             onChange={(e) => setProgress(parseInt(e.target.value, 10))}
-            className="w-24 appearance-none rounded-md bg-muted h-1.5 outline-none"
+            className="w-24 appearance-none rounded-md bg-muted h-1.5 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1"
           />
         </div>
       </div>

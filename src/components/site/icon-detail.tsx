@@ -53,6 +53,7 @@ export function IconDetail({ name, prev, next, index, total }: { name: NavIconNa
             key={replayKey}
             name={name}
             size={96}
+            animated
             animation={animation}
             className="mx-auto max-w-full text-foreground"
           />

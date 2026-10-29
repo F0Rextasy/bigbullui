@@ -38,13 +38,13 @@ export function StampSeal({
           tone === "destructive" && "border-destructive"
         )}
       >
-        <span className="font-mono text-[9px] uppercase tracking-widest opacity-80">
+        <span className="font-mono text-[9px] uppercase tracking-widest">
           ★ {subtext} ★
         </span>
         <span className="my-0.5 font-mono text-xs font-black uppercase tracking-[0.2em]">
           {text}
         </span>
-        <span className="font-mono text-[8px] uppercase tracking-wider opacity-70">
+        <span className="font-mono text-[8px] uppercase tracking-wider">
           VERIFIED
         </span>
       </div>

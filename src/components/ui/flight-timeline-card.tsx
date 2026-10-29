@@ -52,11 +52,11 @@ export function FlightTimelineCard({
       </div>
       {delayed ? (
         <p className="mt-3 inline-block rounded bg-destructive/10 px-2 py-0.5 font-mono text-[11px] font-bold uppercase text-destructive">
-          Delayed — gate update pending
+          Delayed: gate update pending
         </p>
       ) : (
-        <p className="mt-3 inline-block rounded bg-accent/10 px-2 py-0.5 font-mono text-[11px] font-bold uppercase text-accent">
-          On time — boarding soon
+        <p className="mt-3 inline-block rounded bg-accent px-2 py-0.5 font-mono text-[11px] font-bold uppercase text-accent-foreground">
+          On time: boarding soon
         </p>
       )}
     </div>

@@ -367,7 +367,7 @@ export function RadioCard({
                   aria-hidden="true"
                   className={cn(
                     "mt-0.5 size-3.5 shrink-0 transition-colors",
-                    isChecked ? "text-accent" : "text-muted-foreground/60"
+                    isChecked ? "text-accent" : "text-muted-foreground"
                   )}
                   viewBox="0 0 16 16"
                   fill="none"

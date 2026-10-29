@@ -19,7 +19,7 @@ export default function DepGraphPage() {
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Generated {data.updated}</p>
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Dependency graph</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Which primitives each page block is composed from. Lean blocks, honest imports — the widest block pulls {counts[0]?.n ?? 0} components.
+          Which primitives each page block is composed from. Lean blocks, honest imports: the widest block pulls {counts[0]?.n ?? 0} components.
         </p>
         <ul className="mt-6 space-y-2">
           {counts.map(({ block, n }) => (

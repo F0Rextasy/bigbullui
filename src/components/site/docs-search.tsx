@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { CommandPalette, type CommandItem } from "@/components/ui/command-palette";
 import { Kbd } from "@/components/ui/kbd";
 import { useSearchPalette } from "@/components/site/search-store";
-import { categories, components } from "@/lib/registry-site";
+import { categories } from "@/lib/registry-categories";
+import catalog from "@/data/catalog.json";
 
 const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
   { id: "docs", label: "Components overview", hint: "Browse every component", href: "/docs" },
@@ -62,10 +63,9 @@ export function DocsSearch({
         keywords: ["guide", "docs", g.id],
         onSelect: () => router.push(g.href),
       })),
-      ...components.map((c) => ({
+      ...catalog.items.map((c) => ({
         id: c.name,
         label: c.title,
-        hint: c.description,
         category: categoryName(c.category),
         keywords: keywordsFor(c.name, c.title),
         onSelect: () => router.push(`/docs/${c.name}`),

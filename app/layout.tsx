@@ -11,8 +11,8 @@ const jetbrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono", subset
 export const metadata: Metadata = {
   metadataBase: new URL("https://ui.bigbullapp.com"),
   title: {
-    default: "bigbullui — Animated React components you own",
-    template: "%s — bigbullui",
+    default: "bigbullui: Animated React components you own",
+    template: "%s | bigbullui",
   },
   description:
     "An open-source library of animated, accessible, fully typed React components. Copy the code, own it.",
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://ui.bigbullapp.com",
     siteName: "bigbullui",
-    title: "bigbullui — Animated React components you own",
+    title: "bigbullui: Animated React components you own",
     description:
       "An open-source library of 650+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "bigbullui — Animated React components you own",
+    title: "bigbullui: Animated React components you own",
     description:
       "An open-source library of 650+ animated, accessible, fully typed React 19 components with Tailwind CSS 4 tokens.",
     creator: "@F0Rextasy",

@@ -26,7 +26,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const title = slug.split("-").map((w) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1) : w)).join(" ");
-  return { title: `${title} — Block` };
+  return { title: `${title}: Block` };
 }
 
 export default async function BlockPage({ params }: { params: Promise<{ slug: string }> }) {

@@ -16,9 +16,9 @@ export interface StatsBandProps extends React.HTMLAttributes<HTMLDivElement> {
 /** Stats band: horizontal KPI strip with delta chips. */
 export function StatsBand({
   stats = [
-    { label: "Sold", value: "8,492", delta: "+12%" },
-    { label: "Gates", value: "6", delta: "Live" },
-    { label: "Revenue", value: "$214k", delta: "+8%" },
+    { label: "Sold", value: "0" },
+    { label: "Gates", value: "0" },
+    { label: "Revenue", value: "$0" },
   ],
   className,
   ...props

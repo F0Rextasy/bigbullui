@@ -202,8 +202,12 @@ export function CommandPalette({
     setSelectedIndex(0);
   }, [filteredItems.length]);
 
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const returnFocusRef = React.useRef<HTMLElement | null>(null);
+
   React.useEffect(() => {
     if (open) {
+      returnFocusRef.current = document.activeElement as HTMLElement | null;
       setSearch("");
       setSelectedIndex(0);
       setTimeout(() => inputRef.current?.focus(), 50);
@@ -212,12 +216,33 @@ export function CommandPalette({
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
           onOpenChange(false);
+          return;
+        }
+        if (e.key !== "Tab") return;
+        const focusables = panelRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables || focusables.length === 0) return;
+        if (!panelRef.current?.contains(document.activeElement)) {
+          e.preventDefault();
+          inputRef.current?.focus();
+          return;
+        }
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
       };
       document.addEventListener("keydown", handleKeyDown);
       return () => {
         document.removeEventListener("keydown", handleKeyDown);
         document.body.style.overflow = prevOverflow;
+        returnFocusRef.current?.focus();
       };
     }
   }, [open, onOpenChange]);
@@ -249,6 +274,7 @@ export function CommandPalette({
 
       {/* Palette Card */}
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
@@ -293,7 +319,7 @@ export function CommandPalette({
             }}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            className="w-full bg-transparent font-mono text-base text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-sm"
+            className="w-full rounded-sm bg-transparent font-mono text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring sm:text-sm"
           />
           <span className="font-mono text-[10px] text-muted-foreground uppercase border border-border px-1.5 py-0.5 rounded-sm">
             ESC
@@ -354,7 +380,7 @@ export function CommandPalette({
                         <span
                           className={cn(
                             "truncate text-[10px] font-normal",
-                            isSelected ? "text-accent-foreground opacity-80" : "text-muted-foreground"
+                            isSelected ? "text-accent-foreground" : "text-muted-foreground"
                           )}
                         >
                           {item.hint}
@@ -365,7 +391,7 @@ export function CommandPalette({
                       <span
                         className={cn(
                           "shrink-0 text-[10px] tracking-wider",
-                          isSelected ? "text-accent-foreground opacity-90" : "text-muted-foreground"
+                          isSelected ? "text-accent-foreground" : "text-muted-foreground"
                         )}
                       >
                         {item.shortcut}

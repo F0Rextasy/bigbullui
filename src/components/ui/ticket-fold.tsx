@@ -110,9 +110,6 @@ export function TicketFold({
           className="absolute -right-3 top-10 size-6 rounded-full border-2 border-foreground bg-background z-30"
         />
 
-        {/* =========================================================================
-            PANEL 1: COVER / HEADER PASS (ALWAYS VISIBLE)
-           ========================================================================= */}
         <div className="relative z-20 flex flex-col p-5 bg-card rounded-t-xl">
           {/* Top Micro Metadata Bar */}
           <div className="flex items-center justify-between border-b-2 border-dashed border-border/80 pb-3">
@@ -222,9 +219,6 @@ export function TicketFold({
           </div>
         </div>
 
-        {/* =========================================================================
-            CREASE 01: PERFORATION DIVIDER WITH NOTCHES
-           ========================================================================= */}
         <div className="relative z-20 flex items-center justify-between bg-card px-0 py-0">
           {/* Left Notch */}
           <div
@@ -245,9 +239,6 @@ export function TicketFold({
           />
         </div>
 
-        {/* =========================================================================
-            PANEL 2: 3D ACCORDION MID-SECTION (SEATING & ITINERARY)
-           ========================================================================= */}
         <div
           className={cn(
             "overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
@@ -285,7 +276,7 @@ export function TicketFold({
                   ROW
                 </span>
                 <span className="font-mono text-sm font-black text-foreground">
-                  {seatInfo.row || "—"}
+                  {seatInfo.row || "-"}
                 </span>
               </div>
               <div className="border-l border-dashed border-border/70">
@@ -293,7 +284,7 @@ export function TicketFold({
                   SEAT
                 </span>
                 <span className="font-mono text-sm font-black text-accent">
-                  {seatInfo.seat || "—"}
+                  {seatInfo.seat || "-"}
                 </span>
               </div>
               <div className="border-l border-dashed border-border/70">
@@ -329,9 +320,6 @@ export function TicketFold({
           </div>
         </div>
 
-        {/* =========================================================================
-            CREASE 02: PERFORATION LINE BEFORE TEAR-AWAY SLIP
-           ========================================================================= */}
         <div
           className={cn(
             "relative z-20 flex items-center justify-between bg-card transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
@@ -377,9 +365,6 @@ export function TicketFold({
           />
         </div>
 
-        {/* =========================================================================
-            PANEL 3: TEAR-AWAY ADMISSION STUB SLIP
-           ========================================================================= */}
         <div
           className={cn(
             "transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] rounded-b-xl overflow-hidden",

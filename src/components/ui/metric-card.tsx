@@ -165,9 +165,9 @@ export function MetricCard({
         </div>
 
         {/* Title */}
-        <h4 className="mt-2 font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        <p className="mt-2 font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground">
           {title}
-        </h4>
+        </p>
 
         {/* Value Display */}
         <div className="mt-2 flex items-baseline gap-1">
@@ -232,7 +232,7 @@ export function MetricCard({
                 )}
                 {trendDirection === "neutral" && (
                   <span className="font-mono text-[10px]" aria-hidden="true">
-                    —
+                    -
                   </span>
                 )}
                 <span>{formattedTrendValue}</span>

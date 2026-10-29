@@ -17,12 +17,11 @@ export function FormWizard() {
         <Badge variant="accent" className="mx-auto">WIZARD // 3 STAMPS</Badge>
         <h2 className="font-mono text-2xl font-black uppercase tracking-tight">List your night</h2>
       </div>
-      <div className="flex items-center gap-2" role="list" aria-label="Wizard progress">
+      <div className="flex items-center gap-2" role="group" aria-label="Wizard progress">
         {STEPS.map((label, index) => (
           <React.Fragment key={label}>
             <button
               type="button"
-              role="listitem"
               onClick={() => setStep(index)}
               className={`flex-1 cursor-pointer rounded-md border px-3 py-2 font-mono text-[11px] font-black uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${index === step ? "border-foreground bg-primary text-primary-foreground" : index < step ? "border-accent bg-accent/10 text-accent-strong" : "border-dashed border-border bg-card text-muted-foreground"}`}
             >

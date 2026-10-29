@@ -7,7 +7,7 @@ export interface WizardStep {
   id: string;
   title: string;
   description?: string;
-  /** Step validation callback — step does not advance if returns false */
+  /** Step validation callback; step does not advance if returns false */
   validate?: () => boolean;
 }
 

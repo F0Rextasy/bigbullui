@@ -27,7 +27,7 @@ const statusTone: Record<string, string> = {
 /** Team frames: party roster with mini HP tracks, status dots and 44px select targets. */
 export function TeamFrames({ members, onSelect, className, ...props }: TeamFramesProps) {
   return (
-    <div role="list" aria-label="Party members" className={cn("grid w-full grid-cols-1 gap-2 sm:grid-cols-2", className)} {...props}>
+    <div role="group" aria-label="Party members" className={cn("grid w-full grid-cols-1 gap-2 sm:grid-cols-2", className)} {...props}>
       {members.map((m) => {
         const max = Math.max(1, m.maxHp ?? 100);
         const pct = Math.max(0, Math.min(100, (m.hp / max) * 100));
@@ -35,7 +35,6 @@ export function TeamFrames({ members, onSelect, className, ...props }: TeamFrame
           <button
             key={m.id}
             type="button"
-            role="listitem"
             onClick={() => onSelect?.(m.id)}
             aria-label={`${m.name}, ${m.hp} of ${max} health${m.status ? `, ${m.status}` : ""}`}
             className={cn(

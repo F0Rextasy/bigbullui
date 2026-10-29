@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { CodeBox } from "@/components/site/code-box";
+import { SITE_VERSION } from "@/lib/site-meta";
+import { components } from "@/lib/registry-site";
 
 export const metadata = { title: "Installation" };
 
@@ -40,7 +42,7 @@ export default function InstallationPage() {
         <div className="flex items-center justify-between border-b border-border pb-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="rounded bg-accent/15 px-2 py-0.5 font-mono text-xs font-semibold text-accent uppercase tracking-wider">
+              <span className="rounded bg-accent px-2 py-0.5 font-mono text-xs font-semibold text-accent-foreground uppercase tracking-wider">
                 Recommended
               </span>
               <h2 className="text-xl font-semibold tracking-tight">Method A · CLI (Code you own)</h2>
@@ -49,7 +51,7 @@ export default function InstallationPage() {
               Directly drops zero-dependency component source code into your project.
             </p>
           </div>
-          <span className="font-mono text-xs text-muted-foreground">🎫 CLI v1.3</span>
+          <span className="font-mono text-xs text-muted-foreground">CLI v{SITE_VERSION}</span>
         </div>
 
         <div className="space-y-5">
@@ -78,7 +80,7 @@ export default function InstallationPage() {
         <div className="border-b border-border pb-3">
           <h2 className="text-lg font-semibold tracking-tight">Method B · npm package</h2>
           <p className="text-xs text-muted-foreground">
-            Single dependency bundling all 460+ components with pre-built ESM/CJS treeshaking.
+            Single dependency bundling all {components.length} components with pre-built ESM/CJS treeshaking.
           </p>
         </div>
 
@@ -113,7 +115,7 @@ export default function InstallationPage() {
             Copy the target file from <code className="font-mono text-xs text-foreground">src/components/ui/[name].tsx</code> into your project.
           </li>
           <li>
-            Create <code className="font-mono text-xs text-foreground">./lib/utils.ts</code> with the 7-line <code className="font-mono text-xs text-foreground">cn</code> helper.
+            Create <code className="font-mono text-xs text-foreground">./lib/utils.ts</code> with the <code className="font-mono text-xs text-foreground">cn</code> helper.
           </li>
           <li>
             Import <code className="font-mono text-xs text-foreground">bigbullui/css</code> or copy token variables into your stylesheet.

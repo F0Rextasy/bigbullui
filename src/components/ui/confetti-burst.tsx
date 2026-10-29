@@ -10,11 +10,11 @@ export interface ConfettiBurstProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 const TICKET_COLORS = [
-  "var(--color-accent, #BC3A28)",
-  "var(--color-primary, #17130C)",
-  "var(--color-muted-foreground, #6F6350)",
-  "#E0573D",
-  "#D8C9AC",
+  "var(--color-accent)",
+  "var(--color-primary)",
+  "var(--color-muted-foreground)",
+  "var(--color-accent-strong)",
+  "var(--color-border)",
 ];
 
 export function ConfettiBurst({

@@ -57,7 +57,7 @@ function BoxOfficeScene() {
             toast({ title: "Order placed", description: `${qty} stubs · Row C`, tone: "accent" })
           }
         >
-          Admit {qty} — ${(qty * 45).toFixed(2)}
+          Admit {qty}: ${(qty * 45).toFixed(2)}
         </Button>
       </div>
     </div>
@@ -226,27 +226,27 @@ export function Playground() {
         </div>
         <div className="mt-6">
           <TabsContent value="box">
-            <SceneFrame label="Scene 01 — Sell tickets" docs="/docs/ticket-card">
+            <SceneFrame label="Scene 01: Sell tickets" docs="/docs/ticket-card">
               <BoxOfficeScene />
             </SceneFrame>
           </TabsContent>
           <TabsContent value="dash">
-            <SceneFrame label="Scene 02 — Read the room" docs="/docs/metric-card">
+            <SceneFrame label="Scene 02: Read the room" docs="/docs/metric-card">
               <DashboardScene />
             </SceneFrame>
           </TabsContent>
           <TabsContent value="gate">
-            <SceneFrame label="Scene 03 — Scan at the gate" docs="/docs/pin-input">
+            <SceneFrame label="Scene 03: Scan at the gate" docs="/docs/pin-input">
               <CheckInScene />
             </SceneFrame>
           </TabsContent>
           <TabsContent value="feel">
-            <SceneFrame label="Scene 04 — Hear the crowd" docs="/docs/rating">
+            <SceneFrame label="Scene 04: Hear the crowd" docs="/docs/rating">
               <FeedbackScene />
             </SceneFrame>
           </TabsContent>
           <TabsContent value="modal">
-            <SceneFrame label="Scene 05 — Interrupt politely" docs="/docs/dialog">
+            <SceneFrame label="Scene 05: Interrupt politely" docs="/docs/dialog">
               <DialogScene />
             </SceneFrame>
           </TabsContent>

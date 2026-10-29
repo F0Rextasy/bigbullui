@@ -27,7 +27,7 @@ export function BlockPortfolio() {
     <div className="w-full space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Selected work</h2>
-        <div className="flex gap-1.5" role="group" aria-label="Filter by tag">
+        <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter by tag">
           {tags.map((t) => (
             <button
               key={t}

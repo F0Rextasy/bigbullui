@@ -12,6 +12,32 @@ for (const m of registry.matchAll(/\{\s*name:\s*"([^"]+)",\s*title:\s*"([^"]+)"/
   titles[m[1]] = m[2];
 }
 
+const catalogItems = [];
+for (const m of registry.matchAll(/\{ name: "([^"]+)", title: "([^"]+)", description: "(?:[^"\\]|\\.)*", category: "([^"]+)"(, isNew: true)?/g)) {
+  catalogItems.push({ name: m[1], title: m[2], category: m[3], ...(m[4] ? { isNew: true } : {}) });
+}
+const registryNames = [...registry.matchAll(/\{\s*name:\s*"([^"]+)"/g)].map((m) => m[1]);
+const missingCatalog = registryNames.filter((n) => !catalogItems.some((c) => c.name === n));
+if (missingCatalog.length > 0) {
+  throw new Error(`catalog index missing ${missingCatalog.length} components: ${missingCatalog.slice(0, 10).join(", ")}`);
+}
+const iconSource = fs.readFileSync(path.join(rootDir, "src/components/site/icon-data.tsx"), "utf8");
+const iconBlock = iconSource.match(/export const NAV_ICON_NAMES[^=]*=\s*\[([\s\S]*?)\];/);
+const iconCount = iconBlock ? (iconBlock[1].match(/"[a-z0-9-]+"/g) ?? []).length : 0;
+const pkgIconDir = path.join(rootDir, "packages", "icons", "src");
+const pkgIcons = new Set();
+for (const f of fs.readdirSync(pkgIconDir)) {
+  if (!f.endsWith(".tsx") || f === "icons.tsx") continue;
+  const src = fs.readFileSync(path.join(pkgIconDir, f), "utf8");
+  for (const m of src.matchAll(/^\s*"([a-z0-9-]+)":\s*[\(<\[{]/gm)) pkgIcons.add(m[1]);
+}
+fs.mkdirSync(path.join(rootDir, "src/data"), { recursive: true });
+fs.writeFileSync(
+  path.join(rootDir, "src/data/catalog.json"),
+  JSON.stringify({ total: catalogItems.length, icons: iconCount, packageIcons: pkgIcons.size, items: catalogItems }) + "\n"
+);
+console.log(`generate-registry-json: catalog index ${catalogItems.length} components, ${iconCount} icons`);
+
 fs.mkdirSync(outDir, { recursive: true });
 const slugs = fs
   .readdirSync(uiDir)

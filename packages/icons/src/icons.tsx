@@ -26,7 +26,7 @@ export interface StampIconProps extends Omit<React.SVGAttributes<SVGSVGElement>,
   animation?: StampAnimation;
 }
 
-const ANIMATION_CSS = `@keyframes stampDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } } @keyframes stampPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.75; } } @keyframes stampSpin { to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .stamp-draw { stroke-dasharray: 1; animation: stampDraw 0.55s ease-out backwards; } .stamp-pulse { transform-origin: center; transform-box: fill-box; animation: stampPulse 1.6s ease-in-out infinite; } .stamp-spin { transform-origin: center; transform-box: fill-box; animation: stampSpin 1.4s linear infinite; } }`;
+const ANIMATION_CSS = `@keyframes stampDraw { from { stroke-dashoffset: 240; } to { stroke-dashoffset: 0; } } @keyframes stampPress { 0% { transform: scale(0.92); opacity: 0.4; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } } @keyframes stampSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .stamp-draw > * { stroke-dasharray: 240; animation: stampDraw 720ms cubic-bezier(0.65, 0, 0.35, 1) both; } .stamp-draw > *:nth-child(2) { animation-delay: 150ms; } .stamp-draw > *:nth-child(3) { animation-delay: 300ms; } .stamp-draw > *:nth-child(4) { animation-delay: 450ms; } .stamp-draw > *:nth-child(5) { animation-delay: 600ms; } .stamp-draw > *:nth-child(6) { animation-delay: 750ms; } .stamp-pulse { transform-origin: center; transform-box: fill-box; animation: stampPress 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .stamp-spin { transform-origin: center; transform-box: fill-box; animation: stampSpin 620ms cubic-bezier(0.16, 1, 0.3, 1) both; } }`;
 
 let stampStylesInjected = false;
 
@@ -63,7 +63,7 @@ export function StampIcon({ name, size = 20, animated = true, animation = "draw"
       aria-hidden="true"
       {...props}
     >
-      <g pathLength={1} className={cls}>
+      <g className={cls}>
         {STAMP_ICONS[name]}
       </g>
     </svg>

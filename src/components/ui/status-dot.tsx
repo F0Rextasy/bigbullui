@@ -338,7 +338,7 @@ export function StatusDot({
           <span className="rounded-xs border border-border bg-secondary/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
             {turnstileId}
           </span>
-          <span className="mt-1 text-[9px] uppercase tracking-wider text-muted-foreground/80">
+          <span className="mt-1 text-[9px] uppercase tracking-wider text-muted-foreground">
             {laneType}
           </span>
         </div>

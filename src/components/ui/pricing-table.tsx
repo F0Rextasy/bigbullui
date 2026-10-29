@@ -59,7 +59,7 @@ const DEFAULT_TIERS: PricingTier[] = [
     annualPrice: 15,
     features: [
       { text: "1 Admin seat & unlimited viewers", included: true },
-      { text: "10,000 monthly API ticket verifications", included: true },
+      { text: "Monthly API ticket verifications", included: true },
       { text: "Standard SVG barcode & QR generator", included: true },
       { text: "Community Discord & email support", included: true },
       { text: "Custom ticket stub branding & watermark removal", included: false },
@@ -85,7 +85,7 @@ const DEFAULT_TIERS: PricingTier[] = [
       { text: "Up to 5 team seats with RBAC roles", included: true },
       { text: "250,000 monthly API ticket verifications", included: true },
       { text: "Custom stub branding & thermal print CSS", included: true },
-      { text: "Priority turnstile webhook delivery (99.9% SLA)", included: true, isNew: true },
+      { text: "Priority turnstile webhook delivery", included: true, isNew: true },
       { text: "Real-time admissions telemetry dashboard", included: true },
       { text: "Audit log retention (90 days)", included: true },
     ],
@@ -147,7 +147,7 @@ export function PricingTable({
       {/* Header & Billing Cycle Controls */}
       <div className="flex flex-col items-center text-center space-y-4">
         {badge && (
-          <div className="inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-accent/60 bg-accent/10 px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-widest text-accent">
+          <div className="inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-accent bg-accent px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
             <span className="inline-block size-1.5 rounded-full bg-accent animate-ping" />
             {badge}
           </div>
@@ -202,12 +202,7 @@ export function PricingTable({
               <span>ANNUAL PASS</span>
               {annualDiscountBadge && (
                 <span
-                  className={cn(
-                    "inline-block rotate-[-2deg] rounded-sm border border-dashed px-1.5 py-0.2 text-[9px] font-black uppercase tracking-tight",
-                    cycle === "annual"
-                      ? "border-accent bg-accent text-accent-foreground"
-                      : "border-accent text-accent bg-accent/15"
-                  )}
+                  className="inline-block rotate-[-2deg] rounded-sm border border-dashed border-accent bg-accent px-1.5 py-0.2 text-[9px] font-black uppercase tracking-tight text-accent-foreground"
                 >
                   {annualDiscountBadge}
                 </span>
@@ -368,13 +363,13 @@ export function PricingTable({
                               className={cn(
                                 included
                                   ? "text-foreground font-medium"
-                                  : "text-muted-foreground/50 line-through"
+                                  : "text-muted-foreground line-through"
                               )}
                             >
                               {featObj.text}
                             </span>
                             {featObj.isNew && (
-                              <span className="ms-1.5 rounded-xs border border-dashed border-accent px-1 py-0.2 text-[8px] font-extrabold uppercase tracking-tight text-accent bg-accent/10">
+                              <span className="ms-1.5 rounded-xs border border-dashed border-accent px-1 py-0.2 text-[8px] font-extrabold uppercase tracking-tight text-accent-foreground bg-accent">
                                 NEW
                               </span>
                             )}
@@ -427,7 +422,7 @@ export function PricingTable({
                   )}
 
                   {/* Micro Barcode & Guarantee Footer */}
-                  <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground/80 px-1 pt-1">
+                  <div className="flex items-center justify-between text-[10px] font-mono text-muted-foreground px-1 pt-1">
                     <span>{tier.footerText || "Admit one · Guaranteed SLA"}</span>
                     {/* Mini SVG barcode */}
                     <svg

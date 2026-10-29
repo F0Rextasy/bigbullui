@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -2011,7 +2012,7 @@ const previews: Record<string, React.ComponentType> = {
       </AccordionItem>
       <AccordionItem value="free">
         <AccordionTrigger>Is it free?</AccordionTrigger>
-        <AccordionContent>MIT licensed — free for personal and commercial applications.</AccordionContent>
+        <AccordionContent>MIT licensed. Free for personal and commercial applications.</AccordionContent>
       </AccordionItem>
     </Accordion>
   ),
@@ -2112,9 +2113,9 @@ const previews: Record<string, React.ComponentType> = {
         value={val}
         onValueChange={setVal}
         options={[
-          { value: "orch", label: "Orchestra — Row C" },
-          { value: "mezz", label: "Mezzanine — Row B" },
-          { value: "balc", label: "Balcony — Standby" },
+          { value: "orch", label: "Orchestra: Row C" },
+          { value: "mezz", label: "Mezzanine: Row B" },
+          { value: "balc", label: "Balcony: Standby" },
         ]}
       />
     );
@@ -2372,10 +2373,10 @@ const previews: Record<string, React.ComponentType> = {
         value={val}
         onValueChange={setVal}
         options={[
-          { value: "a1", label: "Section A — Seat 1" },
-          { value: "a2", label: "Section A — Seat 2" },
-          { value: "b1", label: "Section B — Balcony 1" },
-          { value: "b2", label: "Section B — Balcony 2" },
+          { value: "a1", label: "Section A: Seat 1" },
+          { value: "a2", label: "Section A: Seat 2" },
+          { value: "b1", label: "Section B: Balcony 1" },
+          { value: "b2", label: "Section B: Balcony 2" },
         ]}
       />
     );
@@ -2503,7 +2504,9 @@ import { wave29Previews } from "@/components/site/previews/wave29";
 Object.assign(previews, wave29Previews);
 
 export function ComponentPreview({ name }: { name: string }) {
-  const [isDark, setIsDark] = React.useState(false);
+  const { resolved } = useTheme();
+  const [previewTheme, setPreviewTheme] = React.useState<"auto" | "light" | "dark">("auto");
+  const isDark = previewTheme === "auto" ? resolved === "dark" : previewTheme === "dark";
   const [reloadKey, setReloadKey] = React.useState(0);
   const [isAnimated, setIsAnimated] = React.useState(true);
   const [viewport, setViewport] = React.useState<"desktop" | "tablet" | "mobile">("desktop");
@@ -2567,8 +2570,8 @@ export function ComponentPreview({ name }: { name: string }) {
           </button>
           <button
             type="button"
-            onClick={() => setIsDark((d) => !d)}
-            title="Toggle preview canvas between Paper (light) and Night (dark)"
+            onClick={() => setPreviewTheme(isDark ? "light" : "dark")}
+            title="Preview canvas: follows the site theme until you switch it"
             className={cn(
               "cursor-pointer rounded border px-2 py-0.5 font-mono text-[11px] uppercase transition-colors active:scale-95",
               isDark
@@ -2576,7 +2579,7 @@ export function ComponentPreview({ name }: { name: string }) {
                 : "border-border bg-card text-muted-foreground hover:text-foreground"
             )}
           >
-            {isDark ? "🌙 Night" : "☀️ Paper"}
+            {previewTheme === "auto" ? `Auto ${isDark ? "Night" : "Paper"}` : isDark ? "Night" : "Paper"}
           </button>
         </div>
       </div>

@@ -25,7 +25,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     ``,
     `## Props`,
     ``,
-    ...props.map((p) => `- \`${p.name}\` (${p.type})${p.description ? ` — ${p.description}` : ""}`),
+    ...props.map((p) => `- \`${p.name}\` (${p.type})${p.description ? `: ${p.description}` : ""}`),
     ``,
     `## Source (\`src/components/ui/${meta.name}.tsx\`)`,
     ``,

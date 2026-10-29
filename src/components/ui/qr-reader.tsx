@@ -185,9 +185,9 @@ export function QrReader({
             className={cn(
               "size-2.5 rounded-full transition-colors",
               scanResult
-                ? "bg-emerald-500 shadow-[0_0_8px_#10b981]"
+                ? "bg-success shadow-[0_0_8px_var(--color-success)]"
                 : isScanning
-                ? "bg-destructive animate-pulse shadow-[0_0_8px_#ef4444]"
+                ? "bg-destructive animate-pulse shadow-[0_0_8px_var(--color-destructive)]"
                 : "bg-muted-foreground"
             )}
           />
@@ -361,9 +361,9 @@ export function QrReader({
                   }}
                 >
                   {/* Intense laser beam line */}
-                  <div className="h-[2px] w-full bg-red-500 shadow-[0_0_10px_2px_#ef4444]" />
+                  <div className="h-[2px] w-full bg-destructive shadow-[0_0_10px_2px_var(--color-destructive)]" />
                   {/* Subtle red laser glow cone */}
-                  <div className="h-6 w-full bg-gradient-to-b from-red-500/25 to-transparent pointer-events-none" />
+                  <div className="h-6 w-full bg-gradient-to-b from-destructive/25 to-transparent pointer-events-none" />
                 </div>
               )}
 
@@ -371,7 +371,7 @@ export function QrReader({
               {scanResult && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black/60 backdrop-blur-xs p-2 text-center">
                   <div className="animate-in fade-in zoom-in-95 duration-200 flex flex-col items-center">
-                    <div className="size-10 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center text-emerald-400 mb-1.5 shadow-[0_0_12px_#10b981]">
+                    <div className="size-10 rounded-full bg-success/20 border-2 border-success flex items-center justify-center text-success mb-1.5 shadow-[0_0_12px_var(--color-success)]">
                       <svg
                         className="size-5"
                         fill="none"

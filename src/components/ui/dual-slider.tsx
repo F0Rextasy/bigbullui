@@ -56,7 +56,7 @@ export function DualSlider({
         </span>
         <div className="flex items-center gap-1.5 rounded-sm border border-dashed border-border bg-secondary px-2 py-0.5 text-accent">
           <span>{currency}{valMin}</span>
-          <span>—</span>
+          <span>-</span>
           <span>{currency}{valMax}</span>
         </div>
       </div>

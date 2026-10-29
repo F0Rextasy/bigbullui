@@ -81,6 +81,11 @@
   --radius-xl: calc(var(--radius) + 4px);
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-rise: rise-in 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-press: stamp-press 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-pulse: pulse-soft 2.4s ease-in-out infinite;
+  --animate-ping: ping-soft 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 @keyframes fade-in-up {
@@ -94,6 +99,23 @@
 @keyframes scale-in {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes stamp-press {
+  from { opacity: 0; transform: scale(1.04) rotate(-1.5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.62; }
+}
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: 0.4; }
+  80%, 100% { transform: scale(1.75); opacity: 0; }
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -124,4 +146,24 @@
   50% { transform: scale(1.08); opacity: 0.3; }
   100% { transform: scale(0.95); opacity: 0.8; }
 }
+
+@layer base {
+  /* Pointer and focus affordances, set once for every interactive element. */
+  :where(button, [role="button"], summary):not(:disabled) {
+    cursor: pointer;
+  }
+  :where(a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Dark mode: accent text uses the readable accent; solid status chips use ink. */
+.dark :where(.text-accent):not(:where(.light, .light *)) {
+  color: var(--color-accent-strong);
+}
+.dark :where(.bg-destructive.text-white, .bg-warning.text-white, .bg-success.text-white) {
+  color: var(--color-background);
+}
+
 

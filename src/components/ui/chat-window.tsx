@@ -62,7 +62,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing, 
 
   return (
     <div className="space-y-1 max-w-lg">
-      <div className="space-y-2 p-4 h-48 overflow-y-auto">
+      <div className="space-y-2 p-4 h-48 overflow-y-auto" tabIndex={0} role="region" aria-label="Scrollable content">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -83,7 +83,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing, 
               direction={msg.direction}
             >
               <>{msg.body}</>
-              <div className="text-[10px] mono uppercase text-muted-foreground">
+              <div className={cn("text-[10px] mono uppercase", msg.direction === "outgoing" ? "text-accent-foreground" : "text-muted-foreground")}>
                 {msg.initials} · {msg.time || ""}
               </div>
             </LocalBubble>

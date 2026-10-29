@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { components, categories } from "@/lib/registry-site";
+import { categories } from "@/lib/registry-categories";
+import catalog from "@/data/catalog.json";
 import { cn } from "@/components/ui/lib/utils";
 import { DocsSearch } from "@/components/site/docs-search";
 import { useSeen } from "@/components/site/seen-store";
@@ -114,7 +115,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
     const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/mcp", "/docs/design", "/docs/contributing", "/docs/recipes", "/docs/compare", "/docs/changelog", "/docs/help", "/blocks", "/showcase", "/icons"];
     if (guidePaths.includes(pathname)) return "guides";
     const slug = pathname.replace(/^\/docs\//, "");
-    return components.find((c) => c.name === slug)?.category;
+    return catalog.items.find((c) => c.name === slug)?.category;
   }, [pathname]);
 
   const isOpen = (key: string) => {
@@ -154,7 +155,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
               : "text-muted-foreground hover:text-foreground"
           )}
         >
-          All ({components.length})
+          All ({catalog.total})
         </button>
       </div>
 
@@ -188,7 +189,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
 
       {/* Categorized Menus */}
       {categories.map((cat) => {
-        const allCatItems = components
+        const allCatItems = catalog.items
           .filter((c) => c.category === cat.id)
           .sort((a, b) => a.title.localeCompare(b.title));
         

@@ -6,7 +6,7 @@ export const metadata = { title: "Design System & Tokens" };
 const principles = [
   {
     title: "Warm paper, ink lines",
-    text: "Light theme is a cream stub (#F6F0E0 on #17130C). Dark theme is a night stub (#16120B on #F3EAD3) — a tactile material shift, not a cold mechanical inversion.",
+    text: "Light theme is a cream stub (#F6F0E0 on #17130C). Dark theme is a night stub (#16120B on #F3EAD3), a tactile material shift, not a cold mechanical inversion.",
   },
   {
     title: "Stamp red means action",
@@ -28,7 +28,8 @@ const tokens = [
   { name: "--card", light: "#fffdf5", dark: "#1e1810", desc: "Surface containers and elevated stubs" },
   { name: "--border", light: "#d8c9ac", dark: "#3a3122", desc: "Dashed outlines and card dividers" },
   { name: "--primary", light: "#17130c", dark: "#f3ead3", desc: "Filled buttons and solid contrast" },
-  { name: "--accent", light: "#bc3a28", dark: "#d95b43", desc: "Stamp red action, badges, and focus rings" },
+  { name: "--accent", light: "#bc3a28", dark: "#c34a31", desc: "Stamp red action, badges, and focus rings" },
+  { name: "--accent-strong", light: "#bc3a28", dark: "#e8705a", desc: "Readable accent text for links and emphasis" },
   { name: "--muted", light: "#ece3cc", dark: "#241e13", desc: "Secondary badges and inactive track bg" },
   { name: "--radius", light: "0.5rem", dark: "0.5rem", desc: "Tactile squarish ticket corner radius" },
 ];
@@ -60,7 +61,7 @@ export default function DesignPage() {
     <article className="space-y-12">
       <header className="space-y-3">
         <div className="flex items-center gap-2">
-          <span className="rounded border border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-accent">
+          <span className="rounded border border-accent bg-accent px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-accent-foreground">
             Ticket Stub Spec
           </span>
           <span className="font-mono text-xs text-muted-foreground">Tailwind CSS v4</span>
@@ -68,7 +69,7 @@ export default function DesignPage() {
         <h1 className="text-4xl font-semibold tracking-[-0.03em]">Design System & Tokens</h1>
         <p className="text-muted-foreground">
           The Ticket Stub visual language every component speaks. Tokens live in{" "}
-          <code className="font-mono text-xs text-foreground">bigbullui.css</code> — override
+          <code className="font-mono text-xs text-foreground">bigbullui.css</code>. Override
           them and the entire library adapts instantly.
         </p>
       </header>
@@ -164,7 +165,7 @@ export default function DesignPage() {
           Full keyboard focus rings (<code className="font-mono text-xs text-foreground">focus-visible:ring-2 ring-ring</code>) are guaranteed across all interactive elements.
         </p>
         <div className="pt-2 text-xs">
-          <Link href="/docs/installation" className="text-accent underline font-medium">
+          <Link href="/docs/installation" className="text-accent-strong underline font-medium">
             → View Installation & CLI Guide
           </Link>
         </div>

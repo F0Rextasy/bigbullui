@@ -50,7 +50,7 @@ export function ModelPicker({
         <span>
           <span className="block text-xs font-bold text-foreground">{selected?.name ?? "Select model"}</span>
           <span className="block font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-            {selected?.meta ?? "—"}
+            {selected?.meta ?? "-"}
           </span>
         </span>
         <span aria-hidden="true" className={cn("ms-1 font-mono text-xs text-muted-foreground transition-transform motion-reduce:transition-none", open && "rotate-180")}>

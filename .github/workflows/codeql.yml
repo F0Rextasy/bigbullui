@@ -31,4 +31,5 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-        category: "/language:javascript-typescript"
+        with:
+          category: "/language:javascript-typescript"

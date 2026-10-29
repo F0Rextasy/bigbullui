@@ -85,6 +85,7 @@
     "tailwindcss": ">=4"
   },
   "scripts": {
+    "predev": "node scripts/generate-registry-json.mjs",
     "dev": "next dev",
     "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-icon-registry.mjs && node scripts/dep-graph.mjs",
     "build": "next build",
@@ -108,9 +109,7 @@
     "react-dom": "19.2.8",
     "tailwindcss": "^4",
     "tsup": "^8",
-    "typescript": "^5"
-  },
-  "dependencies": {
+    "typescript": "^5",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0"
   }

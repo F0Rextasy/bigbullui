@@ -36,7 +36,7 @@ export function AirmailLetter({ lines, className }: AirmailLetterProps) {
       </div>
 
       <div className="mt-2 text-xs text-muted-foreground/60">
-        Airmail — Priority Mail
+        Airmail: Priority Mail
       </div>
     </div>
   );

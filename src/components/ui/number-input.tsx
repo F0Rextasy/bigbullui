@@ -61,7 +61,7 @@ export function NumberInput({
         }}
         onBlur={() => commit(Number(String(text ?? clamped).replace(/[^0-9.\-]/g, "")) || 0)}
         aria-label={props["aria-label"] ?? "Number"}
-        className="min-w-0 flex-1 bg-transparent px-3 py-2 text-right font-mono text-sm tabular-nums focus:outline-none"
+        className="min-w-0 flex-1 bg-transparent px-3 py-2 text-right font-mono text-sm tabular-nums focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
         {...props}
       />
       <div className="flex flex-col border-l border-border">

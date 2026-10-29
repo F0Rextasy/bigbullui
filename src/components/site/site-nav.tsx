@@ -8,7 +8,7 @@ import { MobileNav } from "@/components/site/mobile-nav";
 
 async function getStars(): Promise<number | null> {
   try {
-    const res = await fetch("https://api.github.com/F0Rextasy/bigbullui", {
+    const res = await fetch("https://api.github.com/repos/F0Rextasy/bigbullui", {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return null;
@@ -24,7 +24,7 @@ export async function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="bigbullui home">
+        <Link href="/" className="flex h-11 shrink-0 items-center gap-2 md:h-auto" aria-label="bigbullui home">
           <Image src="/logo.svg" alt="bigbullui logo" width={32} height={32} className="size-8" />
           <span className="text-sm font-semibold tracking-tight">bigbullui</span>
         </Link>
@@ -52,20 +52,20 @@ export async function SiteNav() {
             href="https://github.com/F0Rextasy/bigbullui"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            title={stars !== null && stars >= 50 ? `${stars} GitHub stars` : "Star bigbullui on GitHub"}
+            className="flex items-center gap-1.5 rounded-md border border-foreground/60 px-2 py-1 text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+            title={stars !== null ? `${stars} GitHub stars` : "Star bigbullui on GitHub"}
           >
-            <Star size={14} className="text-warning" />
-            <span className="font-mono text-xs">{stars !== null && stars >= 50 ? stars : "Star"}</span>
+            <Star size={14} className="text-accent-strong" />
+            <span className="font-mono text-xs">{stars !== null ? stars : "Star"}</span>
           </a>
           <ThemeToggle />
           <Link
-            href="/docs"
+            href="/docs/installation"
             className={cn(
               "inline-flex h-8 cursor-pointer items-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground transition-all duration-150 hover:scale-[1.02] active:scale-[0.97]"
             )}
           >
-            Get started
+            Install
           </Link>
         </nav>
 

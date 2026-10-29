@@ -23,7 +23,7 @@ export default function BenchmarksPage() {
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Bundle benchmarks</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           Every component measured from source with zlib, updated {table.updated}. Median component ships{" "}
-          {median.toFixed(1)}kb gzipped; the full set is {totalGzip.toFixed(0)}kb gzipped — and tree-shaking means you only pay for what you import.
+          {median.toFixed(1)}kb gzipped; the full set is {totalGzip.toFixed(0)}kb gzipped, and tree-shaking means you only pay for what you import.
           Numbers below are ours, measured honestly; compare against any library by running the same one-liner on their dist.
         </p>
         <div className="mt-4 flex gap-6 font-mono text-xs">

@@ -13,7 +13,7 @@ function IconCard({ name, animation, big }: { name: NavIconName; animation: Anim
       className="group flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-4 transition-colors hover:border-foreground/50"
       onMouseEnter={() => setReplayKey((k) => k + 1)}
     >
-      <NavIcon key={`${name}-${replayKey}`} name={name} size={big ? 40 : 20} animation={animation} />
+      <NavIcon key={`${name}-${replayKey}`} name={name} size={big ? 40 : 20} animated animation={animation} />
       <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">
         {name}
       </span>

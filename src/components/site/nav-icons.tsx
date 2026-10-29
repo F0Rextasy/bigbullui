@@ -1,6 +1,6 @@
 "use client";
 // Site-chrome icon palette (Ticket Stub): single-file ownership.
-// Spec — 24x24 viewBox, fill none, stroke currentColor, strokeWidth 1.8,
+// Spec; 24x24 viewBox, fill none, stroke currentColor, strokeWidth 1.8,
 // round caps + joins, default sizes 12 (inline) / 15 (nav) / 17 (feature).
 // Per-glyph strokeWidth inside ICON_PATHS is optical correction, not drift.
 // Brand glyphs (Star, logo) and functional marks (chevrons, hamburger)
@@ -12,7 +12,7 @@ import { ICON_PATHS, type NavIconName } from "./icon-data";
 export type { NavIconName };
 export { NAV_ICON_NAMES, NAV_ICON_CATEGORIES, NAV_CATEGORIES } from "./icon-data";
 
-const NAV_ANIMATION_CSS = `@keyframes navDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } } @keyframes navPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.75; } } @keyframes navSpin { to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .nav-draw { stroke-dasharray: 1; animation: navDraw 0.55s ease-out backwards; } .nav-pulse { transform-origin: center; transform-box: fill-box; animation: navPulse 1.6s ease-in-out infinite; } .nav-spin { transform-origin: center; transform-box: fill-box; animation: navSpin 1.4s linear infinite; } }`;
+const NAV_ANIMATION_CSS = `@keyframes navDraw { from { stroke-dashoffset: 240; } to { stroke-dashoffset: 0; } } @keyframes navPress { 0% { transform: scale(0.92); opacity: 0.4; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } } @keyframes navSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .nav-draw > * { stroke-dasharray: 240; animation: navDraw 640ms cubic-bezier(0.65, 0, 0.35, 1) both; } .nav-draw > *:nth-child(2) { animation-delay: 130ms; } .nav-draw > *:nth-child(3) { animation-delay: 260ms; } .nav-draw > *:nth-child(4) { animation-delay: 390ms; } .nav-draw > *:nth-child(5) { animation-delay: 520ms; } .nav-draw > *:nth-child(6) { animation-delay: 650ms; } .nav-pulse { transform-origin: center; transform-box: fill-box; animation: navPress 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .nav-spin { transform-origin: center; transform-box: fill-box; animation: navSpin 620ms cubic-bezier(0.16, 1, 0.3, 1) both; } }`;
 
 let navStylesInjected = false;
 
@@ -39,7 +39,7 @@ export interface NavIconProps extends React.SVGAttributes<SVGSVGElement> {
   animation?: "draw" | "pulse" | "spin" | "none";
 }
 
-export function NavIcon({ name, size = 15, animated = true, animation = "draw", ...props }: NavIconProps) {
+export function NavIcon({ name, size = 15, animated = false, animation = "draw", ...props }: NavIconProps) {
   const mode = animated ? animation : "none";
   const cls = mode === "draw" ? "nav-draw" : mode === "pulse" ? "nav-pulse" : mode === "spin" ? "nav-spin" : undefined;
   useNavStyles(mode);
@@ -56,7 +56,7 @@ export function NavIcon({ name, size = 15, animated = true, animation = "draw", 
       aria-hidden="true"
       {...props}
     >
-      <g pathLength={1} className={cls}>
+      <g className={cls}>
         {ICON_PATHS[name]}
       </g>
     </svg>

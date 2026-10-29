@@ -9,7 +9,9 @@ import { NavIcon } from "@/components/site/nav-icons";
 import { DocsSearch } from "@/components/site/docs-search";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Star } from "@/components/ui/star";
-import { categories, components } from "@/lib/registry-site";
+import { categories } from "@/lib/registry-categories";
+import catalog from "@/data/catalog.json";
+import { SITE_VERSION } from "@/lib/site-meta";
 
 export function MobileNav({ stars }: { stars: number | null }) {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +25,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
             type="button"
             onClick={() => setSearchOpen(true)}
             aria-label="Search components"
-            className="flex h-8 w-8 items-center justify-center rounded-md border border-dashed border-border bg-card text-muted-foreground transition-colors hover:border-foreground hover:text-foreground active:scale-95"
+            className="flex size-11 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:border-foreground hover:text-foreground active:scale-95"
           >
             <svg
               width="15"
@@ -51,7 +53,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open navigation menu"
-        className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-secondary/60 text-foreground transition-colors hover:bg-secondary active:scale-95"
+        className="flex size-11 items-center justify-center rounded-md border border-border bg-card text-foreground transition-colors hover:bg-secondary active:scale-95"
       >
         <svg
           width="16"
@@ -77,15 +79,14 @@ export function MobileNav({ stars }: { stars: number | null }) {
           <div className="flex items-center gap-2">
             <Image src="/logo.svg" alt="bigbullui logo" width={28} height={28} className="size-7" />
             <SheetTitle className="text-base font-semibold tracking-tight">bigbullui</SheetTitle>
-            <span className="rounded bg-accent/15 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-accent-strong">
-              v1.3
+            <span className="rounded border border-border bg-secondary px-1.5 py-0.5 font-mono text-[10px] font-semibold text-foreground">
+              v{SITE_VERSION}
             </span>
           </div>
           <SheetDescription className="text-xs">
-            Open-source React 19 UI library. Zero dependencies.
+            Open-source React 19 UI library. {catalog.total} zero-dependency components.
           </SheetDescription>
         </SheetHeader>
-
         <div className="flex-1 overflow-y-auto py-4 space-y-6">
           {/* Search Trigger inside drawer */}
           <div>
@@ -112,7 +113,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
                       <circle cx="11" cy="11" r="8" />
                       <path d="m21 21-4.3-4.3" />
                     </svg>
-                    <span>Search {components.length}+ components...</span>
+                    <span>Search {catalog.total} components...</span>
                   </span>
                   <span className="font-mono text-[10px] rounded border border-border bg-secondary px-1.5 py-0.5">
                     ⌘K
@@ -143,7 +144,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
                 <NavIcon name="components" /> Components
               </span>
               <span className="font-mono text-[10px] rounded bg-secondary px-2 py-0.5 text-muted-foreground">
-                {components.length}
+                {catalog.total}
               </span>
             </Link>
             <Link
@@ -222,15 +223,15 @@ export function MobileNav({ stars }: { stars: number | null }) {
             rel="noreferrer"
             className="flex items-center justify-center gap-2 rounded-md border border-border bg-secondary/50 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary"
           >
-            <Star size={14} className="text-warning" />
-            <span>Star on GitHub {stars !== null && stars >= 50 ? `(${stars})` : ""}</span>
+            <Star size={14} className="text-accent-strong" />
+            <span>Star on GitHub{stars !== null ? ` (${stars})` : ""}</span>
           </a>
           <Link
             href="/docs"
             onClick={() => setOpen(false)}
             className="flex items-center justify-center rounded-md bg-primary py-2 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
-            Browse {components.length}+ Components
+            Browse {catalog.total} Components
           </Link>
         </div>
             </Sheet>,

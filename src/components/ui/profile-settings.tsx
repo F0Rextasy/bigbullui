@@ -12,7 +12,7 @@ export interface ProfileSettingsProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 /** Profile settings page: avatar + personal info + danger zone. */
-export function ProfileSettings({ name = "Ada Lovelace", email = "ada@mail.com", initials = "AL", onSave, onDelete, className, ...props }: ProfileSettingsProps) {
+export function ProfileSettings({ name = "Your Name", email = "you@example.com", initials = "YN", onSave, onDelete, className, ...props }: ProfileSettingsProps) {
   const [n, setN] = React.useState(name);
   const [e, setE] = React.useState(email);
   const [confirmDelete, setConfirmDelete] = React.useState(false);

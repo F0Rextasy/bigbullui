@@ -23,7 +23,7 @@ const SelectedSwatch = "color-swatch-selected";
 const SizeChip = "size-picker-chip";
 const FadeIn = "variant-picker-fade-in";
 
-// Explicit color map — NO dynamic class strings
+// Explicit color map; NO dynamic class strings
 const colorMap: Record<string, string> = {
   navy: "bg-navy hover:bg-navy/80",
   green: "bg-green-500 hover:bg-green-400",

@@ -55,7 +55,7 @@ export function TokenCounter({
         />
       </div>
       <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-        {over ? "Over limit — trim prompt" : `${pct}% of context used`}
+        {over ? "Over limit: trim prompt" : `${pct}% of context used`}
       </p>
     </div>
   );

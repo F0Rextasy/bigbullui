@@ -115,6 +115,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.6,
     },
+    {
+      url: `${siteUrl}/showcase`,
+      lastModified: mtime("app/showcase/page.tsx"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/blocks`,
+      lastModified: mtime("app/blocks/page.tsx"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/icons`,
+      lastModified: mtime("app/icons/page.tsx"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteUrl}/docs/compare`,
+      lastModified: mtime("app/docs/compare/page.tsx"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
   ];
 
   const blockRoutes: MetadataRoute.Sitemap = blockSlugs().map((slug) => ({

@@ -1,20 +1,22 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
+import { components } from "@/lib/registry-site";
+import catalog from "@/data/catalog.json";
 
 export const metadata = { title: "Help & FAQ", alternates: { canonical: "/docs/help" } };
 
 const QA: { q: string; a: string }[] = [
-  { q: "What is bigbullui?", a: "An open-source React 19 + Tailwind CSS v4 component library with a Ticket-Stub aesthetic: 659 copy-paste components, 75 page blocks, and 1099 hand-drawn stroke icons. MIT licensed, zero runtime dependencies." },
+  { q: "What is bigbullui?", a: `An open-source React 19 + Tailwind CSS v4 component library with a Ticket-Stub aesthetic: ${components.length} copy-paste components, 75 page blocks, and ${catalog.packageIcons} hand-drawn stroke icons in the shipped icon package. MIT licensed, zero runtime dependencies.` },
   { q: "How do I install a single component?", a: "Run npx bigbullui add button (any slug works). The file lands in your components/ui with its cn() helper. No install needed at all if you copy the source by hand." },
   { q: "Does it work with shadcn?", a: "Yes. Every component and block is published as registry JSON: npx shadcn@latest add https://ui.bigbullapp.com/r/button.json. Same copy-paste ownership model." },
   { q: "How do I use it with AI coding assistants?", a: "Three ways: the MCP server (claude mcp add bigbullui -- npx -y bigbullui mcp), the agent rules at /skill.md, or per-component markdown at /md/<slug>." },
   { q: "How does dark mode work?", a: "Toggle the dark class on <html>. All tokens switch automatically; every component works in both themes without prop changes." },
   { q: "Is it accessible?", a: "Components ship WAI-ARIA roles, keyboard navigation, visible focus rings, and motion-reduce fallbacks. The docs run automated axe scans in CI." },
-  { q: "Is it really zero-dependency?", a: "UI files import only react and a 7-line cn() helper. No Radix, Lucide, Framer Motion, or CVA in component sources — enforced by tests." },
+  { q: "Is it really zero-dependency?", a: "UI files import only react and a small cn() helper. No Radix, Lucide, Framer Motion, or CVA in component sources, enforced by tests." },
   { q: "How do I theme it?", a: "Override the CSS variables from bigbullui.css (see the Design System page) or copy a ready preset from docs/design." },
-  { q: "Does it support RTL?", a: "Yes. Spacing uses logical props (ms-, me-, ps-, pe-, text-start), so layouts flip automatically under dir=\"rtl\"." },
-  { q: "Can I use just the icons?", a: "Yes: npm i bigbullicons gives you the 1090 icons without components, or pull one with npx bigbullui add icon-ticket." },
+  { q: "Does it support RTL?", a: "Spacing mostly uses logical props (ms-, me-, ps-, pe-, text-start), so most layouts flip under dir=\"rtl\". Physical insets like left-* still need a check." },
+  { q: "Can I use just the icons?", a: `Yes: npm i bigbullicons gives you the ${catalog.packageIcons} icons included in that package, or pull one with npx bigbullui add icon-ticket. The docs gallery also previews the site-chrome set.` },
 ];
 
 export default function HelpPage() {

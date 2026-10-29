@@ -55,7 +55,7 @@ export function BlockCourse() {
         </p>
       ) : (
         <Button className="w-full" onClick={() => setEnrolled(true)}>
-          Enroll — $149
+          Enroll: $149
         </Button>
       )}
     </div>

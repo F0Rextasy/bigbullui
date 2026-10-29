@@ -28,7 +28,7 @@ export function ActivityV2({ items, filters, className, ...props }: ActivityV2Pr
       <div className="mb-3 flex flex-wrap gap-1.5">
         <button
           onClick={() => setActive(null)}
-          className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none", active === null ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground hover:text-foreground")}
+          className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", active === null ? "border-accent bg-accent text-accent-foreground" : "border-border text-muted-foreground hover:text-foreground")}
         >
           All
         </button>
@@ -36,7 +36,7 @@ export function ActivityV2({ items, filters, className, ...props }: ActivityV2Pr
           <button
             key={a}
             onClick={() => setActive(a)}
-            className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none", active === a ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground hover:text-foreground")}
+            className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", active === a ? "border-accent bg-accent text-accent-foreground" : "border-border text-muted-foreground hover:text-foreground")}
           >
             {a}
           </button>

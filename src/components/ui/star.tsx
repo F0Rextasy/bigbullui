@@ -9,8 +9,7 @@ export function Star({ size = 16, className, ...props }: StarProps) {
   return (
     <svg
       width={size}
-      height={size}
-      viewBox="0 0 20 20"
+      viewBox="0 0 21 22"
       fill="currentColor"
       aria-hidden="true"
       className={cn("shrink-0", className)}

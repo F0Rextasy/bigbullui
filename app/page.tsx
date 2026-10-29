@@ -7,6 +7,7 @@ import { HeroShowcase } from "@/components/site/hero-showcase";
 import { NavIcon } from "@/components/site/nav-icons";
 import { categories, components } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
+import { SITE_VERSION } from "@/lib/site-meta";
 
 const features = [
   {
@@ -22,12 +23,12 @@ const features = [
   {
     tag: "03 · MODERN DESIGN TOKENS",
     title: "Tailwind CSS v4 Native",
-    desc: "Built on standard CSS variables with @theme inline. Seamless light and dark mode switching with tactile ink and warm paper tones.",
+    desc: "Built on standard CSS variables with @theme inline. Instant light and dark mode switching with tactile ink and warm paper tones.",
   },
   {
     tag: "04 · ACCESSIBILITY BUILT-IN",
     title: "Keyboard and screen-reader ready",
-    desc: "WAI-ARIA roles, roving tabindex, focus rings, and motion-reduce fallbacks built directly into every interactive component.",
+    desc: "WAI-ARIA roles, roving tabindex, focus rings, and motion-reduce fallbacks across the interactive components.",
   },
 ];
 
@@ -39,26 +40,25 @@ export default function Home() {
       <SiteNav />
 
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-4 pb-12 pt-12 text-center sm:px-6 sm:pb-16 sm:pt-24">
+      <section className="mx-auto max-w-6xl px-4 pb-12 pt-10 text-center sm:px-6 sm:pb-16 sm:pt-16">
         {/* Release / Announcement Pill */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1 text-xs transition-colors hover:bg-secondary">
-          <span className="flex h-2 w-2 rounded-full bg-accent" />
-          <span className="font-mono text-muted-foreground">bigbullui CLI v1.3 released</span>
-          <span className="text-muted-foreground">&middot;</span>
-          <Link href="/docs/installation" className="font-medium text-accent-strong hover:underline">
-            Get started &rarr;
+        <div className="inline-flex max-w-full flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-border bg-secondary/60 px-3.5 py-1 text-xs">
+          <span className="whitespace-nowrap font-mono text-muted-foreground">CLI v{SITE_VERSION}</span>
+          <span className="hidden text-muted-foreground sm:inline">&middot;</span>
+          <Link href="/docs/installation" className="inline-flex items-center whitespace-nowrap py-3.5 -my-3.5 font-medium text-accent-strong hover:underline">
+            Install guide
           </Link>
         </div>
 
         {/* Hero Title */}
-        <h1 className="mx-auto mt-6 max-w-4xl text-3xl font-semibold leading-[1.1] tracking-[-0.04em] sm:text-6xl md:text-7xl">
+        <h1 className="mx-auto mt-6 max-w-4xl text-balance text-3xl font-semibold leading-[1.1] tracking-[-0.04em] sm:text-6xl md:text-7xl">
           Build modern web applications with components you own.
         </h1>
 
         {/* Hero Subtitle */}
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           An open-source collection of {totalCount}+ accessible, fully customizable React 19 components styled with
-          Tailwind CSS 4 tokens. Zero external dependencies &mdash; copy, paste, and ship.
+          Tailwind CSS 4 tokens. Zero external dependencies. Copy, paste, and ship.
         </p>
 
         {/* CTA Actions */}
@@ -75,7 +75,7 @@ export default function Home() {
               "inline-flex h-11 cursor-pointer items-center rounded-md border border-border bg-card px-6 font-mono text-xs uppercase tracking-wider text-foreground transition-colors hover:bg-secondary"
             )}
           >
-            Documentation
+            Installation guide
           </Link>
           <div className="w-full sm:w-auto">
             <CodeBox code="npm install bigbullui" />
@@ -83,19 +83,16 @@ export default function Home() {
         </div>
 
         {/* Key Metrics Bar */}
-        <div className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-xs text-muted-foreground">
-          <span><strong className="font-semibold text-foreground">{totalCount}+</strong> Components</span>
-          <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-          <span><strong className="font-semibold text-foreground">0</strong> Dependencies</span>
-          <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-          <span>React 19 + Tailwind v4</span>
-          <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-          <span>MIT Licensed</span>
+        <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-y-2 text-center font-mono text-[13px] text-muted-foreground sm:grid-cols-4 sm:gap-y-0">
+          <span className="whitespace-nowrap"><strong className="text-base font-semibold text-foreground">{totalCount}+</strong> Components</span>
+          <span className="whitespace-nowrap"><strong className="text-base font-semibold text-foreground">0</strong> Dependencies</span>
+          <span className="whitespace-nowrap">React 19 + Tailwind v4</span>
+          <span className="whitespace-nowrap">MIT Licensed</span>
         </div>
 
         {/* Hero Showcase Demo */}
         <div className="mt-10 text-left sm:mt-14">
-          <HeroShowcase />
+          <HeroShowcase total={totalCount} />
         </div>
       </section>
 
@@ -103,31 +100,26 @@ export default function Home() {
 
       {/* Core Highlights / Why bigbullui */}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
-        <div className="max-w-2xl">
-          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
-            Architected For Speed &amp; Ownership
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-            Everything you need. Nothing you don&apos;t.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Built from first principles for developers who want complete control over their UI stack without the dependency bloat.
-          </p>
-        </div>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
+          <div className="max-w-sm">
+            <h2 className="text-balance text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+              Four rules the library follows.
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Every component imports React and one small cn helper, so your bundle grows only with what you use.
+            </p>
+          </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feat) => (
-            <div
-              key={feat.tag}
-              className="flex flex-col justify-between rounded-xl border border-border bg-card p-6 shadow-xs transition-colors hover:border-foreground/40"
-            >
-              <div>
-                <span className="font-mono text-[11px] font-semibold text-muted-foreground">{feat.tag}</span>
-                <h3 className="mt-3 text-base font-semibold tracking-tight text-foreground">{feat.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{feat.desc}</p>
-              </div>
-            </div>
-          ))}
+          <ol className="divide-y divide-dashed divide-border border-y border-border">
+            {features.map((feat, index) => (
+              <li key={feat.tag} className="group py-6 transition-colors hover:bg-secondary/30">
+                <h3 className={cn("font-semibold tracking-tight text-foreground transition-colors group-hover:text-accent-strong", index === 0 ? "text-xl" : "text-base")}>
+                  {feat.title}
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{feat.desc}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -137,11 +129,8 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
-              Instant Setup
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-              Up and running in 30 seconds.
+            <h2 className="text-balance text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+              Three commands to first render.
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Add components directly into your project via the CLI or copy the source code.
@@ -149,29 +138,27 @@ export default function Home() {
           </div>
           <Link
             href="/docs/installation"
-            className="font-mono text-xs uppercase tracking-wider text-accent-strong hover:underline"
+            className="inline-flex items-center py-3.5 -my-3.5 font-mono text-xs uppercase tracking-wider text-accent-strong hover:underline"
           >
-            Full setup guide &rarr;
+            Full setup guide
           </Link>
         </div>
 
-        <div className="mt-10 grid min-w-0 gap-6 md:grid-cols-3">
-          <div className="min-w-0 space-y-3 rounded-lg border border-border bg-card p-5">
+        <div className="mt-10 min-w-0 divide-y divide-dashed divide-border overflow-hidden rounded-xl border-2 border-dashed border-border bg-card md:grid md:grid-cols-3 md:divide-x md:divide-y-0">
+          <div className="min-w-0 space-y-3 p-6">
             <span className="font-mono text-xs font-semibold text-accent-strong">STEP 01</span>
             <h3 className="font-semibold text-sm">Initialize utils &amp; tokens</h3>
             <p className="text-xs text-muted-foreground">Generates the cn helper and sets up CSS tokens.</p>
             <CodeBox code="npx bigbullui init" />
           </div>
 
-          <div className="min-w-0 space-y-3 rounded-lg border border-border bg-card p-5">
-            <span className="font-mono text-xs font-semibold text-accent-strong">STEP 02</span>
+          <div className="min-w-0 space-y-3 p-6">
             <h3 className="font-semibold text-sm">Add components you need</h3>
             <p className="text-xs text-muted-foreground">Copies zero-dependency source code into your UI folder.</p>
             <CodeBox code="npx bigbullui add button card metric-card" />
           </div>
 
-          <div className="min-w-0 space-y-3 rounded-lg border border-border bg-card p-5">
-            <span className="font-mono text-xs font-semibold text-accent-strong">STEP 03</span>
+          <div className="min-w-0 space-y-3 p-6">
             <h3 className="font-semibold text-sm">Import and ship</h3>
             <p className="text-xs text-muted-foreground">Use immediately with full TypeScript types and tokens.</p>
             <CodeBox code='import { Button } from "@/components/ui/button";' />
@@ -185,21 +172,18 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
-              Component Catalog
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+            <h2 className="text-balance text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
               Explore {totalCount}+ components across 9 categories.
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              From foundational form controls and data tables to rich charts and retro interactive widgets.
+              Form controls, data tables, charts, overlays, and retro widgets.
             </p>
           </div>
           <Link
             href="/docs"
             className="font-mono text-xs uppercase tracking-wider text-accent-strong hover:underline"
           >
-            Explore all components &rarr;
+            All components
           </Link>
         </div>
 
@@ -209,7 +193,7 @@ export default function Home() {
             return (
               <Link
                 key={cat.id}
-                href="/docs"
+                href={`/docs#${cat.id}`}
                 className="group flex flex-col justify-between rounded-lg border border-border bg-card p-5 transition-all duration-150 hover:-translate-y-0.5 hover:border-foreground/50 hover:shadow-sm"
               >
                 <div>
@@ -227,7 +211,6 @@ export default function Home() {
                 </div>
                 <div className="mt-4 flex items-center gap-1 font-mono text-[11px] text-muted-foreground group-hover:text-foreground">
                   <span>Browse category</span>
-                  <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
                 </div>
               </Link>
             );
@@ -241,17 +224,14 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-strong">
-              Zero-dependency icons
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
+            <h2 className="text-balance text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
               Tried our icon package yet?
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              1000+ hand-drawn icons in the Ticket Stub language — no Lucide, no
-              emoji, no external sets. Browse by category with live Draw / Pulse /
-              Spin previews, open any icon on its own page, or pull a single icon
-              into your project.
+              1,000+ hand-drawn icons in the Ticket Stub language: no Lucide, no
+              emoji, no external sets. Browse by category with Draw / Pulse / Spin
+              previews, open any icon on its own page, or pull a single icon into
+              your project.
             </p>
             <div className="mt-4 space-y-2">
               <CodeBox code="npm install bigbullicons" />

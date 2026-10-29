@@ -11,7 +11,7 @@ const duties = [
   },
   {
     title: "Use typed props",
-    text: "Every component is fully typed — read the Props table on each component page.",
+    text: "Every component is fully typed. Read the Props table on each component page.",
   },
   {
     title: "Keep accessibility",
