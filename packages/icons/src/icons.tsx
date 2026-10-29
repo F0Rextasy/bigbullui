@@ -26,7 +26,7 @@ export interface StampIconProps extends Omit<React.SVGAttributes<SVGSVGElement>,
   animation?: StampAnimation;
 }
 
-const ANIMATION_CSS = `@keyframes stampDraw { from { stroke-dashoffset: 240; } to { stroke-dashoffset: 0; } } @keyframes stampPress { 0% { transform: scale(0.92); opacity: 0.4; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } } @keyframes stampSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .stamp-draw > * { stroke-dasharray: 240; animation: stampDraw 720ms cubic-bezier(0.65, 0, 0.35, 1) both; } .stamp-draw > *:nth-child(2) { animation-delay: 150ms; } .stamp-draw > *:nth-child(3) { animation-delay: 300ms; } .stamp-draw > *:nth-child(4) { animation-delay: 450ms; } .stamp-draw > *:nth-child(5) { animation-delay: 600ms; } .stamp-draw > *:nth-child(6) { animation-delay: 750ms; } .stamp-pulse { transform-origin: center; transform-box: fill-box; animation: stampPress 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .stamp-spin { transform-origin: center; transform-box: fill-box; animation: stampSpin 620ms cubic-bezier(0.16, 1, 0.3, 1) both; } }`;
+const ANIMATION_CSS = `@keyframes stampDraw { to { stroke-dashoffset: 0; } } @keyframes stampPress { 0% { transform: scale(0.92); opacity: 0.4; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } } @keyframes stampSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .stamp-pulse { transform-origin: center; transform-box: fill-box; animation: stampPress 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .stamp-spin { transform-origin: center; transform-box: fill-box; animation: stampSpin 620ms cubic-bezier(0.16, 1, 0.3, 1) both; } }`;
 
 let stampStylesInjected = false;
 
@@ -49,7 +49,36 @@ function useStampStyles(mode: StampAnimation) {
 export function StampIcon({ name, size = 20, animated = true, animation = "draw", ...props }: StampIconProps) {
   const mode: StampAnimation = animated ? animation : "none";
   const cls = mode === "draw" ? "stamp-draw" : mode === "pulse" ? "stamp-pulse" : mode === "spin" ? "stamp-spin" : undefined;
+  const groupRef = React.useRef<SVGGElement>(null);
   useStampStyles(mode);
+
+  React.useEffect(() => {
+    const group = groupRef.current;
+    if (!group || mode !== "draw") return;
+    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+    const children = Array.from(group.children).filter(
+      (el): el is SVGGeometryElement => typeof (el as SVGGeometryElement).getTotalLength === "function"
+    );
+    const applied: SVGGeometryElement[] = [];
+    let delay = 0;
+    for (const el of children) {
+      const length = el.getTotalLength();
+      if (!Number.isFinite(length) || length <= 0) continue;
+      const duration = Math.min(1800, Math.max(500, Math.round(length * 14)));
+      el.style.strokeDasharray = `${length}`;
+      el.style.strokeDashoffset = `${length}`;
+      el.style.animation = `stampDraw ${duration}ms cubic-bezier(0.65, 0, 0.35, 1) ${delay}ms both`;
+      applied.push(el);
+      delay += duration + 60;
+    }
+    return () => {
+      for (const el of applied) {
+        el.style.strokeDasharray = "";
+        el.style.strokeDashoffset = "";
+        el.style.animation = "";
+      }
+    };
+  }, [mode, name]);
   return (
     <svg
       width={size}
@@ -63,7 +92,7 @@ export function StampIcon({ name, size = 20, animated = true, animation = "draw"
       aria-hidden="true"
       {...props}
     >
-      <g className={cls}>
+      <g ref={groupRef} className={cls}>
         {STAMP_ICONS[name]}
       </g>
     </svg>

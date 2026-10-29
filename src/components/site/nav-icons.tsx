@@ -12,7 +12,7 @@ import { ICON_PATHS, type NavIconName } from "./icon-data";
 export type { NavIconName };
 export { NAV_ICON_NAMES, NAV_ICON_CATEGORIES, NAV_CATEGORIES } from "./icon-data";
 
-const NAV_ANIMATION_CSS = `@keyframes navDraw { from { stroke-dashoffset: 240; } to { stroke-dashoffset: 0; } } @keyframes navPress { 0% { transform: scale(0.92); opacity: 0.4; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } } @keyframes navSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .nav-draw > * { stroke-dasharray: 240; animation: navDraw 640ms cubic-bezier(0.65, 0, 0.35, 1) both; } .nav-draw > *:nth-child(2) { animation-delay: 130ms; } .nav-draw > *:nth-child(3) { animation-delay: 260ms; } .nav-draw > *:nth-child(4) { animation-delay: 390ms; } .nav-draw > *:nth-child(5) { animation-delay: 520ms; } .nav-draw > *:nth-child(6) { animation-delay: 650ms; } .nav-pulse { transform-origin: center; transform-box: fill-box; animation: navPress 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .nav-spin { transform-origin: center; transform-box: fill-box; animation: navSpin 620ms cubic-bezier(0.16, 1, 0.3, 1) both; } }`;
+const NAV_ANIMATION_CSS = `@keyframes navDraw { to { stroke-dashoffset: 0; } } @keyframes navPress { 0% { transform: scale(0.92); opacity: 0.4; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); opacity: 1; } } @keyframes navSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } @media (prefers-reduced-motion: no-preference) { .nav-pulse { transform-origin: center; transform-box: fill-box; animation: navPress 520ms cubic-bezier(0.16, 1, 0.3, 1) both; } .nav-spin { transform-origin: center; transform-box: fill-box; animation: navSpin 620ms cubic-bezier(0.16, 1, 0.3, 1) both; } }`;
 
 let navStylesInjected = false;
 
@@ -42,7 +42,36 @@ export interface NavIconProps extends React.SVGAttributes<SVGSVGElement> {
 export function NavIcon({ name, size = 15, animated = false, animation = "draw", ...props }: NavIconProps) {
   const mode = animated ? animation : "none";
   const cls = mode === "draw" ? "nav-draw" : mode === "pulse" ? "nav-pulse" : mode === "spin" ? "nav-spin" : undefined;
+  const groupRef = React.useRef<SVGGElement>(null);
   useNavStyles(mode);
+
+  React.useEffect(() => {
+    const group = groupRef.current;
+    if (!group || mode !== "draw") return;
+    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+    const children = Array.from(group.children).filter(
+      (el): el is SVGGeometryElement => typeof (el as SVGGeometryElement).getTotalLength === "function"
+    );
+    const applied: SVGGeometryElement[] = [];
+    let delay = 0;
+    for (const el of children) {
+      const length = el.getTotalLength();
+      if (!Number.isFinite(length) || length <= 0) continue;
+      const duration = Math.min(1400, Math.max(450, Math.round(length * 12)));
+      el.style.strokeDasharray = `${length}`;
+      el.style.strokeDashoffset = `${length}`;
+      el.style.animation = `navDraw ${duration}ms cubic-bezier(0.65, 0, 0.35, 1) ${delay}ms both`;
+      applied.push(el);
+      delay += duration + 50;
+    }
+    return () => {
+      for (const el of applied) {
+        el.style.strokeDasharray = "";
+        el.style.strokeDashoffset = "";
+        el.style.animation = "";
+      }
+    };
+  }, [mode, name]);
   return (
     <svg
       width={size}
@@ -56,7 +85,7 @@ export function NavIcon({ name, size = 15, animated = false, animation = "draw",
       aria-hidden="true"
       {...props}
     >
-      <g className={cls}>
+      <g ref={groupRef} className={cls}>
         {ICON_PATHS[name]}
       </g>
     </svg>
