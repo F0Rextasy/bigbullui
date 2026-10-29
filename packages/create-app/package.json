@@ -1,6 +1,6 @@
 {
   "name": "create-bigbull-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "commonjs",
   "description": "Scaffold a Next.js + Tailwind CSS v4 + bigbullui starter in one command. MIT licensed.",
   "keywords": ["create-next-app", "starter", "scaffold", "nextjs", "tailwindcss", "shadcn", "bigbullui", "template", "cli"],
