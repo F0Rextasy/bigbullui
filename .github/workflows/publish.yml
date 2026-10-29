@@ -59,4 +59,4 @@ jobs:
         if: steps.check.outputs.skip == 'false'
         # Pure OIDC: no long-lived tokens. Requires the trusted publisher
         # setup on npmjs.com for each package (see header comment).
-        run: npm publish "${{ matrix.package }}" --provenance --access public
+        run: npm publish "./${{ matrix.package }}" --provenance --access public
