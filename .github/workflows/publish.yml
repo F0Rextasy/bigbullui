@@ -34,6 +34,11 @@ jobs:
         # npm < 11.5.1 cannot exchange the GitHub OIDC token, so publish 404s.
         run: npm install -g npm@11
 
+      - name: Show npm and OIDC environment
+        run: |
+          npm -v
+          node -e "console.log('oidc-request-env:', Boolean(process.env.ACTIONS_ID_TOKEN_REQUEST_URL), Boolean(process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN))"
+
       - name: Install dependencies
         run: npm ci
 
