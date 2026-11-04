@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
-import { wavePropsDocs3 } from "../../docs/[slug]/wave-props3";
+import docsContent from "@/data/docs-content.json";
 
 export function generateStaticParams() {
   return components.map((component) => ({ slug: component.name }));
@@ -15,7 +15,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   if (!meta) notFound();
   const sourceFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
   const source = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
-  const props = (wavePropsDocs3 as Record<string, { name: string; type: string; description: string }[]>)[meta.name] ?? [];
+  const props = (docsContent.props as Record<string, { name: string; type: string; description: string }[]>)[meta.name] ?? [];
   const md = [
     `# ${meta.title} (bigbullui)`,
     ``,

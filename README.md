@@ -85,7 +85,7 @@ Import and use:
 import { Button, Card, MetricCard } from "bigbullui";
 ```
 
-### Companion: bigbullicons (1023 Ticket Stub stroke icons)
+### Companion: bigbullicons (1099 Ticket Stub stroke icons)
 
 ```bash
 npm install bigbullicons

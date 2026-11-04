@@ -13,13 +13,11 @@ function mtime(rel: string): Date {
 }
 
 function blockSlugs(): string[] {
-  try {
-    return readdirSync(join(process.cwd(), "src", "components", "blocks"))
-      .filter((f) => f.endsWith(".tsx"))
-      .map((f) => f.replace(/\.tsx$/, ""));
-  } catch {
-    return [];
-  }
+  // Same source as blocks/[slug] generateStaticParams: the committed directory.
+  return readdirSync(join(process.cwd(), "src", "components", "blocks"))
+    .filter((f) => f.endsWith(".tsx"))
+    .map((f) => f.replace(/\.tsx$/, ""))
+    .sort();
 }
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://ui.bigbullapp.com";
