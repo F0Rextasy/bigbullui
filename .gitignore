@@ -65,6 +65,7 @@ dev.log
 
 # internal roadmap — never push
 TODO.md
+AGENTS.md
 
 # generated artifacts (rebuilt by prebuild/prepublishOnly — never commit)
 public/r/
