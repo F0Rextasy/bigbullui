@@ -18,6 +18,7 @@ Agent kit: `SKILL.md` (usage), `DESIGN.md` (design system), `CONTRIBUTING.md` (h
 - Never use `as any`, `@ts-ignore`, `@ts-expect-error`.
 - No raw apostrophes in JSX text (ESLint react/no-unescaped-entities fails the build).
 - Never commit, push, or publish (npm) without an explicit user request.
+- Commit titles are ALWAYS in English, past tense ("Added X", "Fixed Y"); never imperative, never Turkish.
 - Design tokens live in `bigbullui.css` (`:root` + `.dark`, `@theme inline`, keyframes). The docs site consumes them via `app/globals.css` import. Components use ONLY semantic Tailwind tokens (bg-primary, text-muted-foreground, border-border...) — no hard-coded hex in component sources.
 
 ## Identity (Ticket Stub)
