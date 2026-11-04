@@ -2,6 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+// WARNING: the nav-icons.tsx template below (line ~93) is STALE vs the
+// committed src/components/site/nav-icons.tsx (which got a hand-written
+// measured-draw effect and animated=false default after this script was
+// written). Running this script here REGENERATES both site files with the
+// old template and would clobber those edits. Run it only when you intend
+// to re-derive both files from packages/icons sets; diff before committing.
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const setsDir = path.join(rootDir, "packages/icons/src");
 

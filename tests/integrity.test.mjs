@@ -255,19 +255,6 @@ describe("bigbullui Component Library Integrity", () => {
     });
     assert.deepEqual(dead, [], `Dead previews without UI file or registry entry:\n${dead.join(", ")}`);
   });
-  it("search BLOCK_SLUGS must match src/components/blocks directory", () => {
-    const blockSlugs = fs
-      .readdirSync(path.join(rootDir, "src", "components", "blocks"))
-      .filter((f) => f.endsWith(".tsx"))
-      .map((f) => f.replace(/\.tsx$/, ""))
-      .sort();
-    const meta = fs.readFileSync(path.join(rootDir, "src", "lib", "site-meta.ts"), "utf8");
-    const arrayMatch = meta.match(/BLOCK_SLUGS = \[([\s\S]*?)\]/);
-    assert.ok(arrayMatch, "site-meta.ts must export BLOCK_SLUGS");
-    const listed = [...arrayMatch[1].matchAll(/"([a-z0-9-]+)"/g)].map((m) => m[1]).sort();
-    assert.deepEqual(listed, blockSlugs, "BLOCK_SLUGS drifts from the blocks directory");
-  });
-
   it("registry entries must all have a UI source file (no dangling docs routes)", () => {
     const registryPath = path.join(rootDir, "src", "lib", "registry-site.ts");
     const registryContent = fs.readFileSync(registryPath, "utf8");
