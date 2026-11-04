@@ -10,6 +10,12 @@ export default function ChangelogPage() {
         <p className="mt-1.5 text-sm text-muted-foreground">
           Release history for bigbullui components, docs, and automation.
         </p>
+        <p className="text-sm text-muted-foreground">
+          Follow releases over RSS:{" "}
+          <a className="underline hover:text-foreground" href="/feed.xml">
+            /feed.xml
+          </a>
+        </p>
       </div>
       <div className="space-y-4">
         {(changelog.entries as { version: string; date: string; title?: string; notes?: string[]; changes?: string[] }[]).map((e) => (

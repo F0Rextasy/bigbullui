@@ -1,78 +1,3 @@
-import { AdminOverview } from "@/components/blocks/admin-overview";
-import { AdminAnalytics } from "@/components/blocks/admin-analytics";
-import { AdminEcommerce } from "@/components/blocks/admin-ecommerce";
-import { AdminCrm } from "@/components/blocks/admin-crm";
-import { AdminFinance } from "@/components/blocks/admin-finance";
-import { AdminSaas } from "@/components/blocks/admin-saas";
-import { AppMail } from "@/components/blocks/app-mail";
-import { AppTasks } from "@/components/blocks/app-tasks";
-import { AppChat } from "@/components/blocks/app-chat";
-import { AppCalendar } from "@/components/blocks/app-calendar";
-import { AppUsers } from "@/components/blocks/app-users";
-import { AppFiles } from "@/components/blocks/app-files";
-import { AppKanban } from "@/components/blocks/app-kanban";
-import { AuthLogin } from "@/components/blocks/auth-login";
-import { AuthRegister } from "@/components/blocks/auth-register";
-import { AuthForgot } from "@/components/blocks/auth-forgot";
-import { AuthReset } from "@/components/blocks/auth-reset";
-import { AuthVerify } from "@/components/blocks/auth-verify";
-import { Auth2fa } from "@/components/blocks/auth-2fa";
-import { SettingsAccount } from "@/components/blocks/settings-account";
-import { PagePricing } from "@/components/blocks/page-pricing";
-import { PageFaq } from "@/components/blocks/page-faq";
-import { Page404 } from "@/components/blocks/page-404";
-import { PageEmpty } from "@/components/blocks/page-empty";
-import { FormWizard } from "@/components/blocks/form-wizard";
-import { LandingHero } from "@/components/blocks/landing-hero";
-import { LandingFeatures } from "@/components/blocks/landing-features";
-import { LandingTestimonials } from "@/components/blocks/landing-testimonials";
-import { LandingCta } from "@/components/blocks/landing-cta";
-import { LandingFooter } from "@/components/blocks/landing-footer";
-import { LandingLogos } from "@/components/blocks/landing-logos";
-import { BlockContact } from "@/components/blocks/block-contact";
-import { BlockTeam } from "@/components/blocks/block-team";
-import { BlockStats } from "@/components/blocks/block-stats";
-import { BlockGallery } from "@/components/blocks/block-gallery";
-import { BlockTimeline } from "@/components/blocks/block-timeline";
-import { BlockNewsletter } from "@/components/blocks/block-newsletter";
-import { AdminLogistics } from "@/components/blocks/admin-logistics";
-import { AdminHr } from "@/components/blocks/admin-hr";
-import { AdminSupport } from "@/components/blocks/admin-support";
-import { AdminMarketing } from "@/components/blocks/admin-marketing";
-import { AdminAcademy } from "@/components/blocks/admin-academy";
-import { AppNotes } from "@/components/blocks/app-notes";
-import { AppInvoices } from "@/components/blocks/app-invoices";
-import { AppContacts } from "@/components/blocks/app-contacts";
-import { AppBookmarks } from "@/components/blocks/app-bookmarks";
-import { AppPlayer } from "@/components/blocks/app-player";
-import { PageProduct } from "@/components/blocks/page-product";
-import { PageCheckout } from "@/components/blocks/page-checkout";
-import { PageCart } from "@/components/blocks/page-cart";
-import { PageStorefront } from "@/components/blocks/page-storefront";
-import { PageOrderSuccess } from "@/components/blocks/page-order-success";
-import { BlockEventLanding } from "@/components/blocks/block-event-landing";
-import { BlockCustomerPortal } from "@/components/blocks/block-customer-portal";
-import { BlockDevApiKeys } from "@/components/blocks/block-dev-api-keys";
-import { BlockLiveChat } from "@/components/blocks/block-live-chat";
-import { BlockUserProfileDossier } from "@/components/blocks/block-user-profile-dossier";
-import { LandingHeroes2 } from "@/components/blocks/landing-heroes-2";
-import { PageBlog } from "@/components/blocks/page-blog";
-import { PageArticle } from "@/components/blocks/page-article";
-import { PageCareers } from "@/components/blocks/page-careers";
-import { PageContact } from "@/components/blocks/page-contact";
-import { PageAbout } from "@/components/blocks/page-about";
-import { BlockRestaurant } from "@/components/blocks/block-restaurant";
-import { BlockRealEstate } from "@/components/blocks/block-real-estate";
-import { BlockCourse } from "@/components/blocks/block-course";
-import { BlockClinic } from "@/components/blocks/block-clinic";
-import { BlockEventTicketing } from "@/components/blocks/block-event-ticketing";
-import { BlockHotel } from "@/components/blocks/block-hotel";
-import { BlockJobBoard } from "@/components/blocks/block-job-board";
-import { BlockPortfolio } from "@/components/blocks/block-portfolio";
-import { BlockGym } from "@/components/blocks/block-gym";
-import { BlockCarRental } from "@/components/blocks/block-car-rental";
-import { BlockPetAdoption } from "@/components/blocks/block-pet-adoption";
-import { BlockConference } from "@/components/blocks/block-conference";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { BlocksExplorer, type BlockSection } from "@/components/site/blocks-explorer";
@@ -84,121 +9,63 @@ const SECTIONS: BlockSection[] = [
     group: "Admin dashboards",
     icon: "dashboard",
     blurb: "KPIs, ledgers, and back-office desks",
-    items: [
-      { name: "admin-overview", node: <AdminOverview /> },
-      { name: "admin-analytics", node: <AdminAnalytics /> },
-      { name: "admin-ecommerce", node: <AdminEcommerce /> },
-      { name: "admin-crm", node: <AdminCrm /> },
-      { name: "admin-finance", node: <AdminFinance /> },
-      { name: "admin-saas", node: <AdminSaas /> },
-    ],
+    items: ["admin-overview", "admin-analytics", "admin-ecommerce", "admin-crm", "admin-finance", "admin-saas"],
   },
   {
     group: "App boards",
     icon: "app",
     blurb: "Boards, inboxes, and players",
     items: [
-      { name: "app-mail", node: <AppMail /> },
-      { name: "app-tasks", node: <AppTasks /> },
-      { name: "app-chat", node: <AppChat /> },
-      { name: "app-calendar", node: <AppCalendar /> },
-      { name: "app-users", node: <AppUsers /> },
-      { name: "app-files", node: <AppFiles /> },
-      { name: "app-kanban", node: <AppKanban /> },
-      { name: "app-notes", node: <AppNotes /> },
-      { name: "app-invoices", node: <AppInvoices /> },
-      { name: "app-contacts", node: <AppContacts /> },
-      { name: "app-bookmarks", node: <AppBookmarks /> },
-      { name: "app-player", node: <AppPlayer /> },
+      "app-mail", "app-tasks", "app-chat", "app-calendar", "app-users", "app-files",
+      "app-kanban", "app-notes", "app-invoices", "app-contacts", "app-bookmarks", "app-player",
     ],
   },
   {
     group: "Auth passes",
     icon: "auth",
     blurb: "Logins, OTP, and recovery flows",
-    items: [
-      { name: "auth-login", node: <AuthLogin /> },
-      { name: "auth-register", node: <AuthRegister /> },
-      { name: "auth-forgot", node: <AuthForgot /> },
-      { name: "auth-reset", node: <AuthReset /> },
-      { name: "auth-verify", node: <AuthVerify /> },
-      { name: "auth-2fa", node: <Auth2fa /> },
-    ],
+    items: ["auth-login", "auth-register", "auth-forgot", "auth-reset", "auth-verify", "auth-2fa"],
   },
   {
     group: "System pages",
     icon: "system",
     blurb: "Settings, pricing, help, and empty states",
-    items: [
-      { name: "settings-account", node: <SettingsAccount /> },
-      { name: "page-pricing", node: <PagePricing /> },
-      { name: "page-faq", node: <PageFaq /> },
-      { name: "page-404", node: <Page404 /> },
-      { name: "page-empty", node: <PageEmpty /> },
-      { name: "form-wizard", node: <FormWizard /> },
-    ],
+    items: ["settings-account", "page-pricing", "page-faq", "page-404", "page-empty", "form-wizard"],
   },
   {
     group: "Marketing",
     icon: "marketing",
     blurb: "Heroes, features, and footers",
     items: [
-      { name: "landing-hero", node: <LandingHero /> },
-      { name: "landing-heroes-2", node: <LandingHeroes2 /> },
-      { name: "landing-features", node: <LandingFeatures /> },
-      { name: "landing-testimonials", node: <LandingTestimonials /> },
-      { name: "landing-cta", node: <LandingCta /> },
-      { name: "landing-footer", node: <LandingFooter /> },
-      { name: "landing-logos", node: <LandingLogos /> },
+      "landing-hero", "landing-heroes-2", "landing-features", "landing-testimonials",
+      "landing-cta", "landing-footer", "landing-logos",
     ],
   },
   {
     group: "Content sections",
     icon: "content",
     blurb: "Contact, team, stats, and galleries",
-    items: [
-      { name: "block-contact", node: <BlockContact /> },
-      { name: "block-team", node: <BlockTeam /> },
-      { name: "block-stats", node: <BlockStats /> },
-      { name: "block-gallery", node: <BlockGallery /> },
-      { name: "block-timeline", node: <BlockTimeline /> },
-      { name: "block-newsletter", node: <BlockNewsletter /> },
-    ],
+    items: ["block-contact", "block-team", "block-stats", "block-gallery", "block-timeline", "block-newsletter"],
   },
   {
     group: "Operations",
     icon: "operations",
     blurb: "Logistics, HR, support, and academy desks",
-    items: [
-      { name: "admin-logistics", node: <AdminLogistics /> },
-      { name: "admin-hr", node: <AdminHr /> },
-      { name: "admin-support", node: <AdminSupport /> },
-      { name: "admin-marketing", node: <AdminMarketing /> },
-      { name: "admin-academy", node: <AdminAcademy /> },
-    ],
+    items: ["admin-logistics", "admin-hr", "admin-support", "admin-marketing", "admin-academy"],
   },
   {
     group: "Storefront",
     icon: "storefront",
     blurb: "Product, cart, checkout, and confirmation",
-    items: [
-      { name: "page-product", node: <PageProduct /> },
-      { name: "page-checkout", node: <PageCheckout /> },
-      { name: "page-cart", node: <PageCart /> },
-      { name: "page-storefront", node: <PageStorefront /> },
-      { name: "page-order-success", node: <PageOrderSuccess /> },
-    ],
+    items: ["page-product", "page-checkout", "page-cart", "page-storefront", "page-order-success"],
   },
   {
     group: "Service pages",
     icon: "service",
     blurb: "Events, portals, API desks, and live chat",
     items: [
-      { name: "block-event-landing", node: <BlockEventLanding /> },
-      { name: "block-customer-portal", node: <BlockCustomerPortal /> },
-      { name: "block-dev-api-keys", node: <BlockDevApiKeys /> },
-      { name: "block-live-chat", node: <BlockLiveChat /> },
-      { name: "block-user-profile-dossier", node: <BlockUserProfileDossier /> },
+      "block-event-landing", "block-customer-portal", "block-dev-api-keys",
+      "block-live-chat", "block-user-profile-dossier",
     ],
   },
   {
@@ -206,31 +73,16 @@ const SECTIONS: BlockSection[] = [
     icon: "ticket",
     blurb: "Reservations, rentals, and appointments",
     items: [
-      { name: "block-restaurant", node: <BlockRestaurant /> },
-      { name: "block-real-estate", node: <BlockRealEstate /> },
-      { name: "block-course", node: <BlockCourse /> },
-      { name: "block-clinic", node: <BlockClinic /> },
-      { name: "block-event-ticketing", node: <BlockEventTicketing /> },
-      { name: "block-hotel", node: <BlockHotel /> },
-      { name: "block-job-board", node: <BlockJobBoard /> },
-      { name: "block-portfolio", node: <BlockPortfolio /> },
-      { name: "block-gym", node: <BlockGym /> },
-      { name: "block-car-rental", node: <BlockCarRental /> },
-      { name: "block-pet-adoption", node: <BlockPetAdoption /> },
-      { name: "block-conference", node: <BlockConference /> },
+      "block-restaurant", "block-real-estate", "block-course", "block-clinic", "block-event-ticketing",
+      "block-hotel", "block-job-board", "block-portfolio", "block-gym", "block-car-rental",
+      "block-pet-adoption", "block-conference",
     ],
   },
   {
     group: "Pages",
     icon: "pages",
     blurb: "Blog, careers, contact, and company pages",
-    items: [
-      { name: "page-blog", node: <PageBlog /> },
-      { name: "page-article", node: <PageArticle /> },
-      { name: "page-careers", node: <PageCareers /> },
-      { name: "page-contact", node: <PageContact /> },
-      { name: "page-about", node: <PageAbout /> },
-    ],
+    items: ["page-blog", "page-article", "page-careers", "page-contact", "page-about"],
   },
 ];
 

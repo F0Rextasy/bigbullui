@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.5.0",
+      "date": "2026-11-04",
+      "title": "Working npm deep imports, installable hooks, hardened CLI",
+      "changes": [
+        "Per-component npm imports now resolve (bigbullui/components/ui/<name> for all 659 installable entries)",
+        "hooks and focus-trap became real registry items: npx bigbullui add hooks and /r/hooks.json work",
+        "Blocks install cleanly through the shadcn CLI and npx bigbullui add <block>; ui imports are rewritten for the target layout",
+        "npx bigbullui mcp starts the MCP server; CLI gained component-name validation, 15s network timeouts and failure exit codes",
+        "bigbullicons: StampIcon name is a literal union of all 1099 icons and the package is safe in React Server Components",
+        "alert-dialog gained proper dialog semantics and focus trapping; coupon clipboard no longer crashes on insecure origins"
+      ]
+    },
+    {
       "version": "1.4.1",
       "date": "2026-09-17",
       "title": "Simpler installation and repaired component previews",

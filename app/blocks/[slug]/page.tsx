@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { CopyBlock } from "@/components/site/copy-block";
+import { slugTitle } from "@/lib/site-meta";
 
 export function generateStaticParams() {
   return [
@@ -25,7 +26,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const title = slug.split("-").map((w) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1) : w)).join(" ");
+  const title = slugTitle(slug);
   return { title: `${title}: Block` };
 }
 
@@ -44,7 +45,7 @@ export default async function BlockPage({ params }: { params: Promise<{ slug: st
   }
   if (!Node) notFound();
   const Render = Node as React.ComponentType;
-  const title = slug.split("-").map((w) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1) : w)).join(" ");
+  const title = slugTitle(slug);
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
