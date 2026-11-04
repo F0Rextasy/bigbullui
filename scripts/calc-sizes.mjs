@@ -1,8 +1,10 @@
-import { readdirSync, statSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { readdirSync, statSync, writeFileSync, readFileSync } from "node:fs";
+import { join, resolve, dirname } from "node:path";
 import { gzipSync } from "node:zlib";
+import { fileURLToPath } from "node:url";
 
-const DIR = join(process.cwd(), "src", "components", "ui");
+const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const DIR = join(rootDir, "src", "components", "ui");
 const WARN_KB = 12;
 const HARD_FILE_KB = 30;
 const HARD_TOTAL_KB = 2400;
@@ -13,7 +15,6 @@ let over = 0;
 for (const f of files) {
   const raw = statSync(join(DIR, f)).size;
   const kb = raw / 1024;
-  const { readFileSync } = await import("node:fs");
   const gz = gzipSync(readFileSync(join(DIR, f))).length;
   sizes[f.replace(/\.tsx$/, "")] = { raw, gzip: gz, kb: Number((gz / 1024).toFixed(2)) };
   if (kb > WARN_KB) {
@@ -23,7 +24,7 @@ for (const f of files) {
 }
 const totalKb = Object.values(sizes).reduce((a, s) => a + s.raw, 0) / 1024;
 const violators = Object.entries(sizes).filter(([, s]) => s.raw / 1024 > HARD_FILE_KB);
-writeFileSync(join(process.cwd(), "src", "data", "sizes.json"), JSON.stringify({ updated: new Date().toISOString().slice(0, 10), sizes }, null, 2));
+writeFileSync(join(rootDir, "src", "data", "sizes.json"), JSON.stringify({ updated: new Date().toISOString().slice(0, 10), sizes }, null, 2));
 console.log(`${files.length} ui files scanned, ${over} over ${WARN_KB}kb budget, total ${totalKb.toFixed(0)}kb raw.`);
 if (violators.length > 0) {
   console.error(`SIZE GATE: files over ${HARD_FILE_KB}kb raw: ${violators.map(([n, s]) => `${n} ${(s.raw / 1024).toFixed(1)}kb`).join(", ")}`);

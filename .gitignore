@@ -73,3 +73,4 @@ public/*.json
 src/data/sizes.json
 src/data/dep-graph.json
 src/data/catalog.json
+src/data/docs-content.json

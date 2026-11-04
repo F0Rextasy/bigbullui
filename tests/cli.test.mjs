@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -85,5 +85,46 @@ describe("bigbullui CLI end-to-end", () => {
       out = (e.stdout || "") + (e.stderr || "");
     }
     assert.ok(/Node|tailwindcss|utils/i.test(out), "doctor prints checklist");
+  });
+
+  it("rejects path-traversal slugs with a non-zero exit", () => {
+    const res = spawnSync("node", [cli, "add", "../../evil"], { cwd: workdir, encoding: "utf8", timeout: 30000 });
+    assert.equal(res.status, 1, "invalid slug must exit non-zero");
+    assert.match(res.stderr + res.stdout, /Invalid component name/);
+  });
+
+  it("-v prints the package version", () => {
+    const pkg = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf8"));
+    assert.equal(run("-v").trim(), pkg.version);
+  });
+
+  it("npx bigbullui mcp starts the stdio MCP server", () => {
+    const res = spawnSync(
+      "node",
+      [cli, "mcp"],
+      {
+        cwd: workdir,
+        encoding: "utf8",
+        timeout: 30000,
+        input:
+          '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05"}}\n' +
+          '{"jsonrpc":"2.0","id":2,"method":"tools/list"}\n' +
+          '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_components","arguments":{"search":"ticket"}}}\n' +
+          '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"get_component","arguments":{"name":"..%2F..%2Fevil"}}}\n',
+      }
+    );
+    const lines = (res.stdout || "").trim().split("\n").map((l) => JSON.parse(l));
+    const byId = new Map(lines.map((m) => [m.id, m]));
+    const init = byId.get(1);
+    assert.ok(init && init.result, "initialize replied");
+    assert.equal(init.result.serverInfo.name, "bigbullui");
+    const pkg = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf8"));
+    assert.equal(init.result.serverInfo.version, pkg.version, "server reports the real package version");
+    const tools = byId.get(2);
+    assert.ok(tools && tools.result.tools.length >= 6, "tools/list exposes all tools");
+    const call = byId.get(3);
+    assert.ok(call && call.result && !call.result.isError, "list_components succeeds locally");
+    const bad = byId.get(4);
+    assert.ok(bad && bad.result && bad.result.isError === true, "invalid name returns isError result, not protocol error");
   });
 });

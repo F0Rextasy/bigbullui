@@ -60,7 +60,7 @@ function extractIcons(source) {
   for (let i = 0; i < keys.length; i++) {
     const name = keys[i][1] ?? keys[i][2];
     const valueStart = keys[i].index + keys[i][0].length;
-    const valueEnd = i + 1 < keys.length ? keys[i + 1].index : source.lastIndexOf("};");
+    const valueEnd = i + 1 < keys.length ? keys[i + 1].index : source.lastIndexOf("}");
     let raw = source.slice(valueStart, valueEnd).trim();
     raw = raw.replace(/,\s*$/, "").trim();
     if (raw.startsWith("(") && raw.endsWith(")")) {
@@ -70,7 +70,10 @@ function extractIcons(source) {
     if (inner.startsWith("<>") && inner.endsWith("</>")) {
       inner = inner.slice(2, -3).trim();
     }
-    if (!inner.startsWith("<")) continue;
+    if (!inner.startsWith("<")) {
+      console.warn(`generate-icon-registry: skipped unparseable entry "${name}"`);
+      continue;
+    }
     entries.push({ name, inner });
   }
   return entries;
