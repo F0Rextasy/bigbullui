@@ -57,7 +57,7 @@ export function TurnstileGate({
           <span
             className={cn(
               "size-2 rounded-full",
-              locked ? "bg-destructive" : "bg-success animate-pulse"
+              locked ? "bg-destructive" : "bg-success motion-safe:animate-pulse"
             )}
           />
           <span>{locked ? "LOCKED" : "READY"}</span>

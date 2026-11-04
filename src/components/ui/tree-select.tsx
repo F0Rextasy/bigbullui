@@ -99,7 +99,7 @@ export function TreeSelect({
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 animate-[fade-in_0.12s_ease-out]">
+          <div className="border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 motion-safe:animate-[fade-in_0.12s_ease-out]">
             {node.children!.map((child) => renderNode(child, depth + 1))}
           </div>
         )}
@@ -127,7 +127,7 @@ export function TreeSelect({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-2 shadow-xl outline-1 outline-dashed outline-offset-[-4px] animate-[scale-in_0.12s_ease-out_both] text-xs">
+        <div className="absolute left-0 top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-2 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both] text-xs">
           <div className="border-b border-dashed border-border pb-1.5 mb-1.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
             SELECT SEATING ZONE
           </div>

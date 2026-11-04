@@ -82,7 +82,7 @@ function SidebarLink({
         <span
           title="New"
           aria-label="New component"
-          className="ms-auto size-2 shrink-0 animate-pulse rounded-full bg-accent-strong"
+          className="ms-auto size-2 shrink-0 motion-safe:animate-pulse rounded-full bg-accent-strong"
         />
       ) : null}
     </Link>

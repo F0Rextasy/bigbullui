@@ -266,7 +266,7 @@ export function HoverCardContent({
       onMouseLeave={ctx.handleContentLeave}
       className={cn(
         "absolute z-50 w-80 rounded-lg border-2 border-foreground bg-card text-card-foreground p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] outline-border select-none",
-        animated && "animate-[scale-in_0.16s_ease-out_both]",
+        animated && "motion-safe:animate-[scale-in_0.16s_ease-out_both]",
         side === "top"
           ? "bottom-[calc(100%+10px)]"
           : "top-[calc(100%+10px)]",

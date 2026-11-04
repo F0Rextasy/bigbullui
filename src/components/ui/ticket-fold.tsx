@@ -114,7 +114,7 @@ export function TicketFold({
           {/* Top Micro Metadata Bar */}
           <div className="flex items-center justify-between border-b-2 border-dashed border-border/80 pb-3">
             <div className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-accent animate-pulse" />
+              <span className="inline-block size-2 rounded-full bg-accent motion-safe:animate-pulse" />
               <span className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-accent">
                 {admitCount}
               </span>
@@ -390,7 +390,7 @@ export function TicketFold({
             {/* If torn, overlay rubber stamp */}
             {isTorn ? (
               <div className="absolute inset-0 z-30 flex items-center justify-center bg-background/70 backdrop-blur-[1px] p-4 text-center">
-                <div className="rotate-[-8deg] rounded-md border-2 border-destructive bg-card/95 px-4 py-2 shadow-lg animate-in fade-in zoom-in duration-300">
+                <div className="rotate-[-8deg] rounded-md border-2 border-destructive bg-card/95 px-4 py-2 shadow-lg motion-safe:animate-in fade-in zoom-in duration-300">
                   <div className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-destructive">
                     STUB DETACHED
                   </div>

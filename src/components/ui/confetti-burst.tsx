@@ -54,7 +54,7 @@ export function ConfettiBurst({
             transform: `translate(${p.x}px, ${p.y}px) rotate(${p.rotation}deg)`,
             transition: `all ${p.duration}s cubic-bezier(0.25, 1, 0.5, 1) ${p.delay}s`,
           }}
-          className="absolute size-2.5 rounded-[1px] border border-black/10 shadow-xs animate-[fade-in_0.1s_ease-out]"
+          className="absolute size-2.5 rounded-[1px] border border-black/10 shadow-xs motion-safe:animate-[fade-in_0.1s_ease-out]"
         />
       ))}
     </div>

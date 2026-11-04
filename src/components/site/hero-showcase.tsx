@@ -31,7 +31,7 @@ export function HeroShowcase({ total }: { total: number }) {
   };
 
   return (
-    <div className="animate-rise w-full overflow-hidden rounded-xl border-2 border-border bg-card shadow-sm">
+    <div className="motion-safe:animate-rise w-full overflow-hidden rounded-xl border-2 border-border bg-card shadow-sm">
       {/* Top Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/40 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">

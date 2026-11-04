@@ -44,7 +44,7 @@ export function MedalDisplay({ medals, className, ...props }: MedalDisplayProps)
                 <text x="12" y="17" textAnchor="middle" fontSize="7" fontWeight="700" fill="currentColor" stroke="none" fontFamily="monospace">{t.rank}</text>
               </svg>
               <span className="absolute inset-0 overflow-hidden">
-                <span className="absolute inset-y-0 w-4 bg-white/30" style={{ animation: "mdShine 2.8s ease-in-out infinite", animationDelay: `${idx * 300}ms` }} />
+                <span className="absolute inset-y-0 w-4 bg-white/30 motion-reduce:animate-none!" style={{ animation: "mdShine 2.8s ease-in-out infinite", animationDelay: `${idx * 300}ms` }} />
               </span>
             </span>
             <span className="min-w-0 flex-1">

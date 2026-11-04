@@ -50,6 +50,7 @@ const StoryViewer: React.FC<StoryViewerProps> = ({ stories, duration = STORY_DUR
           />
           <circle
             id="story-progress"
+            className="motion-reduce:animate-none!"
             cx="12"
             cy="12"
             r="8"

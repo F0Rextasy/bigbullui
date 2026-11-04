@@ -118,7 +118,7 @@ export function Autocomplete({
       </div>
 
       {isOpen && filteredOptions.length > 0 && (
-        <div className="absolute left-0 top-full z-50 mt-1 max-h-56 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] animate-[scale-in_0.12s_ease-out_both] text-xs">
+        <div className="absolute left-0 top-full z-50 mt-1 max-h-56 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both] text-xs">
           {filteredOptions.map((opt, idx) => (
             <div
               key={opt.value}

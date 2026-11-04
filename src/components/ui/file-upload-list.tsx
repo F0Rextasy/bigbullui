@@ -275,7 +275,7 @@ export function FileUploadList({
           {/* Status Pills & Controls */}
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             {uploadingCount > 0 && (
-              <span className="inline-flex items-center gap-1 rounded-xs border border-dashed border-accent bg-accent/15 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-accent animate-pulse">
+              <span className="inline-flex items-center gap-1 rounded-xs border border-dashed border-accent bg-accent/15 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-accent motion-safe:animate-pulse">
                 <span className="size-1.5 rounded-full bg-accent" />
                 {uploadingCount} UPLOADING
               </span>

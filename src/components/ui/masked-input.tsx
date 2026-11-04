@@ -87,7 +87,7 @@ export function MaskedInput({
       />
       {isComplete && (
         <span
-          className="absolute right-2.5 flex size-4 items-center justify-center rounded-xs bg-accent text-[10px] font-bold text-accent-foreground animate-[scale-in_0.15s_ease-out]"
+          className="absolute right-2.5 flex size-4 items-center justify-center rounded-xs bg-accent text-[10px] font-bold text-accent-foreground motion-safe:animate-[scale-in_0.15s_ease-out]"
           title="Ticket Serial Validated"
         >
           ✓

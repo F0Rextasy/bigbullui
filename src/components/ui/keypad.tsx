@@ -283,20 +283,20 @@ export function Keypad({
       case "error":
         return {
           indicator: "bg-destructive shadow-[0_0_8px_rgba(239,68,68,0.7)]",
-          label: "text-destructive font-bold animate-pulse",
+          label: "text-destructive font-bold motion-safe:animate-pulse",
           border: "border-destructive/60",
           bg: "bg-destructive/10",
         };
       case "validating":
         return {
-          indicator: "bg-warning animate-ping",
+          indicator: "bg-warning motion-safe:animate-ping",
           label: "text-warning font-bold",
           border: "border-warning/60",
           bg: "bg-warning/10",
         };
       default:
         return {
-          indicator: "bg-accent animate-pulse",
+          indicator: "bg-accent motion-safe:animate-pulse",
           label: "text-muted-foreground",
           border: "border-border",
           bg: "bg-secondary/40",
@@ -445,7 +445,7 @@ export function Keypad({
                   isFilled
                     ? "border-foreground/80 bg-card text-foreground scale-100"
                     : "border-dashed border-border/80 bg-secondary/40 text-muted-foreground/40",
-                  isCurrent && "border-solid border-accent ring-2 ring-accent/30 bg-card/80 animate-pulse",
+                  isCurrent && "border-solid border-accent ring-2 ring-accent/30 bg-card/80 motion-safe:animate-pulse",
                   status === "error" && "border-destructive text-destructive",
                   status === "success" && "border-success text-success"
                 )}
@@ -554,7 +554,7 @@ export function Keypad({
               {isPulsing && (
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-lg border-2 border-accent/70 animate-ping pointer-events-none"
+                  className="absolute inset-0 rounded-lg border-2 border-accent/70 motion-safe:animate-ping pointer-events-none"
                 />
               )}
 

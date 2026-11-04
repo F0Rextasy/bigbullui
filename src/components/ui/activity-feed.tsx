@@ -364,7 +364,7 @@ export function ActivityFeed({
           {showLiveIndicator && (
             <div className="inline-flex items-center gap-1.5 rounded-sm border border-dashed border-accent/40 bg-accent/10 px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider text-accent">
               <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-75" />
+                <span className="absolute inline-flex size-full motion-safe:animate-ping rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-accent" />
               </span>
               <span>LIVE</span>
@@ -475,7 +475,7 @@ export function ActivityFeed({
                         <div
                           className={cn(
                             "absolute -left-7 sm:-left-9 top-1.5 z-10 flex size-7 sm:size-8 items-center justify-center rounded-full border-2 bg-card shadow-xs transition-transform duration-150 group-hover:scale-105",
-                            isLivePending ? "border-accent animate-pulse" : "border-foreground"
+                            isLivePending ? "border-accent motion-safe:animate-pulse" : "border-foreground"
                           )}
                         >
                           {item.actor.avatarUrl ? (
@@ -629,7 +629,7 @@ export function ActivityFeed({
                               </button>
 
                               {isExpanded && (
-                                <div className="mt-2 rounded-sm border border-dashed border-border bg-secondary/40 p-2.5 font-mono text-xs animate-in fade-in-50 duration-150">
+                                <div className="mt-2 rounded-sm border border-dashed border-border bg-secondary/40 p-2.5 font-mono text-xs motion-safe:animate-in fade-in-50 duration-150">
                                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1 font-bold">
                                     EXECUTION LOG:
                                   </div>

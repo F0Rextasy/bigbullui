@@ -100,7 +100,7 @@ export function TimeRangePicker({
           className={cn(
             "font-mono uppercase tracking-[0.15em] text-[10px]",
             durationMinutes > 0 && "text-accent-foreground",
-            "animate-pulse-ring"
+            "motion-safe:animate-pulse-ring"
           )}
         >
           {durationHours.toFixed(1)} hr{durationHours > 1 ? "s" : ""}

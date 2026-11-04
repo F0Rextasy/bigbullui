@@ -113,7 +113,7 @@ export function TreemapChart({
                 opacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
                 className={cn(
                   "motion-reduce:transition-none",
-                  `animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,
+                  `motion-safe:animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,
                 )}
               />
               {showLabel ? (

@@ -53,7 +53,7 @@ function AnimatedScore({ target }: { target: number }) {
             "font-mono text-3xl font-bold",
             dIdx > 0 ? "scale-95" : "scale-100",
             "motion-reduce:transition-none",
-            "animate-[scoreboardRoll_0.4s_ease-out_both]",
+            "motion-safe:animate-[scoreboardRoll_0.4s_ease-out_both]",
           )}
         >
           {digit}

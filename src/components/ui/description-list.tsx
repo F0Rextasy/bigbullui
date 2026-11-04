@@ -33,7 +33,7 @@ export function DescriptionList({
           key={item.term}
           className={cn(
             "row-span-2",
-            `animate-[fade-in-up_0.3s_ease-out_both]`,
+            `motion-safe:animate-[fade-in-up_0.3s_ease-out_both]`,
             `animation-delay: ${index * 40}ms`,
             className
           )}

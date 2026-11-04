@@ -32,7 +32,7 @@ export function UpgradePrompt({
         @keyframes upShine { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(220%); } }
         @keyframes upIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
-      <div className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/10 to-transparent" style={{ animation: "upShine 3.5s ease-in-out infinite" }} aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/10 to-transparent motion-reduce:animate-none!" style={{ animation: "upShine 3.5s ease-in-out infinite" }} aria-hidden="true" />
       <button
         onClick={() => { setDismissed(true); onDismiss?.(); }}
         className="absolute right-2 top-2 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"

@@ -12,7 +12,7 @@ export function SkeletonV2({ className, shimmer = true, ...props }: SkeletonV2Pr
     <div
       aria-hidden="true"
       className={cn(
-        "relative overflow-hidden rounded-md border border-dashed border-border bg-secondary/80 animate-pulse",
+        "relative overflow-hidden rounded-md border border-dashed border-border bg-secondary/80 motion-safe:animate-pulse",
         className
       )}
       {...props}

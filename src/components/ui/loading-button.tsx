@@ -82,7 +82,7 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
             strokeWidth={3}
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="flex-shrink-0 animate-spin"
+            className="flex-shrink-0 motion-safe:animate-spin"
           >
             <circle cx="12" cy="12" r="10" />
             <path d="M8 14l8-8l-4-4" />

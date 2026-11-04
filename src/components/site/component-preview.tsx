@@ -146,7 +146,7 @@ function AnimatedProgressPreview() {
     <div className="grid w-full max-w-sm gap-4 select-none">
       <div className="flex items-center justify-between text-xs font-mono text-muted-foreground">
         <span className="flex items-center gap-1.5">
-          <span className="size-2 rounded-full bg-accent animate-ping" />
+          <span className="size-2 rounded-full bg-accent motion-safe:animate-ping" />
           PRINTING STUBS...
         </span>
         <span className="font-bold font-mono text-accent">{val}%</span>
@@ -162,7 +162,7 @@ function AnimatedBarcodePreview() {
     <div className="relative overflow-hidden rounded-xl border-2 border-foreground bg-card p-6 shadow-md select-none">
       <Barcode value="BB-2026-TICKET" height={52} />
       {/* Red Laser Sweep Line */}
-      <div className="absolute inset-x-0 h-[2px] bg-accent shadow-[0_0_10px_var(--color-accent,#BC3A28)] animate-[laser_2.2s_ease-in-out_infinite]" />
+      <div className="absolute inset-x-0 h-[2px] bg-accent shadow-[0_0_10px_var(--color-accent,#BC3A28)] motion-safe:animate-[laser_2.2s_ease-in-out_infinite]" />
     </div>
   );
 }
@@ -172,7 +172,7 @@ function AnimatedStampSealPreview() {
 
   return (
     <div className="flex flex-col items-center gap-5 select-none">
-      <div key={stampKey} className="animate-[stamp_0.4s_ease-out]">
+      <div key={stampKey} className="motion-safe:animate-[stamp_0.4s_ease-out]">
         <StampSeal text="ADMITTED" subtext="OFFICIAL" tone="accent" rotate={-8} />
       </div>
       <Button
@@ -193,7 +193,7 @@ function AnimatedAvatarPreview() {
       <div className="relative">
         <Avatar name="Ada Bull" size="lg" />
         <span className="absolute bottom-0 right-0 flex size-3">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+          <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-accent opacity-75" />
           <span className="relative inline-flex size-3 rounded-full bg-accent" />
         </span>
       </div>
@@ -209,11 +209,11 @@ function AnimatedAvatarPreview() {
 function AnimatedBadgePreview() {
   return (
     <div className="flex flex-wrap justify-center gap-3">
-      <Badge className="animate-[scale-in_0.3s_ease-out]">
-        <span className="me-1.5 size-1.5 rounded-full bg-primary-foreground animate-pulse" />
+      <Badge className="motion-safe:animate-[scale-in_0.3s_ease-out]">
+        <span className="me-1.5 size-1.5 rounded-full bg-primary-foreground motion-safe:animate-pulse" />
         LIVE ADMISSION
       </Badge>
-      <Badge variant="accent" className="animate-[scale-in_0.3s_ease-out]">
+      <Badge variant="accent" className="motion-safe:animate-[scale-in_0.3s_ease-out]">
         SOLD OUT
       </Badge>
       <Badge variant="secondary">STANDBY</Badge>
@@ -232,7 +232,7 @@ function AnimatedButtonPreview() {
           setClicked(true);
           setTimeout(() => setClicked(false), 600);
         }}
-        className={cn(clicked && "animate-[scale-in_0.2s_ease-out]")}
+        className={cn(clicked && "motion-safe:animate-[scale-in_0.2s_ease-out]")}
       >
         {clicked ? "Stamping..." : "Admit one"}
       </Button>
@@ -528,7 +528,7 @@ function AnimatedScrollTopPreview() {
   return (
     <div className="flex flex-col items-center gap-3 p-6 text-center select-none">
       <div className="flex items-center gap-2 rounded-lg border-2 border-foreground bg-card px-4 py-2.5 font-mono text-xs font-bold text-foreground shadow-md outline-1 outline-dashed outline-offset-[-4px]">
-        <span className="text-accent animate-bounce">▲</span>
+        <span className="text-accent motion-safe:animate-bounce">▲</span>
         <span>ELEVATOR · TOP</span>
       </div>
       <span className="font-mono text-[11px] text-muted-foreground">
@@ -1534,7 +1534,7 @@ function AnimatedHoverCardPreview() {
             type="button"
             className="inline-flex items-center gap-2 rounded-md border-2 border-foreground bg-card px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-foreground shadow-xs transition-transform hover:scale-105"
           >
-            <span className="size-2 rounded-full bg-accent animate-pulse" />
+            <span className="size-2 rounded-full bg-accent motion-safe:animate-pulse" />
             HOVER PASS • ROW A SEAT 18
           </button>
         </HoverCardTrigger>
@@ -1857,7 +1857,7 @@ function AnimatedDockPreview() {
   return (
     <div className="w-full flex flex-col items-center justify-center py-6 gap-4">
       <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-        <span className="size-1.5 rounded-full bg-accent animate-ping" />
+        <span className="size-1.5 rounded-full bg-accent motion-safe:animate-ping" />
         HOVER TO MAGNIFY · CLICK TO SWITCH ACTIVE STUB APP
       </div>
 

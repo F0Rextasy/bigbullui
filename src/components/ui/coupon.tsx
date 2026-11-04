@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useCopy } from "./lib/hooks";
 
 export interface CouponProps extends React.HTMLAttributes<HTMLDivElement> {
   code: string;
@@ -23,12 +24,10 @@ export function Coupon({
   className,
   ...props
 }: CouponProps) {
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copy } = useCopy();
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    copy(code);
     onApply?.(code);
   };
 

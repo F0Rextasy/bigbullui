@@ -19,7 +19,7 @@ export function MediaEmbed({ src, title, poster, className, ...props }: MediaEmb
       <style>{`@keyframes meShimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }`}</style>
       {!loaded && (
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 motion-reduce:animate-none!"
           style={{ background: "linear-gradient(90deg, var(--secondary) 25%, var(--muted) 50%, var(--secondary) 75%)", backgroundSize: "200% 100%", animation: "meShimmer 1.4s ease-in-out infinite" }}
           aria-hidden="true"
         />

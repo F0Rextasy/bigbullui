@@ -173,7 +173,7 @@ export function NfcBadge({
               {department}
             </div>
             <div className="mt-1 flex items-center gap-2 font-mono text-[9px] text-muted-foreground">
-              <span className="inline-block size-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="inline-block size-1.5 rounded-full bg-accent motion-safe:animate-pulse" />
               <span>{gate}</span>
             </div>
           </div>
@@ -206,18 +206,18 @@ export function NfcBadge({
               className={cn(
                 "absolute inset-0 rounded-full border-2 opacity-0",
                 currentStatus === "scanning"
-                  ? "border-accent animate-ping"
+                  ? "border-accent motion-safe:animate-ping"
                   : currentStatus === "success"
-                  ? "border-success animate-ping"
-                  : "group-hover:border-foreground/40 group-hover:animate-ping"
+                  ? "border-success motion-safe:animate-ping"
+                  : "group-hover:border-foreground/40 group-hover:motion-safe:animate-ping"
               )}
             />
             <span
               key={`ripple-2-${tapRippleKey}`}
               className={cn(
                 "absolute -inset-2 rounded-full border border-dashed opacity-0 transition-opacity",
-                currentStatus === "scanning" && "border-accent animate-pulse opacity-100",
-                currentStatus === "success" && "border-success animate-pulse opacity-100",
+                currentStatus === "scanning" && "border-accent motion-safe:animate-pulse opacity-100",
+                currentStatus === "success" && "border-success motion-safe:animate-pulse opacity-100",
                 currentStatus === "idle" && "group-hover:opacity-40"
               )}
             />
@@ -275,7 +275,7 @@ export function NfcBadge({
                   strokeLinejoin="round"
                   className={cn(
                     "transition-all duration-300",
-                    currentStatus === "scanning" && "animate-pulse"
+                    currentStatus === "scanning" && "motion-safe:animate-pulse"
                   )}
                   aria-hidden="true"
                 >
@@ -299,7 +299,7 @@ export function NfcBadge({
                 currentStatus === "idle" &&
                   "border-foreground bg-card text-foreground shadow-xs group-hover:bg-foreground group-hover:text-background",
                 currentStatus === "scanning" &&
-                  "border-accent bg-accent text-accent-foreground animate-pulse",
+                  "border-accent bg-accent text-accent-foreground motion-safe:animate-pulse",
                 currentStatus === "success" &&
                   "border-success bg-success text-white font-bold",
                 currentStatus === "denied" &&
@@ -308,7 +308,7 @@ export function NfcBadge({
             >
               {currentStatus === "idle" && (
                 <>
-                  <span className="inline-block size-2 rounded-full bg-accent animate-ping" />
+                  <span className="inline-block size-2 rounded-full bg-accent motion-safe:animate-ping" />
                   <span>TAP PASS TO ENTER</span>
                 </>
               )}
@@ -331,7 +331,7 @@ export function NfcBadge({
           {/* Successful Admission Chime Visual Indicator */}
           {showChimeVisual && currentStatus === "success" && (
             <div
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded border border-success/40 bg-success/15 px-3 py-1.5 text-success animate-in fade-in zoom-in-95 duration-200"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded border border-success/40 bg-success/15 px-3 py-1.5 text-success motion-safe:animate-in fade-in zoom-in-95 duration-200"
               aria-live="polite"
             >
               {/* Chime Bell Icon */}
@@ -344,7 +344,7 @@ export function NfcBadge({
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="animate-bounce"
+                className="motion-safe:animate-bounce"
                 aria-hidden="true"
               >
                 <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
@@ -357,10 +357,10 @@ export function NfcBadge({
 
               {/* Acoustic Chime Reverberation Bars */}
               <div className="flex items-center gap-0.5 h-3">
-                <span className="w-0.5 h-2 rounded-full bg-current animate-pulse" />
-                <span className="w-0.5 h-3.5 rounded-full bg-current animate-pulse delay-75" />
-                <span className="w-0.5 h-1.5 rounded-full bg-current animate-pulse delay-150" />
-                <span className="w-0.5 h-3 rounded-full bg-current animate-pulse delay-100" />
+                <span className="w-0.5 h-2 rounded-full bg-current motion-safe:animate-pulse" />
+                <span className="w-0.5 h-3.5 rounded-full bg-current motion-safe:animate-pulse delay-75" />
+                <span className="w-0.5 h-1.5 rounded-full bg-current motion-safe:animate-pulse delay-150" />
+                <span className="w-0.5 h-3 rounded-full bg-current motion-safe:animate-pulse delay-100" />
               </div>
             </div>
           )}

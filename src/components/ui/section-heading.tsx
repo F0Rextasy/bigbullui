@@ -29,7 +29,7 @@ export function SectionHeading({
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2.5">
-          <div className="size-2 rounded-full bg-accent animate-ping" />
+          <div className="size-2 rounded-full bg-accent motion-safe:animate-ping" />
           <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-foreground">
             {title}
           </h3>

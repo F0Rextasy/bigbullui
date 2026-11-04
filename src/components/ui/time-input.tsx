@@ -77,7 +77,7 @@ export function TimeInput({
           </button>
         </div>
 
-        <span className="text-sm font-bold text-muted-foreground animate-pulse">:</span>
+        <span className="text-sm font-bold text-muted-foreground motion-safe:animate-pulse">:</span>
 
         {/* Minutes Box */}
         <div className="flex flex-col items-center rounded-md border-2 border-foreground bg-card p-1 shadow-xs">

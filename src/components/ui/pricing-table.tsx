@@ -148,7 +148,7 @@ export function PricingTable({
       <div className="flex flex-col items-center text-center space-y-4">
         {badge && (
           <div className="inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-accent bg-accent px-3 py-0.5 font-mono text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
-            <span className="inline-block size-1.5 rounded-full bg-accent animate-ping" />
+            <span className="inline-block size-1.5 rounded-full bg-accent motion-safe:animate-ping" />
             {badge}
           </div>
         )}

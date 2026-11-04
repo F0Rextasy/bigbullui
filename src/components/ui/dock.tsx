@@ -284,7 +284,7 @@ export function DockItem({
       {label && isHovered && (
         <div
           className={cn(
-            "pointer-events-none absolute z-50 flex items-center gap-1.5 whitespace-nowrap rounded-xs border-2 border-dashed border-border bg-card/95 px-2 py-0.5 text-foreground shadow-xl backdrop-blur-xs transition-opacity duration-150 animate-fade-in-up",
+            "pointer-events-none absolute z-50 flex items-center gap-1.5 whitespace-nowrap rounded-xs border-2 border-dashed border-border bg-card/95 px-2 py-0.5 text-foreground shadow-xl backdrop-blur-xs transition-opacity duration-150 motion-safe:animate-fade-in-up",
             direction === "bottom" && "-top-9",
             direction === "top" && "-bottom-9",
             direction === "left" && "-right-24",
@@ -343,7 +343,7 @@ export function DockItem({
       >
         {active ? (
           <span
-            className="size-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)] animate-pulse"
+            className="size-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)] motion-safe:animate-pulse"
             aria-hidden="true"
           />
         ) : (

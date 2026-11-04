@@ -61,7 +61,7 @@ const variantStyles: Record<AnnouncementBarVariant, {
   urgent: {
     container: "bg-destructive/10 text-foreground border-destructive/40",
     badge: "border-destructive/50 bg-destructive/20 text-destructive",
-    urgency: "border-destructive bg-destructive text-primary-foreground font-black animate-pulse",
+    urgency: "border-destructive bg-destructive text-primary-foreground font-black motion-safe:animate-pulse",
     button: "border-destructive bg-destructive text-primary-foreground hover:bg-destructive/90",
   },
   accent: {
@@ -259,7 +259,7 @@ export function AnnouncementBar({
               )}
             >
               <span className="relative flex size-1.5">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-current opacity-75" />
+                <span className="absolute inline-flex size-full motion-safe:animate-ping rounded-full bg-current opacity-75" />
                 <span className="relative inline-flex size-1.5 rounded-full bg-current" />
               </span>
               <span>{displayUrgency}</span>

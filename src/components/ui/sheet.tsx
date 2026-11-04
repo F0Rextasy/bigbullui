@@ -68,7 +68,7 @@ export function Sheet({
       <div
         aria-hidden="true"
         onClick={() => onOpenChange(false)}
-        className={cn("fixed inset-0 bg-black/50 backdrop-blur-[2px]", animated && "animate-[fade-in_0.2s_ease-out_both]")}
+        className={cn("fixed inset-0 bg-black/50 backdrop-blur-[2px]", animated && "motion-safe:animate-[fade-in_0.2s_ease-out_both]")}
       />
       <div
         ref={contentRef}
@@ -79,8 +79,8 @@ export function Sheet({
           "fixed inset-y-0 z-50 flex w-full max-w-md flex-col border-[1.5px] border-foreground bg-card p-6 shadow-xl outline-1 outline-dashed outline-offset-[-7px] focus:outline-none",
           animated ? "transition-transform duration-200 ease-out" : "transition-none",
           side === "right"
-            ? cn("right-0", animated && "animate-[fade-in-up_0.25s_ease-out]")
-            : cn("left-0", animated && "animate-[fade-in_0.25s_ease-out]")
+            ? cn("right-0", animated && "motion-safe:animate-[fade-in-up_0.25s_ease-out]")
+            : cn("left-0", animated && "motion-safe:animate-[fade-in_0.25s_ease-out]")
         )}
       >
         {children}

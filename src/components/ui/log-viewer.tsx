@@ -101,7 +101,7 @@ export function LogViewer({
               key={entry.message}
               className={cn(
                 "motion-reduce:transition-none",
-                `animate-[slide-in_0.2s_ease-out_both ${delay}ms fill mode]`,
+                `motion-safe:animate-[slide-in_0.2s_ease-out_both ${delay}ms fill mode]`,
                 levelBg,
                 "p-2 rounded",
               )}

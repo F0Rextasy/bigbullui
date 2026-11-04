@@ -22,8 +22,8 @@ export function ProgressCircle({
   className,
   ...props
 }: ProgressCircleProps) {
-  const clampedValue = Math.max(min, Math.min(max, value));
-  const progressPercent = (clampedValue / max) * 100;
+  const clampedValue = Math.max(min, Math.min(max, value ?? min));
+  const progressPercent = max === 0 ? 0 : ((clampedValue / max) * 100) || 0;
   const circumference = 2 * Math.PI * (size / 2 - 8);
 
   return (
@@ -67,7 +67,7 @@ export function ProgressCircle({
             "transition-all duration-800 ease-out",
             "motion-reduce:transition-none",
             indeterminate
-              ? "animate-[spin_1.5s_linear_forever]"
+              ? "motion-safe:animate-[spin_1.5s_linear_forever]"
               : "",
           )}
         />

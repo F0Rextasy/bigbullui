@@ -184,7 +184,7 @@ export function TrendBadge({
       {/* Live Sales Velocity Pulsing Beacon */}
       {live && (
         <span className="relative flex size-2 shrink-0 items-center justify-center">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-current opacity-75" />
+          <span className="absolute inline-flex size-full motion-safe:animate-ping rounded-full bg-current opacity-75" />
           <span className="relative inline-flex size-1.5 rounded-full bg-current" />
         </span>
       )}

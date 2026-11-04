@@ -32,7 +32,7 @@ export function OfflineBanner({ className, ...props }: React.HTMLAttributes<HTML
         <>
           <span className="flex gap-0.5" aria-hidden="true">
             {[0, 1, 2].map((i) => (
-              <span key={i} className="size-1 rounded-full bg-success" style={{ animation: "obDots 1s ease-in-out infinite", animationDelay: `${i * 150}ms` }} />
+              <span key={i} className="size-1 rounded-full bg-success motion-reduce:animate-none!" style={{ animation: "obDots 1s ease-in-out infinite", animationDelay: `${i * 150}ms` }} />
             ))}
           </span>
           <span className="text-xs text-success">Reconnecting to network…</span>

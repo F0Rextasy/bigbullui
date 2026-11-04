@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useCopy } from "./lib/hooks";
 
 export type CodeBlockVariant = "default" | "terminal" | "ticket";
 
@@ -140,7 +141,7 @@ export function CodeBlock({
   className,
   ...props
 }: CodeBlockProps) {
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copy } = useCopy(copyTimeout);
   const [hasLineNumbers, setHasLineNumbers] = React.useState(showLineNumbers);
   const [isWordWrap, setIsWordWrap] = React.useState(wordWrap);
 
@@ -148,19 +149,9 @@ export function CodeBlock({
     return code ? code.replace(/\r\n/g, "\n").split("\n") : [""];
   }, [code]);
 
-  const handleCopy = async () => {
-    try {
-      if (typeof navigator !== "undefined" && navigator.clipboard) {
-        await navigator.clipboard.writeText(code);
-      }
-      setCopied(true);
-      onCopy?.(code);
-      setTimeout(() => setCopied(false), copyTimeout);
-    } catch {
-      // Fallback if clipboard API unavailable
-      setCopied(true);
-      setTimeout(() => setCopied(false), copyTimeout);
-    }
+  const handleCopy = () => {
+    copy(code);
+    onCopy?.(code);
   };
 
   const isTerminal = variant === "terminal" || /^(bash|sh|zsh|shell|cmd|powershell)$/i.test(language);
@@ -291,7 +282,7 @@ export function CodeBlock({
             className={cn(
               "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               copied
-                ? "border-accent bg-accent text-accent-foreground shadow-xs animate-in zoom-in-95"
+                ? "border-accent bg-accent text-accent-foreground shadow-xs motion-safe:animate-in zoom-in-95"
                 : "border-foreground/80 bg-foreground text-card hover:bg-foreground/90"
             )}
           >

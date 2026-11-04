@@ -35,17 +35,17 @@ export function PageHeader({
             </span>
           </div>
         )}
-        <h2 className={cn(titleClasses, "animate-[stamp_0.4s_ease-out_both]")}>
+        <h2 className={cn(titleClasses, "motion-safe:animate-[stamp_0.4s_ease-out_both]")}>
           {title}
         </h2>
         {description && (
-          <p className={cn(descClasses, "animate-[fade-in_0.3s_ease-out_both]")}>
+          <p className={cn(descClasses, "motion-safe:animate-[fade-in_0.3s_ease-out_both]")}>
             {description}
           </p>
         )}
       </div>
       {actions ? (
-        <div className="self-end sm:self-auto animate-[fade-in-up_0.3s_ease-out_both]">
+        <div className="self-end sm:self-auto motion-safe:animate-[fade-in-up_0.3s_ease-out_both]">
           {actions}
         </div>
       ) : null}

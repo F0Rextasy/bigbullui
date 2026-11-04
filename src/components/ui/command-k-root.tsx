@@ -11,6 +11,8 @@ export interface CommandKRootItem {
 
 export interface CommandKRootProps extends React.HTMLAttributes<HTMLDivElement> {
   items?: CommandKRootItem[];
+  /** Binds Ctrl/⌘+K on mount (default: true). Disable when the host page owns that shortcut. */
+  enableHotkey?: boolean;
 }
 
 /** Command-K root: trigger button opening a filterable command list. */
@@ -20,6 +22,7 @@ export function CommandKRoot({
     { id: "c2", label: "Open seat map", hint: "M" },
     { id: "c3", label: "Toggle night stub", hint: "T" },
   ],
+  enableHotkey = true,
   className,
   ...props
 }: CommandKRootProps) {
@@ -27,6 +30,7 @@ export function CommandKRoot({
   const [q, setQ] = React.useState("");
   const filtered = items.filter((i) => i.label.toLowerCase().includes(q.toLowerCase()));
   React.useEffect(() => {
+    if (!enableHotkey) return;
     const h = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
@@ -36,7 +40,7 @@ export function CommandKRoot({
     };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
-  }, []);
+  }, [enableHotkey]);
   return (
     <div className={cn("w-full max-w-sm", className)} {...props}>
       <button

@@ -51,7 +51,7 @@ export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProp
           {Array.from({ length: 24 }).map((_, i) => (
             <span
               key={i}
-              className={cn("w-0.5 rounded-full", recording ? "bg-destructive" : "bg-border")}
+              className={cn("w-0.5 rounded-full motion-reduce:animate-none!", recording ? "bg-destructive" : "bg-border")}
               style={recording ? { height: `${20 + ((i * 13) % 70)}%`, animation: `arWave ${0.5 + (i % 5) * 0.1}s ease-in-out infinite`, animationDelay: `${i * 40}ms` } : { height: "20%" }}
             />
           ))}

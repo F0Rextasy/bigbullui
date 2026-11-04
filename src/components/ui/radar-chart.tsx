@@ -70,7 +70,7 @@ export function RadarChart({
           strokeLinejoin="round"
           className={cn(
             "motion-reduce:transition-none",
-            "animate-[radarIn_0.8s_ease-out_forwards]",
+            "motion-safe:animate-[radarIn_0.8s_ease-out_forwards]",
           )}
         />
 

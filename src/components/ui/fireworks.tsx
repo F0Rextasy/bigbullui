@@ -40,7 +40,7 @@ export function Fireworks({ active = true, bursts = 5 }: FireworksProps) {
         return (
           <div
             key={`rocket-${i}`}
-            className="absolute bottom-2 size-2 rounded-full bg-accent motion-reduce:animate-none"
+            className="absolute bottom-2 size-2 rounded-full bg-accent motion-reduce:animate-none!"
             style={{
               left: `${15 + (i * 70) / count}%`,
               animation: active ? `fireworkRise 1.8s ease-out ${delay}s infinite` : "none",
@@ -55,7 +55,7 @@ export function Fireworks({ active = true, bursts = 5 }: FireworksProps) {
         return (
           <div
             key={`burst-${rocket}`}
-            className="absolute bottom-[168px] size-1.5 rounded-full motion-reduce:animate-none"
+            className="absolute bottom-[168px] size-1.5 rounded-full motion-reduce:animate-none!"
             style={{
               left: `${15 + (rocket * 70) / count}%`,
               background: rocket % 2 === 0 ? "var(--accent)" : "var(--destructive)",

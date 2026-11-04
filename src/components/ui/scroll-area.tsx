@@ -296,7 +296,7 @@ export function ScrollArea({
         >
           <div className="flex h-6 w-full items-center justify-between border-b-2 border-dashed border-border/80 bg-gradient-to-b from-card via-card/90 to-transparent px-3">
             <span className="flex items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-widest text-muted-foreground/90">
-              <span className="inline-block text-[8px] animate-bounce">▲</span>
+              <span className="inline-block text-[8px] motion-safe:animate-bounce">▲</span>
               <span>MORE ABOVE</span>
             </span>
             <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/60">
@@ -332,7 +332,7 @@ export function ScrollArea({
         >
           <div className="flex h-6 w-full items-center justify-between border-t-2 border-dashed border-border/80 bg-gradient-to-t from-card via-card/90 to-transparent px-3">
             <span className="flex items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-widest text-muted-foreground/90">
-              <span className="inline-block text-[8px] animate-bounce">▼</span>
+              <span className="inline-block text-[8px] motion-safe:animate-bounce">▼</span>
               <span>SCROLL FOR MORE</span>
             </span>
             <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-accent">

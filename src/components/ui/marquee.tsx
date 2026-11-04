@@ -28,7 +28,7 @@ export function Marquee({
     >
       <div
         className={cn(
-          "flex min-w-full shrink-0 items-center justify-around gap-6 motion-reduce:transform-none",
+          "flex min-w-full shrink-0 items-center justify-around gap-6 motion-reduce:transform-none motion-reduce:animate-none!",
           pauseOnHover && "group-hover:[animation-play-state:paused]"
         )}
         style={{
@@ -40,7 +40,7 @@ export function Marquee({
       <div
         aria-hidden="true"
         className={cn(
-          "flex min-w-full shrink-0 items-center justify-around gap-6 motion-reduce:transform-none",
+          "flex min-w-full shrink-0 items-center justify-around gap-6 motion-reduce:transform-none motion-reduce:animate-none!",
           pauseOnHover && "group-hover:[animation-play-state:paused]"
         )}
         style={{

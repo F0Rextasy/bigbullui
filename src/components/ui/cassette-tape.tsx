@@ -34,7 +34,7 @@ export function CassetteTape({ title, playing = false, onToggle }: CassetteTapeP
         <div className="mt-3 flex items-center justify-between gap-3 px-1">
           <span
             aria-hidden="true"
-            className="grid size-10 place-items-center rounded-full border-2 border-foreground/30 bg-background motion-reduce:animate-none"
+            className="grid size-10 place-items-center rounded-full border-2 border-foreground/30 bg-background motion-reduce:animate-none!"
             style={playing ? { animation: "ctSpin 1.2s linear infinite" } : undefined}
           >
             <span className="grid size-5 grid-cols-2 gap-px">
@@ -47,7 +47,7 @@ export function CassetteTape({ title, playing = false, onToggle }: CassetteTapeP
           <span className={cn("h-1 flex-1 rounded-full bg-border/60", playing && "bg-accent/60")} aria-hidden="true" />
           <span
             aria-hidden="true"
-            className="grid size-10 place-items-center rounded-full border-2 border-foreground/30 bg-background motion-reduce:animate-none"
+            className="grid size-10 place-items-center rounded-full border-2 border-foreground/30 bg-background motion-reduce:animate-none!"
             style={playing ? { animation: "ctSpin 1.2s linear infinite reverse" } : undefined}
           >
             <span className="grid size-5 grid-cols-2 gap-px">

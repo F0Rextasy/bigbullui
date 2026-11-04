@@ -33,7 +33,7 @@ export function Megaphone({ message, onAnnounce, className, ...props }: Megaphon
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className={cn("w-0.5 rounded-full bg-accent", announcing ? "h-3" : "h-1.5")}
+            className={cn("w-0.5 rounded-full bg-accent motion-reduce:animate-none!", announcing ? "h-3" : "h-1.5")}
             style={announcing ? { animation: "mgWave 0.6s ease-in-out infinite", animationDelay: `${i * 120}ms` } : undefined}
           />
         ))}

@@ -23,7 +23,7 @@ export function MatchTicker({ matches, className, ...props }: MatchTickerProps) 
   return (
     <div className={cn("w-full overflow-hidden rounded-md border border-border bg-card", className)} {...props}>
       <style>{`@keyframes mtScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
-      <div className="flex w-max gap-6 px-4 py-2" style={{ animation: matches.length > 2 ? "mtScroll 18s linear infinite" : undefined }}>
+      <div className="flex w-max gap-6 px-4 py-2 motion-reduce:animate-none!" style={{ animation: matches.length > 2 ? "mtScroll 18s linear infinite" : undefined }}>
         {doubled.map((m, idx) => (
           <div key={`${m.id}-${idx}`} className="flex shrink-0 items-center gap-2 font-mono text-xs">
             {m.live && (

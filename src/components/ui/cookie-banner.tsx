@@ -28,7 +28,7 @@ export function CookieBanner({
       role="region"
       aria-label="Cookie consent banner"
       className={cn(
-        "fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-xl rounded-lg border-[1.5px] border-foreground bg-card p-5 shadow-xl outline-1 outline-dashed outline-offset-[-6px] animate-[fade-in-up_0.25s_ease-out]",
+        "fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-xl rounded-lg border-[1.5px] border-foreground bg-card p-5 shadow-xl outline-1 outline-dashed outline-offset-[-6px] motion-safe:animate-[fade-in-up_0.25s_ease-out]",
         className
       )}
       {...props}

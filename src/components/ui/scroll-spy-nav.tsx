@@ -101,7 +101,7 @@ export function ScrollSpyNav({ sections, className }: ScrollSpyNavProps) {
               key={section.id}
               className={cn(
                 "rounded-sm px-3 py-1 text-sm font-mono uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors",
-                isActive && "relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 -translate-x-1/2 after:w-0 after:h-0.5 after:bg-accent after:rounded-full after:transition-all after:duration-300 ease-out after:animate-[stamp_0.4s_ease-out_both]",
+                isActive && "relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 -translate-x-1/2 after:w-0 after:h-0.5 after:bg-accent after:rounded-full after:transition-all after:duration-300 ease-out after:motion-safe:animate-[stamp_0.4s_ease-out_both]",
                 isActive && "text-foreground after:z-10"
               )}
               onClick={onClick}
@@ -119,7 +119,7 @@ export function ScrollSpyNav({ sections, className }: ScrollSpyNavProps) {
         ref={pillRef}
         className={cn(
           "absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-6 rounded-full bg-accent/60 transition-transform duration-300 ease-out",
-          "animate-[stamp_0.4s_ease-out_both]"
+          "motion-safe:animate-[stamp_0.4s_ease-out_both]"
         )}
         style={{ transform: "translateX(0) scaleX(1)" }}
       />

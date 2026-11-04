@@ -84,7 +84,7 @@ export function DiffViewer({
                 bgClass,
                 transformClass,
                 "motion-reduce:transition-none",
-                "animate-[slide-in_0.3s_ease-out_both]",
+                "motion-safe:animate-[slide-in_0.3s_ease-out_both]",
               )}
             >
               <span className="font-mono break-all">{line.text}</span>

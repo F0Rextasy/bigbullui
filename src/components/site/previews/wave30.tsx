@@ -120,7 +120,8 @@ export const wave30Previews: Record<string, React.ComponentType> = {
     return <KeyboardShortcuts />;
   },
   "command-k-root": function CommandKRootPreview() {
-    return <CommandKRoot />;
+    // The site search owns Ctrl/⌘+K here, so leaving the component hotkey on would double-fire.
+    return <CommandKRoot enableHotkey={false} />;
   },
   "theme-preset-picker": function ThemePresetPickerPreview() {
     return <ThemePresetPicker />;

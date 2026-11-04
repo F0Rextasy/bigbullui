@@ -60,7 +60,7 @@ export function Terminal({
               key={line.text}
               className={cn(
                 "motion-reduce:transition-none",
-                `animate-[type-in_0.2s_ease-out_both ${delay}ms fill mode]`,
+                `motion-safe:animate-[type-in_0.2s_ease-out_both ${delay}ms fill mode]`,
                 lineIdx < visibleIndex ? "" : "hidden",
               )}
             >

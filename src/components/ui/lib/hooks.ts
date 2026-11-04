@@ -88,7 +88,7 @@ export function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () =
   }, [ref, handler]);
 }
 
-export function useCopy(): { copied: boolean; copy: (text: string) => void } {
+export function useCopy(timeout = 2000): { copied: boolean; copy: (text: string) => void } {
   const [copied, setCopied] = React.useState(false);
 
   const copy = (text: string) => {
@@ -107,7 +107,7 @@ export function useCopy(): { copied: boolean; copy: (text: string) => void } {
     } catch {
       // ignored
     }
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), timeout);
   };
 
   return { copied, copy };

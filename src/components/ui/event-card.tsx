@@ -11,7 +11,7 @@ export interface EventCardProps {
   className?: string;
 }
 
-const FadeInUp = "animate-fade-in-up-0s fade-in-up-1";
+const FadeInUp = "motion-safe:animate-fade-in-up-0s fade-in-up-1";
 const ScaleIn = "event-date-scale-in";
 const Pulse = "event-stamp-pulse";
 
