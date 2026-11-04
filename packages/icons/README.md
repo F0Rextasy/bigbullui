@@ -22,12 +22,12 @@ export function Example() {
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `name` | union of 1023 names | required | Icon to render |
+| `name` | union of 1099 names | required | Icon to render |
 | `size` | number | 20 | Width and height in px |
 | `animated` | boolean | true | Master switch for motion |
 | `animation` | `"draw" \| "pulse" \| "spin" \| "none"` | `"draw"` | Motion character; every icon supports animated and static rendering. Honors `prefers-reduced-motion`. |
 
-## Catalog (1023 icons)
+## Catalog (1099 icons)
 
 | Category | Icons | Examples |
 |---|---|---|

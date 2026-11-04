@@ -1,5 +1,5 @@
 import * as React from "react";
-export const SET_D_ICONS: Record<string, React.ReactNode> = {
+export const SET_D_ICONS = {
 "cart": ( <>
       <path d="M3 4h2.5l2 11h10.5l2-8H7" />
       <circle cx={9} cy={19.5} r={1.5} />
@@ -476,4 +476,4 @@ export const SET_D_ICONS: Record<string, React.ReactNode> = {
       <path d="M7 3.5h10l2 6H5l2-6Z" />
       <path d="M12 9.5V19M8.5 20.5h7" />
     </> ),
-};
+} satisfies Record<string, React.ReactNode>;

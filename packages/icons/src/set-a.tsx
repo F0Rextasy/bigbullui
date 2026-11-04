@@ -1,5 +1,5 @@
 import * as React from "react";
-export const SET_A_ICONS: Record<string, React.ReactNode> = {
+export const SET_A_ICONS = {
   "arrow-up": <path d="M12 20V6M6.5 11.5 12 6l5.5 5.5" />,
   "arrow-down": <path d="M12 4v14M6.5 12.5 12 18l5.5-5.5" />,
   "arrow-left": <path d="M20 12H6M11.5 6.5 6 12l5.5 5.5" />,
@@ -200,4 +200,4 @@ export const SET_A_ICONS: Record<string, React.ReactNode> = {
   "nav-history-back": <path d="M5 5v5h5M5.5 10a8 8 0 1 1-1 6M10 8.5 5.5 10 7 14.5" />,
   "nav-history-forward": <path d="M19 5v5h-5M18.5 10a8 8 0 1 0 1 6M14 8.5l4.5 1.5L17 14.5" />,
   "arrow-orbit": (<><circle cx="12" cy="12" r="3.5" /><path d="M20 9.5A9 9 0 0 0 4 14.5M20 5.5v4h-4M4 18.5v-4h4" /></>),
-};
+} satisfies Record<string, React.ReactNode>;

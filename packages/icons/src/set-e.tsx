@@ -1,5 +1,5 @@
 import * as React from "react";
-export const SET_E_ICONS: Record<string, React.ReactNode> = {
+export const SET_E_ICONS = {
 "sun": (<><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></>),
 "sunrise": (<><path d="M4 16.5h16M7 16.5a5 5 0 0 1 10 0"/><path d="M12 4v5M9.5 6.5 12 4l2.5 2.5"/></>),
 "sunset": (<><path d="M4 16.5h16M7 16.5a5 5 0 0 1 10 0"/><path d="M12 9V4M9.5 6.5 12 9l2.5-2.5"/></>),
@@ -200,4 +200,4 @@ export const SET_E_ICONS: Record<string, React.ReactNode> = {
 "paraglider": (<><path d="M4 8a8 5 0 0 1 16 0"/><path d="M12 8v5M12 13l-3 7M12 13l3 7"/></>),
 "cable-car": (<><path d="M3 5.5h18"/><path d="M12 5.5V8M8 8h8v6a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8Z"/><path d="M8 12h8"/></>),
 "observation-wheel": (<><circle cx="12" cy="11" r="7.5"/><circle cx="12" cy="11" r="1.5"/><path d="M12 12.5 8 21M12 12.5 16 21M4.5 18.5h15"/></>)
-};
+} satisfies Record<string, React.ReactNode>;

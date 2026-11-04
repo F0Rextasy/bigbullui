@@ -1,5 +1,5 @@
 import * as React from "react";
-export const SET_B_ICONS: Record<string, React.ReactNode> = {
+export const SET_B_ICONS = {
 "play": <path d="M7 4.5 19 12 7 19.5Z" />,
 "play-circle": (<><circle cx="12" cy="12" r="8.5" /><path d="M10 8.5 15.5 12 10 15.5Z" /></>),
 "play-square": (<><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M10 8.5 15.5 12 10 15.5Z" /></>),
@@ -200,4 +200,4 @@ export const SET_B_ICONS: Record<string, React.ReactNode> = {
 "backstage-star": (<><path d="M9 4h6v5H9Z" /><path d="M12 11l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z M9 18.5h6" /></>),
 "afterparty-confetti": <path d="M5 19 9 5M12 20l1.5-9M17 19l3-8M7 9l2 1M14 6l2-1M18 12l2 .5" />,
 "finale-curtain": (<><path d="M4 4h16v10c-2.5 0-2.5 2.5-4 2.5S14.5 14 12 14s-2 2.5-4 2.5-1.5-2.5-4-2.5Z" /><path d="M9 20h6" /></>),
-};
+} satisfies Record<string, React.ReactNode>;
