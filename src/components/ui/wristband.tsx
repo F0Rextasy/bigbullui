@@ -18,7 +18,7 @@ export function Wristband({ text, variant = "general" }: WristbandProps) {
   return (
     <div
       className={cn(
-        "relative size-40 rounded-full border-2 border-border/50 bg-[var(--band-color)] p-2 text-center motion-reduce:animate-none motion-reduce:transition-none",
+        "relative size-40 rounded-full border-2 border-border/50 p-2 text-center motion-reduce:animate-none motion-reduce:transition-none",
         variantClasses[variant],
         "group"
       )}

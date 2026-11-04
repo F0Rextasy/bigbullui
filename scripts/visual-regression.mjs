@@ -20,8 +20,24 @@ const files = fs.readdirSync(previewsDir).filter((f) => f.endsWith(".tsx"));
 if (!fs.existsSync(shotsDir)) fs.mkdirSync(shotsDir, { recursive: true });
 
 const manifestPath = path.join(shotsDir, "manifest.json");
-const manifest = Object.fromEntries(files.map((f) => [f, { captured: update ? new Date().toISOString() : "pending" }]));
-if (update) fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-
-console.log(`visual-regression: ${files.length} preview files indexed, manifest ${update ? "updated" : "checked"}.`);
-console.log("Run with --update after reviewing Playwright screenshots in CI artifacts.");
+if (update) {
+  const manifest = Object.fromEntries(files.map((f) => [f, { captured: new Date().toISOString() }]));
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+  console.log(`visual-regression: ${files.length} preview files indexed, manifest updated.`);
+  console.log("Run with --update after reviewing Playwright screenshots in CI artifacts.");
+} else {
+  if (!fs.existsSync(manifestPath)) {
+    console.error("visual-regression: manifest.json missing — run node scripts/visual-regression.mjs --update first.");
+    process.exit(1);
+  }
+  const onDisk = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  const diskKeys = new Set(Object.keys(onDisk));
+  const missing = files.filter((f) => !diskKeys.has(f));
+  const orphaned = [...diskKeys].filter((f) => !files.includes(f));
+  if (missing.length > 0 || orphaned.length > 0) {
+    console.error(`visual-regression: manifest drift — missing: ${missing.join(", ") || "none"}; orphaned: ${orphaned.join(", ") || "none"}`);
+    console.error("Re-run with --update after reviewing screenshots.");
+    process.exit(1);
+  }
+  console.log(`visual-regression: ${files.length} preview files indexed, manifest in sync.`);
+}

@@ -3,25 +3,13 @@ import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { CopyBlock } from "@/components/site/copy-block";
-import { slugTitle } from "@/lib/site-meta";
+import { BLOCK_SLUGS, slugTitle } from "@/lib/site-meta";
 
+// Generated from src/components/blocks (scripts/generate-registry-json.mjs):
+// new blocks join prerender, sitemap and search automatically instead of
+// silently missing from the static export.
 export function generateStaticParams() {
-  return [
-    "admin-overview", "admin-analytics", "admin-ecommerce", "admin-crm", "admin-finance", "admin-saas",
-    "app-mail", "app-tasks", "app-chat", "app-calendar", "app-users", "app-files", "app-kanban",
-    "auth-login", "auth-register", "auth-forgot", "auth-reset", "auth-verify", "auth-2fa",
-    "settings-account", "page-pricing", "page-faq", "page-404", "page-empty", "form-wizard",
-    "landing-hero", "landing-features", "landing-testimonials", "landing-cta", "landing-footer", "landing-logos",
-    "block-contact", "block-team", "block-stats", "block-gallery", "block-timeline", "block-newsletter",
-    "admin-logistics", "admin-hr", "admin-support", "admin-marketing", "admin-academy",
-    "app-notes", "app-invoices", "app-contacts", "app-bookmarks", "app-player",
-    "page-product", "page-checkout", "page-cart", "page-storefront", "page-order-success",
-    "block-event-landing", "block-customer-portal", "block-dev-api-keys", "block-live-chat", "block-user-profile-dossier",
-    "landing-heroes-2", "page-blog", "page-article", "page-careers", "page-contact", "page-about",
-    "block-restaurant", "block-real-estate", "block-course", "block-clinic", "block-event-ticketing",
-    "block-hotel", "block-job-board", "block-portfolio", "block-gym", "block-car-rental",
-    "block-pet-adoption", "block-conference",
-  ].map((slug) => ({ slug }));
+  return BLOCK_SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

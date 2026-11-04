@@ -10,11 +10,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # bigbullui conventions
 
-Open-source React 19 + Tailwind CSS 4 component library. Components import only `react` + `./lib/utils`. MIT licensed.
+Open-source React 19 + Tailwind CSS 4 component library. Components import only `react`, in-tree `./lib/*` helpers and sibling ui components. MIT licensed.
 Agent kit: `SKILL.md` (usage), `DESIGN.md` (design system), `CONTRIBUTING.md` (how to add components).
 
 ## Hard rules
-- `src/components/ui/*` files may import ONLY `react` and `./lib/utils`. Verify: grep for `from "` in that dir — nothing else may appear. No motion, radix, lucide, cva, clsx, tailwind-merge, next-themes, shiki in component sources.
+- `src/components/ui/*` files may import ONLY `react`, in-tree relative paths (`./lib/utils`, `./lib/hooks`, `./lib/focus-trap`, `./lib/use-ticket-audio`, sibling ui components). Verify: grep for `from "` in that dir — only those may appear. No motion, radix, lucide, cva, clsx, tailwind-merge, next-themes, shiki in component sources.
 - Never use `as any`, `@ts-ignore`, `@ts-expect-error`.
 - No raw apostrophes in JSX text (ESLint react/no-unescaped-entities fails the build).
 - Never commit, push, or publish (npm) without an explicit user request.

@@ -1,6 +1,6 @@
 # bigbullui
 
-> An open-source library of 659 accessible, fully typed React 19 components styled with Tailwind CSS 4 tokens and an artisanal Ticket Stub aesthetic. Zero external dependencies. Copy the code or install via CLI.
+> An open-source library of 660 accessible, fully typed React 19 components styled with Tailwind CSS 4 tokens and an artisanal Ticket Stub aesthetic. Zero external dependencies. Copy the code or install via CLI.
 
 ## Quick Start
 - [Installation Guide](https://ui.bigbullapp.com/docs/installation): Setup instructions via CLI (`npx bigbullui add <name>`), npm package, or copy-paste.
@@ -51,4 +51,4 @@ npx bigbullui list chart
 - MCP server (no backend, runs locally): `claude mcp add bigbullui -- npx -y bigbullui mcp`. Tools: list_components, get_component, list_blocks, list_icons, get_icon, get_theme.
 - [Agent rules](https://ui.bigbullapp.com/skill.md): system prompt for generating bigbullui code (imports, tokens, motion, a11y).
 - Per-component markdown: `https://ui.bigbullapp.com/md/<slug>` (props + source in one file, e.g. `/md/button`).
-- [Full LLM Specification](https://ui.bigbullapp.com/llms-full.txt): Complete catalog of all 659 components with descriptions and categories.
+- [Full LLM Specification](https://ui.bigbullapp.com/llms-full.txt): Complete catalog of all 660 components with descriptions and categories.

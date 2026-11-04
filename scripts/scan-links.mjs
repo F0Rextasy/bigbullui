@@ -52,5 +52,9 @@ if (violations.length > 0) {
   for (const v of violations) console.error(`  - ${v}`);
   process.exit(1);
 }
-for (const w of warnings) console.log(`WARN scan-links: ${w}`);
+if (warnings.length > 0) {
+  for (const w of warnings) console.error(`WARN scan-links: ${w}`);
+  console.error(`scan-links: ${warnings.length} dangling docs link(s).`);
+  process.exit(1);
+}
 console.log("scan-links: clean, no purged refs or dangling docs links.");

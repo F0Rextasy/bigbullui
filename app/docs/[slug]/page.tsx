@@ -73,7 +73,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               license: "https://opensource.org/licenses/MIT",
             },
           ],
-        }),
+        }).replace(/</g, "\\u003c"),
       }}
     />
     <article className="min-w-0 flex-1 space-y-10">

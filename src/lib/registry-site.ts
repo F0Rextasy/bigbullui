@@ -278,6 +278,7 @@ export const components: ComponentMeta[] = [
   { name: "org-chart", title: "Org Chart", description: "Hierarchical tree of boxes with connector lines, expand/collapse nodes, avatar initials, and entrance animations.", category: "charts" },
   { name: "hooks", title: "Hooks", description: "SSR-safe React hooks: media query, localStorage, intersection, click-outside, copy, hotkey, and debounce.", category: "form" },
   { name: "focus-trap", title: "Focus Trap", description: "Pure TypeScript focus trapping helpers for accessible overlays: getFocusable and trapFocus.", category: "form" },
+  { name: "use-ticket-audio", title: "Use Ticket Audio", description: "SSR-safe WebAudio helper for stamp/punch feedback sounds: lazy AudioContext, volume control, and reduced-motion guard.", category: "media" },
   { name: "tilt-card", title: "Tilt Card", description: "3D cursor-tracking tilt card with springy reset and glare highlight.", category: "data", isNew: true },
   { name: "flip-card", title: "Flip Card", description: "Two-face card with rotateY flip animation, hover or click trigger.", category: "data", isNew: true },
   { name: "spotlight-card", title: "Spotlight Card", description: "Card with cursor-following radial spotlight glow.", category: "data", isNew: true },

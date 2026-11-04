@@ -143,7 +143,7 @@ export function SegmentedSwitch({
       case "danger":
         return "bg-destructive shadow-[0_0_10px_rgba(244,63,94,0.8)]";
       case "accent":
-        return "bg-accent shadow-[0_0_10px_rgba(var(--accent),0.8)]";
+        return "bg-accent shadow-[0_0_10px_color-mix(in_srgb,var(--accent)_80%,transparent)]";
       default:
         return "bg-foreground shadow-[0_0_8px_rgba(120,120,120,0.6)]";
     }

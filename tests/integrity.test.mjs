@@ -10,6 +10,20 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 const uiDir = path.join(rootDir, "src", "components", "ui");
 
+let artifactsReady = false;
+/** Generate registry + LLM artifacts once (also covers isolated single-test runs). */
+function ensureGenerated() {
+  if (artifactsReady) return;
+  execFileSync(process.execPath, ["scripts/generate-registry-json.mjs"], {
+    cwd: rootDir,
+    encoding: "utf8",
+    timeout: 120000,
+    env: { ...process.env, BIGBULLUI_NO_CLI_SYNC: "1" },
+  });
+  execFileSync(process.execPath, ["scripts/generate-llms-full.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
+  artifactsReady = true;
+}
+
 describe("bigbullui Component Library Integrity", () => {
   const uiFiles = fs
     .readdirSync(uiDir)
@@ -128,8 +142,7 @@ describe("bigbullui Component Library Integrity", () => {
   });
 
   it("shadcn registry: components install out of the box (utils.json + deps)", () => {
-    execFileSync(process.execPath, ["scripts/generate-registry-json.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
-    execFileSync(process.execPath, ["scripts/generate-llms-full.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
+    ensureGenerated();
     const rDir = path.join(rootDir, "public", "r");
     assert.ok(fs.existsSync(path.join(rDir, "utils.json")), "public/r/utils.json must exist");
     const utilsItem = JSON.parse(fs.readFileSync(path.join(rDir, "utils.json"), "utf8"));
@@ -211,6 +224,7 @@ describe("bigbullui Component Library Integrity", () => {
 
   it("SEO & LLM files exist and are valid", () => {
     const sitemapPath = path.join(rootDir, "app", "sitemap.ts");
+    ensureGenerated();
     const robotsPath = path.join(rootDir, "app", "robots.ts");
     const llmsPath = path.join(rootDir, "public", "llms.txt");
     const llmsFullPath = path.join(rootDir, "public", "llms-full.txt");
@@ -233,18 +247,24 @@ describe("bigbullui Component Library Integrity", () => {
   it("dead-preview detector: every preview key must resolve to a UI file or registry entry", () => {
     const previewsDir = path.join(rootDir, "src", "components", "site", "previews");
     const previewFiles = fs.readdirSync(previewsDir).filter((f) => f.endsWith(".tsx"));
-    const keyPattern = /"([a-z0-9][a-z0-9-]*)"\s*:\s*(?:function|\()/g;
+    // Quoted keys accept any preview-style value; bare keys must map to an
+    // identifier ending in Preview so incidental object literals don't count.
+    const quotedPattern = /"([a-z0-9][a-z0-9-]*)"\s*:\s*(?:[A-Za-z_$][\w$]*Preview|function|\()/g;
+    const barePattern = /(?<![\w."'])([a-z][a-z0-9-]*)\s*:\s*[A-Za-z_$][\w$]*Preview/g;
+    const collect = (content) => {
+      const found = new Set();
+      let m;
+      while ((m = quotedPattern.exec(content)) !== null) found.add(m[1]);
+      while ((m = barePattern.exec(content)) !== null) found.add(m[1]);
+      return found;
+    };
     const keys = new Set();
     for (const file of previewFiles) {
-      const content = fs.readFileSync(path.join(previewsDir, file), "utf8");
-      let m;
-      while ((m = keyPattern.exec(content)) !== null) keys.add(m[1]);
+      for (const key of collect(fs.readFileSync(path.join(previewsDir, file), "utf8"))) keys.add(key);
     }
     const sitePreviewPath = path.join(rootDir, "src", "components", "site", "component-preview.tsx");
     if (fs.existsSync(sitePreviewPath)) {
-      const content = fs.readFileSync(sitePreviewPath, "utf8");
-      let m;
-      while ((m = keyPattern.exec(content)) !== null) keys.add(m[1]);
+      for (const key of collect(fs.readFileSync(sitePreviewPath, "utf8"))) keys.add(key);
     }
     const registryPath = path.join(rootDir, "src", "lib", "registry-site.ts");
     const registryContent = fs.readFileSync(registryPath, "utf8");

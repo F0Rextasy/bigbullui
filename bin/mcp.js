@@ -85,7 +85,7 @@ async function componentsIndex() {
 const TOOLS = [
   {
     name: "list_components",
-    description: "List bigbullui React components (659) with titles and descriptions. Filter by free-text search and/or category.",
+    description: "List bigbullui React components with titles and descriptions. Filter by free-text search and/or category.",
     inputSchema: {
       type: "object",
       properties: {
@@ -110,12 +110,12 @@ const TOOLS = [
   },
   {
     name: "list_blocks",
-    description: "List the 75 ready page blocks (admin dashboards, app screens, auth, pricing, checkout, marketing).",
+    description: "List ready page blocks (admin dashboards, app screens, auth, pricing, checkout, marketing).",
     inputSchema: { type: "object", properties: { search: { type: "string" } } },
   },
   {
     name: "list_icons",
-    description: "List bigbullicons stroke icons (1099). Filter by free text.",
+    description: "List bigbullui stroke icons. Filter by free text.",
     inputSchema: {
       type: "object",
       properties: {
@@ -158,12 +158,15 @@ async function callTool(name, args) {
     const reg = await loadJson(`public/r/${slug}.json`, `${SITE}/r/${slug}.json`).catch(() => null);
     if (!reg) throw new Error(`Unknown component: ${slug}. Use list_components to discover names.`);
     const file = reg.files && reg.files[0];
+    const full = file && typeof file.content === "string" ? file.content : "";
+    // Cap AI context size, but never truncate silently.
     return {
       name: reg.name,
       title: reg.title,
       docs: `${SITE}/docs/${slug}`,
       install: `npx bigbullui add ${slug}`,
-      source: file && typeof file.content === "string" ? file.content.slice(0, 60000) : null,
+      source: full.slice(0, 60000),
+      truncated: full.length > 60000,
     };
   }
   if (name === "list_blocks") {
@@ -190,7 +193,14 @@ async function callTool(name, args) {
     const reg = await loadJson(`public/r/icons/${slug}.json`, `${SITE}/r/icons/${slug}.json`).catch(() => null);
     if (!reg) throw new Error(`Unknown icon: ${slug}. Use list_icons to discover names.`);
     const file = reg.files && reg.files[0];
-    return { name: slug, page: `${SITE}/icons/${slug}`, install: `npx bigbullui add icon-${slug}`, source: file && typeof file.content === "string" ? file.content.slice(0, 20000) : null };
+    const full = file && typeof file.content === "string" ? file.content : "";
+    return {
+      name: slug,
+      page: `${SITE}/icons/${slug}`,
+      install: `npx bigbullui add icon-${slug}`,
+      source: full.slice(0, 20000),
+      truncated: full.length > 20000,
+    };
   }
   if (name === "get_theme") {
     const css = await loadText("bigbullui.css", `${GITHUB_RAW}/bigbullui.css`);
@@ -198,6 +208,7 @@ async function callTool(name, args) {
       setup: '@import "tailwindcss";\n@import "bigbullui/css";',
       usage: "Components use semantic tokens only (bg-primary, text-muted-foreground, border-border, bg-success, text-warning, ...). Never hard-code hex.",
       css: css.slice(0, 20000),
+      truncated: css.length > 20000,
     };
   }
   throw new Error(`Unknown tool: ${name}`);
@@ -219,8 +230,10 @@ async function handle(msg) {
   if (!msg || msg.jsonrpc !== "2.0" || typeof msg.method !== "string") return;
   if (msg.method === "initialize") {
     const requested = msg.params && msg.params.protocolVersion;
+    // Tools-only surface has no versioned features: honor whatever the client
+    // offers. Forcing 2024-11-05 makes strict clients disconnect on 2025+.
     reply(msg.id, {
-      protocolVersion: typeof requested === "string" && requested.startsWith("2024-") ? requested : "2024-11-05",
+      protocolVersion: typeof requested === "string" && /^20\d{2}-/.test(requested) ? requested : "2024-11-05",
       capabilities: { tools: {} },
       serverInfo: { name: "bigbullui", version: VERSION },
     });

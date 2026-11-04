@@ -14,6 +14,7 @@ const routes = ["/", "/docs", "/docs/button", "/docs/dialog", "/docs/tabs", "/do
 
 const browser = await chromium.launch({ headless: true });
 let critical = 0;
+let skipped = 0;
 for (const route of routes) {
   const page = await browser.newPage();
   try {
@@ -26,18 +27,23 @@ for (const route of routes) {
         .map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length }));
     });
     for (const v of violations) {
-      console.log(`${v.impact === "critical" ? "CRITICAL" : "WARN"} a11y-scan: ${route} ${v.id} x${v.nodes}`);
-      if (v.impact === "critical") critical += v.nodes;
+      console.log(`${v.impact === "critical" ? "CRITICAL" : "SERIOUS"} a11y-scan: ${route} ${v.id} x${v.nodes}`);
+      critical += v.nodes;
     }
     if (violations.length === 0) console.log(`a11y-scan: ${route} clean`);
   } catch (error) {
-    console.log(`a11y-scan: SKIPPED ${route} ${(error.message ?? error).split("\n")[0]}`);
+    console.error(`a11y-scan: SKIPPED ${route} ${(error.message ?? error).split("\n")[0]}`);
+    skipped += 1;
   }
   await page.close();
 }
 await browser.close();
-if (critical > 0) {
-  console.error(`a11y-scan: ${critical} critical violations found.`);
+if (skipped > 0) {
+  console.error(`a11y-scan: ${skipped} route(s) SKIPPED — a crashed page must not pass the gate.`);
   process.exit(1);
 }
-console.log(`a11y-scan: ${routes.length} routes scanned, no critical violations.`);
+if (critical > 0) {
+  console.error(`a11y-scan: ${critical} critical/serious violations found.`);
+  process.exit(1);
+}
+console.log(`a11y-scan: ${routes.length} routes scanned, no critical/serious violations.`);

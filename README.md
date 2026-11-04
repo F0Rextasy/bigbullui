@@ -5,7 +5,7 @@
 
 # bigbullui
 
-> 659 tactile, copy-paste React 19 + Tailwind CSS 4 components you own. Zero external dependencies. Open source, MIT licensed.
+> 660 tactile, copy-paste React 19 + Tailwind CSS 4 components you own. Zero external dependencies. Open source, MIT licensed.
 
 [![npm version](https://badge.fury.io/js/bigbullui.svg)](https://www.npmjs.com/package/bigbullui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/F0Rextasy/bigbullui/blob/main/LICENSE)
@@ -18,11 +18,11 @@
 
 ## Features
 
-- **Zero 3rd-Party Dependencies** — UI files import ONLY React and a 7-line `cn` utility. No Radix or Lucide bloat.
+- **Zero 3rd-Party Dependencies** — UI files import only React plus small in-tree helpers (`cn`, `hooks`, `focus-trap`) and sibling components. No Radix or Lucide bloat.
 - **Code You Own** — Run the CLI or copy source files directly into your codebase. No black-box npm lock-in.
 - **Tailwind CSS v4 Native** — Driven entirely by CSS variables and `@theme inline` with warm cream paper and night stub themes.
 - **Accessible by Default** — Full WAI-ARIA support, keyboard roving tabindex, focus rings, and `prefers-reduced-motion` fallbacks.
-- **659 Crafted Components** — From foundational form controls and data tables to rich charts and retro interactive widgets.
+- **660 Crafted Components** — From foundational form controls and data tables to rich charts and retro interactive widgets.
 
 ## Quick Start (CLI — Recommended)
 
@@ -396,6 +396,7 @@ No install needed. Copy files from [`src/components/ui/`](https://github.com/F0R
 | [`rich-text-editor`](https://ui.bigbullapp.com/docs/rich-text-editor) | Rich Text Editor | Minimal contentEditable editor with toolbar (bold, italic, underline, lists, links, quote, code) and word/char counter. |
 | [`sankey-chart`](https://ui.bigbullapp.com/docs/sankey-chart) | Sankey Chart | Two-level flow diagram with bezier ribbons, value-based width, hover tooltips, and entrance animations. |
 | [`org-chart`](https://ui.bigbullapp.com/docs/org-chart) | Org Chart | Hierarchical tree of boxes with connector lines, expand/collapse nodes, avatar initials, and entrance animations. |
+| [`use-ticket-audio`](https://ui.bigbullapp.com/docs/use-ticket-audio) | Use Ticket Audio | SSR-safe WebAudio helper for stamp/punch feedback sounds: lazy AudioContext, volume control, and reduced-motion guard. |
 | [`tilt-card`](https://ui.bigbullapp.com/docs/tilt-card) | Tilt Card | 3D cursor-tracking tilt card with springy reset and glare highlight. |
 | [`flip-card`](https://ui.bigbullapp.com/docs/flip-card) | Flip Card | Two-face card with rotateY flip animation, hover or click trigger. |
 | [`spotlight-card`](https://ui.bigbullapp.com/docs/spotlight-card) | Spotlight Card | Card with cursor-following radial spotlight glow. |

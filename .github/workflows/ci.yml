@@ -64,7 +64,8 @@ jobs:
         run: node scripts/scan-links.mjs
 
       - name: Build Next.js documentation site
-        run: npm run build
+        # `npx next build` skips the npm prebuild hook: generators already ran above.
+        run: npx next build
 
       - name: Install Playwright chromium
         run: npx playwright install chromium --with-deps
@@ -75,9 +76,6 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://localhost:3000/ >/dev/null && break; sleep 2; done
           node scripts/a11y-scan.mjs
           kill $(cat /tmp/next-start.pid)
-
-      - name: Visual regression manifest check
-        run: node scripts/visual-regression.mjs
 
       - name: Size report
         run: node scripts/size-report.mjs

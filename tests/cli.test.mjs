@@ -77,6 +77,32 @@ describe("bigbullui CLI end-to-end", () => {
     assert.ok(/up to date/i.test(clean), "clean after force update");
   });
 
+  it("add auto-installs lib helper dependencies (hooks)", () => {
+    run("add", "coupon", "--dir", "./components/ui");
+    const hooksPath = path.join(workdir, "components", "ui", "lib", "hooks.ts");
+    assert.ok(fs.existsSync(hooksPath), "lib/hooks.ts must be auto-installed with coupon");
+    assert.match(fs.readFileSync(hooksPath, "utf8"), /useCopy/, "copied hooks export useCopy");
+  });
+
+  it("add icon-* installs and update refreshes icon files", () => {
+    const idx = JSON.parse(fs.readFileSync(path.join(rootDir, "public", "icons.json"), "utf8"));
+    assert.ok(Array.isArray(idx.icons) && idx.icons.length > 0, "icons.json index must exist (run prebuild)");
+    const name = idx.icons[0];
+    const iconFile = path.join(workdir, "components", "ui", `icon-${name}.tsx`);
+    run("add", `icon-${name}`, "--dir", "./components/ui");
+    fs.writeFileSync(iconFile, "// stale icon copy\n", "utf8");
+    const out = run("update", "--dir", "./components/ui", "-f");
+    assert.match(out, /Updated.*icon-/, "update must refresh icon files");
+    assert.ok(!/offline/i.test(out), "icon update must not blame offline while sources resolve");
+    assert.ok(!fs.readFileSync(iconFile, "utf8").includes("// stale icon copy"), "icon content restored from registry");
+  });
+
+  it("rejects --dir without a value", () => {
+    const res = spawnSync("node", [cli, "add", "button", "--dir"], { cwd: workdir, encoding: "utf8", timeout: 30000 });
+    assert.equal(res.status, 1, "missing --dir value must exit non-zero");
+    assert.match(res.stderr + res.stdout, /--dir/);
+  });
+
   it("doctor runs and reports checks", () => {
     let out = "";
     try {

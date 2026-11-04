@@ -25,4 +25,15 @@ describe("bigbullui SSR sweep", () => {
     }
     assert.deepEqual(fresh, [], `New SSR crashes (fix component or regenerate baseline):\n${fresh.join("\n")}`);
   });
+  it("baseline slugs must resolve to current ui files (no stale crash entries)", () => {
+    const baseline = JSON.parse(fs.readFileSync(path.join(rootDir, "tests", "ssr-baseline.json"), "utf8")).crashes;
+    const slugs = new Set(
+      fs
+        .readdirSync(path.join(rootDir, "src", "components", "ui"))
+        .filter((f) => f.endsWith(".tsx"))
+        .map((f) => f.replace(/\.tsx$/, ""))
+    );
+    const stale = Object.keys(baseline).filter((s) => !slugs.has(s));
+    assert.deepEqual(stale, [], `Stale baseline entries (component gone) — remove from tests/ssr-baseline.json:\n${stale.join("\n")}`);
+  });
 });
