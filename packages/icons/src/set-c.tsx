@@ -1,5 +1,5 @@
 import * as React from "react";
-export const SET_C_ICONS: Record<string, React.ReactNode> = {
+export const SET_C_ICONS = {
 "file": <path d="M6 3.5 L14 3.5 L18.5 8 L18.5 20.5 L6 20.5 Z" />,
 "file-text": (<><path d="M6 3.5 L14 3.5 L18.5 8 L18.5 20.5 L6 20.5 Z" /><path d="M9 11.5 L15.5 11.5 M9 14.5 L15.5 14.5 M9 17 L13.5 17" /></>),
 "file-plus": (<><path d="M6 3.5 L14 3.5 L18.5 8 L18.5 20.5 L6 20.5 Z" /><path d="M12.2 12.5 L12.2 16.5 M10.2 14.5 L14.2 14.5" /></>),
@@ -200,4 +200,4 @@ export const SET_C_ICONS: Record<string, React.ReactNode> = {
 "stamp-pad": (<><rect x="3.5" y="14.5" width="17" height="5" rx="1" /><path d="M7 14.5 L7 11.5 L17 11.5 L17 14.5 M10 11.5 L10 8 L14 8 L14 11.5 M10 5.5 L14 5.5" /></>),
 "ink-bottle": (<><path d="M8.5 10.5 L15.5 10.5 L17 20.5 L7 20.5 Z" /><path d="M10 10.5 L10 7.5 L14 7.5 L14 10.5 M10.5 4.5 L13.5 4.5 L14 7.5 L10 7.5 Z M10 14 L14 14" /></>),
 "coffee-beans": (<><path d="M9 4.5 C6 4.5 4.5 7.5 4.5 12 C4.5 16.5 6 19.5 9 19.5 C12 19.5 13.5 16.5 13.5 12 C13.5 7.5 12 4.5 9 4.5 Z" /><path d="M9 4.5 C7.5 7 10.5 9 9 12 C7.5 15 10 17 9 19.5 M15.5 7 C14 7 13.2 8.8 13.2 11.5 M15.5 13 C17.5 13 19.5 14.5 19.5 16.5" /></>),
-};
+} satisfies Record<string, React.ReactNode>;

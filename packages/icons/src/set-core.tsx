@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const SET_CORE_ICONS: Record<string, React.ReactNode> = {
+export const SET_CORE_ICONS = {
   home: (
     <path d="M4 11.5 12 4l8 7.5M6.5 10v9.5h11V10" />
   ),
@@ -445,4 +445,4 @@ export const SET_CORE_ICONS: Record<string, React.ReactNode> = {
       <path d="M12 4v16M4.5 12H7M6.4 6.4l1.8 1.8M6.4 17.6l1.8-1.8" />
     </>
   ),
-};
+} satisfies Record<string, React.ReactNode>;
