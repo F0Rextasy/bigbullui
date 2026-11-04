@@ -118,7 +118,7 @@ export function PopoverContent({
       aria-modal="true"
       className={cn(
         "absolute z-50 mt-2 w-72 rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px]",
-        animated && "animate-[scale-in_0.15s_ease-out_both]",
+        animated && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
         align === "start" && "left-0",
         align === "center" && "left-1/2 -translate-x-1/2",
         align === "end" && "right-0",

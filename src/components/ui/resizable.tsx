@@ -606,7 +606,7 @@ export function ResizableHandle({
         <div
           aria-hidden="true"
           className={cn(
-            "absolute z-30 pointer-events-none whitespace-nowrap rounded-xs border-2 border-foreground bg-card px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-foreground shadow-md animate-in fade-in zoom-in-95",
+            "absolute z-30 pointer-events-none whitespace-nowrap rounded-xs border-2 border-foreground bg-card px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-foreground shadow-md motion-safe:animate-in fade-in zoom-in-95",
             isHorizontal ? "top-3 left-1/2 -translate-x-1/2" : "left-3 top-1/2 -translate-y-1/2"
           )}
         >

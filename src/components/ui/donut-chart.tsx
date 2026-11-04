@@ -358,7 +358,7 @@ export function DonutChart({
           }}
         >
           {activeSlice ? (
-            <div className="animate-fade-in flex flex-col items-center">
+            <div className="motion-safe:animate-fade-in flex flex-col items-center">
               <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground font-bold truncate max-w-[110px]">
                 {activeSlice.item.label}
               </span>
@@ -506,7 +506,7 @@ export function DonutChart({
       {/* Ticket Stub Header Banner */}
       <div className="flex items-center justify-between border-b-2 border-dashed border-border bg-secondary/50 px-4 py-2.5">
         <div className="flex items-center gap-2">
-          <div className="size-2 rounded-full bg-accent animate-pulse" />
+          <div className="size-2 rounded-full bg-accent motion-safe:animate-pulse" />
           <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-foreground">
             {title}
           </span>

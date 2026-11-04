@@ -72,7 +72,7 @@ const FollowerList: React.FC<FollowerListProps> = ({ followers }) => {
           key={follower.id}
           className={cn(
             "flex items-center gap-3 px-1 py-1 rounded-sm border border-border/30 motion-reduce:transition-none",
-                        "animate-[fade-in-up_0.3s_ease-out_both]"
+                        "motion-safe:animate-[fade-in-up_0.3s_ease-out_both]"
           )}
         >
           <span

@@ -135,7 +135,7 @@ export function InlineEdit({
             ✎
           </span>
           {justSaved && (
-            <span className="text-[9px] font-bold uppercase tracking-wider text-accent animate-[fade-in_0.2s_ease-out]">
+            <span className="text-[9px] font-bold uppercase tracking-wider text-accent motion-safe:animate-[fade-in_0.2s_ease-out]">
               SAVED
             </span>
           )}

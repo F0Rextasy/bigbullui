@@ -51,7 +51,7 @@ export function Lightbox({
       <div
         aria-hidden="true"
         onClick={() => onOpenChange(false)}
-        className="fixed inset-0 bg-black/80 backdrop-blur-xs animate-[fade-in_0.15s_ease-out_both]"
+        className="fixed inset-0 bg-black/80 backdrop-blur-xs motion-safe:animate-[fade-in_0.15s_ease-out_both]"
       />
 
       {/* Lightbox Card */}
@@ -60,7 +60,7 @@ export function Lightbox({
         aria-modal="true"
         aria-label="Ticket lightbox viewer"
         className={cn(
-          "relative z-50 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both]",
+          "relative z-50 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] motion-safe:animate-[scale-in_0.15s_ease-out_both]",
           className
         )}
       >

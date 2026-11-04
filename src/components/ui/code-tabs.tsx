@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useCopy } from "./lib/hooks";
 
 export interface CodeTabsTab {
   id: string;
@@ -18,19 +19,13 @@ export interface CodeTabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 
 export function CodeTabs({ tabs, defaultTab, onCopy, className, ...props }: CodeTabsProps) {
   const [active, setActive] = React.useState(defaultTab ?? tabs[0]?.id ?? "");
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copy } = useCopy(1600);
   const current = tabs.find((t) => t.id === active) ?? tabs[0];
 
-  const copy = async () => {
+  const handleCopy = () => {
     if (!current) return;
-    try {
-      await navigator.clipboard.writeText(current.code);
-    } catch {
-      /* clipboard unavailable */
-    }
+    copy(current.code);
     onCopy?.(current.code, current.id);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
   };
 
   if (!current) {
@@ -61,7 +56,7 @@ export function CodeTabs({ tabs, defaultTab, onCopy, className, ...props }: Code
         </div>
         <button
           type="button"
-          onClick={copy}
+          onClick={handleCopy}
           className="mb-1 shrink-0 cursor-pointer rounded border border-border px-2 py-1 font-mono text-[10px] uppercase transition-colors hover:border-foreground"
         >
           {copied ? "Copied" : "Copy"}

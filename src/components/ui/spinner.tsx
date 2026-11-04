@@ -19,7 +19,7 @@ export function Spinner({ size = "md", className, ...props }: SpinnerProps) {
       aria-label="Loading"
       viewBox="0 0 24 24"
       fill="none"
-      className={cn("animate-spin text-accent", sizeClasses[size], className)}
+      className={cn("motion-safe:animate-spin text-accent", sizeClasses[size], className)}
       {...props}
     >
       {/* Dashed outer track */}

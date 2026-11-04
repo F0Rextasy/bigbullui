@@ -66,7 +66,7 @@ export function GanttLite({
       {/* Header bar */}
       <div className="flex items-center justify-between border-b-2 border-dashed border-border pb-3 mb-4">
         <div className="flex items-center gap-2">
-          <span className="size-2 rounded-full bg-accent animate-ping" />
+          <span className="size-2 rounded-full bg-accent motion-safe:animate-ping" />
           <span className="text-xs font-bold uppercase tracking-wider text-foreground">
             VENUE TIMETABLE & STUB SCHEDULE
           </span>

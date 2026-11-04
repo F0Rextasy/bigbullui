@@ -29,7 +29,7 @@ export function LogoCloud({
           key={i}
           className={cn(
             "group rounded-md border border-dashed border-border/60 p-3 text-center hover:opacity-90 hover transition-opacity",
-            scrolling && "animate-[marquee_15s_linear_infinite]",
+            scrolling && "motion-safe:animate-[marquee_15s_linear_infinite]",
             className
           )}
         >

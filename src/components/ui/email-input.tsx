@@ -112,7 +112,7 @@ export function EmailInput({
       {showSuggestion && !error && (
         <div
           onMouseLeave={() => setShowSuggestion(false)}
-          className="absolute right-2 top-full mt-1 rounded-md bg-secondary p-1.5 shadow-xs text-[10px] uppercase tracking-[0.15em] text-secondary-foreground animate-[slide-in_0.2s_ease-out_both] z-20"
+          className="absolute right-2 top-full mt-1 rounded-md bg-secondary p-1.5 shadow-xs text-[10px] uppercase tracking-[0.15em] text-secondary-foreground motion-safe:animate-[slide-in_0.2s_ease-out_both] z-20"
         >
           <span className="font-mono me-1">@</span>
           <span className="font-medium">{suggestionDomain}</span>

@@ -211,7 +211,7 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
               "transition-all duration-200",
               "group-hover:-translate-y-0.5 group-focus-within:-translate-y-0.5",
               "motion-reduce:transition-none",
-              isResizing && "animate-[pulse_1s_ease-in_out]",
+              isResizing && "motion-safe:animate-[pulse_1s_ease-in_out]",
             )}
             style={{
               left: `${cropRect.x}px`,
@@ -248,19 +248,19 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
         {/* Corner handles */}
         {/* NW handle */}
         {isResizing && resizeHandle === 'nw' && (
-          <div className="absolute -top-1 -left-1 w-4 h-4 bg-primary/20 rounded-md animate-pulse" />
+          <div className="absolute -top-1 -left-1 w-4 h-4 bg-primary/20 rounded-md motion-safe:animate-pulse" />
         )}
         {/* NE handle */}
         {isResizing && resizeHandle === 'ne' && (
-          <div className="absolute -top-1 right-1 w-4 h-4 bg-primary/20 rounded-md animate-pulse" />
+          <div className="absolute -top-1 right-1 w-4 h-4 bg-primary/20 rounded-md motion-safe:animate-pulse" />
         )}
         {/* SW handle */}
         {isResizing && resizeHandle === 'sw' && (
-          <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-primary/20 rounded-md animate-pulse" />
+          <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-primary/20 rounded-md motion-safe:animate-pulse" />
         )}
         {/* SE handle */}
         {isResizing && resizeHandle === 'se' && (
-          <div className="absolute -bottom-1 right-1 w-4 h-4 bg-primary/20 rounded-md animate-pulse" />
+          <div className="absolute -bottom-1 right-1 w-4 h-4 bg-primary/20 rounded-md motion-safe:animate-pulse" />
         )}
 
       {/* Crop button overlay */}

@@ -39,7 +39,7 @@ export function PagerDots({
       if (isActive) {
         return cn(
           "rounded-full bg-accent w-6 h-6 transition-all duration-300 ease-out",
-          "animate-[stamp_0.4s_ease-out_both]"
+          "motion-safe:animate-[stamp_0.4s_ease-out_both]"
         );
       }
       return cn("rounded-full bg-transparent w-4 h-4 border border-border/30 transition-all duration-200");

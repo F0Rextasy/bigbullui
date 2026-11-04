@@ -55,6 +55,7 @@ export function TableHeaderCell({
 }: React.ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
+      scope="col"
       className={cn("h-10 px-4 text-start align-middle font-medium font-mono text-xs", className)}
       {...props}
     />

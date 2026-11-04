@@ -34,7 +34,7 @@ export function VoiceChatVisualizer({
         {Array.from({ length: bars }).map((_, i) => (
           <span
             key={i}
-            className={cn("w-full origin-center rounded-full", active ? "bg-accent" : "bg-border")}
+            className={cn("w-full origin-center rounded-full motion-reduce:animate-none!", active ? "bg-accent" : "bg-border")}
             style={
               active
                 ? { height: "100%", animation: `vcvBar 0.9s ease-in-out ${i * 60}ms infinite` }

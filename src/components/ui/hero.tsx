@@ -85,7 +85,7 @@ export function Hero({
           {[0, 1].map((copy) => (
             <div
               key={copy}
-              className="flex min-w-full shrink-0 items-center justify-around gap-8 motion-reduce:animate-none motion-reduce:transform-none group-hover:[animation-play-state:paused]"
+              className="flex min-w-full shrink-0 items-center justify-around gap-8 motion-reduce:animate-none! motion-reduce:transform-none group-hover:[animation-play-state:paused]"
               style={{ animation: "marquee 22s linear infinite" }}
             >
               {marqueeItems.map((item, i) => (

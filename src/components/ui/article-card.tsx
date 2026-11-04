@@ -13,7 +13,7 @@ export interface ArticleCardProps {
   className?: string;
 }
 
-const FadeInUp = "animate-fade-in-up fade-in-up-0s";
+const FadeInUp = "motion-safe:animate-fade-in-up fade-in-up-0s";
 const SlideIn = "article-category-slide-in";
 
 export function ArticleCard({

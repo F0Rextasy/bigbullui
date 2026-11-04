@@ -79,7 +79,7 @@ export function FlyoutMenu({
         <div
           role="menu"
           className={cn(
-            "flyout-panel absolute top-full left-0 mt-2 w-64 rounded-lg bg-card border border-border/60 shadow-lg p-2 sm:p-3 overflow-hidden animate-[scale-in_0.2s_ease-out_both]",
+            "flyout-panel absolute top-full left-0 mt-2 w-64 rounded-lg bg-card border border-border/60 shadow-lg p-2 sm:p-3 overflow-hidden motion-safe:animate-[scale-in_0.2s_ease-out_both]",
             "origin-top"
           )}
         >

@@ -79,7 +79,7 @@ export function AudioMini({
               style={{ height: isPlaying ? `${h}%` : "20%" }}
               className={cn(
                 "w-1 rounded-xs bg-accent transition-all duration-300",
-                isPlaying && "animate-pulse"
+                isPlaying && "motion-safe:animate-pulse"
               )}
             />
           ))}

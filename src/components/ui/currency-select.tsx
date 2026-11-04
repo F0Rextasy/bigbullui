@@ -29,12 +29,14 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
   const active = CURRENCIES.find((c) => c.code === (value ?? internal)) ?? CURRENCIES[0];
 
   return (
-    <div className={cn("relative", className)} {...props}>
+    <div className={cn("relative", className)} onKeyDown={(e) => { if (e.key === "Escape") { setOpen(false); (e.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }} {...props}>
       <style>{`@keyframes curIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="listbox"
+        aria-label={`Currency: ${active.label}`}
         className={cn(
           "flex w-full items-center gap-2.5 rounded-md border border-input bg-background px-3 py-2 text-sm",
           "transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -49,23 +51,23 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
       {open && (
         <>
           <div className="fixed inset-0 z-20" onClick={() => setOpen(false)} aria-hidden="true" />
-          <ul role="listbox" className="absolute z-30 mt-1 w-full rounded-md border border-border bg-card p-1 shadow-lg animate-[curIn_0.2s_ease-out_both] motion-reduce:animate-none">
+          <ul role="listbox" aria-label="Currencies" className="absolute z-30 mt-1 w-full rounded-md border border-border bg-card p-1 shadow-lg animate-[curIn_0.2s_ease-out_both] motion-reduce:animate-none">
             {CURRENCIES.map((c) => (
-              <li key={c.code}>
-                <button
-                  role="option"
-                  aria-selected={c.code === active.code}
-                  onClick={() => { setInternal(c.code); onValueChange?.(c.code); setOpen(false); }}
-                  className={cn(
-                    "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-sm transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-                    c.code === active.code ? "bg-accent/10 text-accent" : "hover:bg-secondary"
-                  )}
-                >
-                  <span className="font-mono font-bold">{c.symbol}</span>
-                  <span className="flex-1 text-start">{c.label}</span>
-                  <span className="font-mono text-[10px] text-muted-foreground">{c.code}</span>
-                </button>
-              </li>
+              <button
+                key={c.code}
+                type="button"
+                role="option"
+                aria-selected={c.code === active.code}
+                onClick={() => { setInternal(c.code); onValueChange?.(c.code); setOpen(false); }}
+                className={cn(
+                  "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-sm transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+                  c.code === active.code ? "bg-accent/10 text-accent" : "hover:bg-secondary"
+                )}
+              >
+                <span className="font-mono font-bold">{c.symbol}</span>
+                <span className="flex-1 text-start">{c.label}</span>
+                <span className="font-mono text-[10px] text-muted-foreground">{c.code}</span>
+              </button>
             ))}
           </ul>
         </>

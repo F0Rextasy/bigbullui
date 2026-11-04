@@ -249,7 +249,7 @@ export function TagInput({
     const isPendingDelete = pendingDeleteIndex === index;
 
     if (isPendingDelete) {
-      return "border-destructive bg-destructive/15 text-destructive ring-2 ring-destructive/60 animate-pulse";
+      return "border-destructive bg-destructive/15 text-destructive ring-2 ring-destructive/60 motion-safe:animate-pulse";
     }
 
     switch (tagVariant) {
@@ -460,7 +460,7 @@ export function TagInput({
 
       {/* Backspace Deletion Guidance Notice */}
       {pendingDeleteIndex !== null && (
-        <div className="mt-2 text-right font-mono text-[9px] uppercase tracking-wider text-destructive animate-pulse">
+        <div className="mt-2 text-right font-mono text-[9px] uppercase tracking-wider text-destructive motion-safe:animate-pulse">
           PRESS BACKSPACE AGAIN TO REMOVE &apos;{tags[pendingDeleteIndex]}&apos;
         </div>
       )}

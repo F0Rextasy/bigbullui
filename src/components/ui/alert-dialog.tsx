@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { getFocusable, trapFocus } from "./lib/focus-trap";
 
 type Tone = "default" | "destructive";
 
@@ -73,16 +74,29 @@ export function AlertDialog({
   onCancel,
   className,
 }: AlertDialogProps) {
+  const titleId = React.useId();
+  const descId = React.useId();
+  const panelRef = React.useRef<HTMLDivElement | null>(null);
+
   React.useEffect(() => {
     if (!open) return;
+    const panel = panelRef.current;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const first = panel ? getFocusable(panel)[0] : undefined;
+    first?.focus();
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onOpenChange(false);
         onCancel?.();
+      } else if (e.key === "Tab" && panel) {
+        trapFocus(panel, e);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus?.();
+    };
   }, [open, onOpenChange, onCancel]);
 
   if (!open) return null;
@@ -91,11 +105,15 @@ export function AlertDialog({
     <div
       className={cn(
         "fixed inset-0 z-50 flex items-center justify-center bg-black/40",
-        "motion-reduce:animate-none",
-        className
+        "motion-reduce:animate-none"
       )}
     >
       <div
+        ref={panelRef}
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby={title ? titleId : undefined}
+        aria-describedby={description ? descId : undefined}
         className={cn(
           "relative w-full max-w-lg bg-card rounded-lg border border-border p-6 shadow-lg",
           animated ? "transition-all duration-300 motion-reduce:transition-none" : "transition-none",
@@ -105,9 +123,9 @@ export function AlertDialog({
       >
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0 rounded-md p-1" />
-          <div className="flex-pt-1 space-y-1">
-            {title && <AlertDialogTitle className="mb-1">{title}</AlertDialogTitle>}
-            {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
+          <div className="flex-1 pt-1 space-y-1">
+            {title && <AlertDialogTitle id={titleId} className="mb-1">{title}</AlertDialogTitle>}
+            {description && <AlertDialogDescription id={descId}>{description}</AlertDialogDescription>}
           </div>
         </div>
         <AlertDialogFooter>

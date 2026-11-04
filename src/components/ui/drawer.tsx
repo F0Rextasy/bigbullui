@@ -230,7 +230,7 @@ export function DrawerContent({
       <div
         aria-hidden="true"
         onClick={() => ctx.setOpen(false)}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-[fade-in_0.2s_ease-out_both]"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm motion-safe:animate-[fade-in_0.2s_ease-out_both]"
       />
 
       {/* Slide-up ticket stub admission drawer */}
@@ -247,7 +247,7 @@ export function DrawerContent({
           transition: isDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 flex max-h-[88vh] flex-col rounded-t-2xl border-t-2 border-x-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-7px] outline-border focus:outline-none sm:max-w-xl sm:mx-auto animate-[fade-in-up_0.25s_ease-out]",
+          "fixed inset-x-0 bottom-0 z-50 flex max-h-[88vh] flex-col rounded-t-2xl border-t-2 border-x-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-7px] outline-border focus:outline-none sm:max-w-xl sm:mx-auto motion-safe:animate-[fade-in-up_0.25s_ease-out]",
           className
         )}
         {...props}

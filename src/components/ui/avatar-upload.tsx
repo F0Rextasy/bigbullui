@@ -49,7 +49,7 @@ export function AvatarUpload({ initials = "BB", src, onChange, className, ...pro
         </span>
         {uploading && (
           <span className="absolute inset-0 flex items-center justify-center bg-background/70">
-            <span className="size-6 rounded-full border-2 border-accent border-t-transparent" style={{ animation: "avSpin 0.8s linear infinite" }} aria-label="Loading" />
+            <span className="size-6 rounded-full border-2 border-accent border-t-transparent motion-reduce:animate-none!" style={{ animation: "avSpin 0.8s linear infinite" }} aria-label="Loading" />
           </span>
         )}
       </button>

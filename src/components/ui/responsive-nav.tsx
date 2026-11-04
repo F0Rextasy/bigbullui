@@ -38,7 +38,7 @@ export function ResponsiveNav({ brand = "bigbullui", items, activeId, breakpoint
                 className={cn(
                   "relative font-mono text-xs uppercase tracking-wider transition-colors motion-reduce:transition-none",
                   "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm",
-                  activeId === item.id ? "text-accent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-accent after:animate-[fade-in_0.2s_ease-out_both]" : "text-muted-foreground hover:text-foreground"
+                  activeId === item.id ? "text-accent after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-accent after:motion-safe:animate-[fade-in_0.2s_ease-out_both]" : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {item.label}

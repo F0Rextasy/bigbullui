@@ -19,7 +19,7 @@ export function CryptoTicker({ entries, className, ...props }: CryptoTickerProps
   return (
     <div className={cn("w-full overflow-hidden rounded-md border border-border bg-card", className)} {...props}>
       <style>{`@keyframes ctScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
-      <div className="flex w-max gap-6 px-4 py-2" style={{ animation: "ctScroll 20s linear infinite" }}>
+      <div className="flex w-max gap-6 px-4 py-2 motion-reduce:animate-none!" style={{ animation: "ctScroll 20s linear infinite" }}>
         {[...entries, ...entries].map((e, idx) => (
           <div key={`${e.symbol}-${idx}`} className="flex shrink-0 items-center gap-1.5 font-mono text-xs">
             <span className="font-bold">{e.symbol}</span>

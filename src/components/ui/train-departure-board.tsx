@@ -44,7 +44,7 @@ export function TrainDepartureBoard({
       <div className="flex items-center justify-between border-b-2 border-foreground bg-secondary px-4 py-2">
         <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">{title}</span>
         <span className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground" aria-live="polite">
-          <span key={tick} className="size-1.5 animate-pulse rounded-full bg-accent" aria-hidden />
+          <span key={tick} className="size-1.5 motion-safe:animate-pulse rounded-full bg-accent" aria-hidden />
           LIVE
         </span>
       </div>

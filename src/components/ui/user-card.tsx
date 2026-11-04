@@ -12,7 +12,7 @@ export interface UserCardProps {
   onAction?: () => void;
 }
 
-const FadeUp = "animate-fade-in-up-0s fade-in-up-1";
+const FadeUp = "motion-safe:animate-fade-in-up-0s fade-in-up-1";
 
 export function UserCard({
   initials = "JD",
@@ -54,7 +54,7 @@ export function UserCard({
             key={i}
             className={cn(
               "inline-flex items-center rounded-full border border-border bg-secondary/20 text-xs font-mono uppercase tracking-widest px-2 py-0.5 text-muted-foreground",
-              "animate-fade-in-up-1"
+              "motion-safe:animate-fade-in-up-1"
             )}
           >
             {tag}

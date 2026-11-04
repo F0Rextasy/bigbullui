@@ -60,7 +60,7 @@ export function Dialog({ open, onOpenChange, children, animated = true }: Dialog
       <div
         aria-hidden
         onClick={() => onOpenChange(false)}
-        className={cn("absolute inset-0 bg-black/50 backdrop-blur-[2px]", animated && "animate-[fade-in_0.2s_ease-out_both]")}
+        className={cn("absolute inset-0 bg-black/50 backdrop-blur-[2px]", animated && "motion-safe:animate-[fade-in_0.2s_ease-out_both]")}
       />
       <div
         ref={contentRef}

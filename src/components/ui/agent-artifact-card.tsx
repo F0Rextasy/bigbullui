@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useCopy } from "./lib/hooks";
 
 export interface AgentArtifactCardProps extends React.HTMLAttributes<HTMLDivElement> {
   kind?: string;
@@ -23,18 +24,10 @@ export function AgentArtifactCard({
   className,
   ...props
 }: AgentArtifactCardProps) {
-  const [copied, setCopied] = React.useState(false);
-  const copy = () => {
-    try {
-      if (typeof navigator !== "undefined" && navigator.clipboard) {
-        void navigator.clipboard.writeText(snippet);
-      }
-    } catch {
-      // clipboard unavailable
-    }
-    setCopied(true);
+  const { copied, copy } = useCopy(1500);
+  const handleCopy = () => {
+    copy(snippet);
     onCopy?.();
-    window.setTimeout(() => setCopied(false), 1500);
   };
   return (
     <div className={cn("w-full rounded-lg border-2 border-foreground bg-card", className)} {...props}>
@@ -51,7 +44,7 @@ export function AgentArtifactCard({
       <div className="flex items-center gap-2 px-3 pb-3">
         <button
           type="button"
-          onClick={copy}
+          onClick={handleCopy}
           className="cursor-pointer rounded border border-border bg-card px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {copied ? "Copied" : "Copy"}

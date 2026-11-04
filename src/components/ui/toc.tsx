@@ -59,7 +59,7 @@ export function Toc({ headings, className }: TocProps) {
               indent,
               levelClass,
               "text-muted-foreground hover:text-foreground transition-colors",
-              isActive && "relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-accent after:dashed after:border-0 after:border-border/60 after:transition-all after:duration-300 ease-out after:top-0 after:pointer-events-none after:select-none after:animate-[slide-in_top_0.3s_ease-out_both]",
+              isActive && "relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-accent after:dashed after:border-0 after:border-border/60 after:transition-all after:duration-300 ease-out after:top-0 after:pointer-events-none after:select-none after:motion-safe:animate-[slide-in_top_0.3s_ease-out_both]",
               isActive && "text-foreground"
             )}
             onClick={() => setActiveIndex(index)}

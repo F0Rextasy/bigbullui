@@ -75,7 +75,7 @@ function TreeItem({
       </div>
 
       {hasChildren && isOpen && (
-        <div className="relative border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 animate-[fade-in_0.12s_ease-out]">
+        <div className="relative border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 motion-safe:animate-[fade-in_0.12s_ease-out]">
           {node.children!.map((child) => (
             <TreeItem
               key={child.id}

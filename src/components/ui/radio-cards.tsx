@@ -279,7 +279,7 @@ export function RadioCard({
       {/* Sold Out Stamp Overlay */}
       {soldOut && (
         <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-          <span className="rotate-[-12deg] rounded border-2 border-destructive bg-background/95 px-3 py-1 font-mono text-xs font-black tracking-[0.25em] text-destructive shadow-sm animate-[stamp_0.3s_ease-out_both]">
+          <span className="rotate-[-12deg] rounded border-2 border-destructive bg-background/95 px-3 py-1 font-mono text-xs font-black tracking-[0.25em] text-destructive shadow-sm motion-safe:animate-[stamp_0.3s_ease-out_both]">
             SOLD OUT
           </span>
         </div>
@@ -326,7 +326,7 @@ export function RadioCard({
               )}
             >
               {isChecked && (
-                <div className="size-2 rounded-full bg-accent-foreground animate-[scale-in_0.15s_ease-out]" />
+                <div className="size-2 rounded-full bg-accent-foreground motion-safe:animate-[scale-in_0.15s_ease-out]" />
               )}
             </div>
           </div>

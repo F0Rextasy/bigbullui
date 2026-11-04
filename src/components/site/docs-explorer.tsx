@@ -133,7 +133,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
                           <span
                             title="New"
                             aria-label="New component"
-                            className="size-2 animate-pulse rounded-full bg-accent-strong"
+                            className="size-2 motion-safe:animate-pulse rounded-full bg-accent-strong"
                           />
                         ) : null}
                         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">

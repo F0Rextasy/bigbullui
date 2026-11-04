@@ -167,7 +167,7 @@ export function Sidebar({
         {!isCollapsed ? (
           <div className="flex items-center justify-between text-[10px] text-muted-foreground">
             <span>TERMINAL #04</span>
-            <span className="size-2 rounded-full bg-success animate-pulse" />
+            <span className="size-2 rounded-full bg-success motion-safe:animate-pulse" />
           </div>
         ) : (
           <div className="flex justify-center">

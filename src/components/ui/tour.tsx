@@ -58,7 +58,7 @@ export function Tour({
       role="dialog"
       aria-modal="false"
       className={cn(
-        "relative w-full max-w-sm rounded-xl border-2 border-foreground bg-card p-5 shadow-xl outline-1 outline-dashed outline-offset-[-5px] font-mono select-none animate-[scale-in_0.15s_ease-out_both]",
+        "relative w-full max-w-sm rounded-xl border-2 border-foreground bg-card p-5 shadow-xl outline-1 outline-dashed outline-offset-[-5px] font-mono select-none motion-safe:animate-[scale-in_0.15s_ease-out_both]",
         className
       )}
       {...props}

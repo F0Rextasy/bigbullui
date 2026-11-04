@@ -21,7 +21,7 @@ export function Quote({
       className={cn(
         "border-l-2 border-dashed border-border/60 ps-4 my-2",
         "motion-reduce:transition-none",
-        "animate-[stamp_0.4s_ease-out_both]",
+        "motion-safe:animate-[stamp_0.4s_ease-out_both]",
         className
       )}
     >

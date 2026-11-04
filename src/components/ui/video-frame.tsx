@@ -99,7 +99,7 @@ export function VideoFrame({
 
         {/* Big Play Button Overlay */}
         {!isPlaying && (
-          <div className="absolute z-20 flex size-14 items-center justify-center rounded-full border-2 border-accent bg-accent/90 text-white shadow-xl transition-transform group-hover:scale-110 active:scale-95 animate-pulse">
+          <div className="absolute z-20 flex size-14 items-center justify-center rounded-full border-2 border-accent bg-accent/90 text-white shadow-xl transition-transform group-hover:scale-110 active:scale-95 motion-safe:animate-pulse">
             <span className="ms-1 text-lg font-bold">▶</span>
           </div>
         )}

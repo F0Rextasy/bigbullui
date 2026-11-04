@@ -148,7 +148,7 @@ export function MetricCard({
           {badge && (
             <span className="inline-flex items-center gap-1.5 rounded-xs border border-dashed border-border bg-secondary/40 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-foreground shrink-0">
               {statusDot === "active" && (
-                <span className="size-1.5 rounded-full bg-accent animate-ping shrink-0" />
+                <span className="size-1.5 rounded-full bg-accent motion-safe:animate-ping shrink-0" />
               )}
               {statusDot === "warning" && (
                 <span className="size-1.5 rounded-full bg-warning shrink-0" />
@@ -324,7 +324,7 @@ export function MetricCard({
                 r="5"
                 fill={strokeColor}
                 opacity="0.3"
-                className="animate-ping"
+                className="motion-safe:animate-ping"
               />
             </svg>
           </div>

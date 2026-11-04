@@ -75,7 +75,7 @@ export function ContextMenu({
             left: `${position.x}px`,
             top: `${position.y}px`,
           }}
-          className={cn("z-50 min-w-[180px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] font-mono text-xs select-none", animated && "animate-[scale-in_0.12s_ease-out_both]")}
+          className={cn("z-50 min-w-[180px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] font-mono text-xs select-none", animated && "motion-safe:animate-[scale-in_0.12s_ease-out_both]")}
         >
           {items.map((item, idx) => {
             if (item === "separator") {

@@ -7,6 +7,7 @@ import { CommandPalette, type CommandItem } from "@/components/ui/command-palett
 import { Kbd } from "@/components/ui/kbd";
 import { useSearchPalette } from "@/components/site/search-store";
 import { categories } from "@/lib/registry-categories";
+import { BLOCK_SLUGS, slugTitle } from "@/lib/site-meta";
 import catalog from "@/data/catalog.json";
 
 const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
@@ -15,6 +16,16 @@ const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
   { id: "agents", label: "AI Agents", hint: "SKILL.md and agent instructions", href: "/docs/agents" },
   { id: "design", label: "Design", hint: "Ticket Stub identity and tokens", href: "/docs/design" },
   { id: "contributing", label: "Contributing", hint: "Add a component to the library", href: "/docs/contributing" },
+  { id: "migrate", label: "Migrate from shadcn", hint: "Move an existing app to bigbullui", href: "/docs/migrate" },
+  { id: "shortcuts", label: "Keyboard shortcuts", hint: "Every shortcut in the library", href: "/docs/shortcuts" },
+  { id: "help", label: "Help & FAQ", hint: "Troubleshooting and common questions", href: "/docs/help" },
+  { id: "mcp", label: "MCP Server", hint: "Use bigbullui from AI agents", href: "/docs/mcp" },
+  { id: "recipes", label: "Recipes", hint: "Copy-paste patterns and layouts", href: "/docs/recipes" },
+  { id: "compare", label: "Compare Components", hint: "How bigbullui differs from shadcn", href: "/docs/compare" },
+  { id: "changelog", label: "Changelog", hint: "What changed in each release", href: "/docs/changelog" },
+  { id: "packages", label: "Packages", hint: "npm packages and versions", href: "/packages" },
+  { id: "benchmarks", label: "Bundle benchmarks", hint: "Bundle size and speed numbers", href: "/benchmarks" },
+  { id: "dep-graph", label: "Dependency graph", hint: "Component dependency map", href: "/dep-graph" },
 ];
 
 function categoryName(id: string): string {
@@ -69,6 +80,13 @@ export function DocsSearch({
         category: categoryName(c.category),
         keywords: keywordsFor(c.name, c.title),
         onSelect: () => router.push(`/docs/${c.name}`),
+      })),
+      ...BLOCK_SLUGS.map((slug) => ({
+        id: `block-${slug}`,
+        label: slugTitle(slug),
+        category: "Blocks",
+        keywords: ["block", ...slug.split("-"), slugTitle(slug).toLowerCase()],
+        onSelect: () => router.push(`/blocks/${slug}`),
       })),
     ],
     [router]

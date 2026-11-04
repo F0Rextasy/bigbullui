@@ -33,7 +33,7 @@ export function BadgeList({ badges, className, ...props }: BadgeListProps) {
         >
           {b.earned && (
             <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-lg" aria-hidden="true">
-              <span className="absolute inset-y-0 w-8 bg-gradient-to-r from-transparent via-accent/15 to-transparent" style={{ animation: "blShine 2.5s ease-in-out infinite", animationDelay: `${idx * 200}ms` }} />
+              <span className="absolute inset-y-0 w-8 bg-gradient-to-r from-transparent via-accent/15 to-transparent motion-reduce:animate-none!" style={{ animation: "blShine 2.5s ease-in-out infinite", animationDelay: `${idx * 200}ms` }} />
             </span>
           )}
           <span className={cn("flex size-9 items-center justify-center rounded-full", b.earned ? "bg-accent text-accent-foreground" : "bg-border/40 text-muted-foreground")}>

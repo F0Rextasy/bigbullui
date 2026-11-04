@@ -181,7 +181,7 @@ function BeaconGraphic({
       {radarSweep && !isClosed && (
         <div
           aria-hidden="true"
-          className="absolute inset-0 rounded-full animate-spin pointer-events-none opacity-40"
+          className="absolute inset-0 rounded-full motion-safe:animate-spin pointer-events-none opacity-40"
           style={{
             animationDuration: config.sweepDuration,
             background:
@@ -195,7 +195,7 @@ function BeaconGraphic({
         <span
           aria-hidden="true"
           className={cn(
-            "absolute rounded-full bg-current opacity-75 animate-ping",
+            "absolute rounded-full bg-current opacity-75 motion-safe:animate-ping",
             size === "sm" ? "size-2.5" : size === "md" ? "size-4" : "size-6"
           )}
         />

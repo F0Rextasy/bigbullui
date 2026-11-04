@@ -237,7 +237,7 @@ export function SplitFlapChar({
       {isFlipping && (
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-30 pointer-events-none flex flex-col animate-[split-flap-drop_0.04s_linear]"
+          className="absolute inset-0 z-30 pointer-events-none flex flex-col motion-safe:animate-[split-flap-drop_0.04s_linear]"
         >
           <div className="h-1/2 w-full overflow-hidden rounded-t-sm border border-border/80 bg-neutral-900 flex items-end justify-center opacity-90">
             <span className={cn("leading-none translate-y-[50%] block", colorClasses)}>
@@ -492,7 +492,7 @@ export function SplitFlapBoard({
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="inline-block size-2 rounded-full bg-emerald-500 motion-safe:animate-ping" />
               <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-accent uppercase">
                 MECHANICAL DEPARTURE TERMINAL
               </span>

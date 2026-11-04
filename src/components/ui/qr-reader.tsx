@@ -187,7 +187,7 @@ export function QrReader({
               scanResult
                 ? "bg-success shadow-[0_0_8px_var(--color-success)]"
                 : isScanning
-                ? "bg-destructive animate-pulse shadow-[0_0_8px_var(--color-destructive)]"
+                ? "bg-destructive motion-safe:animate-pulse shadow-[0_0_8px_var(--color-destructive)]"
                 : "bg-muted-foreground"
             )}
           />
@@ -220,6 +220,10 @@ export function QrReader({
       {/* Viewfinder Main Viewport */}
       <div className="relative p-4 sm:p-5">
         <div
+          role="button"
+          tabIndex={0}
+          aria-label="Simulate ticket barcode scan"
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); triggerScanSimulation(); } }}
           onClick={triggerScanSimulation}
           className={cn(
             "relative w-full aspect-square max-h-[300px] sm:max-h-[320px] mx-auto rounded-lg overflow-hidden border-2 border-foreground bg-neutral-950 text-neutral-100 flex items-center justify-center cursor-pointer group shadow-inner transition-all",
@@ -246,7 +250,7 @@ export function QrReader({
           {/* Viewfinder HUD Micro Metadata */}
           <div className="absolute top-2.5 left-3 right-3 flex items-center justify-between text-[9px] font-mono tracking-widest text-neutral-400 pointer-events-none z-20">
             <span className="flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-red-500 animate-ping" />
+              <span className="size-1.5 rounded-full bg-red-500 motion-safe:animate-ping" />
               <span>LIVE SENSOR</span>
             </span>
             <span>AUTO-FOCUS ON</span>
@@ -355,7 +359,7 @@ export function QrReader({
               {/* Animated Red Laser Sweep Line */}
               {laserActive && isScanning && !scanResult && (
                 <div
-                  className="absolute left-0 right-0 z-30 pointer-events-none"
+                  className="absolute left-0 right-0 z-30 pointer-events-none motion-reduce:animate-none!"
                   style={{
                     animation: "laserSweep 2.2s ease-in-out infinite",
                   }}
@@ -370,7 +374,7 @@ export function QrReader({
               {/* Success Detection Pulse Ring & Stamp */}
               {scanResult && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black/60 backdrop-blur-xs p-2 text-center">
-                  <div className="animate-in fade-in zoom-in-95 duration-200 flex flex-col items-center">
+                  <div className="motion-safe:animate-in fade-in zoom-in-95 duration-200 flex flex-col items-center">
                     <div className="size-10 rounded-full bg-success/20 border-2 border-success flex items-center justify-center text-success mb-1.5 shadow-[0_0_12px_var(--color-success)]">
                       <svg
                         className="size-5"

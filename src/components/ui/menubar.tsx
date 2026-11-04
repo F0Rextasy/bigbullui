@@ -85,7 +85,7 @@ export function Menubar({ menus, className, animated = true, ...props }: Menubar
             {isOpen && (
               <div
                 role="menu"
-                className={cn("absolute left-0 top-full z-50 mt-1 min-w-[170px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] text-xs", animated && "animate-[scale-in_0.12s_ease-out_both]")}
+                className={cn("absolute left-0 top-full z-50 mt-1 min-w-[170px] rounded-lg border-2 border-foreground bg-card p-1.5 shadow-xl outline-1 outline-dashed outline-offset-[-4px] text-xs", animated && "motion-safe:animate-[scale-in_0.12s_ease-out_both]")}
               >
                 {menu.items.map((item, idx) => {
                   if (item === "separator") {

@@ -29,7 +29,7 @@ export function UploadProgress({ filename, progress, onCancel, className, ...pro
             strokeLinecap="round"
             className={done ? "text-success" : "text-accent"}
             strokeDasharray={C}
-            strokeDashoffset={C - (C * Math.min(100, progress)) / 100}
+            strokeDashoffset={C - (C * Math.min(100, progress ?? 0)) / 100}
             style={{ transition: "stroke-dashoffset 0.4s ease-out" }}
           />
         </svg>

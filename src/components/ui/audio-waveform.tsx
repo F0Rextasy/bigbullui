@@ -266,7 +266,7 @@ export function AudioWaveform({
                 className={cn(
                   "size-2 rounded-full transition-colors",
                   isPlaying
-                    ? "bg-destructive animate-pulse shadow-[0_0_8px_var(--color-destructive)]"
+                    ? "bg-destructive motion-safe:animate-pulse shadow-[0_0_8px_var(--color-destructive)]"
                     : "bg-muted-foreground"
                 )}
               />
@@ -343,7 +343,7 @@ export function AudioWaveform({
                   />
                   {/* Subtle bar tick glow when current */}
                   {isCurrent && (
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 size-1.5 rounded-full bg-accent animate-ping" />
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 size-1.5 rounded-full bg-accent motion-safe:animate-ping" />
                   )}
                 </div>
               );

@@ -312,7 +312,7 @@ export function SeatMap({
         </div>
 
         {limitNotice && (
-          <div className="mt-3 rounded border border-accent bg-accent/10 px-3 py-1.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-foreground animate-pulse">
+          <div className="mt-3 rounded border border-accent bg-accent/10 px-3 py-1.5 text-center font-mono text-xs font-bold uppercase tracking-wider text-foreground motion-safe:animate-pulse">
             ★ MAXIMUM LIMIT REACHED ({maxSeats} TICKETS PER ADMISSION) ★
           </div>
         )}

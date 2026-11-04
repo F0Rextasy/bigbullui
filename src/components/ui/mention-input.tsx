@@ -120,7 +120,7 @@ export function MentionInput({
       />
 
       {popupOpen && filteredMentions.length > 0 && (
-        <div className="absolute left-2 bottom-full z-50 mb-1 w-56 rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] animate-[scale-in_0.12s_ease-out_both]">
+        <div className="absolute left-2 bottom-full z-50 mb-1 w-56 rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both]">
           <div className="border-b border-dashed border-border px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
             SELECT TICKET MENTION
           </div>

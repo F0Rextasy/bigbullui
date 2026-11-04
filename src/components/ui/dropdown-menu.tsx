@@ -117,7 +117,7 @@ export function DropdownMenuContent({
       role="menu"
       className={cn(
         "absolute z-50 mt-1.5 min-w-[180px] rounded-md border-[1.5px] border-foreground bg-card p-1 shadow-lg outline-1 outline-dashed outline-offset-[-5px]",
-        animated && "animate-[scale-in_0.15s_ease-out_both]",
+        animated && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
         align === "start" && "left-0",
         align === "center" && "left-1/2 -translate-x-1/2",
         align === "end" && "right-0",

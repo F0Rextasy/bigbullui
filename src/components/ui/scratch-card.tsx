@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useCopy } from "./lib/hooks";
 
 export interface ScratchCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   prize?: string;
@@ -13,7 +14,7 @@ export interface ScratchCardProps extends Omit<React.HTMLAttributes<HTMLDivEleme
 export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverText = "SCRATCH HERE", className, ...props }: ScratchCardProps) {
   const [scratched, setScratched] = React.useState(0);
   const [revealed, setRevealed] = React.useState(false);
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copy } = useCopy(1400);
   const areaRef = React.useRef<HTMLDivElement>(null);
 
   const scratch = (clientX: number, clientY: number) => {
@@ -27,16 +28,6 @@ export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverTe
   React.useEffect(() => {
     if (scratched >= 60 && !revealed) setRevealed(true);
   }, [scratched, revealed ]);
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-    } catch {
-      /* ignore */
-    }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1400);
-  };
 
   React.useEffect(() => {
     if (revealed) return;
@@ -75,7 +66,7 @@ export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverTe
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              copy();
+              copy(code);
             }}
             className="mt-1 cursor-pointer rounded border border-dashed border-foreground/40 px-2 py-0.5 font-mono text-xs hover:border-foreground"
           >

@@ -42,7 +42,7 @@ export function Leaderboard({
             className={cn(
               "flex items-center gap-3 p-3 rounded-md border border-border/60 bg-card",
               `motion-reduce:transition-none`,
-              `animate-[stamp_0.3s_ease-out_both ${delay}ms fill mode]`,
+              `motion-safe:animate-[stamp_0.3s_ease-out_both ${delay}ms fill mode]`,
             )}
           >
             {/* Rank badge */}

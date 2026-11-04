@@ -74,7 +74,7 @@ export function TabBar({
               <span
                 className={cn(
                   "absolute -top-0.5 right-2.5 rounded-full bg-accent text-xs text-accent-foreground w-5 h-5 flex items-center justify-center",
-                  "animate-[stamp_0.4s_ease-out_both]"
+                  "motion-safe:animate-[stamp_0.4s_ease-out_both]"
                 )}
               >
                 {badge}

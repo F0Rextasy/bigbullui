@@ -395,7 +395,7 @@ export function ThemeToggle({
       {/* Tactile Punch Hole Flash Indicator */}
       {isPunching && (
         <span
-          className="pointer-events-none absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 border-accent bg-background text-[9px] font-black text-accent animate-ping"
+          className="pointer-events-none absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full border-2 border-accent bg-background text-[9px] font-black text-accent motion-safe:animate-ping"
           aria-hidden="true"
         >
           *

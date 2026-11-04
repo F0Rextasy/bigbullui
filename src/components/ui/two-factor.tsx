@@ -51,7 +51,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
             return <div key={i} className={cn("rounded-[1px]", on ? "bg-foreground" : "bg-transparent")} style={{ animationDelay: `${i * 12}ms` }} />;
           })}
         </div>
-        <div className="absolute left-2 right-2 h-0.5 bg-destructive/80" style={{ animation: "twofaScan 2.4s ease-in-out infinite" }} aria-hidden="true" />
+        <div className="absolute left-2 right-2 h-0.5 bg-destructive/80 motion-reduce:animate-none!" style={{ animation: "twofaScan 2.4s ease-in-out infinite" }} aria-hidden="true" />
       </div>
 
       {/* Recovery codes */}

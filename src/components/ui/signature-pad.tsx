@@ -23,7 +23,7 @@ export interface SignaturePadProps
   defaultEndorsed?: boolean;
   /** Whether the canvas is disabled / read-only */
   disabled?: boolean;
-  /** Whether to play a synthesized rubber stamp thud sound (default: true) */
+  /** Whether to play a synthesized rubber stamp thud sound (default: false) */
   enableSound?: boolean;
   /** Callback fired whenever user finishes a stroke, receiving dataURL or null if empty */
   onChange?: (dataUrl: string | null) => void;
@@ -99,7 +99,7 @@ export function SignaturePad({
   stampText = "SIGNED & ENDORSED",
   defaultEndorsed = false,
   disabled = false,
-  enableSound = true,
+  enableSound = false,
   onChange,
   onClear,
   onEndorse,
@@ -355,15 +355,15 @@ export function SignaturePad({
         </div>
 
         {/* Live Indicator Pill */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" role="status" aria-live="polite">
           {isEndorsed ? (
             <span className="flex items-center gap-1.5 rounded border border-dashed border-accent bg-accent/15 px-2 py-0.5 text-[10px] font-black text-accent uppercase tracking-wider">
-              <span className="size-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="size-1.5 rounded-full bg-accent motion-safe:animate-pulse" />
               ENDORSED
             </span>
           ) : isDrawing ? (
             <span className="flex items-center gap-1.5 rounded border border-dashed border-foreground bg-foreground/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
-              <span className="size-1.5 rounded-full bg-foreground animate-ping" />
+              <span className="size-1.5 rounded-full bg-foreground motion-safe:animate-ping" />
               SIGNING...
             </span>
           ) : hasSignature ? (

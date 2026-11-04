@@ -34,7 +34,7 @@ export function NowServing({ number, className }: NowServingProps) {
       <div className="mt-4 flex items-center gap-2">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
           Chime
-          <Dot className="inline-block w-1 h-1 size-2 rounded-full bg-accent animate-pulse" />
+          <Dot className="inline-block w-1 h-1 size-2 rounded-full bg-accent motion-safe:animate-pulse" />
         </span>
       </div>
     </div>
@@ -60,7 +60,7 @@ function FlipDigit({ value, index }: { value: number; index: number }) {
 function Dot({ className }: { className?: string }) {
   return (
     <span
-      className={cn("animate-pulse", className)}
+      className={cn("motion-safe:animate-pulse", className)}
     />
   );
 }

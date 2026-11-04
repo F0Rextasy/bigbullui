@@ -67,7 +67,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
           <div
             key={t.id}
             className={cn(
-              "pointer-events-auto relative flex flex-col gap-1 rounded-lg border-2 border-dashed bg-card p-4 shadow-lg animate-[fade-in-up_0.2s_ease-out]",
+              "pointer-events-auto relative flex flex-col gap-1 rounded-lg border-2 border-dashed bg-card p-4 shadow-lg motion-safe:animate-[fade-in-up_0.2s_ease-out]",
               t.tone === "accent" && "border-accent text-foreground",
               t.tone === "destructive" && "border-destructive text-destructive",
               t.tone === "default" && "border-border text-foreground"

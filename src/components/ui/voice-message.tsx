@@ -3,12 +3,6 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-const waveformKeyframe = `
-  @keyframes waveformBounce {
-    0%, 100% { height: 4px; }
-    50% { height: 16px; }
-  }
-`;
 
 const VoiceMessage: React.FC<{
   duration: number;

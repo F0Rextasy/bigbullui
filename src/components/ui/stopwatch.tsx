@@ -103,7 +103,7 @@ export function Stopwatch({
           <span
             className={cn(
               "size-2 rounded-full",
-              isRunning ? "bg-accent animate-ping" : "bg-muted-foreground"
+              isRunning ? "bg-accent motion-safe:animate-ping" : "bg-muted-foreground"
             )}
           />
           <span>TURNSTILE CHRONO</span>

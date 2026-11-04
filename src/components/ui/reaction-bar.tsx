@@ -53,7 +53,7 @@ const ReactionBar: React.FC<ReactionBarProps> = ({ reactions, onReact }) => {
             <span
               aria-hidden="true"
               className={cn(
-                "absolute top-0 right-0 h-3 w-3 rounded-full bg-accent/30 animate-[scale_0.3s_ease-out] opacity-0"
+                "absolute top-0 right-0 h-3 w-3 rounded-full bg-accent/30 motion-safe:animate-[scale_0.3s_ease-out] opacity-0"
               )}
             />
           )}

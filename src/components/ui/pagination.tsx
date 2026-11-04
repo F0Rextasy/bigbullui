@@ -46,7 +46,7 @@ export function Pagination({
     }
 
     pages.push(totalPages);
-    return pages;
+    return pages.filter((p): p is number | string => p !== undefined);
   };
 
   const pages = getPageNumbers();

@@ -18,7 +18,7 @@ export function SkipLink({
       className={cn(
         "sr-only focus:not-sr-only focus:translate-x-0 focus:transition-transform focus:ring-2 focus-visible:ring-ring",
         "mx-2 mb-2 rounded-md bg-secondary text-secondary-foreground px-3 py-1 text-[10px] uppercase tracking-[0.15em]",
-        "animate-[fade-in-up_0.3s_ease-out_both]"
+        "motion-safe:animate-[fade-in-up_0.3s_ease-out_both]"
       )}
     >
       {children}

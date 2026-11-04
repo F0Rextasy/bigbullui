@@ -2,15 +2,14 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useCopy } from "./lib/hooks";
 
 const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copy } = useCopy();
 
   const handleCopy = () => {
-    navigator.clipboard && navigator.clipboard.writeText("https://bigbullui.com");
-    setCopied(true);
-    const timeout = setTimeout(() => setCopied(false), 2000);
-    return () => clearTimeout(timeout);
+    copy("https://bigbullui.com");
+    onCopy?.();
   };
 
   return (
@@ -36,7 +35,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
 
       {copied && (
         <span
-          className="absolute -top-1 -right-1 text-[8px] mono uppercase text-accent-strong animate-[stamp_0.4s_ease-out_both]"
+          className="absolute -top-1 -right-1 text-[8px] mono uppercase text-accent-strong motion-safe:animate-[stamp_0.4s_ease-out_both]"
         >
           COPIED
         </span>

@@ -37,8 +37,10 @@ export function Combobox({
 
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const [activeIndex, setActiveIndex] = React.useState(0);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
+  const listId = React.useId();
 
   const selectedOption = options.find((opt) => opt.value === currentVal);
 
@@ -57,10 +59,11 @@ export function Combobox({
     }
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
+      setActiveIndex(Math.max(0, filteredOptions.findIndex((o) => o.value === currentVal)));
       setTimeout(() => searchInputRef.current?.focus(), 50);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [open]);
+  }, [open, filteredOptions, currentVal]);
 
   const handleSelect = (val: string) => {
     if (!isControlled) {
@@ -107,38 +110,50 @@ export function Combobox({
           <input
             ref={searchInputRef}
             type="text"
+            role="combobox"
+            aria-expanded="true"
+            aria-controls={listId}
+            aria-activedescendant={filteredOptions[activeIndex] ? `${listId}-opt-${activeIndex}` : undefined}
+            aria-label={searchPlaceholder}
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => { setSearch(e.target.value); setActiveIndex(0); }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") { setOpen(false); setSearch(""); return; }
+              if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex((i) => Math.min(i + 1, filteredOptions.length - 1)); return; }
+              if (e.key === "ArrowUp") { e.preventDefault(); setActiveIndex((i) => Math.max(i - 1, 0)); return; }
+              if (e.key === "Enter" && filteredOptions[activeIndex]) { e.preventDefault(); handleSelect(filteredOptions[activeIndex].value); }
+            }}
             placeholder={searchPlaceholder}
             className="mb-2 w-full rounded-sm border border-dashed border-border bg-secondary/50 px-2.5 py-1.5 font-mono text-xs text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none"
           />
 
-          <ul className="max-h-44 overflow-y-auto space-y-0.5">
-            {filteredOptions.length === 0 ? (
-              <li className="py-2 text-center font-mono text-xs text-muted-foreground">
-                {emptyText}
-              </li>
-            ) : (
-              filteredOptions.map((opt) => {
-                const isSelected = opt.value === currentVal;
-                return (
-                  <li
-                    key={opt.value}
-                    onClick={() => handleSelect(opt.value)}
-                    className={cn(
-                      "flex cursor-pointer select-none items-center justify-between rounded-sm px-2.5 py-1.5 font-mono text-xs transition-colors",
-                      isSelected
-                        ? "bg-accent font-bold text-accent-foreground"
-                        : "hover:bg-secondary hover:text-foreground text-foreground"
-                    )}
-                  >
-                    <span className="truncate">{opt.label}</span>
-                    {isSelected ? <span>✓</span> : null}
-                  </li>
-                );
-              })
-            )}
+          <ul id={listId} role="listbox" aria-label={placeholder} className="max-h-44 overflow-y-auto space-y-0.5">
+            {filteredOptions.map((opt, idx) => {
+              const isSelected = opt.value === currentVal;
+              return (
+                <li
+                  key={opt.value}
+                  id={`${listId}-opt-${idx}`}
+                  role="option"
+                  aria-selected={isSelected}
+                  onClick={() => handleSelect(opt.value)}
+                  onMouseEnter={() => setActiveIndex(idx)}
+                  className={cn(
+                    "flex cursor-pointer select-none items-center justify-between rounded-sm px-2.5 py-1.5 font-mono text-xs transition-colors",
+                    idx === activeIndex
+                      ? "bg-accent font-bold text-accent-foreground"
+                      : "hover:bg-secondary hover:text-foreground text-foreground"
+                  )}
+                >
+                  <span className="truncate">{opt.label}</span>
+                  {isSelected ? <span>✓</span> : null}
+                </li>
+              );
+            })}
           </ul>
+          {filteredOptions.length === 0 ? (
+            <div className="py-2 text-center font-mono text-xs text-muted-foreground">{emptyText}</div>
+          ) : null}
         </div>
       ) : null}
     </div>

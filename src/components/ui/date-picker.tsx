@@ -96,7 +96,7 @@ export function DatePicker({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full z-50 mt-2 inline-flex flex-col rounded-xl border-2 border-foreground bg-card p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both] w-72">
+        <div className="absolute left-0 top-full z-50 mt-2 inline-flex flex-col rounded-xl border-2 border-foreground bg-card p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] motion-safe:animate-[scale-in_0.15s_ease-out_both] w-72">
           {/* Header */}
           <div className="flex items-center justify-between border-b-2 border-dashed border-border pb-3">
             <button

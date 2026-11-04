@@ -4,12 +4,14 @@ import * as React from "react";
 import Link from "next/link";
 import { CopyBlock } from "@/components/site/copy-block";
 import { NavIcon, type NavIconName } from "@/components/site/nav-icons";
+import { slugTitle } from "@/lib/site-meta";
 
 export type BlockSection = {
   group: string;
   icon: NavIconName;
   blurb: string;
-  items: { name: string; node: React.ReactNode }[];
+  /** Block slugs; the gallery links to /blocks/<slug> instead of rendering them. */
+  items: string[];
 };
 
 function slugify(group: string): string {
@@ -24,7 +26,7 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
   const visible = sections
     .map((section) => ({
       ...section,
-      items: section.items.filter((item) => item.name.toLowerCase().includes(q)),
+      items: section.items.filter((name) => name.includes(q)),
     }))
     .filter((section) => (active === null || section.group === active) && section.items.length > 0);
 
@@ -117,20 +119,24 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
               {section.items.length} block{section.items.length === 1 ? "" : "s"}
             </span>
           </div>
-          {section.items.map((item) => (
-            <article key={item.name} id={item.name} className="scroll-mt-36 space-y-4 rounded-xl border border-border bg-card/40 p-4 sm:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h3 className="font-mono text-base font-black uppercase tracking-wider">{item.name}</h3>
-                <div className="flex items-center gap-2">
-                  <Link href={`/blocks/${item.name}`} className="rounded border border-border px-2 py-0.5 font-mono text-[11px] uppercase text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                    Open ↗
-                  </Link>
-                  <CopyBlock name={item.name} />
-                </div>
-              </div>
-              <div className="min-w-0">{item.node}</div>
-            </article>
-          ))}
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {section.items.map((name) => (
+              <li
+                key={name}
+                className="flex flex-col gap-3 rounded-lg border border-dashed border-border bg-card/40 p-3 transition-colors hover:border-foreground/60"
+              >
+                <Link
+                  href={`/blocks/${name}`}
+                  className="flex items-start justify-between gap-2 font-mono text-sm font-bold uppercase tracking-wider text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <span>{slugTitle(name)}</span>
+                  <span aria-hidden="true" className="text-muted-foreground">↗</span>
+                </Link>
+                <p className="font-mono text-[11px] text-muted-foreground">{name}</p>
+                <CopyBlock name={name} />
+              </li>
+            ))}
+          </ul>
         </section>
       ))}
     </div>

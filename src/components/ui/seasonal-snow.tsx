@@ -26,7 +26,7 @@ export function SeasonalSnow({ title = "Winter Gala", flakes = 14, className, ch
         {drops.map((d, i) => (
           <span
             key={i}
-            className="absolute top-0 rounded-full bg-foreground/40"
+            className="absolute top-0 rounded-full bg-foreground/40 motion-reduce:animate-none!"
             style={{ left: d.left, width: d.size, height: d.size, animation: `snowFall 3.2s linear ${d.delay} infinite` }}
           />
         ))}
