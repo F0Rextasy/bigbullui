@@ -4377,6 +4377,7 @@ const waveUsage: Record<string, string> = {
   "file-upload-list": "import { FileUploadList } from \"@/components/ui/file-upload-list\";\n\n<FileUploadList files={[{ id: \"f1\", name: \"plan.pdf\", size: 2400000, progress: 72, status: \"uploading\" }]} />",
   "focus-trap": "import { trapFocus } from \"@/components/ui/lib/focus-trap\";\n\nonKeyDown={(e) => { if (e.key === \"Tab\") trapFocus(containerRef.current, e.nativeEvent); }}",
   "hooks": "import { useCopy } from \"@/components/ui/lib/hooks\";\n\nconst { copied, copy } = useCopy();\n<button onClick={() => copy(\"BB-2026\")}>{copied ? \"Copied!\" : \"Copy\"}</button>",
+  "use-ticket-audio": "import { useTicketAudio } from \"@/components/ui/lib/use-ticket-audio\";\n\nconst { muted, toggle } = useTicketAudio({ src: \"/sounds/stamp.mp3\" });\n<button onClick={toggle}>{muted ? \"Muted\" : \"Sound on\"}</button>",
   "status-dot": "import { StatusDot } from \"@/components/ui/status-dot\";\n\n<StatusDot level=\"full\" occupancyPercent={82} waitTime=\"12 min\" />",
   "combobox-v2": "import { ComboboxV2 } from \"@/components/ui/combobox-v2\";\n\n<ComboboxV2 options={[{ value: \"a\", label: \"Orchestra\" }]} />",
   "select-v2": "import { SelectV2 } from \"@/components/ui/select-v2\";\n\n<SelectV2 groups={[{ label: \"Floor\", options: [{ value: \"a\", label: \"Row A\" }] }]} />",
@@ -5476,6 +5477,14 @@ const wavePropsDocs2: Record<string, { name: string; type: string; description: 
     { name: "useHotkey", type: "(combo, handler) => void", description: "Keyboard shortcut hook." },
     { name: "useIntersection", type: "(options?) => ref + visible", description: "IntersectionObserver hook." },
     { name: "useClickOutside", type: "(ref, handler) => void", description: "Outside-click dismissal hook." },
+  ],
+  "use-ticket-audio": [
+    { name: "options?.src", type: "string", description: "Optional audio file URL, lazily created on mount." },
+    { name: "options?.initialMuted", type: "boolean", description: "Initial mute state (default false)." },
+    { name: "result.audioRef", type: "React.RefObject<HTMLAudioElement | null>", description: "Bound audio element ref for custom players." },
+    { name: "result.muted", type: "boolean", description: "Current mute state." },
+    { name: "result.setMuted", type: "(muted: boolean) => void", description: "Set mute state directly." },
+    { name: "result.toggle", type: "() => void", description: "Flip mute state." },
   ],
   "id-card": [
     { name: "name", type: "string", description: "Holder name (required)." },
