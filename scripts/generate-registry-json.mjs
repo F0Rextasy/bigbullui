@@ -29,7 +29,7 @@ const pkgIcons = new Set();
 for (const f of fs.readdirSync(pkgIconDir)) {
   if (!f.endsWith(".tsx") || f === "icons.tsx") continue;
   const src = fs.readFileSync(path.join(pkgIconDir, f), "utf8");
-  for (const m of src.matchAll(/^\s*"([a-z0-9-]+)":\s*[\(<\[{]/gm)) pkgIcons.add(m[1]);
+  for (const m of src.matchAll(/^\s*(?:"([^"]+)"|([A-Za-z][\w-]*))\s*:/gm)) pkgIcons.add(m[1] ?? m[2]);
 }
 fs.mkdirSync(path.join(rootDir, "src/data"), { recursive: true });
 fs.writeFileSync(
@@ -70,6 +70,27 @@ fs.writeFileSync(
     files: [{ path: "src/components/ui/lib/utils.ts", type: "registry:lib", target: "@ui/lib/utils.ts", content: UTILS_SOURCE }],
   })
 );
+// Catalog-registered lib helpers (hooks, focus-trap) as registry:lib items so
+// public/r/<name>.json exists for shadcn CLI / bigbullui CLI / MCP installs.
+const libDir = path.join(uiDir, "lib");
+const libSlugs = fs
+  .readdirSync(libDir)
+  .filter((f) => f.endsWith(".ts") && f !== "utils.ts")
+  .map((f) => f.replace(/\.ts$/, ""))
+  .filter((s) => catalogItems.some((c) => c.name === s))
+  .sort();
+let libWritten = 0;
+for (const slug of libSlugs) {
+  const source = fs.readFileSync(path.join(libDir, `${slug}.ts`), "utf8");
+  const item = {
+    name: slug,
+    title: titles[slug] ?? slug,
+    type: "registry:lib",
+    files: [{ path: `src/components/ui/lib/${slug}.ts`, type: "registry:lib", target: `@ui/lib/${slug}.ts`, content: source }],
+  };
+  fs.writeFileSync(path.join(outDir, `${slug}.json`), JSON.stringify(item));
+  libWritten += 1;
+}
 
 let written = 0;
 for (const slug of slugs) {
@@ -92,7 +113,7 @@ for (const slug of slugs) {
   fs.writeFileSync(path.join(outDir, `${slug}.json`), JSON.stringify(item));
   written += 1;
 }
-console.log(`generate-registry-json: ${written} items in public/r/`);
+console.log(`generate-registry-json: ${written} ui + ${libWritten} lib items in public/r/`);
 
 // Block registry entries (shadcn-compatible): block source + referenced ui sources.
 const blkDir = path.join(rootDir, "src", "components", "blocks");
@@ -100,10 +121,12 @@ const toTitle = (slug) => slug.split("-").map((w) => (w.length > 0 ? w[0].toUppe
 const blockSlugList = fs.existsSync(blkDir) ? fs.readdirSync(blkDir).filter((f) => f.endsWith(".tsx")).map((f) => f.replace(/\.tsx$/, "")).sort() : [];
 let blockCount = 0;
 for (const slug of blockSlugList) {
-  const blockSrc = fs.readFileSync(path.join(blkDir, `${slug}.tsx`), "utf8");
+  // Rewrite ../ui/<x> to ./ui/<x>: shadcn installs the block under @components and
+  // its ui deps under @ui, so a sibling "ui/" dir is where "./ui/x" resolves.
+  const blockSrc = fs.readFileSync(path.join(blkDir, `${slug}.tsx`), "utf8").replace(/\.\.\/ui\//g, "./ui/");
   const files = [{ path: `src/components/blocks/${slug}.tsx`, type: "registry:block", target: `@components/${slug}.tsx`, content: blockSrc }];
   const uiDeps = new Set();
-  for (const dep of blockSrc.matchAll(/from\s+["']\.\.\/ui\/([a-z0-9-]+)["']/g)) uiDeps.add(dep[1]);
+  for (const dep of blockSrc.matchAll(/from\s+["']\.\/ui\/([a-z0-9-]+)["']/g)) uiDeps.add(dep[1]);
   const queue = [...uiDeps];
   while (queue.length > 0) {
     const dep = queue.shift();
@@ -138,14 +161,21 @@ console.log(`generate-registry-json: indexes components=${metas.length} blocks=$
 
 const cliPath = path.join(rootDir, "bin", "cli.js");
 let cli = fs.readFileSync(cliPath, "utf8");
-const listLiteral = JSON.stringify(slugs);
+const allNames = [...slugs, ...libSlugs].sort();
+const listLiteral = JSON.stringify(allNames);
 const listPattern = /allFiles = \[[^\]]*\];/s;
 if (!listPattern.test(cli)) {
-  console.log("generate-registry-json: cli.js pattern not found, list NOT synced");
+  console.error("generate-registry-json: cli.js allFiles pattern not found — offline list NOT synced");
+  process.exitCode = 1;
 } else if (cli.includes(`allFiles = ${listLiteral};`)) {
-  console.log(`generate-registry-json: cli.js offline list already in sync (${slugs.length} slugs)`);
+  console.log(`generate-registry-json: cli.js offline list already in sync (${allNames.length} slugs)`);
 } else {
   const next = cli.replace(listPattern, `allFiles = ${listLiteral};`);
   fs.writeFileSync(cliPath, next);
-  console.log(`generate-registry-json: cli.js offline list synced (${slugs.length} slugs)`);
+  console.log(`generate-registry-json: cli.js offline list synced (${allNames.length} slugs)`);
+}
+const libLiteral = `const LIB_FILES = ${JSON.stringify(libSlugs)};`;
+if (!cli.includes(libLiteral)) {
+  console.error(`generate-registry-json: bin/cli.js LIB_FILES out of sync (expected ${JSON.stringify(libSlugs)})`);
+  process.exitCode = 1;
 }

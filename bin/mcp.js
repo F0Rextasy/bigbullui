@@ -17,28 +17,48 @@ const https = require("node:https");
 
 const SITE = "https://ui.bigbullapp.com";
 const GITHUB_RAW = "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
-const VERSION = "1.4.1";
+let VERSION = "unknown";
+try {
+  VERSION = require("../package.json").version;
+} catch {
+  // unreachable package.json leaves the placeholder in place
+}
 
 function packageRoot() {
   return path.resolve(__dirname, "..");
 }
 
-function fetchUrl(url) {
+const FETCH_TIMEOUT_MS = 15000;
+
+function fetchUrl(url, redirects = 0) {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, { headers: { "User-Agent": "bigbullui-mcp" } }, (res) => {
-        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-          return fetchUrl(res.headers.location).then(resolve, reject);
-        }
-        if (res.statusCode !== 200) {
-          reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+    const req = https.get(url, { headers: { "User-Agent": "bigbullui-mcp" } }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        if (redirects >= 5) {
+          res.destroy();
+          reject(new Error(`Too many redirects fetching ${url}`));
           return;
         }
-        let data = "";
-        res.on("data", (chunk) => (data += chunk));
-        res.on("end", () => resolve(data));
-      })
-      .on("error", reject);
+        fetchUrl(new URL(res.headers.location, url).href, redirects + 1).then(resolve, reject);
+        return;
+      }
+      if (res.statusCode !== 200) {
+        res.resume();
+        res.destroy();
+        reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+        return;
+      }
+      let data = "";
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => {
+        res.destroy();
+        resolve(data);
+      });
+      res.on("error", reject);
+    });
+    req.setTimeout(FETCH_TIMEOUT_MS, () => req.destroy(new Error(`Timed out fetching ${url}`)));
+    req.on("error", reject);
   });
 }
 
@@ -90,12 +110,12 @@ const TOOLS = [
   },
   {
     name: "list_blocks",
-    description: "List the 63 ready page blocks (admin dashboards, app screens, auth, pricing, checkout, marketing).",
+    description: "List the 75 ready page blocks (admin dashboards, app screens, auth, pricing, checkout, marketing).",
     inputSchema: { type: "object", properties: { search: { type: "string" } } },
   },
   {
     name: "list_icons",
-    description: "List bigbullicons stroke icons (1023). Filter by free text.",
+    description: "List bigbullicons stroke icons (1099). Filter by free text.",
     inputSchema: {
       type: "object",
       properties: {
@@ -198,8 +218,9 @@ function fail(id, code, message) {
 async function handle(msg) {
   if (!msg || msg.jsonrpc !== "2.0" || typeof msg.method !== "string") return;
   if (msg.method === "initialize") {
+    const requested = msg.params && msg.params.protocolVersion;
     reply(msg.id, {
-      protocolVersion: "2024-11-05",
+      protocolVersion: typeof requested === "string" && requested.startsWith("2024-") ? requested : "2024-11-05",
       capabilities: { tools: {} },
       serverInfo: { name: "bigbullui", version: VERSION },
     });
@@ -218,7 +239,10 @@ async function handle(msg) {
       const out = await callTool(msg.params && msg.params.name, msg.params && msg.params.arguments);
       reply(msg.id, textResult(out));
     } catch (err) {
-      fail(msg.id, -32603, err && err.message ? err.message : String(err));
+      reply(msg.id, {
+        content: [{ type: "text", text: err && err.message ? err.message : String(err) }],
+        isError: true,
+      });
     }
     return;
   }
@@ -238,7 +262,7 @@ process.stdin.on("data", (chunk) => {
     try {
       handle(JSON.parse(line)).catch((err) => process.stderr.write(`mcp error: ${err.message}\n`));
     } catch (err) {
-      process.stderr.write(`mcp parse error: ${err.message}\n`);
+      fail(null, -32700, `Parse error: ${err.message}`);
     }
   }
 });

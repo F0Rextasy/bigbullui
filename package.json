@@ -1,7 +1,7 @@
 {
   "name": "bigbullui",
   "version": "1.5.0",
-  "description": "Copy-paste Ticket-Stub UI: 650+ zero-dependency React 19 components, blocks and CLI for Tailwind CSS v4. MIT licensed.",
+  "description": "Copy-paste Ticket-Stub UI: 659 zero-dependency React 19 components, blocks and CLI for Tailwind CSS v4. MIT licensed.",
   "license": "MIT",
   "author": "F0Rextasy",
   "homepage": "https://ui.bigbullapp.com",
@@ -54,10 +54,15 @@
       "types": "./high-contrast.d.ts",
       "default": "./high-contrast.css"
     },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
+    "./components/ui/*": {
+      "import": {
+        "types": "./dist/components/ui/*.d.mts",
+        "default": "./dist/components/ui/*.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/*.d.ts",
+        "default": "./dist/components/ui/*.js"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -85,9 +90,9 @@
     "tailwindcss": ">=4"
   },
   "scripts": {
-    "predev": "node scripts/generate-registry-json.mjs",
+    "predev": "node scripts/calc-sizes.mjs && node scripts/dep-graph.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-docs-json.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-icon-registry.mjs && node scripts/dep-graph.mjs",
+    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-docs-json.mjs && node scripts/generate-icon-registry.mjs && node scripts/dep-graph.mjs && node scripts/generate-readme.mjs",
     "build": "next build",
     "build:lib": "tsup",
     "prepublishOnly": "node scripts/generate-registry-json.mjs && npm run build:lib",
@@ -100,7 +105,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "axe-core": "^4.13.0",
+    "esbuild": "0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "next": "16.3.4",
@@ -109,8 +117,6 @@
     "react-dom": "19.2.8",
     "tailwindcss": "^4",
     "tsup": "^8",
-    "typescript": "^5",
-    "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0"
+    "typescript": "^5"
   }
 }
