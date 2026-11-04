@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.1...bigbullui-v1.5.2) (2026-11-04)
+
+
+### Bug Fixes
+
+* improve CLI dependency installs, icon updates, and quality gates ([a43b0fb](https://github.com/F0Rextasy/bigbullui/commit/a43b0fbd5c5dcdf687d1fcd260d810a3b74b43e8))
+
 ## [1.5.1](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.0...bigbullui-v1.5.1) (2026-11-04)
 
 
