@@ -1,13 +1,10 @@
 name: Publish to npm
 
-# Runs on demand, or as a reusable workflow from Release Please. Release
-# events created with GITHUB_TOKEN do not trigger workflows, so releases
-# cannot start this file through the `release` event.
+# Publishes packages to npm when a `v*` tag is pushed, or manually via dispatch.
 # Each package needs its own trusted publisher on npmjs.com:
 # package Settings > Publishing access > require OIDC
 # (organization F0Rextasy, repository bigbullui, workflow publish.yml).
 on:
-  workflow_call:
   workflow_dispatch:
   push:
     tags:

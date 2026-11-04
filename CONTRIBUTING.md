@@ -22,7 +22,6 @@ Reference files for coding agents live in the repo root:
 |---|---|
 | `SKILL.md` | Install paths, component rules, theming |
 | `DESIGN.md` | Full design system (tokens, type, motion) |
-| `AGENTS.md` | Repo conventions, verification commands |
 
 When you add a component, keep these files accurate. The rule set is short: dependency-free imports, typed props, keyboard accessible, documented.
 
@@ -94,7 +93,7 @@ Multiple agents or humans may edit this tree at the same time. Shared files are 
 | `src/index.ts` | npm package barrel exports |
 | `bigbullui.css` | Design tokens (`:root` + `.dark`, `@theme inline`, keyframes) |
 | `app/` | Docs site (landing, `/docs`, component pages) |
-| `SKILL.md` / `DESIGN.md` / `AGENTS.md` | Agent kit |
+| `SKILL.md` / `DESIGN.md` | Agent kit |
 
 ## Questions
 
