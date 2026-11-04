@@ -36,6 +36,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      - name: Generate derived data
+        # tsc needs src/data/*.json which exist only after the generators run.
+        run: npm run prebuild
       - name: Test gate (suite + typecheck)
         run: |
           npm test
