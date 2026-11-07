@@ -58,6 +58,7 @@ function renderJsonValue(
     return (
       <div key={`arr-${path}`} className="motion-reduce:transition-none">
         <button
+          type="button"
           onClick={() => toggle(path)}
           aria-expanded={!isCollapsed}
           aria-label={isCollapsed ? "Expand array" : "Collapse array"}
@@ -96,6 +97,7 @@ function renderJsonValue(
     return (
       <div key={`obj-${path}`} className="motion-reduce:transition-none">
         <button
+          type="button"
           onClick={() => toggle(path)}
           aria-expanded={!isCollapsed}
           aria-label={isCollapsed ? "Expand object" : "Collapse object"}

@@ -83,6 +83,7 @@ export function CoachMark({ trigger, title, description, onDismiss }: CoachMarkP
 
               <div className="mt-6 pt-6 border-t border-border">
                 <button
+                  type="button"
                   onClick={onDismiss}
                   className={cn(
                     "w-100 py-2 text-sm font-medium rounded-md bg-accent text-accent-foreground",

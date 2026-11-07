@@ -16,8 +16,8 @@ function words(text: string): string[] {
 
 /** Side-by-side prompt diff with added/removed word highlights. */
 export function PromptDiffCompare({
-  before,
-  after,
+  before = "",
+  after = "",
   beforeLabel = "Before",
   afterLabel = "After",
   className,

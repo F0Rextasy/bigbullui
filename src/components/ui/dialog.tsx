@@ -3,19 +3,22 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export type DialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
 };
 
-export function Dialog({ open, onOpenChange, children, animated = true }: DialogProps) {
+export function Dialog({ open = false, onOpenChange, children, animated = true }: DialogProps) {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
 
   React.useEffect(() => {
     if (!open) return;
@@ -27,7 +30,7 @@ export function Dialog({ open, onOpenChange, children, animated = true }: Dialog
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onOpenChange(false);
+        onOpenChangeRef.current?.(false);
         return;
       }
       if (event.key !== "Tab" || !content) return;
@@ -35,10 +38,10 @@ export function Dialog({ open, onOpenChange, children, animated = true }: Dialog
       if (items.length === 0) return;
       const first = items[0]!;
       const last = items[items.length - 1]!;
-      if (event.shiftKey && document.activeElement === first) {
+      if (event.shiftKey && (document.activeElement === first || !content.contains(document.activeElement))) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && (document.activeElement === last || !content.contains(document.activeElement))) {
         event.preventDefault();
         first.focus();
       }
@@ -51,7 +54,7 @@ export function Dialog({ open, onOpenChange, children, animated = true }: Dialog
       document.body.style.overflow = "";
       restoreRef.current?.focus();
     };
-  }, [open, onOpenChange]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -59,7 +62,7 @@ export function Dialog({ open, onOpenChange, children, animated = true }: Dialog
     <div className="fixed inset-0 z-50">
       <div
         aria-hidden
-        onClick={() => onOpenChange(false)}
+        onClick={() => onOpenChange?.(false)}
         className={cn("absolute inset-0 bg-black/50 backdrop-blur-[2px]", animated && "motion-safe:animate-[fade-in_0.2s_ease-out_both]")}
       />
       <div
@@ -76,7 +79,7 @@ export function Dialog({ open, onOpenChange, children, animated = true }: Dialog
         <button
           type="button"
           aria-label="Close"
-          onClick={() => onOpenChange(false)}
+          onClick={() => onOpenChange?.(false)}
           className="absolute right-4 top-4 cursor-pointer rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

@@ -15,44 +15,46 @@ const typewriterBlinkKeyframes = `
   }
 `;
 
-const Typewriter = ({ phrases, speed = 100, loop = true }: TypewriterProps) => {
+const Typewriter = ({ phrases = [], speed = 100, loop = true }: TypewriterProps) => {
   const [phraseIndex, setPhraseIndex] = React.useState(0);
   const [charIndex, setCharIndex] = React.useState(0);
-  const isTyping = charIndex < phrases[phraseIndex].length;
+  const currentPhrase = phrases[phraseIndex] ?? "";
+  const isTyping = charIndex < currentPhrase.length;
 
   React.useEffect(() => {
     if (!isTyping) return;
 
     const timeout = setTimeout(() => {
-      setCharIndex((c) => Math.min(c + 1, phrases[phraseIndex].length));
+      setCharIndex((c) => Math.min(c + 1, currentPhrase.length));
     }, speed);
 
     return () => clearTimeout(timeout);
-  }, [phraseIndex, charIndex, speed, isTyping]);
+  }, [phraseIndex, charIndex, speed, isTyping, currentPhrase.length]);
 
   // Cycle to next phrase
   React.useEffect(() => {
-    if (charIndex >= phrases[phraseIndex].length) {
+    if (phrases.length === 0) return;
+    if (charIndex >= currentPhrase.length) {
       const interval = setInterval(() => {
         setPhraseIndex((i) => {
           const next = i + 1;
           return next >= phrases.length ? 0 : next;
         });
-      }, speed * (phrases[phraseIndex].length + 1));
+      }, speed * (currentPhrase.length + 1));
 
       return () => clearInterval(interval);
     }
-  }, [charIndex, phrases[phraseIndex].length]);
+  }, [charIndex, currentPhrase.length, phrases.length, speed]);
 
   // Loop
   React.useEffect(() => {
-    if (loop && charIndex >= phrases[phraseIndex].length) {
+    if (phrases.length === 0) return;
+    if (loop && charIndex >= currentPhrase.length) {
       setPhraseIndex((i) => (i + 1) % phrases.length);
       setCharIndex(0);
     }
-  }, [loop, charIndex, phrases[phraseIndex].length]);
+  }, [loop, charIndex, currentPhrase.length, phrases.length]);
 
-  const currentPhrase = phrases[phraseIndex];
   const displayed = isTyping ? currentPhrase.substring(0, charIndex) : currentPhrase;
 
   return (

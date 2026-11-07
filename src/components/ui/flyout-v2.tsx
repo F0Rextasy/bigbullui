@@ -14,13 +14,14 @@ export interface FlyoutV2Props extends Omit<React.HTMLAttributes<HTMLUListElemen
 }
 
 /** Hover flyout navigation menu v2 with right-flyout submenus. */
-export function FlyoutV2({ items, className, ...props }: FlyoutV2Props) {
+export function FlyoutV2({ items = [], className, ...props }: FlyoutV2Props) {
   return (
     <ul className={cn("w-44 rounded-md border border-border bg-card p-1 shadow-lg", className)} role="menu" {...props}>
       <style>{`@keyframes fl2In { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       {items.map((item, idx) => (
         <li key={item.id} className="group relative animate-[fl2In_0.2s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 35}ms` }}>
           <button
+            type="button"
             role="menuitem"
             className="flex w-full items-center justify-between rounded-sm px-2.5 py-1.5 text-start text-xs transition-colors hover:bg-secondary motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >

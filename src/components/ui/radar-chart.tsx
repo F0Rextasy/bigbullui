@@ -15,7 +15,7 @@ export interface RadarChartProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function RadarChart({
-  points,
+  points = [],
   className,
   ...props
 }: RadarChartProps) {

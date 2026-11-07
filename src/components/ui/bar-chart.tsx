@@ -15,7 +15,7 @@ export interface BarChartProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function BarChart({
-  data,
+  data = [],
   height = 160,
   showValues = true,
   className,

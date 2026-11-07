@@ -19,7 +19,7 @@ export interface ShippingOptionsProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 /** Shipping option selector: radio card options + delivery duration + rate. */
-export function ShippingOptions({ options, value, defaultValue, onValueChange, className, ...props }: ShippingOptionsProps) {
+export function ShippingOptions({ options = [], value, defaultValue, onValueChange, className, ...props }: ShippingOptionsProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? options.find((o) => o.recommended)?.id ?? options[0]?.id);
   const active = value ?? internal;
 
@@ -30,6 +30,7 @@ export function ShippingOptions({ options, value, defaultValue, onValueChange, c
         const selected = active === opt.id;
         return (
           <button
+            type="button"
             key={opt.id}
             role="radio"
             aria-checked={selected}

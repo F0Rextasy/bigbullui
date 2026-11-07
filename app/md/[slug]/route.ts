@@ -13,7 +13,12 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   if (!/^[a-z0-9-]+$/.test(slug)) notFound();
   const meta = components.find((component) => component.name === slug);
   if (!meta) notFound();
-  const sourceFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
+  const tsxFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
+  const libFile = join(process.cwd(), "src/components/ui/lib", `${meta.name}.ts`);
+  const isLib = !existsSync(tsxFile) && existsSync(libFile);
+  const sourceFile = isLib ? libFile : tsxFile;
+  const relPath = isLib ? `src/components/ui/lib/${meta.name}.ts` : `src/components/ui/${meta.name}.tsx`;
+  const lang = isLib ? "ts" : "tsx";
   const source = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
   const props = (docsContent.props as Record<string, { name: string; type: string; description: string }[]>)[meta.name] ?? [];
   const md = [
@@ -27,9 +32,9 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     ``,
     ...props.map((p) => `- \`${p.name}\` (${p.type})${p.description ? `: ${p.description}` : ""}`),
     ``,
-    `## Source (\`src/components/ui/${meta.name}.tsx\`)`,
+    `## Source (\`${relPath}\`)`,
     ``,
-    "```tsx",
+    `\`\`\`${lang}`,
     source,
     "```",
     ``,

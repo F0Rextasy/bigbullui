@@ -15,7 +15,7 @@ export interface HeatmapProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Heatmap({
-  rows,
+  rows = [],
   columns = 7,
   height = 300,
   className,

@@ -31,6 +31,7 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
         <nav className="flex-1 space-y-0.5 p-2">
           {navItems.map((item, idx) => (
             <button
+              type="button"
               key={item.id}
               onClick={() => { setInternalActive(item.id); onNavigate?.(item.id); }}
               aria-current={active === item.id ? "page" : undefined}
@@ -53,6 +54,7 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
           ))}
         </nav>
         <button
+          type="button"
           onClick={() => setCollapsed((c) => !c)}
           className="border-t border-border py-2 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label={collapsed ? "Expand menu" : "Collapse menu"}

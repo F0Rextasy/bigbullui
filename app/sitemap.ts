@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { statSync, readdirSync } from "node:fs";
+import { statSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
 import { NAV_ICON_NAMES } from "@/components/site/icon-data";
@@ -10,6 +10,12 @@ function mtime(rel: string): Date {
   } catch {
     return new Date();
   }
+}
+
+function componentMtime(slug: string): Date {
+  const tsxRel = `src/components/ui/${slug}.tsx`;
+  if (existsSync(join(process.cwd(), tsxRel))) return mtime(tsxRel);
+  return mtime(`src/components/ui/lib/${slug}.ts`);
 }
 
 function blockSlugs(): string[] {
@@ -148,7 +154,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const componentRoutes: MetadataRoute.Sitemap = components.map((comp) => ({
     url: `${siteUrl}/docs/${comp.name}`,
-    lastModified: mtime(`src/components/ui/${comp.name}.tsx`),
+    lastModified: componentMtime(comp.name),
     changeFrequency: "weekly",
     priority: 0.7,
   }));

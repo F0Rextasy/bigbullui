@@ -25,7 +25,7 @@ const ICONS: Record<PaymentMethod["icon"], React.ReactNode> = {
 };
 
 /** Payment method selector: card / bank / on-delivery / wallet tiles. */
-export function PaymentMethods({ methods, value, defaultValue, onValueChange, className, ...props }: PaymentMethodsProps) {
+export function PaymentMethods({ methods = [], value, defaultValue, onValueChange, className, ...props }: PaymentMethodsProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? methods[0]?.id);
   const active = value ?? internal;
 
@@ -36,6 +36,7 @@ export function PaymentMethods({ methods, value, defaultValue, onValueChange, cl
         const selected = active === m.id;
         return (
           <button
+            type="button"
             key={m.id}
             role="radio"
             aria-checked={selected}

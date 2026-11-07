@@ -19,8 +19,8 @@ export interface DataTableProps<T> extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export function DataTable<T extends Record<string, unknown>>({
-  data,
-  columns,
+  data = [],
+  columns = [],
   searchKey,
   pageSize = 5,
   className,

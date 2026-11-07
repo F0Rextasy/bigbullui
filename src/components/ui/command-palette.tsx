@@ -132,7 +132,7 @@ function wordsOf(text: string): string[] {
 export function CommandPalette({
   open,
   onOpenChange,
-  items,
+  items = [],
   placeholder = "Type a command or search tickets...",
 }: CommandPaletteProps) {
   const [search, setSearch] = React.useState("");

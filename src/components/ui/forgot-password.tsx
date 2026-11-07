@@ -45,6 +45,7 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
             )}
           />
           <button
+            type="button"
             onClick={() => { if (valid) { setSent(true); onSend?.(email); } }}
             disabled={!valid}
             className={cn(
@@ -71,6 +72,7 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
             </p>
           </div>
           <button
+            type="button"
             onClick={() => { setSent(false); setEmail(""); }}
             className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm motion-reduce:transition-none"
           >

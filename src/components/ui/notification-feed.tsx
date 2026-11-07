@@ -25,7 +25,7 @@ const TYPE_ICON: Record<string, { bg: string; glyph: string }> = {
 };
 
 /** Notification feed: category icons + read/unread states. */
-export function NotificationFeed({ notifications, onMarkRead, className, ...props }: NotificationFeedProps) {
+export function NotificationFeed({ notifications = [], onMarkRead, className, ...props }: NotificationFeedProps) {
   const [read, setRead] = React.useState<Set<string>>(new Set());
 
   const mark = (id: string) => {
@@ -58,6 +58,7 @@ export function NotificationFeed({ notifications, onMarkRead, className, ...prop
             </div>
             {!isRead && (
               <button
+                type="button"
                 onClick={() => mark(n.id)}
                 className="shrink-0 rounded-sm border border-dashed border-border px-2 py-0.5 font-mono text-[9px] uppercase text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               >

@@ -88,6 +88,7 @@ export function VideoPlayer({
         >
           <div className="flex items-center gap-3 text-white">
             <button
+              type="button"
               onClick={togglePlay}
               className={cn(
                 "rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring bg-black/50 transition-colors hover:bg-black/70",

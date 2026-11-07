@@ -27,6 +27,7 @@ export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, cla
           <p className="text-xs text-muted-foreground">{price} / {cycle}</p>
         </div>
         <button
+          type="button"
           onClick={onUpgrade}
           className={cn(
             "rounded-md bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent-foreground",
@@ -58,7 +59,7 @@ export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, cla
               </div>
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs tabular-nums">{inv.amount}</span>
-                <button className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">PDF</button>
+                <button type="button" className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">PDF</button>
               </div>
             </li>
           ))}

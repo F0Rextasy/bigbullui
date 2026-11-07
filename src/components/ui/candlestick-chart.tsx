@@ -17,7 +17,7 @@ export interface CandlestickChartProps extends React.HTMLAttributes<HTMLDivEleme
 }
 
 export function CandlestickChart({
-  points,
+  points = [],
   className,
   ...props
 }: CandlestickChartProps) {

@@ -35,7 +35,7 @@ const STATUS_TONE: Record<UserStatus, string> = {
 const STATUS_LABEL: Record<UserStatus, string> = { active: "Active", invited: "Invited", suspended: "Suspended" };
 
 /** User management table: role badge + status + remove action. */
-export function UserTable({ users, onRemove, className, ...props }: UserTableProps) {
+export function UserTable({ users = [], onRemove, className, ...props }: UserTableProps) {
   const [removed, setRemoved] = React.useState<string[]>([]);
   const visible = users.filter((u) => !removed.includes(u.id));
 
@@ -86,6 +86,7 @@ export function UserTable({ users, onRemove, className, ...props }: UserTablePro
                 </td>
                 <td className="px-4 py-2.5 text-right">
                   <button
+                    type="button"
                     onClick={() => { setRemoved((r) => [...r, u.id]); onRemove?.(u.id); }}
                     className="rounded-sm border border-dashed border-border px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
                     style={removed.includes(u.id) ? { animation: "userRowOut 0.25s ease-in both" } : undefined}

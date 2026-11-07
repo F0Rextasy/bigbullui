@@ -73,6 +73,7 @@ const VoiceMessage: React.FC<{
 
       {onPlayPause && (
         <button
+          type="button"
           onClick={onPlayPause}
           className="absolute -right-1 -top-1 rounded-full bg-card p-1 border border-border hover:bg-accent/5 transition-colors duration-150"
           aria-label={playing ? "Pause" : "Play"}

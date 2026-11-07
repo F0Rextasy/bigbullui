@@ -67,6 +67,7 @@ export function AppShell({
           <div className="p-4 text-sm text-muted-foreground">
             <p className="uppercase tracking-[0.15em]">Collapse sidebar</p>
             <button
+              type="button"
               className="mt-2 w-full rounded-md py-2 bg-secondary text-secondary-foreground text-[10px] uppercase tracking-[0.15em]"
               onClick={() => setCollapsed(!collapsed)}
             >

@@ -9,7 +9,7 @@ export interface DangerZoneProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Danger zone with red border: two-step confirmation. */
-export function DangerZone({ title = "Danger Zone", actions, className, ...props }: DangerZoneProps) {
+export function DangerZone({ title = "Danger Zone", actions = [], className, ...props }: DangerZoneProps) {
   const [confirming, setConfirming] = React.useState<string | null>(null);
 
   return (
@@ -25,11 +25,12 @@ export function DangerZone({ title = "Danger Zone", actions, className, ...props
             </div>
             {confirming === a.id ? (
               <span className="flex shrink-0 gap-1.5">
-                <button onClick={() => setConfirming(null)} className="rounded-md border border-border px-2 py-1 font-mono text-[9px] uppercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none">Cancel</button>
-                <button onClick={() => { a.onConfirm?.(); setConfirming(null); }} className="rounded-md bg-destructive px-2 py-1 font-mono text-[9px] uppercase text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none">Confirm</button>
+                <button type="button" onClick={() => setConfirming(null)} className="rounded-md border border-border px-2 py-1 font-mono text-[9px] uppercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none">Cancel</button>
+                <button type="button" onClick={() => { a.onConfirm?.(); setConfirming(null); }} className="rounded-md bg-destructive px-2 py-1 font-mono text-[9px] uppercase text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none">Confirm</button>
               </span>
             ) : (
               <button
+                type="button"
                 onClick={() => setConfirming(a.id)}
                 className="shrink-0 rounded-md border border-destructive/60 px-2.5 py-1 font-mono text-[9px] uppercase tracking-wider text-destructive transition-colors hover:bg-destructive hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
               >

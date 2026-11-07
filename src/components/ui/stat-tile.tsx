@@ -12,7 +12,7 @@ export interface StatTileProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Single statistic tile: large KPI metric + delta + spark bars. */
-export function StatTile({ label, value, delta, spark, className, ...props }: StatTileProps) {
+export function StatTile({ label = "", value = "", delta, spark, className, ...props }: StatTileProps) {
   return (
     <TiltCard maxTilt={4} glare={false} className={cn("p-4", className)} {...props}>
       <style>{`@keyframes statRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
@@ -45,7 +45,7 @@ export interface KpiStripProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Horizontal metric summary strip. */
-export function KpiStrip({ tiles, className, ...props }: KpiStripProps) {
+export function KpiStrip({ tiles = [], className, ...props }: KpiStripProps) {
   return (
     <div className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4", className)} {...props}>
       {tiles.map((t, i) => (

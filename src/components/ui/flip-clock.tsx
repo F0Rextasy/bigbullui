@@ -8,7 +8,7 @@ export interface FlipClockProps {
   className?: string;
 }
 
-export function FlipClock({ time, className }: FlipClockProps) {
+export function FlipClock({ time = "", className }: FlipClockProps) {
   const digits = time.split(":");
 
   return (
@@ -29,7 +29,7 @@ export function FlipClock({ time, className }: FlipClockProps) {
   );
 }
 
-function FlipDigit({ value, index }: { value: number; index: number }) {
+function FlipDigit({ value = 0, index = 0 }: { value: number; index: number }) {
   const digitStyles = [
     "rotateX(0deg) scale(1)",     // 0
     "rotateX(90deg) scale(0.95)", // 1

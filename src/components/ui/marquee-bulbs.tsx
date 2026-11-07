@@ -8,7 +8,7 @@ export interface MarqueeBulbsProps {
   bulbs?: boolean;
 }
 
-export function MarqueeBulbs({ text, bulbs = true }: MarqueeBulbsProps) {
+export function MarqueeBulbs({ text = "", bulbs = true }: MarqueeBulbsProps) {
   const bulbCount = bulbs ? Math.max(4, text.length + 2) : 1;
 
   return (

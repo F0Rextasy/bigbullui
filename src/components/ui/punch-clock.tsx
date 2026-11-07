@@ -36,12 +36,14 @@ export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...prop
 
       <div className="mt-3 grid grid-cols-2 gap-2">
         <button
+          type="button"
           onClick={() => punch("in")}
           className="rounded-md border-2 border-success/50 py-1.5 font-mono text-[10px] uppercase tracking-wider text-success transition-colors hover:bg-success hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success motion-reduce:transition-none"
         >
           Clock In
         </button>
         <button
+          type="button"
           onClick={() => punch("out")}
           className="rounded-md border-2 border-destructive/50 py-1.5 font-mono text-[10px] uppercase tracking-wider text-destructive transition-colors hover:bg-destructive hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
         >

@@ -330,7 +330,7 @@ export interface HoverCardSeatSummaryProps extends React.HTMLAttributes<HTMLDivE
 export function HoverCardSeatSummary({
   badge = "ADMISSION PASS",
   ticketNo = "#TKT-0491",
-  attendeeName,
+  attendeeName = "",
   attendeeRole,
   avatarUrl,
   avatarFallback,

@@ -16,7 +16,7 @@ export interface VoiceNoteListProps extends Omit<React.HTMLAttributes<HTMLDivEle
 }
 
 /** Voice note playlist: audio playback + waveform + duration. */
-export function VoiceNoteList({ notes, onPlay, className, ...props }: VoiceNoteListProps) {
+export function VoiceNoteList({ notes = [], onPlay, className, ...props }: VoiceNoteListProps) {
   const [playing, setPlaying] = React.useState<string | null>(null);
 
   return (
@@ -31,6 +31,7 @@ export function VoiceNoteList({ notes, onPlay, className, ...props }: VoiceNoteL
             style={{ animationDelay: `${idx * 55}ms` }}
           >
             <button
+              type="button"
               onClick={() => { setPlaying(isPlaying ? null : note.id); if (!isPlaying) onPlay?.(note.id); }}
               className={cn(
                 "flex size-9 shrink-0 items-center justify-center rounded-full transition-colors duration-150 motion-reduce:transition-none",

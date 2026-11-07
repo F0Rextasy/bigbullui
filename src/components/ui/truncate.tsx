@@ -49,6 +49,7 @@ const Truncate = ({ lines = 1, expandable = true, children }: TruncateProps) => 
       )}
       {showMore ? null : (
         <button
+          type="button"
           onClick={() => setShowMore(true)}
           className={cn(
             "mt-1 text-xs font-mono uppercase tracking-[0.15em] text-primary-foreground hover:text-primary",

@@ -11,15 +11,15 @@ export interface VersionBadgeProps extends React.HTMLAttributes<HTMLSpanElement>
 }
 
 const STAGE: Record<FeatureStage, { label: string; tone: string }> = {
-  new: { label: "Yeni", tone: "border-success/50 bg-success/10 text-success" },
+  new: { label: "New", tone: "border-success/50 bg-success/10 text-success" },
   beta: { label: "Beta", tone: "border-warning/50 bg-warning/10 text-warning" },
   deprecated: { label: "Deprecated", tone: "border-destructive/50 bg-destructive/10 text-destructive" },
   stable: { label: "Stable", tone: "border-border bg-secondary text-secondary-foreground" },
 };
 
 /** Release version badge: new / beta / stable / deprecated tones. */
-export function VersionBadge({ stage, version, className, ...props }: VersionBadgeProps) {
-  const s = STAGE[stage];
+export function VersionBadge({ stage = "stable", version, className, ...props }: VersionBadgeProps) {
+  const s = STAGE[stage] ?? STAGE.stable;
   return (
     <span
       className={cn("inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider", s.tone, className)}

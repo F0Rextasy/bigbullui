@@ -18,7 +18,7 @@ export interface BentoGridProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Bento grid: variable sized cells with hover lift elevation. */
-export function BentoGrid({ cells, columns = 4, className, ...props }: BentoGridProps) {
+export function BentoGrid({ cells = [], columns = 4, className, ...props }: BentoGridProps) {
   const spanClass: Record<number, string> = { 1: "col-span-1", 2: "col-span-2", 3: "col-span-3", 4: "col-span-4" };
   const rowClass: Record<number, string> = { 1: "row-span-1", 2: "row-span-2", 3: "row-span-3" };
   const colClass = { 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4" }[columns];

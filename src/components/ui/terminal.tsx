@@ -16,7 +16,7 @@ export interface TerminalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Terminal({
-  lines,
+  lines = [],
   prompt = "> ",
   loop = false,
   className,
@@ -91,6 +91,7 @@ export function Terminal({
             placeholder=">"
           />
           <button
+            type="button"
             className={cn(
               "rounded-b-lg border border-border/60 bg-black px-3 text-[10px]",
             )}

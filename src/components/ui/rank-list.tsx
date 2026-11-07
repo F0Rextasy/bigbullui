@@ -10,7 +10,7 @@ export interface RankListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Leaderboard rank list: drag ranking + score counters. */
-export function RankList({ items, onReorder, className, ...props }: RankListProps) {
+export function RankList({ items = [], onReorder, className, ...props }: RankListProps) {
   const dragItems: DragSortItem[] = items.map((it) => ({
     id: it.id,
     content: (

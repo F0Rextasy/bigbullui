@@ -12,7 +12,7 @@ export interface DiffEditorProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Side-by-side editable diff comparison editor. */
-export function DiffEditor({ before, after, readOnly, onBeforeChange, onAfterChange, className, ...props }: DiffEditorProps) {
+export function DiffEditor({ before = "", after = "", readOnly, onBeforeChange, onAfterChange, className, ...props }: DiffEditorProps) {
   const beforeLines = before.split("\n");
   const afterLines = after.split("\n");
   const maxLines = Math.max(beforeLines.length, afterLines.length);

@@ -25,7 +25,7 @@ const StepSlide = "checkout-step-slide";
 const FadeIn = "checkout-fade-in";
 
 export function CheckoutSummary({
-  items,
+  items = [],
   subtotal = "$0.00",
   tax = "$0.00",
   total = "$0.00",

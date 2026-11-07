@@ -20,7 +20,7 @@ export interface InboxListProps extends Omit<React.HTMLAttributes<HTMLDivElement
 }
 
 /** Email inbox rows: unread badge indicator, sender, subject preview. */
-export function InboxList({ items, onSelect, className, ...props }: InboxListProps) {
+export function InboxList({ items = [], onSelect, className, ...props }: InboxListProps) {
   const [selected, setSelected] = React.useState<string | null>(null);
   const [stars, setStars] = React.useState<Set<string>>(
     () => new Set(items.filter((i) => i.starred).map((i) => i.id))
@@ -39,6 +39,7 @@ export function InboxList({ items, onSelect, className, ...props }: InboxListPro
       <style>{`@keyframes inboxIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       {items.map((item, idx) => (
         <button
+          type="button"
           key={item.id}
           onClick={() => { setSelected(item.id); onSelect?.(item.id); }}
           className={cn(

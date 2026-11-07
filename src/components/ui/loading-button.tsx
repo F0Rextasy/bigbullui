@@ -44,6 +44,7 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
 
     return (
       <button
+        type="button"
         ref={ref}
         disabled={loading || showSuccess}
         className={cn(

@@ -15,7 +15,7 @@ export interface MilestoneChartProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 /** Milestone progression chart: timeline checkpoints on track. */
-export function MilestoneChart({ milestones, className, ...props }: MilestoneChartProps) {
+export function MilestoneChart({ milestones = [], className, ...props }: MilestoneChartProps) {
   const reachedCount = milestones.filter((m) => m.reached).length;
   const pct = Math.round((reachedCount / Math.max(1, milestones.length)) * 100);
 

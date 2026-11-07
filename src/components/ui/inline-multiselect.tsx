@@ -13,7 +13,7 @@ export interface InlineMultiselectProps extends Omit<React.HTMLAttributes<HTMLDi
 }
 
 export function InlineMultiselect({
-  options,
+  options = [],
   value: controlledValue,
   defaultValue = [],
   onValueChange,

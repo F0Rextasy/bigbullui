@@ -16,6 +16,15 @@ function copyDir(src, dest) {
   }
 }
 
+function sanitizePackageName(rawPath) {
+  const base = path.basename(rawPath).toLowerCase();
+  const cleaned = base
+    .replace(/[^a-z0-9._-]/g, "-")
+    .replace(/^[^a-z0-9]+/, "")
+    .replace(/-+/g, "-");
+  return cleaned || "my-bigbull-app";
+}
+
 function main() {
   const args = process.argv.slice(2).filter((a) => a !== "--no-install");
   const noInstall = process.argv.includes("--no-install");
@@ -33,7 +42,7 @@ function main() {
 
   const pkgPath = path.join(dest, "package.json");
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
-  pkg.name = name;
+  pkg.name = sanitizePackageName(dest);
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
   console.log(`\n  Created ${name} with bigbullui + Tailwind CSS v4.\n`);

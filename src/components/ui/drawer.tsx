@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 const FOCUSABLE =
-  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 interface DrawerContextValue {
   open: boolean;
@@ -28,7 +28,7 @@ export interface DrawerProps {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function Drawer({
@@ -72,7 +72,7 @@ export function Drawer({
 
 export interface DrawerTriggerProps extends React.HTMLAttributes<HTMLElement> {
   asChild?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function DrawerTrigger({
@@ -115,7 +115,7 @@ export function DrawerTrigger({
 }
 
 export interface DrawerContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   showCloseButton?: boolean;
   dismissThreshold?: number;
@@ -131,6 +131,8 @@ export function DrawerContent({
   const ctx = useDrawerContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
+  const setOpenRef = React.useRef(ctx.setOpen);
+  setOpenRef.current = ctx.setOpen;
 
   const [dragOffset, setDragOffset] = React.useState(0);
   const [isDragging, setIsDragging] = React.useState(false);
@@ -148,7 +150,7 @@ export function DrawerContent({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        ctx.setOpen(false);
+        setOpenRef.current(false);
         return;
       }
       if (event.key !== "Tab" || !content) return;
@@ -156,10 +158,10 @@ export function DrawerContent({
       if (items.length === 0) return;
       const first = items[0];
       const last = items[items.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
+      if (event.shiftKey && (document.activeElement === first || !content.contains(document.activeElement))) {
         event.preventDefault();
         last?.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && (document.activeElement === last || !content.contains(document.activeElement))) {
         event.preventDefault();
         first?.focus();
       }
@@ -172,7 +174,7 @@ export function DrawerContent({
       document.body.style.overflow = "";
       restoreRef.current?.focus();
     };
-  }, [ctx.open, ctx.setOpen]);
+  }, [ctx.open]);
 
   // Reset drag state whenever drawer is closed
   React.useEffect(() => {
@@ -377,7 +379,7 @@ export function DrawerFooter({ className, ...props }: React.HTMLAttributes<HTMLD
 
 export interface DrawerCloseProps extends React.HTMLAttributes<HTMLElement> {
   asChild?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function DrawerClose({

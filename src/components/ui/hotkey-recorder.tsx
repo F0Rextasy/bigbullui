@@ -95,6 +95,7 @@ export function HotkeyRecorder({
     <div className={cn("space-y-2", className)}>
       <div>
         <button
+          type="button"
           onClick={() => setIsListening(true)}
           onMouseDown={(e) => e.preventDefault()}
           className={buttonClass}
@@ -128,6 +129,7 @@ export function HotkeyRecorder({
 
       {!isListening && (
         <button
+          type="button"
           onClick={clearCombo}
           className="mt-1 flex items-center gap-1.5 px-2 py-1 rounded-md border border-transparent bg-destructive text-[10px] uppercase tracking-[0.15em] text-destructive hover:bg-destructive/90 transition-colors"
         >

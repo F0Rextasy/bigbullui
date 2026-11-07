@@ -92,7 +92,7 @@ function TreeItem({
 }
 
 export function TreeNav({
-  data,
+  data = [],
   selectedId,
   onSelect,
   className,

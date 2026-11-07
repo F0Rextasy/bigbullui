@@ -30,7 +30,7 @@ function arcPath(cx: number, cy: number, rInner: number, rOuter: number, start: 
 }
 
 /** Sunburst radial chart: two-ring hierarchy with hover highlight. */
-export function SunburstChart({ slices, height = 260, className, ...props }: SunburstChartProps) {
+export function SunburstChart({ slices = [], height = 260, className, ...props }: SunburstChartProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const cx = 50, cy = 50;
 

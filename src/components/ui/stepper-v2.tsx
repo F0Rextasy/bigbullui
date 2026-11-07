@@ -17,7 +17,7 @@ export interface StepperV2Props extends React.HTMLAttributes<HTMLOListElement> {
 }
 
 /** Annotated vertical/horizontal step indicator. */
-export function StepperV2({ steps, current, vertical = true, className, ...props }: StepperV2Props) {
+export function StepperV2({ steps = [], current = 0, vertical = true, className, ...props }: StepperV2Props) {
   if (vertical) {
     return (
       <ol className={cn("relative space-y-0", className)} {...props}>

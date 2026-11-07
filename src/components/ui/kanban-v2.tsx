@@ -15,7 +15,7 @@ export interface KanbanV2Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Drag-and-drop Kanban board v2: HTML5 drag reordering across columns. */
-export function KanbanV2({ columns, onMove, className, ...props }: KanbanV2Props) {
+export function KanbanV2({ columns = [], onMove, className, ...props }: KanbanV2Props) {
   const [board, setBoard] = React.useState(columns);
   const [dragging, setDragging] = React.useState<{ cardId: string; from: string } | null>(null);
   const [overCol, setOverCol] = React.useState<string | null>(null);

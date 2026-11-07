@@ -27,7 +27,7 @@ const TOKEN_TONES: Record<string, string> = {
 };
 
 export function AreaChart({
-  series,
+  series = [],
   labels,
   height = 300,
   className,

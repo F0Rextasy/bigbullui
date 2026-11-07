@@ -18,7 +18,7 @@ export interface QueuedJobsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Background queued jobs: status + progress bar + cancel action. */
-export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsProps) {
+export function QueuedJobs({ jobs = [], onCancel, className, ...props }: QueuedJobsProps) {
   const [list, setList] = React.useState(jobs);
 
   const statusMeta: Record<QueueJobStatus, { label: string; tone: string }> = {
@@ -45,6 +45,7 @@ export function QueuedJobs({ jobs, onCancel, className, ...props }: QueuedJobsPr
               <span className={cn("shrink-0 font-mono text-[10px] uppercase tracking-wider", m.tone)}>{m.label}</span>
               {(job.status === "queued" || job.status === "running") && (
                 <button
+                  type="button"
                   onClick={() => { setList((l) => l.filter((j) => j.id !== job.id)); onCancel?.(job.id); }}
                   className="shrink-0 rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
                   aria-label={`Cancel ${job.label}`}

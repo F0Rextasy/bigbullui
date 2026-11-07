@@ -19,7 +19,7 @@ export interface PricingSliderProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 export function PricingSlider({
-  tiers,
+  tiers = [],
   seats: controlledSeats,
   defaultSeats = 5,
   maxSeats = 100,

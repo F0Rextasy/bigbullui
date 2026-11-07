@@ -18,7 +18,7 @@ export interface TourProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Tour({
-  steps,
+  steps = [],
   currentStep: controlledStep,
   onStepChange,
   onComplete,

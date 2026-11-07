@@ -19,7 +19,7 @@ export interface PollProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Interactive poll: options + percentage breakdown + vote animation. */
-export function Poll({ question, options, votedId, onVote, className, ...props }: PollOptionProps2) {
+export function Poll({ question = "", options = [], votedId, onVote, className, ...props }: PollOptionProps2) {
   const [selected, setSelected] = React.useState<string | null>(votedId ?? null);
   const total = options.reduce((s, o) => s + o.votes, 0);
   const hasVoted = selected !== null;
@@ -35,6 +35,7 @@ export function Poll({ question, options, votedId, onVote, className, ...props }
           const isMine = selected === opt.id;
           return (
             <button
+              type="button"
               key={opt.id}
               onClick={() => { if (!hasVoted) { setSelected(opt.id); onVote?.(opt.id); } }}
               disabled={hasVoted}

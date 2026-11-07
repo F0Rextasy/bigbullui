@@ -21,7 +21,7 @@ export interface DataGridProps<T extends Record<string, unknown>> extends React.
 }
 
 /** Data grid: sortable columns + pagination + sticky header. */
-export function DataGrid<T extends Record<string, unknown>>({ columns, rows, rowKey, pageSize = 8, emptyMessage = "No records found", className, ...props }: DataGridProps<T>) {
+export function DataGrid<T extends Record<string, unknown>>({ columns = [], rows = [], rowKey, pageSize = 8, emptyMessage = "No records found", className, ...props }: DataGridProps<T>) {
   const [sort, setSort] = React.useState<{ key: string; dir: "asc" | "desc" } | null>(null);
   const [page, setPage] = React.useState(0);
 
@@ -56,6 +56,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns, rows, row
                 <th key={col.key} className="border-b border-border px-3 py-2.5 text-start font-medium">
                   {col.sortable ? (
                     <button
+                      type="button"
                       onClick={() => toggleSort(col.key)}
                       className={cn(
                         "inline-flex items-center gap-1 rounded-sm transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none",
@@ -96,6 +97,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns, rows, row
           <span className="font-mono text-[10px] tabular-nums text-muted-foreground">Sayfa {safePage + 1}/{pageCount}</span>
           <div className="flex gap-1">
             <button
+              type="button"
               onClick={() => setPage((p) => Math.max(0, p - 1))}
               disabled={safePage === 0}
               className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase transition-colors hover:border-foreground/40 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
@@ -103,6 +105,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns, rows, row
               Previous
             </button>
             <button
+              type="button"
               onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
               disabled={safePage >= pageCount - 1}
               className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase transition-colors hover:border-foreground/40 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"

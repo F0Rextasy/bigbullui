@@ -26,7 +26,7 @@ const PRIORITY_TONE: Record<NonNullable<TaskItem["priority"]>, string> = {
 const PRIORITY_LABEL: Record<NonNullable<TaskItem["priority"]>, string> = { low: "Low", med: "Med", high: "High" };
 
 /** Task checklist: checkbox + assignee + priority + progress. */
-export function BoardChecklist({ title = "Tasks", items, onToggle, className, ...props }: BoardChecklistProps) {
+export function BoardChecklist({ title = "Tasks", items = [], onToggle, className, ...props }: BoardChecklistProps) {
   const [list, setList] = React.useState(items);
   React.useEffect(() => setList(items), [items]);
   const doneCount = list.filter((i) => i.done).length;

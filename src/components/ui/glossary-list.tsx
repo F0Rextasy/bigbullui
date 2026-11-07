@@ -14,7 +14,7 @@ export interface GlossaryListProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 /** Glossary list: alphabet jump index + term definitions. */
-export function GlossaryList({ terms, className, ...props }: GlossaryListProps) {
+export function GlossaryList({ terms = [], className, ...props }: GlossaryListProps) {
   const sorted = [...terms].sort((a, b) => a.term.localeCompare(b.term, "tr"));
   const letters = [...new Set(sorted.map((t) => t.term[0].toUpperCase()))];
   const [active, setActive] = React.useState(letters[0]);
@@ -28,6 +28,7 @@ export function GlossaryList({ terms, className, ...props }: GlossaryListProps) 
       <div className="flex flex-wrap gap-1" role="tablist" aria-label="Harf indeksi">
         {letters.map((letter) => (
           <button
+            type="button"
             key={letter}
             role="tab"
             aria-selected={active === letter}

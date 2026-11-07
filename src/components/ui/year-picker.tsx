@@ -71,6 +71,7 @@ export function YearPicker({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => handlePageChange(prevPage)}
             className="prev-page hover:text-muted-foreground transition-colors"
           >
@@ -88,6 +89,7 @@ export function YearPicker({
         </div>
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => handlePageChange(nextPage)}
             className="next-page hover:text-muted-foreground transition-colors"
           >

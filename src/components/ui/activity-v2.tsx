@@ -17,7 +17,7 @@ export interface ActivityV2Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Filterable activity feed v2. */
-export function ActivityV2({ items, filters, className, ...props }: ActivityV2Props) {
+export function ActivityV2({ items = [], filters, className, ...props }: ActivityV2Props) {
   const actions = filters ?? [...new Set(items.map((i) => i.action))];
   const [active, setActive] = React.useState<string | null>(null);
   const visible = active ? items.filter((i) => i.action === active) : items;
@@ -27,6 +27,7 @@ export function ActivityV2({ items, filters, className, ...props }: ActivityV2Pr
       <style>{`@keyframes av2In { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="mb-3 flex flex-wrap gap-1.5">
         <button
+          type="button"
           onClick={() => setActive(null)}
           className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", active === null ? "border-accent bg-accent text-accent-foreground" : "border-border text-muted-foreground hover:text-foreground")}
         >
@@ -34,6 +35,7 @@ export function ActivityV2({ items, filters, className, ...props }: ActivityV2Pr
         </button>
         {actions.map((a) => (
           <button
+            type="button"
             key={a}
             onClick={() => setActive(a)}
             className={cn("rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", active === a ? "border-accent bg-accent text-accent-foreground" : "border-border text-muted-foreground hover:text-foreground")}

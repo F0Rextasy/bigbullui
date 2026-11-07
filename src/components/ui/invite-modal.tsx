@@ -55,6 +55,7 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
               <div className="flex gap-1.5" role="radiogroup" aria-label="Role">
                 {roles.map((r) => (
                   <button
+                    type="button"
                     key={r}
                     role="radio"
                     aria-checked={role === r}

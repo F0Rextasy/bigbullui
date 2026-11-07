@@ -16,7 +16,7 @@ export interface ConsolePanelProps extends Omit<React.HTMLAttributes<HTMLDivElem
 }
 
 /** Interactive console panel: terminal logs + command prompt. */
-export function ConsolePanel({ lines, prompt = ">", onSubmit, className, ...props }: ConsolePanelProps) {
+export function ConsolePanel({ lines = [], prompt = ">", onSubmit, className, ...props }: ConsolePanelProps) {
   const [input, setInput] = React.useState("");
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);

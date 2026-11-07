@@ -25,7 +25,7 @@ const statusTone: Record<string, string> = {
 };
 
 /** Team frames: party roster with mini HP tracks, status dots and 44px select targets. */
-export function TeamFrames({ members, onSelect, className, ...props }: TeamFramesProps) {
+export function TeamFrames({ members = [], onSelect, className, ...props }: TeamFramesProps) {
   return (
     <div role="group" aria-label="Party members" className={cn("grid w-full grid-cols-1 gap-2 sm:grid-cols-2", className)} {...props}>
       {members.map((m) => {

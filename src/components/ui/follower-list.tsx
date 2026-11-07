@@ -27,6 +27,7 @@ const FollowButton: React.FC<{
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       className={cn(
         "flex items-center gap-1 rounded-md border border-dashed border-border/30 px-2.5 py-1 text-[10px] mono uppercase text-muted-foreground",
@@ -64,7 +65,7 @@ const FollowButton: React.FC<{
   );
 };
 
-const FollowerList: React.FC<FollowerListProps> = ({ followers }) => {
+const FollowerList: React.FC<FollowerListProps> = ({ followers = [] }) => {
   return (
     <div className="space-y-1">
       {followers.map((follower, idx) => (

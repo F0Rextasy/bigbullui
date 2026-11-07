@@ -13,7 +13,7 @@ export interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export function Timeline({ items, className, ...props }: TimelineProps) {
+export function Timeline({ items = [], className, ...props }: TimelineProps) {
   return (
     <div className={cn("relative space-y-6 ps-6", className)} {...props}>
       {/* Continuous dashed vertical stem */}

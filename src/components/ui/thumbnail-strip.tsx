@@ -17,7 +17,7 @@ export interface ThumbnailStripProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 /** Horizontal thumbnail strip: animated border outline on selection. */
-export function ThumbnailStrip({ images, value, defaultValue, onValueChange, className, ...props }: ThumbnailStripProps) {
+export function ThumbnailStrip({ images = [], value, defaultValue, onValueChange, className, ...props }: ThumbnailStripProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? images[0]?.id);
   const active = value ?? internal;
 
@@ -28,6 +28,7 @@ export function ThumbnailStrip({ images, value, defaultValue, onValueChange, cla
         const selected = active === img.id;
         return (
           <button
+            type="button"
             key={img.id}
             role="radio"
             aria-checked={selected}

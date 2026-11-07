@@ -10,7 +10,7 @@ export interface ImageCarouselProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 /** Image carousel slider: nav arrows + dot pagination + autoplay. */
-export function ImageCarousel({ images, autoPlay, interval = 4000, className, ...props }: ImageCarouselProps) {
+export function ImageCarousel({ images = [], autoPlay, interval = 4000, className, ...props }: ImageCarouselProps) {
   const [index, setIndex] = React.useState(0);
 
   React.useEffect(() => {
@@ -40,6 +40,7 @@ export function ImageCarousel({ images, autoPlay, interval = 4000, className, ..
         ))}
       </div>
       <button
+        type="button"
         onClick={() => go(-1)}
         className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
         aria-label="Previous slide"
@@ -47,6 +48,7 @@ export function ImageCarousel({ images, autoPlay, interval = 4000, className, ..
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
       </button>
       <button
+        type="button"
         onClick={() => go(1)}
         className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-black/40 p-1.5 text-white transition-colors hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
         aria-label="Next slide"
@@ -56,6 +58,7 @@ export function ImageCarousel({ images, autoPlay, interval = 4000, className, ..
       <div className="absolute inset-x-0 bottom-2 flex justify-center gap-1.5">
         {images.map((img, i) => (
           <button
+            type="button"
             key={img.id}
             onClick={() => setIndex(i)}
             aria-label={`Go to slide ${i + 1}`}

@@ -17,7 +17,7 @@ export interface BreadcrumbDropdownProps extends React.HTMLAttributes<HTMLElemen
 }
 
 export function BreadcrumbDropdown({
-  items,
+  items = [],
   maxVisible = 3,
   separator = "/",
   className,

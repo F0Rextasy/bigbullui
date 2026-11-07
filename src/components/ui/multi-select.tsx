@@ -78,6 +78,7 @@ const MultiSelect = React.forwardRef<HTMLDivElement, MultiSelectProps>(
         <div className="flex items-center justify-between">
           <span className="select-none">Select options</span>
           <button
+            type="button"
             onClick={() => setOpen(!open)}
             className={cn("rounded-md p-1 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", "motion-reduce:transition-none")}
             aria-haspopup="listbox"

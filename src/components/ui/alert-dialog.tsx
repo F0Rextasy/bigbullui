@@ -4,8 +4,6 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 import { getFocusable, trapFocus } from "./lib/focus-trap";
 
-type Tone = "default" | "destructive";
-
 export type AlertDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -37,9 +35,10 @@ export function AlertDialogFooter({ className, ...props }: React.HTMLAttributes<
   return <div className={cn("mt-4 flex flex-col-reverse sm:flex-row gap-3 justify-end", className)} {...props} />;
 }
 
-export function AlertDialogCancelButton({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) {
+export function AlertDialogCancelButton({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
+      type="button"
       className={cn(
         "rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
         className
@@ -49,11 +48,19 @@ export function AlertDialogCancelButton({ className, ...props }: React.HTMLAttri
   );
 }
 
-export function AlertDialogActionButton({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) {
+export function AlertDialogActionButton({
+  className,
+  destructive = false,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { destructive?: boolean }) {
   return (
     <button
+      type="button"
       className={cn(
-        "rounded-md border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
+        "rounded-md border px-4 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
+        destructive
+          ? "border-destructive bg-destructive text-white hover:bg-destructive/90"
+          : "border-primary bg-primary text-primary-foreground hover:bg-primary/90",
         className
       )}
       {...props}
@@ -62,7 +69,7 @@ export function AlertDialogActionButton({ className, ...props }: React.HTMLAttri
 }
 
 export function AlertDialog({
-  open,
+  open = false,
   onOpenChange,
   title,
   description,
@@ -77,6 +84,10 @@ export function AlertDialog({
   const titleId = React.useId();
   const descId = React.useId();
   const panelRef = React.useRef<HTMLDivElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  const onCancelRef = React.useRef(onCancel);
+  onOpenChangeRef.current = onOpenChange;
+  onCancelRef.current = onCancel;
 
   React.useEffect(() => {
     if (!open) return;
@@ -86,8 +97,8 @@ export function AlertDialog({
     first?.focus();
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onOpenChange(false);
-        onCancel?.();
+        onOpenChangeRef.current?.(false);
+        onCancelRef.current?.();
       } else if (e.key === "Tab" && panel) {
         trapFocus(panel, e);
       }
@@ -97,7 +108,7 @@ export function AlertDialog({
       document.removeEventListener("keydown", handleKeyDown);
       previouslyFocused?.focus?.();
     };
-  }, [open, onOpenChange, onCancel]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -129,10 +140,14 @@ export function AlertDialog({
           </div>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancelButton onClick={() => { onOpenChange(false); onCancel?.(); }} className="flex-1">
+          <AlertDialogCancelButton onClick={() => { onOpenChange?.(false); onCancel?.(); }} className="flex-1">
             {cancelLabel}
           </AlertDialogCancelButton>
-          <AlertDialogActionButton onClick={() => { onOpenChange(false); onConfirm?.(); }} className="mt-2 sm:mt-0">
+          <AlertDialogActionButton
+            destructive={destructive}
+            onClick={() => { onOpenChange?.(false); onConfirm?.(); }}
+            className="mt-2 sm:mt-0"
+          >
             {confirmLabel}
           </AlertDialogActionButton>
         </AlertDialogFooter>

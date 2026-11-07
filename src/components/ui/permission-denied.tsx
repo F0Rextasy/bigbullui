@@ -30,6 +30,7 @@ export function PermissionDenied({ resource = "this resource", onRequestAccess, 
       </div>
       {!isSent ? (
         <button
+          type="button"
           onClick={() => { setSent(true); onRequestAccess?.(); }}
           className={cn(
             "rounded-md border-2 border-dashed border-border px-4 py-2 font-mono text-xs uppercase tracking-widest",

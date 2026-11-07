@@ -66,7 +66,7 @@ export interface TreemapChartProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export function TreemapChart({
-  items,
+  items = [],
   className,
   ...props
 }: TreemapChartProps) {

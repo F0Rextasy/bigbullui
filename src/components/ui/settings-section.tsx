@@ -48,6 +48,7 @@ export function SettingsSection({ title, description, rows = [], onSave, classNa
             </span>
           )}
           <button
+            type="button"
             onClick={handleSave}
             className={cn(
               "rounded-md bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground",

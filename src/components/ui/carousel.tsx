@@ -75,6 +75,7 @@ const Carousel = React.forwardRef<
         )}
       >
         <button
+          type="button"
           onClick={prev}
           className={cn(
             "absolute left-2 rounded-md p-1.5 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -85,6 +86,7 @@ const Carousel = React.forwardRef<
           {"<"}
         </button>
         <button
+          type="button"
           onClick={next}
           className={cn(
             "absolute right-2 rounded-md p-1.5 hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

@@ -16,7 +16,7 @@ export interface ColorTokenTableProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 /** Theme token table: swatch + CSS variable + copy action. */
-export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTableProps) {
+export function ColorTokenTable({ tokens = [], className, ...props }: ColorTokenTableProps) {
   const [copied, setCopied] = React.useState<string | null>(null);
 
   const copy = (token: ColorToken) => {
@@ -54,6 +54,7 @@ export function ColorTokenTable({ tokens, className, ...props }: ColorTokenTable
               </td>
               <td className="px-3 py-2 text-right">
                 <button
+                  type="button"
                   onClick={() => copy(token)}
                   className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm motion-reduce:transition-none"
                   aria-label={`${token.name} copy`}

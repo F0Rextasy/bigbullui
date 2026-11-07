@@ -17,7 +17,7 @@ export interface WebhookListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Webhook endpoint list: URL + event badges + status + test/remove. */
-export function WebhookList({ webhooks, onTest, onRemove, className, ...props }: WebhookListProps) {
+export function WebhookList({ webhooks = [], onTest, onRemove, className, ...props }: WebhookListProps) {
   const [tested, setTested] = React.useState<string | null>(null);
 
   return (
@@ -33,12 +33,14 @@ export function WebhookList({ webhooks, onTest, onRemove, className, ...props }:
             <span className={cn("size-1.5 shrink-0 rounded-full", w.active ? "bg-success animate-pulse motion-reduce:animate-none" : "bg-border")} aria-hidden="true" />
             <code className="min-w-0 flex-1 truncate font-mono text-xs text-foreground">{w.url}</code>
             <button
+              type="button"
               onClick={() => { onTest?.(w.id); setTested(w.id); setTimeout(() => setTested(null), 1500); }}
               className="shrink-0 rounded-sm border border-dashed border-border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
             >
               {tested === w.id ? "✓ 200" : "TEST"}
             </button>
             <button
+              type="button"
               onClick={() => onRemove?.(w.id)}
               className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               aria-label={`Remove webhook ${w.url}`}

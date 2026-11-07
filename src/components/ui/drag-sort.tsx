@@ -14,7 +14,7 @@ export interface DragSortProps extends React.HTMLAttributes<HTMLUListElement> {
 }
 
 /** Drag and drop sortable list using HTML5 drag events with smooth displacement. */
-export function DragSort({ items, onReorder, className, ...props }: DragSortProps) {
+export function DragSort({ items = [], onReorder, className, ...props }: DragSortProps) {
   const [order, setOrder] = React.useState(items);
   const [dragId, setDragId] = React.useState<string | null>(null);
   const [overId, setOverId] = React.useState<string | null>(null);

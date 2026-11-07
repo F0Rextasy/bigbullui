@@ -20,7 +20,7 @@ function polar(cx: number, cy: number, r: number, angle: number): [number, numbe
   return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
 }
 
-export function ChordDiagram({ groups, links, size = 240, className, ...props }: ChordDiagramProps) {
+export function ChordDiagram({ groups = [], links = [], size = 240, className, ...props }: ChordDiagramProps) {
   const [active, setActive] = React.useState<number | null>(null);
   const n = Math.max(groups.length, 1);
   const cx = 100;

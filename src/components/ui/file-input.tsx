@@ -71,6 +71,7 @@ export function FileInput({
           style={{ display: "none" }}
         />
         <button
+          type="button"
           onClick={triggerClick}
           className="flex items-center gap-2 rounded-md border border-transparent bg-secondary px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-secondary-foreground hover:bg-secondary/90 transition-colors"
         >
@@ -93,6 +94,7 @@ export function FileInput({
             >
               <span>{name}</span>
               <button
+                type="button"
                 onClick={() => removeFile(idx)}
                 className="ms-1 text-[10px] uppercase tracking-[0.15em] hover:text-destructive transition-colors"
               >

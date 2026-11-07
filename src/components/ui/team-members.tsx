@@ -18,7 +18,7 @@ export interface TeamMembersProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Team member management panel: invite input + role badges + remove. */
-export function TeamMembers({ members, onInvite, onRemove, className, ...props }: TeamMembersProps) {
+export function TeamMembers({ members = [], onInvite, onRemove, className, ...props }: TeamMembersProps) {
   const [invite, setInvite] = React.useState("");
   const [list, setList] = React.useState(members);
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(invite);
@@ -58,6 +58,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
               {m.role}
             </span>
             <button
+              type="button"
               onClick={() => { setList((l) => l.filter((x) => x.id !== m.id)); onRemove?.(m.id); }}
               className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               aria-label={`Remove member ${m.name}`}
@@ -78,6 +79,7 @@ export function TeamMembers({ members, onInvite, onRemove, className, ...props }
           className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
         />
         <button
+          type="button"
           onClick={add}
           disabled={!valid}
           className={cn(

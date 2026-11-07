@@ -15,7 +15,7 @@ export interface GalleryGridProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Image gallery grid: expandable fullscreen lightbox view. */
-export function GalleryGrid({ images, columns = 3, className, ...props }: GalleryGridProps) {
+export function GalleryGrid({ images = [], columns = 3, className, ...props }: GalleryGridProps) {
   const [active, setActive] = React.useState<number | null>(null);
   const colClass = { 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4" }[columns];
 
@@ -36,6 +36,7 @@ export function GalleryGrid({ images, columns = 3, className, ...props }: Galler
       <div className={cn("grid gap-2", colClass)}>
         {images.map((img, idx) => (
           <button
+            type="button"
             key={img.id}
             onClick={() => setActive(idx)}
             className="group relative aspect-square overflow-hidden rounded-md border border-border animate-[ggIn_0.35s_ease-out_both] motion-reduce:animate-none transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
@@ -56,6 +57,7 @@ export function GalleryGrid({ images, columns = 3, className, ...props }: Galler
             <img src={images[active].src} alt={images[active].alt ?? ""} className="max-h-[80vh] rounded-lg border-2 border-dashed border-border object-contain" />
             <div className="mt-2 flex items-center justify-between">
               <button
+                type="button"
                 onClick={() => setActive((a) => (a !== null ? (a - 1 + images.length) % images.length : null))}
                 className="rounded-sm border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               >
@@ -63,6 +65,7 @@ export function GalleryGrid({ images, columns = 3, className, ...props }: Galler
               </button>
               <span className="font-mono text-[10px] text-muted-foreground">{active + 1} / {images.length}</span>
               <button
+                type="button"
                 onClick={() => setActive((a) => (a !== null ? (a + 1) % images.length : null))}
                 className="rounded-sm border border-border bg-card px-3 py-1 font-mono text-[10px] uppercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               >
@@ -71,6 +74,7 @@ export function GalleryGrid({ images, columns = 3, className, ...props }: Galler
             </div>
           </div>
           <button
+            type="button"
             onClick={() => setActive(null)}
             className="absolute right-4 top-4 rounded-sm p-1.5 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white motion-reduce:transition-none"
             aria-label="Close"

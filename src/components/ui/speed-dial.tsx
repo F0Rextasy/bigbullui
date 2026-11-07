@@ -137,6 +137,7 @@ export function SpeedDial({
                   }}
                 >
                   <button
+                    type="button"
                     onClick={() => { item.onClick(); setOpen(false); }}
                     className={cn(
                       "w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center",

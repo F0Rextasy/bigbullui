@@ -18,7 +18,7 @@ export interface InstallmentPickerProps extends React.HTMLAttributes<HTMLDivElem
 }
 
 /** Installment options: plan tenure + monthly + total breakdown. */
-export function InstallmentPicker({ plans, value, defaultValue, onValueChange, className, ...props }: InstallmentPickerProps) {
+export function InstallmentPicker({ plans = [], value, defaultValue, onValueChange, className, ...props }: InstallmentPickerProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? plans[0]?.months);
   const active = value ?? internal;
 
@@ -34,6 +34,7 @@ export function InstallmentPicker({ plans, value, defaultValue, onValueChange, c
           return (
             <li key={plan.months}>
               <button
+                type="button"
                 role="radio"
                 aria-checked={selected}
                 onClick={() => { setInternal(plan.months); onValueChange?.(plan.months); }}

@@ -14,13 +14,18 @@ export interface ScoreKeeperProps extends React.HTMLAttributes<HTMLDivElement> {
   onScoreChange?: (teamId: string, delta: number) => void;
 }
 
+const DEFAULT_TEAMS: [ScoreboardTeam, ScoreboardTeam] = [
+  { id: "a", name: "Team A", score: 0 },
+  { id: "b", name: "Team B", score: 0 },
+];
+
 /** Score keeper counter: dual teams + increment controls + counter animation. */
-export function ScoreKeeper({ teams, onScoreChange, className, ...props }: ScoreKeeperProps) {
-  const [scores, setScores] = React.useState<[number, number]>([teams[0].score, teams[1].score]);
+export function ScoreKeeper({ teams = DEFAULT_TEAMS, onScoreChange, className, ...props }: ScoreKeeperProps) {
+  const [scores, setScores] = React.useState<[number, number]>([teams[0]?.score ?? 0, teams[1]?.score ?? 0]);
   const [pulse, setPulse] = React.useState<string | null>(null);
 
   const change = (teamIdx: 0 | 1, delta: number) => {
-    const id = teams[teamIdx].id;
+    const id = teams[teamIdx]?.id ?? String(teamIdx);
     setScores((prev) => {
       const next: [number, number] = [...prev];
       next[teamIdx] = Math.max(0, next[teamIdx] + delta);
@@ -44,13 +49,15 @@ export function ScoreKeeper({ teams, onScoreChange, className, ...props }: Score
           </span>
           <div className="flex gap-1">
             <button
+              type="button"
               onClick={() => change(teamIdx as 0 | 1, -1)}
               className="flex size-6 items-center justify-center rounded-sm border border-border font-mono text-xs text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-              aria-label={`${team.name} skoru azalt`}
+              aria-label={`Decrease score for ${team.name}`}
             >
               −
             </button>
             <button
+              type="button"
               onClick={() => change(teamIdx as 0 | 1, 1)}
               className="flex size-6 items-center justify-center rounded-sm border border-border font-mono text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               aria-label={`Increase score for ${team.name}`}

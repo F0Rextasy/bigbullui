@@ -75,6 +75,7 @@ export function PodcastPlayer({
         <div className="flex gap-2">
           {speedChips.map((chip) => (
             <button
+              type="button"
               key={chip.value}
               onClick={() => setSpeed(chip.value)}
               className={cn(
@@ -90,6 +91,7 @@ export function PodcastPlayer({
         </div>
 
         <button
+          type="button"
           onClick={() => setIsPlaying(!isPlaying)}
           className={cn(
             "rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -148,6 +150,7 @@ export function PodcastPlayer({
 
       <div className="flex items-center gap-3 mt-4">
         <button
+          type="button"
           onClick={() => onSkip?.(-15)}
           className={cn(
             "rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-transform hover:scale-95",
@@ -160,6 +163,7 @@ export function PodcastPlayer({
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => onSkip?.(15)}
           className={cn(
             "rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-transform hover:scale-95",

@@ -43,6 +43,7 @@ export function MediaControls({
     >
       {/* Prev button */}
       <button
+        type="button"
         onClick={onPrev}
         onMouseDown={(e) => handlePress(e)}
         className={cn(
@@ -61,6 +62,7 @@ export function MediaControls({
 
       {/* Play/pause toggle */}
       <button
+        type="button"
         onClick={onToggle}
         className={cn(
           "rounded-sm p-1.5 flex size-9 size-mobile-10",
@@ -84,6 +86,7 @@ export function MediaControls({
 
       {/* Next button */}
       <button
+        type="button"
         onClick={onNext}
         onMouseDown={(e) => handlePress(e)}
         className={cn(
@@ -103,6 +106,7 @@ export function MediaControls({
       {/* Stop button */}
       {onStop && (
         <button
+          type="button"
           onClick={onStop}
           className={cn(
             "rounded-sm p-1.5",

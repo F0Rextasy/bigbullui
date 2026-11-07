@@ -18,7 +18,7 @@ export interface PlaylistProps {
 }
 
 export function Playlist({
-  tracks,
+  tracks = [],
   activeId,
   onPlay,
   className,

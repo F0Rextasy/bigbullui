@@ -9,7 +9,7 @@ export interface ColumnToggleProps extends Omit<React.HTMLAttributes<HTMLDivElem
 }
 
 /** Column visibility toggle dropdown menu for data grids. */
-export function ColumnToggle({ columns, onToggle, className, ...props }: ColumnToggleProps) {
+export function ColumnToggle({ columns = [], onToggle, className, ...props }: ColumnToggleProps) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState(
     () => new Map(columns.map((c) => [c.id, c.visible !== false]))
@@ -31,6 +31,7 @@ export function ColumnToggle({ columns, onToggle, className, ...props }: ColumnT
   return (
     <div className={cn("relative inline-block", className)} {...props}>
       <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         className={cn(

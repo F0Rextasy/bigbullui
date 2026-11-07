@@ -56,6 +56,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
             />
             {v.secret && (
               <button
+                type="button"
                 onClick={() => setRevealed((prev) => { const n = new Set(prev); if (n.has(idx)) n.delete(idx); else n.add(idx); return n; })}
                 className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
                 aria-label={shown ? "Hide" : "Show"}
@@ -66,6 +67,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
               </button>
             )}
             <button
+              type="button"
               onClick={() => remove(idx)}
               className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
               aria-label={`Delete ${v.key} row`}
@@ -76,6 +78,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
         );
       })}
       <button
+        type="button"
         onClick={add}
         className="w-full rounded-md border border-dashed border-border py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
       >

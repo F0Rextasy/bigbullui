@@ -15,7 +15,7 @@ export interface SecurityScoreProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 /** Security health score: circular progress gauge + checklist breakdown. */
-export function SecurityScore({ checks, className, ...props }: SecurityScoreProps) {
+export function SecurityScore({ checks = [], className, ...props }: SecurityScoreProps) {
   const passed = checks.filter((c) => c.passed).length;
   const percent = Math.round((passed / Math.max(1, checks.length)) * 100);
   const R = 44;

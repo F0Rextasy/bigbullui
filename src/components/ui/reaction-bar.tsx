@@ -14,7 +14,7 @@ export interface ReactionBarProps {
   onReact?: (emoji: string) => void;
 }
 
-const ReactionBar: React.FC<ReactionBarProps> = ({ reactions, onReact }) => {
+const ReactionBar: React.FC<ReactionBarProps> = ({ reactions = [], onReact }) => {
   return (
     <div className="flex flex-wrap gap-2" role="group" aria-label="Reactions">
       {reactions.map((reaction) => (

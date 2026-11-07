@@ -48,6 +48,7 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
           {revealed ? apiKey : masked}
         </code>
         <button
+          type="button"
           onClick={() => setRevealed((r) => !r)}
           className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label={revealed ? "Hide key" : "Show key"}
@@ -61,6 +62,7 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
           </svg>
         </button>
         <button
+          type="button"
           onClick={copy}
           className="shrink-0 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm motion-reduce:transition-none"
         >
@@ -69,6 +71,7 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
       </div>
 
       <button
+        type="button"
         onClick={onRegenerate}
         className="mt-3 w-full rounded-md border border-dashed border-border py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
       >

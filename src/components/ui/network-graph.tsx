@@ -24,7 +24,7 @@ export interface NetworkGraphProps extends React.HTMLAttributes<SVGSVGElement> {
 }
 
 /** Node network graph: static layout + bezier curves + node highlight. */
-export function NetworkGraph({ nodes, edges, height = 260, className, ...props }: NetworkGraphProps) {
+export function NetworkGraph({ nodes = [], edges = [], height = 260, className, ...props }: NetworkGraphProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const connected = (id: string) => hover !== null && (id === hover || edges.some((e) => (e.from === hover && e.to === id) || (e.to === hover && e.from === id)));

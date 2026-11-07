@@ -42,7 +42,7 @@ export interface RadioCardsProps extends React.HTMLAttributes<HTMLDivElement> {
  * ----------------------------------------------------------------------- */
 
 export function RadioCards({
-  value,
+  value = "",
   defaultValue,
   onValueChange,
   name,
@@ -193,15 +193,15 @@ export interface RadioCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function RadioCard({
-  value,
+  value = "",
   title,
   subtitle,
   tier,
-  price,
+  price = "",
   period = "/pass",
   badge,
   badgeVariant = "accent",
-  perks,
+  perks = [],
   disabled = false,
   soldOut = false,
   notched = true,
@@ -420,7 +420,7 @@ export interface RadioCardPriceProps extends React.HTMLAttributes<HTMLDivElement
   className?: string;
 }
 
-export function RadioCardPrice({ price, period = "/pass", className, ...props }: RadioCardPriceProps) {
+export function RadioCardPrice({ price = "", period = "/pass", className, ...props }: RadioCardPriceProps) {
   return (
     <div className={cn("mt-4 flex items-baseline gap-1 border-b border-dashed border-border pb-3", className)} {...props}>
       <span className="font-mono text-3xl font-black tracking-tight text-foreground">{price}</span>
@@ -434,7 +434,7 @@ export interface RadioCardPerksProps extends React.HTMLAttributes<HTMLUListEleme
   className?: string;
 }
 
-export function RadioCardPerks({ perks, className, ...props }: RadioCardPerksProps) {
+export function RadioCardPerks({ perks = [], className, ...props }: RadioCardPerksProps) {
   return (
     <ul className={cn("mt-4 space-y-2", className)} {...props}>
       {perks.map((perk, index) => (

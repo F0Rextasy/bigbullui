@@ -18,8 +18,8 @@ const STATUS = {
 };
 
 /** Refund status card: resolution state + amount + reason. */
-export function RefundCard({ orderId, amount, reason, status, className, ...props }: RefundCardProps) {
-  const s = STATUS[status];
+export function RefundCard({ orderId = "", amount = "", reason, status = "pending", className, ...props }: RefundCardProps) {
+  const s = STATUS[status] ?? STATUS.pending;
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
       <style>{`@keyframes rfIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
@@ -28,7 +28,7 @@ export function RefundCard({ orderId, amount, reason, status, className, ...prop
         <span className={cn("rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider", s.cls)}>{s.label}</span>
       </div>
       <p className="mt-2 font-mono text-2xl font-bold tabular-nums">{amount}</p>
-      {reason && <p className="mt-1 text-xs text-muted-foreground">Sebep: {reason}</p>}
+      {reason && <p className="mt-1 text-xs text-muted-foreground">Reason: {reason}</p>}
     </div>
   );
 }

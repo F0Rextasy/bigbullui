@@ -14,7 +14,7 @@ export interface TocProps {
   className?: string;
 }
 
-export function Toc({ headings, className }: TocProps) {
+export function Toc({ headings = [], className }: TocProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   // Track visible sections via IntersectionObserver
@@ -53,6 +53,7 @@ export function Toc({ headings, className }: TocProps) {
 
         return (
           <button
+            type="button"
             key={heading.id}
             className={cn(
               "whitespace-nowrap select-none",

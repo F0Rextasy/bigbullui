@@ -17,7 +17,7 @@ export interface FileTreeProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   onSelect?: (node: FileTreeNode) => void;
 }
 
-export function FileTree({ nodes, selectedId: controlledSelected, defaultExpanded = [], onSelect, className, ...props }: FileTreeProps) {
+export function FileTree({ nodes = [], selectedId: controlledSelected, defaultExpanded = [], onSelect, className, ...props }: FileTreeProps) {
   const [innerSelected, setInnerSelected] = React.useState<string | null>(null);
   const selected = controlledSelected ?? innerSelected;
   const [expanded, setExpanded] = React.useState<Set<string>>(new Set(defaultExpanded));

@@ -29,7 +29,7 @@ export function MegaMenu({ trigger, columns, featured, className, ...props }: Me
 
   return (
     <div ref={ref} className={cn("relative", className)} {...props}>
-      <button onClick={() => setOpen((o) => !o)} aria-expanded={open} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
         {trigger}
       </button>
       {open && (

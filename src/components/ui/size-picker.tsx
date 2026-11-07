@@ -30,7 +30,7 @@ const sizeMap: Record<string, string> = {
 };
 
 export function SizePicker({
-  sizes,
+  sizes = [],
   value,
   defaultValue,
   onValueChange,

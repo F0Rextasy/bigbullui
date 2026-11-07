@@ -2,10 +2,12 @@ export function getFocusable(container: HTMLElement): HTMLElement[] {
   const focusableSelector = [
     "a[href]",
     "area[href]",
-    "input:not([disabled])",
+    'input:not([disabled]):not([type="hidden"])',
     "select:not([disabled])",
     "textarea:not([disabled])",
     "button:not([disabled])",
+    '[tabindex]:not([tabindex="-1"])',
+    '[contenteditable="true"]',
     "object[href]",
     "embed",
     "iframe",
@@ -31,15 +33,16 @@ export function trapFocus(
   const handleKeydown = (e: KeyboardEvent) => {
     if (e.key !== "Tab") return;
 
+    const active = document.activeElement;
+    const isOutside = !active || active === container || !container.contains(active);
+
     if (e.shiftKey) {
-      // Shift + Tab - move to previous
-      if (document.activeElement === firstFocusable) {
+      if (active === firstFocusable || isOutside) {
         e.preventDefault();
         lastFocusable.focus();
       }
     } else {
-      // Tab - move to next
-      if (document.activeElement === lastFocusable) {
+      if (active === lastFocusable || isOutside) {
         e.preventDefault();
         firstFocusable.focus();
       }

@@ -15,7 +15,7 @@ export interface CryptoTickerProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 /** Crypto ticker tape: up/down animated change indicators. */
-export function CryptoTicker({ entries, className, ...props }: CryptoTickerProps) {
+export function CryptoTicker({ entries = [], className, ...props }: CryptoTickerProps) {
   return (
     <div className={cn("w-full overflow-hidden rounded-md border border-border bg-card", className)} {...props}>
       <style>{`@keyframes ctScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>

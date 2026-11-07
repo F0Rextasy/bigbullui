@@ -8,7 +8,7 @@ export interface AirmailLetterProps {
   className?: string;
 }
 
-export function AirmailLetter({ lines, className }: AirmailLetterProps) {
+export function AirmailLetter({ lines = [], className }: AirmailLetterProps) {
   return (
     <div
       className={cn(

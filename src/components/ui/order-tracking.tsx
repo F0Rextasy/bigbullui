@@ -17,7 +17,7 @@ export interface OrderTrackingProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 /** Order tracking timeline: status nodes + delivery carrier. */
-export function OrderTracking({ orderId, steps, courier, className, ...props }: OrderTrackingProps) {
+export function OrderTracking({ orderId = "", steps = [], courier, className, ...props }: OrderTrackingProps) {
   return (
     <div className={cn("w-full max-w-md rounded-lg border border-border bg-card p-4", className)} {...props}>
       <style>{`

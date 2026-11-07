@@ -43,6 +43,7 @@ export function UploadProgress({ filename, progress, onCancel, className, ...pro
       </div>
       {!done && (
         <button
+          type="button"
           onClick={onCancel}
           className="shrink-0 rounded-sm p-1 text-muted-foreground transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label={`Cancel ${filename} upload`}

@@ -7,7 +7,7 @@ export interface NeonSignProps {
   className?: string;
 }
 
-export function NeonSign({ text, color = "accent", className }: NeonSignProps) {
+export function NeonSign({ text = "", color = "accent", className }: NeonSignProps) {
   const glowColor = {
     accent: "var(--accent)",
     destructive: "var(--destructive)",

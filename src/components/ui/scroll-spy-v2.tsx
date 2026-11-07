@@ -8,7 +8,7 @@ export interface ScrollSpyV2Props extends React.HTMLAttributes<HTMLElement> {
 }
 
 /** Horizontal scroll-spy nav v2: sliding active indicator pill. */
-export function ScrollSpyV2({ sections, className, ...props }: ScrollSpyV2Props) {
+export function ScrollSpyV2({ sections = [], className, ...props }: ScrollSpyV2Props) {
   const [active, setActive] = React.useState(sections[0]?.id);
   const listRef = React.useRef<HTMLUListElement>(null);
   const itemRefs = React.useRef<Record<string, HTMLButtonElement | null>>({});
@@ -45,6 +45,7 @@ export function ScrollSpyV2({ sections, className, ...props }: ScrollSpyV2Props)
           return (
             <li key={s.id} className="relative shrink-0">
               <button
+                type="button"
                 ref={(el) => { itemRefs.current[s.id] = el; }}
                 onClick={() => { setActive(s.id); document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" }); }}
                 className={cn(

@@ -22,6 +22,7 @@ export function GiftMessage({ from, message, onOpen, className, ...props }: Gift
 
       {!opened ? (
         <button
+          type="button"
           onClick={() => { setOpened(true); onOpen?.(); }}
           className="group relative w-full overflow-hidden rounded-lg border-2 border-dashed border-accent/60 bg-card p-6 text-center transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label="Open gift"

@@ -8,7 +8,7 @@ export interface NowServingProps {
   className?: string;
 }
 
-export function NowServing({ number, className }: NowServingProps) {
+export function NowServing({ number = "", className }: NowServingProps) {
   const [flapState, setFlapState] = React.useState<number[]>([]);
 
   React.useEffect(() => {
@@ -41,7 +41,7 @@ export function NowServing({ number, className }: NowServingProps) {
   );
 }
 
-function FlipDigit({ value, index }: { value: number; index: number }) {
+function FlipDigit({ value = 0, index = 0 }: { value: number; index: number }) {
   const digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   return (
     <div

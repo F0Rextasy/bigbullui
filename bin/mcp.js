@@ -82,6 +82,27 @@ async function componentsIndex() {
   return cache.components.components;
 }
 
+async function blocksIndex() {
+  if (!cache.blocks) {
+    cache.blocks = await loadJson("public/blocks.json", `${SITE}/blocks.json`);
+  }
+  return cache.blocks;
+}
+
+async function iconsIndex() {
+  if (!cache.icons) {
+    cache.icons = await loadJson("public/icons.json", `${SITE}/icons.json`);
+  }
+  return cache.icons;
+}
+
+async function themeCss() {
+  if (!cache.theme) {
+    cache.theme = await loadText("bigbullui.css", `${GITHUB_RAW}/bigbullui.css`);
+  }
+  return cache.theme;
+}
+
 const TOOLS = [
   {
     name: "list_components",
@@ -159,26 +180,27 @@ async function callTool(name, args) {
     if (!reg) throw new Error(`Unknown component: ${slug}. Use list_components to discover names.`);
     const file = reg.files && reg.files[0];
     const full = file && typeof file.content === "string" ? file.content : "";
+    const docsUrl = reg.type === "registry:block" ? `${SITE}/blocks/${slug}` : `${SITE}/docs/${slug}`;
     // Cap AI context size, but never truncate silently.
     return {
       name: reg.name,
       title: reg.title,
-      docs: `${SITE}/docs/${slug}`,
+      docs: docsUrl,
       install: `npx bigbullui add ${slug}`,
       source: full.slice(0, 60000),
       truncated: full.length > 60000,
     };
   }
   if (name === "list_blocks") {
-    const idx = await loadJson("public/blocks.json", `${SITE}/blocks.json`);
+    const idx = await blocksIndex();
     const q = (a.search || "").toLowerCase();
     const hits = idx.blocks
       .filter((b) => !q || b.toLowerCase().includes(q))
-      .map((b) => ({ name: b, gallery: `${SITE}/blocks`, install: `npx bigbullui add ${b}` }));
+      .map((b) => ({ name: b, gallery: `${SITE}/blocks/${b}`, install: `npx bigbullui add ${b}` }));
     return { count: hits.length, blocks: hits };
   }
   if (name === "list_icons") {
-    const idx = await loadJson("public/icons.json", `${SITE}/icons.json`);
+    const idx = await iconsIndex();
     const q = (a.search || "").toLowerCase();
     const limit = Math.min(Math.max(a.limit || 50, 1), 200);
     const hits = idx.icons
@@ -203,7 +225,7 @@ async function callTool(name, args) {
     };
   }
   if (name === "get_theme") {
-    const css = await loadText("bigbullui.css", `${GITHUB_RAW}/bigbullui.css`);
+    const css = await themeCss();
     return {
       setup: '@import "tailwindcss";\n@import "bigbullui/css";',
       usage: "Components use semantic tokens only (bg-primary, text-muted-foreground, border-border, bg-success, text-warning, ...). Never hard-code hex.",

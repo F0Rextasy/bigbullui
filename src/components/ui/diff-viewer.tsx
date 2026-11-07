@@ -44,8 +44,8 @@ function computeDiff(
 }
 
 export function DiffViewer({
-  before,
-  after,
+  before = "",
+  after = "",
   className,
   ...props
 }: DiffViewerProps) {

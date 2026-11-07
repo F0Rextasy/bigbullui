@@ -14,9 +14,9 @@ const FadeIn = "receipt-fade-in";
 const ZigZag = "receipt-zig-zag";
 
 export function Receipt({
-  items,
+  items = [],
   taxRate = 0.1,
-  total,
+  total = "",
   className,
 }: ReceiptProps) {
   const subtotal = items.reduce((sum, it) => sum + parseFloat(it.price), 0);

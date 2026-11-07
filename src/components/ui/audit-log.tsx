@@ -38,7 +38,7 @@ const ACTION_LABEL: Record<AuditAction, string> = {
 };
 
 /** Audit log: actor + action + timestamp + IP with status tones. */
-export function AuditLog({ entries, filter = "all", className, ...props }: AuditLogProps) {
+export function AuditLog({ entries = [], filter = "all", className, ...props }: AuditLogProps) {
   const visible = filter === "all" ? entries : entries.filter((e) => e.action === filter);
 
   return (

@@ -18,7 +18,7 @@ export interface SessionListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Active login sessions: device + location + activity + revoke. */
-export function SessionList({ sessions, onRevoke, className, ...props }: SessionListProps) {
+export function SessionList({ sessions = [], onRevoke, className, ...props }: SessionListProps) {
   const [revoked, setRevoked] = React.useState<string[]>([]);
 
   const deviceIcon = (icon?: Session["icon"]) => {
@@ -65,9 +65,10 @@ export function SessionList({ sessions, onRevoke, className, ...props }: Session
           </div>
           {!s.current && (
             <button
+              type="button"
               onClick={() => { setRevoked((r) => [...r, s.id]); onRevoke?.(s.id); }}
               className="shrink-0 rounded-sm border border-dashed border-border px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
-              aria-label={`${s.device} oturumunu kapat`}
+              aria-label={`Revoke ${s.device} session`}
             >
               REVOKE
             </button>

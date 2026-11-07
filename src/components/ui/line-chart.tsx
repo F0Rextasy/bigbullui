@@ -28,8 +28,8 @@ const TOKEN_TONES: Record<string, string> = {
 
 function SeriesLine({
   s,
-  si,
-  max,
+  si = 0,
+  max = 0,
   hovered,
   onHover,
 }: {
@@ -83,7 +83,7 @@ function SeriesLine({
 }
 
 export function LineChart({
-  series,
+  series = [],
   labels,
   height = 300,
   className,

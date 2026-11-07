@@ -17,7 +17,7 @@ export interface SearchCommandProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 export function SearchCommand({
-  items,
+  items = [],
   placeholder = "Search...",
   maxVisible = 6,
   className,

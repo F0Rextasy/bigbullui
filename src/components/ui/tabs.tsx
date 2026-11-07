@@ -67,7 +67,7 @@ export type TabsTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   animated?: boolean;
 };
 
-export function TabsTrigger({ value, animated: animatedProp, className, onClick, ...props }: TabsTriggerProps) {
+export function TabsTrigger({ value = "", animated: animatedProp, className, onClick, ...props }: TabsTriggerProps) {
   const ctx = React.useContext(TabsCtx);
   const isActive = ctx?.value === value;
   const animated = animatedProp ?? ctx?.animated ?? true;
@@ -97,9 +97,9 @@ export function TabsTrigger({ value, animated: animatedProp, className, onClick,
 
 export type TabsContentProps = React.HTMLAttributes<HTMLDivElement> & { value: string };
 
-export function TabsContent({ value, className, children, ...props }: TabsContentProps) {
+export function TabsContent({ value = "", className, children, ...props }: TabsContentProps) {
   const ctx = React.useContext(TabsCtx);
-  if (ctx?.value !== value) return null;
+  if (!ctx || ctx.value !== value) return null;
   return (
     <div
       role="tabpanel"

@@ -285,7 +285,7 @@ const badgeVariants: Record<ActivityBadgeTone, string> = {
 };
 
 export function ActivityFeed({
-  items,
+  items = [],
   title = "ACTIVITY STREAM",
   serial = "AUDIT-LOG-88",
   showLiveIndicator = true,

@@ -29,6 +29,7 @@ export function WishlistButton({
   return (
     <div className="relative inline-flex flex-col items-start">
     <button
+      type="button"
       onClick={handleToggle}
       aria-pressed={isActive}
       className={cn(

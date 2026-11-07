@@ -74,6 +74,7 @@ export function DateRangePicker({
       <div key={`${year}-${month}`} className="relative">
         <div className="flex justify-between mb-2">
           <button
+            type="button"
             onClick={() => setViewDate(new Date(year, month - 1, 1))}
             className="prev-button absolute left-0"
           >
@@ -85,6 +86,7 @@ export function DateRangePicker({
             {MONTHS[month]} {year}
           </span>
           <button
+            type="button"
             onClick={() => setViewDate(new Date(year, month + 1, 1))}
             className="next-button absolute right-0"
           >
@@ -204,6 +206,7 @@ export function DateRangePicker({
             {selectedStart && currentEnd ? `Nights: ${Math.max(0, (currentEnd.getTime() - selectedStart.getTime()) / 86400000)}` : ""}
           </span>
           <button
+            type="button"
             onClick={() => {
               setSelectedStart(undefined);
               setSelectedEnd(undefined);

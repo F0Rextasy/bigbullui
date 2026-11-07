@@ -21,8 +21,8 @@ export interface ComboboxProps {
 }
 
 export function Combobox({
-  options,
-  value: controlledValue,
+  options = [],
+  value: controlledValue = "",
   defaultValue = "",
   onValueChange,
   placeholder = "Select an option...",

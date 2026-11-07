@@ -147,7 +147,7 @@ describe("bigbullui Component Library Integrity", () => {
     assert.ok(fs.existsSync(path.join(rDir, "utils.json")), "public/r/utils.json must exist");
     const utilsItem = JSON.parse(fs.readFileSync(path.join(rDir, "utils.json"), "utf8"));
     assert.equal(utilsItem.type, "registry:lib");
-    assert.equal(utilsItem.files[0].target, "@ui/lib/utils.ts");
+    assert.equal(utilsItem.files[0].target, "components/ui/lib/utils.ts");
     assert.match(utilsItem.files[0].content, /export\s+function\s+cn\b/);
     const byPath = (files, p) => files.find((f) => f.path === p);
     const checked = ["button", "stat-tile", "admin-overview", "form-validation"];
@@ -156,11 +156,9 @@ describe("bigbullui Component Library Integrity", () => {
       const targetByPath = {};
       for (const f of item.files) targetByPath[f.path] = f.target;
       for (const f of item.files) {
-        if (f.path.startsWith("src/components/ui/")) {
-          assert.ok(f.target && f.target.startsWith("@ui/"), `${slug}: ${f.path} needs a @ui/ target`);
-        }
-        if (f.path.startsWith("src/components/blocks/")) {
-          assert.ok(f.target && f.target.startsWith("@components/"), `${slug}: ${f.path} needs a @components/ target`);
+        assert.ok(!f.target || !f.target.startsWith("@"), `${slug}: ${f.path} target must not use invalid @ alias prefix (${f.target})`);
+        if (f.path.startsWith("src/components/ui/lib/")) {
+          assert.ok(f.target && f.target.startsWith("components/ui/lib/"), `${slug}: ${f.path} needs a components/ui/lib/ target`);
         }
       }
       const needsUtils = item.files.some((f) => typeof f.content === "string" && f.content.includes('"./lib/utils"'));
@@ -174,7 +172,7 @@ describe("bigbullui Component Library Integrity", () => {
         const content = typeof f.content === "string" ? f.content : "";
         for (const m of content.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
           if (m[1] === "lib") {
-            assert.ok(byPath(item.files, "src/components/ui/lib/utils.ts") || targetByPath["src/components/ui/lib/utils.ts"] === "@ui/lib/utils.ts" || utilsItem, `${slug}: ./lib dep needs utils coverage`);
+            assert.ok(byPath(item.files, "src/components/ui/lib/utils.ts") || targetByPath["src/components/ui/lib/utils.ts"] === "components/ui/lib/utils.ts" || utilsItem, `${slug}: ./lib dep needs utils coverage`);
             continue;
           }
           assert.ok(byPath(item.files, `src/components/ui/${m[1]}.tsx`), `${slug}: sibling ./${m[1]} must be bundled`);
@@ -348,5 +346,46 @@ describe("bigbullui Component Library Integrity", () => {
       .filter((p) => p.r < 4.5)
       .map((p) => `${p.fg} on ${p.bg}: ${p.r.toFixed(2)}:1`);
     assert.deepEqual(failures, [], `Text tokens below WCAG AA 4.5:1:\n${failures.join("\n")}`);
+  });
+
+  it("form safety: every internal <button> has an explicit type attribute", () => {
+    const findButtons = (src) => {
+      const results = [];
+      const regex = /<button\b/g;
+      let match;
+      while ((match = regex.exec(src)) !== null) {
+        const start = match.index;
+        let i = start + 7;
+        let braceDepth = 0;
+        let quote = null;
+        while (i < src.length) {
+          const ch = src[i];
+          if (quote) {
+            if (ch === "\\") { i += 2; continue; }
+            if (ch === quote) quote = null;
+          } else {
+            if (ch === '"' || ch === "'" || ch === "`") quote = ch;
+            else if (ch === "{") braceDepth++;
+            else if (ch === "}") { if (braceDepth > 0) braceDepth--; }
+            else if (ch === ">" && braceDepth === 0) break;
+          }
+          i++;
+        }
+        results.push(src.slice(start, i + 1));
+      }
+      return results;
+    };
+    const violations = [];
+    for (const file of uiFiles) {
+      if (file === "button.tsx") continue;
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      for (const tag of findButtons(content)) {
+        if (!/\btype\s*=/.test(tag) && !/\.\.\.\w+/.test(tag)) {
+          violations.push(file);
+          break;
+        }
+      }
+    }
+    assert.deepEqual(violations, [], `Internal <button> without explicit type= (submits parent <form> by default):\n${violations.join("\n")}`);
   });
 });

@@ -6,7 +6,7 @@ import { cn } from "./lib/utils";
 type Size = "sm" | "md" | "lg";
 
 export type AvatarProps = {
-  name: string;
+  name?: string;
   src?: string;
   size?: Size;
   className?: string;
@@ -18,7 +18,7 @@ const sizes: Record<Size, string> = {
   lg: "size-12 text-base",
 };
 
-function initialsOf(name: string): string {
+function initialsOf(name = ""): string {
   return name
     .trim()
     .split(/\s+/)
@@ -29,8 +29,12 @@ function initialsOf(name: string): string {
 }
 
 const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
-  ({ name, src, size = "md", className }, ref) => {
+  ({ name = "", src, size = "md", className }, ref) => {
     const [failed, setFailed] = React.useState(false);
+
+    React.useEffect(() => {
+      setFailed(false);
+    }, [src]);
 
     return (
       <div

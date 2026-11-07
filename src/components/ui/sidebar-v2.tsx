@@ -18,7 +18,7 @@ export interface SidebarV2Props extends React.HTMLAttributes<HTMLElement> {
 }
 
 /** Two-level collapsible sidebar v2. */
-export function SidebarV2({ items, activeId, onNavigate, title = "Menu", className, ...props }: SidebarV2Props) {
+export function SidebarV2({ items = [], activeId, onNavigate, title = "Menu", className, ...props }: SidebarV2Props) {
   const [expanded, setExpanded] = React.useState<Set<string>>(new Set());
   const [active, setActive] = React.useState(activeId ?? items[0]?.id);
 
@@ -38,6 +38,7 @@ export function SidebarV2({ items, activeId, onNavigate, title = "Menu", classNa
       return (
         <li key={item.id} className="animate-[sb2In_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
           <button
+            type="button"
             onClick={() => { if (hasChildren) toggle(item.id); setActive(item.id); onNavigate?.(item.id); }}
             aria-expanded={hasChildren ? isOpen : undefined}
             className={cn(
@@ -67,6 +68,7 @@ export function SidebarV2({ items, activeId, onNavigate, title = "Menu", classNa
     children.map((child) => (
       <li key={child.id}>
         <button
+          type="button"
           onClick={() => { setActive(child.id); onNavigate?.(child.id); }}
           className={cn(
             "flex w-full items-center rounded-sm py-1.5 text-start text-xs transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",

@@ -13,8 +13,8 @@ export function useMediaQuery(query: string): boolean {
       setMatches(event.matches);
     };
 
-    match.addListener(listener);
-    return () => match.removeListener(listener);
+    match.addEventListener("change", listener);
+    return () => match.removeEventListener("change", listener);
   }, [query]);
 
   return matches;
@@ -51,31 +51,39 @@ export function useIntersection(
   options?: IntersectionObserverInit,
 ): boolean {
   const [isIntersecting, setIsIntersecting] = React.useState(false);
+  const root = options?.root;
+  const rootMargin = options?.rootMargin;
+  const threshold = options?.threshold;
 
   React.useEffect(() => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        setIsIntersecting(entries[0].isIntersecting);
+        if (entries[0]) {
+          setIsIntersecting(entries[0].isIntersecting);
+        }
       },
-      options,
+      { root, rootMargin, threshold },
     );
 
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [ref, options]);
+  }, [ref, root, rootMargin, threshold]);
 
   return isIntersecting;
 }
 
 export function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () => void) {
+  const handlerRef = React.useRef(handler);
+  handlerRef.current = handler;
+
   React.useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
-      handler();
+      handlerRef.current();
     };
 
     document.addEventListener("mousedown", listener);
@@ -85,30 +93,41 @@ export function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () =
       document.removeEventListener("mousedown", listener);
       document.removeEventListener("touchstart", listener);
     };
-  }, [ref, handler]);
+  }, [ref]);
 }
 
 export function useCopy(timeout = 2000): { copied: boolean; copy: (text: string) => void } {
   const [copied, setCopied] = React.useState(false);
+  const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const copy = (text: string) => {
-    try {
-      if (typeof navigator !== "undefined" && navigator.clipboard) {
-        void navigator.clipboard.writeText(text);
-      } else if (typeof document !== "undefined") {
-        const textarea = document.createElement("textarea");
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
+  React.useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const copy = React.useCallback(
+    (text: string) => {
+      try {
+        if (typeof navigator !== "undefined" && navigator.clipboard) {
+          void navigator.clipboard.writeText(text).catch(() => {});
+        } else if (typeof document !== "undefined") {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textarea);
+        }
+        setCopied(true);
+      } catch {
+        // ignored
       }
-      setCopied(true);
-    } catch {
-      // ignored
-    }
-    setTimeout(() => setCopied(false), timeout);
-  };
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setCopied(false), timeout);
+    },
+    [timeout],
+  );
 
   return { copied, copy };
 }
@@ -118,22 +137,40 @@ export function useHotkey(
   handler: (event: KeyboardEvent) => void,
   options?: { meta?: boolean; shift?: boolean; alt?: boolean },
 ) {
+  const handlerRef = React.useRef(handler);
+  handlerRef.current = handler;
+  const meta = options?.meta;
+  const shift = options?.shift;
+  const alt = options?.alt;
+
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isEditable =
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable);
+
+      if (isEditable && !meta && !alt) {
+        return;
+      }
+
       const conditions: boolean[] = [];
-      if (options?.meta) conditions.push(event.metaKey);
-      if (options?.shift) conditions.push(event.shiftKey);
-      if (options?.alt) conditions.push(event.altKey);
+      if (meta) conditions.push(event.metaKey || event.ctrlKey);
+      if (shift) conditions.push(event.shiftKey);
+      if (alt) conditions.push(event.altKey);
 
       const allMet = conditions.length === 0 || conditions.every((c) => c);
       if (allMet && event.key.toLowerCase() === key.toLowerCase()) {
-        handler(event);
+        handlerRef.current(event);
       }
     };
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [key, handler, options]);
+  }, [key, meta, shift, alt]);
 }
 
 export function useDebounce<T>(value: T, delay: number): T {

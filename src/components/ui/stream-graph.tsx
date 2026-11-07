@@ -15,7 +15,7 @@ export interface StreamGraphProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const LAYER_TONES = ["text-accent", "text-foreground", "text-muted-foreground"];
 
-export function StreamGraph({ layers, height = 240, className, ...props }: StreamGraphProps) {
+export function StreamGraph({ layers = [], height = 240, className, ...props }: StreamGraphProps) {
   if (layers.length === 0) {
     return <div className={cn("w-full", className)} {...props} />;
   }

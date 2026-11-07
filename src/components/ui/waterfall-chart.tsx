@@ -14,7 +14,7 @@ export interface WaterfallChartProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 export function WaterfallChart({
-  items,
+  items = [],
   height = 350,
   className,
   ...props

@@ -31,6 +31,7 @@ export function MigrationBanner({ title = "Migrating data to new system", progre
         <span className="shrink-0 font-mono text-[10px] tabular-nums text-info">{pct}%</span>
         {detail && (
           <button
+            type="button"
             onClick={() => setOpen((o) => !o)}
             className="shrink-0 rounded-sm p-1 text-muted-foreground transition-transform duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
             aria-expanded={open}

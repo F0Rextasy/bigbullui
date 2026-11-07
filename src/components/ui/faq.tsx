@@ -14,7 +14,7 @@ export interface FaqProps {
   className?: string;
 }
 
-export function Faq({ items, defaultOpen = 0, className }: FaqProps) {
+export function Faq({ items = [], defaultOpen = 0, className }: FaqProps) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(defaultOpen);
 
   return (

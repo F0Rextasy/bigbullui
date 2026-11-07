@@ -17,7 +17,7 @@ export interface ResponsiveNavProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 /** Responsive navigation bar: desktop row to mobile drawer. */
-export function ResponsiveNav({ brand = "bigbullui", items, activeId, breakpoint = "md", className, ...props }: ResponsiveNavProps) {
+export function ResponsiveNav({ brand = "bigbullui", items = [], activeId, breakpoint = "md", className, ...props }: ResponsiveNavProps) {
   const [open, setOpen] = React.useState(false);
   const bp = { sm: "sm:hidden", md: "md:hidden", lg: "lg:hidden" }[breakpoint];
   const bpDesktop = { sm: "sm:flex", md: "md:flex", lg: "lg:flex" }[breakpoint];
@@ -48,6 +48,7 @@ export function ResponsiveNav({ brand = "bigbullui", items, activeId, breakpoint
         </ul>
 
         <button
+          type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           aria-label="Toggle navigation menu"

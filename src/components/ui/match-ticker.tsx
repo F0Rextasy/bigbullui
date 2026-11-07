@@ -17,7 +17,7 @@ export interface MatchTickerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Match ticker tape: live scores + LIVE indicator badge. */
-export function MatchTicker({ matches, className, ...props }: MatchTickerProps) {
+export function MatchTicker({ matches = [], className, ...props }: MatchTickerProps) {
   const doubled = [...matches, ...matches];
 
   return (

@@ -12,7 +12,7 @@ export interface SparkBarsProps extends React.SVGAttributes<SVGSVGElement> {
 }
 
 export function SparkBars({
-  data,
+  data = [],
   width = 140,
   height = 40,
   barWidth = 6,

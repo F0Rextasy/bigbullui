@@ -95,6 +95,7 @@ export function AudioPlayer({
 
       <div className="flex items-center justify-between mb-4">
         <button
+          type="button"
           onClick={togglePlay}
           className={cn(
             "rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -138,6 +139,7 @@ export function AudioPlayer({
 
       <div className="flex items-center justify-between">
         <button
+          type="button"
           onClick={() => setVolume(0)}
           className={cn(
             "p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted transition-colors",
@@ -154,6 +156,7 @@ export function AudioPlayer({
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => setVolume(1)}
           className={cn(
             "p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:bg-primary-50 transition-colors",

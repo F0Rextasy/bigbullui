@@ -42,6 +42,7 @@ export function SubscriptionCard({ plan, price, cycle, renewDate, features = [],
       <div className="mt-4 flex items-center justify-between border-t border-dashed border-border pt-3">
         <p className="text-xs text-muted-foreground">Renews: <span className="font-medium text-foreground">{renewDate}</span></p>
         <button
+          type="button"
           onClick={onCancel}
           className="font-mono text-[10px] uppercase tracking-wider text-destructive hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-destructive rounded-sm"
         >

@@ -16,7 +16,7 @@ export interface PassportStampGridProps extends React.HTMLAttributes<HTMLDivElem
   columns?: number;
 }
 
-export function PassportStampGrid({ stamps, columns = 3, className, ...props }: PassportStampGridProps) {
+export function PassportStampGrid({ stamps = [], columns = 3, className, ...props }: PassportStampGridProps) {
   return (
     <div
       className={cn("grid w-full gap-3", className)}

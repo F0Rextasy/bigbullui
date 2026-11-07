@@ -12,8 +12,8 @@ export interface QqPlotProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function QqPlot({
-  sampleA,
-  sampleB,
+  sampleA = [],
+  sampleB = [],
   height = 240,
   labelA = "A",
   labelB = "B",

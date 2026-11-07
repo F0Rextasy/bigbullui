@@ -15,7 +15,7 @@ export interface LogViewerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function LogViewer({
-  entries,
+  entries = [],
   className,
   ...props
 }: LogViewerProps) {
@@ -45,6 +45,7 @@ export function LogViewer({
       {/* Filter chips */}
       <div className="flex gap-2 mb-3">
         <button
+          type="button"
           onClick={() => setFilterLevel("all")}
           className={cn(
             "px-3 py-1 rounded text-[9px] uppercase",
@@ -56,6 +57,7 @@ export function LogViewer({
           All
         </button>
         <button
+          type="button"
           onClick={() => setFilterLevel("INFO")}
           className={cn(
             "px-3 py-1 rounded text-[9px] uppercase",
@@ -67,6 +69,7 @@ export function LogViewer({
           INFO
         </button>
         <button
+          type="button"
           onClick={() => setFilterLevel("WARN")}
           className={cn(
             "px-3 py-1 rounded text-[9px] uppercase",
@@ -78,6 +81,7 @@ export function LogViewer({
           WARN
         </button>
         <button
+          type="button"
           onClick={() => setFilterLevel("ERROR")}
           className={cn(
             "px-3 py-1 rounded text-[9px] uppercase",

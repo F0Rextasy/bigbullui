@@ -14,7 +14,7 @@ export interface BulletChartProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Bullet chart: actual value bar vs target indicator marker. */
-export function BulletChart({ label, value, target, max, unit = "", className, ...props }: BulletChartProps) {
+export function BulletChart({ label = "", value = 0, target = 0, max = 0, unit = "", className, ...props }: BulletChartProps) {
   const vpct = Math.min(100, (value / max) * 100);
   const tpct = Math.min(100, (target / max) * 100);
   const hit = value >= target;

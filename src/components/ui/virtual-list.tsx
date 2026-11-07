@@ -10,7 +10,7 @@ export type VirtualListProps<T> = {
   render: (item: T) => React.ReactNode;
 };
 
-export function VirtualList<T>({ items, itemHeight, height, render }: VirtualListProps<T>) {
+export function VirtualList<T>({ items = [], itemHeight = 0, height = 0, render }: VirtualListProps<T>) {
   const [scrollTop, setScrollTop] = React.useState(0);
   const containerRef = React.useRef<HTMLDivElement>(null);
 

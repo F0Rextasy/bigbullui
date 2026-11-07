@@ -12,7 +12,7 @@ export interface StepsProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export function Steps({ steps, current, className, ...props }: StepsProps) {
+export function Steps({ steps = [], current = 0, className, ...props }: StepsProps) {
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <ol className="flex items-start justify-between">

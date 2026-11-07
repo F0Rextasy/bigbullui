@@ -71,6 +71,7 @@ export function SearchFilterBar({
         <div className="flex gap-1 rounded-md border border-border bg-card p-0.5" role="radiogroup" aria-label="Sorting options">
           {sorts.map((s) => (
             <button
+              type="button"
               key={s.id}
               role="radio"
               aria-checked={activeSort === s.id}
@@ -89,6 +90,7 @@ export function SearchFilterBar({
       {/* Filtre chip'leri */}
       {filters.map((f) => (
         <button
+          type="button"
           key={f.id}
           onClick={() => toggleFilter(f.id)}
           aria-pressed={activeFilters.has(f.id)}

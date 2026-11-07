@@ -15,7 +15,7 @@ export interface AnchorNavProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 /** Fixed section anchor links: vertical line + active indicator dot. */
-export function AnchorNav({ items, activeId, className, ...props }: AnchorNavProps) {
+export function AnchorNav({ items = [], activeId, className, ...props }: AnchorNavProps) {
   const [internal, setInternal] = React.useState(items[0]?.id);
   const active = activeId ?? internal;
 

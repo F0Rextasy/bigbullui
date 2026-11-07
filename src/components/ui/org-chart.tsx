@@ -43,6 +43,7 @@ const OrgChartInner = ({
         {/* Expand/collapse button for nodes with children */}
         {childrenList.length > 0 && (
           <button
+            type="button"
             onClick={() => onToggle?.(node.id)}
             className={cn(
               "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

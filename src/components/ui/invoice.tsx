@@ -46,8 +46,8 @@ function parsePrice(raw: string): number {
 }
 
 export function Invoice({
-  number,
-  items,
+  number = "",
+  items = [],
   taxRate = 0.1,
   status = "draft",
   className,

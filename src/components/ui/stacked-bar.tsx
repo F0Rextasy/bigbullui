@@ -19,7 +19,7 @@ export interface StackedBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function StackedBar({
-  rows,
+  rows = [],
   height = 400,
   className,
   ...props

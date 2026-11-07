@@ -17,7 +17,7 @@ export interface BubbleChartProps extends React.HTMLAttributes<SVGSVGElement> {
 }
 
 /** Bubble chart: x/y positioning + sized circles with hover focus. */
-export function BubbleChart({ points, height = 240, className, ...props }: BubbleChartProps) {
+export function BubbleChart({ points = [], height = 240, className, ...props }: BubbleChartProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const maxSize = Math.max(...points.map((p) => p.size), 1);
 

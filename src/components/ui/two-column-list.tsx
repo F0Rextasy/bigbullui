@@ -8,12 +8,12 @@ export interface TwoColumnListProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 /** Two-column ledger list view with center divider rule. */
-export function TwoColumnList({ items, className, ...props }: TwoColumnListProps) {
+export function TwoColumnList({ items = [], className, ...props }: TwoColumnListProps) {
   const half = Math.ceil(items.length / 2);
   const left = items.slice(0, half);
   const right = items.slice(half);
 
-  const Row = ({ item, idx }: { item: (typeof items)[number]; idx: number }) => (
+  const Row = ({ item, idx = 0 }: { item: (typeof items)[number]; idx: number }) => (
     <li
       className="flex items-center justify-between gap-3 border-b border-dashed border-border/50 py-2 animate-[twoColIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:text-accent motion-reduce:transition-none"
       style={{ animationDelay: `${idx * 40}ms` }}

@@ -24,7 +24,7 @@ interface Bar {
 
 const DEPTH_TONES = ["text-accent", "text-foreground", "text-muted-foreground"];
 
-export function IcicleChart({ root, height = 260, className, ...props }: IcicleChartProps) {
+export function IcicleChart({ root = { label: "", value: 0 }, height = 260, className, ...props }: IcicleChartProps) {
   const bars: Bar[] = React.useMemo(() => {
     const out: Bar[] = [];
     const walk = (node: IcicleNode, depth: number, x: number, width: number) => {

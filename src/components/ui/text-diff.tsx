@@ -16,7 +16,7 @@ const diffStaggerKeyframes = `
   }
 `;
 
-const TextDiff = ({ before, after, mode = "inline" }: TextDiffProps) => {
+const TextDiff = ({ before = "", after = "", mode = "inline" }: TextDiffProps) => {
   const beforeWords = before.split(/\s+/);
   const afterWords = after.split(/\s+/);
 

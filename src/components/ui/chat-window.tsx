@@ -107,6 +107,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing, 
             autoFocus={autoFocus}
           />
           <button
+            type="button"
             onClick={handleSend}
             className="bg-accent text-accent-foreground px-3 rounded-md hover:bg-accent/90"
             disabled={!input.trim()}

@@ -9,7 +9,7 @@ export interface BarcodeProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Barcode({
-  value,
+  value = "",
   height = 48,
   showValue = true,
   className,

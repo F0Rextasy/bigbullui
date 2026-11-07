@@ -26,7 +26,7 @@ function kde(values: number[], points: number, lo: number, hi: number): number[]
   return out.map((v) => v / peak);
 }
 
-export function ViolinChart({ data, labels, height = 260, className, ...props }: ViolinChartProps) {
+export function ViolinChart({ data = [], labels, height = 260, className, ...props }: ViolinChartProps) {
   if (data.length === 0) {
     return <div className={cn("w-full", className)} {...props} />;
   }

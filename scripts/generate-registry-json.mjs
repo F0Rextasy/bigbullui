@@ -70,16 +70,15 @@ for (const slug of slugs) {
 }
 
 // Shared cn() helper as a registry:lib item so shadcn CLI installs it automatically.
-// Every ui file imports exactly one of: "./lib/utils" (656 files) or nothing (form-validation).
-// Target is @ui/lib/utils.ts (NOT @lib): the CLI only rewrites "@/..." imports, so the
-// relative "./lib/utils" import in installed files must keep resolving next to the component.
+// Target is components/ui/lib/utils.ts so relative "./lib/utils" imports in installed
+// ui files resolve next to the component without literal "@ui" directories.
 writeFileAtomic(
   path.join(outDir, "utils.json"),
   JSON.stringify({
     name: "utils",
     title: "Utils",
     type: "registry:lib",
-    files: [{ path: "src/components/ui/lib/utils.ts", type: "registry:lib", target: "@ui/lib/utils.ts", content: UTILS_SOURCE }],
+    files: [{ path: "src/components/ui/lib/utils.ts", type: "registry:lib", target: "components/ui/lib/utils.ts", content: UTILS_SOURCE }],
   })
 );
 // Catalog-registered lib helpers (hooks, focus-trap) as registry:lib items so
@@ -98,7 +97,7 @@ for (const slug of libSlugs) {
     name: slug,
     title: titles[slug] ?? slug,
     type: "registry:lib",
-    files: [{ path: `src/components/ui/lib/${slug}.ts`, type: "registry:lib", target: `@ui/lib/${slug}.ts`, content: source }],
+    files: [{ path: `src/components/ui/lib/${slug}.ts`, type: "registry:lib", target: `components/ui/lib/${slug}.ts`, content: source }],
   };
   writeJsonAtomic(path.join(outDir, `${slug}.json`), item);
   libWritten += 1;
@@ -112,11 +111,10 @@ for (const slug of slugs) {
     title: titles[slug] ?? slug,
     type: "registry:ui",
     files: [
-      { path: `src/components/ui/${slug}.tsx`, type: "registry:ui", target: `@ui/${slug}.tsx`, content: source },
+      { path: `src/components/ui/${slug}.tsx`, type: "registry:ui", content: source },
       ...(siblingDeps[slug] ?? []).map((dep) => ({
         path: `src/components/ui/${dep}.tsx`,
         type: "registry:ui",
-        target: `@ui/${dep}.tsx`,
         content: fs.readFileSync(path.join(uiDir, `${dep}.tsx`), "utf8"),
       })),
     ],
@@ -151,10 +149,10 @@ writeFileAtomic(
 );
 let blockCount = 0;
 for (const slug of blockSlugList) {
-  // Rewrite ../ui/<x> to ./ui/<x>: shadcn installs the block under @components and
-  // its ui deps under @ui, so a sibling "ui/" dir is where "./ui/x" resolves.
+  // Rewrite ../ui/<x> to ./ui/<x>: shadcn installs the block under components and
+  // its ui deps under components/ui, so a sibling "ui/" dir is where "./ui/x" resolves.
   const blockSrc = fs.readFileSync(path.join(blkDir, `${slug}.tsx`), "utf8").replace(/\.\.\/ui\//g, "./ui/");
-  const files = [{ path: `src/components/blocks/${slug}.tsx`, type: "registry:block", target: `@components/${slug}.tsx`, content: blockSrc }];
+  const files = [{ path: `src/components/blocks/${slug}.tsx`, type: "registry:block", content: blockSrc }];
   const libFiles = new Set();
   const collectLib = (src) => {
     for (const m of src.matchAll(/from\s+["']\.\/(?:ui\/)?lib\/([a-z0-9-]+)["']/g)) libFiles.add(m[1]);
@@ -169,7 +167,7 @@ for (const slug of blockSlugList) {
     const depPath = path.join(uiDir, `${dep}.tsx`);
     if (!fs.existsSync(depPath)) continue;
     const depSrc = fs.readFileSync(depPath, "utf8");
-    files.push({ path: `src/components/ui/${dep}.tsx`, type: "registry:ui", target: `@ui/${dep}.tsx`, content: depSrc });
+    files.push({ path: `src/components/ui/${dep}.tsx`, type: "registry:ui", content: depSrc });
     collectLib(depSrc);
     for (const m of depSrc.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
       if (m[1] !== "lib") queue.push(m[1]);
@@ -179,7 +177,7 @@ for (const slug of blockSlugList) {
     if (files.some((f) => f.path.endsWith(`/lib/${helper}.ts`))) continue;
     const helperPath = path.join(uiDir, "lib", `${helper}.ts`);
     if (!fs.existsSync(helperPath)) continue;
-    files.push({ path: `src/components/ui/lib/${helper}.ts`, type: "registry:lib", target: `@ui/lib/${helper}.ts`, content: fs.readFileSync(helperPath, "utf8") });
+    files.push({ path: `src/components/ui/lib/${helper}.ts`, type: "registry:lib", target: `components/ui/lib/${helper}.ts`, content: fs.readFileSync(helperPath, "utf8") });
   }
   const item = { name: slug, title: toTitle(slug), type: "registry:block", files };
   if (files.some((f) => f.content.includes('"./lib/utils"'))) item.registryDependencies = ["https://ui.bigbullapp.com/r/utils.json"];

@@ -3,6 +3,7 @@
    @import "bigbullui/css";
    Requires Tailwind CSS v4. */
 
+@source "./dist";
 @custom-variant dark (&:is(.dark *));
 
 /* Ticket Stub — light: warm cream stub */
@@ -190,5 +191,3 @@
 .dark :where(.bg-destructive.text-white, .bg-warning.text-white, .bg-success.text-white) {
   color: var(--color-background);
 }
-
-

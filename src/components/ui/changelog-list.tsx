@@ -25,7 +25,7 @@ const SECTION_META: Record<Section, { label: string; tone: string; prefix: strin
 };
 
 /** Changelog feed: release version + date + category badges. */
-export function ChangelogList({ entries, className, ...props }: ChangelogListProps) {
+export function ChangelogList({ entries = [], className, ...props }: ChangelogListProps) {
   return (
     <div className={cn("w-full max-w-md space-y-4", className)} {...props}>
       <style>{`@keyframes clIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }`}</style>

@@ -23,8 +23,8 @@ export interface SelectProps {
 }
 
 export function Select({
-  options,
-  value: controlledValue,
+  options = [],
+  value: controlledValue = "",
   defaultValue = "",
   onValueChange,
   placeholder = "Select an option",

@@ -16,7 +16,7 @@ export interface FunnelChartProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function FunnelChart({
-  stages,
+  stages = [],
   height = 300,
   className,
   ...props

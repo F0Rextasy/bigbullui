@@ -70,6 +70,7 @@ export function ProductCard({
         </div>
 
         <button
+          type="button"
           onClick={onAddToWishlist}
           className={cn(
             "mt-1.5 inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-accent text-accent px-3 py-1.5 text-xs font-semibold uppercase tracking-widest hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transition-none motion-reduce:scale-100",

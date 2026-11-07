@@ -29,6 +29,7 @@ export function RsvpCard({
       <div className="flex items-start gap-4">
         {/* Checkmark / toggle */}
         <button
+          type="button"
           onClick={() => onToggle?.(!attending)}
           className={cn(
             "flex size-8 rounded-full border-2 border-dashed border-border items-center justify-center cursor-pointer transition-colors duration-150",

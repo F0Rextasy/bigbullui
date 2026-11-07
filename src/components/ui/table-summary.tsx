@@ -17,7 +17,7 @@ export interface TableSummaryProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 /** Table summary card: line items + bold total with dashed border. */
-export function TableSummary({ rows, caption, className, ...props }: TableSummaryProps) {
+export function TableSummary({ rows = [], caption, className, ...props }: TableSummaryProps) {
   return (
     <div className={cn("w-full max-w-sm rounded-lg border-2 border-dashed border-border bg-card p-4", className)} {...props}>
       <style>{`@keyframes tsIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>

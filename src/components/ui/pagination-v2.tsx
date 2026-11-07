@@ -41,6 +41,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
       <ul className="flex items-center gap-1">
         <li>
           <button
+            type="button"
             onClick={() => go(current - 1)}
             disabled={current <= 1}
             className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
@@ -55,6 +56,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
           ) : (
             <li key={p}>
               <button
+                type="button"
                 onClick={() => go(p)}
                 aria-current={p === current ? "page" : undefined}
                 className={cn(
@@ -69,6 +71,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
         )}
         <li>
           <button
+            type="button"
             onClick={() => go(current + 1)}
             disabled={current >= totalPages}
             className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"

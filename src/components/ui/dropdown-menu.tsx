@@ -15,7 +15,7 @@ export interface DropdownMenuProps {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function DropdownMenu({
@@ -48,7 +48,10 @@ export function DropdownMenu({
 
 export interface DropdownMenuTriggerProps {
   children: React.ReactElement<{
+    ref?: React.Ref<HTMLButtonElement>;
+    onMouseDown?: React.MouseEventHandler;
     onClick?: React.MouseEventHandler;
+    onKeyDown?: React.KeyboardEventHandler;
     "aria-haspopup"?: string;
     "aria-expanded"?: boolean;
   }>;
@@ -59,18 +62,31 @@ export function DropdownMenuTrigger({ children }: DropdownMenuTriggerProps) {
   if (!ctx) throw new Error("DropdownMenuTrigger must be used within DropdownMenu");
 
   return React.cloneElement(children, {
+    ref: ctx.triggerRef,
     "aria-haspopup": "menu",
     "aria-expanded": ctx.open,
+    onMouseDown: (e: React.MouseEvent) => {
+      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
+      children.props.onMouseDown?.(e);
+    },
     onClick: (e: React.MouseEvent) => {
+      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
       children.props.onClick?.(e);
       ctx.setOpen(!ctx.open);
+    },
+    onKeyDown: (e: React.KeyboardEvent) => {
+      children.props.onKeyDown?.(e);
+      if ((e.key === "ArrowDown" || e.key === "ArrowUp") && !ctx.open) {
+        e.preventDefault();
+        ctx.setOpen(true);
+      }
     },
   });
 }
 
 export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: "start" | "center" | "end";
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
@@ -90,7 +106,12 @@ export function DropdownMenuContent({
     if (!ctx?.open) return;
 
     function handleClickOutside(event: MouseEvent) {
-      if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (
+        contentRef.current &&
+        !contentRef.current.contains(target) &&
+        !ctx?.triggerRef.current?.contains(target)
+      ) {
         ctx?.setOpen(false);
       }
     }
@@ -98,6 +119,33 @@ export function DropdownMenuContent({
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         ctx?.setOpen(false);
+        ctx?.triggerRef.current?.focus();
+        return;
+      }
+
+      if (
+        event.key === "ArrowDown" ||
+        event.key === "ArrowUp" ||
+        event.key === "Home" ||
+        event.key === "End"
+      ) {
+        const items = Array.from(
+          contentRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]:not(:disabled)') ?? []
+        );
+        if (items.length === 0) return;
+        event.preventDefault();
+        const currentIndex = items.indexOf(document.activeElement as HTMLButtonElement);
+        let nextIndex = 0;
+        if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = items.length - 1;
+        } else if (event.key === "ArrowDown") {
+          nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % items.length;
+        } else if (event.key === "ArrowUp") {
+          nextIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+        }
+        items[nextIndex]?.focus();
       }
     }
 
@@ -132,7 +180,7 @@ export function DropdownMenuContent({
 
 export interface DropdownMenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   shortcut?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 

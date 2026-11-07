@@ -20,11 +20,6 @@ function getWeekNumber(dateStr: string): number {
   return Math.ceil(((date.getTime() - oneJan.getTime()) / 86400000) / 7);
 }
 
-function getWeekdayIndex(dateStr: string): number {
-  const day = new Date(dateStr).getDay(); // 0=Sunday, 1=Monday, ...
-  return day; // We'll shift to start on Monday
-}
-
 function getMonth(dateStr: string): string {
   const months = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -34,12 +29,13 @@ function getMonth(dateStr: string): string {
 }
 
 export function CalendarHeatmap({
-  data,
-  weeks = getWeekNumber(data[data.length - 1].date),
+  data = [],
+  weeks = data.length > 0 ? getWeekNumber(data[data.length - 1].date) : 52,
   height = 400,
   className,
   ...props
 }: CalendarHeatmapProps) {
+  void weeks;
   // Determine the date range
   const sorted = React.useMemo(
     () => [...data].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0)),
@@ -72,7 +68,7 @@ export function CalendarHeatmap({
       ...daysInWeek.map((d) => d.value),
       0,
     );
-    const cells = daysInWeek.map((entry, cellIdx) => {
+    const cells = daysInWeek.map((entry) => {
       const intensity = Math.min(entry.value / Math.max(maxValInWeek, 1), 1);
       const bgOpacity = 0.05 + intensity * 0.85;
       return {
@@ -86,11 +82,6 @@ export function CalendarHeatmap({
     return { week, cells };
   });
 
-  const maxIntensity = Math.max(
-    ...rows.flatMap((r) => r.cells.map((c) => c.intensity)),
-    0,
-  );
-
   const CELL = 14;
   const GAP = 4;
   const STEP = CELL + GAP;
@@ -103,6 +94,7 @@ export function CalendarHeatmap({
     <div
       className={cn("w-full", "motion-reduce:animate-none", className)}
       style={{ height: `${height}px` }}
+      {...props}
     >
       <svg
         className="h-full w-full"
@@ -126,7 +118,6 @@ export function CalendarHeatmap({
 
         {rows.map((row, rowIdx) =>
           row.cells.map((cell, cellIdx) => {
-            const intensity = cell.intensity;
             const bgOpacity = cell.bgOpacity;
             const delay = rowIdx * 15 + cellIdx * 5;
 

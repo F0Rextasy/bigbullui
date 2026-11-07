@@ -62,6 +62,7 @@ export function MonthPicker({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => handleYearChange(prevYear)}
             className="prev-year hover:text-muted-foreground transition-colors"
           >
@@ -77,6 +78,7 @@ export function MonthPicker({
         </div>
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => handleYearChange(nextYear)}
             className="next-year hover:text-muted-foreground transition-colors"
           >

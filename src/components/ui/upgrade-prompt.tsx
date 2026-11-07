@@ -34,6 +34,7 @@ export function UpgradePrompt({
       `}</style>
       <div className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/10 to-transparent motion-reduce:animate-none!" style={{ animation: "upShine 3.5s ease-in-out infinite" }} aria-hidden="true" />
       <button
+        type="button"
         onClick={() => { setDismissed(true); onDismiss?.(); }}
         className="absolute right-2 top-2 rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label="Close"
@@ -56,6 +57,7 @@ export function UpgradePrompt({
         <div className="mt-4 flex items-center justify-between gap-3">
           <span className="font-mono text-sm font-bold tabular-nums">{price}</span>
           <button
+            type="button"
             onClick={onUpgrade}
             className={cn(
               "rounded-md bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground",

@@ -83,6 +83,7 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
           <>Resend code in: <span className="font-mono tabular-nums">{String(seconds).padStart(2, "0")}s</span></>
         ) : (
           <button
+            type="button"
             onClick={() => { setSeconds(resendSeconds); setDigits(Array(length).fill("")); refs.current[0]?.focus(); }}
             className="text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
           >

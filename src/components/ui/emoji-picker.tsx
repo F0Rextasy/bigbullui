@@ -34,6 +34,7 @@ const EmojiPicker: React.FC<{
       <div className="flex gap-1 mb-3">
         {Object.keys(emojiCategories).map((cat) => (
           <button
+            type="button"
             key={cat}
             onClick={() => setCategory(cat)}
             className={cn(
@@ -60,6 +61,7 @@ const EmojiPicker: React.FC<{
       <div className="flex flex-wrap gap-1">
         {filteredEmojis.map((emoji) => (
           <button
+            type="button"
             key={emoji}
             onClick={() => {
               setSelected(emoji);

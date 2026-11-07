@@ -35,7 +35,11 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     .map((name) => components.find((component) => component.name === name))
     .filter((item): item is (typeof components)[number] => Boolean(item));
 
-  const sourceFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
+  const tsxFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
+  const libFile = join(process.cwd(), "src/components/ui/lib", `${meta.name}.ts`);
+  const isLib = !existsSync(tsxFile) && existsSync(libFile);
+  const sourceFile = isLib ? libFile : tsxFile;
+  const sourceLabel = isLib ? `lib/${meta.name}.ts` : `${meta.name}.tsx`;
   const sourceCode = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
 
   const defaultUsage = `import { ${meta.title.replace(/\s+/g, "")} } from "@/components/ui/${meta.name}";\n\n<${meta.title.replace(/\s+/g, "")} />`;
@@ -137,7 +141,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           <div className="flex items-center justify-between">
             <h2 id="source" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source code</h2>
             <span className="rounded bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
-              {meta.name}.tsx
+              {sourceLabel}
             </span>
           </div>
           <p className="text-xs text-muted-foreground">

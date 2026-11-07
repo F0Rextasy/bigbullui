@@ -20,7 +20,7 @@ function polar(cx: number, cy: number, r: number, angle: number): [number, numbe
   return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
 }
 
-export function PieInteractive({ slices, size = 220, className, ...props }: PieInteractiveProps) {
+export function PieInteractive({ slices = [], size = 220, className, ...props }: PieInteractiveProps) {
   const [active, setActive] = React.useState<number | null>(null);
   const total = slices.reduce((a, s) => a + Math.max(s.value, 0), 0) || 1;
   const R = 80;

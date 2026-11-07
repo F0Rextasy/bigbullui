@@ -17,7 +17,7 @@ export interface BoxPlotProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number;
 }
 
-export function BoxPlot({ items, height = 260, className, ...props }: BoxPlotProps) {
+export function BoxPlot({ items = [], height = 260, className, ...props }: BoxPlotProps) {
   if (items.length === 0) {
     return <div className={cn("w-full", className)} {...props} />;
   }

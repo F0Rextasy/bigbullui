@@ -16,7 +16,7 @@ export interface BudgetProgressProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 /** Budget spending tracker: categorized with over-budget warning. */
-export function BudgetProgress({ categories, currency = "₺", className, ...props }: BudgetProgressProps) {
+export function BudgetProgress({ categories = [], currency = "₺", className, ...props }: BudgetProgressProps) {
   return (
     <div className={cn("w-full max-w-sm space-y-3", className)} {...props}>
       <style>{`@keyframes bpFill { from { transform: scaleX(0); } }`}</style>

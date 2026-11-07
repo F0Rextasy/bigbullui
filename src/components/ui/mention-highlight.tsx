@@ -8,7 +8,7 @@ export interface MentionHighlightProps extends React.HTMLAttributes<HTMLParagrap
 }
 
 /** Text highlighter for @mentions and #tags. */
-export function MentionHighlight({ text, className, ...props }: MentionHighlightProps) {
+export function MentionHighlight({ text = "", className, ...props }: MentionHighlightProps) {
   const parts = React.useMemo(
     () => text.split(/(@[A-Za-z0-9_]+|#[A-Za-z0-9_]+)/g),
     [text]

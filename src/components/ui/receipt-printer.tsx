@@ -8,7 +8,7 @@ export interface ReceiptPrinterProps {
   className?: string;
 }
 
-export function ReceiptPrinter({ lines, total, autoFeed = true, className }: ReceiptPrinterProps) {
+export function ReceiptPrinter({ lines = [], total, autoFeed = true, className }: ReceiptPrinterProps) {
   return (
     <div
       className={cn(

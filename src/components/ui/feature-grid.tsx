@@ -14,7 +14,7 @@ export interface FeatureGridProps {
   className?: string;
 }
 
-export function FeatureGrid({ items, columns = 2, className }: FeatureGridProps) {
+export function FeatureGrid({ items = [], columns = 2, className }: FeatureGridProps) {
   return (
     <div
       className={cn(

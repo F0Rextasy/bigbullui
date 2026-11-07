@@ -42,6 +42,7 @@ export function KeyboardNavHelper({ shortcuts, className, ...props }: KeyboardNa
         <div className="flex items-center justify-between">
           <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Keyboard Shortcuts</h3>
           <button
+            type="button"
             onClick={() => setOpen(false)}
             className="rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
             aria-label="Close"

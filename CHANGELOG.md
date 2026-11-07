@@ -5,6 +5,18 @@
 
 ### Bug Fixes
 
+* preserve `"use client"` directives across `dist/` ESM and CJS entrypoints (`tsup.config.ts`)
+* add `@source "./dist";` to `bigbullui.css` so Tailwind CSS v4 scans installed package classes
+* remove invalid `@ui/` and `@components/` target prefixes in `public/r/*.json` for `shadcn add` compatibility
+* fix `Popover` and `DropdownMenu` trigger re-open race condition, Escape focus return, ARIA attributes, and keyboard navigation
+* stabilize `Dialog`, `Sheet`, `Drawer`, and `AlertDialog` focus-trap effects with callback refs and wire `AlertDialogActionButton` `destructive` styling
+* fix `RichTextEditor` duplicate content rendering and global `selectionchange` listener; add `MarkdownPreview` URL XSS sanitization and semantic `h1`-`h4` headings
+* harden `useMediaQuery`, `useCopy`, `useHotkey`, `useIntersection`, and `focus-trap.ts` selectors
+* fix 170 root component zero-prop SSR crashes across `src/components/ui/*.tsx` and translate leftover Turkish UI strings
+* add explicit `type="button"` across 117 UI components and enforce via `tests/integrity.test.mjs`
+* support transitive BFS `registryDependencies` and npm-installed `add --all` in `bin/cli.js`; add in-memory index caching and fix block URLs in `bin/mcp.js`
+* support `lib` entries (`hooks`, `focus-trap`, `use-ticket-audio`) in `/docs/[slug]`, `/md/[slug]`, and `sitemap.ts`; fix `Avatar` `src` error reset and `create-bigbull-app` package name sanitization
+* deduplicate ~140 KB of icon path data in `src/components/site/icon-data.tsx`, split `component-preview.tsx` into `wave-core.tsx`, and add behavioral component tests (`tests/components.test.mjs`)
 * improve CLI dependency installs, icon updates, and quality gates ([a43b0fb](https://github.com/F0Rextasy/bigbullui/commit/a43b0fbd5c5dcdf687d1fcd260d810a3b74b43e8))
 
 ## [1.5.1](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.0...bigbullui-v1.5.1) (2026-11-04)

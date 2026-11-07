@@ -15,7 +15,7 @@ export interface KpiStripProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Horizontal KPI summary strip: responsive grid of metric tiles with delta and spark bars. */
-export function KpiStrip({ tiles, className, ...props }: KpiStripProps) {
+export function KpiStrip({ tiles = [], className, ...props }: KpiStripProps) {
   return (
     <div
       role="list"

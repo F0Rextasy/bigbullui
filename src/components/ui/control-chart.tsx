@@ -10,7 +10,7 @@ export interface ControlChartProps extends React.HTMLAttributes<HTMLDivElement> 
   label?: string;
 }
 
-export function ControlChart({ data, sigma = 3, height = 240, label, className, ...props }: ControlChartProps) {
+export function ControlChart({ data = [], sigma = 3, height = 240, label, className, ...props }: ControlChartProps) {
   if (data.length === 0) {
     return <div className={cn("w-full", className)} {...props} />;
   }

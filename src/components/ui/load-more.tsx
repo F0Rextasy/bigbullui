@@ -21,6 +21,7 @@ export function LoadMore({ items, onLoadMore }: LoadMoreProps) {
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={handleClick}
         className={cn(
           "w-full py-3 px-4 text-start text-sm font-medium text-primary uppercase tracking-wider",

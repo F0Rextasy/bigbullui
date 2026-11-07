@@ -16,7 +16,7 @@ export interface QuoteWallProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Testimonial quote wall: masonry card layout. */
-export function QuoteWall({ quotes, columns = 2, className, ...props }: QuoteWallProps) {
+export function QuoteWall({ quotes = [], columns = 2, className, ...props }: QuoteWallProps) {
   const colClass = { 2: "sm:columns-2", 3: "sm:columns-3" }[columns];
   return (
     <div className={cn("columns-1 gap-4 space-y-4", colClass, className)} {...props}>

@@ -10,7 +10,7 @@ export interface MatrixChartProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number;
 }
 
-export function MatrixChart({ rows, columns, values, height = 260, className, ...props }: MatrixChartProps) {
+export function MatrixChart({ rows = [], columns = [], values = [], height = 260, className, ...props }: MatrixChartProps) {
   const flat = values.flat();
   const max = Math.max(...flat, 1);
   const CELL = 30;

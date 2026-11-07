@@ -14,7 +14,7 @@ export interface ScoreboardProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-function AnimatedScore({ target }: { target: number }) {
+function AnimatedScore({ target = 0 }: { target: number }) {
   const [current, setCurrent] = React.useState(target);
   const currentRef = React.useRef(target);
 
@@ -64,7 +64,7 @@ function AnimatedScore({ target }: { target: number }) {
 }
 
 export function Scoreboard({
-  teams,
+  teams = [],
   className,
   ...props
 }: ScoreboardProps) {

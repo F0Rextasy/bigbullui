@@ -83,6 +83,7 @@ export function MarkdownEditor({ value, defaultValue = "# Heading\n\n**bold** an
       <div className="flex border-b border-border bg-secondary/60">
         {(["write", "preview"] as const).map((t) => (
           <button
+            type="button"
             key={t}
             onClick={() => setTab(t)}
             role="tab"

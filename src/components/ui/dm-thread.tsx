@@ -19,7 +19,7 @@ export interface DmThreadProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Direct message thread: header + status + action toolbar. */
-export function DmThread({ name, initials, online = false, messages, onSend, className, ...props }: DmThreadProps) {
+export function DmThread({ name = "", initials = "", online = false, messages = [], onSend, className, ...props }: DmThreadProps) {
   const [input, setInput] = React.useState("");
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const list = messages;
@@ -52,7 +52,7 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
             {online ? "Online" : "Recently active"}
           </p>
         </div>
-        <button className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Sohbet bilgileri">
+        <button type="button" className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Sohbet bilgileri">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="5" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="12" cy="19" r="1" /></svg>
         </button>
       </div>
@@ -86,6 +86,7 @@ export function DmThread({ name, initials, online = false, messages, onSend, cla
           className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
         />
         <button
+          type="button"
           onClick={send}
           disabled={!input.trim()}
           className="shrink-0 rounded-md bg-accent px-3 py-1.5 text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40 motion-reduce:transition-none"

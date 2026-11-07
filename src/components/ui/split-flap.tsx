@@ -254,7 +254,7 @@ export function SplitFlapChar({
  * SplitFlapText: Renders a line of flipping split-flap characters.
  */
 export function SplitFlapText({
-  value,
+  value = "",
   length,
   size = "md",
   color = "default",
@@ -294,11 +294,11 @@ export function SplitFlapText({
  * SplitFlapRow: Departure schedule item with columns.
  */
 export function SplitFlapRow({
-  train,
-  time,
-  destination,
-  track,
-  status,
+  train = "",
+  time = "",
+  destination = "",
+  track = "",
+  status = "",
   remarks,
   sound = false,
   className,

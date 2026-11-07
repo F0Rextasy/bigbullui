@@ -22,7 +22,7 @@ export interface PermissionsMatrixProps extends React.HTMLAttributes<HTMLDivElem
 }
 
 /** Role-permission access matrix with interactive toggles. */
-export function PermissionsMatrix({ roles, permissions, value, onValueChange, className, ...props }: PermissionsMatrixProps) {
+export function PermissionsMatrix({ roles = [], permissions = [], value, onValueChange, className, ...props }: PermissionsMatrixProps) {
   const [internal, setInternal] = React.useState<Record<string, string[]>>(() => {
     if (value) return value;
     const map: Record<string, string[]> = {};

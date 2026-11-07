@@ -54,6 +54,7 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
           )}
         </div>
         <button
+          type="button"
           onClick={apply}
           disabled={code.trim().length < 4 || state === "checking" || state === "valid"}
           className={cn(

@@ -17,7 +17,7 @@ export interface FeatureFlagPanelProps extends Omit<React.HTMLAttributes<HTMLDiv
 }
 
 /** Feature flag management panel: toggles + rollout percentages. */
-export function FeatureFlagPanel({ flags, onToggle, className, ...props }: FeatureFlagPanelProps) {
+export function FeatureFlagPanel({ flags = [], onToggle, className, ...props }: FeatureFlagPanelProps) {
   const [state, setState] = React.useState(flags);
 
   const toggle = (id: string) => {
@@ -44,6 +44,7 @@ export function FeatureFlagPanel({ flags, onToggle, className, ...props }: Featu
             )}
           </div>
           <button
+            type="button"
             role="switch"
             aria-checked={f.enabled}
             aria-label={f.label}

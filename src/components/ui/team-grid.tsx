@@ -24,7 +24,7 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-export function TeamGrid({ members, columns = 3, className }: TeamGridProps) {
+export function TeamGrid({ members = [], columns = 3, className }: TeamGridProps) {
   return (
     <div
       className={cn(

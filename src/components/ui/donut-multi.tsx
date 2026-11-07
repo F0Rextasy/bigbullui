@@ -17,7 +17,7 @@ export interface DonutMultiProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const RING_TONES = ["text-accent", "text-foreground", "text-muted-foreground"];
 
-export function DonutMulti({ rings, size = 200, label, className, ...props }: DonutMultiProps) {
+export function DonutMulti({ rings = [], size = 200, label = "", className, ...props }: DonutMultiProps) {
   const R = 80;
   const C = 2 * Math.PI * R;
   const ringW = 88 / Math.max(rings.length, 1);

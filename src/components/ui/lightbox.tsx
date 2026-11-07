@@ -20,7 +20,7 @@ export interface LightboxProps {
 export function Lightbox({
   open,
   onOpenChange,
-  images,
+  images = [],
   initialIndex = 0,
   className,
 }: LightboxProps) {

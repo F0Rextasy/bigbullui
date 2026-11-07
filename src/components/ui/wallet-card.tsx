@@ -26,6 +26,7 @@ export function WalletCard({ balance, onTopUp, transactions = [], className, ...
         <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Wallet Balance</p>
         <p className="mt-1 font-mono text-2xl font-bold tabular-nums">{balance}</p>
         <button
+          type="button"
           onClick={onTopUp}
           className="mt-3 rounded-md border border-accent/60 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         >

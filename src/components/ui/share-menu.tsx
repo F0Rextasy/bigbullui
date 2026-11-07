@@ -15,6 +15,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
   return (
     <div className="relative inline-flex items-center gap-2">
       <button
+        type="button"
         aria-label="Share"
         className="relative flex-0 rounded-md bg-card p-2 border border-border hover:bg-accent/5 hover:text-accent-foreground transition-colors duration-200"
       >
@@ -55,6 +56,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
         }}
       >
         <button
+          type="button"
           className="flex flex-col items-center rounded-md p-1 hover:bg-accent/5 transition-colors duration-150"
         >
           <svg
@@ -69,6 +71,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
           X
         </button>
         <button
+          type="button"
           className="flex flex-col items-center rounded-md p-1 hover:bg-accent/5 transition-colors duration-150"
         >
           <svg
@@ -83,6 +86,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
           Facebook
         </button>
         <button
+          type="button"
           className="flex flex-col items-center rounded-md p-1 hover:bg-accent/5 transition-colors duration-150"
         >
           <svg
@@ -99,6 +103,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
           LinkedIn
         </button>
         <button
+          type="button"
           className="flex flex-col items-center rounded-md p-1 hover:bg-accent/5 transition-colors duration-150"
         >
           <svg
@@ -121,6 +126,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
 
       {/* Copy button handler */}
       <button
+        type="button"
         onClick={handleCopy}
         className="absolute right-0 top-0 p-1 text-muted-foreground hover:text-accent-foreground transition-colors duration-150"
         aria-label="Copy link"

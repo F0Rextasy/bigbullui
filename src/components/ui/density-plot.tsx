@@ -10,7 +10,7 @@ export interface DensityPlotProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
 }
 
-export function DensityPlot({ values, points = 48, height = 180, label, className, ...props }: DensityPlotProps) {
+export function DensityPlot({ values = [], points = 48, height = 180, label, className, ...props }: DensityPlotProps) {
   if (values.length === 0) {
     return <div className={cn("w-full", className)} {...props} />;
   }

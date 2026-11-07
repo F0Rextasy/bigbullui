@@ -14,7 +14,7 @@ export interface SparkLineGroupProps extends React.HTMLAttributes<HTMLDivElement
   columns?: number;
 }
 
-export function SparkLineGroup({ items, columns = 3, className, ...props }: SparkLineGroupProps) {
+export function SparkLineGroup({ items = [], columns = 3, className, ...props }: SparkLineGroupProps) {
   return (
     <div
       className={cn("grid w-full gap-3", className)}

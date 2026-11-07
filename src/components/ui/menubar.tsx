@@ -25,7 +25,7 @@ export interface MenubarProps extends React.HTMLAttributes<HTMLDivElement> {
   animated?: boolean;
 }
 
-export function Menubar({ menus, className, animated = true, ...props }: MenubarProps) {
+export function Menubar({ menus = [], className, animated = true, ...props }: MenubarProps) {
   const [activeMenuId, setActiveMenuId] = React.useState<string | null>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
 

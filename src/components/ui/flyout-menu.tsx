@@ -91,6 +91,7 @@ export function FlyoutMenu({
 
             return (
               <button
+                type="button"
                 key={item.id}
                 className="flex items-center gap-2 rounded-sm px-2 py-1 text-sm text-foreground hover:bg-secondary/60 hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 onClick={handleClick}

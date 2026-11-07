@@ -17,7 +17,7 @@ export interface CodeTabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   onCopy?: (code: string, tabId: string) => void;
 }
 
-export function CodeTabs({ tabs, defaultTab, onCopy, className, ...props }: CodeTabsProps) {
+export function CodeTabs({ tabs = [], defaultTab, onCopy, className, ...props }: CodeTabsProps) {
   const [active, setActive] = React.useState(defaultTab ?? tabs[0]?.id ?? "");
   const { copied, copy } = useCopy(1600);
   const current = tabs.find((t) => t.id === active) ?? tabs[0];

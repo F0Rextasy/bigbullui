@@ -13,7 +13,7 @@ export interface ScrollSpyNavProps {
   className?: string;
 }
 
-export function ScrollSpyNav({ sections, className }: ScrollSpyNavProps) {
+export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const refs = React.useRef<HTMLDivElement[]>(sections.map(() => null!));
 
@@ -98,6 +98,7 @@ export function ScrollSpyNav({ sections, className }: ScrollSpyNavProps) {
 
           return (
             <button
+              type="button"
               key={section.id}
               className={cn(
                 "rounded-sm px-3 py-1 text-sm font-mono uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors",

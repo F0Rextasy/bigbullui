@@ -59,6 +59,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
         <div className="flex items-center justify-between">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Recovery Codes</span>
           <button
+            type="button"
             onClick={() => setRevealed((r) => !r)}
             className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
           >
@@ -71,6 +72,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
           ))}
         </div>
         <button
+          type="button"
           onClick={copyAll}
           className="mt-2 w-full rounded-sm border border-dashed border-border py-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         >
@@ -79,6 +81,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
       </div>
 
       <button
+        type="button"
         onClick={onConfirm}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",

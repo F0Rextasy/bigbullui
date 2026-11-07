@@ -16,7 +16,7 @@ export interface ScatterPlotProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function ScatterPlot({
-  points,
+  points = [],
   className,
   ...props
 }: ScatterPlotProps) {

@@ -18,7 +18,7 @@ export interface CommentThreadProps {
 }
 
 const CommentThread: React.FC<CommentThreadProps> = ({
-  comments,
+  comments = [],
   maxDepth = 3,
 }) => {
   const renderComment = (

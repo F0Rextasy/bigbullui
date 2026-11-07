@@ -25,7 +25,7 @@ const progressKeyframe = `
   }
 `;
 
-const StoryViewer: React.FC<StoryViewerProps> = ({ stories, duration = STORY_DURATION }) => {
+const StoryViewer: React.FC<StoryViewerProps> = ({ stories = [], duration = STORY_DURATION }) => {
   return (
     <div className="relative">
       {/* Story ring */}

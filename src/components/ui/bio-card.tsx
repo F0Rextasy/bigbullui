@@ -37,6 +37,7 @@ export function BioCard({ name, initials, bio, links = [], onFollow, className, 
         </div>
       )}
       <button
+        type="button"
         onClick={() => { setFollowing((f) => !f); onFollow?.(); }}
         className={cn(
           "mt-4 w-full rounded-md border-2 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-200 motion-reduce:transition-none",

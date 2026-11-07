@@ -16,7 +16,7 @@ export interface QuickActionsProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 /** Quick action toolbar: keyboard shortcuts + danger variants. */
-export function QuickActions({ actions, className, ...props }: QuickActionsProps) {
+export function QuickActions({ actions = [], className, ...props }: QuickActionsProps) {
   const [flash, setFlash] = React.useState<string | null>(null);
 
   return (
@@ -24,6 +24,7 @@ export function QuickActions({ actions, className, ...props }: QuickActionsProps
       <style>{`@keyframes qaFlash { from { background-color: var(--accent); } to { background-color: transparent; } }`}</style>
       {actions.map((a, idx) => (
         <button
+          type="button"
           key={a.id}
           onClick={() => { a.onSelect?.(); setFlash(a.id); setTimeout(() => setFlash(null), 350); }}
           className={cn(

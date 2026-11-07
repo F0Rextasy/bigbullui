@@ -33,7 +33,7 @@ const colorMap: Record<string, string> = {
 };
 
 export function VariantPicker({
-  colors,
+  colors = [],
   sizes,
   value,
   defaultValue,

@@ -12,7 +12,7 @@ export interface HorizonChartProps extends React.SVGAttributes<SVGSVGElement> {
 
 /** Horizon chart: dense time series folded into stacked translucent bands. */
 export function HorizonChart({
-  data,
+  data = [],
   bands = 3,
   width = 280,
   height = 64,

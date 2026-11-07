@@ -10,7 +10,7 @@ export interface PageTabsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** In-page tab navigation synchronized with URL query params (?tab=...). */
-export function PageTabs({ tabs, activeId, onNavigate, className, ...props }: PageTabsProps) {
+export function PageTabs({ tabs = [], activeId, onNavigate, className, ...props }: PageTabsProps) {
   const [internal, setInternal] = React.useState(activeId ?? tabs[0]?.id);
   const active = activeId ?? internal;
 
@@ -30,6 +30,7 @@ export function PageTabs({ tabs, activeId, onNavigate, className, ...props }: Pa
       <style>{`@keyframes ptUnderline { from { transform: scaleX(0); } }`}</style>
       {tabs.map((tab, idx) => (
         <button
+          type="button"
           key={tab.id}
           role="tab"
           aria-selected={active === tab.id}

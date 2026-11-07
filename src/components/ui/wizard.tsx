@@ -18,11 +18,15 @@ export interface WizardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Multi-step form wizard: next/back + step validation + progress bar. */
-export function Wizard({ steps, onFinish, children, className, ...props }: WizardProps) {
+export function Wizard({ steps = [], onFinish, children = [], className, ...props }: WizardProps) {
   const [current, setCurrent] = React.useState(0);
   const [error, setError] = React.useState(false);
   const step = steps[current];
   const isLast = current === steps.length - 1;
+
+  if (!step) {
+    return <div className={cn("w-full max-w-lg rounded-lg border border-border bg-card p-6", className)} {...props} />;
+  }
 
   const next = () => {
     if (step.validate && !step.validate()) {
@@ -71,7 +75,7 @@ export function Wizard({ steps, onFinish, children, className, ...props }: Wizar
         <div className="mt-4">{children[current]}</div>
       </div>
 
-      {/* Butonlar */}
+      {/* Actions */}
       <div className="mt-6 flex items-center justify-between border-t border-dashed border-border pt-4">
         <button
           type="button"

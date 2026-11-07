@@ -75,6 +75,7 @@ export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultT
       </div>
       <div className="my-2 flex justify-center">
         <button
+          type="button"
           onClick={() => { const f = from; setFrom(to); setTo(f); }}
           className="rounded-full border border-border p-1.5 text-muted-foreground transition-transform duration-300 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
           style={{ transitionProperty: "transform" }}

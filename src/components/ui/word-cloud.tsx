@@ -16,7 +16,7 @@ export interface WordCloudProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Tag word cloud: weight-based font size + hover color changes. */
-export function WordCloud({ words, maxFontSize = 28, minFontSize = 11, onWordClick, className, ...props }: WordCloudProps) {
+export function WordCloud({ words = [], maxFontSize = 28, minFontSize = 11, onWordClick, className, ...props }: WordCloudProps) {
   const max = Math.max(...words.map((w) => w.weight), 1);
   const min = Math.min(...words.map((w) => w.weight), 0);
   const range = max - min || 1;
@@ -29,6 +29,7 @@ export function WordCloud({ words, maxFontSize = 28, minFontSize = 11, onWordCli
         const size = Math.round(minFontSize + t * (maxFontSize - minFontSize));
         return (
           <button
+            type="button"
             key={w.word}
             onClick={() => onWordClick?.(w.word)}
             className="font-mono font-bold transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"

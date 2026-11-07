@@ -43,6 +43,7 @@ export function JsonEditor({ value, defaultValue = '{\n  "name": "bigbullui",\n 
             <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[jeIn_0.2s_ease-out] motion-reduce:animate-none">✗ Invalid</span>
           )}
           <button
+            type="button"
             onClick={() => handleChange(format(src))}
             disabled={!valid}
             className="rounded-sm border border-border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground disabled:opacity-40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"

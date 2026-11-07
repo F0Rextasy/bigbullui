@@ -118,7 +118,7 @@ function buildArcPath(
 }
 
 export function DonutChart({
-  data,
+  data = [],
   size = 220,
   innerRadiusRatio = 0.62,
   padAngle = 2,

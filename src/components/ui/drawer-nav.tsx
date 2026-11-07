@@ -39,6 +39,7 @@ export function DrawerNav({ items, open, onOpenChange, title = "Menu", className
         <div className="flex items-center justify-between border-b border-dashed border-border px-4 py-3">
           <span className="font-mono text-xs font-bold uppercase tracking-widest">{title}</span>
           <button
+            type="button"
             onClick={() => onOpenChange(false)}
             className="rounded-sm p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
             aria-label="Close"

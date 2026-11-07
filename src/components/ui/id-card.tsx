@@ -15,10 +15,10 @@ const Entrance = "id-card-entrance";
 const ScaleIn = "id-card-scale-in";
 
 export function IdCard({
-  name,
-  role,
-  department,
-  badgeNumber,
+  name = "",
+  role = "",
+  department = "",
+  badgeNumber = "",
   className,
 }: IdCardProps) {
   return (

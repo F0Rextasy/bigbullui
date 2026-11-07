@@ -18,12 +18,13 @@ export interface VideoListProps extends Omit<React.HTMLAttributes<HTMLDivElement
 }
 
 /** Video search results list: thumbnail + duration + channel + views. */
-export function VideoList({ videos, onSelect, className, ...props }: VideoListProps) {
+export function VideoList({ videos = [], onSelect, className, ...props }: VideoListProps) {
   return (
     <div className={cn("w-full max-w-lg space-y-2", className)} {...props}>
       <style>{`@keyframes vlIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {videos.map((v, idx) => (
         <button
+          type="button"
           key={v.id}
           onClick={() => onSelect?.(v.id)}
           className="flex w-full gap-3 rounded-md border border-border bg-card p-2 text-start animate-[vlIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

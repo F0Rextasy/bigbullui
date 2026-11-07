@@ -32,6 +32,7 @@ export function MobileMenu({ items, open, onOpenChange, className, ...props }: M
       <div className="flex items-center justify-between border-b-2 border-dashed border-border px-4 py-3">
         <span className="font-mono text-xs font-bold uppercase tracking-widest">Menu</span>
         <button
+          type="button"
           onClick={() => onOpenChange(false)}
           className="rounded-sm p-1.5 text-foreground transition-transform duration-200 hover:rotate-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           aria-label="Close"

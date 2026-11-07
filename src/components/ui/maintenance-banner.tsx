@@ -36,6 +36,7 @@ export function MaintenanceBanner({ message = "Scheduled maintenance in progress
         </span>
       )}
       <button
+        type="button"
         onClick={() => { setDismissed(true); onDismiss?.(); }}
         className="shrink-0 rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label="Dismiss announcement"

@@ -69,8 +69,11 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
                 key={section.group}
                 type="button"
                 onClick={() => {
+                  const targetId = `group-${slugify(section.group)}`;
                   setActive(section.group);
-                  document.getElementById(`group-${slugify(section.group)}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  requestAnimationFrame(() => {
+                    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  });
                 }}
                 aria-pressed={active === section.group}
                 className={

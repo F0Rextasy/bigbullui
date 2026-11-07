@@ -12,7 +12,7 @@ export interface TabBarProps {
 }
 
 export function TabBar({
-  items,
+  items = [],
   value,
   defaultValue,
   onValueChange,
@@ -45,6 +45,7 @@ export function TabBar({
 
         return (
           <button
+            type="button"
             key={item.id}
             className={cn(
               "flex-1 flex flex-col items-center gap-1 rounded-sm px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

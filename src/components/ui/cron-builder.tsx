@@ -56,6 +56,7 @@ export function CronBuilder({ value, defaultValue = "0 9 * * *", onValueChange, 
       <div className="flex flex-wrap gap-1.5">
         {PRESETS.map((p) => (
           <button
+            type="button"
             key={p.expr}
             onClick={() => { setExpr(p.expr); onValueChange?.(p.expr); }}
             className={cn(

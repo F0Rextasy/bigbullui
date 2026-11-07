@@ -16,7 +16,7 @@ export interface MentionListProps extends Omit<React.HTMLAttributes<HTMLUListEle
 }
 
 /** Mention autocomplete list: filtered users + avatar initials. */
-export function MentionList({ users, onSelect, className, ...props }: MentionListProps) {
+export function MentionList({ users = [], onSelect, className, ...props }: MentionListProps) {
   const [highlight, setHighlight] = React.useState(0);
 
   return (
@@ -30,6 +30,7 @@ export function MentionList({ users, onSelect, className, ...props }: MentionLis
       {users.map((u, idx) => (
         <li key={u.id} role="option" aria-selected={idx === highlight}>
           <button
+            type="button"
             onClick={() => onSelect?.(u)}
             onMouseEnter={() => setHighlight(idx)}
             className={cn(

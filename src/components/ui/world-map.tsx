@@ -20,7 +20,7 @@ export interface WorldMapProps extends React.HTMLAttributes<SVGSVGElement> {
  * Simplified world map: 6 continental grid blocks with value density coloring.
  * Stylized regional blocks instead of full GeoJSON paths for lightweight size.
  */
-export function WorldMap({ data, height = 220, onCountryHover, className, ...props }: WorldMapProps) {
+export function WorldMap({ data = [], height = 220, onCountryHover, className, ...props }: WorldMapProps) {
   const [hover, setHover] = React.useState<string | null>(null);
   const max = Math.max(...data.map((d) => d.value), 1);
   const byCode = new Map(data.map((d) => [d.code, d.value]));

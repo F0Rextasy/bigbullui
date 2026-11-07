@@ -16,7 +16,7 @@ export interface QuizCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Quiz flashcard: answer options + correct/incorrect feedback. */
-export function QuizCard({ question, options, onAnswer, className, ...props }: QuizCardProps) {
+export function QuizCard({ question = "", options = [], onAnswer, className, ...props }: QuizCardProps) {
   const [picked, setPicked] = React.useState<string | null>(null);
 
   const pick = (id: string) => {
@@ -38,6 +38,7 @@ export function QuizCard({ question, options, onAnswer, className, ...props }: Q
           return (
             <li key={opt.id}>
               <button
+                type="button"
                 onClick={() => pick(opt.id)}
                 disabled={picked !== null}
                 className={cn(

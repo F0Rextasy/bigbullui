@@ -39,7 +39,7 @@ function NodeCard({ node, onToggle, expanded, hasKids }: { node: OrgTreeV2Node; 
   );
 }
 
-export function OrgTreeV2({ root, orientation = "vertical", className, ...props }: OrgTreeV2Props) {
+export function OrgTreeV2({ root = [], orientation = "vertical", className, ...props }: OrgTreeV2Props) {
   const [collapsed, setCollapsed] = React.useState<Set<string>>(new Set());
 
   const toggle = (id: string) => {

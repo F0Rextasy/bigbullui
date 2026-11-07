@@ -79,6 +79,7 @@ export function CartDrawer({
           <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-4">
             <h3 className="font-mono text-sm font-bold uppercase tracking-widest">Cart</h3>
             <button
+              type="button"
               onClick={() => onOpenChange(false)}
               className={cn(
                 "p-1 rounded-md hover:bg-secondary/20 transition-colors",
@@ -106,6 +107,7 @@ export function CartDrawer({
               <span className="font-medium line-clamp-1 flex-1">{it.title}</span>
               <div className="flex items-baseline gap-2">
                 <button
+                  type="button"
                   onClick={() => onQtyChange?.(it.id, Math.max(it.qty - 1, 0))}
                   className={cn(
                     "rounded border border-border w-6 h-6 flex items-center justify-center text-xs font-mono",
@@ -117,6 +119,7 @@ export function CartDrawer({
                 </button>
                 <span className="font-mono w-8 text-center">{it.qty}</span>
                 <button
+                  type="button"
                   onClick={() => onQtyChange?.(it.id, it.qty + 1)}
                   className={cn(
                     "rounded border border-border w-6 h-6 flex items-center justify-center text-xs font-mono",
@@ -129,6 +132,7 @@ export function CartDrawer({
               </div>
               {onRemove && (
                 <button
+                  type="button"
                   onClick={() => onRemove(it.id)}
                   className={cn(
                     "ms-3 rounded border border-destructive text-destructive text-xs hover:bg-destructive/10 transition-colors",
@@ -149,6 +153,7 @@ export function CartDrawer({
               <span className="font-mono text-right">$0.00</span>
             </div>
             <button
+              type="button"
               onClick={() => onOpenChange(false)}
               className={cn(
                 "w-full rounded-md bg-accent text-accent-foreground px-4 py-2 text-sm font-semibold uppercase tracking-widest hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-150 motion-reduce:transition-none motion-reduce:focus-visible:ring-0",

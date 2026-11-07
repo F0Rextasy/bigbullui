@@ -272,6 +272,7 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
           )}
         >
           <button
+            type="button"
             onClick={handleCrop}
             className={cn(
               "px-3 py-1 rounded-sm bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

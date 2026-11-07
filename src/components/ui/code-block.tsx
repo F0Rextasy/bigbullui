@@ -124,7 +124,7 @@ function tokenizeLine(line: string, isTerminal: boolean): React.ReactNode {
 }
 
 export function CodeBlock({
-  code,
+  code = "",
   language = "tsx",
   filename,
   showLineNumbers = true,

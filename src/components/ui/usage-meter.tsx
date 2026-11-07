@@ -11,7 +11,7 @@ export interface UsageMeterProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Usage meter gauge: filled bar + percentage + threshold alert. */
-export function UsageMeter({ label, used, limit, unit = "", className, ...props }: UsageMeterProps) {
+export function UsageMeter({ label = "", used = 0, limit = 0, unit = "", className, ...props }: UsageMeterProps) {
   const pct = Math.min(100, Math.round((used / Math.max(1, limit)) * 100));
   const tone = pct >= 100 ? "bg-destructive" : pct >= 80 ? "bg-warning" : "bg-accent";
   const over = used > limit;

@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "1.5.2",
+      "date": "2026-11-08",
+      "title": "Next.js RSC bundle safety, Tailwind v4 scanning, zero SSR crashes, and modal/overlay stability",
+      "changes": [
+        "Preserved \"use client\" directives across dist/ ESM and CJS entrypoints by disabling Rollup post-bundling directive stripping in tsup",
+        "Added @source \"./dist\" to bigbullui.css so Tailwind CSS v4 automatically scans npm package utility classes without purging them",
+        "Removed invalid @ui/ and @components/ target prefixes in public/r/*.json so shadcn add places UI and block files directly into user alias directories",
+        "Fixed Popover and DropdownMenu trigger re-open race condition, Escape focus return, ARIA attributes, and ArrowDown/ArrowUp/Home/End keyboard navigation",
+        "Stabilized Dialog, Sheet, Drawer, and AlertDialog focus-trap effects via callback refs (preventing input focus loss on parent re-renders) and wired AlertDialogActionButton destructive styling",
+        "Rebuilt RichTextEditor DOM synchronization without duplicate text children or global selectionchange thrashing, and secured MarkdownPreview against javascript:/data: XSS links with semantic h1-h4 headings",
+        "Fixed 170 root component SSR crashes with safe prop defaults (reducing tests/ssr-baseline.json to 7 context-only subcomponents) and translated remaining Turkish strings",
+        "Added explicit type=\"button\" across 117 UI components to prevent unintended form submissions, enforced by a new CI integrity test gate",
+        "Hardened CLI and MCP server: transitive BFS registryDependencies resolution, package-safe npx bigbullui add --all, in-memory MCP caching, /docs & /md lib route fallbacks, and behavioral component tests"
+      ]
+    },
+    {
       "version": "1.5.0",
       "date": "2026-11-04",
       "title": "Working npm deep imports, installable hooks, hardened CLI",

@@ -36,6 +36,7 @@ const NavigationMenu = React.forwardRef<HTMLDivElement, NavigationMenuProps>(
         <div className="grid grid-cols-3 border-b border-border/50">
           {items.map((item) => (
             <button
+              type="button"
               key={item.id}
               className={cn(
                 "col-span-1 py-2 text-sm font-medium text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

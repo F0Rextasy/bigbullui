@@ -31,6 +31,7 @@ export function DurationInput({ value, defaultValue = { hours: 0, minutes: 0 }, 
   const unit = (key: "hours" | "minutes" | "seconds", max: number, label: string) => (
     <div className="flex flex-col items-center gap-0.5">
       <button
+        type="button"
         onClick={() => set({ [key]: Math.min(max, (current[key] ?? 0) + 1) } as Partial<DurationValue>)}
         className="rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label={`Increase ${label}`}
@@ -41,6 +42,7 @@ export function DurationInput({ value, defaultValue = { hours: 0, minutes: 0 }, 
         {String(current[key] ?? 0).padStart(2, "0")}
       </span>
       <button
+        type="button"
         onClick={() => set({ [key]: Math.max(0, (current[key] ?? 0) - 1) } as Partial<DurationValue>)}
         className="rounded-sm p-0.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label={`${label} azalt`}

@@ -12,7 +12,7 @@ export interface StreamingTextProps extends React.HTMLAttributes<HTMLDivElement>
 
 /** Streams text character by character with a blinking block cursor. */
 export function StreamingText({
-  text,
+  text = "",
   speedMs = 24,
   showCursor = true,
   onDone,

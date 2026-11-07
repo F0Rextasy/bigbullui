@@ -15,7 +15,7 @@ export interface PopoverProps {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function Popover({
@@ -48,6 +48,8 @@ export function Popover({
 
 export interface PopoverTriggerProps {
   children: React.ReactElement<{
+    ref?: React.Ref<HTMLButtonElement>;
+    onMouseDown?: React.MouseEventHandler;
     onClick?: React.MouseEventHandler;
     "aria-haspopup"?: string;
     "aria-expanded"?: boolean;
@@ -59,9 +61,15 @@ export function PopoverTrigger({ children }: PopoverTriggerProps) {
   if (!ctx) throw new Error("PopoverTrigger must be used within Popover");
 
   return React.cloneElement(children, {
+    ref: ctx.triggerRef,
     "aria-haspopup": "dialog",
     "aria-expanded": ctx.open,
+    onMouseDown: (e: React.MouseEvent) => {
+      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
+      children.props.onMouseDown?.(e);
+    },
     onClick: (e: React.MouseEvent) => {
+      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
       children.props.onClick?.(e);
       ctx.setOpen(!ctx.open);
     },
@@ -70,7 +78,7 @@ export function PopoverTrigger({ children }: PopoverTriggerProps) {
 
 export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: "start" | "center" | "end";
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
@@ -90,7 +98,12 @@ export function PopoverContent({
     if (!ctx?.open) return;
 
     function handleClickOutside(event: MouseEvent) {
-      if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (
+        contentRef.current &&
+        !contentRef.current.contains(target) &&
+        !ctx?.triggerRef.current?.contains(target)
+      ) {
         ctx?.setOpen(false);
       }
     }
@@ -98,6 +111,7 @@ export function PopoverContent({
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         ctx?.setOpen(false);
+        ctx?.triggerRef.current?.focus();
       }
     }
 
@@ -115,7 +129,6 @@ export function PopoverContent({
     <div
       ref={contentRef}
       role="dialog"
-      aria-modal="true"
       className={cn(
         "absolute z-50 mt-2 w-72 rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px]",
         animated && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",

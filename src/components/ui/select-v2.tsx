@@ -18,12 +18,12 @@ export interface SelectV2Props extends Omit<React.HTMLAttributes<HTMLDivElement>
 }
 
 export function SelectV2({
-  groups,
-  value: controlledValue,
+  groups = [],
+  value: controlledValue = "",
   defaultValue = "",
   onValueChange,
   placeholder = "Select...",
-  label,
+  label = "",
   className,
   ...props
 }: SelectV2Props) {

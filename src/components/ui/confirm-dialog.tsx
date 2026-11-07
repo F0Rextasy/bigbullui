@@ -81,6 +81,7 @@ export function ConfirmDialog({
           )}
           <div className={cn("mt-6 flex gap-3 justify-end", "motion-reduce:animate-none")}>
             <button
+              type="button"
               onClick={onCancel}
               className={cn(
                 "px-4 py-2 text-sm text-muted-foreground rounded-md hover:bg-muted hover:text-foreground transition-colors",
@@ -91,6 +92,7 @@ export function ConfirmDialog({
               Cancel
             </button>
             <button
+              type="button"
               onClick={onConfirm}
               className={cn(
                 destructive

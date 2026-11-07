@@ -4,19 +4,19 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 const FOCUSABLE =
-  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export interface SheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   side?: "right" | "left";
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
 }
 
 export function Sheet({
-  open,
+  open = false,
   onOpenChange,
   side = "right",
   children,
@@ -24,6 +24,8 @@ export function Sheet({
 }: SheetProps) {
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
 
   React.useEffect(() => {
     if (!open) return;
@@ -35,7 +37,7 @@ export function Sheet({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onOpenChange(false);
+        onOpenChangeRef.current?.(false);
         return;
       }
       if (event.key !== "Tab" || !content) return;
@@ -43,10 +45,10 @@ export function Sheet({
       if (items.length === 0) return;
       const first = items[0]!;
       const last = items[items.length - 1]!;
-      if (event.shiftKey && document.activeElement === first) {
+      if (event.shiftKey && (document.activeElement === first || !content.contains(document.activeElement))) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && (document.activeElement === last || !content.contains(document.activeElement))) {
         event.preventDefault();
         first.focus();
       }
@@ -59,7 +61,7 @@ export function Sheet({
       document.body.style.overflow = "";
       restoreRef.current?.focus();
     };
-  }, [open, onOpenChange]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -67,7 +69,7 @@ export function Sheet({
     <div className="fixed inset-0 z-50 flex">
       <div
         aria-hidden="true"
-        onClick={() => onOpenChange(false)}
+        onClick={() => onOpenChange?.(false)}
         className={cn("fixed inset-0 bg-black/50 backdrop-blur-[2px]", animated && "motion-safe:animate-[fade-in_0.2s_ease-out_both]")}
       />
       <div
@@ -87,7 +89,7 @@ export function Sheet({
         <button
           type="button"
           aria-label="Close"
-          onClick={() => onOpenChange(false)}
+          onClick={() => onOpenChange?.(false)}
           className="absolute right-4 top-4 cursor-pointer rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <svg

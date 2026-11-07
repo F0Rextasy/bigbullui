@@ -15,10 +15,11 @@ export interface HistoryNavProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 /** History navigation toolbar: breadcrumb trail + forward/back arrows. */
-export function HistoryNav({ entries, onBack, onForward, className, ...props }: HistoryNavProps) {
+export function HistoryNav({ entries = [], onBack, onForward, className, ...props }: HistoryNavProps) {
   return (
     <nav className={cn("inline-flex items-center gap-1 rounded-md border border-border bg-card px-1.5 py-1", className)} aria-label="Navigation history" {...props}>
       <button
+        type="button"
         onClick={onBack}
         className="rounded-sm p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label="Back"
@@ -42,6 +43,7 @@ export function HistoryNav({ entries, onBack, onForward, className, ...props }: 
         ))}
       </ol>
       <button
+        type="button"
         onClick={onForward}
         className="rounded-sm p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label="Forward"

@@ -19,7 +19,7 @@ function getDelay(index: number): string {
   return `${index * 40}ms`;
 }
 
-export function NotificationCenter({ notifications }: NotificationCenterProps) {
+export function NotificationCenter({ notifications = [] }: NotificationCenterProps) {
   const [open, setOpen] = React.useState(false);
   const [focused, setFocused] = React.useState(-1);
 
@@ -92,6 +92,7 @@ export function NotificationCenter({ notifications }: NotificationCenterProps) {
               Notification Center
             </h3>
             <button
+              type="button"
               onClick={() => setOpen(false)}
               className={cn("text-sm text-muted-foreground hover:underline", "motion-redule:animate-none")}
             >
@@ -142,6 +143,7 @@ export function NotificationCenter({ notifications }: NotificationCenterProps) {
 
           <div className={cn("mt-6 pt-6 border-t border-border", "motion-reduce:animate-none")}>
             <button
+              type="button"
               onClick={() => {}}
               className={cn("text-sm text-primary hover:underline", "motion-reduce:transition-none", "motion-reduce:animate-none")}
             >

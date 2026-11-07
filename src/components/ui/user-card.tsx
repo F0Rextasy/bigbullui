@@ -65,6 +65,7 @@ export function UserCard({
       {/* Action button */}
       {onAction && (
         <button
+          type="button"
           onClick={onAction}
           className={cn(
             "mt-4 inline-flex cursor-pointer rounded-md bg-accent text-accent-foreground px-3 py-1.5 text-xs font-semibold uppercase tracking-widest hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-150 motion-reduce:transition-none motion-reduce:focus-visible:ring-0"

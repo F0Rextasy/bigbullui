@@ -14,7 +14,7 @@ export interface MasonryColumnsProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 /** CSS multi-column masonry layout: dynamic height card distribution. */
-export function MasonryColumns({ items, columns = 3, className, ...props }: MasonryColumnsProps) {
+export function MasonryColumns({ items = [], columns = 3, className, ...props }: MasonryColumnsProps) {
   const colClass = { 2: "sm:columns-2", 3: "sm:columns-3", 4: "sm:columns-4" }[columns];
 
   return (

@@ -16,7 +16,7 @@ export interface LeaderboardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Leaderboard({
-  entries,
+  entries = [],
   className,
   ...props
 }: LeaderboardProps) {

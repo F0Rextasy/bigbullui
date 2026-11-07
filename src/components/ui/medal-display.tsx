@@ -21,7 +21,7 @@ const TIER = {
 };
 
 /** Medal showcase: gold/silver/bronze tiers + shine overlay. */
-export function MedalDisplay({ medals, className, ...props }: MedalDisplayProps) {
+export function MedalDisplay({ medals = [], className, ...props }: MedalDisplayProps) {
   return (
     <div className={cn("w-full max-w-sm space-y-2", className)} {...props}>
       <style>{`@keyframes mdShine { 0% { transform: translateX(-120%); } 100% { transform: translateX(220%); } }`}</style>

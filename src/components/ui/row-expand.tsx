@@ -14,7 +14,7 @@ export interface RowExpandListProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 /** Expandable row list: accordion details with height animation. */
-export function RowExpandList({ items, className, ...props }: RowExpandListProps) {
+export function RowExpandList({ items = [], className, ...props }: RowExpandListProps) {
   const [openId, setOpenId] = React.useState<string | null>(null);
 
   return (
@@ -25,6 +25,7 @@ export function RowExpandList({ items, className, ...props }: RowExpandListProps
         return (
           <div key={item.id} className="animate-[reIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
             <button
+              type="button"
               onClick={() => setOpenId(open ? null : item.id)}
               aria-expanded={open}
               className="flex w-full items-center justify-between gap-3 px-4 py-3 text-start transition-colors hover:bg-secondary/40 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-inset motion-reduce:transition-none"

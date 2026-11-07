@@ -15,7 +15,7 @@ export interface TreeTableProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /** Tree table with expandable rows and connecting lineage branches. */
-export function TreeTable({ nodes, className, ...props }: TreeTableProps) {
+export function TreeTable({ nodes = [], className, ...props }: TreeTableProps) {
   const [expanded, setExpanded] = React.useState<Set<string>>(new Set());
 
   const toggle = (id: string) => {
@@ -39,6 +39,7 @@ export function TreeTable({ nodes, className, ...props }: TreeTableProps) {
             <div className="flex items-center gap-1.5">
               {node.children && node.children.length > 0 ? (
                 <button
+                  type="button"
                   onClick={() => toggle(node.id)}
                   aria-expanded={expanded.has(node.id)}
                   className="rounded-sm p-0.5 text-muted-foreground transition-transform duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"

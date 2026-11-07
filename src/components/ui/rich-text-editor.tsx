@@ -6,23 +6,13 @@ import { cn } from "./lib/utils";
 /**
  * RichTextEditor - minimal contentEditable editor with toolbar
  */
-interface RichTextEditorProps {
+export interface RichTextEditorProps {
   value?: string;
   defaultValue?: string;
   onValueChange?: (html: string) => void;
   placeholder?: string;
   disabled?: boolean;
 }
-
-/**
- * Toolbar button interaction
- */
-const useToolbarButton = (command: string, tag: keyof HTMLElementTagNameMap) => {
-  const handleClick = () => {
-    document.execCommand("command");
-  };
-  return { handleClick };
-};
 
 export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
   function RichTextEditor(props, ref) {
@@ -34,29 +24,23 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
       disabled,
     } = props;
 
-    const [value, setValue] = React.useState<string>(defaultValue || "");
+    const [value, setValue] = React.useState<string>(
+      controlledValue ?? defaultValue ?? "",
+    );
+    const editorRef = React.useRef<HTMLDivElement>(null);
 
-    // Sync controlled -> uncontrolled
+    // Sync initial and external controlled HTML into the contentEditable DOM node
+    // without overwriting innerHTML while the user is actively typing.
     React.useEffect(() => {
+      const next = controlledValue !== undefined ? controlledValue : value;
       if (controlledValue !== undefined) {
         setValue(controlledValue);
       }
-    }, [controlledValue]);
-
-    // Handle input changes via selectionchange
-    React.useEffect(() => {
-      const handleSelection = () => {
-        const selectedRange = document.getSelection()?.rangeCount
-          ? document.getSelection()!.getRangeAt(0)
-          : null;
-        if (selectedRange) {
-          const html = new XMLSerializer().serializeToString(selectedRange.cloneContents());
-          onValueChange?.(html);
-        }
-      };
-      window.addEventListener("selectionchange", handleSelection);
-      return () => window.removeEventListener("selectionchange", handleSelection);
-    }, [onValueChange]);
+      const el = editorRef.current;
+      if (el && document.activeElement !== el && el.innerHTML !== next) {
+        el.innerHTML = next;
+      }
+    }, [controlledValue, value]);
 
     // Toolbar handlers
     const boldHandler = () => document.execCommand("bold");
@@ -91,133 +75,90 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
           )}
         >
           <div className="flex space-x-2 p-1">
-            {/* Bold */}
             <button
+              type="button"
               onClick={boldHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Bold (Ctrl+B)"
             >
               B
             </button>
-
-            {/* Italic */}
             <button
+              type="button"
               onClick={italicHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Italic (Ctrl+I)"
             >
               I
             </button>
-
-            {/* Underline */}
             <button
+              type="button"
               onClick={underlineHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Underline (Ctrl+U)"
             >
               U
             </button>
-
-            {/* Strike */}
             <button
+              type="button"
               onClick={strikeHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Strike (Ctrl+S)"
             >
               S
             </button>
-
-            {/* H2 */}
             <button
+              type="button"
               onClick={heading2Handler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Heading 2"
             >
               H2
             </button>
-
-            {/* H3 */}
             <button
+              type="button"
               onClick={heading3Handler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Heading 3"
             >
               H3
             </button>
-
-            {/* Bullet list */}
             <button
+              type="button"
               onClick={bulletListHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Bullet list"
             >
               •
             </button>
-
-            {/* Numbered list */}
             <button
+              type="button"
               onClick={numberedListHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Numbered list"
             >
               1
             </button>
-
-            {/* Link */}
             <button
+              type="button"
               onClick={linkHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Link (Ctrl+K)"
             >
               Link
             </button>
-
-            {/* Quote */}
             <button
+              type="button"
               onClick={quoteHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Quote"
             >
               {'"'}
             </button>
-
-            {/* Code */}
             <button
+              type="button"
               onClick={codeHandler}
-              className={cn(
-                "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "group",
-              )}
+              className="p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
               title="Code"
             >
               C
@@ -227,6 +168,7 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
 
         {/* Content editable area */}
         <div
+          ref={editorRef}
           className={cn(
             "min-h-[200px] p-3 text-sm text-foreground break-words outline-none",
             "motion-reduce:transition-none",
@@ -236,16 +178,14 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
           contentEditable={!disabled}
           suppressContentEditableWarning
           onInput={(e) => {
-            const html = (e.target as HTMLElement).innerHTML;
+            const html = e.currentTarget.innerHTML;
             setValue(html);
             onValueChange?.(html);
           }}
           data-placeholder={placeholder || ""}
           role="textbox"
           aria-multiline="true"
-        >
-          {value}
-        </div>
+        />
 
         {/* Word/char counter */}
         <div className="text-xs text-muted-foreground mt-1 font-mono">
@@ -256,4 +196,3 @@ export const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorPro
   },
 );
 RichTextEditor.displayName = "RichTextEditor";
-

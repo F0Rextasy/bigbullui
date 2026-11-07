@@ -10,7 +10,7 @@ export interface CharCounterProps extends React.HTMLAttributes<HTMLSpanElement> 
 }
 
 /** Character counter: threshold warning and limit clamp. */
-export function CharCounter({ value, max, label, className, ...props }: CharCounterProps) {
+export function CharCounter({ value = "", max = 0, label, className, ...props }: CharCounterProps) {
   const count = value.length;
   const over = count > max;
   const near = !over && count >= max * 0.9;
