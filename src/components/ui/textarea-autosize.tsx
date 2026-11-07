@@ -19,7 +19,8 @@ export function TextareaAutosize({ minHeight = 60, maxHeight = 300, className, .
     el.style.height = `${Math.min(maxHeight, Math.max(minHeight, el.scrollHeight))}px`;
   };
 
-  React.useEffect(resize, [props.value, defaultValue_prop(props)]);
+  const defaultVal = defaultValue_prop(props);
+  React.useEffect(resize, [props.value, defaultVal, minHeight, maxHeight]);
 
   return (
     <textarea

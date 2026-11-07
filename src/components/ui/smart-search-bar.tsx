@@ -44,6 +44,7 @@ export function SmartSearchBar({
   const history = controlledHistory ?? innerHistory;
   const [open, setOpen] = React.useState(false);
   const boxRef = React.useRef<HTMLDivElement>(null);
+  const listboxId = React.useId();
 
   React.useEffect(() => {
     if (controlledHistory === undefined) setInnerHistory(readHistory());
@@ -94,6 +95,7 @@ export function SmartSearchBar({
           placeholder={placeholder}
           aria-label="Search"
           role="combobox"
+          aria-controls={listboxId}
           aria-expanded={open && history.length > 0}
           className="w-full bg-transparent font-mono text-sm focus:outline-none"
         />
@@ -102,7 +104,7 @@ export function SmartSearchBar({
         </kbd>
       </div>
       {open && history.length > 0 ? (
-        <div className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-lg border border-border bg-card shadow-lg">
+        <div id={listboxId} role="listbox" className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-lg border border-border bg-card shadow-lg">
           <p className="border-b border-dashed border-border px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             Recent
           </p>

@@ -72,7 +72,6 @@ import { DataTable } from "@/components/ui/data-table";
 import { ConfettiBurst } from "@/components/ui/confetti-burst";
 import { CommandPalette } from "@/components/ui/command-palette";
 import { ContextMenu } from "@/components/ui/context-menu";
-import { ScrollTop } from "@/components/ui/scroll-top";
 import { TimeInput } from "@/components/ui/time-input";
 import { MaskedInput } from "@/components/ui/masked-input";
 import { DatePicker } from "@/components/ui/date-picker";

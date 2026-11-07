@@ -14,13 +14,13 @@ export interface BottomSheetProps extends React.HTMLAttributes<HTMLDivElement> {
 export function BottomSheet({ open, onOpenChange, title = "Seat options", children, className, ...props }: BottomSheetProps) {
   const [inner, setInner] = React.useState(false);
   const visible = open ?? inner;
-  const set = (v: boolean) => { setInner(v); onOpenChange?.(v); };
+  const set = React.useCallback((v: boolean) => { setInner(v); onOpenChange?.(v); }, [onOpenChange]);
   React.useEffect(() => {
     if (!visible) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") set(false); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [visible]);
+  }, [visible, set]);
   return (
     <div className={cn("w-full", className)} {...props}>
       <button type="button" onClick={() => set(true)} className="rounded border border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase text-primary-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">

@@ -23,6 +23,7 @@ export function Stopwatch({
 }: StopwatchProps) {
   const [isRunning, setIsRunning] = React.useState(autoStart);
   const [time, setTime] = React.useState(0);
+  const timeRef = React.useRef(0);
   const [laps, setLaps] = React.useState<LapRecord[]>([]);
   const timerRef = React.useRef<number | null>(null);
   const startTimeRef = React.useRef<number>(0);
@@ -42,9 +43,11 @@ export function Stopwatch({
 
   React.useEffect(() => {
     if (isRunning) {
-      startTimeRef.current = performance.now() - time;
+      startTimeRef.current = performance.now() - timeRef.current;
       timerRef.current = window.setInterval(() => {
-        setTime(performance.now() - startTimeRef.current);
+        const next = performance.now() - startTimeRef.current;
+        timeRef.current = next;
+        setTime(next);
       }, 10);
     } else if (timerRef.current !== null) {
       clearInterval(timerRef.current);
@@ -64,6 +67,7 @@ export function Stopwatch({
 
   const handleReset = () => {
     setIsRunning(false);
+    timeRef.current = 0;
     setTime(0);
     setLaps([]);
   };

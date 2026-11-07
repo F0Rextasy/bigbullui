@@ -38,7 +38,7 @@ export function AvatarUpload({ initials = "BB", src, onChange, className, ...pro
         aria-label="Upload avatar"
       >
         {preview ? (
-          // eslint-disable-next-line @next/next/no-img-element
+           
           <img src={preview} alt="Avatar" className="size-full object-cover" />
         ) : (
           <span className="flex size-full items-center justify-center font-mono text-xl font-bold text-muted-foreground">{initials}</span>

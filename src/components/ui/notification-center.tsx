@@ -36,7 +36,7 @@ export function NotificationCenter({ notifications = [] }: NotificationCenterPro
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [notifications.length]);
 
   const unreadCount = notifications.filter((n) => n.unread).length;
 

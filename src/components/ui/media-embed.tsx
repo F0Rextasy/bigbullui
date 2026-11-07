@@ -25,7 +25,7 @@ export function MediaEmbed({ src, title, poster, className, ...props }: MediaEmb
         />
       )}
       {src ? (
-        // eslint-disable-next-line @next/next/no-img-element
+         
         <img src={src} alt={title ?? ""} onLoad={() => setLoaded(true)} className={cn("size-full object-cover transition-opacity duration-300 motion-reduce:transition-none", loaded ? "opacity-100" : "opacity-0")} />
       ) : (
         <div className={cn("absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground", loaded && "hidden")}>

@@ -28,7 +28,6 @@ esbuild.buildSync({
   logLevel: "silent",
 });
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports -- generated CJS probe
 const { docsContent } = need(tmp);
 fs.rmSync(tmp, { force: true });
 

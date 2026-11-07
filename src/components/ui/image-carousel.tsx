@@ -26,7 +26,7 @@ export function ImageCarousel({ images = [], autoPlay, interval = 4000, classNam
       <style>{`@keyframes icSlide { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }`}</style>
       <div className="aspect-video w-full">
         {images.map((img, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
+           
           <img
             key={img.id}
             src={img.src}

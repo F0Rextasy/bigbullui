@@ -33,6 +33,12 @@ const eslintConfig = defineConfig([
     // Effect-state sync and ref patterns below are runtime-verified
     // (tsc + build + browser QA); keep the compiler hints as warnings
     // while the gradual cleanup in TODO.md proceeds.
+    files: ["src/components/ui/**/*.tsx"],
+    rules: {
+      "@next/next/no-img-element": "off",
+    },
+  },
+  {
     files: ["src/**/*.{ts,tsx}"],
     rules: {
       "react-hooks/set-state-in-effect": "warn",

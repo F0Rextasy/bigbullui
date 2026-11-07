@@ -17,6 +17,11 @@
 * support transitive BFS `registryDependencies` and npm-installed `add --all` in `bin/cli.js`; add in-memory index caching and fix block URLs in `bin/mcp.js`
 * support `lib` entries (`hooks`, `focus-trap`, `use-ticket-audio`) in `/docs/[slug]`, `/md/[slug]`, and `sitemap.ts`; fix `Avatar` `src` error reset and `create-bigbull-app` package name sanitization
 * deduplicate ~140 KB of icon path data in `src/components/site/icon-data.tsx`, split `component-preview.tsx` into `wave-core.tsx`, and add behavioral component tests (`tests/components.test.mjs`)
+## [1.5.2](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.1...bigbullui-v1.5.2) (2026-11-04)
+
+
+### Bug Fixes
+
 * improve CLI dependency installs, icon updates, and quality gates ([a43b0fb](https://github.com/F0Rextasy/bigbullui/commit/a43b0fbd5c5dcdf687d1fcd260d810a3b74b43e8))
 
 ## [1.5.1](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.0...bigbullui-v1.5.1) (2026-11-04)

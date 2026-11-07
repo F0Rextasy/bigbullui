@@ -92,7 +92,7 @@ export function FileImagePreview({
         <div className="mt-3 grid grid-cols-3 gap-2">
           {items.map((item, i) => (
             <div key={`${item.file.name}-${i}`} className="group relative overflow-hidden rounded-md border border-border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img src={item.url} alt={item.file.name} className="h-20 w-full object-cover" />
               <button
                 type="button"

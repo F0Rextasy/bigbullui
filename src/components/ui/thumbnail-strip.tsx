@@ -39,7 +39,7 @@ export function ThumbnailStrip({ images = [], value, defaultValue, onValueChange
               selected ? "border-accent animate-[tsSel_0.2s_ease-out] motion-reduce:animate-none" : "border-transparent opacity-70 hover:opacity-100"
             )}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            { }
             <img src={img.src} alt={img.alt ?? ""} className="size-16 object-cover" loading="lazy" />
             {selected && <span className="absolute inset-x-0 bottom-0 h-0.5 bg-accent" aria-hidden="true" />}
           </button>

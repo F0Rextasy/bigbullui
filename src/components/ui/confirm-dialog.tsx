@@ -28,6 +28,10 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   const dialogRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
+  const onCancelRef = React.useRef(onCancel);
+  React.useEffect(() => {
+    onCancelRef.current = onCancel;
+  });
 
   React.useEffect(() => {
     if (!open) return;
@@ -39,7 +43,8 @@ export function ConfirmDialog({
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.stopPropagation();
-        onCancel();
+        onCancelRef.current?.();
+        onOpenChange?.(false);
       }
     };
     document.addEventListener("keydown", onKeyDown);
@@ -57,7 +62,6 @@ export function ConfirmDialog({
 
   return (
     <div
-      ref={dialogRef}
       className={cn(
         "fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm",
         "motion-reduce:animate-none",
@@ -96,7 +100,7 @@ export function ConfirmDialog({
               onClick={onConfirm}
               className={cn(
                 destructive
-                  ? "px-4 py-2 text-sm font-medium rounded-md bg-destructive text-destructive hover:bg-destructive/90"
+                  ? "px-4 py-2 text-sm font-medium rounded-md bg-destructive text-white hover:bg-destructive/90"
                   : "px-4 py-2 text-sm font-medium rounded-md bg-accent text-accent-foreground hover:bg-accent/90",
                 "motion-reduce:transition-none",
                 "motion-reduce:animate-none",

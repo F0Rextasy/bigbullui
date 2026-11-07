@@ -1,7 +1,7 @@
 {
   "entries": [
     {
-      "version": "1.5.2",
+      "version": "1.6.0",
       "date": "2026-11-08",
       "title": "Next.js RSC bundle safety, Tailwind v4 scanning, zero SSR crashes, and modal/overlay stability",
       "changes": [

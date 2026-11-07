@@ -43,7 +43,7 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
             style={{ animationDelay: `${idx * 50}ms` }}
             aria-label={img.alt ?? `Image ${idx + 1}`}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            { }
             <img src={img.src} alt={img.alt ?? ""} className="size-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none" loading="lazy" />
           </button>
         ))}
@@ -53,7 +53,7 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
       {active !== null && images[active] && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 motion-safe:animate-[fade-in_0.2s_ease-out]" onClick={() => setActive(null)}>
           <div className="relative max-h-full max-w-2xl animate-[ggIn_0.25s_ease-out_both] motion-reduce:animate-none" onClick={(e) => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            { }
             <img src={images[active].src} alt={images[active].alt ?? ""} className="max-h-[80vh] rounded-lg border-2 border-dashed border-border object-contain" />
             <div className="mt-2 flex items-center justify-between">
               <button

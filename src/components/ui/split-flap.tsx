@@ -120,18 +120,19 @@ export function SplitFlapChar({
 }: SplitFlapCharProps) {
   const targetChar = (char[0] || " ").toUpperCase();
   const [displayChar, setDisplayChar] = React.useState(targetChar);
+  const displayCharRef = React.useRef(targetChar);
   const [prevChar, setPrevChar] = React.useState(targetChar);
   const [isFlipping, setIsFlipping] = React.useState(false);
   const audioCtxRef = React.useRef<AudioContext | null>(null);
 
   React.useEffect(() => {
-    if (targetChar === displayChar) return;
+    if (targetChar === displayCharRef.current) return;
 
     let mounted = true;
     let step = 0;
     const maxSteps = 14;
 
-    const startIdx = FLAP_CHARSET.indexOf(displayChar);
+    const startIdx = FLAP_CHARSET.indexOf(displayCharRef.current);
     const endIdx = FLAP_CHARSET.indexOf(targetChar);
 
     let currentIdx = startIdx === -1 ? 0 : startIdx;
@@ -144,7 +145,8 @@ export function SplitFlapChar({
       if (currentIdx !== targetValidIdx && step < maxSteps) {
         currentIdx = (currentIdx + 1) % FLAP_CHARSET.length;
         const nextChar = FLAP_CHARSET[currentIdx];
-        setPrevChar(displayChar);
+        setPrevChar(displayCharRef.current);
+        displayCharRef.current = nextChar;
         setDisplayChar(nextChar);
         setIsFlipping(true);
 
@@ -159,7 +161,8 @@ export function SplitFlapChar({
           if (mounted) setIsFlipping(false);
         }, 35);
       } else {
-        setPrevChar(displayChar);
+        setPrevChar(displayCharRef.current);
+        displayCharRef.current = targetChar;
         setDisplayChar(targetChar);
         setIsFlipping(false);
         clearInterval(interval);

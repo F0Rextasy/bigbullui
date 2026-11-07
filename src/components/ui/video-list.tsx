@@ -32,7 +32,7 @@ export function VideoList({ videos = [], onSelect, className, ...props }: VideoL
         >
           <span className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-sm bg-secondary">
             {v.thumbnail ? (
-              // eslint-disable-next-line @next/next/no-img-element
+               
               <img src={v.thumbnail} alt="" className="size-full object-cover" loading="lazy" />
             ) : (
               <span className="flex size-full items-center justify-center text-muted-foreground">

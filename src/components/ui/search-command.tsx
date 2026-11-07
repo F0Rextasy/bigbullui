@@ -27,6 +27,7 @@ export function SearchCommand({
   const [active, setActive] = React.useState(0);
   const [focused, setFocused] = React.useState(false);
   const boxRef = React.useRef<HTMLDivElement>(null);
+  const listboxId = React.useId();
 
   const q = query.trim().toLowerCase();
   const matches = q.length === 0
@@ -82,6 +83,7 @@ export function SearchCommand({
           placeholder={placeholder}
           aria-label="Search"
           aria-expanded={focused && visible.length > 0}
+          aria-controls={listboxId}
           role="combobox"
           className="w-full bg-transparent font-mono text-sm focus:outline-none"
         />
@@ -97,7 +99,7 @@ export function SearchCommand({
         ) : null}
       </div>
       {focused && visible.length > 0 ? (
-        <div role="listbox" className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-md border border-border bg-card p-1 shadow-lg">
+        <div id={listboxId} role="listbox" className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-md border border-border bg-card p-1 shadow-lg">
           {visible.map((item, i) => (
             <div
               key={item.id}

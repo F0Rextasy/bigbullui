@@ -77,7 +77,7 @@ export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
       className
     )}>
       {/* Sections */}
-      <div className="flex space-x-1">
+      <div role="tablist" className="flex space-x-1">
         {sections.map((section, i) => {
           const isActive = i === activeIndex;
           const onClick = () => {
@@ -106,7 +106,7 @@ export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
                 isActive && "text-foreground after:z-10"
               )}
               onClick={onClick}
-              aria-pressed={isActive}
+              aria-selected={isActive}
               role="tab"
             >
               {section.label}

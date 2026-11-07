@@ -14,12 +14,12 @@ const sizes = {};
 let over = 0;
 for (const f of files) {
   const raw = statSync(join(DIR, f)).size;
-  const kb = raw / 1024;
   const gz = gzipSync(readFileSync(join(DIR, f))).length;
-  sizes[f.replace(/\.tsx$/, "")] = { raw, gzip: gz, kb: Number((gz / 1024).toFixed(2)) };
-  if (kb > WARN_KB) {
+  const gzKb = Number((gz / 1024).toFixed(2));
+  sizes[f.replace(/\.tsx$/, "")] = { raw, gzip: gz, kb: gzKb };
+  if (gzKb > WARN_KB) {
     over += 1;
-    console.log(`OVER  ${f} ${kb.toFixed(1)}kb`);
+    console.log(`OVER  ${f} ${gzKb.toFixed(1)}kb gzip`);
   }
 }
 const totalKb = Object.values(sizes).reduce((a, s) => a + s.raw, 0) / 1024;

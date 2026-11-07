@@ -23,10 +23,11 @@ export function ComboButtons({
   const [done, setDone] = React.useState(false);
   const [cycle, setCycle] = React.useState(0);
 
+  const seqKey = sequence.join(",");
   React.useEffect(() => {
     setHits(0);
     setDone(false);
-  }, [cycle, sequence.join(",")]);
+  }, [cycle, seqKey]);
 
   React.useEffect(() => {
     if (done) return;

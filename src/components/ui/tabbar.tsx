@@ -32,6 +32,7 @@ export function TabBar({
 
   return (
     <div
+      role="tablist"
       className={cn(
         "fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border/50",
         "p-2 sm:p-4 space-x-2",
@@ -55,7 +56,7 @@ export function TabBar({
               isActive && "shadow-sm"
             )}
             onClick={() => handleChange(item.id)}
-            aria-pressed={isActive}
+            aria-selected={isActive}
             role="tab"
           >
             {item.icon && (
