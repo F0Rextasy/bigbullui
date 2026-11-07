@@ -6,7 +6,7 @@ import { NAV_ICON_NAMES } from "@/components/site/icon-data";
 
 function mtime(rel: string): Date {
   try {
-    return statSync(join(process.cwd(), rel)).mtime;
+    return statSync(join(/*turbopackIgnore: true*/ process.cwd(), rel)).mtime;
   } catch {
     return new Date();
   }
