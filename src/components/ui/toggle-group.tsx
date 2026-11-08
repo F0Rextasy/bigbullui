@@ -118,7 +118,8 @@ export function ToggleItem({
         isSelected
           ? "bg-primary text-primary-foreground shadow-xs"
           : "text-muted-foreground hover:bg-secondary hover:text-foreground",
-        disabled && "cursor-not-allowed opacity-50"
+        disabled && "cursor-not-allowed opacity-50",
+        className
       )}
       {...props}
     >

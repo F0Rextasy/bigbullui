@@ -12,8 +12,11 @@ export interface VinylRecordProps {
 export function VinylRecord({ label, playing = false, onToggle }: VinylRecordProps) {
   return (
     <div
+      onClick={onToggle}
       className={cn(
         "relative size-32 rounded-full border border-border bg-card p-4 motion-reduce:transition-none",
+        playing && "motion-safe:animate-spin",
+        onToggle && "cursor-pointer",
         "group"
       )}
     >

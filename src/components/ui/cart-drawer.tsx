@@ -72,7 +72,8 @@ export function CartDrawer({
             "relative w-80 max-w-full bg-card rounded-lg border border-foreground shadow-lg p-6 transform transition-transform duration-300 motion-reduce:transition-none",
             open && "translate-x-0",
             open && SlideIn,
-            "shadow-md"
+            "shadow-md",
+            className
           )}
         >
           {/* Header */}

@@ -47,7 +47,7 @@ export function Postmark({ city, date = new Date().toLocaleDateString(), serial 
         fill="currentColor"
         opacity={0.7}
       >
-        {city}
+        {serial ? `${city} · ${serial}` : city}
       </text>
 
       <g fill="currentColor" opacity={0.9}>

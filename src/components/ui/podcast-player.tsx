@@ -92,7 +92,12 @@ export function PodcastPlayer({
 
         <button
           type="button"
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={() => {
+            const next = !isPlaying;
+            setIsPlaying(next);
+            const ep = episodes?.find((e) => e.id === activeId) ?? episodes?.[0];
+            if (next && ep) onPlay?.(ep);
+          }}
           className={cn(
             "rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             isPlaying && "bg-primary/10 text-primary",

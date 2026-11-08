@@ -33,6 +33,7 @@ export function ProgressCircle({
         "motion-reduce:transition-none",
         className,
       )}
+      {...props}
     >
       <svg
         className="w-full h-full"

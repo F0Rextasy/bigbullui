@@ -92,7 +92,7 @@ export function SpeedDial({
             "motion-reduce:animate-none",
             "motion-reduce:transition-none",
           )}
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={() => setOpen((prev) => { const next = !prev; onOpenChange?.(next); return next; })}
           onKeyDown={(e) => { if (e.key === "Escape") setOpen(false); }}
           aria-label={open ? "Close speed dial" : "Open speed dial"}
           role="button"

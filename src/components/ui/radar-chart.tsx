@@ -35,6 +35,7 @@ export function RadarChart({
   return (
     <div
       className={cn("w-full", "motion-reduce:animate-none", className)}
+      {...props}
     >
       <svg
         className="w-64 h-64 mx-auto"

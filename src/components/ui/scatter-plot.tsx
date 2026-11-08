@@ -26,6 +26,7 @@ export function ScatterPlot({
   return (
     <div
       className={cn("w-full", "motion-reduce:animate-none", className)}
+      {...props}
     >
       <svg
         className="w-full h-full max-w-md mx-auto"

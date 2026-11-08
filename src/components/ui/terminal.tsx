@@ -22,7 +22,10 @@ export function Terminal({
   className,
   ...props
 }: TerminalProps) {
-  const [visibleIndex, setVisibleIndex] = React.useState(0);
+  const [visibleIndex, setVisibleIndex] = React.useState(lines.length);
+  React.useEffect(() => {
+    setVisibleIndex(lines.length);
+  }, [lines.length, loop]);
 
   return (
     <div
@@ -64,7 +67,7 @@ export function Terminal({
                 lineIdx < visibleIndex ? "" : "hidden",
               )}
             >
-              <span className="font-mono break-all">{line.text}</span>
+              <span className="font-mono break-all">{prompt}{line.text}</span>
             </div>
           );
         })}

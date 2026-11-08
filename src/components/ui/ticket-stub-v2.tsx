@@ -14,7 +14,8 @@ export function TicketStubV2({ event, date, serial, tear = false, className }: T
     <div
       className={cn(
         "relative rounded-sm border border-dashed border-border/50 bg-card p-4 motion-reduce:transition-none",
-        "group"
+        "group",
+        className
       )}
       style={{
         ...(tear && {

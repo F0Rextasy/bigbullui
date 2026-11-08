@@ -41,9 +41,10 @@ export function VariantPicker({
   onSizeChange,
   className,
 }: VariantPickerProps) {
-  const [controlledValue] = React.useState<string | undefined>(
+  const [internalColor, setInternalColor] = React.useState<string | undefined>(
     defaultValue ?? undefined
   );
+  const controlledValue = value ?? internalColor;
 
   return (
     <div className={cn("space-y-3", className)}>
@@ -67,7 +68,7 @@ export function VariantPicker({
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 )}
                 style={{ backgroundColor: opt.className ? `var(${opt.className})` : "var(--secondary)" }}
-                onClick={() => onColorChange?.(opt.name)}
+                onClick={() => { setInternalColor(opt.name); onColorChange?.(opt.name); }}
                 aria-label={`Select ${opt.name} color`}
               >
                 {/* Swatch fills from explicit map */}

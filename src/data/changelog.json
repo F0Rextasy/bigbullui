@@ -1,7 +1,7 @@
 {
   "entries": [
     {
-      "version": "1.6.0",
+      "version": "1.6.1",
       "date": "2026-11-08",
       "title": "Next.js RSC bundle safety, Tailwind v4 scanning, zero SSR crashes, and modal/overlay stability",
       "changes": [
@@ -13,7 +13,8 @@
         "Rebuilt RichTextEditor DOM synchronization without duplicate text children or global selectionchange thrashing, and secured MarkdownPreview against javascript:/data: XSS links with semantic h1-h4 headings",
         "Fixed 170 root component SSR crashes with safe prop defaults (reducing tests/ssr-baseline.json to 7 context-only subcomponents) and translated remaining Turkish strings",
         "Added explicit type=\"button\" across 117 UI components to prevent unintended form submissions, enforced by a new CI integrity test gate",
-        "Hardened CLI and MCP server: transitive BFS registryDependencies resolution, package-safe npx bigbullui add --all, in-memory MCP caching, /docs & /md lib route fallbacks, and behavioral component tests"
+        "Hardened CLI and MCP server: transitive BFS registryDependencies resolution, package-safe npx bigbullui add --all, in-memory MCP caching, /docs & /md lib route fallbacks, and behavioral component tests",
+        "Wired previously ignored props and event handlers across 20 components (Terminal lines/prompt visibility, LikeButton click handler, HotkeyRecorder keyboard capture & contrast, VinylRecord/WaxSeal/SpeedDial/VariantPicker/Playlist/PodcastPlayer callbacks, and className/props forwarding)"
       ]
     },
     {

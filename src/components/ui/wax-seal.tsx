@@ -12,8 +12,11 @@ export interface WaxSealProps {
 export function WaxSeal({ letter, broken = false, onBreak }: WaxSealProps) {
   return (
     <div
+      onClick={onBreak}
       className={cn(
         "relative size-24 rounded-full border border-dashed border-border/50 bg-card motion-reduce:transition-none",
+        broken && "scale-95 opacity-60",
+        onBreak && "cursor-pointer",
         "group"
       )}
     >

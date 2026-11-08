@@ -30,10 +30,12 @@ export function AddToCartButton({
     <>
     <button
       type="button"
+      aria-label={productName ? `Add ${productName} to cart` : "Add to Cart"}
       onClick={handleClick}
       className={cn(
         "inline-flex cursor-pointer items-center justify-center rounded-md bg-accent text-accent-foreground px-4 py-2 text-sm font-semibold uppercase tracking-widest hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-150 motion-reduce:transition-none motion-reduce:focus-visible:ring-0",
-        ScaleIn
+        ScaleIn,
+        className
       )}
     >
       <svg

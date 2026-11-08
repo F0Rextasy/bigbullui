@@ -56,6 +56,7 @@ export function HotkeyRecorder({
       const combo = [...modifiers, ...keys].join("+");
       setRecorded(combo);
       setInternalValue(combo);
+      onValueChange?.(combo);
       setIsListening(false);
       document.removeEventListener("keydown", capture);
       document.removeEventListener("keyup", endCapture);
@@ -97,8 +98,9 @@ export function HotkeyRecorder({
         <button
           type="button"
           onClick={() => setIsListening(true)}
+          onKeyDown={handleKeyDown}
           onMouseDown={(e) => e.preventDefault()}
-          className={buttonClass}
+          className={cn(buttonClass, classes)}
         >
           {isListening ? (
             <>
@@ -113,9 +115,9 @@ export function HotkeyRecorder({
             "Record hotkey"
           )}
         </button>
-        {recorded && (
+        {(recorded || currentValue) && (
           <div className="mt-1 flex items-center gap-1.5">
-            {recorded.split("+").map((part, idx) => (
+            {(recorded || currentValue).split("+").map((part, idx) => (
               <span
                 key={idx}
                 className="font-mono text-[10px] uppercase tracking-[0.15em] text-accent-foreground"
@@ -131,7 +133,7 @@ export function HotkeyRecorder({
         <button
           type="button"
           onClick={clearCombo}
-          className="mt-1 flex items-center gap-1.5 px-2 py-1 rounded-md border border-transparent bg-destructive text-[10px] uppercase tracking-[0.15em] text-destructive hover:bg-destructive/90 transition-colors"
+          className="mt-1 flex items-center gap-1.5 px-2 py-1 rounded-md border border-transparent bg-destructive text-[10px] uppercase tracking-[0.15em] text-white hover:bg-destructive/90 transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="18" y1="6" x2="18" y2="18" />

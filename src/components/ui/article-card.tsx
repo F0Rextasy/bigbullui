@@ -59,6 +59,7 @@ export function ArticleCard({
         )}
 
         <h4 className="font-medium line-clamp-2 flex-1 transition-colors group-hover:text-accent">{title}</h4>
+        {excerpt && <p className="text-xs text-muted-foreground line-clamp-2">{excerpt}</p>}
 
         {/* Meta row */}
         <div className="flex items-baseline gap-3 text-xs text-muted-foreground">

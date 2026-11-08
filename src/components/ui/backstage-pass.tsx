@@ -13,7 +13,8 @@ export function BackstagePass({ holderName, className }: BackstagePassProps) {
     <div
       className={cn(
         "relative size-56 rounded-lg border border-border bg-card p-6 motion-reduce:transition-none",
-        "group"
+        "group",
+        className
       )}
     >
       <div className="absolute top-2 right-2 flex items-center gap-2">

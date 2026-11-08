@@ -36,7 +36,7 @@ export function Envelope({ open = false, onOpenChange, sender, recipient, letter
             {open ? "OPEN" : "CLOSED"}
           </span>
           <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-muted-foreground">
-            {sender ? `FROM: ${sender}` : "SENDER"}
+            {sender ? `FROM: ${sender}` : recipient ? `TO: ${recipient}` : "SENDER"}
           </span>
         </div>
       </div>

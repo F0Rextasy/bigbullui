@@ -86,6 +86,7 @@ export function TreemapChart({
   return (
     <div
       className={cn("w-full", "motion-reduce:animate-none", className)}
+      {...props}
     >
       <svg
         className="w-full h-full"

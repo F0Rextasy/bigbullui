@@ -49,6 +49,7 @@ export function Playlist({
           <div
             key={track.id}
             className={rowClass}
+            onClick={() => onPlay?.(track)}
             onMouseEnter={() => setHoveredIndex(track.id)}
             onMouseLeave={() => setHoveredIndex(null)}
           >

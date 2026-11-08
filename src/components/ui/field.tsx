@@ -56,7 +56,7 @@ const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           </FieldLabel>
         )}
 
-        <div className={cn("rounded-md bg-background p-2.5", "motion-reduce:transition-none")}>
+        <div className={cn("rounded-md bg-background p-2.5", "motion-reduce:transition-none", fieldClassName)}>
           <FieldControl className={cn("space-y-1", "motion-reduce:transition-none")}>
             {children}
 
