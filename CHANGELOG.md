@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.7.0](https://github.com/F0Rextasy/bigbullui/compare/v1.6.1...v1.7.0) (2026-11-18)
+
+### Added
+
+* **bigbullicons (`1.4.0`):** Export 1,099 tree-shakeable named icon components (`TicketIcon`, `HomeIcon`, etc.) from the main entrypoint alongside the [`bigbullicons/dynamic`](https://ui.bigbullapp.com/icons) subpath for dynamic `<StampIcon name="..." />` lookups
+* **Page Blocks & Explorer:** Add typed `Props` interfaces, `className` / HTML attribute spreading, optional `onAction` callbacks, and live search/sort/filter wiring across all 75 blocks, plus an interactive `/blocks/[slug]` code/preview/viewport/theme viewer
+* **Docs & Search:** Complete `660/660` component usage examples and interactive `use-ticket-audio` preview, lazy per-wave preview chunk loading, paginated `/icons` gallery with detail page links, and Cmd+K search for icons, blocks, and guides
+* **Scaffolder (`create-bigbull-app 1.2.0`):** Support `.` current directory scaffolding, `--help` / `-v`, package manager auto-detection (`pnpm`/`yarn`/`bun`/`npm`), `react-jsx` TypeScript template config, and `optimizePackageImports: ["bigbullui"]`
+
+### Changed
+
+* **Overlays & Design Tokens:** Move modals/popovers onto shared portal, reference-counted scroll-lock, and stacked `Escape` handling; include `border-color`, `.light` override specificity, and `@media (prefers-reduced-motion: reduce)` directly in shipped `bigbullui.css` while stripping `@source "./dist"` in `CLI init`/`tokens`
+* **CSS Merge & Benchmarks:** Add zero-dependency Tailwind utility conflict resolution to `cn()` and switch `calc-sizes.mjs` / `/benchmarks` to `esbuild` bundled+minified ESM + gzip measurements
+* **Registry & CLI/MCP:** Resolve transitive sibling dependencies via BFS for UI items, output proper `components/blocks/<slug>.tsx` targets, pin raw fetches to `v${VERSION}` tags with `main` fallback, and add `list --blocks` / `list --icons`
+* **CI & Packaging:** Harden `ci.yml` and `publish.yml` with SHA-pinned actions, `--check` generator gates, `publint`/`attw` checks for root and `packages/icons`, and tag-version verification
+
+### Fixed
+
+* Fix uncontrolled mode (`defaultValue`) in `Select`, `SelectV2`, `Combobox`, and `RadioCards`; eliminate infinite sync loops in `CheckboxGroup`, `Listbox`, and `MultiSelect`
+* Eliminate XSS vectors in `MarkdownEditor`, `RichTextEditor` (node-moving `DOMParser` whitelist), `Dock`, and `HtmlPreview` (`sandbox=""`)
+* Fix `forwardRef`/`memo` SSR crashes (`AvatarGroup`, `Carousel`, `OrgChart`, `SankeyChart`), SSR hydration mismatches (`useLocalStorage`, time/random components), ReDoS bounds in `RegexTester`/`RegexVisualizer`, `TimezoneSelect` offset formatting, `SerialInput`/`TagInput` regex escaping, and `DataTable`/`DualSlider`/`Tooltip`/`Tabs`/`Accordion` accessibility
+* Fix duplicate `<SiteNav />`/`<main>` landmarks on `/docs/migrate`, `/docs/help`, `/docs/shortcuts`, `search-store.ts` host handoff on unmount, dynamic backtick fences in `/md/[slug]`, and OG image catalog validation
+
+### Security
+
+* Add `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy` headers in `next.config.ts`; validate `https?://` links in `/showcase`; untrack `.devlog`, `.codegraph`, and copied skill/agent files from git
+
+### Deprecated
+
+* `DocsPropPlayground` and `DocsStackblitzButton` exports from the root `bigbullui` barrel (internal docs helpers slated for removal in v2.0.0)
+
 ## [1.5.2](https://github.com/F0Rextasy/bigbullui/compare/bigbullui-v1.5.1...bigbullui-v1.5.2) (2026-11-04)
 
 

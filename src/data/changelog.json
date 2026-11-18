@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.7.0",
+      "date": "2026-11-18",
+      "title": "Tree-shakeable bigbullicons 1.4.0, interactive 75 page blocks, zero-dependency portal overlays, and create-bigbull-app 1.2.0",
+      "changes": [
+        "bigbullicons 1.4.0: generated 1,099 tree-shakeable named icon components (TicketIcon bundles to ~521B minified) plus bigbullicons/dynamic for dynamic StampIcon lookups, with conditional aria-hidden and ShadowRoot-safe style injection",
+        "Upgraded all 75 page blocks (src/components/blocks/) with typed Props, className forwarding, optional onAction callbacks, React.useId() IDs, real filter/sort state, and an interactive BlockViewer (Preview/Source tabs, 375/768/100% viewport, Paper/Night themes)",
+        "Moved dialog/sheet/drawer/alert-dialog/popover/dropdown overlays onto shared portal, reference-counted scroll-lock, and LIFO Escape handling so transformed parents never trap modals",
+        "Fixed uncontrolled Select/SelectV2/Combobox/RadioCards state locking, CheckboxGroup/Listbox/MultiSelect render loops, Keyboard/ARIA across Tabs/Accordion/ContextMenu/Menubar/DataTable/DualSlider, and upgraded cn() with zero-dependency utility conflict resolution",
+        "Eliminated 4 remaining forwardRef/memo SSR crashes (AvatarGroup, Carousel, OrgChart, SankeyChart), SSR hydration mismatches (useLocalStorage, timers, random generators), ReDoS risks, and XSS vectors in RichTextEditor/MarkdownEditor/Dock/HtmlPreview",
+        "Docs site: lazy per-wave ComponentPreview loading, lightweight 24-icon ChromeIcon split, 660/660 component usage coverage, paginated /icons gallery with detail links, /md/[slug] dynamic code fences, and CSP/security headers",
+        "CLI, Registry & CI: transitive BFS dependency graph for UI registry items, shadcn block targets, version-pinned GitHub raw fetches with list --blocks/--icons, create-bigbull-app 1.2.0 (--help, -v, ., PM detection, zero DEP0190), esbuild Calc-Sizes benchmarks, and SHA-pinned publint/attw CI gates"
+      ]
+    },
+    {
       "version": "1.6.1",
       "date": "2026-11-08",
       "title": "Next.js RSC bundle safety, Tailwind v4 scanning, zero SSR crashes, and modal/overlay stability",
