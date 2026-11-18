@@ -29,7 +29,7 @@ export function PassportStampGrid({ stamps = [], columns = 3, className, ...prop
           <div
             key={stamp.id}
             className={cn(
-              "flex aspect-square flex-col items-center justify-center rounded-full border-2 p-2 text-center transition-transform hover:scale-105 motion-reduce:transition-none",
+              "flex aspect-square flex-col items-center justify-center rounded-full border-2 p-2 text-center transition-transform hover:scale-105 motion-reduce:hover:scale-100 motion-reduce:transition-none",
               open ? "border-accent" : "border-dashed border-border/60 opacity-50",
             )}
             style={open && stamp.color ? { borderColor: stamp.color } : undefined}

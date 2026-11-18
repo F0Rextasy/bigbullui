@@ -153,4 +153,53 @@ describe("bigbullui CLI end-to-end", () => {
     const bad = byId.get(4);
     assert.ok(bad && bad.result && bad.result.isError === true, "invalid name returns isError result, not protocol error");
   });
+
+  it("init and tokens strip package-local @source directive from bigbullui.css", () => {
+    const isolated = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-tokens-"));
+    try {
+      execFileSync("node", [cli, "tokens"], { cwd: isolated, encoding: "utf8", timeout: 30000 });
+      const css = fs.readFileSync(path.join(isolated, "bigbullui.css"), "utf8");
+      assert.doesNotMatch(css, /^@source\s+["']\.\/dist["']/m, "copied CSS must not keep ./dist @source directive");
+      assert.ok(css.includes("--background:"), "copied CSS retains design tokens");
+    } finally {
+      fs.rmSync(isolated, { recursive: true, force: true });
+    }
+  });
+
+  it("list --blocks and list --icons print blocks and icon names offline", () => {
+    const blocksOut = run("list", "--blocks");
+    assert.match(blocksOut, /admin-overview|auth-login/, "list --blocks prints block slugs");
+    const iconsOut = run("list", "--icons", "ticket");
+    assert.ok(iconsOut.includes("ticket"), "list --icons filters icon names");
+  });
+
+  it("create-bigbull-app --help, -v, and --no-install run cleanly without DEP0190", () => {
+    const createBin = path.join(rootDir, "packages", "create-app", "bin", "create.js");
+    const createPkg = JSON.parse(fs.readFileSync(path.join(rootDir, "packages", "create-app", "package.json"), "utf8"));
+    const helpRes = spawnSync("node", [createBin, "--help"], { encoding: "utf8", timeout: 15000 });
+    assert.equal(helpRes.status, 0);
+    assert.match(helpRes.stdout, /Usage:/);
+
+    const verRes = spawnSync("node", [createBin, "-v"], { encoding: "utf8", timeout: 15000 });
+    assert.equal(verRes.status, 0);
+    assert.equal(verRes.stdout.trim(), createPkg.version);
+
+    const appParent = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-create-"));
+    try {
+      const scaffoldRes = spawnSync("node", [createBin, "sample-app", "--no-install"], {
+        cwd: appParent,
+        encoding: "utf8",
+        timeout: 30000,
+      });
+      assert.equal(scaffoldRes.status, 0, scaffoldRes.stderr);
+      assert.doesNotMatch(scaffoldRes.stderr || "", /DEP0190/, "must not emit Node DEP0190 shell deprecation warnings");
+      const pkg = JSON.parse(fs.readFileSync(path.join(appParent, "sample-app", "package.json"), "utf8"));
+      assert.equal(pkg.name, "sample-app");
+      assert.ok(fs.existsSync(path.join(appParent, "sample-app", ".gitignore")));
+      assert.ok(fs.existsSync(path.join(appParent, "sample-app", "tsconfig.json")));
+      assert.ok(fs.existsSync(path.join(appParent, "sample-app", "next.config.ts")));
+    } finally {
+      fs.rmSync(appParent, { recursive: true, force: true });
+    }
+  });
 });

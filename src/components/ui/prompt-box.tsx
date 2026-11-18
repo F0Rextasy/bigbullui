@@ -27,7 +27,7 @@ export function PromptBox({ placeholder = "Describe the stub to generate...", de
         <button
           type="button"
           onClick={() => onSubmit?.(value)}
-          className="rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase text-primary-foreground transition-transform hover:-translate-y-px active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase text-primary-foreground transition-transform hover:-translate-y-px active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Stamp prompt
         </button>

@@ -50,7 +50,7 @@ export function ActionButtons({
           title={b.label}
           style={{ touchAction: "none" }}
           className={cn(
-            "flex size-11 touch-none flex-col items-center justify-center rounded-full border-2 border-foreground shadow-md transition-transform active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+            "flex size-11 touch-none flex-col items-center justify-center rounded-full border-2 border-foreground shadow-md transition-transform active:scale-90 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
             tones[b.tone ?? "default"],
             pressed === b.id && "scale-90"
           )}

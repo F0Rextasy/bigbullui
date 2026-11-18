@@ -1,16 +1,21 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Badge } from "../ui/badge";
 
-export function BlockContact() {
+export interface BlockContactProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockContact({ className, onAction, ...props }: BlockContactProps) {
   const [sent, setSent] = React.useState(false);
   return (
-    <div className="grid w-full gap-4 lg:grid-cols-5">
+    <div className={cn("grid w-full gap-4 lg:grid-cols-5", className)} {...props}>
       <Card className="lg:col-span-2">
         <CardHeader>
           <Badge variant="accent">BOX OFFICE</Badge>
@@ -37,6 +42,7 @@ export function BlockContact() {
               onSubmit={(event) => {
                 event.preventDefault();
                 setSent(true);
+                onAction?.("send-message");
               }}
             >
               <div className="grid gap-3 sm:grid-cols-2">

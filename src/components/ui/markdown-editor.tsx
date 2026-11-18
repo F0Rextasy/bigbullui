@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "./lib/utils";
+import { cn, isSafeUrl } from "./lib/utils";
 
 export interface MarkdownEditorProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
@@ -34,7 +34,10 @@ function renderMarkdown(src: string): React.ReactNode {
       if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
       if (part.startsWith("`") && part.endsWith("`")) return <code key={i} className="rounded-sm bg-secondary px-1 font-mono text-[0.9em]">{part.slice(1, -1)}</code>;
       const link = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
-      if (link) return <a key={i} href={link[2]} className="text-accent hover:underline">{link[1]}</a>;
+      if (link) {
+        if (!isSafeUrl(link[2])) return <span key={i}>{link[1]}</span>;
+        return <a key={i} href={link[2]} className="text-accent hover:underline">{link[1]}</a>;
+      }
       return part;
     });
   };
@@ -58,8 +61,9 @@ function renderMarkdown(src: string): React.ReactNode {
     if (heading) {
       flushList();
       const level = heading[1].length;
+      const Tag = (["h1", "h2", "h3", "h4"] as const)[level - 1] ?? "h4";
       const sizes = ["text-xl font-bold", "text-lg font-bold", "text-base font-semibold", "text-sm font-semibold"];
-      out.push(<p key={`h-${out.length}`} className={cn("mt-3 first:mt-0", sizes[level - 1])}>{inline(heading[2])}</p>);
+      out.push(<Tag key={`h-${out.length}`} className={cn("mt-3 first:mt-0", sizes[level - 1])}>{inline(heading[2])}</Tag>);
       continue;
     }
     if (/^[-*]\s+/.test(line)) { listItems.push(line.replace(/^[-*]\s+/, "")); continue; }
@@ -80,7 +84,7 @@ export function MarkdownEditor({ value, defaultValue = "# Heading\n\n**bold** an
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
       <style>{`@keyframes mdIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
-      <div className="flex border-b border-border bg-secondary/60">
+      <div role="tablist" aria-label="Markdown editor tabs" className="flex border-b border-border bg-secondary/60">
         {(["write", "preview"] as const).map((t) => (
           <button
             type="button"

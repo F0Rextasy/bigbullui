@@ -1,16 +1,22 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Input } from "../ui/input";
 import { Alert } from "../ui/alert";
 
-export function AuthForgot() {
+export interface AuthForgotProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AuthForgot({ className, onAction, ...props }: AuthForgotProps) {
+  const emailId = React.useId();
   const [sent, setSent] = React.useState(false);
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className={cn("mx-auto w-full max-w-md", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <Badge variant="accent" className="mx-auto">GATE PASS // RECOVERY</Badge>
@@ -21,7 +27,7 @@ export function AuthForgot() {
           {sent ? (
             <div className="space-y-4">
               <Alert tone="accent" title="PASS REISSUED">Check your inbox for the reset link. It expires in 30 minutes.</Alert>
-              <Button variant="outline" className="w-full" onClick={() => setSent(false)}>Resend link</Button>
+              <Button variant="outline" className="w-full" onClick={() => { setSent(false); onAction?.("resend"); }}>Resend link</Button>
             </div>
           ) : (
             <form
@@ -29,11 +35,12 @@ export function AuthForgot() {
               onSubmit={(event) => {
                 event.preventDefault();
                 setSent(true);
+                onAction?.("reset-request");
               }}
             >
               <div className="space-y-1.5">
-                <label htmlFor="auth-forgot-email" className="font-mono text-[11px] font-bold uppercase tracking-widest">Email</label>
-                <Input id="auth-forgot-email" type="email" placeholder="crew@arena.gg" autoComplete="email" />
+                <label htmlFor={emailId} className="font-mono text-[11px] font-bold uppercase tracking-widest">Email</label>
+                <Input id={emailId} type="email" placeholder="crew@arena.gg" autoComplete="email" />
               </div>
               <Button type="submit" className="w-full">Send reset link</Button>
               <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground">

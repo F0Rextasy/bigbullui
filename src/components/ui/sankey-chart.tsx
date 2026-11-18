@@ -19,8 +19,8 @@ interface SankeyFlow {
 }
 
 interface SankeyChartProps {
-  nodes: SankeyNode[];
-  flows: SankeyFlow[];
+  nodes?: SankeyNode[];
+  flows?: SankeyFlow[];
 }
 
 const Ribbon = ({
@@ -55,7 +55,7 @@ const Ribbon = ({
 
 export const SankeyChart = React.forwardRef<SVGSVGElement, SankeyChartProps>(
   function SankeyChart(props, ref) {
-    const { nodes, flows } = props;
+    const { nodes = [], flows = [] } = props;
 
     // Separate left and right nodes
     const leftNodes = nodes.filter(n => n.side === "left");

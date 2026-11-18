@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -21,17 +22,23 @@ const FLOWS = [
   { label: "VENUE FEES", amount: "-$9,800", pct: 38 },
 ];
 
-export function AdminFinance() {
+export interface AdminFinanceProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminFinance({ className, onAction, ...props }: AdminFinanceProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // FINANCE</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Cash ledger</h2>
         </div>
         <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
           <Badge variant="accent">AUDITED</Badge>
-          <Button size="sm">New invoice</Button>
+          <Button size="sm" onClick={() => { setNotice("Draft invoice INV-2045 started."); onAction?.("new-invoice"); }}>New invoice</Button>
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -14,7 +15,11 @@ const PROJECTS = [
 ];
 
 /** Portfolio page: project grid + lightbox + contact strip. */
-export function BlockPortfolio() {
+export interface BlockPortfolioProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockPortfolio({ className, onAction, ...props }: BlockPortfolioProps) {
   const [filter, setFilter] = React.useState("all");
   const [lightbox, setLightbox] = React.useState<string | null>(null);
   const [sent, setSent] = React.useState(false);
@@ -24,7 +29,7 @@ export function BlockPortfolio() {
   const active = PROJECTS.find((p) => p.id === lightbox) ?? null;
 
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-end justify-between gap-2">
         <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Selected work</h2>
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter by tag">
@@ -84,7 +89,7 @@ export function BlockPortfolio() {
           ) : (
             <form
               className="flex gap-2"
-              onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+              onSubmit={(e) => { e.preventDefault(); setSent(true); onAction?.("send-brief"); }}
             >
               <Input placeholder="Email for brief" type="email" aria-label="Email for brief" className="w-48" />
               <Button type="submit" size="sm">Send</Button>

@@ -31,7 +31,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({ direction, children, status }) 
       {status && (
         <div
           className={cn(
-            "absolute -bottom-1 -left-1 flex gap-0.5 text-[10px] mono uppercase text-muted-foreground",
+            "absolute -bottom-1 -left-1 flex gap-0.5 text-[10px] font-mono uppercase text-muted-foreground",
             direction === "outgoing" ? "-right-1" : "-left-1"
           )}
         >

@@ -132,7 +132,7 @@ export function GanttLite({
                           width: `${widthPercent}%`,
                         }}
                         className={cn(
-                          "absolute top-1 bottom-1 flex items-center justify-between rounded px-2 text-start cursor-pointer border shadow-xs transition-all hover:scale-[1.02] hover:z-30 hover:shadow-md",
+                          "absolute top-1 bottom-1 flex items-center justify-between rounded px-2 text-start cursor-pointer border shadow-xs transition-all hover:scale-[1.02] motion-reduce:hover:scale-100 hover:z-30 hover:shadow-md",
                           TIER_COLORS[item.tier || "SUPPORT"]
                         )}
                       >

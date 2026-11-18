@@ -34,6 +34,16 @@
         "default": "./dist/index.js"
       }
     },
+    "./dynamic": {
+      "import": {
+        "types": "./dist/dynamic.d.mts",
+        "default": "./dist/dynamic.mjs"
+      },
+      "require": {
+        "types": "./dist/dynamic.d.ts",
+        "default": "./dist/dynamic.js"
+      }
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -54,6 +64,7 @@
     "typescript": "^5"
   },
   "scripts": {
+    "prebuild": "node ../../scripts/generate-icon-components.mjs",
     "build": "tsup",
     "prepublishOnly": "npm run build"
   }

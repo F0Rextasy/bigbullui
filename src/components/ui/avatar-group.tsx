@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "./lib/utils";
 
 export type AvatarGroupProps = {
-  names: string[];
+  names?: string[];
   max?: number;
   size?: "sm" | "default" | "lg";
   className?: string;
@@ -15,7 +15,7 @@ const Avatar = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) =
 );
 
 const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
-  ({ names, max = 3, size = "default", className }, ref) => {
+  ({ names = [], max = 3, size = "default", className }, ref) => {
     const count = names.length;
     const displayed = max >= 0 && count > max ? max : count;
     const extra = count - displayed;

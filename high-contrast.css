@@ -37,7 +37,6 @@
   }
 
   :where(.text-muted-foreground) {
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    color: var(--color-foreground);
   }
 }

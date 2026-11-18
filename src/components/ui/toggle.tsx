@@ -49,7 +49,7 @@ const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
           variants[variant],
           sizes[size],
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          "active:scale-[0.97]",
+          "active:scale-[0.97] motion-reduce:active:scale-100",
           "transition-transform",
           className
         )}

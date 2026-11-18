@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Card, CardContent } from "../ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 
 const MODULES = [
@@ -13,12 +13,16 @@ const MODULES = [
 ];
 
 /** Course page: syllabus accordion + instructor + enroll CTA. */
-export function BlockCourse() {
+export interface BlockCourseProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockCourse({ className, onAction, ...props }: BlockCourseProps) {
   const [open, setOpen] = React.useState<string | null>("m1");
   const [enrolled, setEnrolled] = React.useState(false);
 
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Cohort 07 · starts Monday</p>
@@ -33,11 +37,11 @@ export function BlockCourse() {
           <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Ships tickets, teaches grids</p>
         </div>
       </div>
-      <Accordion defaultValue={open ?? undefined} className="w-full">
+      <Accordion value={open ?? ""} onValueChange={(v) => setOpen(typeof v === "string" && v ? v : null)} className="w-full">
         {MODULES.map((m) => (
           <AccordionItem key={m.id} value={m.id}>
-            <AccordionTrigger isOpen={open === m.id} contentId={`${m.id}-body`}>
-              <span onClick={() => setOpen(open === m.id ? null : m.id)}>{m.title}</span>
+            <AccordionTrigger isOpen={open === m.id} contentId={`${m.id}-body`} onClick={() => setOpen(open === m.id ? null : m.id)}>
+              {m.title}
             </AccordionTrigger>
             <AccordionContent isOpen={open === m.id} contentId={`${m.id}-body`}>
               <ul className="list-inside list-disc space-y-1">
@@ -54,7 +58,7 @@ export function BlockCourse() {
           Enrolled. Check your inbox for the gate pass.
         </p>
       ) : (
-        <Button className="w-full" onClick={() => setEnrolled(true)}>
+        <Button className="w-full" onClick={() => { setEnrolled(true); onAction?.("enroll"); }}>
           Enroll: $149
         </Button>
       )}

@@ -9,10 +9,11 @@ import { cn } from "./lib/utils";
 
 interface RadioCardsContextValue {
   value?: string;
+  activeTabStop?: string;
   name?: string;
   disabled?: boolean;
   onSelect: (val: string) => void;
-  registerItem: (id: string, element: HTMLDivElement | null) => void;
+  registerItem: (id: string, element: HTMLDivElement | null, disabled?: boolean) => void;
 }
 
 const RadioCardsContext = React.createContext<RadioCardsContextValue | null>(null);
@@ -23,6 +24,19 @@ function useRadioCards() {
     throw new Error("RadioCard components must be used within a RadioCards provider.");
   }
   return context;
+}
+
+function collectEnabledCardValues(children: React.ReactNode, acc: string[] = []): string[] {
+  React.Children.forEach(children, (child) => {
+    if (!React.isValidElement(child)) return;
+    const p = child.props as { value?: unknown; disabled?: boolean; soldOut?: boolean; children?: React.ReactNode };
+    if (typeof p.value === "string" && !p.disabled && !p.soldOut) {
+      acc.push(p.value);
+    } else if (p.children !== undefined) {
+      collectEnabledCardValues(p.children, acc);
+    }
+  });
+  return acc;
 }
 
 export interface RadioCardsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -42,7 +56,7 @@ export interface RadioCardsProps extends React.HTMLAttributes<HTMLDivElement> {
  * ----------------------------------------------------------------------- */
 
 export function RadioCards({
-  value = "",
+  value,
   defaultValue,
   onValueChange,
   name,
@@ -55,19 +69,45 @@ export function RadioCards({
 }: RadioCardsProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue ?? "");
   const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : uncontrolledValue;
+  const currentValue = (isControlled ? value : uncontrolledValue) ?? "";
   const generatedName = React.useId();
   const groupName = name || generatedName;
 
-  const itemElementsRef = React.useRef<Map<string, HTMLDivElement>>(new Map());
+  const itemElementsRef = React.useRef<Map<string, { el: HTMLDivElement; disabled: boolean }>>(new Map());
+  const [fallbackRegisteredStop, setFallbackRegisteredStop] = React.useState<string | undefined>(undefined);
 
-  const registerItem = React.useCallback((id: string, element: HTMLDivElement | null) => {
+  const registerItem = React.useCallback((id: string, element: HTMLDivElement | null, isItemDisabled = false) => {
     if (element) {
-      itemElementsRef.current.set(id, element);
+      itemElementsRef.current.set(id, { el: element, disabled: isItemDisabled });
     } else {
       itemElementsRef.current.delete(id);
     }
   }, []);
+
+  const enabledValuesFromChildren = React.useMemo(
+    () => (disabled ? [] : collectEnabledCardValues(children)),
+    [children, disabled]
+  );
+
+  React.useEffect(() => {
+    if (disabled) {
+      setFallbackRegisteredStop(undefined);
+      return;
+    }
+    const entries = Array.from(itemElementsRef.current.entries()).filter(([, info]) => !info.disabled);
+    if (currentValue && entries.some(([id]) => id === currentValue)) {
+      setFallbackRegisteredStop(currentValue);
+    } else {
+      setFallbackRegisteredStop(entries[0]?.[0]);
+    }
+  }, [currentValue, disabled, children]);
+
+  const activeTabStop = React.useMemo(() => {
+    if (disabled) return undefined;
+    if (currentValue && enabledValuesFromChildren.includes(currentValue)) return currentValue;
+    if (enabledValuesFromChildren.length > 0) return enabledValuesFromChildren[0];
+    return fallbackRegisteredStop;
+  }, [disabled, currentValue, enabledValuesFromChildren, fallbackRegisteredStop]);
 
   const handleSelect = React.useCallback(
     (nextValue: string) => {
@@ -151,6 +191,7 @@ export function RadioCards({
     <RadioCardsContext.Provider
       value={{
         value: currentValue,
+        activeTabStop,
         name: groupName,
         disabled,
         onSelect: handleSelect,
@@ -210,16 +251,17 @@ export function RadioCard({
   children,
   ...props
 }: RadioCardProps) {
-  const { value: groupValue, disabled: groupDisabled, onSelect, registerItem } = useRadioCards();
+  const { value: groupValue, activeTabStop, disabled: groupDisabled, onSelect, registerItem } = useRadioCards();
 
   const isChecked = groupValue === value;
   const isDisabled = disabled || groupDisabled || soldOut;
+  const isTabStop = !isDisabled && (isChecked || activeTabStop === value);
   const cardRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    registerItem(value, cardRef.current);
-    return () => registerItem(value, null);
-  }, [value, registerItem]);
+    registerItem(value, cardRef.current, isDisabled);
+    return () => registerItem(value, null, isDisabled);
+  }, [value, isDisabled, registerItem]);
 
   const handleClick = () => {
     if (!isDisabled) {
@@ -240,7 +282,7 @@ export function RadioCard({
       role="radio"
       aria-checked={isChecked}
       aria-disabled={isDisabled}
-      tabIndex={isDisabled ? -1 : isChecked ? 0 : -1}
+      tabIndex={isDisabled ? -1 : isTabStop ? 0 : -1}
       data-value={value}
       onClick={handleClick}
       className={cn(

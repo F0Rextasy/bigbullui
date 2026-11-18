@@ -201,13 +201,13 @@ export function ThemeToggle({
       >
         {/* Left punch cutout notch */}
         <span
-          className="absolute -left-1.5 top-1/2 -translate-y-1/2 size-3 rounded-full border border-foreground bg-background transition-transform duration-150 group-active:scale-125"
+          className="absolute -left-1.5 top-1/2 -translate-y-1/2 size-3 rounded-full border border-foreground bg-background transition-transform duration-150 group-active:scale-125 motion-reduce:group-active:scale-100"
           aria-hidden="true"
         />
 
         {/* Right punch cutout notch */}
         <span
-          className="absolute -right-1.5 top-1/2 -translate-y-1/2 size-3 rounded-full border border-foreground bg-background transition-transform duration-150 group-active:scale-125"
+          className="absolute -right-1.5 top-1/2 -translate-y-1/2 size-3 rounded-full border border-foreground bg-background transition-transform duration-150 group-active:scale-125 motion-reduce:group-active:scale-100"
           aria-hidden="true"
         />
 

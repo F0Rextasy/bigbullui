@@ -63,16 +63,26 @@ dev.log
 .qa-server.log
 *.log
 
-# internal roadmap — never push
+# internal roadmap and local tooling — never push
 TODO.md
+todo.md
 AGENTS.md
+.devlog
+.codegraph/
+.agents/skills/
+.claude/skills/
+skills-lock.json
+docs/agents/
 
 # generated artifacts (rebuilt by prebuild/prepublishOnly — never commit)
 public/r/
 public/llms-full.txt
 public/*.json
+!public/manifest.json
 src/data/sizes.json
 src/data/dep-graph.json
 src/data/catalog.json
 src/data/docs-content.json
+src/data/preview-waves.json
 src/lib/block-slugs.gen.ts
+packages/icons/src/named-icons.tsx

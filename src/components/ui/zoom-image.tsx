@@ -50,7 +50,7 @@ export function ZoomImage({ src, alt, zoom = 2 }: ZoomImageProps) {
         alt={alt}
         className={cn(
           "relative w-full h-auto transition-transform duration-300",
-          "group-hover:scale-110 transition-transform",
+          "group-hover:scale-110 motion-reduce:group-hover:scale-100 transition-transform",
           `transform: scale(${scale})`,
           "motion-reduce:animate-none",
           "motion-reduce:transition-none",

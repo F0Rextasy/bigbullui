@@ -399,7 +399,7 @@ export function ActivityFeed({
                   onClick={() => setSelectedFilter(tab.id)}
                   aria-pressed={active}
                   className={cn(
-                    "cursor-pointer rounded-sm border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    "cursor-pointer rounded-sm border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     active
                       ? "border-foreground bg-foreground text-card shadow-xs"
                       : "border-dashed border-border bg-card/70 text-muted-foreground hover:bg-card hover:text-foreground"
@@ -474,7 +474,7 @@ export function ActivityFeed({
                         {/* Timeline Node Stamp & Avatar */}
                         <div
                           className={cn(
-                            "absolute -left-7 sm:-left-9 top-1.5 z-10 flex size-7 sm:size-8 items-center justify-center rounded-full border-2 bg-card shadow-xs transition-transform duration-150 group-hover:scale-105",
+                            "absolute -left-7 sm:-left-9 top-1.5 z-10 flex size-7 sm:size-8 items-center justify-center rounded-full border-2 bg-card shadow-xs transition-transform duration-150 group-hover:scale-105 motion-reduce:group-hover:scale-100",
                             isLivePending ? "border-accent motion-safe:animate-pulse" : "border-foreground"
                           )}
                         >
@@ -629,7 +629,7 @@ export function ActivityFeed({
                               </button>
 
                               {isExpanded && (
-                                <div className="mt-2 rounded-sm border border-dashed border-border bg-secondary/40 p-2.5 font-mono text-xs motion-safe:animate-in fade-in-50 duration-150">
+                                <div className="mt-2 rounded-sm border border-dashed border-border bg-secondary/40 p-2.5 font-mono text-xs motion-safe:animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none!">
                                   <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1 font-bold">
                                     EXECUTION LOG:
                                   </div>

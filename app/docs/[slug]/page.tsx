@@ -42,7 +42,11 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const sourceLabel = isLib ? `lib/${meta.name}.ts` : `${meta.name}.tsx`;
   const sourceCode = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
 
-  const defaultUsage = `import { ${meta.title.replace(/\s+/g, "")} } from "@/components/ui/${meta.name}";\n\n<${meta.title.replace(/\s+/g, "")} />`;
+  const exportedMatch = sourceCode.match(/export\s+(?:async\s+)?(?:function|const|class)\s+([A-Z][A-Za-z0-9_]*|[a-z][A-Za-z0-9_]*)/);
+  const primarySymbol = exportedMatch?.[1] ?? meta.title.replace(/\s+/g, "");
+  const defaultUsage = isLib
+    ? `import { ${primarySymbol} } from "@/components/ui/lib/${meta.name}";`
+    : `import { ${primarySymbol} } from "@/components/ui/${meta.name}";\n\n<${primarySymbol} />`;
   const usageCode = usage[meta.name] ?? defaultUsage;
 
   const toc = [

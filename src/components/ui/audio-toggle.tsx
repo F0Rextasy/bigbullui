@@ -33,7 +33,7 @@ export function AudioToggle({
       aria-pressed={!isMuted}
       aria-label={isMuted ? `Unmute ${label}` : `Mute ${label}`}
       className={cn(
-        "inline-flex cursor-pointer items-center gap-2 rounded border-2 px-2.5 py-1.5 transition-transform hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "inline-flex cursor-pointer items-center gap-2 rounded border-2 px-2.5 py-1.5 transition-transform hover:scale-[1.03] motion-reduce:hover:scale-100 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         isMuted ? "border-dashed border-border bg-card text-muted-foreground" : "border-foreground bg-primary text-primary-foreground",
         className,
       )}

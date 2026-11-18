@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -19,7 +20,11 @@ function nightsBetween(a: string, b: string): number {
 }
 
 /** Hotel booking: date range + room cards + stay summary. */
-export function BlockHotel() {
+export interface BlockHotelProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockHotel({ className, onAction, ...props }: BlockHotelProps) {
   const [checkIn, setCheckIn] = React.useState("");
   const [checkOut, setCheckOut] = React.useState("");
   const [roomId, setRoomId] = React.useState("r2");
@@ -32,7 +37,7 @@ export function BlockHotel() {
 
   if (done) {
     return (
-      <Card className="w-full">
+      <Card className={cn("w-full", className)} {...props}>
         <CardContent className="flex flex-col items-center gap-2 p-8 text-center">
           <Badge variant="accent">Booked</Badge>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{room.name}</h2>
@@ -48,7 +53,7 @@ export function BlockHotel() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
         <h2 className="font-mono text-xl font-black uppercase tracking-tight">Book your stay</h2>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -79,7 +84,7 @@ export function BlockHotel() {
           <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground" aria-live="polite">
             {ready ? `${nights} nights · ${room.name}` : "Pick dates to price your stay"}
           </p>
-          <Button disabled={!ready} onClick={() => setDone(true)}>
+          <Button disabled={!ready} onClick={() => { setDone(true); onAction?.("reserve-room"); }}>
             {ready ? `Reserve $${total}` : "Reserve"}
           </Button>
         </div>

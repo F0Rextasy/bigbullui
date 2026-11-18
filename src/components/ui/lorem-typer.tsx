@@ -33,7 +33,7 @@ export function LoremTyper({ paragraphs = 2, className, ...props }: LoremTyperPr
         </div>
       </div>
       <p className="mt-2 max-h-40 overflow-auto rounded-md border border-dashed border-border bg-secondary/40 p-2 text-xs leading-relaxed whitespace-pre-line text-foreground">{text}</p>
-      <button type="button" onClick={() => { void navigator.clipboard?.writeText(text).catch(() => undefined); setCopied(true); setTimeout(() => setCopied(false), 1200); }} className="mt-2 rounded border border-foreground bg-secondary px-3 py-1 font-mono text-[11px] font-bold uppercase text-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <button type="button" onClick={() => { void navigator.clipboard?.writeText(text).catch(() => undefined); setCopied(true); setTimeout(() => setCopied(false), 1200); }} className="mt-2 rounded border border-foreground bg-secondary px-3 py-1 font-mono text-[11px] font-bold uppercase text-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
         {copied ? "Copied" : "Copy text"}
       </button>
     </div>

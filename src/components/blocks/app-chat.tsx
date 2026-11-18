@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
@@ -18,12 +19,17 @@ const MESSAGES = [
   { id: "m3", who: "Mira Chen", body: "Sending the cue sheet now.", mine: false, time: "09:12" },
 ];
 
-export function AppChat() {
+export interface AppChatProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppChat({ className, onAction, ...props }: AppChatProps) {
   const [active, setActive] = React.useState("c1");
   const [draft, setDraft] = React.useState("");
+  const [messages, setMessages] = React.useState(MESSAGES);
   const current = THREADS.find((thread) => thread.id === active) ?? THREADS[0];
   return (
-    <div className="grid w-full overflow-hidden rounded-lg border-2 border-foreground bg-card md:grid-cols-3">
+    <div className={cn("grid w-full overflow-hidden rounded-lg border-2 border-foreground bg-card md:grid-cols-3", className)} {...props}>
       <div className="divide-y divide-dashed divide-border border-b border-dashed border-border md:border-b-0 md:border-r">
         <p className="px-4 py-3 font-mono text-xs font-black uppercase tracking-[0.2em]">Channels</p>
         {THREADS.map((thread) => (
@@ -51,7 +57,7 @@ export function AppChat() {
           <Badge variant="outline">ONLINE</Badge>
         </div>
         <div className="flex-1 space-y-3 p-4">
-          {MESSAGES.map((message) => (
+          {messages.map((message) => (
             <div key={message.id} className={`flex ${message.mine ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[75%] rounded-lg border px-3 py-2 ${message.mine ? "border-foreground bg-primary text-primary-foreground" : "border-dashed border-border bg-secondary/50"}`}>
                 {!message.mine && <p className="font-mono text-[10px] font-black uppercase tracking-widest opacity-70">{message.who}</p>}
@@ -65,7 +71,11 @@ export function AppChat() {
           className="flex gap-2 border-t-2 border-dashed border-border p-3"
           onSubmit={(event) => {
             event.preventDefault();
+            const text = draft.trim();
+            if (!text) return;
+            setMessages((prev) => [...prev, { id: `m-${prev.length + 1}`, who: "You", body: text, mine: true, time: "NOW" }]);
             setDraft("");
+            onAction?.("send-message");
           }}
         >
           <Input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Type a message..." aria-label="Type a message" />

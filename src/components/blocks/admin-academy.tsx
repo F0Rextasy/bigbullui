@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -12,15 +13,23 @@ const COURSES = [
   { title: "Crowd Flow Control", lessons: "6 LESSONS", done: 32, certified: false },
 ];
 
-export function AdminAcademy() {
+export interface AdminAcademyProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminAcademy({ className, onAction, ...props }: AdminAcademyProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">SCHOOL // ACADEMY</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Crew courses</h2>
         </div>
-        <Button size="sm">Assign course</Button>
+        <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
+          <Button size="sm" onClick={() => { setNotice("Course assignment queued."); onAction?.("assign-course"); }}>Assign course</Button>
+        </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {COURSES.map((course) => (
@@ -38,7 +47,16 @@ export function AdminAcademy() {
                 <span className="font-bold text-foreground">{course.done}%</span>
               </div>
               <Progress value={course.done} />
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => {
+                  const act = course.certified ? "view-certificate" : "continue-study";
+                  setNotice(`${course.title}: ${course.certified ? "certificate opened" : "lesson resumed"}.`);
+                  onAction?.(act);
+                }}
+              >
                 {course.certified ? "View certificate" : "Continue study"}
               </Button>
             </CardContent>

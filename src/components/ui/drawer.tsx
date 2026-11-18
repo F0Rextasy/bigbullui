@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
-
-const FOCUSABLE =
-  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 
 interface DrawerContextValue {
   open: boolean;
@@ -12,6 +11,10 @@ interface DrawerContextValue {
   titleId: string;
   descriptionId: string;
   contentId: string;
+  hasTitle: boolean;
+  hasDescription: boolean;
+  registerTitle: () => () => void;
+  registerDescription: () => () => void;
 }
 
 const DrawerContext = React.createContext<DrawerContextValue | null>(null);
@@ -44,6 +47,18 @@ export function Drawer({
   const titleId = React.useId();
   const descriptionId = React.useId();
   const contentId = React.useId();
+  const [titleCount, setTitleCount] = React.useState(0);
+  const [descCount, setDescCount] = React.useState(0);
+
+  const registerTitle = React.useCallback(() => {
+    setTitleCount((c) => c + 1);
+    return () => setTitleCount((c) => Math.max(0, c - 1));
+  }, []);
+
+  const registerDescription = React.useCallback(() => {
+    setDescCount((c) => c + 1);
+    return () => setDescCount((c) => Math.max(0, c - 1));
+  }, []);
 
   const setOpen = React.useCallback(
     (nextOpen: boolean) => {
@@ -55,16 +70,23 @@ export function Drawer({
     [isControlled, onOpenChange]
   );
 
+  const ctxValue = React.useMemo(
+    () => ({
+      open,
+      setOpen,
+      titleId,
+      descriptionId,
+      contentId,
+      hasTitle: titleCount > 0,
+      hasDescription: descCount > 0,
+      registerTitle,
+      registerDescription,
+    }),
+    [open, setOpen, titleId, descriptionId, contentId, titleCount, descCount, registerTitle, registerDescription]
+  );
+
   return (
-    <DrawerContext.Provider
-      value={{
-        open,
-        setOpen,
-        titleId,
-        descriptionId,
-        contentId,
-      }}
-    >
+    <DrawerContext.Provider value={ctxValue}>
       {children}
     </DrawerContext.Provider>
   );
@@ -144,34 +166,25 @@ export function DrawerContent({
     if (!ctx.open) return;
     restoreRef.current = document.activeElement as HTMLElement | null;
     const content = contentRef.current;
-    const focusables = content?.querySelectorAll<HTMLElement>(FOCUSABLE);
-    (focusables?.[0] ?? content)?.focus();
+    const focusables = content ? getFocusable(content) : [];
+    (focusables[0] ?? content)?.focus();
+
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => {
+      setOpenRef.current(false);
+    });
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        setOpenRef.current(false);
-        return;
-      }
-      if (event.key !== "Tab" || !content) return;
-      const items = Array.from(content.querySelectorAll<HTMLElement>(FOCUSABLE));
-      if (items.length === 0) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (event.shiftKey && (document.activeElement === first || !content.contains(document.activeElement))) {
-        event.preventDefault();
-        last?.focus();
-      } else if (!event.shiftKey && (document.activeElement === last || !content.contains(document.activeElement))) {
-        event.preventDefault();
-        first?.focus();
+      if (event.key === "Tab" && content) {
+        trapFocus(content, event);
       }
     };
 
     document.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      releaseEscape();
+      releaseScroll();
       restoreRef.current?.focus();
     };
   }, [ctx.open]);
@@ -226,13 +239,13 @@ export function DrawerContent({
 
   if (!ctx.open) return null;
 
-  return (
-    <div className="fixed inset-0 z-50">
+  const overlay = (
+    <div className="fixed inset-0 z-50 overflow-hidden overscroll-contain">
       {/* Backdrop blur overlay */}
       <div
         aria-hidden="true"
         onClick={() => ctx.setOpen(false)}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm motion-safe:animate-[fade-in_0.2s_ease-out_both]"
+        className="fixed inset-0 bg-foreground/60 backdrop-blur-sm overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
       />
 
       {/* Slide-up ticket stub admission drawer */}
@@ -241,15 +254,15 @@ export function DrawerContent({
         role="dialog"
         aria-modal="true"
         id={ctx.contentId}
-        aria-labelledby={ctx.titleId}
-        aria-describedby={ctx.descriptionId}
+        aria-labelledby={ctx.hasTitle ? ctx.titleId : undefined}
+        aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
         tabIndex={-1}
         style={{
           transform: `translateY(${Math.max(0, dragOffset)}px)`,
           transition: isDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 flex max-h-[88vh] flex-col rounded-t-2xl border-t-2 border-x-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-7px] outline-border focus:outline-none sm:max-w-xl sm:mx-auto motion-safe:animate-[fade-in-up_0.25s_ease-out]",
+          "fixed inset-x-0 bottom-0 z-50 flex max-h-[88vh] flex-col overscroll-contain rounded-t-2xl border-t-2 border-x-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-7px] outline-border focus:outline-none sm:max-w-xl sm:mx-auto motion-safe:animate-[fade-in-up_0.25s_ease-out]",
           className
         )}
         {...props}
@@ -323,6 +336,8 @@ export function DrawerContent({
       </div>
     </div>
   );
+
+  return typeof document !== "undefined" ? createPortal(overlay, document.body) : overlay;
 }
 
 export function DrawerHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
@@ -331,6 +346,7 @@ export function DrawerHeader({ className, ...props }: React.HTMLAttributes<HTMLD
 
 export function DrawerTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
   const ctx = useDrawerContext();
+  React.useEffect(() => ctx.registerTitle(), [ctx]);
   return (
     <h2
       id={ctx.titleId}
@@ -347,6 +363,7 @@ export function DrawerDescription({
   ...props
 }: DrawerDescriptionProps) {
   const ctx = useDrawerContext();
+  React.useEffect(() => ctx.registerDescription(), [ctx]);
   return (
     <p
       id={ctx.descriptionId}

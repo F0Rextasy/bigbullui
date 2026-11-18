@@ -22,7 +22,7 @@ export default function BenchmarksPage() {
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Self-measured</p>
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Bundle benchmarks</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Every component measured from source with zlib, updated {table.updated}. Median component ships{" "}
+          Every component bundled and minified with esbuild (react external) + gzip, updated {table.updated}. Median component ships{" "}
           {median.toFixed(1)}kb gzipped; the full set is {totalGzip.toFixed(0)}kb gzipped, and tree-shaking means you only pay for what you import.
           Numbers below are ours, measured honestly; compare against any library by running the same one-liner on their dist.
         </p>

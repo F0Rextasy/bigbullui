@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -19,7 +20,11 @@ function daysBetween(a: string, b: string): number {
 }
 
 /** Car rental: dates + car cards + price summary. */
-export function BlockCarRental() {
+export interface BlockCarRentalProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockCarRental({ className, onAction, ...props }: BlockCarRentalProps) {
   const [from, setFrom] = React.useState("");
   const [to, setTo] = React.useState("");
   const [carId, setCarId] = React.useState("c2");
@@ -32,7 +37,7 @@ export function BlockCarRental() {
 
   if (done) {
     return (
-      <Card className="w-full">
+      <Card className={cn("w-full", className)} {...props}>
         <CardContent className="flex flex-col items-center gap-2 p-8 text-center">
           <Badge variant="accent">Keys ready</Badge>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{car.name}</h2>
@@ -48,7 +53,7 @@ export function BlockCarRental() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
         <h2 className="font-mono text-xl font-black uppercase tracking-tight">Rent a car</h2>
         <div className="grid gap-3 sm:grid-cols-2">
@@ -82,7 +87,7 @@ export function BlockCarRental() {
           <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground" aria-live="polite">
             {ready ? `${days} days · ${car.name}` : "Pick dates to price the trip"}
           </p>
-          <Button disabled={!ready} onClick={() => setDone(true)}>
+          <Button disabled={!ready} onClick={() => { setDone(true); onAction?.("reserve-car"); }}>
             {ready ? `Reserve $${total}` : "Reserve"}
           </Button>
         </div>

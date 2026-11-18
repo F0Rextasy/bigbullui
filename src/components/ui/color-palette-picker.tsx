@@ -66,7 +66,7 @@ export function ColorPalettePicker({
                   onClick={() => pick(hex, p.name)}
                   style={{ backgroundColor: hex }}
                   className={cn(
-                    "size-9 cursor-pointer rounded-md border transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+                    "size-9 cursor-pointer rounded-md border transition-transform hover:scale-110 motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
                     active ? "border-foreground ring-2 ring-ring ring-offset-2 ring-offset-background" : "border-border",
                   )}
                 />

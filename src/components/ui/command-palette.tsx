@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 
 export interface CommandItem {
   id: string;
@@ -204,48 +206,40 @@ export function CommandPalette({
 
   const panelRef = React.useRef<HTMLDivElement>(null);
   const returnFocusRef = React.useRef<HTMLElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
+  const listId = React.useId();
 
   React.useEffect(() => {
-    if (open) {
-      returnFocusRef.current = document.activeElement as HTMLElement | null;
-      setSearch("");
-      setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
-      const prevOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          onOpenChange(false);
+    if (!open) return;
+    returnFocusRef.current = document.activeElement as HTMLElement | null;
+    setSearch("");
+    setSelectedIndex(0);
+    const focusTimer = setTimeout(() => inputRef.current?.focus(), 50);
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => {
+      onOpenChangeRef.current?.(false);
+    });
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Tab" && panelRef.current) {
+        if (!panelRef.current.contains(document.activeElement)) {
+          e.preventDefault();
+          const first = getFocusable(panelRef.current)[0];
+          (inputRef.current ?? first)?.focus();
           return;
         }
-        if (e.key !== "Tab") return;
-        const focusables = panelRef.current?.querySelectorAll<HTMLElement>(
-          'button, [href], input, [tabindex]:not([tabindex="-1"])'
-        );
-        if (!focusables || focusables.length === 0) return;
-        if (!panelRef.current?.contains(document.activeElement)) {
-          e.preventDefault();
-          inputRef.current?.focus();
-          return;
-        }
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      };
-      document.addEventListener("keydown", handleKeyDown);
-      return () => {
-        document.removeEventListener("keydown", handleKeyDown);
-        document.body.style.overflow = prevOverflow;
-        returnFocusRef.current?.focus();
-      };
-    }
-  }, [open, onOpenChange]);
+        trapFocus(panelRef.current, e);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleKeyDown);
+      releaseEscape();
+      releaseScroll();
+      returnFocusRef.current?.focus();
+    };
+  }, [open]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown") {
@@ -257,19 +251,19 @@ export function CommandPalette({
     } else if (e.key === "Enter" && filteredItems[selectedIndex]) {
       e.preventDefault();
       filteredItems[selectedIndex].onSelect?.();
-      onOpenChange(false);
+      onOpenChangeRef.current?.(false);
     }
   };
 
   if (!open) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28">
+  const overlay = (
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-hidden overscroll-contain pt-20 sm:pt-28">
       {/* Backdrop */}
       <div
         aria-hidden="true"
-        onClick={() => onOpenChange(false)}
-        className="fixed inset-0 bg-black/50 backdrop-blur-[2px] animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none"
+        onClick={() => onOpenChangeRef.current?.(false)}
+        className="fixed inset-0 bg-foreground/50 backdrop-blur-[2px] overscroll-contain animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none!"
       />
 
       {/* Palette Card */}
@@ -278,7 +272,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="relative z-50 w-full max-w-xl overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none"
+        className="relative z-50 w-full max-w-xl overflow-hidden overscroll-contain rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!"
       >
         {/* Search Header */}
         <div className="flex items-center border-b-2 border-dashed border-border px-4 py-3">
@@ -308,9 +302,9 @@ export function CommandPalette({
             autoComplete="off"
             role="combobox"
             aria-expanded={filteredItems.length > 0}
-            aria-controls="command-palette-list"
+            aria-controls={listId}
             aria-activedescendant={
-              filteredItems[selectedIndex] ? `cmd-item-${filteredItems[selectedIndex].id}` : undefined
+              filteredItems[selectedIndex] ? `${listId}-item-${filteredItems[selectedIndex].id}` : undefined
             }
             value={search}
             onChange={(e) => {
@@ -327,7 +321,7 @@ export function CommandPalette({
         </div>
 
         {/* Results List */}
-        <div id="command-palette-list" role="listbox" aria-label="Search results" className="max-h-72 overflow-y-auto p-2">
+        <div id={listId} role="listbox" aria-label="Search results" className="max-h-72 overflow-y-auto overscroll-contain p-2">
           {filteredItems.length === 0 ? (
             <div className="py-6 text-center font-mono text-xs text-muted-foreground">
               NO COMMANDS MATCHING QUERY
@@ -359,12 +353,12 @@ export function CommandPalette({
                 rows.push(
                   <div
                     key={item.id}
-                    id={`cmd-item-${item.id}`}
+                    id={`${listId}-item-${item.id}`}
                     role="option"
                     aria-selected={isSelected}
                     onClick={() => {
                       item.onSelect?.();
-                      onOpenChange(false);
+                      onOpenChangeRef.current?.(false);
                     }}
                     onMouseEnter={() => setSelectedIndex(idx)}
                     className={cn(
@@ -416,4 +410,6 @@ export function CommandPalette({
       </div>
     </div>
   );
+
+  return typeof document !== "undefined" ? createPortal(overlay, document.body) : overlay;
 }

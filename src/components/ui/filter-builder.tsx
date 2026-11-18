@@ -29,7 +29,7 @@ export function FilterBuilder({ initial = [{ id: "1", field: "Tier", op: "is", v
         <button
           type="button"
           onClick={() => update([...rules, { id: String(Date.now()), field: FIELDS[0], op: OPS[0], value: "" }])}
-          className="rounded border border-foreground bg-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-primary-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded border border-foreground bg-primary px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-primary-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Add rule
         </button>

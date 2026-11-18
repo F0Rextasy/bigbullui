@@ -14,32 +14,38 @@ export interface PinInputProps {
   "aria-label"?: string;
 }
 
-export function PinInput({
-  length = 4,
-  value: controlledValue,
-  defaultValue = "",
-  onValueChange,
-  onComplete,
-  disabled = false,
-  className,
-  "aria-label": ariaLabel = "PIN code",
-}: PinInputProps) {
+export const PinInput = React.forwardRef<HTMLDivElement, PinInputProps>(function PinInput(
+  {
+    length = 4,
+    value: controlledValue,
+    defaultValue = "",
+    onValueChange,
+    onComplete,
+    disabled = false,
+    className,
+    "aria-label": ariaLabel = "PIN code",
+  },
+  ref
+) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue.slice(0, length));
   const isControlled = controlledValue !== undefined;
   const pin = (isControlled ? controlledValue : uncontrolledValue).slice(0, length);
 
   const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
 
-  const digits = Array.from({ length }, (_, i) => pin[i] || "");
+  const digits = Array.from({ length }, (_, i) => {
+    const ch = pin[i];
+    return ch && ch !== " " ? ch : "";
+  });
 
-  const updatePin = (nextPin: string) => {
-    const trimmed = nextPin.slice(0, length);
+  const commitDigits = (nextDigits: string[]) => {
+    const serialized = nextDigits.map((d) => d || " ").join("").replace(/\s+$/, "");
     if (!isControlled) {
-      setUncontrolledValue(trimmed);
+      setUncontrolledValue(serialized);
     }
-    onValueChange?.(trimmed);
-    if (trimmed.length === length) {
-      onComplete?.(trimmed);
+    onValueChange?.(serialized);
+    if (nextDigits.every((d) => d !== "")) {
+      onComplete?.(nextDigits.join(""));
     }
   };
 
@@ -47,8 +53,7 @@ export function PinInput({
     const char = e.target.value.slice(-1);
     const newDigits = [...digits];
     newDigits[index] = char;
-    const nextPin = newDigits.join("");
-    updatePin(nextPin);
+    commitDigits(newDigits);
 
     if (char && index < length - 1) {
       inputRefs.current[index + 1]?.focus();
@@ -72,13 +77,15 @@ export function PinInput({
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pasted = e.clipboardData.getData("text/plain").trim().slice(0, length);
-    updatePin(pasted);
+    const nextDigits = Array.from({ length }, (_, i) => pasted[i] ?? "");
+    commitDigits(nextDigits);
     const nextFocusIndex = Math.min(pasted.length, length - 1);
     inputRefs.current[nextFocusIndex]?.focus();
   };
 
   return (
     <div
+      ref={ref}
       role="group"
       aria-label={ariaLabel}
       className={cn("inline-flex items-center gap-2", disabled && "opacity-50", className)}
@@ -109,4 +116,5 @@ export function PinInput({
       ))}
     </div>
   );
-}
+});
+PinInput.displayName = "PinInput";

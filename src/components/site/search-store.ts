@@ -4,6 +4,7 @@ import * as React from "react";
 
 let open = false;
 let host: symbol | null = null;
+const mounted = new Set<symbol>();
 const subs = new Set<() => void>();
 let keyBound = false;
 let cached: { open: boolean; host: symbol | null } = { open: false, host: null };
@@ -21,6 +22,7 @@ export function setSearchOpen(v: boolean) {
 }
 
 function claimHost(id: symbol) {
+  mounted.add(id);
   if (host === null) {
     host = id;
     emit();
@@ -28,8 +30,9 @@ function claimHost(id: symbol) {
 }
 
 function releaseHost(id: symbol) {
+  mounted.delete(id);
   if (host === id) {
-    host = null;
+    host = mounted.values().next().value ?? null;
     emit();
   }
 }
@@ -67,6 +70,10 @@ export function useSearchPalette(): {
     }
     return () => {
       releaseHost(id);
+      if (mounted.size === 0 && keyBound) {
+        keyBound = false;
+        document.removeEventListener("keydown", onKey);
+      }
     };
   }, [id]);
   return { open: state.open, setOpen: setSearchOpen, isHost: state.host === id };

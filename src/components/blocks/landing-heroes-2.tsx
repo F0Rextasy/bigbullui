@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 import { AnnouncementBar } from "../ui/announcement-bar";
 import { Hero } from "../ui/hero";
@@ -11,9 +12,14 @@ const SHOT_ROWS = [
   { label: "GATE QUEUE", value: "312" },
 ];
 
-export function LandingHeroes2() {
+export interface LandingHeroes2Props extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function LandingHeroes2({ className, onAction, ...props }: LandingHeroes2Props) {
+  void onAction;
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <AnnouncementBar
         variant="accent"
         badgeLabel="WINTER SEASON"

@@ -103,9 +103,9 @@ export function LogViewer({
           return (
             <div
               key={entry.message}
+              style={{ animationDelay: `${delay}ms` }}
               className={cn(
-                "motion-reduce:transition-none",
-                `motion-safe:animate-[slide-in_0.2s_ease-out_both ${delay}ms fill mode]`,
+                "motion-reduce:transition-none motion-safe:animate-[slide-in_0.2s_ease-out_both] motion-reduce:animate-none!",
                 levelBg,
                 "p-2 rounded",
               )}

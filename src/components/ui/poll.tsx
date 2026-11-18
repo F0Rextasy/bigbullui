@@ -50,7 +50,7 @@ export function Poll({ question = "", options = [], votedId, onVote, className, 
             >
               {hasVoted && (
                 <span
-                  className={cn("absolute inset-y-0 left-0 transition-all duration-700 ease-out motion-reduce:transition-none", isMine ? "bg-accent/20" : "bg-secondary")}
+                  className={cn("absolute inset-y-0 left-0 transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:animate-none!", isMine ? "bg-accent/20" : "bg-secondary")}
                   style={{ width: `${pct}%`, animation: hasVoted ? "pollGrow 0.6s cubic-bezier(0.16,1,0.3,1) both" : undefined }}
                   aria-hidden="true"
                 />

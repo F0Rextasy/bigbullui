@@ -27,7 +27,7 @@ export function PullRefresh({ onRefresh, children, className, ...props }: PullRe
           type="button"
           onClick={refresh}
           disabled={spinning}
-          className="rounded border border-foreground bg-secondary px-2 py-0.5 font-mono text-[11px] font-bold uppercase text-foreground active:scale-95 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded border border-foreground bg-secondary px-2 py-0.5 font-mono text-[11px] font-bold uppercase text-foreground active:scale-95 motion-reduce:active:scale-100 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <span className={cn("me-1 inline-block", spinning && "animate-spin motion-reduce:animate-none")} aria-hidden="true">O</span>
           {spinning ? "Syncing" : "Pull refresh"}

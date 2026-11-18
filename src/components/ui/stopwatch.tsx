@@ -131,7 +131,7 @@ export function Stopwatch({
           type="button"
           onClick={handleStartStop}
           className={cn(
-            "cursor-pointer rounded-md border-2 border-foreground px-4 py-2 text-xs font-bold uppercase tracking-wider shadow-xs transition-transform active:scale-95",
+            "cursor-pointer rounded-md border-2 border-foreground px-4 py-2 text-xs font-bold uppercase tracking-wider shadow-xs transition-transform active:scale-95 motion-reduce:active:scale-100",
             isRunning
               ? "bg-accent text-accent-foreground"
               : "bg-foreground text-background"

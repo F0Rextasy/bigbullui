@@ -1,11 +1,17 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { MetricCard } from "../ui/metric-card";
 
-export function BlockStats() {
+export interface BlockStatsProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockStats({ className, onAction, ...props }: BlockStatsProps) {
+  void onAction;
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">TONIGHT // BY THE NUMBERS</p>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <MetricCard title="GROSS REVENUE" value="$48,250" trend={{ value: "+14.8%", direction: "up", label: "VS LAST WEEK" }} periodLabel="ROLLING 7 DAYS" sparklineData={[32, 38, 35, 42, 40, 48, 52, 59]} />

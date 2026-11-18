@@ -131,9 +131,9 @@ export function CalendarHeatmap({
                 rx={3}
                 fill="currentColor"
                 fillOpacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
+                style={{ animationDelay: `${delay}ms` }}
                 className={cn(
-                  "motion-reduce:transition-none",
-                  `motion-safe:animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,
+                  "motion-reduce:transition-none motion-safe:animate-[fade-in-up_0.2s_ease-out_both] motion-reduce:animate-none!",
                 )}
               >
                 <title>{cell.label}</title>

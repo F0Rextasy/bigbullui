@@ -31,7 +31,7 @@ export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, cla
           onClick={onUpgrade}
           className={cn(
             "rounded-md bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent-foreground",
-            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97]",
+            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >

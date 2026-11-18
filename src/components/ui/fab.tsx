@@ -5,11 +5,20 @@ import { cn } from "./lib/utils";
 
 export type FabPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
 
-export type FabProps = {
+export type FabAction = {
+  id: string;
   label: string;
-  icon?: string;
+  icon?: React.ReactNode;
+  onSelect?: () => void;
+};
+
+export type FabProps = {
+  label?: string;
+  icon?: React.ReactNode;
   position?: FabPosition;
-  onClick: () => void;
+  actions?: FabAction[];
+  onClick?: () => void;
+  className?: string;
 };
 
 const positionClasses: Record<FabPosition, string> = {
@@ -19,82 +28,96 @@ const positionClasses: Record<FabPosition, string> = {
   "top-left": "top-4 left-4",
 };
 
-export function Fab({ label, icon: iconProp, position = "bottom-right", onClick }: FabProps) {
+export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(function Fab(
+  { label = "Action", icon: iconProp, position = "bottom-right", actions, onClick, className },
+  ref
+) {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const handleClick = () => setOpen((prev) => !prev);
+    if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [open]);
+
+  const hasActions = Boolean(actions && actions.length > 0);
 
   return (
     <div>
-      <style>{`
-        @keyframes fabRipple {
-          0% { opacity: 1; transform: scale(0); }
-          100% { opacity: 0; transform: scale(1.5); }
-        }
-      `}</style>
-
-      <div
-        className={cn(
-          "fixed ",
-          positionClasses[position],
-          " -translate-y-1/2 -translate-x-1/2",
-          "z-50",
-          "flex items-center justify-center w-14 h-14 rounded-full bg-accent text-accent-foreground shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-transform",
-          "active:scale-[0.95] transition-transform",
-          "motion-reduce:animate-none",
-          "motion-reduce:transition-none",
-        )}
-        onClick={() => { onClick(); }}
-        onMouseDown={() => setOpen(true)}
-        aria-label={label}
-        role="button"
-        tabIndex={0}
-      >
-        {iconProp ? (
-          <span className="w-6 h-6">{iconProp}</span>
-        ) : (
-          <>
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polygon points="13 2 3 14 12 14 11 22 21 10 14 13"></polygon>
-            </svg>
-          </>
-        )}
-      </div>
-
-      {open && (
+      {open && hasActions && (
         <div
+          aria-hidden="true"
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-[1px]"
+        />
+      )}
+
+      {open && hasActions && (
+        <div
+          role="menu"
+          aria-label={label}
           className={cn(
-            "fixed inset-0 z-40 bg-black/40 backdrop-blur-sm",
-            "motion-reduce:animate-none",
+            "fixed z-50 flex flex-col gap-2",
+            position === "bottom-right" && "bottom-20 right-4 items-end",
+            position === "bottom-left" && "bottom-20 left-4 items-start",
+            position === "top-right" && "top-20 right-4 items-end",
+            position === "top-left" && "top-20 left-4 items-start"
           )}
         >
-          <div
-            className={cn(
-              "fixed inset-0 z-50 bg-black/80 rounded-full w-20 h-20 scale-100 opacity-0 transition-all duration-300 ease-out",
-              "motion-reduce:animate-none",
-            )}
-          >
-            <span className="w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs uppercase tracking-wider">
-              {label.substring(0, 3).toUpperCase()}
-            </span>
-          </div>
+          {actions?.map((act) => (
+            <button
+              key={act.id}
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                act.onSelect?.();
+              }}
+              className="flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 font-mono text-xs text-foreground shadow-md hover:border-foreground/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {act.icon}
+              <span>{act.label}</span>
+            </button>
+          ))}
         </div>
       )}
+
+      <button
+        ref={ref}
+        type="button"
+        onClick={() => {
+          if (hasActions) setOpen((prev) => !prev);
+          onClick?.();
+        }}
+        aria-label={label}
+        aria-expanded={hasActions ? open : undefined}
+        className={cn(
+          "fixed z-50 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg transition-transform hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100",
+          positionClasses[position],
+          className
+        )}
+      >
+        {iconProp ? (
+          <span className="flex items-center justify-center">{iconProp}</span>
+        ) : (
+          <svg
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <polygon points="13 2 3 14 12 14 11 22 21 10 14 13"></polygon>
+          </svg>
+        )}
+      </button>
     </div>
   );
-}
+});
+Fab.displayName = "Fab";

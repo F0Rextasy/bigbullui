@@ -3,12 +3,12 @@
 import * as React from "react";
 import Link from "next/link";
 import { CopyBlock } from "@/components/site/copy-block";
-import { NavIcon, type NavIconName } from "@/components/site/nav-icons";
+import { ChromeIcon, type ChromeIconName } from "@/components/site/chrome-icons";
 import { slugTitle } from "@/lib/site-meta";
 
 export type BlockSection = {
   group: string;
-  icon: NavIconName;
+  icon: ChromeIconName;
   blurb: string;
   /** Block slugs; the gallery links to /blocks/<slug> instead of rendering them. */
   items: string[];
@@ -82,7 +82,7 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
                     : "flex shrink-0 items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground/50 hover:text-foreground"
                 }
               >
-                <NavIcon name={section.icon} size={12} />
+                <ChromeIcon name={section.icon} size={12} />
                 {section.group}
               </button>
             ))}
@@ -111,7 +111,7 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
           <div className="flex flex-wrap items-end justify-between gap-2 border-b-2 border-dashed border-border pb-3">
             <div className="flex items-center gap-2.5">
               <span className="flex size-9 items-center justify-center rounded-md border-2 border-foreground bg-card text-foreground">
-                <NavIcon name={section.icon} size={17} />
+                <ChromeIcon name={section.icon} size={17} />
               </span>
               <div>
                 <h2 className="font-mono text-lg font-black uppercase tracking-tight">{section.group}</h2>

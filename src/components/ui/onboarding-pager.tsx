@@ -37,7 +37,7 @@ export function OnboardingPager({ steps = FALLBACK, className, ...props }: Onboa
       </div>
       <div className="mt-4 flex justify-between">
         <button type="button" disabled={index === 0} onClick={() => setIndex((i) => Math.max(0, i - 1))} className="rounded border border-dashed border-border px-3 py-1 font-mono text-[11px] font-bold uppercase text-muted-foreground disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Back</button>
-        <button type="button" onClick={() => setIndex((i) => Math.min(steps.length - 1, i + 1))} className="rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase text-primary-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <button type="button" onClick={() => setIndex((i) => Math.min(steps.length - 1, i + 1))} className="rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase text-primary-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           {index === steps.length - 1 ? "Finish" : "Next"}
         </button>
       </div>

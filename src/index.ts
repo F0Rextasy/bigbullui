@@ -1243,8 +1243,10 @@ export { CompareTable } from "./components/ui/compare-table";
 export type { CompareColumn, CompareTableProps } from "./components/ui/compare-table";
 export { ThemeStampingMachine } from "./components/ui/theme-stamping-machine";
 export type { ThemeStampingMachineProps } from "./components/ui/theme-stamping-machine";
+/** @deprecated Internal docs helper — will move out of root package exports in v2.0. */
 export { DocsPropPlayground } from "./components/ui/docs-prop-playground";
 export type { PropField, DocsPropPlaygroundProps } from "./components/ui/docs-prop-playground";
+/** @deprecated Internal docs helper — will move out of root package exports in v2.0. */
 export { DocsStackblitzButton } from "./components/ui/docs-stackblitz-button";
 export type { DocsStackblitzButtonProps } from "./components/ui/docs-stackblitz-button";
 export { TicketDeckDnd } from "./components/ui/ticket-deck-dnd";

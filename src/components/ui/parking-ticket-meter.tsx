@@ -18,22 +18,36 @@ export function ParkingTicketMeter({
   className,
   ...props
 }: ParkingTicketMeterProps) {
-  const [now, setNow] = React.useState(() => Date.now());
-  const start = enteredAt ?? now;
+  const [now, setNow] = React.useState<number | null>(null);
+  const fallbackStartRef = React.useRef<number | null>(null);
+  const expiredFiredRef = React.useRef(false);
+  const onExpireRef = React.useRef(onExpire);
+  onExpireRef.current = onExpire;
 
   React.useEffect(() => {
+    const t0 = Date.now();
+    if (fallbackStartRef.current === null) fallbackStartRef.current = t0;
+    setNow(t0);
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
 
-  const elapsedMin = Math.max(0, (now - start) / 60000);
+  const start = enteredAt ?? fallbackStartRef.current ?? 0;
+  const elapsedMin = now === null ? 0 : Math.max(0, (now - start) / 60000);
   const leftMin = allowanceMin - elapsedMin;
-  const expired = leftMin <= 0;
-  const pct = Math.min(100, Math.max(0, (leftMin / allowanceMin) * 100));
+  const expired = now !== null && leftMin <= 0;
+  const pct = allowanceMin > 0 ? Math.min(100, Math.max(0, (leftMin / allowanceMin) * 100)) : 0;
 
   React.useEffect(() => {
-    if (expired) onExpire?.();
-  }, [expired, onExpire ]);
+    if (!expired) {
+      expiredFiredRef.current = false;
+      return;
+    }
+    if (!expiredFiredRef.current) {
+      expiredFiredRef.current = true;
+      onExpireRef.current?.();
+    }
+  }, [expired]);
 
   const hh = Math.floor(Math.max(leftMin, 0) / 60);
   const mm = Math.floor(Math.max(leftMin, 0) % 60);

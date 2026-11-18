@@ -74,7 +74,7 @@ export function Rating({
               onMouseEnter={() => !disabled && setHoverVal(starValue)}
               className={cn(
                 "rounded-sm p-1 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                !disabled && "cursor-pointer hover:scale-110 active:scale-95"
+                !disabled && "cursor-pointer hover:scale-110 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100"
               )}
             >
               <svg

@@ -4,7 +4,7 @@
    Requires Tailwind CSS v4. */
 
 @source "./dist";
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *):not(:where(.light, .light *)));
 
 /* Ticket Stub — light: warm cream stub */
 :root, .light {
@@ -174,13 +174,29 @@
 }
 
 @layer base {
-  /* Pointer and focus affordances, set once for every interactive element. */
+  /* Default semantic border color across all bare `border` utilities, plus pointer & focus affordances. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
   :where(button, [role="button"], summary):not(:disabled) {
     cursor: pointer;
   }
   :where(a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([class*="animate-"], [style*="animation"]) {
+    animation: none !important;
+  }
+  :where(*, ::before, ::after) {
+    scroll-behavior: auto !important;
   }
 }
 

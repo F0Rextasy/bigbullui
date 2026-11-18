@@ -30,7 +30,7 @@ const FollowButton: React.FC<{
       type="button"
       onClick={handleClick}
       className={cn(
-        "flex items-center gap-1 rounded-md border border-dashed border-border/30 px-2.5 py-1 text-[10px] mono uppercase text-muted-foreground",
+        "flex items-center gap-1 rounded-md border border-dashed border-border/30 px-2.5 py-1 text-[10px] font-mono uppercase text-muted-foreground",
         isActive && "bg-accent text-accent-foreground",
         isActive && "hover:bg-accent/90"
       )}
@@ -78,7 +78,7 @@ const FollowerList: React.FC<FollowerListProps> = ({ followers = [] }) => {
         >
           <span
             className={cn(
-              "rounded-full bg-border/20 p-1 text-[10px] mono uppercase text-muted-foreground",
+              "rounded-full bg-border/20 p-1 text-[10px] font-mono uppercase text-muted-foreground",
               "w-6 h-6 flex-shrink-0"
             )}
           >
@@ -88,7 +88,7 @@ const FollowerList: React.FC<FollowerListProps> = ({ followers = [] }) => {
             <span className="font-mono uppercase text-foreground">
               {follower.name}
             </span>
-            <span className="text-[10px] mono uppercase text-muted-foreground">
+            <span className="text-[10px] font-mono uppercase text-muted-foreground">
               {follower.handle}
             </span>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -14,17 +15,25 @@ const NOTES = [
 
 const TAGS = ["ALL", "OPS", "VIP", "HYPE"] as const;
 
-export function AppNotes() {
+export interface AppNotesProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppNotes({ className, onAction, ...props }: AppNotesProps) {
   const [tag, setTag] = React.useState<(typeof TAGS)[number]>("ALL");
+  const [notice, setNotice] = React.useState<string | null>(null);
   const visible = NOTES.filter((note) => tag === "ALL" || note.tag === tag);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DESK // NOTES</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Field notes</h2>
         </div>
-        <Button size="sm">New note</Button>
+        <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
+          <Button size="sm" onClick={() => { setNotice("Blank field note opened."); onAction?.("new-note"); }}>New note</Button>
+        </div>
       </div>
       <div className="flex flex-wrap gap-2" role="group" aria-label="Filter notes by tag">
         {TAGS.map((option) => (

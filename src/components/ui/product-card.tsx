@@ -41,7 +41,7 @@ export function ProductCard({
             src={image}
             alt={title}
             className={cn(
-              "object-cover w-full h-full transition-transform group-hover:scale-105 motion-reduce:transition-none group-hover:scale-1",
+              "object-cover w-full h-full transition-transform group-hover:scale-105 motion-reduce:group-hover:scale-100 motion-reduce:transition-none group-hover:scale-1 motion-reduce:group-hover:scale-100",
               discount > 0 && "brightness-90"
             )}
             loading="lazy"
@@ -73,7 +73,7 @@ export function ProductCard({
           type="button"
           onClick={onAddToWishlist}
           className={cn(
-            "mt-1.5 inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-accent text-accent px-3 py-1.5 text-xs font-semibold uppercase tracking-widest hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transition-none motion-reduce:scale-100",
+            "mt-1.5 inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-accent text-accent px-3 py-1.5 text-xs font-semibold uppercase tracking-widest hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent motion-reduce:transition-none motion-reduce:scale-100",
             Pulse
           )}
         >

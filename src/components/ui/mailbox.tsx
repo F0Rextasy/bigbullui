@@ -39,7 +39,7 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
           </svg>
         </span>
         {/* Box */}
-        <div className={cn("flex size-28 flex-col items-center justify-center rounded-b-lg rounded-t-md border-2 border-dashed border-border bg-card transition-transform duration-200 motion-reduce:transition-none", sent && "animate-[mbBounce_0.4s_ease-out]")}>
+        <div className={cn("flex size-28 flex-col items-center justify-center rounded-b-lg rounded-t-md border-2 border-dashed border-border bg-card transition-transform duration-200 motion-reduce:transition-none motion-reduce:animate-none!", sent && "motion-safe:animate-[mbBounce_0.4s_ease-out]")}>
           <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">MAIL</span>
           <span className="mt-1 text-2xl" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-6 text-foreground">
@@ -51,7 +51,7 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
         </div>
         {sent && (
           <span className="absolute inset-x-0 -top-4 flex justify-center" aria-hidden="true">
-            <span className="text-xl" style={{ animation: "mbLetter 0.8s ease-in both" }}>
+            <span className="text-xl motion-reduce:animate-none!" style={{ animation: "mbLetter 0.8s ease-in both" }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-5 text-foreground">
                 <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
                 <path d="M3.5 7 12 13l8.5-6" />

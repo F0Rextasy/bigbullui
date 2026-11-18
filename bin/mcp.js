@@ -16,13 +16,16 @@ const path = require("node:path");
 const https = require("node:https");
 
 const SITE = "https://ui.bigbullapp.com";
-const GITHUB_RAW = "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 let VERSION = "unknown";
 try {
   VERSION = require("../package.json").version;
 } catch {
   // unreachable package.json leaves the placeholder in place
 }
+const GITHUB_RAW_TAG = VERSION !== "unknown"
+  ? `https://raw.githubusercontent.com/F0Rextasy/bigbullui/v${VERSION}`
+  : "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
+const GITHUB_RAW = "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 
 function packageRoot() {
   return path.resolve(__dirname, "..");
@@ -68,10 +71,10 @@ async function loadJson(rel, url) {
   return JSON.parse(await fetchUrl(url));
 }
 
-async function loadText(rel, url) {
+async function loadText(rel, url, fallbackUrl) {
   const local = path.join(packageRoot(), rel);
   if (fs.existsSync(local)) return fs.readFileSync(local, "utf8");
-  return await fetchUrl(url);
+  return fallbackUrl ? await fetchUrl(url).catch(() => fetchUrl(fallbackUrl)) : await fetchUrl(url);
 }
 
 const cache = {};
@@ -98,7 +101,7 @@ async function iconsIndex() {
 
 async function themeCss() {
   if (!cache.theme) {
-    cache.theme = await loadText("bigbullui.css", `${GITHUB_RAW}/bigbullui.css`);
+    cache.theme = await loadText("bigbullui.css", `${GITHUB_RAW_TAG}/bigbullui.css`, `${GITHUB_RAW}/bigbullui.css`);
   }
   return cache.theme;
 }

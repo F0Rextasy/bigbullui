@@ -1,7 +1,17 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
+import { registerEscapeLayer } from "./lib/focus-trap";
+
+function assignRef<T>(ref: React.Ref<T> | undefined, node: T | null) {
+  if (!ref) return;
+  if (typeof ref === "function") ref(node);
+  else if (typeof ref === "object" && "current" in ref) {
+    (ref as React.MutableRefObject<T | null>).current = node;
+  }
+}
 
 interface PopoverContextValue {
   open: boolean;
@@ -28,19 +38,23 @@ export function Popover({
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
 
   const setOpen = React.useCallback(
     (nextOpen: boolean) => {
       if (!isControlled) {
         setUncontrolledOpen(nextOpen);
       }
-      onOpenChange?.(nextOpen);
+      onOpenChangeRef.current?.(nextOpen);
     },
-    [isControlled, onOpenChange]
+    [isControlled]
   );
 
+  const ctxValue = React.useMemo(() => ({ open, setOpen, triggerRef }), [open, setOpen]);
+
   return (
-    <PopoverCtx.Provider value={{ open, setOpen, triggerRef }}>
+    <PopoverCtx.Provider value={ctxValue}>
       <div className="relative inline-block">{children}</div>
     </PopoverCtx.Provider>
   );
@@ -59,9 +73,13 @@ export interface PopoverTriggerProps {
 export function PopoverTrigger({ children }: PopoverTriggerProps) {
   const ctx = React.useContext(PopoverCtx);
   if (!ctx) throw new Error("PopoverTrigger must be used within Popover");
+  const childRef = (children.props as { ref?: React.Ref<HTMLButtonElement> }).ref;
 
   return React.cloneElement(children, {
-    ref: ctx.triggerRef,
+    ref: (node: HTMLButtonElement | null) => {
+      ctx.triggerRef.current = node;
+      assignRef(childRef, node);
+    },
     "aria-haspopup": "dialog",
     "aria-expanded": ctx.open,
     onMouseDown: (e: React.MouseEvent) => {
@@ -88,14 +106,34 @@ export function PopoverContent({
   align = "center",
   children,
   className,
+  style,
   animated = true,
   ...props
 }: PopoverContentProps) {
   const ctx = React.useContext(PopoverCtx);
   const contentRef = React.useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = React.useState<{ top: number; left: number } | null>(null);
+  const open = Boolean(ctx?.open);
+  const setOpen = ctx?.setOpen;
 
   React.useEffect(() => {
-    if (!ctx?.open) return;
+    if (!open || !setOpen) {
+      setCoords(null);
+      return;
+    }
+
+    const updatePosition = () => {
+      const rect = ctx?.triggerRef.current?.getBoundingClientRect();
+      if (!rect || (rect.width === 0 && rect.height === 0)) {
+        setCoords(null);
+        return;
+      }
+      const left =
+        align === "start" ? rect.left : align === "end" ? rect.right : rect.left + rect.width / 2;
+      setCoords({ top: rect.bottom + 8, left });
+    };
+
+    updatePosition();
 
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
@@ -104,37 +142,50 @@ export function PopoverContent({
         !contentRef.current.contains(target) &&
         !ctx?.triggerRef.current?.contains(target)
       ) {
-        ctx?.setOpen(false);
+        setOpen?.(false);
       }
     }
 
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        ctx?.setOpen(false);
-        ctx?.triggerRef.current?.focus();
-      }
-    }
+    const releaseEscape = registerEscapeLayer(() => {
+      setOpen(false);
+      ctx?.triggerRef.current?.focus();
+    });
 
     document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", updatePosition, true);
+    window.addEventListener("resize", updatePosition);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+      releaseEscape();
     };
-  }, [ctx]);
+  }, [open, setOpen, ctx?.triggerRef, align]);
 
-  if (!ctx?.open) return null;
+  if (!open) return null;
 
-  return (
+  const portalStyle: React.CSSProperties | undefined = coords
+    ? {
+        position: "fixed",
+        top: coords.top,
+        left: coords.left,
+        transform: align === "end" ? "translateX(-100%)" : align === "center" ? "translateX(-50%)" : undefined,
+        ...style,
+      }
+    : style;
+
+  const panel = (
     <div
       ref={contentRef}
       role="dialog"
+      style={portalStyle}
       className={cn(
-        "absolute z-50 mt-2 w-72 rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px]",
+        "z-50 w-72 overscroll-contain rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px]",
+        !coords && "absolute mt-2",
+        !coords && align === "start" && "left-0",
+        !coords && align === "center" && "left-1/2 -translate-x-1/2",
+        !coords && align === "end" && "right-0",
         animated && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
-        align === "start" && "left-0",
-        align === "center" && "left-1/2 -translate-x-1/2",
-        align === "end" && "right-0",
         className
       )}
       {...props}
@@ -142,4 +193,6 @@ export function PopoverContent({
       {children}
     </div>
   );
+
+  return coords && typeof document !== "undefined" ? createPortal(panel, document.body) : panel;
 }

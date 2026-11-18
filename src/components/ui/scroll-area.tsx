@@ -398,7 +398,7 @@ export function ScrollArea({
               }}
               className={cn(
                 "absolute left-0.5 right-0.5 rounded-xs border-2 border-foreground bg-accent text-accent-foreground shadow-xs cursor-grab active:cursor-grabbing",
-                "hover:scale-105 active:scale-95 transition-transform flex items-center justify-center",
+                "hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 transition-transform flex items-center justify-center",
                 isDraggingV && "scale-105 bg-accent brightness-110"
               )}
             >
@@ -442,7 +442,7 @@ export function ScrollArea({
               }}
               className={cn(
                 "absolute top-0.5 bottom-0.5 rounded-xs border-2 border-foreground bg-accent text-accent-foreground shadow-xs cursor-grab active:cursor-grabbing",
-                "hover:scale-105 active:scale-95 transition-transform flex items-center justify-center",
+                "hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 transition-transform flex items-center justify-center",
                 isDraggingH && "scale-105 bg-accent brightness-110"
               )}
             >

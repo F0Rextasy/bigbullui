@@ -10,28 +10,31 @@ export type TimeAgoProps = {
 function formatTimeAgo(date: Date | number | string): string {
   const now = new Date();
   const target = typeof date === "number" ? new Date(date) : new Date(date);
+  if (Number.isNaN(target.getTime())) return "UNKNOWN";
   const diffMs = now.getTime() - target.getTime();
-  const diffSec = Math.floor(diffMs / 1000);
+  const isFuture = diffMs < 0;
+  const diffSec = Math.floor(Math.abs(diffMs) / 1000);
   const diffMin = Math.floor(diffSec / 60);
   const diffHour = Math.floor(diffMin / 60);
   const diffDay = Math.floor(diffHour / 24);
 
-  if (diffDay > 0) {
-    return `${diffDay} DAY${diffDay === 1 ? "" : "S"} AGO`;
-  }
-  if (diffHour > 0) {
-    return `${diffHour} HR${diffHour === 1 ? "" : "S"} AGO`;
-  }
-  if (diffMin > 0) {
-    return `${diffMin} MIN${diffMin === 1 ? "" : "S"} AGO`;
-  }
-  return `${diffSec} SEC${diffSec === 1 ? "" : "S"} AGO`;
+  const label =
+    diffDay > 0
+      ? `${diffDay} DAY${diffDay === 1 ? "" : "S"}`
+      : diffHour > 0
+        ? `${diffHour} HR${diffHour === 1 ? "" : "S"}`
+        : diffMin > 0
+          ? `${diffMin} MIN${diffMin === 1 ? "" : "S"}`
+          : `${diffSec} SEC${diffSec === 1 ? "" : "S"}`;
+
+  return isFuture ? `IN ${label}` : `${label} AGO`;
 }
 
 const TimeAgo = ({ date, live = true }: TimeAgoProps) => {
-  const [text, setText] = React.useState(() => formatTimeAgo(date));
+  const [text, setText] = React.useState<string>("JUST NOW");
 
   React.useEffect(() => {
+    setText(formatTimeAgo(date));
     if (!live) return;
     const interval = setInterval(() => {
       setText(formatTimeAgo(date));
@@ -44,7 +47,7 @@ const TimeAgo = ({ date, live = true }: TimeAgoProps) => {
       className={cn(
         "font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground",
         "animate-[fade-in-up_0.3s_ease-out_both]",
-        "motion-reduce:animate-none"
+        "motion-reduce:animate-none!"
       )}
     >
       {text}

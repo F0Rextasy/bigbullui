@@ -23,7 +23,7 @@ export function JsonFormatter({ defaultValue = '{"section":"C","row":12,"vip":tr
     <div className={cn("w-full rounded-lg border-2 border-foreground bg-card p-4 shadow-md", className)} {...props}>
       <div className="flex items-center justify-between">
         <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground">JSON formatter</p>
-        <button type="button" onClick={format} className="rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase text-primary-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        <button type="button" onClick={format} className="rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase text-primary-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
           Format
         </button>
       </div>

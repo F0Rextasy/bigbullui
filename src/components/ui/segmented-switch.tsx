@@ -303,7 +303,7 @@ export function SegmentedSwitch({
                     heightClasses,
                     getToneTextColor(opt.tone, isSelected),
                     opt.disabled && "cursor-not-allowed opacity-40",
-                    !isSelected && "hover:bg-foreground/5 active:scale-95"
+                    !isSelected && "hover:bg-foreground/5 active:scale-95 motion-reduce:active:scale-100"
                   )}
                 >
                   {/* Micro Index Badge */}

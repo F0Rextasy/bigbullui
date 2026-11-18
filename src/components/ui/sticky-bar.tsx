@@ -43,7 +43,7 @@ export function StickyBar({
         <button
           type="button"
           onClick={onAction}
-          className="flex cursor-pointer items-center gap-2 rounded-lg border-2 border-foreground bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wider text-accent-foreground shadow-md transition-transform hover:scale-105 active:scale-95"
+          className="flex cursor-pointer items-center gap-2 rounded-lg border-2 border-foreground bg-accent px-5 py-2 text-xs font-bold uppercase tracking-wider text-accent-foreground shadow-md transition-transform hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100"
         >
           <span>{actionText}</span>
           <span className="font-bold">→</span>

@@ -54,6 +54,16 @@
       "types": "./high-contrast.d.ts",
       "default": "./high-contrast.css"
     },
+    "./utils": {
+      "import": {
+        "types": "./dist/components/ui/lib/utils.d.mts",
+        "default": "./dist/components/ui/lib/utils.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/utils.d.ts",
+        "default": "./dist/components/ui/lib/utils.js"
+      }
+    },
     "./components/ui/*": {
       "import": {
         "types": "./dist/components/ui/*.d.mts",
@@ -90,9 +100,9 @@
     "tailwindcss": ">=4"
   },
   "scripts": {
-    "predev": "node scripts/calc-sizes.mjs && node scripts/dep-graph.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-docs-json.mjs",
+    "predev": "node scripts/calc-sizes.mjs && node scripts/dep-graph.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-docs-json.mjs && node scripts/generate-icon-components.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-docs-json.mjs && node scripts/generate-icon-registry.mjs && node scripts/dep-graph.mjs && node scripts/generate-readme.mjs",
+    "prebuild": "node scripts/generate-llms-full.mjs && node scripts/calc-sizes.mjs && node scripts/generate-registry-json.mjs && node scripts/generate-docs-json.mjs && node scripts/generate-icon-registry.mjs && node scripts/generate-icon-components.mjs && node scripts/dep-graph.mjs && node scripts/generate-readme.mjs",
     "build": "next build",
     "build:lib": "tsup",
     "prepublishOnly": "node scripts/generate-registry-json.mjs && npm run build:lib",
@@ -101,6 +111,7 @@
     "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -113,6 +124,7 @@
     "eslint-config-next": "16.3.4",
     "next": "16.3.4",
     "playwright": "^1.63.0",
+    "publint": "^0.3.25",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwindcss": "^4",

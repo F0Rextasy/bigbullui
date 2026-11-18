@@ -9,9 +9,13 @@ import { useSearchPalette } from "@/components/site/search-store";
 import { categories } from "@/lib/registry-categories";
 import { BLOCK_SLUGS, slugTitle } from "@/lib/site-meta";
 import catalog from "@/data/catalog.json";
+import iconsMeta from "@/../public/icons.json";
 
 const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
   { id: "docs", label: "Components overview", hint: "Browse every component", href: "/docs" },
+  { id: "icons", label: "Icon Set", hint: "Browse 1,099 hand-drawn stroke icons", href: "/icons" },
+  { id: "blocks", label: "Page Blocks", hint: "75 ready-to-copy page sections", href: "/blocks" },
+  { id: "showcase", label: "Showcase", hint: "Community sites built with bigbullui", href: "/showcase" },
   { id: "installation", label: "Installation", hint: "Install the library and tokens", href: "/docs/installation" },
   { id: "agents", label: "AI Agents", hint: "SKILL.md and agent instructions", href: "/docs/agents" },
   { id: "design", label: "Design", hint: "Ticket Stub identity and tokens", href: "/docs/design" },
@@ -87,6 +91,13 @@ export function DocsSearch({
         category: "Blocks",
         keywords: ["block", ...slug.split("-"), slugTitle(slug).toLowerCase()],
         onSelect: () => router.push(`/blocks/${slug}`),
+      })),
+      ...(iconsMeta.icons as string[]).map((name) => ({
+        id: `icon-${name}`,
+        label: name,
+        category: "Icons",
+        keywords: ["icon", ...name.split("-")],
+        onSelect: () => router.push(`/icons/${name}`),
       })),
     ],
     [router]

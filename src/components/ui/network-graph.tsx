@@ -47,6 +47,7 @@ export function NetworkGraph({ nodes = [], edges = [], height = 260, className, 
             stroke={active ? "var(--accent)" : "var(--border)"}
             strokeWidth={active ? 0.6 : (edge.weight ?? 0.3)}
             strokeDasharray="60"
+            className="motion-reduce:animate-none! motion-reduce:transition-none"
             style={{ animation: "ngDraw 0.6s ease-out both", animationDelay: `${idx * 80}ms`, opacity: hover === null || active ? 1 : 0.25, transition: "opacity 0.2s" }}
           />
         );
@@ -60,7 +61,7 @@ export function NetworkGraph({ nodes = [], edges = [], height = 260, className, 
             onMouseEnter={() => setHover(node.id)}
             onMouseLeave={() => setHover(null)}
             style={{ animation: `ngNode 0.35s cubic-bezier(0.34,1.56,0.64,1) both`, animationDelay: `${idx * 70}ms`, transformOrigin: `${node.x}px ${node.y}px`, opacity: dim ? 0.3 : 1, transition: "opacity 0.2s" }}
-            className="cursor-pointer"
+            className="cursor-pointer motion-reduce:animate-none! motion-reduce:transition-none"
           >
             <circle cx={node.x} cy={node.y} r={r} fill={hover === node.id ? "var(--accent)" : "var(--card)"} stroke="var(--accent)" strokeWidth={hover === node.id ? 0.7 : 0.4} />
             <text x={node.x} y={node.y - r - 2} textAnchor="middle" fontSize="2.6" fill="var(--foreground)" className="pointer-events-none select-none font-mono">

@@ -158,7 +158,7 @@ export function PodcastPlayer({
           type="button"
           onClick={() => onSkip?.(-15)}
           className={cn(
-            "rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-transform hover:scale-95",
+            "rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-transform hover:scale-95 motion-reduce:hover:scale-100",
             motionReduceClass
           )}
           aria-label="Skip back 15s"
@@ -171,7 +171,7 @@ export function PodcastPlayer({
           type="button"
           onClick={() => onSkip?.(15)}
           className={cn(
-            "rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-transform hover:scale-95",
+            "rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-transform hover:scale-95 motion-reduce:hover:scale-100",
             motionReduceClass
           )}
           aria-label="Skip forward 15s"

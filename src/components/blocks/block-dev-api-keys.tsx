@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { ApiKeyCard } from "../ui/api-key-card";
 import { UsageMeter } from "../ui/usage-meter";
 import { WebhookList } from "../ui/webhook-list";
@@ -20,9 +21,14 @@ const LOGS = [
   { time: "20:44:02", level: "ERROR" as const, message: "webhook refund.opened retry 2 of 5" },
 ];
 
-export function BlockDevApiKeys() {
+export interface BlockDevApiKeysProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockDevApiKeys({ className, onAction, ...props }: BlockDevApiKeysProps) {
+  void onAction;
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="DEVELOPERS // KEYS"
         title="API keys"

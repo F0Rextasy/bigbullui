@@ -225,7 +225,7 @@ export function NfcBadge({
             {/* Central RFID / Radio Wave Icon */}
             <div
               className={cn(
-                "flex size-14 items-center justify-center rounded-full border-2 transition-transform duration-200 group-hover:scale-105",
+                "flex size-14 items-center justify-center rounded-full border-2 transition-transform duration-200 group-hover:scale-105 motion-reduce:group-hover:scale-100",
                 currentStatus === "idle" && "border-foreground bg-card text-foreground shadow-xs",
                 currentStatus === "scanning" && "border-accent bg-accent text-accent-foreground scale-110 shadow-md",
                 currentStatus === "success" && "border-success bg-success text-white scale-110 shadow-md",
@@ -331,7 +331,7 @@ export function NfcBadge({
           {/* Successful Admission Chime Visual Indicator */}
           {showChimeVisual && currentStatus === "success" && (
             <div
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded border border-success/40 bg-success/15 px-3 py-1.5 text-success motion-safe:animate-in fade-in zoom-in-95 duration-200"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded border border-success/40 bg-success/15 px-3 py-1.5 text-success motion-safe:animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none!"
               aria-live="polite"
             >
               {/* Chime Bell Icon */}

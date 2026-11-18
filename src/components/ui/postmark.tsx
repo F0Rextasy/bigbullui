@@ -9,7 +9,17 @@ export interface PostmarkProps {
   serial?: string;
 }
 
-export function Postmark({ city, date = new Date().toLocaleDateString(), serial }: PostmarkProps) {
+export function Postmark({ city = "NEW YORK", date, serial }: PostmarkProps) {
+  const [clientDate, setClientDate] = React.useState("");
+
+  React.useEffect(() => {
+    if (date === undefined) {
+      setClientDate(new Date().toLocaleDateString("en-US"));
+    }
+  }, [date]);
+
+  const displayDate = date ?? clientDate;
+
   return (
     <svg
       className="relative size-20"
@@ -35,7 +45,7 @@ export function Postmark({ city, date = new Date().toLocaleDateString(), serial 
         fill="currentColor"
         opacity={0.85}
       >
-        {date}
+        {displayDate}
       </text>
 
       <text

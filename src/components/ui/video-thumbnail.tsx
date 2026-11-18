@@ -73,7 +73,7 @@ export function VideoThumbnail({
           className={cn(
             "absolute inset-0 flex items-center justify-center rounded-full border-2 border-border/60",
             "motion-reduce:transition-none",
-            "hover:scale-105",
+            "hover:scale-105 motion-reduce:hover:scale-100",
             "transition-transform duration-200 ease-out"
           )}
           onMouseEnter={() => {}}

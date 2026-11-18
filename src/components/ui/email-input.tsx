@@ -30,10 +30,10 @@ export function EmailInput({
   className,
 }: EmailInputProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue);
-  const [touched, setTouched] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [showSuggestion, setShowSuggestion] = React.useState(false);
   const [suggestionDomain, setSuggestionDomain] = React.useState("");
+  const errorId = React.useId();
 
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : internalValue;
@@ -42,7 +42,6 @@ export function EmailInput({
     if (isControlled) {
       setInternalValue(controlledValue);
       setError(false);
-      setTouched(false);
       setShowSuggestion(false);
     }
   }, [isControlled, controlledValue]);
@@ -56,7 +55,6 @@ export function EmailInput({
   };
 
   const handleBlur = () => {
-    setTouched(true);
     if (validate && !validateEmail(currentValue)) {
       setError(true);
     }
@@ -93,19 +91,18 @@ export function EmailInput({
   );
 
   return (
-    <div className={cn("space-y-1.5", className)}>
+    <div className={cn("relative space-y-1.5", className)}>
       <input
         type="email"
         value={currentValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        className={classes}
-        disabled={validate && error}
+        className={cn(classes, error && "border-destructive ring-destructive/50")}
         aria-invalid={error || undefined}
-        aria-describedby={error ? "email-error" : undefined}
+        aria-describedby={error ? errorId : undefined}
       />
       {error && (
-        <p id="email-error" className="text-[10px] uppercase tracking-[0.15em] text-destructive">
+        <p id={errorId} className="text-[10px] uppercase tracking-[0.15em] text-destructive">
           Please enter a valid email address
         </p>
       )}

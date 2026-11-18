@@ -11,10 +11,20 @@ npm install bigbullicons
 ## Use
 
 ```tsx
-import { StampIcon } from "bigbullicons";
+import { TicketIcon } from "bigbullicons";
 
 export function Example() {
-  return <StampIcon name="ticket" size={20} />;
+  return <TicketIcon size={20} />;
+}
+```
+
+Or load icons dynamically by string name via `bigbullicons/dynamic`:
+
+```tsx
+import { StampIcon } from "bigbullicons/dynamic";
+
+export function DynamicExample({ name }: { name: "ticket" | "stamp" }) {
+  return <StampIcon name={name} size={20} />;
 }
 ```
 
@@ -22,16 +32,16 @@ export function Example() {
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `name` | union of 1099 names | required | Icon to render |
 | `size` | number | 20 | Width and height in px |
-| `animated` | boolean | true | Master switch for motion |
-| `animation` | `"draw" \| "pulse" \| "spin" \| "none"` | `"draw"` | Motion character; every icon supports animated and static rendering. Honors `prefers-reduced-motion`. |
+| `animated` | boolean | true | Master switch for motion (named icons render statically unless animated on `StampIcon`) |
+| `animation` | `"draw" \| "pulse" \| "spin" \| "none"` | `"draw"` | Motion character on `StampIcon`; honors `prefers-reduced-motion`. |
+| `name` (`StampIcon` only) | union of 1099 names | required | Icon to render dynamically by string name |
 
 ## Catalog (1099 icons)
 
 | Category | Icons | Examples |
 |---|---|---|
-| Essentials | 24 | `ticket`, `stamp`, `gate`, `stub`, `perforation` |
+| Essentials | 100 | `ticket`, `stamp`, `gate`, `stub`, `perforation` |
 | Arrows & Direction | 200 | `arrow-up`, `chevron-down`, `undo`, `expand` |
 | Media & Playback | 200 | `play`, `pause`, `volume-high`, `microphone` |
 | Files & Office | 200 | `file-text`, `folder`, `printer`, `lock` |

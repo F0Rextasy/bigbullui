@@ -63,7 +63,7 @@ export function StopwatchV2({ label = "CHRONO", className, ...props }: Stopwatch
         <button
           type="button"
           onClick={toggle}
-          className="cursor-pointer rounded-md bg-accent px-4 py-1.5 font-mono text-xs font-bold uppercase text-accent-foreground transition-transform hover:scale-105 active:scale-95"
+          className="cursor-pointer rounded-md bg-accent px-4 py-1.5 font-mono text-xs font-bold uppercase text-accent-foreground transition-transform hover:scale-105 active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
         >
           {running ? "Stop" : "Start"}
         </button>

@@ -1,8 +1,11 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { NAV_ICON_NAMES, NAV_ICON_CATEGORIES, NAV_CATEGORIES, NavIcon, type NavIconName } from "@/components/site/nav-icons";
 import { CopyButton } from "@/components/ui/copy-button";
+
+const PAGE_SIZE = 120;
 
 type Anim = "draw" | "pulse" | "spin" | "none";
 
@@ -13,10 +16,15 @@ function IconCard({ name, animation, big }: { name: NavIconName; animation: Anim
       className="group flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-4 transition-colors hover:border-foreground/50"
       onMouseEnter={() => setReplayKey((k) => k + 1)}
     >
-      <NavIcon key={`${name}-${replayKey}`} name={name} size={big ? 40 : 20} animated animation={animation} />
-      <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">
-        {name}
-      </span>
+      <Link
+        href={`/icons/${name}`}
+        className="flex w-full flex-col items-center gap-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <NavIcon key={`${name}-${replayKey}`} name={name} size={big ? 40 : 20} animated animation={animation} />
+        <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">
+          {name}
+        </span>
+      </Link>
       <CopyButton value={`<StampIcon name="${name}" />`} />
     </div>
   );
@@ -27,7 +35,19 @@ export function IconsGallery() {
   const [query, setQuery] = React.useState("");
   const [animation, setAnimation] = React.useState<Anim>("draw");
   const [category, setCategory] = React.useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
   const q = query.trim().toLowerCase();
+
+  const updateQuery = (next: string) => {
+    setQuery(next);
+    setVisibleCount(PAGE_SIZE);
+  };
+
+  const updateCategory = (next: string | null) => {
+    setCategory(next);
+    setVisibleCount(PAGE_SIZE);
+  };
+
   const names = React.useMemo(
     () =>
       NAV_ICON_NAMES.filter(
@@ -37,20 +57,27 @@ export function IconsGallery() {
       ),
     [q, category]
   );
+
+  const visibleNames = React.useMemo(
+    () => names.slice(0, visibleCount),
+    [names, visibleCount]
+  );
+
   const grouped = React.useMemo(() => {
     const map = new Map<string, NavIconName[]>();
-    for (const name of names) {
+    for (const name of visibleNames) {
       const cat = NAV_ICON_CATEGORIES[name] ?? "Other";
       if (!map.has(cat)) map.set(cat, []);
       map.get(cat)!.push(name);
     }
     return [...map.entries()];
-  }, [names]);
+  }, [visibleNames]);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-          {names.length} hand-drawn icons
+          {names.length} hand-drawn icons{visibleNames.length < names.length ? ` · showing ${visibleNames.length}` : ""}
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-1" role="group" aria-label="Icon animation">
@@ -84,7 +111,7 @@ export function IconsGallery() {
         <span aria-hidden="true" className="font-mono text-xs text-muted-foreground">⌕</span>
         <input
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => updateQuery(event.target.value)}
           placeholder="Search 1000+ icons… (ticket, arrow, cloud)"
           aria-label="Search icons"
           className="w-full bg-transparent font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
@@ -93,7 +120,7 @@ export function IconsGallery() {
       <div className="flex flex-wrap gap-1.5" role="group" aria-label="Icon categories">
         <button
           type="button"
-          onClick={() => setCategory(null)}
+          onClick={() => updateCategory(null)}
           aria-pressed={category === null}
           className={
             category === null
@@ -107,7 +134,7 @@ export function IconsGallery() {
           <button
             key={cat.name}
             type="button"
-            onClick={() => setCategory(category === cat.name ? null : cat.name)}
+            onClick={() => updateCategory(category === cat.name ? null : cat.name)}
             aria-pressed={category === cat.name}
             className={
               category === cat.name
@@ -125,8 +152,8 @@ export function IconsGallery() {
           <button
             type="button"
             onClick={() => {
-              setQuery("");
-              setCategory(null);
+              updateQuery("");
+              updateCategory(null);
             }}
             className="mt-3 rounded-md border border-border px-3 py-1.5 font-mono text-xs uppercase text-foreground transition-colors hover:border-foreground"
           >
@@ -134,18 +161,31 @@ export function IconsGallery() {
           </button>
         </div>
       ) : (
-        grouped.map(([cat, items]) => (
-          <section key={cat} aria-label={`${cat} icons`} className="space-y-3">
-            <h2 className="font-mono text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
-              {cat} · {items.length}
-            </h2>
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
-              {items.map((name) => (
-                <IconCard key={name} name={name} animation={animation} big={big} />
-              ))}
+        <>
+          {grouped.map(([cat, items]) => (
+            <section key={cat} aria-label={`${cat} icons`} className="space-y-3">
+              <h2 className="font-mono text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
+                {cat} · {items.length}
+              </h2>
+              <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+                {items.map((name) => (
+                  <IconCard key={name} name={name} animation={animation} big={big} />
+                ))}
+              </div>
+            </section>
+          ))}
+          {visibleNames.length < names.length ? (
+            <div className="flex justify-center pt-4">
+              <button
+                type="button"
+                onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                className="cursor-pointer rounded-md border border-border bg-card px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider text-foreground transition-colors hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                Load more ({names.length - visibleNames.length} remaining)
+              </button>
             </div>
-          </section>
-        ))
+          ) : null}
+        </>
       )}
     </div>
   );

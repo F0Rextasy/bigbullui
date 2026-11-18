@@ -148,10 +148,10 @@ export function DateRangePicker({
 
             const bgClass = cn(
               "rounded-sm px-1.5 py-1.5 cursor-pointer select-none",
-              isToday && "bg-primary/10 text-primary-foreground",
+              isToday && "bg-primary/10 font-bold text-foreground",
               isStartSelected && "bg-accent text-accent-foreground",
               isEndSelected && "bg-accent text-accent-foreground",
-              isBetween && "bg-accent/10 text-accent-foreground",
+              isBetween && "bg-accent/10 text-accent-strong",
               isDisabled && "opacity-50 cursor-not-allowed",
               "hover:bg-accent/20 transition-colors"
             );

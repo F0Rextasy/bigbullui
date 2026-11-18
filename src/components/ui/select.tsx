@@ -22,26 +22,38 @@ export interface SelectProps {
   animated?: boolean;
 }
 
-export function Select({
-  options = [],
-  value: controlledValue = "",
-  defaultValue = "",
-  onValueChange,
-  placeholder = "Select an option",
-  disabled = false,
-  name,
-  className,
-  "aria-label": ariaLabel,
-  animated = true,
-}: SelectProps) {
+export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(function Select(
+  {
+    options = [],
+    value: controlledValue,
+    defaultValue = "",
+    onValueChange,
+    placeholder = "Select an option",
+    disabled = false,
+    name,
+    className,
+    "aria-label": ariaLabel,
+    animated = true,
+  },
+  forwardedRef
+) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
-  const selectedValue = isControlled ? controlledValue : uncontrolledValue;
+  const selectedValue = (isControlled ? controlledValue : uncontrolledValue) ?? "";
 
   const [open, setOpen] = React.useState(false);
   const [highlightedIndex, setHighlightedIndex] = React.useState(-1);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
+
+  const assignTriggerRef = React.useCallback(
+    (node: HTMLButtonElement | null) => {
+      triggerRef.current = node;
+      if (typeof forwardedRef === "function") forwardedRef(node);
+      else if (forwardedRef) forwardedRef.current = node;
+    },
+    [forwardedRef]
+  );
 
   const selectedOption = options.find((opt) => opt.value === selectedValue);
 
@@ -105,7 +117,7 @@ export function Select({
     <div ref={containerRef} className={cn("relative inline-block w-full max-w-xs", className)}>
       {name ? <input type="hidden" name={name} value={selectedValue} /> : null}
       <button
-        ref={triggerRef}
+        ref={assignTriggerRef}
         type="button"
         disabled={disabled}
         aria-haspopup="listbox"
@@ -173,4 +185,5 @@ export function Select({
       ) : null}
     </div>
   );
-}
+});
+Select.displayName = "Select";

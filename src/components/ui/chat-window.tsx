@@ -83,7 +83,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages = [], onSend, typing, 
               direction={msg.direction}
             >
               <>{msg.body}</>
-              <div className={cn("text-[10px] mono uppercase", msg.direction === "outgoing" ? "text-accent-foreground" : "text-muted-foreground")}>
+              <div className={cn("text-[10px] font-mono uppercase", msg.direction === "outgoing" ? "text-accent-foreground" : "text-muted-foreground")}>
                 {msg.initials} · {msg.time || ""}
               </div>
             </LocalBubble>

@@ -14,55 +14,90 @@ export type NavigationMenuProps = {
   className?: string;
 };
 
-const navMenuReveal = `
-  @keyframes navMenuReveal {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-`;
-<style>{navMenuReveal}</style>;
+const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
+  ({ items = [], className }, forwardedRef) => {
+    const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
+    const navRef = React.useRef<HTMLElement>(null);
 
-const NavigationMenu = React.forwardRef<HTMLDivElement, NavigationMenuProps>(
-  ({ items, className }, ref) => {
+    const assignRef = React.useCallback(
+      (node: HTMLElement | null) => {
+        navRef.current = node;
+        if (typeof forwardedRef === "function") forwardedRef(node);
+        else if (forwardedRef) forwardedRef.current = node;
+      },
+      [forwardedRef]
+    );
+
+    React.useEffect(() => {
+      if (activeIndex === null) return;
+      const onDown = (e: MouseEvent) => {
+        if (navRef.current && !navRef.current.contains(e.target as Node)) setActiveIndex(null);
+      };
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setActiveIndex(null);
+      };
+      document.addEventListener("mousedown", onDown);
+      document.addEventListener("keydown", onKey);
+      return () => {
+        document.removeEventListener("mousedown", onDown);
+        document.removeEventListener("keydown", onKey);
+      };
+    }, [activeIndex]);
+
+    const activeItem = activeIndex !== null ? items[activeIndex] : undefined;
+
     return (
-      <div
-        ref={ref}
-        className={cn(
-          "space-y-2",
-          className
-        )}
+      <nav
+        ref={assignRef}
+        aria-label="Primary navigation"
+        className={cn("relative space-y-2", className)}
       >
         {/* Horizontal menu bar */}
-        <div className="grid grid-cols-3 border-b border-border/50">
-          {items.map((item) => (
-            <button
-              type="button"
-              key={item.id}
-              className={cn(
-                "col-span-1 py-2 text-sm font-medium text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "motion-reduce:transition-none"
-              )}
-            >
-              {item.label}
-            </button>
-          ))}
+        <div className="flex flex-wrap gap-1 border-b border-border/60 pb-1">
+          {items.map((item, idx) => {
+            const isOpen = activeIndex === idx;
+            return (
+              <button
+                type="button"
+                key={item.id}
+                aria-expanded={item.panel ? isOpen : undefined}
+                onClick={() => setActiveIndex((curr) => (curr === idx ? null : idx))}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    setActiveIndex((idx + 1) % Math.max(1, items.length));
+                  } else if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    setActiveIndex((idx - 1 + Math.max(1, items.length)) % Math.max(1, items.length));
+                  } else if (e.key === "Escape") {
+                    setActiveIndex(null);
+                  }
+                }}
+                className={cn(
+                  "cursor-pointer rounded-sm px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "motion-reduce:transition-none",
+                  isOpen
+                    ? "bg-secondary text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Panels */}
-        <div className="grid grid-cols-3 pt-2">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={cn(
-                "hidden col-span-1 fade-in-up transition-opacity duration-300 group-hover:block group-focusVisible:block",
-                "motion-reduce:animate-none"
-              )}
-            >
-              {item.panel}
-            </div>
-          ))}
-        </div>
-      </div>
+        {/* Active panel */}
+        {activeItem?.panel ? (
+          <div
+            role="region"
+            aria-label={activeItem.label}
+            className="rounded-md border border-border bg-card p-3 shadow-sm animate-[fadeIn_0.15s_ease-out_both] motion-reduce:animate-none!"
+          >
+            {activeItem.panel}
+          </div>
+        ) : null}
+      </nav>
     );
   }
 );

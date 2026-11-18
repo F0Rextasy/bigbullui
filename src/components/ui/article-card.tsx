@@ -38,7 +38,7 @@ export function ArticleCard({
           <img
             src={image}
             alt={title}
-            className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none group-hover:scale-1"
+            className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105 motion-reduce:group-hover:scale-100 motion-reduce:transition-none group-hover:scale-1 motion-reduce:group-hover:scale-100"
             loading="lazy"
           />
         </div>

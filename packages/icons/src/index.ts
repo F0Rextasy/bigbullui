@@ -1,3 +1,11 @@
 "use client";
 
-export { STAMP_ICONS, StampIcon, type StampIconProps, type StampIconName, type StampAnimation } from "./icons";
+export * from "./named-icons";
+export {
+  STAMP_ICONS,
+  STAMP_ICON_NAMES,
+  StampIcon,
+  type StampIconProps,
+  type StampIconName,
+  type StampAnimation,
+} from "./dynamic";

@@ -32,7 +32,7 @@ export function OrderTracking({ orderId = "", steps = [], courier, className, ..
       <div className="relative mt-5">
         <div className="absolute left-0 right-0 top-2 h-0.5 rounded-full bg-border/60" aria-hidden="true" />
         <div
-          className="absolute left-0 top-2 h-0.5 origin-left rounded-full bg-accent"
+          className="absolute left-0 top-2 h-0.5 origin-left rounded-full bg-accent motion-reduce:animate-none!"
           style={{
             width: `${(steps.filter((s) => s.done).length / Math.max(1, steps.length - 1)) * 100}%`,
             animation: "otLine 0.8s cubic-bezier(0.16,1,0.3,1) both",
@@ -44,7 +44,7 @@ export function OrderTracking({ orderId = "", steps = [], courier, className, ..
             <div key={s.id} className="flex w-1/5 flex-col items-center" style={{ marginLeft: idx === 0 ? 0 : undefined }}>
               <span
                 className={cn(
-                  "flex size-5 items-center justify-center rounded-full border-2",
+                  "flex size-5 items-center justify-center rounded-full border-2 motion-reduce:animate-none!",
                   s.done ? "border-accent bg-accent text-accent-foreground" : "border-border bg-card"
                 )}
                 style={{ animation: s.done ? "otPop 0.35s ease-out both" : undefined, animationDelay: `${idx * 150}ms` }}

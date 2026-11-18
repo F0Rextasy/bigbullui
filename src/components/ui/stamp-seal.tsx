@@ -21,7 +21,7 @@ export function StampSeal({
     <div
       style={{ transform: `rotate(${rotate}deg)` }}
       className={cn(
-        "relative inline-flex size-24 select-none flex-col items-center justify-center rounded-full border-2 p-1 text-center transition-transform hover:scale-105",
+        "relative inline-flex size-24 select-none flex-col items-center justify-center rounded-full border-2 p-1 text-center transition-transform hover:scale-105 motion-reduce:hover:scale-100",
         tone === "accent" && "border-accent text-accent",
         tone === "primary" && "border-primary text-primary",
         tone === "destructive" && "border-destructive text-destructive",

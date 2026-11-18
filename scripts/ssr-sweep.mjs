@@ -42,7 +42,12 @@ export async function runSweep() {
       continue;
     }
     for (const [name, exp] of Object.entries(mod)) {
-      if (name === "__esModule" || typeof exp !== "function" || /^[a-z]/.test(name)) continue;
+      const isForwardOrMemo =
+        typeof exp === "object" &&
+        exp !== null &&
+        (exp.$$typeof === Symbol.for("react.forward_ref") ||
+          exp.$$typeof === Symbol.for("react.memo"));
+      if (name === "__esModule" || (typeof exp !== "function" && !isForwardOrMemo) || /^[a-z]/.test(name)) continue;
       try {
         renderToString(React.createElement(exp, {}));
       } catch (e) {

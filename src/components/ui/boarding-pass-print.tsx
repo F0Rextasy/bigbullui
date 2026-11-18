@@ -36,7 +36,7 @@ export function BoardingPassPrint({
       <button
         type="button"
         onClick={() => window.print()}
-        className="mb-3 cursor-pointer rounded border-2 border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.02] active:scale-[0.98] print:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="mb-3 cursor-pointer rounded border-2 border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 print:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         Print boarding pass
       </button>

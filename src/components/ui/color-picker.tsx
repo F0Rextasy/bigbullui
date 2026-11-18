@@ -73,7 +73,7 @@ export function ColorPicker({
               style={{ backgroundColor: c }}
               aria-label={`Select color ${c}`}
               className={cn(
-                "relative size-8 rounded-sm border border-foreground/20 shadow-xs transition-transform hover:scale-110 cursor-pointer",
+                "relative size-8 rounded-sm border border-foreground/20 shadow-xs transition-transform hover:scale-110 motion-reduce:hover:scale-100 cursor-pointer",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isSelected && "ring-2 ring-accent ring-offset-1 scale-105"
               )}

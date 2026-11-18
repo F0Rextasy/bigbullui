@@ -3,14 +3,22 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface HtmlPreviewProps extends React.HTMLAttributes<HTMLIFrameElement> {
+export interface HtmlPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   html: string;
   title?: string;
   height?: string;
+  sandbox?: string;
 }
 
 /** Sandboxed HTML preview iframe. */
-export function HtmlPreview({ html, title = "HTML Preview", height = "240px", className, ...props }: HtmlPreviewProps) {
+export function HtmlPreview({
+  html,
+  title = "HTML Preview",
+  height = "240px",
+  sandbox = "",
+  className,
+  ...props
+}: HtmlPreviewProps) {
   return (
     <div className={cn("overflow-hidden rounded-lg border border-border", className)} {...props}>
       <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-3 py-1.5">
@@ -20,7 +28,7 @@ export function HtmlPreview({ html, title = "HTML Preview", height = "240px", cl
       <iframe
         title={title}
         srcDoc={html}
-        sandbox="allow-scripts"
+        sandbox={sandbox}
         style={{ height }}
         className="w-full border-0 bg-white"
       />

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -17,11 +18,16 @@ const REVIEWS = [
   { name: "GRACE H", rating: 4, title: "GATE READY", body: "Great stub look, ships fast, slight box crease." },
 ];
 
-export function PageProduct() {
+export interface PageProductProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageProduct({ className, onAction, ...props }: PageProductProps) {
   const [view, setView] = React.useState(0);
   const [added, setAdded] = React.useState(0);
+  const [wishlisted, setWishlisted] = React.useState(false);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-1">
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT // PRODUCT</p>
         <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Tour jacket 1977</h2>
@@ -58,8 +64,10 @@ export function PageProduct() {
             </div>
             <Separator />
             <div className="flex flex-wrap items-center gap-2">
-              <AddToCartButton productName="Tour jacket 1977" onAdd={() => setAdded((n) => n + 1)} />
-              <Button variant="outline" size="sm">Wishlist</Button>
+              <AddToCartButton productName="Tour jacket 1977" onAdd={() => { setAdded((n) => n + 1); onAction?.("add-to-cart"); }} />
+              <Button variant={wishlisted ? "secondary" : "outline"} size="sm" aria-pressed={wishlisted} onClick={() => { setWishlisted((w) => !w); onAction?.("wishlist"); }}>
+                {wishlisted ? "Wishlisted ✓" : "Wishlist"}
+              </Button>
               {added > 0 && <Badge variant="secondary">IN CART × {added}</Badge>}
             </div>
           </CardContent>

@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { NavIcon } from "@/components/site/nav-icons";
+import { ChromeIcon } from "@/components/site/chrome-icons";
 import { DocsSearch } from "@/components/site/docs-search";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Star } from "@/components/ui/star";
@@ -133,7 +133,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <NavIcon name="home" /> Home
+              <ChromeIcon name="home" /> Home
             </Link>
             <Link
               href="/docs"
@@ -141,7 +141,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
               className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
               <span className="flex items-center gap-2.5">
-                <NavIcon name="components" /> Components
+                <ChromeIcon name="components" /> Components
               </span>
               <span className="font-mono text-[10px] rounded bg-secondary px-2 py-0.5 text-muted-foreground">
                 {catalog.total}
@@ -153,7 +153,7 @@ export function MobileNav({ stars }: { stars: number | null }) {
               className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
               <span className="flex items-center gap-2.5">
-                <NavIcon name="blocks" /> Page Blocks
+                <ChromeIcon name="blocks" /> Page Blocks
               </span>
               <span className="font-mono text-[10px] text-muted-foreground">&rarr;</span>
             </Link>
@@ -162,35 +162,35 @@ export function MobileNav({ stars }: { stars: number | null }) {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <NavIcon name="showcase" /> Showcase
+              <ChromeIcon name="showcase" /> Showcase
             </Link>
             <Link
               href="/docs/installation"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <NavIcon name="install" /> Installation Guide
+              <ChromeIcon name="install" /> Installation Guide
             </Link>
             <Link
               href="/docs/design"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <NavIcon name="design" /> Design Tokens &amp; Colors
+              <ChromeIcon name="design" /> Design Tokens &amp; Colors
             </Link>
             <Link
               href="/docs/agents"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <NavIcon name="agents" /> AI Agent Kit (SKILL.md)
+              <ChromeIcon name="agents" /> AI Agent Kit (SKILL.md)
             </Link>
             <Link
               href="/docs/contributing"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <NavIcon name="contribute" /> Contributing
+              <ChromeIcon name="contribute" /> Contributing
             </Link>
           </div>
 

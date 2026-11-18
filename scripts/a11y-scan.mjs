@@ -10,7 +10,22 @@ if (!fs.existsSync(axePath)) {
   process.exit(2);
 }
 const base = process.env.BIGBULL_BASE ?? "http://localhost:3000";
-const routes = ["/", "/docs", "/docs/button", "/docs/dialog", "/docs/tabs", "/docs/toast", "/blocks", "/showcase", "/docs/design", "/icons"];
+const routes = [
+  "/",
+  "/docs",
+  "/docs/button",
+  "/docs/dialog",
+  "/docs/tabs",
+  "/docs/toast",
+  "/docs/migrate",
+  "/docs/help",
+  "/docs/shortcuts",
+  "/blocks",
+  "/blocks/admin-overview",
+  "/showcase",
+  "/docs/design",
+  "/icons",
+];
 
 const browser = await chromium.launch({ headless: true });
 let critical = 0;

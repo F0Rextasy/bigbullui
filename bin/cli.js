@@ -26,12 +26,22 @@ const c = {
   stamp: "\x1b[38;2;188;58;40m",
 };
 
+let PACKAGE_VERSION = "1.6.1";
+try {
+  PACKAGE_VERSION = require("../package.json").version || PACKAGE_VERSION;
+} catch {
+  // unreachable package.json keeps fallback version
+}
+const GITHUB_RAW_TAG =
+  `https://raw.githubusercontent.com/F0Rextasy/bigbullui/v${PACKAGE_VERSION}`;
 const GITHUB_RAW_BASE =
   "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 
 const REGISTRY_ICON_BASE = "https://ui.bigbullapp.com/r/icons";
 // Catalog-registered lib helpers shipped as plain .ts (kept in sync by generate-registry-json.mjs).
 const LIB_FILES = ["focus-trap","hooks","use-ticket-audio"];
+// Page blocks index (kept in sync by generate-registry-json.mjs).
+const BLOCK_FILES = ["admin-academy","admin-analytics","admin-crm","admin-ecommerce","admin-finance","admin-hr","admin-logistics","admin-marketing","admin-overview","admin-saas","admin-support","app-bookmarks","app-calendar","app-chat","app-contacts","app-files","app-invoices","app-kanban","app-mail","app-notes","app-player","app-tasks","app-users","auth-2fa","auth-forgot","auth-login","auth-register","auth-reset","auth-verify","block-car-rental","block-clinic","block-conference","block-contact","block-course","block-customer-portal","block-dev-api-keys","block-event-landing","block-event-ticketing","block-gallery","block-gym","block-hotel","block-job-board","block-live-chat","block-newsletter","block-pet-adoption","block-portfolio","block-real-estate","block-restaurant","block-stats","block-team","block-timeline","block-user-profile-dossier","form-wizard","landing-cta","landing-features","landing-footer","landing-hero","landing-heroes-2","landing-logos","landing-testimonials","page-404","page-about","page-article","page-blog","page-careers","page-cart","page-checkout","page-contact","page-empty","page-faq","page-order-success","page-pricing","page-product","page-storefront","settings-account"];
 
 function isLibSlug(slug) {
   return LIB_FILES.includes(slug);
@@ -41,13 +51,180 @@ function installedFileFor(baseDir, slug) {
   return isLibSlug(slug) ? path.join(baseDir, "lib", `${slug}.ts`) : path.join(baseDir, `${slug}.tsx`);
 }
 
-const UTILS_CONTENT = `export type ClassValue = string | number | boolean | null | undefined;
+const UTILS_CONTENT = [
+  'export type ClassValue = string | number | boolean | null | undefined;',
+  '',
+  'const SPACING_DIRS: Record<string, string[]> = {',
+  '  p: ["p", "px", "py", "pt", "pr", "pb", "pl", "ps", "pe"],',
+  '  px: ["px", "pl", "pr", "ps", "pe"],',
+  '  py: ["py", "pt", "pb"],',
+  '  m: ["m", "mx", "my", "mt", "mr", "mb", "ml", "ms", "me"],',
+  '  mx: ["mx", "ml", "mr", "ms", "me"],',
+  '  my: ["my", "mt", "mb"],',
+  '};',
+  '',
+  'const DISPLAY_SET = new Set([',
+  '  "block", "inline-block", "inline", "flex", "inline-flex",',
+  '  "grid", "inline-grid", "table", "inline-table", "hidden", "contents",',
+  ']);',
+  '',
+  'const POSITION_SET = new Set(["static", "fixed", "absolute", "relative", "sticky"]);',
+  'const TEXT_ALIGN_SET = new Set(["left", "center", "right", "justify", "start", "end"]);',
+  'const TEXT_SIZE_SET = new Set(["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl", "9xl"]);',
+  'const FONT_WEIGHT_SET = new Set(["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black"]);',
+  'const BORDER_STYLE_SET = new Set(["solid", "dashed", "dotted", "double", "hidden", "none"]);',
+  'const SHADOW_SIZE_SET = new Set(["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inner", "none"]);',
+  'const ROUNDED_SIZE_SET = new Set(["none", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"]);',
+  'const BG_NON_COLOR = /^(?:none|gradient-|linear-|radial-|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$)/;',
+  '',
+  'function splitVariant(token: string): [string, string] {',
+  '  let depth = 0;',
+  '  let lastColon = -1;',
+  '  for (let i = 0; i < token.length; i++) {',
+  '    const ch = token[i];',
+  '    if (ch === "[") depth++;',
+  '    else if (ch === "]" && depth > 0) depth--;',
+  '    else if (ch === ":" && depth === 0) lastColon = i;',
+  '  }',
+  '  return lastColon === -1 ? ["", token] : [token.slice(0, lastColon + 1), token.slice(lastColon + 1)];',
+  '}',
+  '',
+  'function getConflictKeys(rawBase: string): string[] {',
+  '  const base = rawBase.startsWith("!") ? rawBase.slice(1) : rawBase;',
+  '  const negStripped = base.startsWith("-") ? base.slice(1) : base;',
+  '',
+  '  if (DISPLAY_SET.has(base)) return ["display"];',
+  '  if (POSITION_SET.has(base)) return ["position"];',
+  '  if (base === "visible" || base === "invisible" || base === "collapse") return ["visibility"];',
+  '',
+  '  const sp = negStripped.match(/^(p|px|py|pt|pr|pb|pl|ps|pe|m|mx|my|mt|mr|mb|ml|ms|me)-/);',
+  '  if (sp) {',
+  '    const key = sp[1];',
+  '    return SPACING_DIRS[key] ?? [key];',
+  '  }',
+  '',
+  '  if (/^size-/.test(base)) return ["size", "w", "h"];',
+  '  if (/^w-/.test(base)) return ["w"];',
+  '  if (/^h-/.test(base)) return ["h"];',
+  '  if (/^(min-w|max-w|min-h|max-h)-/.test(base)) return [base.slice(0, 5)];',
+  '  if (/^gap-/.test(base)) {',
+  '    if (base.startsWith("gap-x-")) return ["gap-x"];',
+  '    if (base.startsWith("gap-y-")) return ["gap-y"];',
+  '    return ["gap", "gap-x", "gap-y"];',
+  '  }',
+  '  if (/^-?z-/.test(base)) return ["z"];',
+  '  if (/^opacity-/.test(base)) return ["opacity"];',
+  '  if (/^cursor-/.test(base)) return ["cursor"];',
+  '  if (/^pointer-events-/.test(base)) return ["pointer-events"];',
+  '  if (/^select-/.test(base)) return ["select"];',
+  '  if (/^leading-/.test(base)) return ["leading"];',
+  '  if (/^tracking-/.test(base)) return ["tracking"];',
+  '  if (/^overflow-(x|y)-/.test(base)) return [`overflow-${base[9]}`];',
+  '  if (/^overflow-/.test(base)) return ["overflow", "overflow-x", "overflow-y"];',
+  '',
+  '  if (base === "shadow" || (base.startsWith("shadow-") && SHADOW_SIZE_SET.has(base.slice(7)))) {',
+  '    return ["shadow"];',
+  '  }',
+  '',
+  '  if (base === "rounded" || (base.startsWith("rounded-") && (ROUNDED_SIZE_SET.has(base.slice(8)) || base.slice(8).startsWith("[")))) {',
+  '    return ["rounded"];',
+  '  }',
+  '',
+  '  if (base === "border" || /^border-(0|2|4|8|\\[[^\\]#]+(?:px|rem|em)\\])$/.test(base)) {',
+  '    return ["border-w"];',
+  '  }',
+  '  if (/^border-(t|r|b|l|x|y|s|e)(?:-(?:0|2|4|8|\\[[^\\]#]+\\]))?$/.test(base)) {',
+  '    return [`border-w-${base[7]}`];',
+  '  }',
+  '  if (base.startsWith("border-") && BORDER_STYLE_SET.has(base.slice(7))) {',
+  '    return ["border-style"];',
+  '  }',
+  '  if (base.startsWith("border-")) {',
+  '    return ["border-color"];',
+  '  }',
+  '',
+  '  if (base.startsWith("text-")) {',
+  '    const rest = base.slice(5);',
+  '    if (TEXT_ALIGN_SET.has(rest)) return ["text-align"];',
+  '    if (TEXT_SIZE_SET.has(rest) || /^\\[(?:length:|[\\d.]+(?:px|rem|em|vw|vh|%))/.test(rest)) {',
+  '      return ["text-size"];',
+  '    }',
+  '    if (rest === "wrap" || rest === "nowrap" || rest === "balance" || rest === "pretty") {',
+  '      return ["text-wrap"];',
+  '    }',
+  '    return ["text-color"];',
+  '  }',
+  '',
+  '  if (base.startsWith("font-")) {',
+  '    const rest = base.slice(5);',
+  '    if (rest === "sans" || rest === "serif" || rest === "mono") return ["font-family"];',
+  '    if (FONT_WEIGHT_SET.has(rest)) return ["font-weight"];',
+  '  }',
+  '',
+  '  if (base.startsWith("bg-") && !BG_NON_COLOR.test(base.slice(3))) {',
+  '    return ["bg"];',
+  '  }',
+  '',
+  '  if (base === "transition" || /^transition-/.test(base)) return ["transition"];',
+  '  if (/^duration-/.test(base)) return ["duration"];',
+  '  if (/^animate-/.test(base)) return ["animate"];',
+  '',
+  '  return [];',
+  '}',
+  '',
+  '/** Class merger with zero-dependency Tailwind utility conflict resolution (last class wins). */',
+  'export function cn(...inputs: ClassValue[]): string {',
+  '  const tokens: string[] = [];',
+  '  for (const input of inputs) {',
+  '    if (typeof input === "string" || typeof input === "number") {',
+  '      const str = String(input).trim();',
+  '      if (!str) continue;',
+  '      for (const part of str.split(/\\s+/)) {',
+  '        if (part) tokens.push(part);',
+  '      }',
+  '    }',
+  '  }',
+  '  if (tokens.length <= 1) return tokens.join(" ");',
+  '',
+  '  const kept: string[] = [];',
+  '  const seen = new Map<string, number>();',
+  '',
+  '  for (let i = tokens.length - 1; i >= 0; i--) {',
+  '    const token = tokens[i];',
+  '    const [variant, base] = splitVariant(token);',
+  '    const groups = getConflictKeys(base);',
+  '    if (groups.length === 0) {',
+  '      kept.push(token);',
+  '      continue;',
+  '    }',
+  '    const primary = `${variant}${groups[0]}`;',
+  '    if (seen.has(primary)) continue;',
+  '    for (const g of groups) {',
+  '      seen.set(`${variant}${g}`, 1);',
+  '    }',
+  '    kept.push(token);',
+  '  }',
+  '',
+  '  return kept.reverse().join(" ");',
+  '}',
+  '',
+  '/** Returns true only for safe link schemes (http/https/mailto/tel/relative paths/hashes). */',
+  'export function isSafeUrl(url: string): boolean {',
+  '  const trimmed = url.trim();',
+  '  if (!trimmed) return false;',
+  '  if (trimmed.startsWith("//")) return false;',
+  '  return /^(https?:\\/\\/|mailto:|tel:|\\/|#)/i.test(trimmed);',
+  '}',
+  '',
+  '/** Escapes special regular expression metacharacters in untrusted literal strings. */',
+  'export function escapeRegExp(value: string): string {',
+  '  return value.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&");',
+  '}',
+].join('\n');
 
-/** Minimal class merger: truthy values joined by space. */
-export function cn(...inputs: ClassValue[]): string {
-  return inputs.filter(Boolean).join(" ");
+function stripPackageSourceDirective(css) {
+  return css.replace(/^@source\s+["']\.\/dist["'];\r?\n?/gm, "");
 }
-`;
 
 function printBanner() {
   console.log("");
@@ -66,6 +243,7 @@ function printHelp() {
   console.log(`    ${c.green}add${c.reset} <...components>    Add one or more components to your project`);
   console.log(`    ${c.green}update${c.reset} [components]     Check installed components against the registry (use -f to apply)`);
   console.log(`    ${c.green}doctor${c.reset}                 Diagnose setup: deps, tokens, utils, dark mode`);
+  console.log(`    ${c.green}list${c.reset} [filter]          List components (or pass --blocks / --icons)`);
   console.log(`    ${c.green}list${c.reset} [filter]          List available components (optional search filter)`);
   console.log(`    ${c.green}init${c.reset}                   Initialize bigbullui utils and tokens in your project`);
   console.log(`    ${c.green}tokens${c.reset}                 Export bigbullui.css design tokens locally`);
@@ -156,6 +334,14 @@ function getLocalPackageUiDir() {
   return null;
 }
 
+async function fetchGithubRaw(relPath) {
+  try {
+    return await fetchUrl(`${GITHUB_RAW_TAG}/${relPath}`);
+  } catch {
+    return await fetchUrl(`${GITHUB_RAW_BASE}/${relPath}`);
+  }
+}
+
 async function getComponentContent(slug) {
   // Blocks live in src/components/blocks and import ui files via "../ui/x";
   // the CLI installs everything flat, so rewrite those to sibling "./x".
@@ -172,15 +358,15 @@ async function getComponentContent(slug) {
     return blockRewrite(fs.readFileSync(repoBlock, "utf8"));
   }
 
-  // Fallback to GitHub raw
-  const remoteUrl = isLibSlug(slug)
-    ? `${GITHUB_RAW_BASE}/src/components/ui/lib/${slug}.ts`
-    : `${GITHUB_RAW_BASE}/src/components/ui/${slug}.tsx`;
+  // Fallback to GitHub raw (version tag first, main branch fallback)
+  const remoteRel = isLibSlug(slug)
+    ? `src/components/ui/lib/${slug}.ts`
+    : `src/components/ui/${slug}.tsx`;
   try {
-    return await fetchUrl(remoteUrl);
+    return await fetchGithubRaw(remoteRel);
   } catch (err) {
     try {
-      return blockRewrite(await fetchUrl(`${GITHUB_RAW_BASE}/src/components/blocks/${slug}.tsx`));
+      return blockRewrite(await fetchGithubRaw(`src/components/blocks/${slug}.tsx`));
     } catch {
       throw err;
     }
@@ -239,13 +425,25 @@ async function getLatest(slug) {
   return slug.startsWith("icon-") ? getIconContent(slug) : getComponentContent(slug);
 }
 
-function ensureUtils(targetDir) {
+function getLatestUtilsContent() {
+  const localUtils = path.resolve(__dirname, "..", "src", "components", "ui", "lib", "utils.ts");
+  if (fs.existsSync(localUtils)) {
+    return fs.readFileSync(localUtils, "utf8");
+  }
+  return UTILS_CONTENT;
+}
+
+function ensureUtils(targetDir, force = false) {
   const utilsDir = path.join(targetDir, "lib");
   const utilsFile = path.join(utilsDir, "utils.ts");
+  const desired = getLatestUtilsContent();
   if (!fs.existsSync(utilsFile)) {
     fs.mkdirSync(utilsDir, { recursive: true });
-    fs.writeFileSync(utilsFile, UTILS_CONTENT, "utf8");
+    writeFileAtomic(utilsFile, desired);
     console.log(`  ${c.green}✓${c.reset} Created utility helper: ${c.dim}${path.relative(process.cwd(), utilsFile)}${c.reset}`);
+  } else if (force && fs.readFileSync(utilsFile, "utf8") !== desired) {
+    writeFileAtomic(utilsFile, desired);
+    console.log(`  ${c.green}✓${c.reset} Updated utility helper: ${c.dim}${path.relative(process.cwd(), utilsFile)}${c.reset}`);
   }
 }
 
@@ -324,7 +522,7 @@ async function handleAdd(args) {
   const targetDir = detectTargetDir(customDir);
   fs.mkdirSync(targetDir, { recursive: true });
 
-  ensureUtils(targetDir);
+  ensureUtils(targetDir, force);
 
   const componentsToAdd = addAll ? getAllKnownSlugs() : slugs;
 
@@ -333,6 +531,7 @@ async function handleAdd(args) {
   let addedCount = 0;
   let skippedCount = 0;
   let failedCount = 0;
+  const refreshedDeps = new Set();
 
   for (const slug of componentsToAdd) {
     const targetPath = installedFileFor(targetDir, slug);
@@ -368,11 +567,13 @@ async function handleAdd(args) {
       while (queue.length > 0) {
         const dep = queue.shift();
         const depPath = installedFileFor(targetDir, dep);
-        if (fs.existsSync(depPath)) continue;
+        const alreadyExists = fs.existsSync(depPath);
+        if (alreadyExists && (!force || refreshedDeps.has(dep))) continue;
         try {
           const depContent = await getComponentContent(dep);
           writeFileAtomic(depPath, depContent);
-          console.log(`    ${c.dim}└─ Auto-installed dependency:${c.reset} ${c.cyan}${dep}${c.reset}`);
+          refreshedDeps.add(dep);
+          console.log(`    ${c.dim}└─ ${alreadyExists ? "Updated" : "Auto-installed"} dependency:${c.reset} ${c.cyan}${dep}${c.reset}`);
           for (const nested of extractLocalDeps(depContent)) {
             if (!visited.has(nested)) {
               visited.add(nested);
@@ -402,14 +603,43 @@ async function handleAdd(args) {
   console.log(`  ${c.dim}Import from:${c.reset} ${path.relative(process.cwd(), targetDir).replace(/\\/g, "/")}\n`);
 }
 
-function handleList(args) {
-  const filter = (args[0] || "").toLowerCase();
-  const allFiles = getAllKnownSlugs();
+async function handleList(args) {
+  const showBlocks = args.includes("--blocks");
+  const showIcons = args.includes("--icons");
+  const filter = (args.find((a) => !a.startsWith("-")) || "").toLowerCase();
 
-  const matches = allFiles.filter((slug) => slug.includes(filter));
+  let title = "AVAILABLE COMPONENTS";
+  let sourceList;
+  let installHint = "npx bigbullui add <name>";
+
+  if (showBlocks) {
+    title = "AVAILABLE BLOCKS";
+    const localBlocksDir = path.resolve(__dirname, "..", "src", "components", "blocks");
+    if (fs.existsSync(localBlocksDir)) {
+      sourceList = fs.readdirSync(localBlocksDir).filter((f) => f.endsWith(".tsx")).map((f) => f.replace(/\.tsx$/, "")).sort();
+    } else if (BLOCK_FILES.length > 0) {
+      sourceList = [...BLOCK_FILES];
+    } else {
+      const idx = JSON.parse(await fetchUrl("https://ui.bigbullapp.com/blocks.json"));
+      sourceList = idx.blocks || [];
+    }
+  } else if (showIcons) {
+    title = "AVAILABLE ICONS";
+    installHint = "npx bigbullui add icon-<name>";
+    const localIcons = path.resolve(__dirname, "..", "public", "icons.json");
+    if (fs.existsSync(localIcons)) {
+      sourceList = JSON.parse(fs.readFileSync(localIcons, "utf8")).icons || [];
+    } else {
+      sourceList = JSON.parse(await fetchUrl("https://ui.bigbullapp.com/icons.json")).icons || [];
+    }
+  } else {
+    sourceList = getAllKnownSlugs();
+  }
+
+  const matches = sourceList.filter((slug) => slug.toLowerCase().includes(filter));
 
   printBanner();
-  console.log(`  ${c.bold}AVAILABLE COMPONENTS${c.reset} (${matches.length}${filter ? ` matching "${filter}"` : ""}):\n`);
+  console.log(`  ${c.bold}${title}${c.reset} (${matches.length}${filter ? ` matching "${filter}"` : ""}):\n`);
 
   const cols = 3;
   for (let i = 0; i < matches.length; i += cols) {
@@ -419,7 +649,7 @@ function handleList(args) {
     console.log(row.join(""));
   }
 
-  console.log(`\n  ${c.dim}Run ${c.yellow}npx bigbullui add <name>${c.dim} to install any component.${c.reset}\n`);
+  console.log(`\n  ${c.dim}Run ${c.yellow}${installHint}${c.dim} to install any item.${c.reset}\n`);
 }
 
 function handleInit() {
@@ -432,7 +662,7 @@ function handleInit() {
   let cssTarget = path.join(cwd, "bigbullui.css");
 
   if (fs.existsSync(cssSourcePath) && !fs.existsSync(cssTarget)) {
-    fs.copyFileSync(cssSourcePath, cssTarget);
+    fs.writeFileSync(cssTarget, stripPackageSourceDirective(fs.readFileSync(cssSourcePath, "utf8")), "utf8");
     console.log(`  ${c.green}✓${c.reset} Copied ${c.bold}bigbullui.css${c.reset} to project root.`);
   }
 
@@ -457,7 +687,7 @@ function handleTokens(args = []) {
     console.log(`  ${c.yellow}↷${c.reset} bigbullui.css already exists (use ${c.bold}-f${c.reset} to overwrite).`);
     return;
   }
-  fs.copyFileSync(cssSourcePath, cssTarget);
+  fs.writeFileSync(cssTarget, stripPackageSourceDirective(fs.readFileSync(cssSourcePath, "utf8")), "utf8");
   console.log(`  ${c.green}✓${c.reset} Generated ${c.bold}bigbullui.css${c.reset} in current directory.`);
 }
 
@@ -524,14 +754,25 @@ async function handleUpdate(args) {
   const cssSource = path.resolve(__dirname, "..", "bigbullui.css");
   const cssLocal = path.join(process.cwd(), "bigbullui.css");
   let cssStale = false;
-  if (fs.existsSync(cssLocal) && fs.existsSync(cssSource)) {
-    cssStale = fs.readFileSync(cssLocal, "utf8") !== fs.readFileSync(cssSource, "utf8");
+  let cssDesired = null;
+  if (fs.existsSync(cssLocal)) {
+    const rawCss = fs.existsSync(cssSource)
+      ? fs.readFileSync(cssSource, "utf8")
+      : await fetchGithubRaw("bigbullui.css").catch(() => null);
+    if (rawCss !== null) {
+      cssDesired = stripPackageSourceDirective(rawCss);
+      cssStale = fs.readFileSync(cssLocal, "utf8") !== cssDesired;
+    }
   }
-  if (outdated.length === 0 && !cssStale) {
+  const utilsFile = path.join(targetDir, "lib", "utils.ts");
+  const utilsDesired = getLatestUtilsContent();
+  const utilsStale = fs.existsSync(utilsFile) && fs.readFileSync(utilsFile, "utf8") !== utilsDesired;
+  if (outdated.length === 0 && !cssStale && !utilsStale) {
     console.log(`  ${c.green}✓${c.reset} Everything is up to date.`);
     return;
   }
   for (const slug of outdated) console.log(`  ${c.yellow}●${c.reset} ${c.bold}${slug}${c.reset} has updates.`);
+  if (utilsStale) console.log(`  ${c.yellow}●${c.reset} ${c.bold}lib/utils.ts${c.reset} has updates.`);
   if (cssStale) console.log(`  ${c.yellow}●${c.reset} ${c.bold}bigbullui.css${c.reset} has updates.`);
   console.log("");
   if (!force) {
@@ -548,9 +789,18 @@ async function handleUpdate(args) {
       console.error(`  ${c.red}✗${c.reset} Failed to update ${c.bold}${slug}${c.reset}: ${err.message}`);
     }
   }
-  if (cssStale) {
+  if (utilsStale) {
     try {
-      writeFileAtomic(cssLocal, fs.readFileSync(cssSource, "utf8"));
+      writeFileAtomic(utilsFile, utilsDesired);
+      console.log(`  ${c.green}✓${c.reset} Updated ${c.bold}lib/utils.ts${c.reset}`);
+    } catch (err) {
+      failed += 1;
+      console.error(`  ${c.red}✗${c.reset} Failed to update ${c.bold}lib/utils.ts${c.reset}: ${err.message}`);
+    }
+  }
+  if (cssStale && cssDesired !== null) {
+    try {
+      writeFileAtomic(cssLocal, cssDesired);
       console.log(`  ${c.green}✓${c.reset} Updated ${c.bold}bigbullui.css${c.reset}`);
     } catch (err) {
       failed += 1;
@@ -612,7 +862,7 @@ async function main() {
       break;
     case "list":
     case "ls":
-      handleList(args.slice(1));
+      await handleList(args.slice(1));
       break;
     case "init":
       handleInit();

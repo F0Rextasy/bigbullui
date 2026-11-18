@@ -31,7 +31,7 @@ export function MedalDisplay({ medals = [], className, ...props }: MedalDisplayP
           <div
             key={m.id}
             className={cn(
-              "relative flex items-center gap-3 overflow-hidden rounded-lg border p-3",
+              "relative flex items-center gap-3 overflow-hidden rounded-lg border p-3 motion-reduce:animate-none!",
               t.bg, t.border
             )}
             style={{ animation: `fade-in-up 0.35s ease-out both`, animationDelay: `${idx * 90}ms` }}

@@ -19,12 +19,15 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
   const [show, setShow] = React.useState(false);
   const [errors, setErrors] = React.useState<{ email?: string; password?: string }>({});
 
+  const uid = React.useId();
+  const emailId = `${uid}-email`;
+  const passwordId = `${uid}-password`;
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const next: typeof errors = {};
     if (!emailValid) next.email = "Please enter a valid email";
-    if (password.length < 6) next.password = "En az 6 karakter";
+    if (password.length < 6) next.password = "Must be at least 6 characters";
     setErrors(next);
     if (Object.keys(next).length === 0) onSubmit?.({ email, password, remember });
   };
@@ -44,9 +47,9 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
       `}</style>
 
       <div className="space-y-1.5 animate-[loginIn_0.35s_ease-out_both] motion-reduce:animate-none">
-        <label htmlFor="login-email" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">E-posta</label>
+        <label htmlFor={emailId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Email</label>
         <input
-          id="login-email"
+          id={emailId}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -56,17 +59,17 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             email.length > 0 && !emailValid && "border-destructive",
             emailValid && "border-success"
           )}
-          placeholder="ornek@mail.com"
+          placeholder="you@example.com"
           aria-invalid={!!errors.email}
         />
         {errors.email && <p className="text-xs text-destructive animate-[loginShake_0.3s_ease-out] motion-reduce:animate-none">{errors.email}</p>}
       </div>
 
       <div className="space-y-1.5 animate-[loginIn_0.35s_ease-out_0.08s_both] motion-reduce:animate-none">
-        <label htmlFor="login-password" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
+        <label htmlFor={passwordId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
         <div className="relative">
           <input
-            id="login-password"
+            id={passwordId}
             type={show ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -102,7 +105,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
         type="submit"
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98]",
+          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
           "animate-[loginIn_0.35s_ease-out_0.24s_both] motion-reduce:animate-none"
         )}
@@ -116,9 +119,9 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             <button
               key={p}
               type="button"
-              className="rounded-md border border-border bg-card px-3 py-2 text-xs font-medium transition-all duration-150 hover:border-foreground/40 hover:bg-secondary/40 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+              className="rounded-md border border-border bg-card px-3 py-2 text-xs font-medium transition-all duration-150 hover:border-foreground/40 hover:bg-secondary/40 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             >
-              {p} ile devam et
+              Continue with {p}
             </button>
           ))}
         </div>

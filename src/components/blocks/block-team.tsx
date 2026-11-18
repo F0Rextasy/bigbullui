@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Card, CardContent } from "../ui/card";
 import { Avatar } from "../ui/avatar";
 import { Badge } from "../ui/badge";
@@ -12,9 +13,14 @@ const MEMBERS = [
   { name: "Sena Park", role: "Night Support", tag: "CARE" },
 ];
 
-export function BlockTeam() {
+export interface BlockTeamProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockTeam({ className, onAction, ...props }: BlockTeamProps) {
+  void onAction;
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-end justify-between gap-2">
         <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Crew on duty</h2>
         <Badge variant="outline">4 STAFFED</Badge>

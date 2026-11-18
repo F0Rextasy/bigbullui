@@ -34,8 +34,8 @@ function buildTimezones(): TimezoneOption[] {
         timeZoneName: "shortOffset",
       }).formatToParts(new Date());
       const tz = parts.find((p) => p.type === "timeZoneName")?.value ?? "";
-      const m = tz.match(/GMT([+-]\d+)(?::(\d+))?/);
-      if (m) offset = `${m[1].padStart(3, "+00")}:${m[2] ?? "00"}`;
+      const m = tz.match(/GMT([+-])(\d+)(?::(\d+))?/);
+      if (m) offset = `${m[1]}${m[2].padStart(2, "0")}:${m[3] ?? "00"}`;
     } catch {
       offset = "+00:00";
     }
@@ -66,7 +66,7 @@ export function TimezoneSelect({
   const boxRef = React.useRef<HTMLDivElement>(null);
 
   const pick = (zone: string) => {
-    setInner(zone);
+    if (controlledValue === undefined) setInner(zone);
     onValueChange?.(zone);
     setOpen(false);
     setQuery("");

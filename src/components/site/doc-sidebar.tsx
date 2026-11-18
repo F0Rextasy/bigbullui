@@ -6,15 +6,17 @@ import { usePathname } from "next/navigation";
 import { categories } from "@/lib/registry-categories";
 import catalog from "@/data/catalog.json";
 import { cn } from "@/components/ui/lib/utils";
-import { DocsSearch } from "@/components/site/docs-search";
 import { useSeen } from "@/components/site/seen-store";
 
 const GUIDES = [
   { href: "/docs", label: "Overview" },
   { href: "/docs/installation", label: "Installation" },
+  { href: "/docs/migrate", label: "Migrate from shadcn" },
   { href: "/docs/agents", label: "AI Agents (SKILL.md)" },
   { href: "/docs/mcp", label: "MCP Server" },
   { href: "/docs/design", label: "Design System" },
+  { href: "/docs/shortcuts", label: "Keyboard shortcuts" },
+  { href: "/docs/help", label: "Help & FAQ" },
   { href: "/docs/contributing", label: "Contributing" },
   { href: "/docs/recipes", label: "Recipes" },
   { href: "/docs/compare", label: "Compare" },
@@ -112,7 +114,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
   const [filterMode, setFilterMode] = React.useState<"core" | "all">("all");
   const [userToggled, setUserToggled] = React.useState<Record<string, boolean>>({});
   const activeGroup = React.useMemo(() => {
-    const guidePaths = ["/docs", "/docs/installation", "/docs/agents", "/docs/mcp", "/docs/design", "/docs/contributing", "/docs/recipes", "/docs/compare", "/docs/changelog", "/docs/help", "/blocks", "/showcase", "/icons"];
+    const guidePaths = ["/docs", "/docs/installation", "/docs/migrate", "/docs/agents", "/docs/mcp", "/docs/design", "/docs/shortcuts", "/docs/help", "/docs/contributing", "/docs/recipes", "/docs/compare", "/docs/changelog", "/blocks", "/showcase", "/icons"];
     if (guidePaths.includes(pathname)) return "guides";
     const slug = pathname.replace(/^\/docs\//, "");
     return catalog.items.find((c) => c.name === slug)?.category;
@@ -129,8 +131,6 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
 
   return (
     <nav aria-label="Documentation sidebar" className="space-y-6 pb-16 select-none">
-      <DocsSearch />
-
       {/* Catalog Filter Mode Toggle */}
       <div className="grid grid-cols-2 gap-1 rounded-lg border border-border bg-secondary/50 p-1">
         <button
@@ -163,6 +163,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
       <section>
         <button
           type="button"
+          aria-expanded={isOpen("guides")}
           onClick={() => toggleMenu("guides")}
           className="flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
@@ -207,6 +208,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
           <section key={cat.id}>
             <button
               type="button"
+              aria-expanded={open}
               onClick={() => toggleMenu(cat.id)}
               className="flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >

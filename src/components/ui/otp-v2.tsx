@@ -5,21 +5,25 @@ import { cn } from "./lib/utils";
 
 export interface OtpV2Props extends React.HTMLAttributes<HTMLDivElement> {
   length?: number;
+  error?: boolean;
   onComplete?: (code: string) => void;
 }
 
 /** OTP v2: segmented boxes with paste fill, auto-advance and error shake. */
-export function OtpV2({ length = 6, onComplete, className, ...props }: OtpV2Props) {
+export function OtpV2({ length = 6, error: errorProp, onComplete, className, ...props }: OtpV2Props) {
   const [digits, setDigits] = React.useState<string[]>(Array(length).fill(""));
-  const [error, setError] = React.useState(false);
+  const [internalError, setInternalError] = React.useState(false);
   const refs = React.useRef<(HTMLInputElement | null)[]>([]);
+  const error = errorProp ?? internalError;
 
   const code = digits.join("");
   const done = code.length === length && digits.every((d) => d !== "");
+  const onCompleteRef = React.useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   React.useEffect(() => {
-    if (done) onComplete?.(code);
-  }, [code, done, onComplete]);
+    if (done) onCompleteRef.current?.(code);
+  }, [code, done]);
 
   const fill = (idx: number, val: string) => {
     const clean = val.replace(/\D/g, "");
@@ -32,7 +36,7 @@ export function OtpV2({ length = 6, onComplete, className, ...props }: OtpV2Prop
     const next = [...digits];
     for (let i = 0; i < clean.length && idx + i < length; i++) next[idx + i] = clean[i];
     setDigits(next);
-    setError(false);
+    setInternalError(false);
     refs.current[Math.min(idx + clean.length, length - 1)]?.focus();
   };
 
@@ -43,7 +47,7 @@ export function OtpV2({ length = 6, onComplete, className, ...props }: OtpV2Prop
         Enter verification code
       </p>
       <div
-        className="flex justify-center gap-1.5"
+        className="flex justify-center gap-1.5 motion-reduce:animate-none!"
         style={error ? { animation: "otpShake 0.3s ease-out" } : undefined}
         role="group"
         aria-label="One time code"
@@ -70,15 +74,6 @@ export function OtpV2({ length = 6, onComplete, className, ...props }: OtpV2Prop
             )}
           />
         ))}
-      </div>
-      <div className="flex justify-center">
-        <button
-          type="button"
-          onClick={() => setError(true)}
-          className="rounded-sm font-mono text-[11px] uppercase tracking-wider text-muted-foreground hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          Simulate error
-        </button>
       </div>
     </div>
   );

@@ -9,15 +9,20 @@ export interface CopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   className?: string;
 }
 
-export function CopyButton({
-  value,
-  timeout = 2000,
-  className,
-  ...props
-}: CopyButtonProps) {
+export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(function CopyButton(
+  {
+    value,
+    timeout = 2000,
+    className,
+    onClick,
+    ...props
+  },
+  ref
+) {
   const [copied, setCopied] = React.useState(false);
 
-  const handleCopy = async () => {
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    onClick?.(e);
     try {
       await navigator.clipboard.writeText(value);
       setCopied(true);
@@ -29,11 +34,12 @@ export function CopyButton({
 
   return (
     <button
+      ref={ref}
       type="button"
       onClick={handleCopy}
       aria-label={copied ? "Copied" : "Copy to clipboard"}
       className={cn(
-        "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border border-dashed border-border bg-secondary px-2 py-1 font-mono text-[11px] font-medium text-secondary-foreground transition-all duration-150 active:scale-95",
+        "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border border-dashed border-border bg-secondary px-2 py-1 font-mono text-[11px] font-medium text-secondary-foreground transition-all duration-150 active:scale-95 motion-reduce:active:scale-100",
         "hover:border-foreground/50 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         copied && "border-accent text-accent-strong",
         className
@@ -58,4 +64,5 @@ export function CopyButton({
       )}
     </button>
   );
-}
+});
+CopyButton.displayName = "CopyButton";

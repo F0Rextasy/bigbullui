@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "./lib/utils";
+import { cn, isSafeUrl } from "./lib/utils";
 
 export interface DockContextValue {
   mouseX: number | null;
@@ -208,7 +208,7 @@ export function DockItem({
   ...props
 }: DockItemProps) {
   const { mouseX, mouseY, orientation, direction, magnification, distance, iconSize, magnify } = useDock();
-  const itemRef = React.useRef<HTMLButtonElement>(null);
+  const itemRef = React.useRef<HTMLElement>(null);
   const [isHovered, setIsHovered] = React.useState(false);
   const [isPressed, setIsPressed] = React.useState(false);
 
@@ -311,28 +311,44 @@ export function DockItem({
         </div>
       )}
 
-      {/* Interactive Button */}
-      <button
-        ref={itemRef}
-        type="button"
-        disabled={disabled}
-        onClick={(e) => {
-          setIsPressed(true);
-          setTimeout(() => setIsPressed(false), 200);
-          onClick?.(e);
-          if (href) {
-            window.location.href = href;
-          }
-        }}
-        className={cn(
-          "relative flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        aria-label={label || "Dock Item"}
-        {...props}
-      >
-        {content}
-      </button>
+      {/* Interactive Action or Link */}
+      {href && isSafeUrl(href) && !disabled ? (
+        <a
+          ref={itemRef as React.RefObject<HTMLAnchorElement>}
+          href={href}
+          onClick={(e) => {
+            setIsPressed(true);
+            setTimeout(() => setIsPressed(false), 200);
+            (onClick as React.MouseEventHandler<HTMLElement> | undefined)?.(e);
+          }}
+          className={cn(
+            "relative flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg cursor-pointer",
+            className
+          )}
+          aria-label={label || "Dock Item"}
+        >
+          {content}
+        </a>
+      ) : (
+        <button
+          ref={itemRef as React.RefObject<HTMLButtonElement>}
+          type="button"
+          disabled={disabled}
+          onClick={(e) => {
+            setIsPressed(true);
+            setTimeout(() => setIsPressed(false), 200);
+            onClick?.(e);
+          }}
+          className={cn(
+            "relative flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50",
+            className
+          )}
+          aria-label={label || "Dock Item"}
+          {...props}
+        >
+          {content}
+        </button>
+      )}
 
       {/* Active Indicator Dot */}
       <div

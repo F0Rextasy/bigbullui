@@ -51,12 +51,32 @@ export function ContextMenu({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsOpen(false);
+        return;
+      }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Home" || e.key === "End") {
+        const btns = Array.from(
+          menuRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]:not(:disabled)') ?? []
+        );
+        if (btns.length === 0) return;
+        e.preventDefault();
+        const curr = btns.indexOf(document.activeElement as HTMLButtonElement);
+        let next = 0;
+        if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = btns.length - 1;
+        else if (e.key === "ArrowDown") next = curr < 0 ? 0 : (curr + 1) % btns.length;
+        else next = curr <= 0 ? btns.length - 1 : curr - 1;
+        btns[next]?.focus();
       }
     };
+
+    const rafId = requestAnimationFrame(() => {
+      menuRef.current?.querySelector<HTMLButtonElement>('[role="menuitem"]:not(:disabled)')?.focus();
+    });
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
     return () => {
+      cancelAnimationFrame(rafId);
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -91,6 +111,7 @@ export function ContextMenu({
               <button
                 key={item.id}
                 type="button"
+                role="menuitem"
                 disabled={item.disabled}
                 onClick={() => {
                   item.onSelect?.();

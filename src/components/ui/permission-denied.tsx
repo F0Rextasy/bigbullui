@@ -18,7 +18,7 @@ export function PermissionDenied({ resource = "this resource", onRequestAccess, 
     <div className={cn("flex w-full max-w-sm flex-col items-center gap-4 rounded-lg border border-dashed border-border p-8 text-center", className)} {...props}>
       <style>{`@keyframes pdShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }`}</style>
       <span
-        className="flex size-14 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary/50 text-muted-foreground"
+        className="flex size-14 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary/50 text-muted-foreground motion-reduce:animate-none!"
         style={{ animation: "pdShake 0.5s ease-in-out 0.3s" }}
         aria-hidden="true"
       >

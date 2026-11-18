@@ -66,7 +66,7 @@ export function Hero({
         {primaryAction && (
           <a
             href={primaryAction.href}
-            className="rounded-sm bg-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.15em] text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            className="rounded-sm bg-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.15em] text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0"
           >
             {primaryAction.label}
           </a>

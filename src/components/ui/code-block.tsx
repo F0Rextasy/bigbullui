@@ -232,7 +232,7 @@ export function CodeBlock({
               aria-label={hasLineNumbers ? "Hide line numbers" : "Show line numbers"}
               aria-pressed={hasLineNumbers}
               className={cn(
-                "inline-flex cursor-pointer items-center gap-1 rounded-sm border px-2 py-1 font-mono text-[11px] font-medium transition-colors duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "inline-flex cursor-pointer items-center gap-1 rounded-sm border px-2 py-1 font-mono text-[11px] font-medium transition-colors duration-150 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 hasLineNumbers
                   ? "border-foreground bg-card text-foreground"
                   : "border-border bg-secondary/50 text-muted-foreground hover:bg-card hover:text-foreground"
@@ -251,7 +251,7 @@ export function CodeBlock({
               aria-label={isWordWrap ? "Disable word wrap" : "Enable word wrap"}
               aria-pressed={isWordWrap}
               className={cn(
-                "inline-flex cursor-pointer items-center gap-1 rounded-sm border px-2 py-1 font-mono text-[11px] font-medium transition-colors duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "inline-flex cursor-pointer items-center gap-1 rounded-sm border px-2 py-1 font-mono text-[11px] font-medium transition-colors duration-150 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 isWordWrap
                   ? "border-foreground bg-card text-foreground"
                   : "border-border bg-secondary/50 text-muted-foreground hover:bg-card hover:text-foreground"
@@ -280,9 +280,9 @@ export function CodeBlock({
             onClick={handleCopy}
             aria-label={copied ? "Copied to clipboard" : "Copy code snippet"}
             className={cn(
-              "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[11px] font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               copied
-                ? "border-accent bg-accent text-accent-foreground shadow-xs motion-safe:animate-in zoom-in-95"
+                ? "border-accent bg-accent text-accent-foreground shadow-xs motion-safe:animate-[scale-in_0.15s_ease-out_both]"
                 : "border-foreground/80 bg-foreground text-card hover:bg-foreground/90"
             )}
           >
@@ -374,7 +374,7 @@ export function CodeBlock({
                   key={lineNum}
                   className={cn(
                     "flex items-baseline py-0.5 px-2 -mx-2 transition-colors duration-100",
-                    isHighlighted && "bg-accent/15 border-l-2 border-accent text-accent-foreground font-medium",
+                    isHighlighted && "bg-accent/15 border-l-2 border-accent text-foreground font-medium",
                     !isHighlighted && "hover:bg-secondary/40"
                   )}
                 >

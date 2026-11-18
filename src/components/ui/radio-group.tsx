@@ -3,37 +3,55 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
+interface RadioGroupContextValue {
+  value: string;
+  name: string;
+  onSelect: (val: string) => void;
+}
+
+const RadioGroupCtx = React.createContext<RadioGroupContextValue | null>(null);
+
 export type RadioGroupProps = {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-  name: string;
+  name?: string;
   className?: string;
   children: React.ReactNode;
 };
 
-export function RadioGroup({ value, defaultValue, onValueChange, name, className, children }: RadioGroupProps) {
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGroup(
+  { value, defaultValue, onValueChange, name, className, children },
+  ref
+) {
   const [internal, setInternal] = React.useState(defaultValue ?? "");
+  const fallbackName = React.useId();
   const current = value ?? internal;
+  const onValueChangeRef = React.useRef(onValueChange);
+  onValueChangeRef.current = onValueChange;
+
+  const onSelect = React.useCallback(
+    (next: string) => {
+      if (value === undefined) setInternal(next);
+      onValueChangeRef.current?.(next);
+    },
+    [value]
+  );
+
+  const ctxValue = React.useMemo(
+    () => ({ value: current, name: name || fallbackName, onSelect }),
+    [current, name, fallbackName, onSelect]
+  );
 
   return (
-    <div role="radiogroup" className={cn("flex flex-col gap-2.5", className)}>
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child as React.ReactElement<{ checked?: boolean; onSelect?: () => void; name?: string }>, {
-              checked: (child.props as { value?: string }).value === current,
-              name,
-              onSelect: () => {
-                const next = (child.props as { value?: string }).value ?? "";
-                if (value === undefined) setInternal(next);
-                onValueChange?.(next);
-              },
-            })
-          : child
-      )}
-    </div>
+    <RadioGroupCtx.Provider value={ctxValue}>
+      <div ref={ref} role="radiogroup" className={cn("flex flex-col gap-2.5", className)}>
+        {children}
+      </div>
+    </RadioGroupCtx.Provider>
   );
-}
+});
+RadioGroup.displayName = "RadioGroup";
 
 export type RadioItemProps = {
   value: string;
@@ -45,7 +63,14 @@ export type RadioItemProps = {
   children: React.ReactNode;
 };
 
-export function RadioItem({ value, checked, onSelect, name, disabled, className, children }: RadioItemProps) {
+export const RadioItem = React.forwardRef<HTMLInputElement, RadioItemProps>(function RadioItem(
+  { value, checked: checkedProp, onSelect: onSelectProp, name: nameProp, disabled, className, children },
+  ref
+) {
+  const ctx = React.useContext(RadioGroupCtx);
+  const checked = ctx ? ctx.value === value : Boolean(checkedProp);
+  const inputName = nameProp ?? ctx?.name;
+
   return (
     <label
       className={cn(
@@ -55,12 +80,16 @@ export function RadioItem({ value, checked, onSelect, name, disabled, className,
       )}
     >
       <input
+        ref={ref}
         type="radio"
-        name={name}
+        name={inputName}
         value={value}
         checked={checked}
         disabled={disabled}
-        onChange={onSelect}
+        onChange={() => {
+          ctx?.onSelect(value);
+          onSelectProp?.();
+        }}
         className="peer sr-only"
       />
       <span
@@ -75,4 +104,5 @@ export function RadioItem({ value, checked, onSelect, name, disabled, className,
       <span>{children}</span>
     </label>
   );
-}
+});
+RadioItem.displayName = "RadioItem";

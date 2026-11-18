@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -38,15 +39,23 @@ const LANES = [
   },
 ];
 
-export function AppKanban() {
+export interface AppKanbanProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppKanban({ className, onAction, ...props }: AppKanbanProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">SHOW // PROJECT BOARD</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Opening night</h2>
         </div>
-        <Button size="sm">New card</Button>
+        <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
+          <Button size="sm" onClick={() => { setNotice("New card queued."); onAction?.("new-card"); }}>New card</Button>
+        </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {LANES.map((lane) => (
@@ -67,7 +76,7 @@ export function AppKanban() {
                       <Avatar name={card.who} size="sm" />
                       <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{card.comments} NOTES</span>
                     </span>
-                    <Button size="sm" variant="ghost">Detail</Button>
+                    <Button size="sm" variant="ghost" onClick={() => { setNotice(`${card.title} (${lane.title})`); onAction?.("card-detail"); }}>Detail</Button>
                   </CardContent>
                 </Card>
               ))}

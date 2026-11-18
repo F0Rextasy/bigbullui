@@ -3,20 +3,58 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-type AccordionContextValue = { open: string | null; toggle: (id: string) => void };
+type AccordionContextValue = { openIds: string[]; toggle: (id: string) => void };
 const AccordionCtx = React.createContext<AccordionContextValue | null>(null);
 
 export type AccordionProps = React.HTMLAttributes<HTMLDivElement> & {
-  defaultValue?: string;
+  type?: "single" | "multiple";
+  value?: string | string[];
+  defaultValue?: string | string[];
+  onValueChange?: (value: string | string[]) => void;
 };
 
-export function Accordion({ defaultValue, className, children, ...props }: AccordionProps) {
-  const [open, setOpen] = React.useState<string | null>(defaultValue ?? null);
-  const toggle = React.useCallback((id: string) => {
-    setOpen((current) => (current === id ? null : id));
-  }, []);
+function normalizeAccordionValue(val?: string | string[]): string[] {
+  if (!val) return [];
+  return Array.isArray(val) ? val : [val];
+}
+
+export function Accordion({
+  type = "single",
+  value: controlledValue,
+  defaultValue,
+  onValueChange,
+  className,
+  children,
+  ...props
+}: AccordionProps) {
+  const [internal, setInternal] = React.useState<string[]>(() => normalizeAccordionValue(defaultValue));
+  const isControlled = controlledValue !== undefined;
+  const openIds = React.useMemo(
+    () => (isControlled ? normalizeAccordionValue(controlledValue) : internal),
+    [isControlled, controlledValue, internal]
+  );
+
+  const onValueChangeRef = React.useRef(onValueChange);
+  onValueChangeRef.current = onValueChange;
+
+  const toggle = React.useCallback(
+    (id: string) => {
+      let next: string[];
+      if (type === "multiple") {
+        next = openIds.includes(id) ? openIds.filter((x) => x !== id) : [...openIds, id];
+      } else {
+        next = openIds.includes(id) ? [] : [id];
+      }
+      if (!isControlled) setInternal(next);
+      onValueChangeRef.current?.(type === "multiple" ? next : (next[0] ?? ""));
+    },
+    [type, openIds, isControlled]
+  );
+
+  const ctxValue = React.useMemo(() => ({ openIds, toggle }), [openIds, toggle]);
+
   return (
-    <AccordionCtx.Provider value={{ open, toggle }}>
+    <AccordionCtx.Provider value={ctxValue}>
       <div className={cn("w-full", className)} {...props}>
         {children}
       </div>
@@ -28,8 +66,10 @@ export type AccordionItemProps = React.HTMLAttributes<HTMLDivElement> & { value:
 
 export function AccordionItem({ value, className, children, ...props }: AccordionItemProps) {
   const ctx = React.useContext(AccordionCtx);
-  const isOpen = ctx?.open === value;
-  const contentId = React.useId();
+  const isOpen = ctx?.openIds.includes(value) ?? false;
+  const uid = React.useId();
+  const contentId = `${uid}-content`;
+  const triggerId = `${uid}-trigger`;
   return (
     <div
       className={cn("border-b border-dashed border-border", className)}
@@ -38,11 +78,15 @@ export function AccordionItem({ value, className, children, ...props }: Accordio
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
-          ? React.cloneElement(child as React.ReactElement<{ value?: string; isOpen?: boolean; contentId?: string }>, {
-              value,
-              isOpen,
-              contentId,
-            })
+          ? React.cloneElement(
+              child as React.ReactElement<{ value?: string; isOpen?: boolean; contentId?: string; triggerId?: string }>,
+              {
+                value,
+                isOpen,
+                contentId,
+                triggerId,
+              }
+            )
           : child
       )}
     </div>
@@ -53,15 +97,21 @@ type AccordionTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   value?: string;
   isOpen?: boolean;
   contentId?: string;
+  triggerId?: string;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
 };
 
-export function AccordionTrigger({ value, isOpen, contentId, animated = true, className, children, onClick, ...props }: AccordionTriggerProps) {
+export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerProps>(function AccordionTrigger(
+  { value, isOpen, contentId, triggerId, id, animated = true, className, children, onClick, ...props },
+  ref
+) {
   const ctx = React.useContext(AccordionCtx);
   return (
     <h3 className="flex">
       <button
+        ref={ref}
+        id={id ?? triggerId}
         type="button"
         aria-expanded={isOpen ?? false}
         aria-controls={contentId}
@@ -70,7 +120,7 @@ export function AccordionTrigger({ value, isOpen, contentId, animated = true, cl
           onClick?.(event);
         }}
         className={cn(
-          "flex flex-1 cursor-pointer items-center justify-between gap-4 py-4 text-start text-sm font-medium transition-colors hover:text-muted-foreground",
+          "flex flex-1 cursor-pointer items-center justify-between gap-4 py-4 text-start text-sm font-medium transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xs",
           className
         )}
         {...props}
@@ -86,21 +136,36 @@ export function AccordionTrigger({ value, isOpen, contentId, animated = true, cl
       </button>
     </h3>
   );
-}
+});
+AccordionTrigger.displayName = "AccordionTrigger";
 
 type AccordionContentProps = React.HTMLAttributes<HTMLDivElement> & {
+  value?: string;
   isOpen?: boolean;
   contentId?: string;
+  triggerId?: string;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
 };
 
-export function AccordionContent({ isOpen, contentId, animated = true, className, children, ...props }: AccordionContentProps) {
+export function AccordionContent({
+  value: _value,
+  isOpen,
+  contentId,
+  triggerId,
+  animated = true,
+  className,
+  children,
+  ...props
+}: AccordionContentProps) {
+  void _value;
   return (
     <div
       id={contentId}
       role="region"
-      hidden={!isOpen}
+      aria-labelledby={triggerId}
+      aria-hidden={!isOpen || undefined}
+      inert={!isOpen || undefined}
       className={cn(
         "grid ease-out",
         animated ? "transition-[grid-template-rows] duration-200 motion-reduce:transition-none" : "transition-none",

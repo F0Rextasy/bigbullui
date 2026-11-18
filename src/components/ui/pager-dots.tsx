@@ -31,40 +31,44 @@ export function PagerDots({
     [onValueChange]
   );
 
+  const safeCount = Math.max(1, count);
+
+  const getItemStyle = (index: number): React.CSSProperties | undefined => {
+    const isActive = current === index;
+    if (variant === "lines" && isActive) {
+      const width = safeCount > 1 ? (index / (safeCount - 1)) * 100 : 100;
+      return { width: `${width}%` };
+    }
+    if (variant === "bars" && isActive) {
+      const height = ((index + 1) / safeCount) * 100;
+      return { height: `${height}%` };
+    }
+    return undefined;
+  };
+
   const getItemClass = (index: number) => {
     const isActive = current === index;
-    const center = count - 1;
 
     if (variant === "dots") {
       if (isActive) {
         return cn(
-          "rounded-full bg-accent w-6 h-6 transition-all duration-300 ease-out",
-          "motion-safe:animate-[stamp_0.4s_ease-out_both]"
+          "rounded-full bg-accent text-accent-foreground w-6 h-6 transition-all duration-300 ease-out flex items-center justify-center",
+          "motion-safe:animate-[stamp_0.4s_ease-out_both] motion-reduce:animate-none!"
         );
       }
-      return cn("rounded-full bg-transparent w-4 h-4 border border-border/30 transition-all duration-200");
+      return cn("rounded-full bg-transparent w-4 h-4 border border-border/30 transition-all duration-200 flex items-center justify-center");
     }
 
     if (variant === "lines") {
-      if (isActive) {
-        const width = (index / (count - 1)) * 100;
-        return cn(
-          "h-0.5 bg-accent transition-all duration-300 ease-out",
-          `w-[${width}%]`
-        );
-      }
-      return cn("h-0.5 bg-transparent w-full transition-all duration-200");
+      return isActive
+        ? "h-0.5 bg-accent transition-all duration-300 ease-out"
+        : "h-0.5 bg-transparent w-full transition-all duration-200";
     }
 
     if (variant === "bars") {
-      if (isActive) {
-        const height = ((index + 1) / count) * 12;
-        return cn(
-          "w-1 bg-accent rounded-t-md rounded-b-md transition-all duration-300 ease-out",
-          `h-[${height}%]`
-        );
-      }
-      return cn("w-0.5 bg-border/30 rounded-t-md rounded-b-md transition-all duration-200");
+      return isActive
+        ? "w-1 h-full bg-accent rounded-t-md rounded-b-md transition-all duration-300 ease-out"
+        : "w-0.5 bg-border/30 rounded-t-md rounded-b-md transition-all duration-200";
     }
 
     return cn("rounded-full bg-transparent w-4 h-4 border border-border/30");
@@ -75,14 +79,15 @@ export function PagerDots({
       className={cn(
         "flex space-x-1.5 justify-center",
         variant === "lines" && "items-center",
-        variant === "bars" && "items-end",
+        variant === "bars" && "items-end h-5",
         className
       )}
     >
       {Array.from({ length: count }, (_, i) => (
         <button
           key={i}
-          className={getItemClass(i)}
+          style={getItemStyle(i)}
+          className={cn(getItemClass(i), "cursor-pointer")}
           onClick={() => handleChange(i)}
           aria-label={`Go to page ${i + 1}`}
           type="button"

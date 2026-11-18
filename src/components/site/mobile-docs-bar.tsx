@@ -14,12 +14,21 @@ export function MobileDocsBar() {
 
   // Determine current page title
   const currentTitle = React.useMemo(() => {
-    if (pathname === "/docs") return "Components Overview";
-    if (pathname === "/docs/installation") return "Installation";
-    if (pathname === "/docs/agents") return "AI Agent Kit";
-    if (pathname === "/docs/mcp") return "MCP Server";
-    if (pathname === "/docs/design") return "Design Tokens";
-    if (pathname === "/docs/contributing") return "Contributing";
+    const guideTitles: Record<string, string> = {
+      "/docs": "Components Overview",
+      "/docs/installation": "Installation",
+      "/docs/migrate": "Migrate from shadcn",
+      "/docs/agents": "AI Agent Kit",
+      "/docs/mcp": "MCP Server",
+      "/docs/design": "Design Tokens",
+      "/docs/shortcuts": "Keyboard Shortcuts",
+      "/docs/help": "Help & FAQ",
+      "/docs/contributing": "Contributing",
+      "/docs/recipes": "Recipes",
+      "/docs/compare": "Compare",
+      "/docs/changelog": "Changelog",
+    };
+    if (pathname in guideTitles) return guideTitles[pathname];
     const slug = pathname.replace(/^\/docs\//, "");
     const comp = catalog.items.find((c) => c.name === slug);
     return comp ? comp.title : "Documentation";
@@ -31,7 +40,7 @@ export function MobileDocsBar() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex min-h-11 items-center gap-2 rounded-md border border-dashed border-border bg-card px-2.5 py-1.5 text-xs font-medium text-foreground shadow-2xs transition-colors hover:border-foreground/50 active:scale-95"
+        className="flex min-h-11 items-center gap-2 rounded-md border border-dashed border-border bg-card px-2.5 py-1.5 text-xs font-medium text-foreground shadow-2xs transition-colors hover:border-foreground/50 active:scale-95 motion-reduce:active:scale-100"
       >
         <svg
           width="14"
@@ -60,7 +69,7 @@ export function MobileDocsBar() {
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
-            className="flex min-h-11 items-center gap-1.5 rounded-md border border-border bg-secondary/50 px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+            className="flex min-h-11 items-center gap-1.5 rounded-md border border-border bg-secondary/50 px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground active:scale-95 motion-reduce:active:scale-100"
           >
             <svg
               width="13"

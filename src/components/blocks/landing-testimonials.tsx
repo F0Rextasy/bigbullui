@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Avatar } from "../ui/avatar";
@@ -11,9 +12,14 @@ const QUOTES = [
   { name: "Sena Park", role: "DESIGN ENG // COPPER", stars: 4, body: "The night-stub theme made our admin panel feel like a backstage pass." },
 ];
 
-export function LandingTestimonials() {
+export interface LandingTestimonialsProps extends React.HTMLAttributes<HTMLElement> {
+  onAction?: (action: string) => void;
+}
+
+export function LandingTestimonials({ className, onAction, ...props }: LandingTestimonialsProps) {
+  void onAction;
   return (
-    <section className="w-full space-y-6">
+    <section className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-2 text-center">
         <Badge variant="accent" className="mx-auto">WORD AT THE GATE</Badge>
         <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Crews keep the stubs</h2>

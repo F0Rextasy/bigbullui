@@ -58,7 +58,7 @@ const TypingIndicator: React.FC = () => {
         style={{ animationDelay: `${dots[2] * 120}ms` }}
       />
       {dots[0] === 1 && dots[1] === 1 && dots[2] === 1 && (
-        <span className="text-[10px] mono uppercase text-muted-foreground">ADA is typing</span>
+        <span className="text-[10px] font-mono uppercase text-muted-foreground">ADA is typing</span>
       )}
     </div>
   );

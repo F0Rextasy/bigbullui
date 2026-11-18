@@ -38,7 +38,7 @@ export function Histogram({ bins = [], height = 180, className, ...props }: Hist
               </span>
               <div
                 className={cn(
-                  "w-full border-x border-t border-border bg-accent/50 transition-colors duration-150 motion-reduce:transition-none",
+                  "w-full border-x border-t border-border bg-accent/50 transition-colors duration-150 motion-reduce:transition-none motion-reduce:animate-none!",
                   isHover && "bg-accent"
                 )}
                 style={{

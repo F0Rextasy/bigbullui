@@ -76,7 +76,7 @@ export function FeedbackWidget({ onSubmit, position = "bottom-right", className,
                   type="button"
                   disabled={!mood}
                   onClick={send}
-                  className="w-full cursor-pointer rounded-md bg-primary px-3 py-2 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40"
+                  className="w-full cursor-pointer rounded-md bg-primary px-3 py-2 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.01] motion-reduce:hover:scale-100 active:scale-[0.99] motion-reduce:active:scale-100 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   Send stub
                 </button>
@@ -90,7 +90,7 @@ export function FeedbackWidget({ onSubmit, position = "bottom-right", className,
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="Send feedback"
-        className="cursor-pointer rounded-full border-2 border-foreground bg-accent px-4 py-2 font-mono text-xs font-bold uppercase text-accent-foreground shadow-lg transition-transform hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="cursor-pointer rounded-full border-2 border-foreground bg-accent px-4 py-2 font-mono text-xs font-bold uppercase text-accent-foreground shadow-lg transition-transform hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         ✎ Feedback
       </button>

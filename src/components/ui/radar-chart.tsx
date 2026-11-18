@@ -88,7 +88,7 @@ export function RadarChart({
             className={cn(
               "transition-all duration-200",
               "motion-reduce:transition-none",
-              "group-hover:scale-125",
+              "group-hover:scale-125 motion-reduce:group-hover:scale-100",
             )}
           />
         ))}

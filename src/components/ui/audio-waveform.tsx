@@ -382,7 +382,7 @@ export function AudioWaveform({
               type="button"
               onClick={togglePlay}
               aria-label={isPlaying ? "Pause audio playback" : "Play audio recording"}
-              className="flex size-11 shrink-0 items-center justify-center rounded-md border-2 border-foreground bg-accent text-accent-foreground shadow-sm transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              className="flex size-11 shrink-0 items-center justify-center rounded-md border-2 border-foreground bg-accent text-accent-foreground shadow-sm transition-transform hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 cursor-pointer"
             >
               {isPlaying ? (
                 <svg

@@ -24,10 +24,12 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
 
   const code = digits.join("");
   const complete = code.length === length && digits.every((d) => d !== "");
+  const onVerifyRef = React.useRef(onVerify);
+  onVerifyRef.current = onVerify;
 
   React.useEffect(() => {
-    if (complete) onVerify?.(code);
-  }, [code, complete, onVerify]);
+    if (complete) onVerifyRef.current?.(code);
+  }, [code, complete]);
 
   const setDigit = (idx: number, val: string) => {
     const clean = val.replace(/\D/g, "");
@@ -69,7 +71,7 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
             inputMode="numeric"
             autoComplete="one-time-code"
             maxLength={length}
-            aria-label={`${i + 1}. hane`}
+            aria-label={`Digit ${i + 1}`}
             className={cn(
               "size-11 rounded-md border-2 border-dashed border-border bg-card text-center font-mono text-lg font-bold",
               "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",

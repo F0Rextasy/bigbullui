@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { GlowDivider } from "@/components/site/glow-divider";
 import { CodeBox } from "@/components/site/code-box";
 import { HeroShowcase } from "@/components/site/hero-showcase";
-import { NavIcon } from "@/components/site/nav-icons";
+import { ChromeIcon } from "@/components/site/chrome-icons";
 import { categories, components } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
 import { SITE_VERSION } from "@/lib/site-meta";
@@ -262,7 +262,7 @@ export default function Home() {
                 key={name}
                 className="flex aspect-square items-center justify-center rounded-lg border border-border bg-card text-foreground transition-colors hover:border-foreground/50 hover:text-accent-strong"
               >
-                <NavIcon name={name} size={22} />
+                <ChromeIcon name={name} size={22} />
               </span>
             ))}
           </div>

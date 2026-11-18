@@ -52,7 +52,7 @@ export function AgentArtifactCard({
         <button
           type="button"
           onClick={() => onOpen?.()}
-          className="cursor-pointer rounded border-2 border-foreground bg-primary px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="cursor-pointer rounded border-2 border-foreground bg-primary px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Open
         </button>

@@ -30,7 +30,7 @@ export function MilestoneChart({ milestones = [], className, ...props }: Milesto
         <div className="absolute left-0 right-0 top-2.5 h-0.5 rounded-full bg-border/60" aria-hidden="true" />
         {/* Progress fill */}
         <div
-          className="absolute left-0 top-2.5 h-0.5 origin-left rounded-full bg-accent"
+          className="absolute left-0 top-2.5 h-0.5 origin-left rounded-full bg-accent motion-reduce:animate-none!"
           style={{ width: `${pct}%`, animation: "mcLine 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
           aria-hidden="true"
         />
@@ -40,7 +40,7 @@ export function MilestoneChart({ milestones = [], className, ...props }: Milesto
             <div key={m.id} className="flex flex-col items-center gap-1.5" style={{ width: `${100 / milestones.length}%` }}>
               <span
                 className={cn(
-                  "size-5 rounded-full border-2",
+                  "size-5 rounded-full border-2 motion-reduce:animate-none!",
                   m.reached ? "border-accent bg-accent text-accent-foreground" : "border-border bg-card"
                 )}
                 style={{ animation: m.reached ? `mcPop 0.35s ease-out both` : undefined, animationDelay: `${idx * 120}ms` }}

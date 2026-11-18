@@ -21,7 +21,11 @@ export function StampField({
   const [inner, setInner] = React.useState(defaultApprover);
   const approver = controlledApprover ?? inner;
   const [stamped, setStamped] = React.useState(false);
-  const today = new Date().toLocaleDateString(undefined, { dateStyle: "medium" }).toUpperCase();
+  const [today, setToday] = React.useState("");
+
+  React.useEffect(() => {
+    setToday(new Date().toLocaleDateString("en-US", { dateStyle: "medium" }).toUpperCase());
+  }, []);
 
   const stamp = () => {
     if (approver.trim().length === 0) return;
@@ -47,7 +51,7 @@ export function StampField({
           type="button"
           onClick={() => (stamped ? setStamped(false) : stamp())}
           disabled={!stamped && approver.trim().length === 0}
-          className="shrink-0 cursor-pointer rounded-md bg-primary px-4 py-2 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.02] active:scale-95 disabled:cursor-not-allowed disabled:opacity-40"
+          className="shrink-0 cursor-pointer rounded-md bg-primary px-4 py-2 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {stamped ? "Reset" : "Stamp"}
         </button>

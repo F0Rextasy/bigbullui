@@ -17,7 +17,7 @@ export interface OrgNode {
  * OrgChart - hierarchical boxes tree with connector lines and expand/collapse
  */
 interface OrgChartProps {
-  root: OrgNode[];
+  root?: OrgNode[];
   expanded?: Set<string>;
   onToggle?: (id: string) => void;
 }
@@ -26,11 +26,11 @@ interface OrgChartProps {
  * Recursively render org chart nodes
  */
 const OrgChartInner = ({
-  root,
+  root = [],
   expanded = new Set(),
   onToggle,
 }: {
-  root: OrgNode[];
+  root?: OrgNode[];
   expanded?: Set<string>;
   onToggle?: (id: string) => void;
 }) => {

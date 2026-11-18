@@ -65,7 +65,7 @@ export function TicketValidator({ onValidate, result, className, ...props }: Tic
         type="button"
         onClick={submit}
         disabled={!code.trim()}
-        className="mt-2 w-full rounded-md bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+        className="mt-2 w-full rounded-md bg-accent px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100 disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
       >
         Validate
       </button>

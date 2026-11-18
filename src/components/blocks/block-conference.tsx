@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 
 const SPEAKERS = [
@@ -19,12 +19,16 @@ const PROGRAM = [
 ];
 
 /** Conference page: speakers + program + ticket CTA. */
-export function BlockConference() {
+export interface BlockConferenceProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockConference({ className, onAction, ...props }: BlockConferenceProps) {
   const [tier, setTier] = React.useState("Standard");
   const [claimed, setClaimed] = React.useState(false);
 
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="rounded-lg border-2 border-foreground bg-card p-6 text-center shadow-md outline-1 outline-dashed outline-offset-[-5px] outline-border">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">One day · single track</p>
         <h2 className="mt-1 font-mono text-3xl font-black uppercase tracking-tight">Stubconf 2026</h2>
@@ -78,7 +82,7 @@ export function BlockConference() {
           {claimed ? (
             <p role="status" className="font-mono text-xs font-bold uppercase text-accent">Pass claimed. See you at doors.</p>
           ) : (
-            <Button onClick={() => setClaimed(true)}>Claim {tier} pass</Button>
+            <Button onClick={() => { setClaimed(true); onAction?.("claim-pass"); }}>Claim {tier} pass</Button>
           )}
         </CardContent>
       </Card>

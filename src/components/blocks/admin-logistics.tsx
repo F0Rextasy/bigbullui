@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -27,15 +28,23 @@ function statusVariant(status: string): "accent" | "default" | "outline" | "seco
   return "outline";
 }
 
-export function AdminLogistics() {
+export interface AdminLogisticsProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminLogistics({ className, onAction, ...props }: AdminLogisticsProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DISPATCH // LOGISTICS</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Shipment board</h2>
         </div>
-        <Button size="sm">New manifest</Button>
+        <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
+          <Button size="sm" onClick={() => { setNotice("Manifest SHP-4105 created."); onAction?.("new-manifest"); }}>New manifest</Button>
+        </div>
       </div>
       <div className="grid gap-4 xl:grid-cols-3">
         <Card className="min-w-0 xl:col-span-2">
@@ -84,7 +93,7 @@ export function AdminLogistics() {
                 </li>
               ))}
             </ol>
-            <Button variant="outline" size="sm" className="mt-4 w-full">View full ledger</Button>
+            <Button variant="outline" size="sm" className="mt-4 w-full" onClick={() => { setNotice("Loaded full dispatch ledger."); onAction?.("view-ledger"); }}>View full ledger</Button>
           </CardContent>
         </Card>
       </div>

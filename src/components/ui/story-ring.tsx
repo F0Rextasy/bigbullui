@@ -20,7 +20,7 @@ export function StoryRing({ name = "Ada", segments = 4, seen = 1, onOpen, classN
         type="button"
         onClick={onOpen}
         aria-label={`Open story by ${name}`}
-        className="relative rounded-full transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
+        className="relative rounded-full transition-transform hover:scale-105 motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
         <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true" className="-rotate-90">
           <circle cx="36" cy="36" r={r} fill="none" strokeWidth="4" className="stroke-border" />

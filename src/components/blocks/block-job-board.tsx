@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -16,7 +17,11 @@ const JOBS = [
 const TYPES = ["All", "Full-time", "Contract", "Part-time"];
 
 /** Job board: search + type filter + apply drawer. */
-export function BlockJobBoard() {
+export interface BlockJobBoardProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockJobBoard({ className, onAction, ...props }: BlockJobBoardProps) {
   const [query, setQuery] = React.useState("");
   const [type, setType] = React.useState("All");
   const [openId, setOpenId] = React.useState<string | null>(null);
@@ -29,7 +34,7 @@ export function BlockJobBoard() {
   );
 
   return (
-    <div className="w-full space-y-3">
+    <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex flex-wrap items-center gap-2">
         <Input
           value={query}
@@ -87,7 +92,7 @@ export function BlockJobBoard() {
                         <Button
                           size="sm"
                           disabled={isApplied}
-                          onClick={() => setApplied((a) => [...a, j.id])}
+                          onClick={() => { setApplied((a) => [...a, j.id]); onAction?.(`apply:${j.id}`); }}
                         >
                           {isApplied ? "Application sent" : "Apply in one click"}
                         </Button>

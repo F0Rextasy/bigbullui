@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -13,11 +14,16 @@ const TICKETS = [
   { id: "TCK-883", who: "Mira Chen", subject: "VIP list spelling correction", sla: "ON TRACK", tone: "accent" as const },
 ];
 
-export function AdminSupport() {
+export interface AdminSupportProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminSupport({ className, onAction, ...props }: AdminSupportProps) {
   const [reply, setReply] = React.useState("");
   const [active, setActive] = React.useState(TICKETS[0].id);
+  const [status, setStatus] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DESK{" // "}SUPPORT QUEUE</p>
@@ -35,7 +41,7 @@ export function AdminSupport() {
               <button
                 key={ticket.id}
                 type="button"
-                onClick={() => setActive(ticket.id)}
+                onClick={() => { setActive(ticket.id); setStatus(null); }}
                 aria-pressed={active === ticket.id}
                 className="flex w-full items-center gap-3 rounded-md border-2 border-dashed border-border bg-card p-3 text-start transition-colors hover:border-solid hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
               >
@@ -59,10 +65,32 @@ export function AdminSupport() {
               value={reply}
               onChange={(event) => setReply(event.target.value)}
               placeholder="Type a stamped reply..."
+              aria-label="Stamped reply"
               rows={5}
             />
-            <Button size="sm" className="w-full">Send reply</Button>
-            <Button variant="outline" size="sm" className="w-full">Escalate to lead</Button>
+            <Button
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                setStatus(`Reply sent to ${active}.`);
+                setReply("");
+                onAction?.("send-reply");
+              }}
+            >
+              Send reply
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                setStatus(`${active} escalated to floor lead.`);
+                onAction?.("escalate");
+              }}
+            >
+              Escalate to lead
+            </Button>
+            {status && <p role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{status}</p>}
           </CardContent>
         </Card>
       </div>

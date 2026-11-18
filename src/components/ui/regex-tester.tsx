@@ -9,41 +9,61 @@ export interface RegexTesterProps extends React.HTMLAttributes<HTMLDivElement> {
   onMatch?: (matches: string[]) => void;
 }
 
+function hasNestedQuantifiers(pattern: string): boolean {
+  if (pattern.length > 200) return true;
+  if (/(\([^)]*[+*][^)]*\))[+*{]/.test(pattern)) return true;
+  return false;
+}
+
 /** Regular expression tester: pattern + test string + match highlights. */
 export function RegexTester({ pattern: patternProp, testString: testProp = "", onMatch, className, ...props }: RegexTesterProps) {
   const [pattern, setPattern] = React.useState(patternProp ?? "\\d+");
   const [test, setTest] = React.useState(testProp);
+  const patternId = React.useId();
+  const testId = React.useId();
+  const onMatchRef = React.useRef(onMatch);
+  onMatchRef.current = onMatch;
 
   const { segments, matches, error } = React.useMemo(() => {
     try {
+      if (hasNestedQuantifiers(pattern)) {
+        return {
+          segments: [{ text: test, hit: false }],
+          matches: [] as string[],
+          error: "Pattern rejected: nested quantifiers or excessive length",
+        };
+      }
       const re = new RegExp(pattern, "g");
+      const boundedTest = test.slice(0, 10000);
       const segs: { text: string; hit: boolean }[] = [];
       let last = 0;
       const found: string[] = [];
       let m: RegExpExecArray | null;
-      while ((m = re.exec(test)) !== null) {
-        if (m.index > last) segs.push({ text: test.slice(last, m.index), hit: false });
+      let steps = 0;
+      while ((m = re.exec(boundedTest)) !== null && steps < 500) {
+        steps++;
+        if (m.index > last) segs.push({ text: boundedTest.slice(last, m.index), hit: false });
         segs.push({ text: m[0], hit: true });
         found.push(m[0]);
         last = m.index + m[0].length;
         if (m[0].length === 0) re.lastIndex++;
       }
-      if (last < test.length) segs.push({ text: test.slice(last), hit: false });
+      if (last < boundedTest.length) segs.push({ text: boundedTest.slice(last), hit: false });
       return { segments: segs, matches: found, error: null as string | null };
     } catch (e) {
       return { segments: [{ text: test, hit: false }], matches: [] as string[], error: (e as Error).message };
     }
   }, [pattern, test]);
 
-  React.useEffect(() => { onMatch?.(matches); }, [matches, onMatch]);
+  React.useEffect(() => { onMatchRef.current?.(matches); }, [matches]);
 
   return (
     <div className={cn("w-full max-w-md space-y-3", className)} {...props}>
       <style>{`@keyframes rtIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="space-y-1">
-        <label htmlFor="rt-pattern" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Pattern</label>
+        <label htmlFor={patternId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Pattern</label>
         <input
-          id="rt-pattern"
+          id={patternId}
           value={pattern}
           onChange={(e) => setPattern(e.target.value)}
           className={cn(
@@ -56,9 +76,9 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
         {error && <p className="text-xs text-destructive animate-[rtIn_0.2s_ease-out] motion-reduce:animate-none">{error}</p>}
       </div>
       <div className="space-y-1">
-        <label htmlFor="rt-test" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Test string</label>
+        <label htmlFor={testId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Test string</label>
         <textarea
-          id="rt-test"
+          id={testId}
           value={test}
           onChange={(e) => setTest(e.target.value)}
           rows={3}

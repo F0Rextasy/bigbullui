@@ -17,88 +17,150 @@ export interface StoryViewerProps {
 
 const STORY_DURATION = 3000;
 
-// Keyframe for progress bar fill
-const progressKeyframe = `
-  @keyframes storyProgress {
-    from { stroke-dashoffset: 0; }
-    to { stroke-dashoffset: ${44 - 44 * 0.25}; }
-  }
-`;
-
 const StoryViewer: React.FC<StoryViewerProps> = ({ stories = [], duration = STORY_DURATION }) => {
+  const [activeIdx, setActiveIdx] = React.useState<number | null>(null);
+  const [paused, setPaused] = React.useState(false);
+  const progressId = React.useId();
+
+  React.useEffect(() => {
+    if (activeIdx === null || paused || stories.length === 0) return;
+    const timer = setTimeout(() => {
+      setActiveIdx((prev) => {
+        if (prev === null) return null;
+        return prev + 1 < stories.length ? prev + 1 : null;
+      });
+    }, Math.max(500, duration));
+    return () => clearTimeout(timer);
+  }, [activeIdx, paused, stories.length, duration]);
+
+  const activeStory = activeIdx !== null ? stories[activeIdx] : null;
+  const radius = 8;
+  const circumference = 2 * Math.PI * radius;
+  const progressFraction =
+    activeIdx !== null && stories.length > 0 ? (activeIdx + 1) / stories.length : 0.25;
+
   return (
-    <div className="relative">
+    <div className="relative inline-block">
       {/* Story ring */}
       <div
         className={cn(
-          "relative inline-flex rounded-full border border-border bg-card p-1",
+          "relative inline-flex items-center gap-2 rounded-full border border-border bg-card p-1.5",
           "motion-reduce:transition-none"
         )}
       >
-        {/* Progress bar track */}
-        <svg
-          className="relative w-20 h-20"
-          viewBox="0 0 24 24"
-        >
+        <svg className="h-10 w-10 shrink-0 -rotate-90" viewBox="0 0 24 24" aria-hidden="true">
           <circle
             cx="12"
             cy="12"
-            r="8"
+            r={radius}
             stroke="var(--border)"
-            strokeWidth="1"
+            strokeWidth="2"
             fill="none"
           />
           <circle
-            id="story-progress"
-            className="motion-reduce:animate-none!"
+            id={progressId}
+            className="transition-[stroke-dashoffset] duration-300 motion-reduce:transition-none"
             cx="12"
             cy="12"
-            r="8"
+            r={radius}
             stroke="var(--accent)"
             strokeWidth="2"
+            strokeLinecap="round"
             fill="none"
-            style={{
-              strokeDasharray: 50,
-              strokeDashoffset: 0,
-              animation: `${progressKeyframe} ${duration / 1000}s linear infinite`,
-            }}
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference * (1 - progressFraction)}
           />
         </svg>
 
         {/* Story avatars */}
-        <div className="relative flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           {stories.map((story, idx) => (
-            <div
+            <button
               key={story.id}
+              type="button"
+              onClick={() => {
+                setPaused(false);
+                setActiveIdx(idx);
+              }}
+              aria-label={`View story from ${story.author}`}
+              aria-pressed={activeIdx === idx}
               className={cn(
-                "relative w-8 h-8 rounded-full bg-border/20 flex items-center justify-center text-[10px] mono uppercase text-muted-foreground",
-                "motion-reduce:animate-none"
+                "flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border text-[10px] font-mono uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                activeIdx === idx
+                  ? "border-accent bg-accent text-accent-foreground"
+                  : "border-border bg-secondary text-foreground hover:border-foreground/50"
               )}
             >
               <span className="line-clamp-1">{story.initials}</span>
-            </div>
+            </button>
           ))}
         </div>
       </div>
 
-      {/* Full overlay panel when stories are clicked */}
-      <div
-        className="absolute inset-0 hidden"
-        onClick={() => {}}
-      >
-        {/* Progress bars top - segments fill sequentially */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-border/50">
-          {[...Array(stories.length)].map((_, i) => (
-            <div
-              key={i}
-              className={cn(
-                "h-px bg-accent transition-all duration-500",
-                "motion-reduce:transition-none",
-                              )}
-            />
-          ))}
+      {/* Expanded story viewer card */}
+      {activeStory ? (
+        <div
+          role="region"
+          aria-label={`Story by ${activeStory.author}`}
+          className="mt-2 w-72 rounded-lg border border-border bg-card p-3 shadow-md"
+        >
+          <div className="mb-2 flex gap-1">
+            {stories.map((s, i) => (
+              <div
+                key={s.id}
+                className={cn(
+                  "h-1 flex-1 rounded-full transition-colors motion-reduce:transition-none",
+                  i <= (activeIdx ?? 0) ? "bg-accent" : "bg-border"
+                )}
+              />
+            ))}
+          </div>
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-mono text-xs font-bold text-foreground">{activeStory.author}</span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setActiveIdx((i) => (i !== null && i > 0 ? i - 1 : i))}
+                disabled={activeIdx === 0}
+                aria-label="Previous story"
+                className="cursor-pointer rounded px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground hover:bg-secondary disabled:opacity-40"
+              >
+                Prev
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaused((p) => !p)}
+                className="cursor-pointer rounded px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground hover:bg-secondary"
+              >
+                {paused ? "Play" : "Pause"}
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  setActiveIdx((i) =>
+                    i !== null && i + 1 < stories.length ? i + 1 : null
+                  )
+                }
+                aria-label="Next story"
+                className="cursor-pointer rounded px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground hover:bg-secondary"
+              >
+                Next
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveIdx(null)}
+                aria-label="Close story"
+                className="cursor-pointer rounded px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground hover:bg-secondary"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+          {activeStory.body ? (
+            <p className="mt-2 text-xs text-muted-foreground">{activeStory.body}</p>
+          ) : null}
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

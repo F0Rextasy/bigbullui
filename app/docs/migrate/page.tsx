@@ -1,6 +1,3 @@
-import { SiteNav } from "@/components/site/site-nav";
-import { SiteFooter } from "@/components/site/site-footer";
-
 export const metadata = { title: "Migrate from shadcn" };
 
 const ROWS: [string, string, string][] = [
@@ -15,9 +12,7 @@ const ROWS: [string, string, string][] = [
 
 export default function MigratePage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteNav />
-      <main className="mx-auto w-full max-w-3xl px-4 py-10">
+    <div className="max-w-3xl space-y-6">
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">10-minute switch</p>
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Migrate from shadcn</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
@@ -49,8 +44,6 @@ export default function MigratePage() {
           <li>Spacing mostly uses logical props (<code>ms-</code>, <code>me-</code>, <code>ps-</code>, <code>pe-</code>); physical insets like <code>left-*</code> still need an RTL check.</li>
           <li>Pass <code>animated={`{false}`}</code> anywhere you need instant, motion-free rendering.</li>
         </ul>
-      </main>
-      <SiteFooter />
     </div>
   );
 }

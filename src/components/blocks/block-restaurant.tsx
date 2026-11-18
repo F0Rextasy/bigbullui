@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -17,7 +18,11 @@ const TABLES = [
 ];
 
 /** Restaurant reservation: date + slot + party size + table pick + ticket. */
-export function BlockRestaurant() {
+export interface BlockRestaurantProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockRestaurant({ className, onAction, ...props }: BlockRestaurantProps) {
   const [date, setDate] = React.useState("");
   const [slot, setSlot] = React.useState(SLOTS[2]);
   const [party, setParty] = React.useState(2);
@@ -29,7 +34,7 @@ export function BlockRestaurant() {
 
   if (booked) {
     return (
-      <Card className="w-full">
+      <Card className={cn("w-full", className)} {...props}>
         <CardContent className="flex flex-col items-center gap-2 p-8 text-center">
           <Badge variant="accent">Reserved</Badge>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Table {active}</h2>
@@ -46,7 +51,7 @@ export function BlockRestaurant() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
         <div className="flex items-center justify-between">
           <h2 className="font-mono text-xl font-black uppercase tracking-tight">Reserve a table</h2>
@@ -104,7 +109,7 @@ export function BlockRestaurant() {
             })}
           </div>
         </div>
-        <Button className="w-full" disabled={!active} onClick={() => setBooked(true)}>
+        <Button className="w-full" disabled={!active} onClick={() => { setBooked(true); onAction?.("book-table"); }}>
           Book table {active} · {slot}
         </Button>
       </CardContent>

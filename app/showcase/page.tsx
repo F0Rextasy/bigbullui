@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
-import { NavIcon } from "@/components/site/nav-icons";
+import { ChromeIcon } from "@/components/site/chrome-icons";
 import showcase from "@/data/showcase.json";
 
 export const metadata = { title: "Showcase" };
+
+function isSafeExternalUrl(url: string | undefined): url is string {
+  return typeof url === "string" && /^https?:\/\//i.test(url);
+}
 
 type ShowcaseEntry = {
   id: string;
@@ -30,7 +34,7 @@ export default function ShowcasePage() {
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           <a href="https://github.com/F0Rextasy/bigbullui/issues/new?template=showcase.yml" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground hover:border-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-            <NavIcon name="ticket" size={13} /> Submit your site
+            <ChromeIcon name="ticket" size={13} /> Submit your site
           </a>
           <a href="https://github.com/F0Rextasy/bigbullui/blob/main/.github/PULL_REQUEST_TEMPLATE/showcase.md" target="_blank" rel="noreferrer" className="rounded-md border border-dashed border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted-foreground hover:border-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             PR checklist
@@ -40,7 +44,15 @@ export default function ShowcasePage() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {entries.map((entry) => (
               <article key={entry.id} className="rounded-lg border-2 border-foreground bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-5px] outline-border">
-                <h2 className="font-mono text-sm font-black uppercase">{entry.url ? <Link href={entry.url} className="hover:underline">{entry.title}</Link> : entry.title}</h2>
+                <h2 className="font-mono text-sm font-black uppercase">
+                  {isSafeExternalUrl(entry.url) ? (
+                    <a href={entry.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                      {entry.title}
+                    </a>
+                  ) : (
+                    entry.title
+                  )}
+                </h2>
                 <p className="mt-1 text-sm text-muted-foreground">{entry.description}</p>
                 <div className="mt-2 flex flex-wrap gap-1">
                   {entry.components.map((c) => (
@@ -49,13 +61,23 @@ export default function ShowcasePage() {
                     </Link>
                   ))}
                 </div>
-                <p className="mt-2 font-mono text-[10px] uppercase text-muted-foreground">By {entry.author}{entry.url ? <> · <Link href={entry.url} className="underline">Visit</Link></> : null}</p>
+                <p className="mt-2 font-mono text-[10px] uppercase text-muted-foreground">
+                  By {entry.author}
+                  {isSafeExternalUrl(entry.url) ? (
+                    <>
+                      {" "}·{" "}
+                      <a href={entry.url} target="_blank" rel="noopener noreferrer" className="underline">
+                        Visit
+                      </a>
+                    </>
+                  ) : null}
+                </p>
               </article>
             ))}
           </div>
         ) : (
           <div className="mt-6 rounded-lg border-2 border-dashed border-border bg-card p-8 text-center">
-            <NavIcon name="stub" size={28} className="mx-auto text-muted-foreground" />
+            <ChromeIcon name="stub" size={28} className="mx-auto text-muted-foreground" />
             <p className="mt-3 font-mono text-sm font-bold uppercase">No community projects listed yet</p>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
               Be the first. Ship something with bigbullui, open an issue with your link, and take

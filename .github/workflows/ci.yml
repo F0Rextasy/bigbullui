@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -20,10 +23,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
@@ -37,6 +40,18 @@ jobs:
       - name: Generate derived data (prebuild)
         run: npm run prebuild
 
+      - name: Verify checked-in generators (--check)
+        run: |
+          node scripts/generate-registry-json.mjs --check
+          node scripts/generate-readme.mjs --check
+          node scripts/generate-icon-components.mjs --check
+
+      - name: Build library (tsup)
+        run: npm run build:lib
+
+      - name: Build icons package (tsup)
+        run: npm --prefix packages/icons run build
+
       - name: Run component integrity test suite
         run: npm test
 
@@ -46,22 +61,30 @@ jobs:
       - name: Lint check
         run: npm run lint
 
-      - name: Build library (tsup)
-        run: npm run build:lib
-
       - name: Package lint (publint)
-        run: npx --yes publint --strict
+        run: |
+          npx --no-install publint --strict
+          npx --no-install publint --strict packages/icons
 
       - name: Type resolution check (attw)
         # node16 profile: engines field is >=20; node10 simulation false-positives
         # on dotted CSS subpaths (e.g. ./high-contrast.css) while all living resolvers pass
-        run: npx --yes @arethetypeswrong/cli --pack . --profile node16
+        run: |
+          npx --no-install attw --pack . --profile node16
+          npx --no-install attw --pack packages/icons --profile node16
 
       - name: Props coverage report
         run: node scripts/props-coverage.mjs
 
       - name: Link scan
         run: node scripts/scan-links.mjs
+
+      - name: Smoke test create-bigbull-app
+        run: |
+          node packages/create-app/bin/create.js --help
+          node packages/create-app/bin/create.js --no-install /tmp/smoke-app
+          test -f /tmp/smoke-app/package.json
+          rm -rf /tmp/smoke-app
 
       - name: Build Next.js documentation site
         # `npx next build` skips the npm prebuild hook: generators already ran above.
@@ -72,10 +95,18 @@ jobs:
 
       - name: Accessibility scan
         run: |
+          trap 'kill $(cat /tmp/next-start.pid 2>/dev/null) 2>/dev/null || true' EXIT
           (npm run start -- -p 3000 &>/tmp/next-start.log & echo $! > /tmp/next-start.pid)
-          for i in $(seq 1 30); do curl -sf http://localhost:3000/ >/dev/null && break; sleep 2; done
+          ready=0
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000/ >/dev/null; then ready=1; break; fi
+            sleep 2
+          done
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/next-start.log
+            exit 1
+          fi
           node scripts/a11y-scan.mjs
-          kill $(cat /tmp/next-start.pid)
 
       - name: Size report
         run: node scripts/size-report.mjs
@@ -85,10 +116,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22.x
           cache: "npm"
@@ -107,5 +138,6 @@ jobs:
 
       - name: Registry + sizes generators (CRLF-safe)
         run: |
-          node scripts/generate-registry-json.mjs
+          node scripts/generate-registry-json.mjs --check
+          node scripts/generate-readme.mjs --check
           node scripts/calc-sizes.mjs

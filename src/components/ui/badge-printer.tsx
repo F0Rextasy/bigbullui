@@ -67,7 +67,7 @@ export function BadgePrinter({
         type="button"
         onClick={print}
         disabled={printing}
-        className="w-full cursor-pointer rounded-b-lg border-2 border-t-0 border-foreground bg-primary px-4 py-2.5 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.01] active:scale-[0.99] disabled:cursor-wait disabled:opacity-60"
+        className="w-full cursor-pointer rounded-b-lg border-2 border-t-0 border-foreground bg-primary px-4 py-2.5 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.01] motion-reduce:hover:scale-100 active:scale-[0.99] motion-reduce:active:scale-100 disabled:cursor-wait disabled:opacity-60"
       >
         {printing ? "Printing…" : done ? "Print again" : "Print badge"}
       </button>

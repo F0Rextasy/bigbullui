@@ -16,14 +16,14 @@ export function Envelope({ open = false, onOpenChange, sender, recipient, letter
     <div
       className={cn(
         "relative size-32 rounded-2xl border border-border bg-card p-4 motion-reduce:transition-none",
-        "hover:scale-[1.02] transition-transform"
+        "hover:scale-[1.02] motion-reduce:hover:scale-100 transition-transform"
       )}
       onClick={() => onOpenChange && onOpenChange(!open)}
     >
       <style>{`@keyframes envFlapOpen { from { transform: rotateX(-85deg); opacity: 0.4; } to { transform: rotateX(0deg); opacity: 1; } }`}</style>
       <div
         className={cn(
-          "rounded-t-2xl border-b border-border bg-secondary p-3"
+          "rounded-t-2xl border-b border-border bg-secondary p-3 motion-reduce:animate-none!"
         )}
         style={{
           transformOrigin: "top",

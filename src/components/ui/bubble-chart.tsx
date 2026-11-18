@@ -36,6 +36,7 @@ export function BubbleChart({ points = [], height = 240, className, ...props }: 
           <g
             key={p.id}
             onMouseEnter={() => setHover(p.id)}
+            className="motion-reduce:animate-none!"
             style={{ animation: "bcPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both", animationDelay: `${idx * 70}ms`, transformOrigin: `${p.x}px ${p.y}px` }}
           >
             <circle

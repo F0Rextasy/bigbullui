@@ -46,7 +46,7 @@ export function WaitlistQueueCard({
               setJoined(true);
               onInvite?.();
             }}
-            className="flex-1 cursor-pointer rounded-md bg-primary px-3 py-2 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.01] active:scale-[0.99]"
+            className="flex-1 cursor-pointer rounded-md bg-primary px-3 py-2 font-mono text-xs font-bold uppercase text-primary-foreground transition-transform hover:scale-[1.01] motion-reduce:hover:scale-100 active:scale-[0.99] motion-reduce:active:scale-100"
           >
             Invite friends to skip
           </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -21,9 +22,14 @@ const FEED = [
   { date: "SEP 05 // 12:20", title: "PAYMENT SEALED", description: "Order BB-90210 confirmed, receipt issued." },
 ];
 
-export function PageOrderSuccess() {
+export interface PageOrderSuccessProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageOrderSuccess({ className, onAction, ...props }: PageOrderSuccessProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-1 text-center">
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT // CONFIRMED</p>
         <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Order sealed</h2>
@@ -39,9 +45,10 @@ export function PageOrderSuccess() {
             <OrderTracking orderId="BB-90210" steps={TRACK} courier="GATE EXPRESS" />
             <Separator />
             <div className="flex flex-wrap gap-2">
-              <Button size="sm">Track parcel</Button>
-              <Button variant="outline" size="sm">View receipt</Button>
+              <Button size="sm" onClick={() => { setNotice("Parcel GE-44021: Out for delivery."); onAction?.("track-parcel"); }}>Track parcel</Button>
+              <Button variant="outline" size="sm" onClick={() => { setNotice("Receipt #BB-90210 opened."); onAction?.("view-receipt"); }}>View receipt</Button>
             </div>
+            {notice && <p role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</p>}
           </CardContent>
         </Card>
         <Card className="min-w-0">
@@ -54,7 +61,7 @@ export function PageOrderSuccess() {
       <Card className="min-w-0">
         <CardContent className="flex flex-wrap items-center justify-between gap-3 pt-6">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Receipt sent to inbox // arrives in 2 days</p>
-          <Button variant="outline" size="sm">Continue browsing</Button>
+          <Button variant="outline" size="sm" onClick={() => { setNotice("Returning to storefront..."); onAction?.("continue-browsing"); }}>Continue browsing</Button>
         </CardContent>
       </Card>
     </div>

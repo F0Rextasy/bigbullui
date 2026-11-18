@@ -41,7 +41,7 @@ export function Megaphone({ message, onAnnounce, className, ...props }: Megaphon
       <button
         type="button"
         onClick={announce}
-        className="shrink-0 rounded-md bg-accent px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+        className="shrink-0 rounded-md bg-accent px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
       >
         Broadcast
       </button>

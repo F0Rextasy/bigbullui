@@ -61,7 +61,7 @@ export function StarRatingInput({
                 if (e.key === "ArrowLeft") pick(Math.max(0, value - 1));
               }}
               className={cn(
-                "cursor-pointer p-0.5 transition-transform duration-100 hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+                "cursor-pointer p-0.5 transition-transform duration-100 hover:scale-125 motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
                 lit ? "text-accent" : "text-muted-foreground/40",
               )}
             >

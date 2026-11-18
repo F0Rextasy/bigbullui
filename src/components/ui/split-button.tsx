@@ -69,7 +69,7 @@ export function SplitButton({
         disabled={disabled}
         onClick={onPrimaryClick}
         className={cn(
-          "inline-flex items-center justify-center rounded-l-md border-2 border-r-0 px-4 font-bold uppercase tracking-wider transition-transform active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
+          "inline-flex items-center justify-center rounded-l-md border-2 border-r-0 px-4 font-bold uppercase tracking-wider transition-transform active:scale-95 motion-reduce:active:scale-100 disabled:cursor-not-allowed disabled:opacity-40",
           VARIANT_MAP[variant],
           SIZE_MAP[size]
         )}
@@ -84,7 +84,7 @@ export function SplitButton({
         aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          "inline-flex items-center justify-center rounded-r-md border-2 border-l-2 border-l-dashed border-l-current px-2.5 font-bold transition-transform active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
+          "inline-flex items-center justify-center rounded-r-md border-2 border-l-2 border-l-dashed border-l-current px-2.5 font-bold transition-transform active:scale-95 motion-reduce:active:scale-100 disabled:cursor-not-allowed disabled:opacity-40",
           VARIANT_MAP[variant],
           SIZE_MAP[size]
         )}

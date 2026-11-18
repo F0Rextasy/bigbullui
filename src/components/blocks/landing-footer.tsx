@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Separator } from "../ui/separator";
 
 const COLUMNS = [
@@ -9,9 +10,13 @@ const COLUMNS = [
   { title: "HOUSE", links: ["About", "Contact", "License", "Status"] },
 ];
 
-export function LandingFooter() {
+export interface LandingFooterProps extends React.HTMLAttributes<HTMLElement> {
+  onAction?: (action: string) => void;
+}
+
+export function LandingFooter({ className, onAction, ...props }: LandingFooterProps) {
   return (
-    <footer className="w-full rounded-lg border-2 border-foreground bg-card p-8">
+    <footer className={cn("w-full rounded-lg border-2 border-foreground bg-card p-8", className)} {...props}>
       <div className="grid gap-8 md:grid-cols-4">
         <div className="space-y-2">
           <p className="font-mono text-lg font-black uppercase tracking-tight">BIGBULLUI</p>
@@ -22,7 +27,12 @@ export function LandingFooter() {
           <nav key={column.title} aria-label={column.title} className="space-y-2">
             <p className="font-mono text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">{column.title}</p>
             {column.links.map((link) => (
-              <a key={link} href="#top" className="block font-mono text-xs uppercase tracking-widest transition-colors hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+              <a
+                key={link}
+                href="#top"
+                onClick={() => onAction?.(`footer:${link.toLowerCase()}`)}
+                className="block font-mono text-xs uppercase tracking-widest transition-colors hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
                 {link}
               </a>
             ))}

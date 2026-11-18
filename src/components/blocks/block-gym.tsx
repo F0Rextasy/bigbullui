@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -16,11 +17,15 @@ const CLASSES = [
 ];
 
 /** Gym schedule: weekly class grid + spot booking. */
-export function BlockGym() {
+export interface BlockGymProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockGym({ className, onAction, ...props }: BlockGymProps) {
   const [booked, setBooked] = React.useState<string[]>([]);
 
   return (
-    <div className="w-full space-y-3">
+    <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex items-end justify-between">
         <h2 className="font-mono text-xl font-black uppercase tracking-tight">This week</h2>
         <Badge>{booked.length === 0 ? "No bookings" : `${booked.length} booked`}</Badge>
@@ -50,7 +55,7 @@ export function BlockGym() {
                             size="sm"
                             variant={isBooked ? "default" : "outline"}
                             disabled={full && !isBooked}
-                            onClick={() => setBooked((b) => (isBooked ? b.filter((x) => x !== c.id) : [...b, c.id]))}
+                            onClick={() => { setBooked((b) => (isBooked ? b.filter((x) => x !== c.id) : [...b, c.id])); onAction?.(isBooked ? "cancel-class" : "book-class"); }}
                           >
                             {isBooked ? "In" : full ? "Full" : "Book"}
                           </Button>

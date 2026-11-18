@@ -44,12 +44,12 @@ export function OrderCard({
 
       {/* Progress bar */}
       {progress > 0 && progress < 1 && (
-        <div className="w-full bg-secondary/20 rounded-h-full h-2 mb-3 overflow-hidden">
+        <div className="w-full bg-secondary/40 rounded-full h-2 mb-3 overflow-hidden">
           <div
+            style={{ width: `${Math.min(Math.max(progress * 100, 0), 100)}%` }}
             className={cn(
-              "h-full bg-accent rounded-h-full transition-width duration-500",
-              ProgressBar,
-              `w-${Math.min(progress * 100, 100)}%`
+              "h-full bg-accent rounded-full transition-[width] duration-500 motion-reduce:transition-none",
+              ProgressBar
             )}
           />
         </div>

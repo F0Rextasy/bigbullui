@@ -21,6 +21,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   const lang = isLib ? "ts" : "tsx";
   const source = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
   const props = (docsContent.props as Record<string, { name: string; type: string; description: string }[]>)[meta.name] ?? [];
+  const maxTicks = Math.max(2, ...[...source.matchAll(/`+/g)].map((m) => m[0].length));
+  const fence = "`".repeat(maxTicks + 1);
   const md = [
     `# ${meta.title} (bigbullui)`,
     ``,
@@ -34,9 +36,9 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     ``,
     `## Source (\`${relPath}\`)`,
     ``,
-    `\`\`\`${lang}`,
+    `${fence}${lang}`,
     source,
-    "```",
+    fence,
     ``,
   ].join("\n");
   return new Response(md, { headers: { "Content-Type": "text/markdown; charset=utf-8" } });

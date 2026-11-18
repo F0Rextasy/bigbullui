@@ -3,7 +3,13 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-type TabsContextValue = { value: string; setValue: (v: string) => void; baseId: string; animated: boolean };
+type TabsContextValue = {
+  value: string;
+  activeTabStop?: string;
+  setValue: (v: string) => void;
+  baseId: string;
+  animated: boolean;
+};
 const TabsCtx = React.createContext<TabsContextValue | null>(null);
 
 export type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -14,9 +20,24 @@ export type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
   animated?: boolean;
 };
 
+function collectEnabledTabValues(children: React.ReactNode, acc: string[] = []): string[] {
+  React.Children.forEach(children, (child) => {
+    if (!React.isValidElement(child)) return;
+    if (child.type === TabsTrigger) {
+      const p = child.props as { value?: string; disabled?: boolean };
+      if (typeof p.value === "string" && !p.disabled) acc.push(p.value);
+      return;
+    }
+    const p = child.props as { children?: React.ReactNode };
+    if (p?.children !== undefined) collectEnabledTabValues(p.children, acc);
+  });
+  return acc;
+}
+
 export function Tabs({ value, defaultValue, onValueChange, animated = true, className, children, ...props }: TabsProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? "");
   const current = value ?? internal;
+  const baseId = React.useId();
 
   const setValue = React.useCallback(
     (next: string) => {
@@ -26,8 +47,19 @@ export function Tabs({ value, defaultValue, onValueChange, animated = true, clas
     [value, onValueChange]
   );
 
+  const activeTabStop = React.useMemo(() => {
+    const enabled = collectEnabledTabValues(children);
+    if (current && enabled.includes(current)) return current;
+    return enabled[0];
+  }, [children, current]);
+
+  const ctxValue = React.useMemo(
+    () => ({ value: current, activeTabStop, setValue, baseId, animated }),
+    [current, activeTabStop, setValue, baseId, animated]
+  );
+
   return (
-    <TabsCtx.Provider value={{ value: current, setValue, baseId: React.useId(), animated }}>
+    <TabsCtx.Provider value={ctxValue}>
       <div className={className} {...props}>
         {children}
       </div>
@@ -67,18 +99,24 @@ export type TabsTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   animated?: boolean;
 };
 
-export function TabsTrigger({ value = "", animated: animatedProp, className, onClick, ...props }: TabsTriggerProps) {
+export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(function TabsTrigger(
+  { value = "", animated: animatedProp, className, onClick, disabled, ...props },
+  ref
+) {
   const ctx = React.useContext(TabsCtx);
   const isActive = ctx?.value === value;
+  const isTabStop = !disabled && (isActive || ctx?.activeTabStop === value);
   const animated = animatedProp ?? ctx?.animated ?? true;
   return (
     <button
+      ref={ref}
       type="button"
       role="tab"
+      disabled={disabled}
       id={`${ctx?.baseId}-tab-${value}`}
       aria-selected={isActive}
       aria-controls={`${ctx?.baseId}-panel-${value}`}
-      tabIndex={isActive ? 0 : -1}
+      tabIndex={isTabStop ? 0 : -1}
       data-state={isActive ? "active" : "inactive"}
       onClick={(event) => {
         ctx?.setValue(value);
@@ -93,7 +131,8 @@ export function TabsTrigger({ value = "", animated: animatedProp, className, onC
       {...props}
     />
   );
-}
+});
+TabsTrigger.displayName = "TabsTrigger";
 
 export type TabsContentProps = React.HTMLAttributes<HTMLDivElement> & { value: string };
 
@@ -106,7 +145,7 @@ export function TabsContent({ value = "", className, children, ...props }: TabsC
       id={`${ctx.baseId}-panel-${value}`}
       aria-labelledby={`${ctx.baseId}-tab-${value}`}
       tabIndex={0}
-      className={cn("mt-3 text-sm focus-visible:outline-none", className)}
+      className={cn("mt-3 rounded-sm text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", className)}
       {...props}
     >
       {children}

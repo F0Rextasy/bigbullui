@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -23,15 +24,20 @@ const SORTS = [
   { value: "high", label: "PRICE HIGH" },
 ];
 
-export function PageStorefront() {
+export interface PageStorefrontProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageStorefront({ className, onAction, ...props }: PageStorefrontProps) {
   const [filter, setFilter] = React.useState("ALL");
   const [sort, setSort] = React.useState("feat");
   const [query, setQuery] = React.useState("");
+  const priceOf = (p: (typeof PRODUCTS)[number]) => Number.parseFloat(p.price.replace(/[^0-9.]/g, "")) || 0;
   const list = PRODUCTS.filter((p) => (filter === "ALL" ? true : p.cat === filter))
     .filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
-    .sort((a, b) => (sort === "low" ? 1 : sort === "high" ? -1 : 0));
+    .sort((a, b) => (sort === "low" ? priceOf(a) - priceOf(b) : sort === "high" ? priceOf(b) - priceOf(a) : 0));
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT{" // "}BROWSE</p>
@@ -49,7 +55,7 @@ export function PageStorefront() {
           </ToggleGroup>
           <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="SEARCH STUBS" aria-label="Search products" className="max-w-45" />
           <Select options={SORTS} value={sort} onValueChange={setSort} placeholder="SORT" aria-label="Sort products" />
-          <Button variant="outline" size="sm" onClick={() => { setFilter("ALL"); setQuery(""); setSort("feat"); }}>Reset</Button>
+          <Button variant="outline" size="sm" onClick={() => { setFilter("ALL"); setQuery(""); setSort("feat"); onAction?.("reset-filters"); }}>Reset</Button>
         </CardContent>
       </Card>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

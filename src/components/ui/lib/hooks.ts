@@ -24,24 +24,33 @@ export function useLocalStorage<T>(
   key: string,
   initial: T,
 ): [T, (v: T | ((p: T) => T)) => void] {
-  const [state, setState] = React.useState<T>(() => {
+  const initialRef = React.useRef(initial);
+  initialRef.current = initial;
+  const [state, setState] = React.useState<T>(initial);
+
+  React.useEffect(() => {
     try {
       const stored = localStorage.getItem(key);
-      return stored ? JSON.parse(stored) : initial;
+      setState(stored !== null ? (JSON.parse(stored) as T) : initialRef.current);
     } catch {
-      return initial;
+      setState(initialRef.current);
     }
-  });
+  }, [key]);
 
-  const setValue = (value: T | ((p: T) => T)) => {
-    try {
-      const next = typeof value === "function" ? (value as (p: T) => T)(state) : value;
-      setState(next);
-      localStorage.setItem(key, JSON.stringify(next));
-    } catch {
-      // Ignore errors in SSR / private browsing
-    }
-  };
+  const setValue = React.useCallback(
+    (value: T | ((p: T) => T)) => {
+      setState((prev) => {
+        const next = typeof value === "function" ? (value as (p: T) => T)(prev) : value;
+        try {
+          localStorage.setItem(key, JSON.stringify(next));
+        } catch {
+          // Ignore errors in SSR / private browsing
+        }
+        return next;
+      });
+    },
+    [key],
+  );
 
   return [state, setValue];
 }
@@ -99,34 +108,47 @@ export function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () =
 export function useCopy(timeout = 2000): { copied: boolean; copy: (text: string) => void } {
   const [copied, setCopied] = React.useState(false);
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = React.useRef(true);
 
   React.useEffect(() => {
+    mountedRef.current = true;
     return () => {
+      mountedRef.current = false;
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
 
+  const markCopied = React.useCallback(() => {
+    if (!mountedRef.current) return;
+    setCopied(true);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      if (mountedRef.current) setCopied(false);
+    }, timeout);
+  }, [timeout]);
+
   const copy = React.useCallback(
     (text: string) => {
       try {
-        if (typeof navigator !== "undefined" && navigator.clipboard) {
-          void navigator.clipboard.writeText(text).catch(() => {});
+        if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+          void navigator.clipboard.writeText(text).then(markCopied, () => {
+            if (mountedRef.current) setCopied(false);
+          });
         } else if (typeof document !== "undefined") {
           const textarea = document.createElement("textarea");
           textarea.value = text;
           document.body.appendChild(textarea);
           textarea.select();
-          document.execCommand("copy");
+          const ok = document.execCommand("copy");
           document.body.removeChild(textarea);
+          if (ok) markCopied();
+          else setCopied(false);
         }
-        setCopied(true);
       } catch {
-        // ignored
+        setCopied(false);
       }
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => setCopied(false), timeout);
     },
-    [timeout],
+    [markCopied],
   );
 
   return { copied, copy };
@@ -139,9 +161,9 @@ export function useHotkey(
 ) {
   const handlerRef = React.useRef(handler);
   handlerRef.current = handler;
-  const meta = options?.meta;
+  const meta = Boolean(options?.meta);
   const shift = options?.shift;
-  const alt = options?.alt;
+  const alt = Boolean(options?.alt);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -157,13 +179,17 @@ export function useHotkey(
         return;
       }
 
-      const conditions: boolean[] = [];
-      if (meta) conditions.push(event.metaKey || event.ctrlKey);
-      if (shift) conditions.push(event.shiftKey);
-      if (alt) conditions.push(event.altKey);
+      if (meta ? !(event.metaKey || event.ctrlKey) : event.metaKey || event.ctrlKey) {
+        return;
+      }
+      if (alt !== event.altKey) {
+        return;
+      }
+      if (shift !== undefined && event.shiftKey !== shift) {
+        return;
+      }
 
-      const allMet = conditions.length === 0 || conditions.every((c) => c);
-      if (allMet && event.key.toLowerCase() === key.toLowerCase()) {
+      if (event.key.toLowerCase() === key.toLowerCase()) {
         handlerRef.current(event);
       }
     };

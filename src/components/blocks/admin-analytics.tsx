@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -22,9 +23,14 @@ const REGIONS = [
   { region: "REST OF WORLD", pct: 8 },
 ];
 
-export function AdminAnalytics() {
+export interface AdminAnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminAnalytics({ className, onAction, ...props }: AdminAnalyticsProps) {
+  const [downloaded, setDownloaded] = React.useState(false);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // ANALYTICS</p>
@@ -106,7 +112,9 @@ export function AdminAnalytics() {
                 </div>
               </div>
             ))}
-            <Button variant="outline" size="sm" className="w-full">Download report</Button>
+            <Button variant="outline" size="sm" className="w-full" onClick={() => { setDownloaded(true); onAction?.("download-report"); }}>
+              {downloaded ? "Report exported" : "Download report"}
+            </Button>
           </CardContent>
         </Card>
       </div>

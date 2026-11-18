@@ -173,7 +173,7 @@ export function KanbanLite({
                       type="button"
                       disabled={colIdx === columns.length - 1}
                       onClick={() => moveTicket(ticket.id, colIdx, "right")}
-                      className="cursor-pointer rounded bg-foreground px-2 py-0.5 font-bold text-background transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-20"
+                      className="cursor-pointer rounded bg-foreground px-2 py-0.5 font-bold text-background transition-transform hover:scale-105 motion-reduce:hover:scale-100 disabled:cursor-not-allowed disabled:opacity-20"
                       title="Move Next"
                     >
                       ADVANCE →

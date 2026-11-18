@@ -19,12 +19,16 @@ function diff(target: Date): [number, number, number, number] {
 
 /** Countdown v2 with flip cards and live tick. */
 export function CountdownV2({ targetDate, label = "Doors open in", className, ...props }: CountdownV2Props) {
-  const target = React.useMemo(() => targetDate ?? new Date(Date.now() + 2 * 86400000 + 3600000), [targetDate]);
-  const [now, setNow] = React.useState(() => diff(target));
+  const [now, setNow] = React.useState<[number, number, number, number]>(() =>
+    targetDate ? [0, 0, 0, 0] : [2, 1, 0, 0]
+  );
+
   React.useEffect(() => {
-    const t = setInterval(() => setNow(diff(target)), 1000);
+    const resolved = targetDate ?? new Date(Date.now() + 2 * 86400000 + 3600000);
+    setNow(diff(resolved));
+    const t = setInterval(() => setNow(diff(resolved)), 1000);
     return () => clearInterval(t);
-  }, [target]);
+  }, [targetDate]);
   const units = [["Days", now[0]], ["Hrs", now[1]], ["Min", now[2]], ["Sec", now[3]]] as const;
   return (
     <div className={cn("w-full rounded-lg border-2 border-foreground bg-card p-4 text-center shadow-md", className)} {...props}>

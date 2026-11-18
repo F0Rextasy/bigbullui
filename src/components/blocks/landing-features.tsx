@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
@@ -13,9 +14,14 @@ const FEATURES = [
   { tag: "TYPED", title: "Stamped types", body: "Strict TypeScript props with docs tables generated beside each preview." },
 ];
 
-export function LandingFeatures() {
+export interface LandingFeaturesProps extends React.HTMLAttributes<HTMLElement> {
+  onAction?: (action: string) => void;
+}
+
+export function LandingFeatures({ className, onAction, ...props }: LandingFeaturesProps) {
+  void onAction;
   return (
-    <section className="w-full space-y-6">
+    <section className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-2 text-center">
         <Badge variant="accent" className="mx-auto">WHY BIGBULLUI</Badge>
         <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Built like a box office</h2>

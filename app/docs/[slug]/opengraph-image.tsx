@@ -1,11 +1,19 @@
 import { ImageResponse } from "next/og";
+import { notFound } from "next/navigation";
+import { components } from "@/lib/registry-site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+export function generateStaticParams() {
+  return components.map((component) => ({ slug: component.name }));
+}
+
 export default async function OpengraphImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const title = slug.replace(/-/g, " ").toUpperCase();
+  const meta = components.find((component) => component.name === slug);
+  if (!meta) notFound();
+  const title = meta.title.toUpperCase();
   return new ImageResponse(
     (
       <div
@@ -19,7 +27,6 @@ export default async function OpengraphImage({ params }: { params: Promise<{ slu
           backgroundColor: "#F6F0E0",
           color: "#17130C",
           border: "16px solid #17130C",
-          fontFamily: "monospace",
         }}
       >
         <div style={{ fontSize: 28, letterSpacing: 6, color: "#BC3A28" }}>BIGBULLUI</div>

@@ -32,7 +32,7 @@ export function WordCloud({ words = [], maxFontSize = 28, minFontSize = 11, onWo
             type="button"
             key={w.word}
             onClick={() => onWordClick?.(w.word)}
-            className="font-mono font-bold transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
+            className="font-mono font-bold transition-colors duration-150 motion-reduce:transition-none motion-reduce:animate-none! focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
             style={{
               fontSize: `${size}px`,
               opacity: 0.45 + t * 0.55,

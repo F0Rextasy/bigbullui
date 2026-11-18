@@ -17,13 +17,16 @@ const MONTHS = [
 ];
 const DAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
 
-export function DatePicker({
-  value: controlledValue,
-  defaultValue,
-  onValueChange,
-  placeholder = "SELECT ADMISSION DATE",
-  className,
-}: DatePickerProps) {
+export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function DatePicker(
+  {
+    value: controlledValue,
+    defaultValue,
+    onValueChange,
+    placeholder = "SELECT ADMISSION DATE",
+    className,
+  },
+  ref
+) {
   const [internalDate, setInternalDate] = React.useState<Date | undefined>(defaultValue);
   const [isOpen, setIsOpen] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -76,7 +79,9 @@ export function DatePicker({
   return (
     <div ref={containerRef} className={cn("relative inline-block font-mono select-none", className)}>
       <button
+        ref={ref}
         type="button"
+        aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
           "flex min-w-[220px] cursor-pointer items-center justify-between rounded-lg border-2 border-foreground bg-card px-3 py-2 text-xs transition-all shadow-xs",
@@ -161,4 +166,5 @@ export function DatePicker({
       )}
     </div>
   );
-}
+});
+DatePicker.displayName = "DatePicker";

@@ -13,55 +13,69 @@ export interface InputOtpProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   label?: string;
 }
 
-export function InputOtp({
-  length = 6,
-  value: controlledValue,
-  defaultValue = "",
-  onValueChange,
-  onComplete,
-  disabled = false,
-  label,
-  className,
-  ...props
-}: InputOtpProps) {
+export const InputOtp = React.forwardRef<HTMLDivElement, InputOtpProps>(function InputOtp(
+  {
+    length = 6,
+    value: controlledValue,
+    defaultValue = "",
+    onValueChange,
+    onComplete,
+    disabled = false,
+    label,
+    className,
+    ...props
+  },
+  ref
+) {
   const [inner, setInner] = React.useState(defaultValue);
-  const value = controlledValue ?? inner;
+  const isControlled = controlledValue !== undefined;
+  const value = isControlled ? controlledValue : inner;
   const refs = React.useRef<(HTMLInputElement | null)[]>([]);
+  const slots = React.useMemo(
+    () =>
+      Array.from({ length }, (_, i) => {
+        const ch = value[i];
+        return ch && ch !== " " ? ch : "";
+      }),
+    [value, length]
+  );
 
-  const commit = (next: string) => {
-    const clean = next.replace(/\D/g, "").slice(0, length);
-    setInner(clean);
-    onValueChange?.(clean);
-    if (clean.length === length) onComplete?.(clean);
+  const commitSlots = (nextSlots: string[]) => {
+    const serialized = nextSlots.map((c) => c || " ").join("").replace(/\s+$/, "");
+    if (!isControlled) setInner(serialized);
+    onValueChange?.(serialized);
+    if (nextSlots.every((c) => c !== "")) onComplete?.(nextSlots.join(""));
   };
 
   const onKeyDown = (index: number) => (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace" && !value[index] && index > 0) {
+    if (e.key === "Backspace" && !slots[index] && index > 0) {
       refs.current[index - 1]?.focus();
     }
   };
 
   const onPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
-    commit(e.clipboardData.getData("text"));
-    refs.current[Math.min(value.length, length - 1)]?.focus();
+    const digits = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, length);
+    const nextSlots = Array.from({ length }, (_, i) => digits[i] ?? "");
+    commitSlots(nextSlots);
+    refs.current[Math.min(digits.length, length - 1)]?.focus();
   };
 
   return (
-    <div className={cn("w-full", className)} {...props}>
+    <div ref={ref} className={cn("w-full", className)} {...props}>
       {label ? (
         <span className="mb-2 block font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
           {label}
         </span>
       ) : null}
       <div className="flex items-center gap-2" role="group" aria-label={label ?? "One-time code"}>
-        {Array.from({ length }, (_, i) => (
+        {slots.map((slotDigit, i) => (
           <input
             key={i}
             ref={(el) => {
               refs.current[i] = el;
             }}
-            value={value[i] ?? ""}
+            value={slotDigit}
             disabled={disabled}
             inputMode="numeric"
             autoComplete={i === 0 ? "one-time-code" : "off"}
@@ -69,12 +83,10 @@ export function InputOtp({
             maxLength={1}
             onChange={(e) => {
               const digit = e.target.value.replace(/\D/g, "").slice(-1);
-              if (!digit) {
-                commit(value.slice(0, i) + value.slice(i + 1));
-                return;
-              }
-              commit(value.slice(0, i) + digit + value.slice(i + 1));
-              if (i < length - 1) refs.current[i + 1]?.focus();
+              const nextSlots = [...slots];
+              nextSlots[i] = digit;
+              commitSlots(nextSlots);
+              if (digit && i < length - 1) refs.current[i + 1]?.focus();
             }}
             onKeyDown={onKeyDown(i)}
             onPaste={onPaste}
@@ -85,4 +97,5 @@ export function InputOtp({
       </div>
     </div>
   );
-}
+});
+InputOtp.displayName = "InputOtp";

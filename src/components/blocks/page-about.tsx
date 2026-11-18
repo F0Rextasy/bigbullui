@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { MetricCard } from "../ui/metric-card";
 import { TeamGrid } from "../ui/team-grid";
@@ -13,15 +14,29 @@ const TEAM = [
   { id: "alan", name: "Alan Turing", role: "Gate systems" },
 ];
 
-export function PageAbout() {
+export interface PageAboutProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageAbout({ className, onAction, ...props }: PageAboutProps) {
+  const [expanded, setExpanded] = React.useState(false);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="HOUSE // OUR STORY"
         title="Paper first, always"
         description="A box office crew keeping admission tactile since 2019."
-        actions={<Button size="sm" variant="outline">Read manifesto</Button>}
+        actions={
+          <Button size="sm" variant="outline" onClick={() => { setExpanded((v) => !v); onAction?.("read-manifesto"); }}>
+            {expanded ? "Hide manifesto" : "Read manifesto"}
+          </Button>
+        }
       />
+      {expanded && (
+        <p role="status" className="rounded-md border border-dashed border-accent bg-accent/10 p-4 font-mono text-xs uppercase tracking-wider text-foreground">
+          Paper outlives apps. Keep edges sharp, labels clear, and tokens honest.
+        </p>
+      )}
       <Card>
         <CardHeader>
           <CardTitle>The story so far</CardTitle>

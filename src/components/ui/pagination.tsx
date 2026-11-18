@@ -67,7 +67,7 @@ export function Pagination({
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           page <= 1
             ? "cursor-not-allowed opacity-40"
-            : "cursor-pointer hover:border-foreground hover:bg-secondary active:scale-95"
+            : "cursor-pointer hover:border-foreground hover:bg-secondary active:scale-95 motion-reduce:active:scale-100"
         )}
       >
         ←
@@ -115,7 +115,7 @@ export function Pagination({
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           page >= totalPages
             ? "cursor-not-allowed opacity-40"
-            : "cursor-pointer hover:border-foreground hover:bg-secondary active:scale-95"
+            : "cursor-pointer hover:border-foreground hover:bg-secondary active:scale-95 motion-reduce:active:scale-100"
         )}
       >
         →

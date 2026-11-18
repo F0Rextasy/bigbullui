@@ -30,35 +30,39 @@ function getDelay(index: number): string {
 }
 
 export function SpeedDial({
-  items,
+  items = [],
   position = "bottom-right",
   onOpenChange,
   children,
-}: {
-  items: SpeedDialItem[];
-  position?: SpeedDialPosition;
-  onOpenChange: (open: boolean) => void;
-  children: React.ReactNode;
-}) {
+}: SpeedDialProps) {
   const [open, setOpen] = React.useState(false);
 
+  const setOpenState = React.useCallback(
+    (next: boolean) => {
+      setOpen(next);
+      onOpenChange?.(next);
+    },
+    [onOpenChange]
+  );
+
   React.useEffect(() => {
+    if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") setOpenState(false);
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [open, setOpenState]);
 
   const backdropClassName = cn(
-    "fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-200",
-    "motion-reduce:animate-none",
+    "fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm transition-opacity duration-200",
+    "motion-reduce:animate-none!",
     "motion-reduce:transition-none",
   );
 
   const itemContainerClassName = cn(
     "fixed inset-0 z-50 pointer-events-none",
-    "motion-reduce:animate-none",
+    "motion-reduce:animate-none!",
     "motion-reduce:transition-none",
   );
 
@@ -68,10 +72,6 @@ export function SpeedDial({
         @keyframes speedDialScaleIn {
           from { opacity: 0; transform: scale(0.8) translateY(10px); }
           to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes speedDialFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
         }
       `}</style>
 
@@ -83,30 +83,30 @@ export function SpeedDial({
           "motion-reduce:animate-none",
         )}
       >
-        <div
+        <button
+          type="button"
           className={cn(
-            "relative cursor-pointer select-none",
+            "relative flex cursor-pointer items-center justify-center select-none",
             "group",
             "w-14 h-14 rounded-full bg-accent text-accent-foreground shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-transform",
-            "active:scale-[0.95] transition-transform",
+            "active:scale-[0.95] transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             "motion-reduce:animate-none",
-            "motion-reduce:transition-none",
+            "motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100",
           )}
-          onClick={() => setOpen((prev) => { const next = !prev; onOpenChange?.(next); return next; })}
-          onKeyDown={(e) => { if (e.key === "Escape") setOpen(false); }}
+          onClick={() => setOpenState(!open)}
           aria-label={open ? "Close speed dial" : "Open speed dial"}
-          role="button"
-          tabIndex={0}
+          aria-expanded={open}
         >
           {children}
-        </div>
+        </button>
 
         {open && (
-          <div className={backdropClassName} onClick={() => setOpen(false)} />
+          <div className={backdropClassName} onClick={() => setOpenState(false)} />
         )}
 
         {open && (
           <div
+            role="menu"
             className={itemContainerClassName}
             style={{
               animationName: "speedDialScaleIn",
@@ -126,7 +126,7 @@ export function SpeedDial({
                   key={item.id}
                   className={cn(
                     "absolute pointer-events-auto transform transition-transform duration-300 ease-out",
-                    "motion-reduce:animate-none",
+                    "motion-reduce:animate-none!",
                     "motion-reduce:transition-none",
                   )}
                   style={{
@@ -138,10 +138,10 @@ export function SpeedDial({
                 >
                   <button
                     type="button"
-                    onClick={() => { item.onClick(); setOpen(false); }}
+                    onClick={() => { item.onClick(); setOpenState(false); }}
                     className={cn(
-                      "w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center",
-                      "hover:bg-accent hover:text-accent-foreground transition-colors",
+                      "w-10 h-10 cursor-pointer rounded-full bg-card border border-border flex items-center justify-center",
+                      "hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       "motion-reduce:transition-none",
                       "motion-reduce:animate-none",
                     )}

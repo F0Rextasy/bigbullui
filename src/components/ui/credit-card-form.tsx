@@ -14,6 +14,11 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
   const [name, setName] = React.useState("");
   const [expiry, setExpiry] = React.useState("");
   const [cvv, setCvv] = React.useState("");
+  const uid = React.useId();
+  const numId = `${uid}-number`;
+  const nameId = `${uid}-name`;
+  const expId = `${uid}-exp`;
+  const cvvId = `${uid}-cvv`;
 
   const digits = number.replace(/\D/g, "");
   const valid = digits.length >= 15 && name.trim().length >= 2 && /^\d{2}\/\d{2}$/.test(expiry) && cvv.length >= 3;
@@ -29,9 +34,9 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
       <style>{`@keyframes ccIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="space-y-1 animate-[ccIn_0.25s_ease-out_both] motion-reduce:animate-none">
-        <label htmlFor="cc-number" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Card Number</label>
+        <label htmlFor={numId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Card Number</label>
         <input
-          id="cc-number"
+          id={numId}
           inputMode="numeric"
           value={number}
           onChange={(e) => handleNumber(e.target.value)}
@@ -46,9 +51,9 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
       </div>
 
       <div className="space-y-1 animate-[ccIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
-        <label htmlFor="cc-name" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Name on Card</label>
+        <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Name on Card</label>
         <input
-          id="cc-name"
+          id={nameId}
           value={name}
           onChange={(e) => setName(e.target.value.toUpperCase())}
           placeholder="ADA LOVELACE"
@@ -59,21 +64,21 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
 
       <div className="grid grid-cols-2 gap-3 animate-[ccIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
         <div className="space-y-1">
-          <label htmlFor="cc-exp" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Son kullanma</label>
+          <label htmlFor={expId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Expiry</label>
           <input
-            id="cc-exp"
+            id={expId}
             inputMode="numeric"
             value={expiry}
             onChange={(e) => handleExpiry(e.target.value)}
-            placeholder="AA/YY"
+            placeholder="MM/YY"
             autoComplete="cc-exp"
             className="w-full rounded-md border border-input bg-background px-3 py-2 font-mono text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
           />
         </div>
         <div className="space-y-1">
-          <label htmlFor="cc-cvv" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">CVV</label>
+          <label htmlFor={cvvId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">CVV</label>
           <input
-            id="cc-cvv"
+            id={cvvId}
             inputMode="numeric"
             value={cvv}
             onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))}
@@ -89,7 +94,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
         disabled={!valid}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98]",
+          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
           "disabled:pointer-events-none disabled:opacity-40 animate-[ccIn_0.25s_ease-out_0.18s_both] motion-reduce:animate-none"
         )}

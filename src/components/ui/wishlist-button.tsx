@@ -33,7 +33,7 @@ export function WishlistButton({
       onClick={handleToggle}
       aria-pressed={isActive}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-foreground bg-card text-foreground transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring mb-2",
+        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-foreground bg-card text-foreground transition-all duration-200 hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring mb-2",
         isActive && "bg-accent text-accent-foreground",
         !isActive && "hover:bg-accent hover:text-accent-foreground",
         className

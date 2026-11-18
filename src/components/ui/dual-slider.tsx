@@ -15,17 +15,23 @@ export interface DualSliderProps
   className?: string;
 }
 
-export function DualSlider({
-  min = 0,
-  max = 100,
-  step = 1,
-  value: controlledValue,
-  defaultValue = [20, 80],
-  onValueChange,
-  currency = "$",
-  className,
-  ...props
-}: DualSliderProps) {
+const THUMB_CLASSES =
+  "pointer-events-none absolute h-2 w-full appearance-none bg-transparent focus-visible:outline-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:size-4.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-xs [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-card [&::-webkit-slider-thumb]:shadow-xs [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:scale-110 [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:size-4.5 [&::-moz-range-thumb]:rounded-xs [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-foreground [&::-moz-range-thumb]:bg-card [&::-moz-range-thumb]:shadow-xs [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:hover:scale-110 focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-ring focus-visible:[&::-moz-range-thumb]:ring-2 focus-visible:[&::-moz-range-thumb]:ring-ring";
+
+export const DualSlider = React.forwardRef<HTMLDivElement, DualSliderProps>(function DualSlider(
+  {
+    min = 0,
+    max = 100,
+    step = 1,
+    value: controlledValue,
+    defaultValue = [20, 80],
+    onValueChange,
+    currency = "$",
+    className,
+    ...props
+  },
+  ref
+) {
   const [internalVal, setInternalVal] = React.useState<[number, number]>(defaultValue);
   const isControlled = controlledValue !== undefined;
   const [valMin, valMax] = isControlled ? controlledValue : internalVal;
@@ -44,11 +50,11 @@ export function DualSlider({
     onValueChange?.(updated);
   };
 
-  const minPercent = ((valMin - min) / (max - min)) * 100;
-  const maxPercent = ((valMax - min) / (max - min)) * 100;
+  const minPercent = max > min ? ((valMin - min) / (max - min)) * 100 : 0;
+  const maxPercent = max > min ? ((valMax - min) / (max - min)) * 100 : 100;
 
   return (
-    <div className={cn("w-full space-y-3 font-mono select-none", className)} {...props}>
+    <div ref={ref} className={cn("w-full space-y-3 font-mono select-none", className)} {...props}>
       {/* Price Header */}
       <div className="flex items-center justify-between text-xs font-bold text-foreground">
         <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
@@ -84,7 +90,7 @@ export function DualSlider({
           value={valMin}
           onChange={handleMinChange}
           aria-label="Minimum price"
-          className="pointer-events-none absolute h-2 w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:size-4.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-xs [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-card [&::-webkit-slider-thumb]:shadow-xs [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:scale-110"
+          className={THUMB_CLASSES}
         />
 
         <input
@@ -95,9 +101,10 @@ export function DualSlider({
           value={valMax}
           onChange={handleMaxChange}
           aria-label="Maximum price"
-          className="pointer-events-none absolute h-2 w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:size-4.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-xs [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-card [&::-webkit-slider-thumb]:shadow-xs [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:hover:scale-110"
+          className={THUMB_CLASSES}
         />
       </div>
     </div>
   );
-}
+});
+DualSlider.displayName = "DualSlider";

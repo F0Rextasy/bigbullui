@@ -198,7 +198,7 @@ export function TicketFold({
               type="button"
               onClick={handleToggleFold}
               aria-expanded={isUnfolded}
-              className="inline-flex items-center gap-1.5 rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground shadow-sm transition-transform active:scale-95 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex items-center gap-1.5 rounded border border-foreground bg-primary px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground shadow-sm transition-transform active:scale-95 motion-reduce:active:scale-100 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <span>{isUnfolded ? "FOLD PASS" : "UNFOLD PASS"}</span>
               <svg
@@ -390,7 +390,7 @@ export function TicketFold({
             {/* If torn, overlay rubber stamp */}
             {isTorn ? (
               <div className="absolute inset-0 z-30 flex items-center justify-center bg-background/70 backdrop-blur-[1px] p-4 text-center">
-                <div className="rotate-[-8deg] rounded-md border-2 border-destructive bg-card/95 px-4 py-2 shadow-lg motion-safe:animate-in fade-in zoom-in duration-300">
+                <div className="rotate-[-8deg] rounded-md border-2 border-destructive bg-card/95 px-4 py-2 shadow-lg motion-safe:animate-[scale-in_0.3s_ease-out_both] motion-reduce:animate-none!">
                   <div className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-destructive">
                     STUB DETACHED
                   </div>
@@ -434,7 +434,7 @@ export function TicketFold({
                 <button
                   type="button"
                   onClick={handleTearSlip}
-                  className="group inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-destructive/80 bg-card px-2.5 py-1 font-mono text-[10px] font-black uppercase tracking-wider text-destructive shadow-sm transition-all hover:bg-destructive hover:text-white active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="group inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-destructive/80 bg-card px-2.5 py-1 font-mono text-[10px] font-black uppercase tracking-wider text-destructive shadow-sm transition-all hover:bg-destructive hover:text-white active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <svg
                     width="11"

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Countdown } from "../ui/countdown";
@@ -51,17 +52,24 @@ const SCHEDULE = [
   { date: "23:00", title: "Late stub social", description: "Lobby meet with signed stubs.", tone: "default" as const },
 ];
 
-export function BlockEventLanding() {
+export interface BlockEventLandingProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockEventLanding({ className, onAction, ...props }: BlockEventLandingProps) {
+  const [claimed, setClaimed] = React.useState(false);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="EVENT // MAIN STAGE"
         title="Neon Brass Festival"
         description="One night, three tiers, stamped admission for every seat."
         actions={
           <div className="flex shrink-0 items-center gap-2">
-            <Badge variant="accent">ON SALE</Badge>
-            <Button size="sm">Get stubs</Button>
+            <Badge variant="accent">{claimed ? "STUB RESERVED" : "ON SALE"}</Badge>
+            <Button size="sm" onClick={() => { setClaimed(true); onAction?.("get-stubs"); }}>
+              {claimed ? "Stubs ready" : "Get stubs"}
+            </Button>
           </div>
         }
       />

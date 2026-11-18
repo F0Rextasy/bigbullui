@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "./lib/utils";
+import { cn, escapeRegExp } from "./lib/utils";
 
 export interface TagInputProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
@@ -204,7 +204,7 @@ export function TagInput({
 
     const pasted = e.clipboardData.getData("text");
     const parts = pasted
-      .split(new RegExp(`[${delimiter}\n\r]+`))
+      .split(new RegExp(`[${escapeRegExp(delimiter)}\n\r]+`))
       .map((p) => p.trim())
       .filter(Boolean);
 
@@ -373,7 +373,7 @@ export function TagInput({
                     "ms-0.5 flex size-4 items-center justify-center rounded-full border text-muted-foreground transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-accent",
                     isPendingDelete
                       ? "border-destructive bg-destructive text-white"
-                      : "border-border/80 bg-secondary/80 hover:border-destructive hover:bg-destructive hover:text-white active:scale-90"
+                      : "border-border/80 bg-secondary/80 hover:border-destructive hover:bg-destructive hover:text-white active:scale-90 motion-reduce:active:scale-100"
                   )}
                 >
                   <svg
@@ -444,7 +444,7 @@ export function TagInput({
                     "flex items-center gap-1 rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider transition-all",
                     alreadyAdded
                       ? "border-border/40 bg-secondary/30 text-muted-foreground/40 cursor-default"
-                      : "border-dashed border-border bg-secondary/40 text-muted-foreground hover:border-foreground/50 hover:bg-secondary hover:text-foreground active:scale-95"
+                      : "border-dashed border-border bg-secondary/40 text-muted-foreground hover:border-foreground/50 hover:bg-secondary hover:text-foreground active:scale-95 motion-reduce:active:scale-100"
                   )}
                 >
                   <span className="text-[10px] text-accent font-bold" aria-hidden="true">

@@ -61,7 +61,7 @@ export function CtaSection({
       {action && (
         <a
           href={action.href}
-          className="mt-6 inline-block rounded-sm bg-accent px-5 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.15em] text-accent-foreground transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 animate-[fade-in-up_0.3s_ease-out_both]"
+          className="mt-6 inline-block rounded-sm bg-accent px-5 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.15em] text-accent-foreground transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 animate-[fade-in-up_0.3s_ease-out_both]"
           style={{ animationDelay: "200ms" }}
         >
           {action.label}

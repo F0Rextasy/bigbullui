@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -14,12 +15,23 @@ const EPISODES = [
 
 const CHAPTERS = [0, 20, 40, 60, 80, 100];
 
-export function AppPlayer() {
+export interface AppPlayerProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppPlayer({ className, onAction, ...props }: AppPlayerProps) {
   const [current, setCurrent] = React.useState(EPISODES[0].id);
   const [playing, setPlaying] = React.useState(true);
-  const active = EPISODES.find((episode) => episode.id === current) ?? EPISODES[0];
+  const idx = Math.max(0, EPISODES.findIndex((episode) => episode.id === current));
+  const active = EPISODES[idx] ?? EPISODES[0];
+  const step = (delta: number) => {
+    const next = EPISODES[(idx + delta + EPISODES.length) % EPISODES.length];
+    if (!next) return;
+    setCurrent(next.id);
+    onAction?.(delta < 0 ? "prev-episode" : "next-episode");
+  };
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOOTH{" // "}PLAYER</p>
@@ -62,11 +74,11 @@ export function AppPlayer() {
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Button size="sm" variant="outline">Prev</Button>
+            <Button size="sm" variant="outline" onClick={() => step(-1)}>Prev</Button>
             <Button size="sm" onClick={() => setPlaying((value) => !value)}>
               {playing ? "Pause" : "Play"}
             </Button>
-            <Button size="sm" variant="outline">Next</Button>
+            <Button size="sm" variant="outline" onClick={() => step(1)}>Next</Button>
             <span className="ms-auto font-mono text-[10px] uppercase tracking-widest text-muted-foreground">CH {active.mark}%{" // "}1X SPEED</span>
           </div>
         </CardContent>

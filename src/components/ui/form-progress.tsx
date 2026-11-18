@@ -25,7 +25,7 @@ export function FormProgress({ total, completed, label = "Completed", className,
           <div
             key={i}
             className={cn(
-              "h-1.5 flex-1 origin-left rounded-full border border-dashed transition-colors duration-300 motion-reduce:transition-none",
+              "h-1.5 flex-1 origin-left rounded-full border border-dashed transition-colors duration-300 motion-reduce:transition-none motion-reduce:animate-none!",
               i < completed ? "border-accent/60 bg-accent" : "border-border bg-transparent"
             )}
             style={i < completed ? { animation: "fpFill 0.4s cubic-bezier(0.16,1,0.3,1) both", animationDelay: `${i * 60}ms` } : undefined}

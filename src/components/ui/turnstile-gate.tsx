@@ -86,7 +86,7 @@ export function TurnstileGate({
           type="button"
           disabled={locked || isRotating}
           onClick={handlePush}
-          className="mt-3 cursor-pointer rounded-md border-2 border-foreground bg-foreground px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-background shadow-xs transition-transform hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30"
+          className="mt-3 cursor-pointer rounded-md border-2 border-foreground bg-foreground px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-background shadow-xs transition-transform hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 disabled:cursor-not-allowed disabled:opacity-30"
         >
           {locked ? "ACCESS DENIED" : isRotating ? "ADMITTING..." : "PUSH ROTOR →"}
         </button>

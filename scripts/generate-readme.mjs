@@ -29,7 +29,10 @@ for (const section of SECTIONS) {
 }
 
 const readmePath = path.join(rootDir, "README.md");
-const lines = fs.readFileSync(readmePath, "utf8").split("\n");
+const raw = fs.readFileSync(readmePath, "utf8");
+const eol = raw.includes("\r\n") ? "\r\n" : "\n";
+const normalized = raw.replace(/\r\n/g, "\n");
+const lines = normalized.split("\n");
 const start = lines.findIndex((l) => l.trim() === "<details>");
 const endExcl = lines.map((l) => l.trim()).lastIndexOf("</details>") + 1;
 if (start === -1 || endExcl === 0) {
@@ -41,5 +44,13 @@ const head = lines.slice(0, start).join("\n")
   .replace(/\d+ tactile/, `${count} tactile`)
   .replace(/\*\*\d+ Crafted Components\*\*/, `**${count} Crafted Components**`);
 const out = head + "\n" + blocks + lines.slice(endExcl).join("\n");
-fs.writeFileSync(readmePath, out);
-console.log(`generate-readme: ${count} components across ${SECTIONS.length} sections`);
+if (process.argv.includes("--check")) {
+  if (normalized !== out) {
+    console.error("generate-readme: README.md is out of date — run node scripts/generate-readme.mjs");
+    process.exit(1);
+  }
+  console.log(`generate-readme: README.md up to date (${count} components across ${SECTIONS.length} sections)`);
+} else {
+  fs.writeFileSync(readmePath, eol === "\r\n" ? out.replace(/\n/g, "\r\n") : out);
+  console.log(`generate-readme: ${count} components across ${SECTIONS.length} sections`);
+}

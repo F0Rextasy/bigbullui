@@ -25,8 +25,8 @@ const ReactionBar: React.FC<ReactionBarProps> = ({ reactions = [], onReact }) =>
           aria-pressed={reaction.active}
           aria-label={`${reaction.emoji} reaction, ${reaction.count} votes`}
           className={cn(
-            "relative flex-0 flex cursor-pointer flex-col items-center gap-1 rounded-md border border-border/30 px-3 py-1 transition-colors duration-200 hover:bg-accent/5 hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
-            reaction.active && "bg-accent/20 text-accent-foreground"
+            "relative flex-0 flex cursor-pointer flex-col items-center gap-1 rounded-md border border-border/30 px-3 py-1 transition-colors duration-200 hover:bg-accent/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+            reaction.active && "bg-accent/20 text-accent-strong"
           )}
         >
           <span
@@ -40,7 +40,7 @@ const ReactionBar: React.FC<ReactionBarProps> = ({ reactions = [], onReact }) =>
           </span>
           <span
             className={cn(
-              "text-[10px] mono uppercase text-muted-foreground",
+              "text-[10px] font-mono uppercase text-muted-foreground",
               "motion-reduce:animate-none"
             )}
             aria-hidden="true"
@@ -61,7 +61,7 @@ const ReactionBar: React.FC<ReactionBarProps> = ({ reactions = [], onReact }) =>
           {/* Hover tooltip */}
           <span
             aria-hidden="true"
-            className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[8px] mono uppercase text-muted-foreground opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[8px] font-mono uppercase text-muted-foreground opacity-0 transition-opacity duration-150 group-hover:opacity-100"
           >
             {reaction.emoji} reaction
           </span>

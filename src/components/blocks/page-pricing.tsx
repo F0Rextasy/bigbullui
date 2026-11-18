@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -11,10 +12,15 @@ const TIERS = [
   { name: "ARENA", monthly: "$99", annual: "$990", blurb: "For multi-gate arenas.", features: ["Unlimited venues", "API + webhooks", "Dedicated line"], hot: false },
 ];
 
-export function PagePricing() {
+export interface PagePricingProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PagePricing({ className, onAction, ...props }: PagePricingProps) {
   const [annual, setAnnual] = React.useState(true);
+  const [selectedTier, setSelectedTier] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-6 text-center">
+    <div className={cn("w-full space-y-6 text-center", className)} {...props}>
       <div className="space-y-2">
         <Badge variant="accent" className="mx-auto">TARIFF BOARD</Badge>
         <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Pick your pass</h2>
@@ -44,11 +50,22 @@ export function PagePricing() {
                   </li>
                 ))}
               </ul>
-              <Button className="w-full" variant={tier.hot ? "default" : "outline"}>Claim {tier.name}</Button>
+              <Button
+                className="w-full"
+                variant={selectedTier === tier.name || tier.hot ? "default" : "outline"}
+                onClick={() => { setSelectedTier(tier.name); onAction?.(`claim:${tier.name.toLowerCase()}`); }}
+              >
+                {selectedTier === tier.name ? `${tier.name} claimed ✓` : `Claim ${tier.name}`}
+              </Button>
             </CardContent>
           </Card>
         ))}
       </div>
+      {selectedTier && (
+        <p role="status" className="font-mono text-xs uppercase tracking-wider text-accent">
+          Selected {selectedTier} ({annual ? "annual" : "monthly"})
+        </p>
+      )}
     </div>
   );
 }

@@ -16,13 +16,16 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
   const [n, setN] = React.useState(name);
   const [e, setE] = React.useState(email);
   const [confirmDelete, setConfirmDelete] = React.useState(false);
+  const uid = React.useId();
+  const nameId = `${uid}-name`;
+  const emailId = `${uid}-email`;
 
   return (
     <div className={cn("w-full max-w-md space-y-4", className)} {...props}>
       <style>{`@keyframes profIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="flex items-center gap-4 animate-[profIn_0.3s_ease-out_both] motion-reduce:animate-none">
-        <span className="flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground transition-transform duration-300 hover:scale-105 motion-reduce:transition-none">
+        <span className="flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground transition-transform duration-300 hover:scale-105 motion-reduce:hover:scale-100 motion-reduce:transition-none">
           {initials}
         </span>
         <div>
@@ -36,18 +39,18 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
 
       <div className="space-y-3 rounded-lg border border-border bg-card p-4 animate-[profIn_0.3s_ease-out_0.1s_both] motion-reduce:animate-none">
         <div className="space-y-1">
-          <label htmlFor="prof-name" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Ad Soyad</label>
+          <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Full Name</label>
           <input
-            id="prof-name"
+            id={nameId}
             value={n}
             onChange={(ev) => setN(ev.target.value)}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
           />
         </div>
         <div className="space-y-1">
-          <label htmlFor="prof-email" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">E-posta</label>
+          <label htmlFor={emailId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Email</label>
           <input
-            id="prof-email"
+            id={emailId}
             type="email"
             value={e}
             onChange={(ev) => setE(ev.target.value)}
@@ -59,7 +62,7 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
           onClick={() => onSave?.({ name: n, email: e })}
           className={cn(
             "rounded-md bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground",
-            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >
           Save
@@ -91,7 +94,7 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
               <button
                 type="button"
                 onClick={() => { setConfirmDelete(false); onDelete?.(); }}
-                className="rounded-md bg-destructive px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
+                className="rounded-md bg-destructive px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
               >
                 Confirm
               </button>

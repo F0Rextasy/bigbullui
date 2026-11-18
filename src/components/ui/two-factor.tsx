@@ -2,24 +2,35 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { encodeQrMatrix } from "./qr-code";
 
 export interface TwoFactorProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Backup recovery codes; displays generated sample if omitted */
   recoveryCodes?: string[];
+  /** TOTP otpauth URI or token encoded into the setup QR code */
+  qrValue?: string;
   onConfirm?: () => void;
 }
 
 /** Two-factor authentication setup: QR code + recovery backup codes. */
-export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: TwoFactorProps) {
+export function TwoFactor({
+  recoveryCodes,
+  qrValue = "otpauth://totp/BigBullUI:guest@example.com?secret=JBSWY3DPEHPK3PXP&issuer=BigBullUI",
+  onConfirm,
+  className,
+  ...props
+}: TwoFactorProps) {
   const codes = recoveryCodes ?? [
     "4F7A-9K2M", "B3X8-QP1D", "M2VD-88ZL", "T9RC-55WN",
     "J6HB-33YF", "W4KN-77TS", "P8QX-21GB", "R5ZM-66JV",
   ];
   const [revealed, setRevealed] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
+  const matrix = React.useMemo(() => encodeQrMatrix(qrValue, "M"), [qrValue]);
+  const qrSize = matrix.length + 2;
 
   const copyAll = () => {
-    try { void navigator.clipboard?.writeText(codes.join("\n")); } catch { /* yoksay */ }
+    try { void navigator.clipboard?.writeText(codes.join("\n")); } catch { /* ignore */ }
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
@@ -43,14 +54,19 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
         <p className="mt-1 text-sm text-muted-foreground">Scan the QR code with your authenticator application.</p>
       </div>
 
-      {/* QR simulator */}
-      <div className="relative mx-auto size-40 overflow-hidden rounded-lg border-2 border-dashed border-border bg-card p-3">
-        <div className="grid size-full grid-cols-8 gap-0.5" aria-hidden="true">
-          {Array.from({ length: 64 }).map((_, i) => {
-            const on = ((i * 7 + 13) % 17) % 3 !== 0;
-            return <div key={i} className={cn("rounded-[1px]", on ? "bg-foreground" : "bg-transparent")} style={{ animationDelay: `${i * 12}ms` }} />;
-          })}
-        </div>
+      {/* Real scannable QR code */}
+      <div
+        role="img"
+        aria-label="Two-factor authentication QR code"
+        className="relative mx-auto size-40 overflow-hidden rounded-lg border-2 border-dashed border-border bg-card p-3"
+      >
+        <svg viewBox={`0 0 ${qrSize} ${qrSize}`} className="size-full text-foreground" aria-hidden="true">
+          {matrix.map((row, r) =>
+            row.map((cell, c) =>
+              cell ? <rect key={`${r}-${c}`} x={c + 1} y={r + 1} width={1} height={1} fill="currentColor" /> : null
+            )
+          )}
+        </svg>
         <div className="absolute left-2 right-2 h-0.5 bg-destructive/80 motion-reduce:animate-none!" style={{ animation: "twofaScan 2.4s ease-in-out infinite" }} aria-hidden="true" />
       </div>
 
@@ -60,15 +76,21 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Recovery Codes</span>
           <button
             type="button"
+            aria-expanded={revealed}
             onClick={() => setRevealed((r) => !r)}
-            className="font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
+            className="cursor-pointer font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm"
           >
             {revealed ? "HIDE" : "SHOW"}
           </button>
         </div>
-        <div className={cn("mt-2 grid grid-cols-2 gap-1 transition-all duration-300 motion-reduce:transition-none", revealed ? "opacity-100" : "opacity-0 select-none blur-sm")}>
-          {codes.map((c, i) => (
-            <code key={c} className="font-mono text-[11px] text-foreground/80" style={{ animationDelay: `${i * 30}ms` }}>{c}</code>
+        <div
+          aria-hidden={!revealed || undefined}
+          className={cn("mt-2 grid grid-cols-2 gap-1 transition-all duration-300 motion-reduce:transition-none", !revealed && "select-none text-muted-foreground")}
+        >
+          {codes.map((c) => (
+            <code key={c} className="font-mono text-[11px] text-foreground/80">
+              {revealed ? c : "••••-••••"}
+            </code>
           ))}
         </div>
         <button
@@ -85,7 +107,7 @@ export function TwoFactor({ recoveryCodes, onConfirm, className, ...props }: Two
         onClick={onConfirm}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98]",
+          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
           "animate-[twofaIn_0.3s_ease-out_0.25s_both] motion-reduce:animate-none"
         )}

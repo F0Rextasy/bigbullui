@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -27,16 +28,21 @@ const PAY = [
   { id: "wallet", label: "Wallet", description: "Stub credits", icon: "wallet" as const },
 ];
 
-export function PageCheckout() {
+export interface PageCheckoutProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageCheckout({ className, onAction, ...props }: PageCheckoutProps) {
   const [step, setStep] = React.useState(1);
+  const [placed, setPlaced] = React.useState(false);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT // CHECKOUT</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Claim your stubs</h2>
         </div>
-        <Badge variant="accent">STEP {step + 1} / 3</Badge>
+        <Badge variant="accent">{placed ? "STAMPED // CONFIRMED" : `STEP ${step + 1} / 3`}</Badge>
       </div>
       <Steps steps={STEPS} current={step} />
       <div className="grid gap-4 lg:grid-cols-3">
@@ -55,11 +61,16 @@ export function PageCheckout() {
             {step === 2 && <PaymentMethods methods={PAY} defaultValue="card" />}
             <Separator />
             <div className="flex flex-wrap justify-between gap-2">
-              <Button variant="outline" size="sm" disabled={step === 0} onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</Button>
+              <Button variant="outline" size="sm" disabled={step === 0 || placed} onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</Button>
               {step < 2
                 ? <Button size="sm" onClick={() => setStep((s) => Math.min(2, s + 1))}>Continue</Button>
-                : <Button size="sm">Place order</Button>}
+                : <Button size="sm" disabled={placed} onClick={() => { setPlaced(true); onAction?.("place-order"); }}>{placed ? "Order sealed" : "Place order"}</Button>}
             </div>
+            {placed && (
+              <p role="status" className="rounded-sm border border-dashed border-accent bg-accent/10 p-3 font-mono text-xs uppercase tracking-wider text-foreground">
+                Order sealed. Confirmation BB-90210 issued.
+              </p>
+            )}
           </CardContent>
         </Card>
         <Card className="min-w-0">

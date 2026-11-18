@@ -17,7 +17,7 @@ export function Error500({ onRetry, className, ...props }: Error500Props) {
       <button
         type="button"
         onClick={onRetry}
-        className="mt-4 rounded-md bg-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+        className="mt-4 rounded-md bg-primary px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-[1.03] motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
       >
         Retry gate
       </button>

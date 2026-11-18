@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -15,38 +16,45 @@ const MESSAGES = [
   { id: "m3", from: "Support Desk", subject: "Refund BB-90213 confirmed", preview: "Funds return within 5 business days.", time: "YESTERDAY", unread: false },
 ];
 
-export function AppMail() {
+export interface AppMailProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppMail({ className, onAction, ...props }: AppMailProps) {
+  const [folder, setFolder] = React.useState("INBOX");
   const [active, setActive] = React.useState("m1");
+  const [notice, setNotice] = React.useState<string | null>(null);
   const current = MESSAGES.find((message) => message.id === active) ?? MESSAGES[0];
   return (
-    <div className="w-full overflow-hidden rounded-lg border-2 border-foreground bg-card">
+    <div className={cn("w-full overflow-hidden rounded-lg border-2 border-foreground bg-card", className)} {...props}>
       <div className="flex items-center justify-between border-b-2 border-dashed border-border px-4 py-3">
-        <p className="font-mono text-xs font-black uppercase tracking-[0.2em]">Mail stub // Inbox</p>
+        <p className="font-mono text-xs font-black uppercase tracking-[0.2em]">Mail stub // {folder}</p>
         <Badge variant="accent">2 UNREAD</Badge>
       </div>
       <div className="grid md:grid-cols-4">
         <div className="space-y-1 border-b border-dashed border-border p-3 md:border-b-0 md:border-r">
           <Input placeholder="Search mail..." aria-label="Search mail" className="mb-2" />
-          {FOLDERS.map((folder) => (
+          {FOLDERS.map((item) => (
             <button
-              key={folder}
+              key={item}
               type="button"
-              onClick={() => setActive(MESSAGES[0]?.id ?? "m1")}
-              className="flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-2 font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-pressed={folder === item}
+              onClick={() => { setFolder(item); setNotice(null); onAction?.(`folder:${item.toLowerCase()}`); }}
+              className={`flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-2 font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${folder === item ? "bg-secondary" : ""}`}
             >
-              {folder}
-              {folder === "INBOX" && <Badge variant="accent">2</Badge>}
+              {item}
+              {item === "INBOX" && <Badge variant="accent">2</Badge>}
             </button>
           ))}
           <Separator className="my-2" />
-          <Button size="sm" className="w-full">Compose</Button>
+          <Button size="sm" className="w-full" onClick={() => { setNotice("Draft composer opened."); onAction?.("compose"); }}>Compose</Button>
         </div>
         <div className="divide-y divide-dashed divide-border border-b border-dashed border-border md:col-span-1 md:border-b-0 md:border-r">
           {MESSAGES.map((message) => (
             <button
               key={message.id}
               type="button"
-              onClick={() => setActive(message.id)}
+              onClick={() => { setActive(message.id); setNotice(null); }}
               className={`w-full cursor-pointer px-4 py-3 text-start transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${active === message.id ? "bg-secondary/60" : ""}`}
             >
               <span className="flex items-center justify-between gap-2">
@@ -73,9 +81,10 @@ export function AppMail() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">{current?.preview} Full thread renders here with ticket context, seat map snapshot, and refund status stamps.</p>
-            <div className="flex gap-2">
-              <Button size="sm">Reply</Button>
-              <Button size="sm" variant="outline">Forward</Button>
+            <div className="flex flex-wrap items-center gap-2">
+              <Button size="sm" onClick={() => { setNotice(`Replying to ${current?.from}`); onAction?.("reply"); }}>Reply</Button>
+              <Button size="sm" variant="outline" onClick={() => { setNotice(`Forwarding "${current?.subject}"`); onAction?.("forward"); }}>Forward</Button>
+              {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
             </div>
           </CardContent>
         </Card>

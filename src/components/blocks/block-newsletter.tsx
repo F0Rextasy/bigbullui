@@ -1,14 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Card, CardContent } from "../ui/card";
 
-export function BlockNewsletter() {
+export interface BlockNewsletterProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockNewsletter({ className, onAction, ...props }: BlockNewsletterProps) {
   const [done, setDone] = React.useState(false);
   return (
-    <Card className="w-full">
+    <Card className={cn("w-full", className)} {...props}>
       <CardContent className="flex flex-col items-center gap-3 p-8 text-center sm:p-10">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">WEEKLY PLAYBILL</p>
         <h2 className="max-w-md font-mono text-2xl font-black uppercase tracking-tight">First to know when doors open</h2>
@@ -22,6 +27,7 @@ export function BlockNewsletter() {
             onSubmit={(event) => {
               event.preventDefault();
               setDone(true);
+              onAction?.("subscribe");
             }}
           >
             <Input placeholder="Email address" type="email" aria-label="Email address" className="flex-1" />

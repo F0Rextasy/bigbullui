@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { statSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { components } from "@/lib/registry-site";
-import { NAV_ICON_NAMES } from "@/components/site/icon-data";
+import iconsMeta from "@/../public/icons.json";
 
 function mtime(rel: string): Date {
   try {
@@ -159,7 +159,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const iconRoutes: MetadataRoute.Sitemap = NAV_ICON_NAMES.map((name) => ({
+  const iconRoutes: MetadataRoute.Sitemap = (iconsMeta.icons as string[]).map((name) => ({
     url: `${siteUrl}/icons/${name}`,
     lastModified: mtime("src/components/site/icon-data.tsx"),
     changeFrequency: "monthly",

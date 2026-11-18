@@ -49,7 +49,7 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
           />
           {state === "valid" && (
             <span className="absolute right-2 top-1/2 -translate-y-1/2 text-success" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" style={{ strokeDasharray: 20, animation: "cfCheck 0.3s ease-out both" }} /></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" className="motion-reduce:animate-none!" style={{ strokeDasharray: 20, animation: "cfCheck 0.3s ease-out both" }} /></svg>
             </span>
           )}
         </div>

@@ -57,7 +57,7 @@ export function SunburstChart({ slices = [], height = 260, className, ...props }
         const isActive = hover === seg.id || (hover !== null && rootChildren.get(seg.id)?.some((c) => c.id === hover));
 
         return (
-          <g key={seg.id} style={{ animation: "sbIn 0.45s ease-out both", animationDelay: `${idx * 100}ms`, transformOrigin: `${cx}px ${cy}px` }}>
+          <g key={seg.id} className="motion-reduce:animate-none!" style={{ animation: "sbIn 0.45s ease-out both", animationDelay: `${idx * 100}ms`, transformOrigin: `${cx}px ${cy}px` }}>
             {/* Outer ring slices */}
             {(rootChildren.get(seg.id) ?? []).map((child, cIdx) => {
               const childSweep = (child.value / seg.value) * sweep;

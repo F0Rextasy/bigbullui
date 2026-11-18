@@ -15,7 +15,7 @@ export type CarouselSlide = {
 };
 
 export type CarouselProps = {
-  items: CarouselItem[];
+  items?: CarouselItem[];
   autoplay?: boolean;
   interval?: number;
   className?: string;
@@ -24,19 +24,25 @@ export type CarouselProps = {
 const Carousel = React.forwardRef<
   HTMLDivElement,
   CarouselProps
->(({ items, autoplay = false, interval = 3000, className }, ref) => {
+>(({ items = [], autoplay = false, interval = 3000, className }, ref) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   React.useEffect(() => {
-    if (!autoplay) return;
+    if (!autoplay || items.length === 0) return;
     const id = setInterval(() => {
       setActiveIndex((i) => (i + 1) % items.length);
     }, interval);
     return () => clearInterval(id);
   }, [autoplay, interval, items.length]);
 
-  const prev = () => setActiveIndex((i) => (i - 1 + items.length) % items.length);
-  const next = () => setActiveIndex((i) => (i + 1) % items.length);
+  const prev = () => {
+    if (items.length === 0) return;
+    setActiveIndex((i) => (i - 1 + items.length) % items.length);
+  };
+  const next = () => {
+    if (items.length === 0) return;
+    setActiveIndex((i) => (i + 1) % items.length);
+  };
 
   return (
     <div

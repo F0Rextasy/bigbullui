@@ -20,20 +20,23 @@ export interface ComboboxProps {
   className?: string;
 }
 
-export function Combobox({
-  options = [],
-  value: controlledValue = "",
-  defaultValue = "",
-  onValueChange,
-  placeholder = "Select an option...",
-  searchPlaceholder = "Type to search...",
-  emptyText = "No stubs match.",
-  disabled = false,
-  className,
-}: ComboboxProps) {
+export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(function Combobox(
+  {
+    options = [],
+    value: controlledValue,
+    defaultValue = "",
+    onValueChange,
+    placeholder = "Select an option...",
+    searchPlaceholder = "Type to search...",
+    emptyText = "No stubs match.",
+    disabled = false,
+    className,
+  },
+  forwardedRef
+) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
-  const currentVal = isControlled ? controlledValue : uncontrolledValue;
+  const currentVal = (isControlled ? controlledValue : uncontrolledValue) ?? "";
 
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
@@ -51,19 +54,25 @@ export function Combobox({
     );
   }, [options, search]);
 
+  const initialSelectionRef = React.useRef({ filteredOptions, currentVal });
+  initialSelectionRef.current = { filteredOptions, currentVal };
+
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-      setActiveIndex(Math.max(0, filteredOptions.findIndex((o) => o.value === currentVal)));
-      setTimeout(() => searchInputRef.current?.focus(), 50);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [open, filteredOptions, currentVal]);
+    if (!open) return;
+    document.addEventListener("mousedown", handleClickOutside);
+    const { filteredOptions: opts, currentVal: val } = initialSelectionRef.current;
+    setActiveIndex(Math.max(0, opts.findIndex((o) => o.value === val)));
+    const focusTimer = setTimeout(() => searchInputRef.current?.focus(), 0);
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   const handleSelect = (val: string) => {
     if (!isControlled) {
@@ -77,6 +86,7 @@ export function Combobox({
   return (
     <div ref={containerRef} className={cn("relative inline-block w-full max-w-xs", className)}>
       <button
+        ref={forwardedRef}
         type="button"
         disabled={disabled}
         aria-expanded={open}
@@ -158,4 +168,5 @@ export function Combobox({
       ) : null}
     </div>
   );
-}
+});
+Combobox.displayName = "Combobox";

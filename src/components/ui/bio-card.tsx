@@ -44,7 +44,7 @@ export function BioCard({ name, initials, bio, links = [], onFollow, className, 
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           following
             ? "border-border text-muted-foreground hover:border-destructive hover:text-destructive"
-            : "border-accent bg-accent text-accent-foreground hover:bg-accent/90 active:scale-[0.98]"
+            : "border-accent bg-accent text-accent-foreground hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100"
         )}
       >
         {following ? "Takip ediliyor ✓" : "Takip et"}

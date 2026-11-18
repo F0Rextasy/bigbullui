@@ -35,7 +35,7 @@ export function BulletChart({ label = "", value = 0, target = 0, max = 0, unit =
         <div className="absolute inset-y-0 left-1/3 w-1/3 bg-secondary/40" aria-hidden="true" />
         {/* Value bar */}
         <div
-          className={cn("absolute inset-y-0 left-0 rounded-r-sm transition-all duration-700 ease-out motion-reduce:transition-none", hit ? "bg-success/70" : "bg-accent/70")}
+          className={cn("absolute inset-y-0 left-0 rounded-r-sm transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:animate-none!", hit ? "bg-success/70" : "bg-accent/70")}
           style={{ width: `${vpct}%`, animation: "bltGrow 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
         />
         {/* Target marker */}

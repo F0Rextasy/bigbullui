@@ -18,6 +18,12 @@ export interface AddressFormProps extends Omit<React.HTMLAttributes<HTMLFormElem
 
 /** Address form layout: street, city, state, postal code grid. */
 export function AddressForm({ value = {}, onValueChange, className, ...props }: AddressFormProps) {
+  const uid = React.useId();
+  const streetId = `${uid}-street`;
+  const cityId = `${uid}-city`;
+  const stateId = `${uid}-state`;
+  const postalId = `${uid}-postal`;
+  const countryId = `${uid}-country`;
   const set = (patch: Partial<AddressFormValue>) => onValueChange?.({ ...value, ...patch });
 
   const inputCls = "w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none";
@@ -27,27 +33,27 @@ export function AddressForm({ value = {}, onValueChange, className, ...props }: 
     <form className={cn("w-full max-w-md space-y-3", className)} onSubmit={(e) => e.preventDefault()} {...props}>
       <style>{`@keyframes afIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="space-y-1 animate-[afIn_0.25s_ease-out_both] motion-reduce:animate-none">
-        <label htmlFor="af-street" className={labelCls}>Sokak</label>
-        <input id="af-street" value={value.street ?? ""} onChange={(e) => set({ street: e.target.value })} placeholder="Cadde, no" className={inputCls} />
+        <label htmlFor={streetId} className={labelCls}>Street</label>
+        <input id={streetId} value={value.street ?? ""} onChange={(e) => set({ street: e.target.value })} placeholder="123 Main St" className={inputCls} />
       </div>
       <div className="grid grid-cols-2 gap-3 animate-[afIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
         <div className="space-y-1">
-          <label htmlFor="af-city" className={labelCls}>City</label>
-          <input id="af-city" value={value.city ?? ""} onChange={(e) => set({ city: e.target.value })} placeholder="New York" className={inputCls} />
+          <label htmlFor={cityId} className={labelCls}>City</label>
+          <input id={cityId} value={value.city ?? ""} onChange={(e) => set({ city: e.target.value })} placeholder="New York" className={inputCls} />
         </div>
         <div className="space-y-1">
-          <label htmlFor="af-state" className={labelCls}>State / Region</label>
-          <input id="af-state" value={value.state ?? ""} onChange={(e) => set({ state: e.target.value })} placeholder="NY" className={inputCls} />
+          <label htmlFor={stateId} className={labelCls}>State / Region</label>
+          <input id={stateId} value={value.state ?? ""} onChange={(e) => set({ state: e.target.value })} placeholder="NY" className={inputCls} />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3 animate-[afIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
         <div className="space-y-1">
-          <label htmlFor="af-postal" className={labelCls}>Posta kodu</label>
-          <input id="af-postal" value={value.postal ?? ""} onChange={(e) => set({ postal: e.target.value })} placeholder="34000" inputMode="numeric" className={cn(inputCls, "font-mono")} />
+          <label htmlFor={postalId} className={labelCls}>Postal Code</label>
+          <input id={postalId} value={value.postal ?? ""} onChange={(e) => set({ postal: e.target.value })} placeholder="10001" inputMode="numeric" className={cn(inputCls, "font-mono")} />
         </div>
         <div className="space-y-1">
-          <label htmlFor="af-country" className={labelCls}>Country</label>
-          <input id="af-country" value={value.country ?? "United States"} onChange={(e) => set({ country: e.target.value })} className={inputCls} />
+          <label htmlFor={countryId} className={labelCls}>Country</label>
+          <input id={countryId} value={value.country ?? "United States"} onChange={(e) => set({ country: e.target.value })} className={inputCls} />
         </div>
       </div>
     </form>

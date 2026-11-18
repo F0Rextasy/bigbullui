@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -15,19 +16,27 @@ const LINKS = [
   { id: "b6", title: "Radio spot script", host: "PRESS.BIGBULL.APP", tag: "HYPE" },
 ];
 
-export function AppBookmarks() {
+export interface AppBookmarksProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppBookmarks({ className, onAction, ...props }: AppBookmarksProps) {
   const [query, setQuery] = React.useState("");
+  const [opened, setOpened] = React.useState<string | null>(null);
   const visible = LINKS.filter((link) =>
     `${link.title} ${link.host} ${link.tag}`.toLowerCase().includes(query.trim().toLowerCase())
   );
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">WALL // BOOKMARKS</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Saved links</h2>
         </div>
-        <Button size="sm">Save link</Button>
+        <div className="flex items-center gap-2">
+          {opened && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{opened}</span>}
+          <Button size="sm" onClick={() => { setOpened("Saved bookmark slot ready."); onAction?.("save-link"); }}>Save link</Button>
+        </div>
       </div>
       <Input
         value={query}
@@ -44,7 +53,7 @@ export function AppBookmarks() {
             </CardHeader>
             <CardContent className="flex items-center justify-between gap-2">
               <CardTitle className="min-w-0 truncate text-sm">{link.title}</CardTitle>
-              <Button size="sm" variant="ghost">Open</Button>
+              <Button size="sm" variant="ghost" onClick={() => { setOpened(`Opened: ${link.title}`); onAction?.("open-link"); }}>Open</Button>
             </CardContent>
           </Card>
         ))}

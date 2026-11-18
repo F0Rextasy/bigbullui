@@ -291,7 +291,7 @@ export function FileUploadList({
               <button
                 type="button"
                 onClick={() => inputRef.current?.click()}
-                className="inline-flex items-center gap-1.5 rounded-xs border border-dashed border-foreground/60 bg-secondary px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-foreground hover:border-solid hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer transition-all active:scale-95"
+                className="inline-flex items-center gap-1.5 rounded-xs border border-dashed border-foreground/60 bg-secondary px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-foreground hover:border-solid hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer transition-all active:scale-95 motion-reduce:active:scale-100"
               >
                 <svg
                   width="12"
@@ -494,7 +494,7 @@ export function FileUploadList({
                       <button
                         type="button"
                         onClick={() => onRetry(file.id)}
-                        className="size-7 rounded-xs border border-dashed border-foreground/50 bg-secondary flex items-center justify-center text-foreground hover:bg-foreground hover:text-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer transition-transform active:scale-95"
+                        className="size-7 rounded-xs border border-dashed border-foreground/50 bg-secondary flex items-center justify-center text-foreground hover:bg-foreground hover:text-background focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer transition-transform active:scale-95 motion-reduce:active:scale-100"
                         title={`Retry ${file.name}`}
                         aria-label={`Retry ${file.name}`}
                       >
@@ -519,7 +519,7 @@ export function FileUploadList({
                       <button
                         type="button"
                         onClick={() => onCancel(file.id)}
-                        className="size-7 rounded-xs border border-dashed border-border bg-card flex items-center justify-center text-muted-foreground hover:border-destructive hover:text-destructive hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer transition-transform active:scale-95"
+                        className="size-7 rounded-xs border border-dashed border-border bg-card flex items-center justify-center text-muted-foreground hover:border-destructive hover:text-destructive hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer transition-transform active:scale-95 motion-reduce:active:scale-100"
                         title={`Cancel ${file.name}`}
                         aria-label={`Cancel ${file.name}`}
                       >
@@ -545,7 +545,7 @@ export function FileUploadList({
                       <button
                         type="button"
                         onClick={() => onRemove(file.id)}
-                        className="size-7 rounded-xs border border-transparent hover:border-dashed hover:border-border hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer transition-transform active:scale-95"
+                        className="size-7 rounded-xs border border-transparent hover:border-dashed hover:border-border hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer transition-transform active:scale-95 motion-reduce:active:scale-100"
                         title={`Remove ${file.name}`}
                         aria-label={`Remove ${file.name}`}
                       >

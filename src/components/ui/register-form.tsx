@@ -16,6 +16,10 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
   const [agreed, setAgreed] = React.useState(false);
   const [touched, setTouched] = React.useState<Record<string, boolean>>({});
 
+  const uid = React.useId();
+  const nameId = `${uid}-name`;
+  const emailId = `${uid}-email`;
+  const passwordId = `${uid}-password`;
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const strength = password.length === 0 ? 0 : password.length < 6 ? 1 : password.length < 10 ? 2 : /[A-Z]/.test(password) && /[0-9]/.test(password) ? 3 : 2;
   const strengthLabels = ["", "WEAK", "MEDIUM", "STRONG"];
@@ -33,9 +37,9 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
       <style>{`@keyframes regIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_both] motion-reduce:animate-none">
-        <label htmlFor="reg-name" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Ad Soyad</label>
+        <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Full Name</label>
         <input
-          id="reg-name"
+          id={nameId}
           value={name}
           onChange={(e) => setName(e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, name: true }))}
@@ -48,9 +52,9 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
       </div>
 
       <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_0.06s_both] motion-reduce:animate-none">
-        <label htmlFor="reg-email" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">E-posta</label>
+        <label htmlFor={emailId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Email</label>
         <input
-          id="reg-email"
+          id={emailId}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -59,14 +63,14 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
             "w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none",
             touched.email && !emailValid && "border-destructive"
           )}
-          placeholder="ornek@mail.com"
+          placeholder="you@example.com"
         />
       </div>
 
       <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_0.12s_both] motion-reduce:animate-none">
-        <label htmlFor="reg-password" className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
+        <label htmlFor={passwordId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
         <input
-          id="reg-password"
+          id={passwordId}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -103,7 +107,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
         disabled={!valid}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98]",
+          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
           "disabled:pointer-events-none disabled:opacity-40",
           "animate-[regIn_0.3s_ease-out_0.24s_both] motion-reduce:animate-none"

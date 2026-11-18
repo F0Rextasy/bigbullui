@@ -12,98 +12,114 @@ export interface TerminalProps extends React.HTMLAttributes<HTMLDivElement> {
   lines: TerminalLine[];
   prompt?: string;
   loop?: boolean;
+  onCommand?: (command: string) => void;
   className?: string;
 }
+
+const TONE_CLASS: Record<NonNullable<TerminalLine["tone"]>, string> = {
+  info: "text-foreground",
+  warn: "text-warning",
+  error: "text-destructive",
+};
 
 export function Terminal({
   lines = [],
   prompt = "> ",
   loop = false,
+  onCommand,
   className,
   ...props
 }: TerminalProps) {
-  const [visibleIndex, setVisibleIndex] = React.useState(lines.length);
+  const [command, setCommand] = React.useState("");
+  const [history, setHistory] = React.useState<TerminalLine[]>([]);
+  const [visibleCount, setVisibleCount] = React.useState(lines.length);
+
   React.useEffect(() => {
-    setVisibleIndex(lines.length);
+    if (!loop || lines.length === 0) {
+      setVisibleCount(lines.length);
+      return;
+    }
+    setVisibleCount(1);
+    const id = setInterval(() => {
+      setVisibleCount((prev) => (prev >= lines.length ? 1 : prev + 1));
+    }, 800);
+    return () => clearInterval(id);
   }, [lines.length, loop]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = command.trim();
+    if (!trimmed) return;
+    setHistory((prev) => [...prev, { text: trimmed, tone: "info" }]);
+    onCommand?.(trimmed);
+    setCommand("");
+  };
+
+  const renderedLines = [...lines.slice(0, visibleCount), ...history];
 
   return (
     <div
       className={cn(
-        "w-full rounded-lg border border-border/60 bg-card overflow-hidden",
-        "motion-reduce:animate-none",
+        "w-full rounded-lg border border-border bg-card overflow-hidden",
         className,
       )}
       {...props}
     >
       {/* Title bar */}
-      <div className="flex items-center border-b border-border/60 bg-black/20 p-2">
-        <div className="w-full flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-success"></span>
-          <span className="w-2 h-2 rounded-full bg-success"></span>
-          <span className="w-2 h-2 rounded-full bg-success"></span>
-          <span className="text-[10px] uppercase text-muted-foreground">terminal</span>
-        </div>
-        <div className="ms-auto flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-gray-300"></span>
-          <span className="w-2 h-2 rounded-full bg-gray-400"></span>
+      <div className="flex items-center border-b border-border bg-secondary/70 px-3 py-2">
+        <div className="flex items-center gap-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-success" aria-hidden="true" />
+          <span className="h-2.5 w-2.5 rounded-full bg-warning" aria-hidden="true" />
+          <span className="h-2.5 w-2.5 rounded-full bg-destructive" aria-hidden="true" />
+          <span className="ms-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            terminal
+          </span>
         </div>
       </div>
 
       {/* Output area */}
       <div
-        className="h-64 overflow-y-auto p-4 font-mono text-[10px] leading-relaxed text-muted-foreground"
+        className="h-64 overflow-y-auto bg-background/60 p-4 font-mono text-xs leading-relaxed"
         role="log"
+        aria-live="polite"
       >
-        {lines.map((line, lineIdx) => {
-          const delay = lineIdx * 40;
-
-          return (
-            <div
-              key={line.text}
-              className={cn(
-                "motion-reduce:transition-none",
-                `motion-safe:animate-[type-in_0.2s_ease-out_both ${delay}ms fill mode]`,
-                lineIdx < visibleIndex ? "" : "hidden",
-              )}
-            >
-              <span className="font-mono break-all">{prompt}{line.text}</span>
-            </div>
-          );
-        })}
-
-        {/* Auto-scroll: show last line */}
-        {lines.length > 0 && (
+        {renderedLines.map((line, lineIdx) => (
           <div
-            style={{ opacity: 0 }}
-            className="pt-2"
+            key={`${lineIdx}-${line.text}`}
+            style={{ animationDelay: `${Math.min(lineIdx, 8) * 35}ms` }}
+            className={cn(
+              "animate-[fadeIn_0.2s_ease-out_both] motion-reduce:animate-none!",
+              TONE_CLASS[line.tone ?? "info"]
+            )}
           >
-            {lines[lines.length - 1]?.text}
+            <span className="font-mono break-all">
+              <span className="text-muted-foreground">{prompt}</span>
+              {line.text}
+            </span>
           </div>
-        )}
+        ))}
       </div>
 
       {/* Input area */}
-      <div className="p-2 border-t border-border/60 bg-black/10">
+      <form onSubmit={handleSubmit} className="border-t border-border bg-secondary/40 p-2">
         <div className="flex gap-2">
           <input
             type="text"
-            className={cn(
-              "flex-1 rounded-b-lg border border-border/60 bg-black p-2 text-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            )}
-            placeholder=">"
+            value={command}
+            onChange={(e) => setCommand(e.target.value)}
+            aria-label="Terminal command input"
+            className="flex-1 rounded-md border border-input bg-card px-2.5 py-1.5 font-mono text-xs text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            placeholder={prompt.trim() || ">"}
           />
           <button
-            type="button"
-            className={cn(
-              "rounded-b-lg border border-border/60 bg-black px-3 text-[10px]",
-            )}
-            onClick={() => {}}
+            type="submit"
+            aria-label="Run command"
+            className="cursor-pointer rounded-md border border-border bg-card px-3 font-mono text-xs text-foreground hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             ↩
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

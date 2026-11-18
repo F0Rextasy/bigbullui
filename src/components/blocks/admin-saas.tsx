@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -20,17 +21,23 @@ const COHORTS = [
   { month: "JUN", signups: 410, churn: "1.4%" },
 ];
 
-export function AdminSaas() {
+export interface AdminSaasProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminSaas({ className, onAction, ...props }: AdminSaasProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // SAAS</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Subscription desk</h2>
         </div>
         <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
           <Badge variant="accent">CHURN 1.4%</Badge>
-          <Button size="sm">Invite team</Button>
+          <Button size="sm" onClick={() => { setNotice("Team invite sent."); onAction?.("invite-team"); }}>Invite team</Button>
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -56,7 +63,7 @@ export function AdminSaas() {
                 </div>
               </div>
             ))}
-            <Button variant="outline" size="sm" className="w-full">Compare plans</Button>
+            <Button variant="outline" size="sm" className="w-full" onClick={() => { setNotice("Plan comparison opened."); onAction?.("compare-plans"); }}>Compare plans</Button>
           </CardContent>
         </Card>
         <Card>

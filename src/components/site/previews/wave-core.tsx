@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip } from "@/components/ui/tooltip";
-import { NavIcon } from "@/components/site/nav-icons";
+import { ChromeIcon } from "@/components/site/chrome-icons";
 import { Dialog, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -122,6 +122,7 @@ import { MetricCard } from "@/components/ui/metric-card";
 import { DonutChart } from "@/components/ui/donut-chart";
 import { Dock, DockItem, DockSeparator } from "@/components/ui/dock";
 import { cn } from "@/components/ui/lib/utils";
+import { useTicketAudio } from "@/components/ui/lib/use-ticket-audio";
 
 
 
@@ -381,7 +382,7 @@ function AnimatedCommandPalettePreview() {
   return (
     <div className="flex flex-col items-center gap-3 select-none">
       <Button variant="outline" onClick={() => setOpen(true)} className="font-mono text-xs">
-        <NavIcon name="components" size={13} className="me-2" /> Open Command Palette (⌘K)
+        <ChromeIcon name="components" size={13} className="me-2" /> Open Command Palette (⌘K)
       </Button>
       <span className="font-mono text-[11px] text-muted-foreground">
         Press Esc or choose an option to close
@@ -1966,6 +1967,31 @@ function AnimatedDockPreview() {
   );
 }
 
+function AnimatedUseTicketAudioPreview() {
+  const { muted, toggle, setMuted } = useTicketAudio({ initialMuted: false });
+
+  return (
+    <div className="flex w-full max-w-sm flex-col items-center gap-3 rounded-lg border border-border bg-card p-5 text-center">
+      <div className="flex items-center gap-2">
+        <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground">
+          Audio State
+        </span>
+        <Badge variant={muted ? "secondary" : "default"}>
+          {muted ? "Muted" : "Unmuted"}
+        </Badge>
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <Button type="button" size="sm" variant="outline" aria-pressed={muted} onClick={toggle}>
+          {muted ? "Unmute via toggle()" : "Mute via toggle()"}
+        </Button>
+        <Button type="button" size="sm" variant="ghost" onClick={() => setMuted(false)} disabled={!muted}>
+          Reset
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 /* Master Previews Record for all Components */
 
 export const waveCorePreviews: Record<string, React.ComponentType> = {
@@ -2437,4 +2463,5 @@ export const waveCorePreviews: Record<string, React.ComponentType> = {
   "metric-card": AnimatedMetricCardPreview,
   "donut-chart": AnimatedDonutChartPreview,
   dock: AnimatedDockPreview,
+  "use-ticket-audio": AnimatedUseTicketAudioPreview,
 };

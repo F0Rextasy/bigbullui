@@ -39,12 +39,12 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
             type="button"
             key={img.id}
             onClick={() => setActive(idx)}
-            className="group relative aspect-square overflow-hidden rounded-md border border-border animate-[ggIn_0.35s_ease-out_both] motion-reduce:animate-none transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+            className="group relative aspect-square overflow-hidden rounded-md border border-border animate-[ggIn_0.35s_ease-out_both] motion-reduce:animate-none transition-transform duration-200 hover:scale-[1.02] motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             style={{ animationDelay: `${idx * 50}ms` }}
             aria-label={img.alt ?? `Image ${idx + 1}`}
           >
             { }
-            <img src={img.src} alt={img.alt ?? ""} className="size-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none" loading="lazy" />
+            <img src={img.src} alt={img.alt ?? ""} className="size-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:group-hover:scale-100 motion-reduce:transition-none" loading="lazy" />
           </button>
         ))}
       </div>

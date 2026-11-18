@@ -66,15 +66,12 @@ const HighlightText = ({ text, query }: HighlightTextProps) => {
         const [matched] = part;
 
         return (
-          <span
+          <mark
             key={i}
-            className={cn(
-              "bg-accent/10 text-accent-foreground rounded px-1.5",
-              "animate-highlightIn 0.3s ease-out"
-            )}
+            className="rounded bg-accent/15 px-1 font-semibold text-accent-strong"
           >
             {matched}
-          </span>
+          </mark>
         );
       })}
     </div>

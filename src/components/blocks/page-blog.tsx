@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { ArticleCard } from "../ui/article-card";
 import { PageHeader } from "../ui/page-header";
@@ -16,12 +17,16 @@ const POSTS = [
   { title: "A holder since 2019", excerpt: "One dossier, 142 stubs, zero no-shows.", category: "STORIES", author: "Grace Hopper", readTime: "7 MIN READ", tag: "STORIES" },
 ];
 
-export function PageBlog() {
+export interface PageBlogProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageBlog({ className, onAction, ...props }: PageBlogProps) {
   const [active, setActive] = React.useState<(typeof TAGS)[number]>("ALL");
   const visible = POSTS.filter((post) => active === "ALL" || post.tag === active);
 
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="JOURNAL // ALL POSTS"
         title="From the box office"
@@ -29,7 +34,7 @@ export function PageBlog() {
       />
       <div className="flex flex-wrap gap-2">
         {TAGS.map((tag) => (
-          <Button key={tag} size="sm" variant={active === tag ? "default" : "outline"} onClick={() => setActive(tag)}>
+          <Button key={tag} size="sm" variant={active === tag ? "default" : "outline"} onClick={() => { setActive(tag); onAction?.(`filter:${tag.toLowerCase()}`); }}>
             {tag}
           </Button>
         ))}

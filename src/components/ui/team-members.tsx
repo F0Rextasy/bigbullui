@@ -84,7 +84,7 @@ export function TeamMembers({ members = [], onInvite, onRemove, className, ...pr
           disabled={!valid}
           className={cn(
             "shrink-0 rounded-md bg-accent px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-accent-foreground",
-            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97]",
+            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
             "disabled:pointer-events-none disabled:opacity-40"
           )}

@@ -40,9 +40,22 @@ for (const rel of scanTargets) {
 
 const registry = fs.readFileSync(path.join(rootDir, "src/lib/registry-site.ts"), "utf8");
 const readme = fs.readFileSync(path.join(rootDir, "README.md"), "utf8");
+const staticDocRoutes = new Set([
+  "agents",
+  "changelog",
+  "compare",
+  "contributing",
+  "design",
+  "help",
+  "installation",
+  "mcp",
+  "migrate",
+  "recipes",
+  "shortcuts",
+]);
 const warnings = [];
 for (const m of readme.matchAll(/\]\(https:\/\/ui\.bigbullapp\.com\/docs\/([a-z0-9][a-z0-9-]*)\)/g)) {
-  if (!new RegExp(`name:\\s*["']${m[1]}["']`).test(registry)) {
+  if (!staticDocRoutes.has(m[1]) && !new RegExp(`name:\\s*["']${m[1]}["']`).test(registry)) {
     warnings.push(`README.md: docs link without registry entry "${m[1]}"`);
   }
 }

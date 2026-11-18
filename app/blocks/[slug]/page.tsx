@@ -1,8 +1,11 @@
+import fs from "node:fs";
+import path from "node:path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { CopyBlock } from "@/components/site/copy-block";
+import { BlockViewer } from "@/components/site/block-viewer";
 import { BLOCK_SLUGS, slugTitle } from "@/lib/site-meta";
 
 // Generated from src/components/blocks (scripts/generate-registry-json.mjs):
@@ -34,10 +37,13 @@ export default async function BlockPage({ params }: { params: Promise<{ slug: st
   if (!Node) notFound();
   const Render = Node as React.ComponentType;
   const title = slugTitle(slug);
+  const blockPath = path.join(process.cwd(), "src", "components", "blocks", `${slug}.tsx`);
+  const code = fs.existsSync(blockPath) ? fs.readFileSync(blockPath, "utf8") : "";
+  const uiDeps = [...new Set([...code.matchAll(/["']\.\.\/ui\/([a-z0-9-]+)(?=["'])/g)].map((m) => m[1]))].sort();
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
-      <main className="mx-auto w-full max-w-4xl px-4 py-10">
+      <main className="mx-auto w-full max-w-5xl px-4 py-10">
         <Link href="/blocks" className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground hover:text-foreground">
           ← All blocks
         </Link>
@@ -46,7 +52,9 @@ export default async function BlockPage({ params }: { params: Promise<{ slug: st
           <CopyBlock name={slug} />
         </div>
         <div className="mt-6">
-          <Render />
+          <BlockViewer slug={slug} title={title} code={code} uiDeps={uiDeps}>
+            <Render />
+          </BlockViewer>
         </div>
       </main>
       <SiteFooter />

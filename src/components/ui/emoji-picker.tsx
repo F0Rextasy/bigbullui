@@ -69,7 +69,7 @@ const EmojiPicker: React.FC<{
             }}
             className={cn(
               "rounded-md px-2 py-1 text-[12px]",
-              "hover:bg-accent/5 hover:text-accent-foreground transition-colors duration-150",
+              "hover:bg-accent/10 hover:text-foreground transition-colors duration-150",
               "motion-reduce:animate-none"
             )}
           >
@@ -79,7 +79,7 @@ const EmojiPicker: React.FC<{
       </div>
 
       {/* Recent row (placeholder - could store in localStorage) */}
-      <div className="mt-3 pt-3 border-t border-border/30 text-[10px] mono uppercase text-muted-foreground">
+      <div className="mt-3 pt-3 border-t border-border/30 text-[10px] font-mono uppercase text-muted-foreground">
         Recent
       </div>
     </div>

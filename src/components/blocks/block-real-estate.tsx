@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -14,7 +15,11 @@ const LISTINGS = [
 ];
 
 /** Real-estate showcase: filterable listing grid + detail drawer. */
-export function BlockRealEstate() {
+export interface BlockRealEstateProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockRealEstate({ className, onAction, ...props }: BlockRealEstateProps) {
   const [query, setQuery] = React.useState("");
   const [activeId, setActiveId] = React.useState<string | null>(null);
 
@@ -24,7 +29,7 @@ export function BlockRealEstate() {
   const active = LISTINGS.find((l) => l.id === activeId) ?? null;
 
   return (
-    <div className="w-full space-y-3">
+    <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-mono text-xl font-black uppercase tracking-tight">Listings</h2>
         <Input
@@ -54,7 +59,7 @@ export function BlockRealEstate() {
                   </p>
                   <div className="flex items-center justify-between">
                     <p className="font-mono text-sm font-bold tabular-nums text-accent">{l.price}</p>
-                    <Button size="sm" variant={activeId === l.id ? "default" : "outline"} onClick={() => setActiveId(activeId === l.id ? null : l.id)}>
+                    <Button size="sm" variant={activeId === l.id ? "default" : "outline"} onClick={() => { setActiveId(activeId === l.id ? null : l.id); onAction?.(`view:${l.id}`); }}>
                       {activeId === l.id ? "Close" : "Details"}
                     </Button>
                   </div>

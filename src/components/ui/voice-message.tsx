@@ -42,8 +42,8 @@ const VoiceMessage: React.FC<{
           {[...Array(bars)].map((_, i) => (
             <span
               key={i}
-              className="w-1 h-4 rounded-full bg-border/30"
-              style={{ height: `${4 + Math.random() * 4}px` }}
+              className="w-1 rounded-full bg-border/40"
+              style={{ height: `${6 + ((i * 7 + duration) % 10)}px` }}
             />
           ))}
         </span>
@@ -56,8 +56,8 @@ const VoiceMessage: React.FC<{
       <div className="flex items-baseline gap-2 text-sm">
         <span
           className={cn(
-            "rounded-full bg-border/20 p-0.5 text-[10px] mono uppercase text-muted-foreground",
-            "w-6 h-6 flex-shrink-0"
+            "rounded-full bg-border/20 p-0.5 text-[10px] font-mono uppercase text-muted-foreground",
+            "w-6 h-6 flex items-center justify-center flex-shrink-0"
           )}
         >
           {"⏺"}
@@ -75,31 +75,27 @@ const VoiceMessage: React.FC<{
         <button
           type="button"
           onClick={onPlayPause}
-          className="absolute -right-1 -top-1 rounded-full bg-card p-1 border border-border hover:bg-accent/5 transition-colors duration-150"
+          className="absolute -right-1 -top-1 cursor-pointer rounded-full bg-card p-1 border border-border hover:bg-secondary transition-colors duration-150"
           aria-label={playing ? "Pause" : "Play"}
         >
           {playing ? (
             <svg
               className="w-4 h-4"
               viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
+              fill="currentColor"
+              aria-hidden="true"
             >
-              <rect x="6" y="4" width="12" height="16" rx="2" ry="2" />
-              <rect x="12" y="4" width="12" height="16" rx="2" ry="2" />
+              <rect x="6" y="4" width="4" height="16" rx="1" />
+              <rect x="14" y="4" width="4" height="16" rx="1" />
             </svg>
           ) : (
             <svg
               className="w-4 h-4"
               viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
+              fill="currentColor"
+              aria-hidden="true"
             >
-              <path
-                d="M6 4h4l2-3h6l2 3h4L12 20v-8L6 4z"
-              />
+              <polygon points="8 5 19 12 8 19" />
             </svg>
           )}
         </button>

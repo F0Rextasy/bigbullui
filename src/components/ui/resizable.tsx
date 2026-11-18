@@ -551,7 +551,7 @@ export function ResizableHandle({
         <div
           className={cn(
             "z-10 rounded-xs border-2 border-border bg-card shadow-xs transition-all",
-            "group-hover:border-foreground group-hover:scale-105",
+            "group-hover:border-foreground group-hover:scale-105 motion-reduce:group-hover:scale-100",
             isActive && "border-accent bg-accent/20 scale-110",
             isHorizontal ? "px-1 py-1.5" : "px-1.5 py-1"
           )}
@@ -581,7 +581,7 @@ export function ResizableHandle({
           aria-label={isTargetCollapsed ? "Expand panel" : "Collapse panel"}
           className={cn(
             "z-10 flex size-5 cursor-pointer items-center justify-center rounded-xs border-2 border-border bg-card font-mono text-[9px] font-bold text-foreground shadow-xs transition-all",
-            "hover:border-foreground hover:bg-accent hover:text-accent-foreground hover:scale-110 active:scale-95",
+            "hover:border-foreground hover:bg-accent hover:text-accent-foreground hover:scale-110 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100",
             isHorizontal ? "mt-2" : "ms-2"
           )}
         >
@@ -606,7 +606,7 @@ export function ResizableHandle({
         <div
           aria-hidden="true"
           className={cn(
-            "absolute z-30 pointer-events-none whitespace-nowrap rounded-xs border-2 border-foreground bg-card px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-foreground shadow-md motion-safe:animate-in fade-in zoom-in-95",
+            "absolute z-30 pointer-events-none whitespace-nowrap rounded-xs border-2 border-foreground bg-card px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-foreground shadow-md motion-safe:animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!",
             isHorizontal ? "top-3 left-1/2 -translate-x-1/2" : "left-3 top-1/2 -translate-y-1/2"
           )}
         >

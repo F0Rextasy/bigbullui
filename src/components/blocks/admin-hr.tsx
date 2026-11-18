@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -20,15 +21,23 @@ function leaveVariant(leave: string): "accent" | "outline" | "secondary" | "defa
   return "outline";
 }
 
-export function AdminHr() {
+export interface AdminHrProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminHr({ className, onAction, ...props }: AdminHrProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">CREW // HUMAN RESOURCES</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Shift roster</h2>
         </div>
-        <Button size="sm">Add member</Button>
+        <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
+          <Button size="sm" onClick={() => { setNotice("New crew invite ready."); onAction?.("add-member"); }}>Add member</Button>
+        </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {TEAM.map((person) => (
@@ -49,7 +58,7 @@ export function AdminHr() {
                 </div>
                 <Progress value={person.score} />
               </div>
-              <Button variant="outline" size="sm" className="w-full">Review file</Button>
+              <Button variant="outline" size="sm" className="w-full" onClick={() => { setNotice(`Opened file: ${person.name}`); onAction?.("review-file"); }}>Review file</Button>
             </CardContent>
           </Card>
         ))}

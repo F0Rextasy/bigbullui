@@ -17,23 +17,27 @@ export interface SelectV2Props extends Omit<React.HTMLAttributes<HTMLDivElement>
   label?: string;
 }
 
-export function SelectV2({
-  groups = [],
-  value: controlledValue = "",
-  defaultValue = "",
-  onValueChange,
-  placeholder = "Select...",
-  label = "",
-  className,
-  ...props
-}: SelectV2Props) {
+export const SelectV2 = React.forwardRef<HTMLButtonElement, SelectV2Props>(function SelectV2(
+  {
+    groups = [],
+    value: controlledValue,
+    defaultValue = "",
+    onValueChange,
+    placeholder = "Select...",
+    label = "",
+    className,
+    ...props
+  },
+  ref
+) {
   const [inner, setInner] = React.useState(defaultValue);
-  const value = controlledValue ?? inner;
+  const isControlled = controlledValue !== undefined;
+  const value = (isControlled ? controlledValue : inner) ?? "";
   const [open, setOpen] = React.useState(false);
   const boxRef = React.useRef<HTMLDivElement>(null);
 
   const pick = (v: string) => {
-    setInner(v);
+    if (!isControlled) setInner(v);
     onValueChange?.(v);
     setOpen(false);
   };
@@ -64,6 +68,7 @@ export function SelectV2({
         </span>
       ) : null}
       <button
+        ref={ref}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
@@ -115,4 +120,5 @@ export function SelectV2({
       ) : null}
     </div>
   );
-}
+});
+SelectV2.displayName = "SelectV2";

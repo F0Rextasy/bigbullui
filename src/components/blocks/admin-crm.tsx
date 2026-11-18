@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -17,15 +18,23 @@ const LEADS = [
 
 const STAGES = ["QUALIFIED", "PROPOSAL", "NEGOTIATION", "CLOSED"];
 
-export function AdminCrm() {
+export interface AdminCrmProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminCrm({ className, onAction, ...props }: AdminCrmProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // CRM</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Deal pipeline</h2>
         </div>
-        <Button size="sm">Add lead</Button>
+        <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
+          <Button size="sm" onClick={() => { setNotice("Draft lead opened."); onAction?.("add-lead"); }}>Add lead</Button>
+        </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <MetricCard title="PIPELINE VALUE" value="$145,500" trend={{ value: "+9.6%", direction: "up", label: "VS LAST MONTH" }} sparklineData={[30, 34, 38, 44, 50, 56, 62]} />

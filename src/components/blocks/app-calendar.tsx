@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -13,17 +14,28 @@ const CELLS: ({ day: number; events?: string[] } | null)[] = [
   { day: 11 }, { day: 12, events: ["VIP NIGHT"] },
 ];
 
-export function AppCalendar() {
+export interface AppCalendarProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+const MONTHS = ["May 2026", "June 2026", "July 2026"];
+
+export function AppCalendar({ className, onAction, ...props }: AppCalendarProps) {
   const [selected, setSelected] = React.useState(5);
+  const [monthIdx, setMonthIdx] = React.useState(1);
+  const [customEvents, setCustomEvents] = React.useState<Record<number, string[]>>({});
+  const eventsFor = (day: number, base?: string[]) => [...(base ?? []), ...(customEvents[day] ?? [])];
+  const selectedCell = CELLS.find((c) => c?.day === selected);
+  const selectedEvents = eventsFor(selected, selectedCell?.events);
   return (
-    <div className="grid w-full gap-4 xl:grid-cols-3">
+    <div className={cn("grid w-full gap-4 xl:grid-cols-3", className)} {...props}>
       <Card className="xl:col-span-2">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>June 2026</CardTitle>
+            <CardTitle>{MONTHS[monthIdx]}</CardTitle>
             <div className="flex gap-2">
-              <Button size="sm" variant="outline">Prev</Button>
-              <Button size="sm" variant="outline">Next</Button>
+              <Button size="sm" variant="outline" onClick={() => { setMonthIdx((i) => Math.max(0, i - 1)); onAction?.("prev-month"); }}>Prev</Button>
+              <Button size="sm" variant="outline" onClick={() => { setMonthIdx((i) => Math.min(MONTHS.length - 1, i + 1)); onAction?.("next-month"); }}>Next</Button>
             </div>
           </div>
         </CardHeader>
@@ -44,7 +56,7 @@ export function AppCalendar() {
                 >
                   <span className="font-mono text-xs font-black">{String(cell.day).padStart(2, "0")}</span>
                   <span className="mt-1 block space-y-1">
-                    {(cell.events ?? []).map((event) => (
+                    {eventsFor(cell.day, cell.events).map((event) => (
                       <span key={event} className="block truncate rounded-sm bg-accent px-1 py-0.5 font-mono text-[9px] font-bold text-accent-foreground">{event}</span>
                     ))}
                   </span>
@@ -59,11 +71,11 @@ export function AppCalendar() {
           <CardTitle>Day stub</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <Badge variant="accent">JUN {String(selected).padStart(2, "0")}{" // MAIN SHOW"}</Badge>
+          <Badge variant="accent">{MONTHS[monthIdx].slice(0, 3).toUpperCase()} {String(selected).padStart(2, "0")}{" // "}{selectedEvents[0] ?? "OPEN"}</Badge>
           <p className="text-sm text-muted-foreground">Doors 19:30. Support act 20:15. Headliner 21:30. Curfew 23:30.</p>
           <div className="flex gap-2">
-            <Button size="sm">Add event</Button>
-            <Button size="sm" variant="outline">Clear day</Button>
+            <Button size="sm" onClick={() => { setCustomEvents((prev) => ({ ...prev, [selected]: [...(prev[selected] ?? []), "CHECK"] })); onAction?.("add-event"); }}>Add event</Button>
+            <Button size="sm" variant="outline" onClick={() => { setCustomEvents((prev) => ({ ...prev, [selected]: [] })); onAction?.("clear-day"); }}>Clear day</Button>
           </div>
         </CardContent>
       </Card>

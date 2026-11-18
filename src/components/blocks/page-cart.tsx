@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -14,14 +15,23 @@ const INITIAL = [
   { id: "cap", title: "GATE CAP", price: "$24.00", qty: 1 },
 ];
 
-export function PageCart() {
+export interface PageCartProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageCart({ className, onAction, ...props }: PageCartProps) {
   const [rows, setRows] = React.useState(INITIAL);
   const [coupon, setCoupon] = React.useState<string | null>(null);
-  const bump = (id: string, d: number) =>
+  const bump = (id: string, d: number) => {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, qty: Math.max(1, r.qty + d) } : r)));
-  const remove = (id: string) => setRows((prev) => prev.filter((r) => r.id !== id));
+    onAction?.(`qty:${id}`);
+  };
+  const remove = (id: string) => {
+    setRows((prev) => prev.filter((r) => r.id !== id));
+    onAction?.(`remove:${id}`);
+  };
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT // CART</p>

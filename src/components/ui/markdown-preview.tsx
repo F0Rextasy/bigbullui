@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "./lib/utils";
+import { cn, isSafeUrl } from "./lib/utils";
 
 export interface MarkdownPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   source?: string;
@@ -14,10 +14,6 @@ export function MarkdownPreview({ source = "", className, ...props }: MarkdownPr
       {render(source)}
     </div>
   );
-}
-
-function isSafeUrl(url: string): boolean {
-  return /^(https?:\/\/|mailto:|tel:|\/|#)/i.test(url.trim());
 }
 
 function inline(text: string): React.ReactNode {

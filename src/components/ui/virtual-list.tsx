@@ -5,60 +5,54 @@ import { cn } from "./lib/utils";
 
 export type VirtualListProps<T> = {
   items: T[];
-  itemHeight: number;
-  height: number;
-  render: (item: T) => React.ReactNode;
+  itemHeight?: number;
+  height?: number;
+  render?: (item: T, index: number) => React.ReactNode;
+  className?: string;
 };
 
-export function VirtualList<T>({ items = [], itemHeight = 0, height = 0, render }: VirtualListProps<T>) {
+export function VirtualList<T>({
+  items = [],
+  itemHeight = 40,
+  height = 320,
+  render,
+  className,
+}: VirtualListProps<T>) {
   const [scrollTop, setScrollTop] = React.useState(0);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const safeItemHeight = Math.max(1, itemHeight || 40);
+  const safeHeight = Math.max(safeItemHeight, height || 320);
 
-  const visibleStart = Math.max(0, Math.floor(scrollTop / itemHeight) - 1);
+  const visibleStart = Math.max(0, Math.floor(scrollTop / safeItemHeight) - 1);
   const visibleEnd = Math.min(
     items.length,
-    Math.ceil((scrollTop + height) / itemHeight) + 1,
+    Math.ceil((scrollTop + safeHeight) / safeItemHeight) + 1,
   );
-
-  const style = {
-    transform: `translateY(${scrollTop}px)`,
-  };
-
-  const spacerHeight = scrollTop + height + itemHeight;
+  const totalHeight = items.length * safeItemHeight;
+  const offsetY = visibleStart * safeItemHeight;
 
   return (
     <div
-      ref={containerRef}
-      className={cn("relative overflow-auto", "motion-reduce:animate-none")}
+      className={cn("relative overflow-auto rounded-md border border-border bg-card", className)}
       onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
-      style={{ height }}
+      style={{ height: safeHeight }}
     >
-      <div
-        className={cn(
-          "relative",
-          "motion-reduce:animate-none",
-          "motion-reduce:transition-none",
-        )}
-        style={{
-          height,
-          transform: `translateY(${-scrollTop}px)`,
-        }}
-      >
-        {items.slice(visibleStart, visibleEnd).map((item, index) => (
-          <div
-            key={index}
-            className={cn("p-3 bg-card", "motion-reduce:animate-none")}
-            style={{ height: itemHeight }}
-          >
-            {render(item)}
-          </div>
-        ))}
-
+      <div className="relative w-full" style={{ height: totalHeight }}>
         <div
-          className={cn("p-3 bg-muted", "motion-reduce:animate-none")}
-          style={{ height: spacerHeight }}
+          className="absolute inset-x-0 top-0"
+          style={{ transform: `translateY(${offsetY}px)` }}
         >
-          &nbsp;
+          {items.slice(visibleStart, visibleEnd).map((item, idx) => {
+            const actualIndex = visibleStart + idx;
+            return (
+              <div
+                key={actualIndex}
+                className="flex items-center border-b border-border/40 px-3"
+                style={{ height: safeItemHeight }}
+              >
+                {render ? render(item, actualIndex) : String(item)}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ export function TrophyShelf({ trophies = [], className, ...props }: TrophyShelfP
           {trophies.map((t, idx) => (
             <div key={t.id} className="flex flex-col items-center gap-1" style={{ width: `${100 / trophies.length}%` }}>
               <span
-                className={cn("text-3xl", !t.earned && "opacity-25 grayscale")}
+                className={cn("text-3xl motion-reduce:animate-none!", !t.earned && "opacity-25 grayscale")}
                 style={t.earned ? { animation: `trIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both`, animationDelay: `${idx * 120}ms` } : undefined}
                 aria-hidden="true"
               >

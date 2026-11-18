@@ -17,7 +17,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
       <button
         type="button"
         aria-label="Share"
-        className="relative flex-0 rounded-md bg-card p-2 border border-border hover:bg-accent/5 hover:text-accent-foreground transition-colors duration-200"
+        className="relative flex-0 cursor-pointer rounded-md bg-card p-2 border border-border hover:bg-accent/10 hover:text-foreground transition-colors duration-200"
       >
         {/* Share SVG */}
         <svg
@@ -36,7 +36,7 @@ const ShareMenu: React.FC<{ onCopy?: () => void }> = ({ onCopy }) => {
 
       {copied && (
         <span
-          className="absolute -top-1 -right-1 text-[8px] mono uppercase text-accent-strong motion-safe:animate-[stamp_0.4s_ease-out_both]"
+          className="absolute -top-1 -right-1 text-[8px] font-mono uppercase text-accent-strong motion-safe:animate-[stamp_0.4s_ease-out_both]"
         >
           COPIED
         </span>

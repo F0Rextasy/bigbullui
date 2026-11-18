@@ -1,12 +1,18 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
-export function LandingHero() {
+export interface LandingHeroProps extends React.HTMLAttributes<HTMLElement> {
+  onAction?: (action: string) => void;
+}
+
+export function LandingHero({ className, onAction, ...props }: LandingHeroProps) {
+  const [selected, setSelected] = React.useState<string | null>(null);
   return (
-    <section className="w-full overflow-hidden rounded-lg border-2 border-foreground bg-card">
+    <section className={cn("w-full overflow-hidden rounded-lg border-2 border-foreground bg-card", className)} {...props}>
       <div className="border-b-2 border-dashed border-border bg-secondary/40 px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
         NOW PRINTING // 500+ STUB COMPONENTS
       </div>
@@ -19,9 +25,10 @@ export function LandingHero() {
           Copy-paste React components with perforated edges, stamp seals, and turnstile counters. React 19, Tailwind 4, code you own.
         </p>
         <div className="flex flex-wrap justify-center gap-2">
-          <Button size="lg">Browse components</Button>
-          <Button size="lg" variant="outline">Read the docs</Button>
+          <Button size="lg" onClick={() => { setSelected("Opening component catalog..."); onAction?.("browse-components"); }}>Browse components</Button>
+          <Button size="lg" variant="outline" onClick={() => { setSelected("Opening installation docs..."); onAction?.("read-docs"); }}>Read the docs</Button>
         </div>
+        {selected && <p role="status" className="font-mono text-[10px] uppercase tracking-widest text-accent">{selected}</p>}
         <div className="flex flex-wrap items-center justify-center gap-6 pt-2 font-mono text-xs">
           <span><strong className="text-lg font-black">500+</strong> <span className="text-muted-foreground">COMPONENTS</span></span>
           <span><strong className="text-lg font-black">0</strong> <span className="text-muted-foreground">DEPENDENCIES</span></span>

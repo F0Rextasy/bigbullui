@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -15,14 +16,18 @@ const PETS = [
 const KINDS = ["All", "Cat", "Dog", "Rabbit"];
 
 /** Pet adoption: filterable animal cards + application flow. */
-export function BlockPetAdoption() {
+export interface BlockPetAdoptionProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockPetAdoption({ className, onAction, ...props }: BlockPetAdoptionProps) {
   const [kind, setKind] = React.useState("All");
   const [applied, setApplied] = React.useState<string[]>([]);
 
   const results = PETS.filter((p) => kind === "All" || p.kind === kind);
 
   return (
-    <div className="w-full space-y-3">
+    <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-mono text-xl font-black uppercase tracking-tight">Adopt, do not shop</h2>
         <div className="flex gap-1.5" role="group" aria-label="Animal kind">
@@ -55,7 +60,7 @@ export function BlockPetAdoption() {
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-1.5">
                     <Badge variant={done ? "accent" : "outline"}>{done ? "Applied" : p.kind}</Badge>
-                    <Button size="sm" variant="outline" disabled={done} onClick={() => setApplied((a) => [...a, p.id])}>
+                    <Button size="sm" variant="outline" disabled={done} onClick={() => { setApplied((a) => [...a, p.id]); onAction?.(`adopt:${p.id}`); }}>
                       {done ? "Sent" : "Adopt"}
                     </Button>
                   </div>

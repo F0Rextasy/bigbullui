@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
@@ -22,16 +23,20 @@ const TRACKER = [
   { title: "Resolved", description: "Stamped shut" },
 ];
 
-export function BlockCustomerPortal() {
+export interface BlockCustomerPortalProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockCustomerPortal({ className, onAction, ...props }: BlockCustomerPortalProps) {
   const [sent, setSent] = React.useState(false);
 
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="SUPPORT // HELP DESK"
         title="Customer portal"
         description="Track every request from counter to resolution."
-        actions={<Button size="sm">New request</Button>}
+        actions={<Button size="sm" onClick={() => { setSent(false); onAction?.("new-request"); }}>New request</Button>}
       />
       <div className="grid gap-4 lg:grid-cols-5">
         <Card className="lg:col-span-3">

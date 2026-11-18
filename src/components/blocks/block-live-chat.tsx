@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { ChatWindow } from "../ui/chat-window";
@@ -13,13 +14,20 @@ const SEED: ChatMessage[] = [
   { id: "m3", author: "Box office", initials: "BO", body: "We reissued stub BB-90215. Show the new code at the gate.", time: "20:04", direction: "incoming" },
 ];
 
-export function BlockLiveChat() {
+export interface BlockLiveChatProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockLiveChat({ className, onAction, ...props }: BlockLiveChatProps) {
   const [messages, setMessages] = React.useState<ChatMessage[]>(SEED);
   const [typing, setTyping] = React.useState(false);
+  const [ended, setEnded] = React.useState(false);
 
   const handleSend = (body: string) => {
+    if (ended) return;
     const outgoing: ChatMessage = { id: `m-${Date.now()}`, author: "You", initials: "YO", body, time: "NOW", direction: "outgoing" };
     setMessages((prev) => [...prev, outgoing]);
+    onAction?.("send-chat");
     setTyping(true);
     window.setTimeout(() => {
       setTyping(false);
@@ -31,15 +39,17 @@ export function BlockLiveChat() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-md rounded-lg border border-border bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-7px] outline-border">
+    <div className={cn("relative mx-auto w-full max-w-md rounded-lg border border-border bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-7px] outline-border", className)} {...props}>
       <div className="mb-3 flex flex-wrap items-center gap-3">
-        <StatusDot level="low" size="sm" />
+        <StatusDot level={ended ? "closed" : "low"} size="sm" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-mono text-xs font-bold uppercase tracking-wider">Box office chat</p>
-          <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Agents online</p>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{ended ? "Session ended" : "Agents online"}</p>
         </div>
-        <Badge variant="accent">LIVE</Badge>
-        <Button size="sm" variant="outline">End</Button>
+        <Badge variant={ended ? "outline" : "accent"}>{ended ? "CLOSED" : "LIVE"}</Badge>
+        <Button size="sm" variant="outline" onClick={() => { setEnded((v) => !v); setTyping(false); onAction?.(ended ? "reopen-chat" : "end-chat"); }}>
+          {ended ? "Reopen" : "End"}
+        </Button>
       </div>
       <ChatWindow messages={messages} onSend={handleSend} typing={typing} />
     </div>

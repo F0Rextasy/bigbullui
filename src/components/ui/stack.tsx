@@ -39,7 +39,7 @@ export function Stack({
             }}
             className={cn(
               "transition-transform duration-300 ease-out",
-              fanOnHover && "group-hover:rotate-[calc(var(--offset)*8deg)] group-hover:scale-105"
+              fanOnHover && "group-hover:rotate-[calc(var(--offset)*8deg)] group-hover:scale-105 motion-reduce:group-hover:scale-100"
             )}
           >
             {child}

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
@@ -15,18 +16,27 @@ const ROLES = [
   { id: "support-lead", title: "Support Lead", team: "HELP DESK", place: "REMOTE // US", type: "FULL TIME" },
 ];
 
-export function PageCareers() {
+export interface PageCareersProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageCareers({ className, onAction, ...props }: PageCareersProps) {
   const [selected, setSelected] = React.useState(ROLES[0].id);
   const [applied, setApplied] = React.useState(false);
+  const [referred, setReferred] = React.useState(false);
   const current = ROLES.find((role) => role.id === selected) ?? ROLES[0];
 
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="CREW // OPEN ROLES"
         title="Join the box office"
         description="Four open counters. Pick a role and file an application."
-        actions={<Button size="sm">Refer a friend</Button>}
+        actions={
+          <Button size="sm" onClick={() => { setReferred(true); onAction?.("refer-friend"); }}>
+            {referred ? "Referral link copied" : "Refer a friend"}
+          </Button>
+        }
       />
       <div className="grid gap-4 lg:grid-cols-5">
         <div className="space-y-3 lg:col-span-3">

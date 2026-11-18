@@ -65,9 +65,9 @@ export function Heatmap({
                 rx={4}
                 fill="currentColor"
                 opacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
+                style={{ animationDelay: `${delay}ms` }}
                 className={cn(
-                  "motion-reduce:transition-none",
-                  `motion-safe:animate-[fade-in-up_0.3s_ease-out_both_${delay}ms]`,
+                  "motion-reduce:transition-none motion-safe:animate-[fade-in-up_0.3s_ease-out_both] motion-reduce:animate-none!",
                 )}
               >
                 <title>{`${row.label}: ${value}`}</title>

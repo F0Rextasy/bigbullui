@@ -32,7 +32,7 @@ export function HistoryNav({ entries = [], onBack, onForward, className, ...prop
             {idx > 0 && <span className="text-muted-foreground/50" aria-hidden="true">/</span>}
             <span
               className={cn(
-                "truncate rounded-sm px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider",
+                "truncate rounded-sm px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider motion-reduce:animate-none!",
                 idx === arr.length - 1 ? "font-bold text-foreground" : "text-muted-foreground"
               )}
               style={{ animation: "fade-in 0.25s ease-out both", animationDelay: `${idx * 60}ms` }}

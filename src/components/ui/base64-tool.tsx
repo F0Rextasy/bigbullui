@@ -42,7 +42,7 @@ export function Base64Tool({ defaultValue = "ADMIT ONE ROW C", className, ...pro
       <button
         type="button"
         onClick={() => { void navigator.clipboard?.writeText(output).catch(() => undefined); setCopied(true); setTimeout(() => setCopied(false), 1200); }}
-        className="mt-2 rounded border border-foreground bg-secondary px-3 py-1 font-mono text-[11px] font-bold uppercase text-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="mt-2 rounded border border-foreground bg-secondary px-3 py-1 font-mono text-[11px] font-bold uppercase text-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {copied ? "Copied" : "Copy output"}
       </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -21,17 +22,23 @@ const ACTIVITY = [
   { name: "Grace Hopper", text: "refunded 1 balcony stub", time: "24 MIN AGO" },
 ];
 
-export function AdminOverview() {
+export interface AdminOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AdminOverview({ className, onAction, ...props }: AdminOverviewProps) {
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // OVERVIEW</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Nightly audit</h2>
         </div>
         <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
           <Badge variant="accent">LIVE</Badge>
-          <Button size="sm">Export stubs</Button>
+          <Button size="sm" onClick={() => { setNotice("Stubs CSV exported."); onAction?.("export-stubs"); }}>Export stubs</Button>
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -90,7 +97,7 @@ export function AdminOverview() {
                 </div>
               </div>
             ))}
-            <Button variant="outline" size="sm" className="w-full">View full ledger</Button>
+            <Button variant="outline" size="sm" className="w-full" onClick={() => { setNotice("Loaded full nightly ledger."); onAction?.("view-ledger"); }}>View full ledger</Button>
           </CardContent>
         </Card>
       </div>

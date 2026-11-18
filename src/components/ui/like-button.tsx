@@ -32,12 +32,12 @@ const LikeButton: React.FC<{ onClick?: () => void; initiallyActive?: boolean }> 
       aria-pressed={active}
       onClick={handleClick}
       className={cn(
-        "relative inline-flex cursor-pointer items-center justify-center rounded-full border border-border p-2 hover:bg-accent/5 hover:text-accent-foreground transition-colors duration-200",
-        active && "bg-accent text-accent-foreground"
+        "relative inline-flex cursor-pointer items-center justify-center rounded-full border border-border p-2 hover:bg-accent/10 hover:text-accent-strong transition-colors duration-200",
+        active && "bg-accent text-accent-foreground hover:bg-accent hover:text-accent-foreground"
       )}
     >
       <svg
-        className={cn("w-5 h-5", active && "text-accent-strong")}
+        className={cn("w-5 h-5", active ? "text-accent-foreground" : "text-current")}
         viewBox="0 0 24 24"
         fill={active ? "currentColor" : "none"}
       >

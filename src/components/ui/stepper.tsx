@@ -76,7 +76,7 @@ export function Stepper({
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isMin || disabled
             ? "cursor-not-allowed opacity-40"
-            : "cursor-pointer hover:bg-primary hover:text-primary-foreground active:scale-95"
+            : "cursor-pointer hover:bg-primary hover:text-primary-foreground active:scale-95 motion-reduce:active:scale-100"
         )}
       >
         −
@@ -99,7 +99,7 @@ export function Stepper({
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isMax || disabled
             ? "cursor-not-allowed opacity-40"
-            : "cursor-pointer hover:bg-primary hover:text-primary-foreground active:scale-95"
+            : "cursor-pointer hover:bg-primary hover:text-primary-foreground active:scale-95 motion-reduce:active:scale-100"
         )}
       >
         +

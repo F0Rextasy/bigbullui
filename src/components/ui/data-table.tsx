@@ -15,6 +15,9 @@ export interface DataTableProps<T> extends React.HTMLAttributes<HTMLDivElement> 
   columns: Column<T>[];
   searchKey?: string;
   pageSize?: number;
+  rowKey?: keyof T | ((row: T, index: number) => string);
+  selectedKeys?: string[];
+  onSelectionChange?: (keys: string[]) => void;
   className?: string;
 }
 
@@ -23,6 +26,9 @@ export function DataTable<T extends Record<string, unknown>>({
   columns = [],
   searchKey,
   pageSize = 5,
+  rowKey,
+  selectedKeys: controlledSelectedKeys,
+  onSelectionChange,
   className,
   ...props
 }: DataTableProps<T>) {
@@ -30,7 +36,26 @@ export function DataTable<T extends Record<string, unknown>>({
   const [sortKey, setSortKey] = React.useState<string | null>(null);
   const [sortOrder, setSortOrder] = React.useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [selectedIndices, setSelectedIndices] = React.useState<number[]>([]);
+  const [internalSelectedKeys, setInternalSelectedKeys] = React.useState<string[]>([]);
+  const isSelectionControlled = controlledSelectedKeys !== undefined;
+  const selectedKeys = isSelectionControlled ? controlledSelectedKeys : internalSelectedKeys;
+
+  const originalIndexMap = React.useMemo(() => {
+    const map = new Map<T, number>();
+    data.forEach((item, idx) => map.set(item, idx));
+    return map;
+  }, [data]);
+
+  const getKey = React.useCallback(
+    (row: T, fallbackIdx: number): string => {
+      const origIdx = originalIndexMap.get(row) ?? fallbackIdx;
+      if (typeof rowKey === "function") return rowKey(row, origIdx);
+      if (rowKey !== undefined) return String(row[rowKey]);
+      if (row.id !== undefined && row.id !== null) return String(row.id);
+      return String(origIdx);
+    },
+    [originalIndexMap, rowKey]
+  );
 
   // Filter
   const filteredData = React.useMemo(() => {
@@ -71,26 +96,28 @@ export function DataTable<T extends Record<string, unknown>>({
     }
   };
 
-  const toggleSelect = (globalIdx: number) => {
-    setSelectedIndices((prev) =>
-      prev.includes(globalIdx)
-        ? prev.filter((i) => i !== globalIdx)
-        : [...prev, globalIdx]
+  const commitSelection = (next: string[]) => {
+    if (!isSelectionControlled) setInternalSelectedKeys(next);
+    onSelectionChange?.(next);
+  };
+
+  const toggleSelect = (key: string) => {
+    commitSelection(
+      selectedKeys.includes(key)
+        ? selectedKeys.filter((k) => k !== key)
+        : [...selectedKeys, key]
     );
   };
 
+  const pageKeys = paginatedData.map((row, idx) => getKey(row, (currentPage - 1) * pageSize + idx));
   const isAllSelected =
-    paginatedData.length > 0 &&
-    paginatedData.every((_, idx) =>
-      selectedIndices.includes((currentPage - 1) * pageSize + idx)
-    );
+    pageKeys.length > 0 && pageKeys.every((k) => selectedKeys.includes(k));
 
   const toggleSelectAll = () => {
-    const pageIndices = paginatedData.map((_, idx) => (currentPage - 1) * pageSize + idx);
     if (isAllSelected) {
-      setSelectedIndices((prev) => prev.filter((i) => !pageIndices.includes(i)));
+      commitSelection(selectedKeys.filter((k) => !pageKeys.includes(k)));
     } else {
-      setSelectedIndices((prev) => Array.from(new Set([...prev, ...pageIndices])));
+      commitSelection(Array.from(new Set([...selectedKeys, ...pageKeys])));
     }
   };
 
@@ -107,6 +134,7 @@ export function DataTable<T extends Record<string, unknown>>({
                 setSearch(e.target.value);
                 setCurrentPage(1);
               }}
+              aria-label="Filter records"
               placeholder="FILTER TICKETS..."
               className="w-full rounded-md border border-border bg-card px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
@@ -131,25 +159,39 @@ export function DataTable<T extends Record<string, unknown>>({
                   className="accent-accent size-3.5 cursor-pointer rounded-xs"
                 />
               </th>
-              {columns.map((col) => (
-                <th
-                  key={col.key}
-                  onClick={() => col.sortable && handleSort(col.key)}
-                  className={cn(
-                    "p-3 font-bold uppercase tracking-wider text-muted-foreground select-none",
-                    col.sortable && "cursor-pointer hover:text-foreground transition-colors"
-                  )}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span>{col.header}</span>
-                    {col.sortable && (
-                      <span className="text-[10px] text-accent">
-                        {sortKey === col.key ? (sortOrder === "asc" ? "▲" : "▼") : "↕"}
-                      </span>
+              {columns.map((col) => {
+                const ariaSort = col.sortable
+                  ? sortKey === col.key
+                    ? sortOrder === "asc"
+                      ? "ascending"
+                      : "descending"
+                    : "none"
+                  : undefined;
+                return (
+                  <th
+                    key={col.key}
+                    aria-sort={ariaSort}
+                    className="p-3 font-bold uppercase tracking-wider text-muted-foreground select-none"
+                  >
+                    {col.sortable ? (
+                      <button
+                        type="button"
+                        onClick={() => handleSort(col.key)}
+                        className="flex cursor-pointer items-center gap-1.5 uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xs"
+                      >
+                        <span>{col.header}</span>
+                        <span className="text-[10px] text-accent" aria-hidden="true">
+                          {sortKey === col.key ? (sortOrder === "asc" ? "▲" : "▼") : "↕"}
+                        </span>
+                      </button>
+                    ) : (
+                      <div className="flex items-center gap-1.5">
+                        <span>{col.header}</span>
+                      </div>
                     )}
-                  </div>
-                </th>
-              ))}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
@@ -164,12 +206,12 @@ export function DataTable<T extends Record<string, unknown>>({
               </tr>
             ) : (
               paginatedData.map((row, idx) => {
-                const globalIdx = (currentPage - 1) * pageSize + idx;
-                const isSelected = selectedIndices.includes(globalIdx);
+                const key = pageKeys[idx]!;
+                const isSelected = selectedKeys.includes(key);
 
                 return (
                   <tr
-                    key={globalIdx}
+                    key={key}
                     className={cn(
                       "border-b border-dashed border-border/80 transition-colors hover:bg-secondary/40",
                       isSelected && "bg-accent/5 font-medium"
@@ -179,8 +221,8 @@ export function DataTable<T extends Record<string, unknown>>({
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        onChange={() => toggleSelect(globalIdx)}
-                        aria-label={`Select row ${globalIdx + 1}`}
+                        onChange={() => toggleSelect(key)}
+                        aria-label={`Select row ${idx + 1}`}
                         className="accent-accent size-3.5 cursor-pointer rounded-xs"
                       />
                     </td>

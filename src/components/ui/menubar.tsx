@@ -37,7 +37,37 @@ export function Menubar({ menus = [], className, animated = true, ...props }: Me
       }
     };
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveMenuId(null);
+      if (e.key === "Escape") {
+        setActiveMenuId(null);
+        return;
+      }
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        const idx = menus.findIndex((m) => m.id === activeMenuId);
+        if (idx >= 0 && menus.length > 0) {
+          e.preventDefault();
+          const next =
+            e.key === "ArrowRight"
+              ? (idx + 1) % menus.length
+              : (idx - 1 + menus.length) % menus.length;
+          setActiveMenuId(menus[next]!.id);
+        }
+        return;
+      }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Home" || e.key === "End") {
+        const activePanel = containerRef.current?.querySelector<HTMLElement>('[role="menu"]');
+        const btns = Array.from(
+          activePanel?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]:not(:disabled)') ?? []
+        );
+        if (btns.length === 0) return;
+        e.preventDefault();
+        const curr = btns.indexOf(document.activeElement as HTMLButtonElement);
+        let next = 0;
+        if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = btns.length - 1;
+        else if (e.key === "ArrowDown") next = curr < 0 ? 0 : (curr + 1) % btns.length;
+        else next = curr <= 0 ? btns.length - 1 : curr - 1;
+        btns[next]?.focus();
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -46,7 +76,7 @@ export function Menubar({ menus = [], className, animated = true, ...props }: Me
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeMenuId]);
+  }, [activeMenuId, menus]);
 
   return (
     <div
@@ -101,6 +131,7 @@ export function Menubar({ menus = [], className, animated = true, ...props }: Me
                     <button
                       key={item.id}
                       type="button"
+                      role="menuitem"
                       disabled={item.disabled}
                       onClick={() => {
                         item.onSelect?.();

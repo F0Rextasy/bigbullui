@@ -23,16 +23,28 @@ export function ConfettiBurst({
   className,
   ...props
 }: ConfettiBurstProps) {
+  const [expanded, setExpanded] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!active) {
+      setExpanded(false);
+      return;
+    }
+    const raf = requestAnimationFrame(() => setExpanded(true));
+    return () => cancelAnimationFrame(raf);
+  }, [active]);
+
   const pieces = React.useMemo(() => {
-    return Array.from({ length: count }, (_, i) => {
-      const angle = (i / count) * 360;
-      const distance = Math.floor(Math.random() * 80) + 40;
-      const x = Math.cos((angle * Math.PI) / 180) * distance;
-      const y = Math.sin((angle * Math.PI) / 180) * distance;
+    const safeCount = Math.max(1, count);
+    return Array.from({ length: safeCount }, (_, i) => {
+      const angle = (i / safeCount) * 360 + ((i * 19) % 23);
+      const distance = 45 + ((i * 29) % 75);
+      const x = Math.round(Math.cos((angle * Math.PI) / 180) * distance);
+      const y = Math.round(Math.sin((angle * Math.PI) / 180) * distance);
       const color = TICKET_COLORS[i % TICKET_COLORS.length];
-      const rotation = Math.floor(Math.random() * 360);
-      const delay = Math.random() * 0.15;
-      const duration = 0.6 + Math.random() * 0.3;
+      const rotation = (i * 53) % 360;
+      const delay = ((i * 17) % 15) / 100;
+      const duration = 0.6 + ((i * 13) % 30) / 100;
 
       return { x, y, color, rotation, delay, duration };
     });
@@ -51,10 +63,13 @@ export function ConfettiBurst({
           key={idx}
           style={{
             backgroundColor: p.color,
-            transform: `translate(${p.x}px, ${p.y}px) rotate(${p.rotation}deg)`,
-            transition: `all ${p.duration}s cubic-bezier(0.25, 1, 0.5, 1) ${p.delay}s`,
+            transform: expanded
+              ? `translate(${p.x}px, ${p.y}px) rotate(${p.rotation}deg)`
+              : "translate(0px, 0px) scale(0.4)",
+            opacity: expanded ? 1 : 0,
+            transition: `transform ${p.duration}s cubic-bezier(0.25, 1, 0.5, 1) ${p.delay}s, opacity 0.15s ease-out ${p.delay}s`,
           }}
-          className="absolute size-2.5 rounded-[1px] border border-black/10 shadow-xs motion-safe:animate-[fade-in_0.1s_ease-out]"
+          className="absolute size-2.5 rounded-[1px] border border-border shadow-xs motion-reduce:transition-none!"
         />
       ))}
     </div>

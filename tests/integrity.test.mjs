@@ -21,6 +21,8 @@ function ensureGenerated() {
     env: { ...process.env, BIGBULLUI_NO_CLI_SYNC: "1" },
   });
   execFileSync(process.execPath, ["scripts/generate-llms-full.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
+  execFileSync(process.execPath, ["scripts/generate-icon-registry.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
+  execFileSync(process.execPath, ["scripts/generate-icon-components.mjs"], { cwd: rootDir, encoding: "utf8", timeout: 120000 });
   artifactsReady = true;
 }
 
@@ -44,8 +46,8 @@ describe("bigbullui Component Library Integrity", () => {
 
       while ((match = importRegex.exec(content)) !== null) {
         const importSource = match[1];
-        // Only react and relative internal imports (e.g. ./lib/utils or peer component) are permitted
-        const isAllowed = importSource === "react" || importSource.startsWith("./");
+        // React, ReactDOM (portals), and relative internal imports (e.g. ./lib/utils or peer component) are permitted
+        const isAllowed = importSource === "react" || importSource === "react-dom" || importSource.startsWith("./");
         if (!isAllowed) {
           violations.push({
             file,
@@ -161,15 +163,24 @@ describe("bigbullui Component Library Integrity", () => {
           assert.ok(f.target && f.target.startsWith("components/ui/lib/"), `${slug}: ${f.path} needs a components/ui/lib/ target`);
         }
       }
-      const needsUtils = item.files.some((f) => typeof f.content === "string" && f.content.includes('"./lib/utils"'));
+      const needsUtils = item.files.some(
+        (f) => typeof f.content === "string" && (f.content.includes('"./lib/utils"') || f.content.includes('"../ui/lib/utils"'))
+      );
       if (needsUtils) {
         assert.ok((item.registryDependencies || []).includes("https://ui.bigbullapp.com/r/utils.json"), `${slug} must declare the utils registryDependency`);
       } else {
         assert.ok(!(item.registryDependencies || []).length, `${slug} must not declare unneeded registryDependencies`);
       }
-      // Sibling imports bundled in the same item must resolve to bundled files.
+      // Sibling and block UI imports bundled in the same item must resolve to bundled files.
       for (const f of item.files) {
         const content = typeof f.content === "string" ? f.content : "";
+        if (f.path.startsWith("src/components/blocks/")) {
+          assert.equal(f.target, `components/blocks/${slug}.tsx`, `${slug}: block file target must map to components/blocks/`);
+          for (const m of content.matchAll(/from\s+["']\.\.\/ui\/([a-z0-9-]+)["']/g)) {
+            if (m[1] === "lib") continue;
+            assert.ok(byPath(item.files, `src/components/ui/${m[1]}.tsx`), `${slug}: block UI dep ../ui/${m[1]} must be bundled`);
+          }
+        }
         for (const m of content.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
           if (m[1] === "lib") {
             assert.ok(byPath(item.files, "src/components/ui/lib/utils.ts") || targetByPath["src/components/ui/lib/utils.ts"] === "components/ui/lib/utils.ts" || utilsItem, `${slug}: ./lib dep needs utils coverage`);
@@ -387,5 +398,41 @@ describe("bigbullui Component Library Integrity", () => {
       }
     }
     assert.deepEqual(violations, [], `Internal <button> without explicit type= (submits parent <form> by default):\n${violations.join("\n")}`);
+  });
+
+  it("no dynamic Tailwind animation templates in UI components", () => {
+    const dynamicAnim = /animate-\[[^\]]*\$\{|transition-\[[^\]]*\$\{/;
+    const violations = [];
+    for (const file of uiFiles) {
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      const m = content.match(dynamicAnim);
+      if (m) violations.push(`${file}: ${m[0]}`);
+    }
+    assert.deepEqual(violations, [], `Dynamic Tailwind animation templates fail static JIT scanning:\n${violations.join("\n")}`);
+  });
+
+  it("no undefined animate-in or bare mono class names in UI components", () => {
+    const invalidAnim = /\banimate-in\b|\bzoom-in-95\b|\bfade-in-50\b/;
+    const bareMono = /(?<![-\w])\bmono\b(?![-\w:])/;
+    const violations = [];
+    for (const file of uiFiles) {
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      const mAnim = content.match(invalidAnim);
+      if (mAnim) violations.push(`${file}: ${mAnim[0]}`);
+      for (const m of content.matchAll(/(?:className\s*=\s*["'`]|cn\([^)]*["'`])([^"'`]*)/g)) {
+        if (bareMono.test(m[1])) violations.push(`${file}: bare mono in "${m[1].slice(0, 60)}"`);
+      }
+    }
+    assert.deepEqual(violations, [], `Undefined Tailwind utility classes found:\n${violations.join("\n")}`);
+  });
+
+  it("use client boundary: built per-component bundle is client-marked while barrel is server-safe", () => {
+    const barrelPath = path.join(rootDir, "dist", "index.mjs");
+    const buttonPath = path.join(rootDir, "dist", "components", "ui", "button.mjs");
+    if (!fs.existsSync(barrelPath) || !fs.existsSync(buttonPath)) return;
+    const barrelHead = fs.readFileSync(barrelPath, "utf8").trimStart();
+    const buttonHead = fs.readFileSync(buttonPath, "utf8").trimStart();
+    assert.ok(buttonHead.startsWith('"use client"') || buttonHead.startsWith("'use client'"), "dist/components/ui/button.mjs must start with 'use client'");
+    assert.ok(!barrelHead.startsWith('"use client"') && !barrelHead.startsWith("'use client'"), "dist/index.mjs barrel must not emit top-level 'use client'");
   });
 });

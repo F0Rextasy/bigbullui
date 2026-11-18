@@ -60,7 +60,7 @@ export function AudioMini({
             type="button"
             onClick={togglePlay}
             aria-label={isPlaying ? "Pause audio" : "Play audio"}
-            className="flex size-8 shrink-0 items-center justify-center rounded-sm border border-foreground bg-accent text-accent-foreground shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+            className="flex size-8 shrink-0 items-center justify-center rounded-sm border border-foreground bg-accent text-accent-foreground shadow-xs transition-transform hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 cursor-pointer"
           >
             <span className="text-xs font-bold">{isPlaying ? "❚❚" : "▶"}</span>
           </button>

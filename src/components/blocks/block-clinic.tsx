@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
@@ -15,7 +16,11 @@ const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const HOURS = ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"];
 
 /** Clinic booking: doctor pick + day/hour grid + confirmation stub. */
-export function BlockClinic() {
+export interface BlockClinicProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockClinic({ className, onAction, ...props }: BlockClinicProps) {
   const [doctor, setDoctor] = React.useState(DOCTORS[0].id);
   const [slot, setSlot] = React.useState<string | null>(null);
   const [done, setDone] = React.useState(false);
@@ -25,7 +30,7 @@ export function BlockClinic() {
 
   if (done && slot) {
     return (
-      <Card className="w-full">
+      <Card className={cn("w-full", className)} {...props}>
         <CardContent className="flex flex-col items-center gap-2 p-8 text-center">
           <Badge variant="accent">Confirmed</Badge>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{doc.name}</h2>
@@ -42,7 +47,7 @@ export function BlockClinic() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
         <h2 className="font-mono text-xl font-black uppercase tracking-tight">Book a visit</h2>
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="Doctors">
@@ -95,7 +100,7 @@ export function BlockClinic() {
             </tbody>
           </table>
         </div>
-        <Button className="w-full" disabled={!slot} onClick={() => setDone(true)}>
+        <Button className="w-full" disabled={!slot} onClick={() => { setDone(true); onAction?.("confirm-visit"); }}>
           {slot ? `Confirm ${slot}` : "Pick a slot"}
         </Button>
       </CardContent>

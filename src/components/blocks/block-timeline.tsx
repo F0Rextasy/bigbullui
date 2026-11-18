@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 
 const STEPS = [
@@ -10,9 +11,14 @@ const STEPS = [
   { title: "Curfew", text: "Lights up, ledger closed, refunds window opens.", tone: "NEXT" },
 ];
 
-export function BlockTimeline() {
+export interface BlockTimelineProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockTimeline({ className, onAction, ...props }: BlockTimelineProps) {
+  void onAction;
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Running order</h2>
       <ol className="relative space-y-5 before:absolute before:bottom-2 before:left-[15px] before:top-2 before:border-l-2 before:border-dashed before:border-border">
         {STEPS.map((step, index) => (

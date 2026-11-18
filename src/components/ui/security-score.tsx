@@ -39,7 +39,7 @@ export function SecurityScore({ checks = [], className, ...props }: SecurityScor
               stroke="currentColor"
               strokeWidth="8"
               strokeLinecap="round"
-              className={tone}
+              className={cn(tone, "motion-reduce:animate-none! motion-reduce:transition-none")}
               strokeDasharray={C}
               style={{ strokeDashoffset: C - (C * percent) / 100, animation: "secDraw 0.8s cubic-bezier(0.16,1,0.3,1) both", transition: "stroke-dashoffset 0.5s ease-out" }}
             />

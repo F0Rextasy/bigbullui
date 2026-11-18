@@ -293,7 +293,7 @@ export function AnnouncementBar({
                 href={actionHref}
                 onClick={onAction}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-xs",
+                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 cursor-pointer shadow-xs",
                   currentVariant.button
                 )}
               >
@@ -305,7 +305,7 @@ export function AnnouncementBar({
                 type="button"
                 onClick={onAction}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-xs",
+                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 cursor-pointer shadow-xs",
                   currentVariant.button
                 )}
               >

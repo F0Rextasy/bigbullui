@@ -224,7 +224,7 @@ export function CollapsibleTrigger({
         onClick?.(event);
       }}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded border border-border bg-secondary/80 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-secondary-foreground transition-all duration-150 select-none hover:bg-secondary hover:border-foreground active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded border border-border bg-secondary/80 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-secondary-foreground transition-all duration-150 select-none hover:bg-secondary hover:border-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
         className
       )}
       {...props}
@@ -310,7 +310,7 @@ export function CollapsibleStamp({
         ...style,
       }}
       className={cn(
-        "inline-flex items-center justify-center rounded-sm border px-2 py-0.5 font-mono text-[10px] font-black uppercase tracking-widest select-none shadow-xs transition-transform duration-200 hover:scale-105",
+        "inline-flex items-center justify-center rounded-sm border px-2 py-0.5 font-mono text-[10px] font-black uppercase tracking-widest select-none shadow-xs transition-transform duration-200 hover:scale-105 motion-reduce:hover:scale-100",
         status === "valid" && "border-accent text-accent bg-accent/10",
         status === "admitted" && "border-primary text-primary bg-primary/10",
         status === "void" && "border-destructive text-destructive bg-destructive/10 line-through decoration-destructive/80",

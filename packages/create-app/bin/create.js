@@ -25,19 +25,47 @@ function sanitizePackageName(rawPath) {
   return cleaned || "my-bigbull-app";
 }
 
+function detectPackageManager() {
+  const ua = process.env.npm_config_user_agent || "";
+  if (ua.startsWith("pnpm/")) return "pnpm";
+  if (ua.startsWith("yarn/")) return "yarn";
+  if (ua.startsWith("bun/")) return "bun";
+  return "npm";
+}
+
+function printUsage() {
+  console.log("Usage: npx create-bigbull-app <project-name | .> [--no-install] [--help] [--version]");
+}
+
 function main() {
-  const args = process.argv.slice(2).filter((a) => a !== "--no-install");
-  const noInstall = process.argv.includes("--no-install");
-  const name = args[0];
-  if (!name || name.startsWith("-")) {
-    console.error("Usage: npx create-bigbull-app <project-name> [--no-install]");
+  const rawArgs = process.argv.slice(2);
+  if (rawArgs.includes("--help") || rawArgs.includes("-h")) {
+    printUsage();
+    process.exit(0);
+  }
+  if (rawArgs.includes("--version") || rawArgs.includes("-v")) {
+    const { version } = require("../package.json");
+    console.log(version);
+    process.exit(0);
+  }
+
+  const noInstall = rawArgs.includes("--no-install");
+  const positional = rawArgs.filter((a) => !a.startsWith("-"));
+  const name = positional[0];
+  if (!name) {
+    printUsage();
     process.exit(1);
   }
+
   const dest = path.resolve(process.cwd(), name);
   if (fs.existsSync(dest)) {
-    console.error(`Error: directory "${name}" already exists.`);
-    process.exit(1);
+    const entries = fs.readdirSync(dest).filter((e) => e !== ".git");
+    if (name !== "." || entries.length > 0) {
+      console.error(`Error: directory "${name}" already exists and is not empty.`);
+      process.exit(1);
+    }
   }
+
   copyDir(path.join(__dirname, "..", "template"), dest);
 
   const pkgPath = path.join(dest, "package.json");
@@ -45,16 +73,25 @@ function main() {
   pkg.name = sanitizePackageName(dest);
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 
+  const pm = detectPackageManager();
   console.log(`\n  Created ${name} with bigbullui + Tailwind CSS v4.\n`);
   if (!noInstall) {
-    console.log("  Installing dependencies...\n");
-    const r = spawnSync("npm", ["install", "--no-audit", "--no-fund"], { cwd: dest, stdio: "inherit", shell: true });
+    console.log(`  Installing dependencies with ${pm}...\n`);
+    const pmArgs = pm === "npm" ? ["install", "--no-audit", "--no-fund"] : ["install"];
+    const r =
+      process.platform === "win32"
+        ? spawnSync(process.env.ComSpec || "cmd.exe", ["/d", "/s", "/c", `${pm} ${pmArgs.join(" ")}`], {
+            cwd: dest,
+            stdio: "inherit",
+          })
+        : spawnSync(pm, pmArgs, { cwd: dest, stdio: "inherit" });
     if (r.status !== 0) {
-      console.error("\n  Install failed — run `npm install` inside the project manually.");
+      console.error(`\n  Install failed — run \`${pm} install\` inside the project manually.`);
       process.exit(r.status || 1);
     }
   }
-  console.log(`\n  Next steps:\n    cd ${name}\n    npm run dev\n`);
+  const cdStep = name === "." ? "" : `    cd ${name}\n`;
+  console.log(`\n  Next steps:\n${cdStep}    ${pm} run dev\n`);
 }
 
 main();

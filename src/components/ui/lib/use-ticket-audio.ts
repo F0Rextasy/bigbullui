@@ -17,12 +17,31 @@ export interface UseTicketAudioResult {
 /** Tiny audio state hook: muted flag plus an optional bound audio element. */
 export function useTicketAudio(options?: UseTicketAudioOptions): UseTicketAudioResult {
   const [muted, setMuted] = React.useState(options?.initialMuted ?? false);
+  const mutedRef = React.useRef(muted);
+  mutedRef.current = muted;
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {
-    if (options?.src && !audioRef.current && typeof Audio !== "undefined") {
-      audioRef.current = new Audio(options.src);
+    if (!options?.src || typeof Audio === "undefined") {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+        audioRef.current = null;
+      }
+      return;
     }
+
+    const audio = new Audio(options.src);
+    audio.muted = mutedRef.current;
+    audioRef.current = audio;
+
+    return () => {
+      audio.pause();
+      audio.src = "";
+      if (audioRef.current === audio) {
+        audioRef.current = null;
+      }
+    };
   }, [options?.src]);
 
   React.useEffect(() => {

@@ -112,9 +112,9 @@ export function TreemapChart({
                 height={h}
                 fill="currentColor"
                 opacity={bgOpacity > 0.9 ? 0.9 : bgOpacity}
+                style={{ animationDelay: `${delay}ms` }}
                 className={cn(
-                  "motion-reduce:transition-none",
-                  `motion-safe:animate-[fade-in-up_0.2s_ease-out_both_${delay}ms]`,
+                  "motion-reduce:transition-none motion-safe:animate-[fade-in-up_0.2s_ease-out_both] motion-reduce:animate-none!",
                 )}
               />
               {showLabel ? (

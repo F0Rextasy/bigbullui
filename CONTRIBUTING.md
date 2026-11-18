@@ -1,6 +1,6 @@
 # Contributing to bigbullui
 
-Thanks for helping improve [bigbullui](https://bigbullui.vercel.app). This project is an open-source React + Tailwind CSS v4 component library. Everyone can contribute: plugins, components, docs, bug reports.
+Thanks for helping improve [bigbullui](https://ui.bigbullapp.com). This project is an open-source React + Tailwind CSS v4 component library. Everyone can contribute: plugins, components, docs, bug reports.
 
 ## Code of Conduct
 

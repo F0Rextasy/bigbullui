@@ -1,12 +1,18 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 
 const LOGOS = ["NOVA", "COPPER", "VELVET", "DUNE", "HALO", "ORBIT", "PULSE", "EMBER"];
 
-export function LandingLogos() {
+export interface LandingLogosProps extends React.HTMLAttributes<HTMLElement> {
+  onAction?: (action: string) => void;
+}
+
+export function LandingLogos({ className, onAction, ...props }: LandingLogosProps) {
+  void onAction;
   return (
-    <section className="w-full space-y-4 text-center">
+    <section className={cn("w-full space-y-4 text-center", className)} {...props}>
       <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">TRUSTED AT VENUES RUNNING</p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {LOGOS.map((logo) => (

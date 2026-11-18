@@ -44,7 +44,7 @@ export function PromptHistoryDrawer({
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="cursor-pointer rounded border-2 border-foreground bg-card px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-foreground transition-transform hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="cursor-pointer rounded border-2 border-foreground bg-card px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-foreground transition-transform hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {triggerLabel} ({items.length})
       </button>

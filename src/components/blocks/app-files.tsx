@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -14,19 +15,25 @@ const FILES = [
   { name: "seating-map.svg", meta: "640 KB // SVG", tag: "GATE" },
 ];
 
-export function AppFiles() {
+export interface AppFilesProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function AppFiles({ className, onAction, ...props }: AppFilesProps) {
   const [view, setView] = React.useState<"GRID" | "LIST">("GRID");
+  const [notice, setNotice] = React.useState<string | null>(null);
   return (
-    <div className="w-full space-y-4">
+    <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">ARCHIVE // FILE ROOM</p>
           <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Show files</h2>
         </div>
         <div className="flex items-center gap-2">
+          {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
           <Button size="sm" variant={view === "GRID" ? "default" : "outline"} onClick={() => setView("GRID")}>Grid</Button>
           <Button size="sm" variant={view === "LIST" ? "default" : "outline"} onClick={() => setView("LIST")}>List</Button>
-          <Button size="sm">Upload</Button>
+          <Button size="sm" onClick={() => { setNotice("Upload picker opened."); onAction?.("upload"); }}>Upload</Button>
         </div>
       </div>
       <Card>
@@ -52,7 +59,7 @@ export function AppFiles() {
               </div>
               <div className="flex shrink-0 items-center gap-2">
                 <Badge variant="outline">{file.tag}</Badge>
-                <Button size="sm" variant="outline">Get</Button>
+                <Button size="sm" variant="outline" onClick={() => { setNotice(`Downloading ${file.name}`); onAction?.("download-file"); }}>Get</Button>
               </div>
             </CardContent>
           </Card>

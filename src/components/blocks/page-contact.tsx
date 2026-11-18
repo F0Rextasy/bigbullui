@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
@@ -15,11 +16,15 @@ const FAQS = [
   { question: "Can I exchange a tier?", answer: "Yes, file a request with the serial and the desk swaps it." },
 ];
 
-export function PageContact() {
+export interface PageContactProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function PageContact({ className, onAction, ...props }: PageContactProps) {
   const [sent, setSent] = React.useState(false);
 
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="DESK // SAY HELLO"
         title="Contact the box office"
@@ -38,7 +43,7 @@ export function PageContact() {
             </div>
             <Input placeholder="Subject, e.g. lost stub BB-90210" aria-label="Subject" />
             <Textarea placeholder="Write the note with dates, gates, and serials" aria-label="Message" />
-            <Button size="sm" onClick={() => setSent(true)}>{sent ? "Note stamped and sent" : "Send note"}</Button>
+            <Button size="sm" onClick={() => { setSent(true); onAction?.("send-note"); }}>{sent ? "Note stamped and sent" : "Send note"}</Button>
           </CardContent>
         </Card>
         <div className="min-w-0 space-y-4 lg:col-span-2">

@@ -23,25 +23,38 @@ export function FileImagePreview({
   const [items, setItems] = React.useState<{ file: File; url: string }[]>([]);
   const [dragging, setDragging] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const blobUrlsRef = React.useRef<Set<string>>(new Set());
 
   const add = (files: FileList | File[]) => {
     const list = [...files].filter((f) => f.type.startsWith("image/")).slice(0, Math.max(maxFiles - items.length, 0));
     if (list.length === 0) return;
-    const next = [...items, ...list.map((file) => ({ file, url: URL.createObjectURL(file) }))].slice(0, maxFiles);
+    const added = list.map((file) => {
+      const url = URL.createObjectURL(file);
+      blobUrlsRef.current.add(url);
+      return { file, url };
+    });
+    const next = [...items, ...added].slice(0, maxFiles);
     setItems(next);
     onFilesChange?.(next.map((i) => i.file));
   };
 
   const remove = (index: number) => {
+    const target = items[index];
+    if (target) {
+      URL.revokeObjectURL(target.url);
+      blobUrlsRef.current.delete(target.url);
+    }
     const next = items.filter((_, i) => i !== index);
-    URL.revokeObjectURL(items[index].url);
     setItems(next);
     onFilesChange?.(next.map((i) => i.file));
   };
 
   React.useEffect(() => {
-    return () => items.forEach((i) => URL.revokeObjectURL(i.url));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const urls = blobUrlsRef.current;
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url));
+      urls.clear();
+    };
   }, []);
 
   return (

@@ -1,8 +1,19 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
-import { getFocusable, trapFocus } from "./lib/focus-trap";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
+
+interface AlertDialogContextValue {
+  titleId: string;
+  descId: string;
+  close: () => void;
+  registerTitle: () => () => void;
+  registerDescription: () => () => void;
+}
+
+const AlertDialogContext = React.createContext<AlertDialogContextValue | null>(null);
 
 export type AlertDialogProps = {
   open: boolean;
@@ -16,6 +27,7 @@ export type AlertDialogProps = {
   destructive?: boolean;
   onConfirm?: () => void;
   onCancel?: () => void;
+  children?: React.ReactNode;
   className?: string;
 };
 
@@ -23,24 +35,33 @@ export function AlertDialogHeader({ className, ...props }: React.HTMLAttributes<
   return <div className={cn("rounded-md p-4", className)} {...props} />;
 }
 
-export function AlertDialogTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
-  return <h2 className={cn("text-lg font-semibold tracking-tight", className)} {...props} />;
+export function AlertDialogTitle({ id, className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  const ctx = React.useContext(AlertDialogContext);
+  React.useEffect(() => ctx?.registerTitle(), [ctx]);
+  return <h2 id={id ?? ctx?.titleId} className={cn("text-lg font-semibold tracking-tight", className)} {...props} />;
 }
 
-export function AlertDialogDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cn("text-sm text-muted-foreground", className)} {...props} />;
+export function AlertDialogDescription({ id, className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  const ctx = React.useContext(AlertDialogContext);
+  React.useEffect(() => ctx?.registerDescription(), [ctx]);
+  return <p id={id ?? ctx?.descId} className={cn("text-sm text-muted-foreground", className)} {...props} />;
 }
 
 export function AlertDialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("mt-4 flex flex-col-reverse sm:flex-row gap-3 justify-end", className)} {...props} />;
 }
 
-export function AlertDialogCancelButton({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function AlertDialogCancelButton({ className, onClick, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const ctx = React.useContext(AlertDialogContext);
   return (
     <button
       type="button"
+      onClick={(e) => {
+        onClick?.(e);
+        ctx?.close();
+      }}
       className={cn(
-        "rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
+        "cursor-pointer rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
         className
       )}
       {...props}
@@ -51,13 +72,19 @@ export function AlertDialogCancelButton({ className, ...props }: React.ButtonHTM
 export function AlertDialogActionButton({
   className,
   destructive = false,
+  onClick,
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { destructive?: boolean }) {
+  const ctx = React.useContext(AlertDialogContext);
   return (
     <button
       type="button"
+      onClick={(e) => {
+        onClick?.(e);
+        ctx?.close();
+      }}
       className={cn(
-        "rounded-md border px-4 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
+        "cursor-pointer rounded-md border px-4 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors",
         destructive
           ? "border-destructive bg-destructive text-white hover:bg-destructive/90"
           : "border-primary bg-primary text-primary-foreground hover:bg-primary/90",
@@ -79,6 +106,7 @@ export function AlertDialog({
   animated = true,
   onConfirm,
   onCancel,
+  children,
   className,
 }: AlertDialogProps) {
   const titleId = React.useId();
@@ -88,72 +116,113 @@ export function AlertDialog({
   const onCancelRef = React.useRef(onCancel);
   onOpenChangeRef.current = onOpenChange;
   onCancelRef.current = onCancel;
+  const [titleCount, setTitleCount] = React.useState(0);
+  const [descCount, setDescCount] = React.useState(0);
+
+  const registerTitle = React.useCallback(() => {
+    setTitleCount((c) => c + 1);
+    return () => setTitleCount((c) => Math.max(0, c - 1));
+  }, []);
+
+  const registerDescription = React.useCallback(() => {
+    setDescCount((c) => c + 1);
+    return () => setDescCount((c) => Math.max(0, c - 1));
+  }, []);
+
+  const close = React.useCallback(() => {
+    onOpenChangeRef.current?.(false);
+  }, []);
+
+  const ctxValue = React.useMemo(
+    () => ({ titleId, descId, close, registerTitle, registerDescription }),
+    [titleId, descId, close, registerTitle, registerDescription]
+  );
 
   React.useEffect(() => {
     if (!open) return;
     const panel = panelRef.current;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     const first = panel ? getFocusable(panel)[0] : undefined;
-    first?.focus();
+    (first ?? panel)?.focus();
+
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => {
+      onOpenChangeRef.current?.(false);
+      onCancelRef.current?.();
+    });
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onOpenChangeRef.current?.(false);
-        onCancelRef.current?.();
-      } else if (e.key === "Tab" && panel) {
+      if (e.key === "Tab" && panel) {
         trapFocus(panel, e);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      releaseEscape();
+      releaseScroll();
       previouslyFocused?.focus?.();
     };
   }, [open]);
 
   if (!open) return null;
 
-  return (
-    <div
-      className={cn(
-        "fixed inset-0 z-50 flex items-center justify-center bg-black/40",
-        "motion-reduce:animate-none"
-      )}
-    >
+  const hasTitle = Boolean(title) || titleCount > 0;
+  const hasDesc = Boolean(description) || descCount > 0;
+
+  const overlay = (
+    <AlertDialogContext.Provider value={ctxValue}>
       <div
-        ref={panelRef}
-        role="alertdialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-        aria-describedby={description ? descId : undefined}
         className={cn(
-          "relative w-full max-w-lg bg-card rounded-lg border border-border p-6 shadow-lg",
-          animated ? "transition-all duration-300 motion-reduce:transition-none" : "transition-none",
-          className
+          "fixed inset-0 z-50 flex items-center justify-center overflow-hidden overscroll-contain bg-foreground/45 p-4 backdrop-blur-[1px]",
+          "motion-reduce:animate-none"
         )}
-        onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start space-x-3">
-          <div className="flex-shrink-0 rounded-md p-1" />
-          <div className="flex-1 pt-1 space-y-1">
-            {title && <AlertDialogTitle id={titleId} className="mb-1">{title}</AlertDialogTitle>}
-            {description && <AlertDialogDescription id={descId}>{description}</AlertDialogDescription>}
-          </div>
+        <div
+          ref={panelRef}
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby={hasTitle ? titleId : undefined}
+          aria-describedby={hasDesc ? descId : undefined}
+          tabIndex={-1}
+          className={cn(
+            "relative max-h-[90vh] w-full max-w-lg overflow-y-auto overscroll-contain rounded-lg border border-border bg-card p-6 text-card-foreground shadow-lg focus:outline-none",
+            animated ? "transition-all duration-300 motion-reduce:transition-none" : "transition-none",
+            className
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {children ? (
+            children
+          ) : (
+            <>
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 rounded-md p-1" />
+                <div className="flex-1 pt-1 space-y-1">
+                  {title && <AlertDialogTitle id={titleId} className="mb-1">{title}</AlertDialogTitle>}
+                  {description && <AlertDialogDescription id={descId}>{description}</AlertDialogDescription>}
+                </div>
+              </div>
+              <AlertDialogFooter>
+                <AlertDialogCancelButton onClick={() => onCancel?.()} className="flex-1">
+                  {cancelLabel}
+                </AlertDialogCancelButton>
+                <AlertDialogActionButton
+                  destructive={destructive}
+                  onClick={() => onConfirm?.()}
+                  className="mt-2 sm:mt-0"
+                >
+                  {confirmLabel}
+                </AlertDialogActionButton>
+              </AlertDialogFooter>
+            </>
+          )}
         </div>
-        <AlertDialogFooter>
-          <AlertDialogCancelButton onClick={() => { onOpenChange?.(false); onCancel?.(); }} className="flex-1">
-            {cancelLabel}
-          </AlertDialogCancelButton>
-          <AlertDialogActionButton
-            destructive={destructive}
-            onClick={() => { onOpenChange?.(false); onConfirm?.(); }}
-            className="mt-2 sm:mt-0"
-          >
-            {confirmLabel}
-          </AlertDialogActionButton>
-        </AlertDialogFooter>
       </div>
-    </div>
+    </AlertDialogContext.Provider>
   );
+
+  return typeof document !== "undefined" ? createPortal(overlay, document.body) : overlay;
 }
 
 const AlertDialogCancel = AlertDialogCancelButton;

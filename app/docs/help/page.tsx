@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { SiteNav } from "@/components/site/site-nav";
-import { SiteFooter } from "@/components/site/site-footer";
 import { components } from "@/lib/registry-site";
 import catalog from "@/data/catalog.json";
 
@@ -21,9 +19,7 @@ const QA: { q: string; a: string }[] = [
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteNav />
-      <main className="mx-auto w-full max-w-3xl px-4 py-10">
+    <div className="max-w-3xl space-y-6">
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Docs</p>
         <h1 className="mt-1 font-mono text-2xl font-black uppercase">Help &amp; FAQ</h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
@@ -40,7 +36,7 @@ export default function HelpPage() {
                 name: item.q,
                 acceptedAnswer: { "@type": "Answer", text: item.a },
               })),
-            }),
+            }).replace(/</g, "\\u003c"),
           }}
         />
         <div className="mt-6 space-y-3">
@@ -53,8 +49,6 @@ export default function HelpPage() {
             </details>
           ))}
         </div>
-      </main>
-      <SiteFooter />
     </div>
   );
 }

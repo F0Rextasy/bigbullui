@@ -374,7 +374,7 @@ export function QrReader({
               {/* Success Detection Pulse Ring & Stamp */}
               {scanResult && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black/60 backdrop-blur-xs p-2 text-center">
-                  <div className="motion-safe:animate-in fade-in zoom-in-95 duration-200 flex flex-col items-center">
+                  <div className="motion-safe:animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none! flex flex-col items-center">
                     <div className="size-10 rounded-full bg-success/20 border-2 border-success flex items-center justify-center text-success mb-1.5 shadow-[0_0_12px_var(--color-success)]">
                       <svg
                         className="size-5"
@@ -456,7 +456,7 @@ export function QrReader({
             <button
               type="button"
               onClick={triggerScanSimulation}
-              className="inline-flex items-center gap-1.5 rounded-sm border-2 border-foreground bg-accent px-2.5 py-1 text-xs font-bold text-accent-foreground shadow-xs transition-transform hover:scale-102 active:scale-98 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-sm border-2 border-foreground bg-accent px-2.5 py-1 text-xs font-bold text-accent-foreground shadow-xs transition-transform hover:scale-102 motion-reduce:hover:scale-100 active:scale-98 motion-reduce:active:scale-100 cursor-pointer"
             >
               <svg
                 className="size-3.5"

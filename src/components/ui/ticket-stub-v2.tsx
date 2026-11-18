@@ -13,20 +13,13 @@ export function TicketStubV2({ event, date, serial, tear = false, className }: T
   return (
     <div
       className={cn(
-        "relative rounded-sm border border-dashed border-border/50 bg-card p-4 motion-reduce:transition-none",
+        "relative rounded-sm border border-dashed border-border/50 bg-card p-4 motion-reduce:transition-none motion-reduce:animate-none!",
         "group",
         className
       )}
-      style={{
-        ...(tear && {
-          animation: "stubTear 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards",
-          '@keyframes stubTear': `
-            from { transform: rotate(0deg) translateY(0); }
-            to { transform: rotate(-30deg) translateY(20px); }
-          `
-        })
-      }}
+      style={tear ? { animation: "stubTear 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards" } : undefined}
     >
+      <style>{`@keyframes stubTear { from { transform: rotate(0deg) translateY(0); } to { transform: rotate(-30deg) translateY(20px); } }`}</style>
       {/* Event details */}
       <div className="font-mono text-[9px] uppercase tracking-[0.15em] text-muted-foreground mb-2">
         {event || "EVENT NAME"}

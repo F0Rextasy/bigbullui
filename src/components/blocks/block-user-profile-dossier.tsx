@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 import { Avatar } from "../ui/avatar";
 import { RoleBadge } from "../ui/role-badge";
@@ -13,9 +14,14 @@ const SEALS = [
   { text: "FOUNDER", subtext: "SINCE 2019", tone: "primary" as const },
 ];
 
-export function BlockUserProfileDossier() {
+export interface BlockUserProfileDossierProps extends React.HTMLAttributes<HTMLDivElement> {
+  onAction?: (action: string) => void;
+}
+
+export function BlockUserProfileDossier({ className, onAction, ...props }: BlockUserProfileDossierProps) {
+  void onAction;
   return (
-    <div className="w-full space-y-6">
+    <div className={cn("w-full space-y-6", className)} {...props}>
       <PageHeader
         eyebrow="MEMBERS // DOSSIER"
         title="Holder dossier"

@@ -23,10 +23,10 @@ jobs:
         package: [".", "packages/icons", "packages/create-app"]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22.x
 
@@ -36,18 +36,37 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Verify git tag matches package version
+        if: github.ref_type == 'tag' && matrix.package == '.'
+        run: |
+          TAG_VER="${GITHUB_REF_NAME#v}"
+          PKG_VER=$(node -p "require('./package.json').version")
+          if [ "$TAG_VER" != "$PKG_VER" ]; then
+            echo "Tag v$TAG_VER does not match package.json version $PKG_VER" >&2
+            exit 1
+          fi
+
       - name: Generate derived data
         # tsc needs src/data/*.json which exist only after the generators run.
         run: npm run prebuild
-      - name: Test gate (suite + typecheck)
+
+      - name: Build package
+        run: |
+          if [ "${{ matrix.package }}" = "." ]; then
+            npm run build:lib
+          elif [ "${{ matrix.package }}" = "packages/icons" ]; then
+            npm --prefix packages/icons run build
+          fi
+
+      - name: Package & test gates
         run: |
           npm test
           npx tsc --noEmit
-
-      - name: Build icons package
-        if: matrix.package == 'packages/icons'
-        working-directory: packages/icons
-        run: npx --no-install tsup
+          if [ "${{ matrix.package }}" != "packages/create-app" ]; then
+            npx --no-install publint --strict "${{ matrix.package }}"
+            npx --no-install attw --pack "${{ matrix.package }}" --profile node16
+          fi
 
       - name: Check if version is already published
         id: check
