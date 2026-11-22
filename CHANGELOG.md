@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.8.0](https://github.com/F0Rextasy/bigbullui/compare/v1.7.0...v1.8.0) (2026-11-22)
+
+### Added
+
+* **Exports & Subpaths:** Re-export `isSafeUrl`, `escapeRegExp`, `lockBodyScroll`, and `registerEscapeLayer` from the root `bigbullui` barrel and expose `bigbullui/hooks`, `bigbullui/focus-trap`, and `bigbullui/use-ticket-audio` package subpaths
+* **Configurable Helpers:** Add optional `synonyms` prop on `CommandPalette` (removing hardcoded locale-specific keywords) and `templateUrl` / `titlePrefix` props on `DocsStackblitzButton`
+* **Real Browser Testing & A11y Coverage:** Add headless Chromium Playwright interaction tests (`tests/dom.test.mjs`) covering 44 core components (`BIGBULL_REQUIRE_DOM=1` enforced in CI) and expand `scripts/a11y-scan.mjs` to 32 `axe-core` scans across light/dark modes and open overlay states
+* **AST Docs Generator:** Extract component `*Props` interfaces/types and JSDoc comments directly via TypeScript AST (`scripts/lib/extract-props.mjs`) with `--check` drift verification in `scripts/generate-docs-json.mjs`
+* **Starter Template (`create-bigbull-app 1.2.1`):** Configure `Inter_Tight` and `JetBrains_Mono` font variables (`--font-inter-tight`, `--font-jetbrains-mono`), `suppressHydrationWarning`, and an interactive `ThemeToggle`
+
+### Changed
+
+* **Cleaner Package Output (`tsup`):** Disable Rollup splitting (`bundle: false`, `splitting: false`) and rewrite relative ESM/type specifiers to explicit `.mjs` extensions, cutting `npm pack` file count from 3,979 to 2,657 with zero `chunk-*` files while fixing `"sideEffects": ["*.css"]`
+* **Strict CSS & Motion Architecture:** Move all 176 inline component `<style>` blocks into `bigbullui.css`, deduplicate/fix missing `@keyframes`, switch sweep/waveform animations to GPU-friendly `transform`, and preserve non-motion color/opacity transitions under `@media (prefers-reduced-motion: reduce)`
+* **Strict Lint Baseline:** Resolve all 192 ESLint warnings and upgrade `@typescript-eslint/no-unused-vars`, `react-hooks/exhaustive-deps`, and 6 React Compiler rules to `"error"` in `eslint.config.mjs`
+* **Docs Performance & SEO:** Switch `DocsSearch` to lazy-fetch `/components.json` and `/icons.json` on open/focus, add per-component `description`/`canonical`/OpenGraph/Twitter metadata, deprecation banners, and move SSR/test temporary outputs to `os.tmpdir()`
+
+### Fixed
+
+* Fix `cn()` utility conflict resolution (byte-identical with `bin/cli.js`), shared `focus-trap.ts` focus locking/Escape stacking across 18 overlays, and keyboard/ARIA semantics across 21 interactive controls
+* Connect previously ignored props/callbacks across `SplitFlap`, `Receipt`, `Meter`, `OrgChart`, `AudioPlayer`, `EmojiPicker`, `PhoneInput`, `EmailInput`, `TaskList`, `ScatterPlot`, and peers; eliminate SSR `new Date()`/locale hydration mismatches across calendar/timer widgets
+* Fix behavioral edge cases in `DateRangePicker`, `Truncate`, `CartDrawer`, `ConfirmDialog`, `FileInput`, `TimeRangePicker`, `AddToCartButton`, `BottomSheet`, `HorizonChart`, `SparkBars`, `CalendarHeatmap`, `UserCard`, and `SignaturePad`
+* Remove duplicate `"Zero dependencies"` badges on lib docs pages and update outdated `cn()` copy on the homepage
+
+### Security
+
+* Harden `RichTextEditor` paste sanitization (`setHTML` + allowlisted `DOMParser` fallback) and replace `window.prompt` links with an inline safe-URL bar
+* Enforce HTTPS-only redirects and atomic writes in `bin/cli.js` and `bin/mcp.js`, validate `DocsStackblitzButton` `templateUrl` via `isSafeUrl`, and guard `ThemeProvider` storage/media access with `try/catch`
+
+### Deprecated
+
+* Mark 10 duplicate `*-v2` variants (`select-v2`, `combobox-v2`, `dropdown-menu-v2`, `pagination-v2`, `sidebar-v2`, `stepper-v2`, `stopwatch-v2`, `tabbar-v2`, `countdown-v2`, `skeleton-v2`) with `status: "deprecated"` and `replacedBy` canonical links, plus `@deprecated` notices on `DocsPropPlayground` and `DocsStackblitzButton` ahead of v2.0.0
+
 ## [1.7.0](https://github.com/F0Rextasy/bigbullui/compare/v1.6.1...v1.7.0) (2026-11-18)
 
 ### Added

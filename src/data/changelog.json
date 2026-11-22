@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.8.0",
+      "date": "2026-11-22",
+      "title": "Zero-chunk ESM/CJS package, full focus-trap & keyboard pass, 44-component Chromium DOM suite, and AST-synced props",
+      "changes": [
+        "Packaging & Exports: Eliminated 1,322 chunk-* files via unbundled tsup output with explicit .mjs ESM/d.mts specifiers, re-exported isSafeUrl/escapeRegExp/lockBodyScroll/registerEscapeLayer, and added bigbullui/hooks, bigbullui/focus-trap, and bigbullui/use-ticket-audio subpaths",
+        "CSP & Styles: Extracted all 176 component inline <style> keyframes into bigbullui.css with GPU transforms, preserved color transitions under prefers-reduced-motion, cleaned phantom CSS classes, and fixed Tailwind v4 cn() conflict resolution",
+        "Accessibility & Overlays: Wired shared focus-trap.ts scroll-lock/Escape layers across 18 overlays and full keyboard/ARIA support across 21 interactive controls; expanded a11y-scan.mjs to 32 light/dark/open-overlay axe-core scans",
+        "Quality & Security: Fixed 192 ESLint warnings and promoted React Compiler + unused-vars rules to errors; added Playwright Chromium DOM tests for 44 components; hardened RichTextEditor HTML/link sanitization, CLI/MCP HTTPS redirects + atomic writes, and SSR date/timezone hydration safety",
+        "Docs, AST & Starter (create-bigbull-app 1.2.1): Synced 660 props tables with TypeScript AST extraction (--check), lazy-loaded DocsSearch JSON indexes, added per-component SEO metadata + v2 deprecation notices, and added Inter_Tight/JetBrains_Mono fonts + ThemeToggle to the starter template"
+      ]
+    },
+    {
       "version": "1.7.0",
       "date": "2026-11-18",
       "title": "Tree-shakeable bigbullicons 1.4.0, interactive 75 page blocks, zero-dependency portal overlays, and create-bigbull-app 1.2.0",

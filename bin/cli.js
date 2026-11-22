@@ -26,7 +26,7 @@ const c = {
   stamp: "\x1b[38;2;188;58;40m",
 };
 
-let PACKAGE_VERSION = "1.7.0";
+let PACKAGE_VERSION = "1.8.0";
 try {
   PACKAGE_VERSION = require("../package.json").version || PACKAGE_VERSION;
 } catch {
