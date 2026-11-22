@@ -54,7 +54,6 @@ export function WorldMap({ data = [], height = 220, onCountryHover, className, .
       onMouseLeave={() => { setHover(null); onCountryHover?.(null); }}
       {...props}
     >
-      <style>{`@keyframes wmIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
       <rect x="0" y="0" width="100" height="78" fill="var(--card)" rx="2" />
       {regions.map((r, idx) => {
         const val = valueFor(r.code);

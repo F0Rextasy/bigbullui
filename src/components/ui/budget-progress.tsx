@@ -19,7 +19,6 @@ export interface BudgetProgressProps extends React.HTMLAttributes<HTMLDivElement
 export function BudgetProgress({ categories = [], currency = "₺", className, ...props }: BudgetProgressProps) {
   return (
     <div className={cn("w-full max-w-sm space-y-3", className)} {...props}>
-      <style>{`@keyframes bpFill { from { transform: scaleX(0); } }`}</style>
       {categories.map((cat, idx) => {
         const pct = Math.min(100, Math.round((cat.spent / Math.max(1, cat.limit)) * 100));
         const over = cat.spent > cat.limit;

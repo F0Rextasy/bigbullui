@@ -43,6 +43,7 @@ jobs:
       - name: Verify checked-in generators (--check)
         run: |
           node scripts/generate-registry-json.mjs --check
+          node scripts/generate-docs-json.mjs --check
           node scripts/generate-readme.mjs --check
           node scripts/generate-icon-components.mjs --check
 
@@ -92,6 +93,9 @@ jobs:
 
       - name: Install Playwright chromium
         run: npx playwright install chromium --with-deps
+
+      - name: Run Playwright DOM tests
+        run: BIGBULL_REQUIRE_DOM=1 node --test tests/dom.test.mjs
 
       - name: Accessibility scan
         run: |

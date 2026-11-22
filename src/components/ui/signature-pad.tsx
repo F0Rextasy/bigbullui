@@ -119,13 +119,16 @@ export function SignaturePad({
 
   // Set initial stamp timestamp on client
   React.useEffect(() => {
-    const now = new Date();
-    const formatted = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
-      now.getDate()
-    ).padStart(2, "0")} // ${String(now.getHours()).padStart(2, "0")}:${String(
-      now.getMinutes()
-    ).padStart(2, "0")}`;
-    setStampTime(formatted);
+    const t = setTimeout(() => {
+      const now = new Date();
+      const formatted = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
+        now.getDate()
+      ).padStart(2, "0")} // ${String(now.getHours()).padStart(2, "0")}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")}`;
+      setStampTime(formatted);
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
 
   // Redraw all strokes onto the canvas
@@ -136,7 +139,6 @@ export function SignaturePad({
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);

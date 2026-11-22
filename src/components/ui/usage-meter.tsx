@@ -18,10 +18,6 @@ export function UsageMeter({ label = "", used = 0, limit = 0, unit = "", classNa
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`
-        @keyframes usageGrow { from { width: 0; } }
-        @keyframes usagePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-      `}</style>
       <div className="flex items-baseline justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
         <span className="font-mono text-xs tabular-nums text-foreground">

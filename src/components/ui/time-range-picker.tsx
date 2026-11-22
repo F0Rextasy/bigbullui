@@ -10,62 +10,51 @@ export interface TimeRangePickerProps {
   className?: string;
 }
 
+function parseMinutes(hhmm: string): number | null {
+  const m = /^(\d{2}):(\d{2})$/.exec(hhmm.trim());
+  if (!m) return null;
+  const h = Number(m[1]);
+  const min = Number(m[2]);
+  if (h < 0 || h > 23 || min < 0 || min > 59) return null;
+  return h * 60 + min;
+}
+
 export function TimeRangePicker({
   value: controlledValue,
   defaultValue: defaultVals,
   onValueChange,
   className,
 }: TimeRangePickerProps) {
-  const [internalValue, setInternalValue] = React.useState<[string, string]>(
-    defaultVals ?? ["09:00", "17:00"]
+  const [innerValue, setInnerValue] = React.useState<[string, string]>(
+    defaultVals ?? ["09:00", "17:00"],
   );
   const isControlled = controlledValue !== undefined;
-  const currentValue = isControlled ? controlledValue : internalValue;
-
-  const [startTime, setStartTime] = React.useState(currentValue[0]);
-  const [endTime, setEndTime] = React.useState(currentValue[1]);
-
-  React.useEffect(() => {
-    if (isControlled) {
-      setStartTime(controlledValue?.[0] ?? "");
-      setEndTime(controlledValue?.[1] ?? "");
-    }
-  }, [isControlled, controlledValue]);
+  const [startTime, endTime] = isControlled ? controlledValue : innerValue;
+  const startId = React.useId();
+  const endId = React.useId();
 
   const handleStartChange = (val: string) => {
-    setStartTime(val);
-    onValueChange?.([val, endTime]);
+    const next: [string, string] = [val, endTime];
+    if (!isControlled) setInnerValue(next);
+    onValueChange?.(next);
   };
 
   const handleEndChange = (val: string) => {
-    setEndTime(val);
-    onValueChange?.([startTime, val]);
+    const next: [string, string] = [startTime, val];
+    if (!isControlled) setInnerValue(next);
+    onValueChange?.(next);
   };
 
-  const formatTime = (t: string) => {
-    const [hRaw, mRaw] = t.split(":");
-    const h24 = parseInt(hRaw, 10) || 0;
-    const m = parseInt(mRaw, 10) || 0;
-    const ampm = h24 >= 12 ? "PM" : "AM";
-    const h12 = h24 % 12 || 12;
-    return `${h12.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")} ${ampm}`;
-  };
-
-  const rawDurationMinutes =
-    (new Date(`2000-01-01T${endTime}`).getTime() -
-      new Date(`2000-01-01T${startTime}`).getTime()) /
-    60000;
-  const durationMinutes = Number.isFinite(rawDurationMinutes)
-    ? Math.max(0, rawDurationMinutes)
-    : 0;
+  const startMins = parseMinutes(startTime);
+  const endMins = parseMinutes(endTime);
+  let durationMinutes = 0;
+  if (startMins !== null && endMins !== null) {
+    durationMinutes = endMins >= startMins ? endMins - startMins : 1440 - startMins + endMins;
+  }
   const durationHours = durationMinutes / 60;
 
-  const startClasses = cn(
-    "rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm placeholder-text-muted-foreground focus-visible:outline-none focus-visible:border-solid focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
-  );
-  const endClasses = cn(
-    "rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm placeholder-text-muted-foreground focus-visible:outline-none focus-visible:border-solid focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-colors",
-  );
+  const inputClasses =
+    "rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-solid focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
 
   return (
     <div
@@ -74,36 +63,41 @@ export function TimeRangePicker({
         className,
       )}
     >
-      <div className="flex items-center gap-2">
-        <span className="font-mono uppercase tracking-[0.15em] text-[10px] text-muted-foreground">Start</span>
+      <div className="flex items-center justify-between gap-2">
+        <label htmlFor={startId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+          Start
+        </label>
         <input
+          id={startId}
           type="time"
           value={startTime}
           onChange={(e) => handleStartChange(e.target.value)}
-          className={startClasses}
+          className={inputClasses}
         />
       </div>
 
-      <div className="flex items-center gap-2">
-        <span className="font-mono uppercase tracking-[0.15em] text-[10px] text-muted-foreground">End</span>
+      <div className="flex items-center justify-between gap-2">
+        <label htmlFor={endId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+          End
+        </label>
         <input
+          id={endId}
           type="time"
           value={endTime}
           onChange={(e) => handleEndChange(e.target.value)}
-          className={endClasses}
+          className={inputClasses}
         />
       </div>
 
-      <div className="flex items-center gap-2 pt-2 border-t border-border/40">
-        <span className="font-mono uppercase tracking-[0.15em] text-[10px] text-muted-foreground">Duration</span>
+      <div className="flex items-center justify-between gap-2 border-t border-border/40 pt-2">
+        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Duration</span>
         <span
           className={cn(
-            "font-mono uppercase tracking-[0.15em] text-[10px]",
-            durationMinutes > 0 && "text-accent-foreground",
-            "motion-safe:animate-pulse-ring"
+            "font-mono text-[10px] font-bold uppercase tracking-[0.15em]",
+            durationMinutes > 0 ? "text-accent-strong" : "text-muted-foreground",
           )}
         >
-          {durationHours.toFixed(1)} hr{durationHours > 1 ? "s" : ""}
+          {durationHours.toFixed(1)} hr{durationHours === 1 ? "" : "s"}
         </span>
       </div>
     </div>
@@ -111,4 +105,3 @@ export function TimeRangePicker({
 }
 
 TimeRangePicker.displayName = "TimeRangePicker";
-

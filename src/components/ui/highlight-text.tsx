@@ -6,13 +6,6 @@ export type HighlightTextProps = {
   query: string;
 };
 
-const highlightKeyframes = `
-  @keyframes highlightIn {
-    from { background-size: 0% 100%; }
-    to { background-size: 100% 100%; }
-  }
-`;
-
 const HighlightText = ({ text, query }: HighlightTextProps) => {
   if (!query) {
     return (
@@ -54,7 +47,6 @@ const HighlightText = ({ text, query }: HighlightTextProps) => {
         "motion-reduce:animate-none"
       )}
     >
-      <style>{highlightKeyframes}</style>
       {parts.map((part, i) => {
         if (typeof part === "string") {
           return (

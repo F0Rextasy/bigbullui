@@ -21,14 +21,6 @@ export function ErrorPage({ code = "404", title, description, action, className,
 
   return (
     <div className={cn("flex min-h-[360px] w-full flex-col items-center justify-center gap-4 p-8 text-center", className)} {...props}>
-      <style>{`
-        @keyframes errStamp {
-          0% { transform: scale(1.6) rotate(-14deg); opacity: 0; }
-          60% { transform: scale(0.95) rotate(-8deg); opacity: 1; }
-          100% { transform: scale(1) rotate(-8deg); opacity: 1; }
-        }
-        @keyframes errIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
       <span
         className="inline-block rounded-lg border-4 border-dashed border-destructive/70 px-6 py-3 font-mono text-5xl font-black tracking-widest text-destructive"
         style={{ animation: "errStamp 0.5s cubic-bezier(0.16,1,0.3,1) both" }}

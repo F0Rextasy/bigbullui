@@ -14,7 +14,6 @@ export function GachaPull({ result = "Star Blade", rarity = "SSR", onPull, class
   const [pulled, setPulled] = React.useState(false);
   return (
     <div className={cn("w-full touch-none select-none rounded-md border-2 border-foreground bg-card p-3 text-center", className)} style={{ touchAction: "none" }} {...props}>
-      <style>{`@keyframes gachaIn { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }`}</style>
       <p className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">Gacha Draw</p>
       {pulled ? (
         <div role="status" aria-label={`${result} ${rarity}`} className="animate-[gachaIn_0.35s_ease-out] motion-reduce:animate-none">

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface DrawerNavItem {
@@ -18,24 +19,41 @@ export interface DrawerNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /** Drawer navigation: slide-in overlay menu + staggered links. */
 export function DrawerNav({ items, open, onOpenChange, title = "Menu", className, ...props }: DrawerNavProps) {
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
+
   React.useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onOpenChange(false); };
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => onOpenChangeRef.current(false));
+    const onKey = (e: KeyboardEvent) => {
+      if (panelRef.current) trapFocus(panelRef.current, e);
+    };
     document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
     };
-  }, [open, onOpenChange]);
+  }, [open]);
 
   if (!open) return null;
 
   return (
     <div className={cn("fixed inset-0 z-50", className)} {...props}>
-      <style>{`@keyframes dnPanel { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
       <div className="absolute inset-0 bg-black/40" onClick={() => onOpenChange(false)} aria-hidden="true" />
-      <div className="absolute inset-y-0 left-0 flex w-64 flex-col border-r-2 border-dashed border-border bg-background shadow-xl motion-reduce:animate-none!" style={{ animation: "dnPanel 0.3s cubic-bezier(0.16,1,0.3,1) both" }} role="dialog" aria-modal="true" aria-label={title}>
+      <div ref={panelRef} tabIndex={-1} className="absolute inset-y-0 left-0 flex w-64 flex-col border-r-2 border-dashed border-border bg-background shadow-xl motion-reduce:animate-none! focus:outline-none" style={{ animation: "dnPanel 0.3s cubic-bezier(0.16,1,0.3,1) both" }} role="dialog" aria-modal="true" aria-label={title}>
         <div className="flex items-center justify-between border-b border-dashed border-border px-4 py-3">
           <span className="font-mono text-xs font-bold uppercase tracking-widest">{title}</span>
           <button

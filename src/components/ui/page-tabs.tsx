@@ -27,7 +27,6 @@ export function PageTabs({ tabs = [], activeId, onNavigate, className, ...props 
 
   return (
     <div className={cn("flex gap-0.5 border-b-2 border-dashed border-border", className)} role="tablist" {...props}>
-      <style>{`@keyframes ptUnderline { from { transform: scaleX(0); } }`}</style>
       {tabs.map((tab, idx) => (
         <button
           type="button"

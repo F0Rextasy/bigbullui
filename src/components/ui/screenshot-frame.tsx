@@ -12,7 +12,6 @@ export interface ScreenshotFrameProps extends React.HTMLAttributes<HTMLDivElemen
 export function ScreenshotFrame({ url, children, className, ...props }: ScreenshotFrameProps) {
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card shadow-sm", className)} {...props}>
-      <style>{`@keyframes sfIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {/* URL bar */}
       <div className="flex items-center gap-2 border-b border-border bg-secondary/60 px-3 py-2 animate-[sfIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <span className="flex gap-1.5" aria-hidden="true">

@@ -29,7 +29,6 @@ export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProp
 
   return (
     <div className={cn("flex w-full max-w-sm items-center gap-3 rounded-md border border-border bg-card p-3", className)} {...props}>
-      <style>{`@keyframes arWave { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }`}</style>
       <button
         type="button"
         onClick={() => (recording ? stop() : setRecording(true))}

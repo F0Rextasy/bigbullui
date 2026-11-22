@@ -19,7 +19,6 @@ export function MasonryColumns({ items = [], columns = 3, className, ...props }:
 
   return (
     <div className={cn("columns-1 gap-4 space-y-4", colClass, className)} {...props}>
-      <style>{`@keyframes masonryIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {items.map((item, idx) => (
         <div
           key={item.id}

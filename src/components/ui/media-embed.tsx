@@ -16,7 +16,6 @@ export function MediaEmbed({ src, title, poster, className, ...props }: MediaEmb
 
   return (
     <div className={cn("relative aspect-video w-full overflow-hidden rounded-lg border-2 border-dashed border-border bg-secondary/40", className)} {...props}>
-      <style>{`@keyframes meShimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }`}</style>
       {!loaded && (
         <div
           className="absolute inset-0 motion-reduce:animate-none!"

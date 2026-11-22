@@ -30,7 +30,6 @@ export function AvatarUpload({ initials = "BB", src, onChange, className, ...pro
 
   return (
     <div className={cn("relative inline-block", className)} {...props}>
-      <style>{`@keyframes avSpin { to { transform: rotate(360deg); } }`}</style>
       <button
         type="button"
         onClick={() => inputRef.current?.click()}

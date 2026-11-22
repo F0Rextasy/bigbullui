@@ -76,7 +76,7 @@ export function AudioWaveform({
   const [isMuted, setIsMuted] = React.useState(false);
   const [isLooping, setIsLooping] = React.useState(false);
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
-  const [liveFrequencies, setLiveFrequencies] = React.useState<number[]>([]);
+  const [liveState, setLiveState] = React.useState<{ base: number[]; bars: number[] } | null>(null);
 
   const audioElementRef = React.useRef<HTMLAudioElement | null>(null);
   const animationFrameRef = React.useRef<number | null>(null);
@@ -101,10 +101,7 @@ export function AudioWaveform({
     return generated;
   }, [waveformData, barCount]);
 
-  // Initial live frequency bars setup
-  React.useEffect(() => {
-    setLiveFrequencies(baseWaveform);
-  }, [baseWaveform]);
+  const liveFrequencies = isPlaying && liveState?.base === baseWaveform ? liveState.bars : baseWaveform;
 
   // Handle Play/Pause audio element sync if audioSrc is provided
   React.useEffect(() => {
@@ -124,8 +121,6 @@ export function AudioWaveform({
         cancelAnimationFrame(animationFrameRef.current);
         animationFrameRef.current = null;
       }
-      // Return bars gently to base profile
-      setLiveFrequencies(baseWaveform);
       return;
     }
 
@@ -154,8 +149,9 @@ export function AudioWaveform({
 
       // Animate dynamic live frequency oscillations
       const timeFactor = now * 0.006;
-      setLiveFrequencies(
-        baseWaveform.map((base, idx) => {
+      setLiveState({
+        base: baseWaveform,
+        bars: baseWaveform.map((base, idx) => {
           // Dynamic harmonic jitter for concert realism
           const bassBoost = idx < barCount * 0.25 ? Math.sin(timeFactor * 2.5) * 18 : 0;
           const midDance = Math.sin(timeFactor * 4 + idx * 0.8) * 14;
@@ -167,8 +163,8 @@ export function AudioWaveform({
             Math.max(15, Math.round(base + bassBoost + midDance + trebleFlicker + randomEnergy))
           );
           return animatedHeight;
-        })
-      );
+        }),
+      });
 
       animationFrameRef.current = requestAnimationFrame(tick);
     };
@@ -308,13 +304,30 @@ export function AudioWaveform({
 
           {/* Interactive Multi-Bar Waveform Display */}
           <div
-            className="relative flex items-end justify-between gap-[2px] sm:gap-1 h-24 sm:h-28 w-full cursor-pointer py-1 px-0.5"
+            className="relative flex items-end justify-between gap-[2px] sm:gap-1 h-24 sm:h-28 w-full cursor-pointer py-1 px-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
             role="slider"
+            tabIndex={0}
             aria-label="Audio waveform scrubber"
             aria-valuemin={0}
             aria-valuemax={duration}
             aria-valuenow={currentTime}
             onMouseLeave={() => setHoveredIndex(null)}
+            onKeyDown={(e) => {
+              if (duration <= 0) return;
+              if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+                e.preventDefault();
+                handleSeekIndex(Math.min(barCount - 1, currentBarIndex + 1));
+              } else if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+                e.preventDefault();
+                handleSeekIndex(Math.max(0, currentBarIndex - 1));
+              } else if (e.key === "Home") {
+                e.preventDefault();
+                handleSeekIndex(0);
+              } else if (e.key === "End") {
+                e.preventDefault();
+                handleSeekIndex(barCount - 1);
+              }
+            }}
           >
             {liveFrequencies.map((height, index) => {
               const isPlayed = index <= currentBarIndex;
@@ -324,6 +337,7 @@ export function AudioWaveform({
               return (
                 <div
                   key={index}
+                  role="presentation"
                   onClick={() => handleSeekIndex(index)}
                   onMouseEnter={() => setHoveredIndex(index)}
                   className="flex-1 h-full flex items-end group relative transition-transform"

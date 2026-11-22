@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface PromptHistoryItem {
@@ -29,14 +30,28 @@ export function PromptHistoryDrawer({
   ...props
 }: PromptHistoryDrawerProps) {
   const [open, setOpen] = React.useState(false);
+  const panelRef = React.useRef<HTMLElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
   React.useEffect(() => {
     if (!open) return;
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => setOpen(false));
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (panelRef.current) trapFocus(panelRef.current, e);
     };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open ]);
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
+    };
+  }, [open]);
   return (
     <div className={cn("relative", className)} {...props}>
       <button
@@ -49,9 +64,9 @@ export function PromptHistoryDrawer({
         {triggerLabel} ({items.length})
       </button>
       {open && (
-        <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Prompt history">
+        <div className="fixed inset-0 z-50">
           <div className="absolute inset-0 bg-foreground/30" onClick={() => setOpen(false)} aria-hidden="true" />
-          <aside className="absolute right-0 top-0 flex h-full w-72 flex-col border-l-2 border-foreground bg-card">
+          <aside ref={panelRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Prompt history" className="absolute right-0 top-0 flex h-full w-72 flex-col border-l-2 border-foreground bg-card focus:outline-none">
             <div className="flex items-center justify-between border-b border-dashed border-border px-3 py-2">
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 Prompt history

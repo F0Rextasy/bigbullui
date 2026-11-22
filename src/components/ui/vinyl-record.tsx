@@ -12,11 +12,21 @@ export interface VinylRecordProps {
 export function VinylRecord({ label, playing = false, onToggle }: VinylRecordProps) {
   return (
     <div
+      role={onToggle ? "button" : undefined}
+      tabIndex={onToggle ? 0 : undefined}
+      aria-pressed={onToggle ? playing : undefined}
+      aria-label={onToggle ? (playing ? "Pause vinyl record" : "Play vinyl record") : undefined}
       onClick={onToggle}
+      onKeyDown={onToggle ? (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggle();
+        }
+      } : undefined}
       className={cn(
         "relative size-32 rounded-full border border-border bg-card p-4 motion-reduce:transition-none",
         playing && "motion-safe:animate-spin",
-        onToggle && "cursor-pointer",
+        onToggle && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "group"
       )}
     >

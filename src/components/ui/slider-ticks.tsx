@@ -29,15 +29,10 @@ export function SliderTicks({
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : internalValue;
 
-  React.useEffect(() => {
-    if (isControlled) {
-      setInternalValue(controlledValue);
-    }
-  }, [isControlled, controlledValue]);
-
   const handleChange = (val: number) => {
-    setInternalValue(val);
-    onValueChange?.(val);
+    const clamped = Math.max(min, Math.min(max, val));
+    if (!isControlled) setInternalValue(clamped);
+    onValueChange?.(clamped);
   };
 
   // Calculate tick positions
@@ -58,7 +53,8 @@ export function SliderTicks({
     }
   });
 
-  const percent = ((currentValue - min) / (max - min)) * 100;
+  const span = max - min || 1;
+  const percent = Math.max(0, Math.min(100, ((currentValue - min) / span) * 100));
 
   const trackRef = React.useRef<HTMLDivElement>(null);
   const handleDrag = (clientX: number) => {
@@ -152,10 +148,8 @@ export function SliderTicks({
 
         {/* Thumb */}
         <div
-          className={cn(
-            thumbClasses,
-            `transform translateX(${percent}%)`,
-          )}
+          className={thumbClasses}
+          style={{ left: `${percent}%` }}
         />
       </div>
     </div>

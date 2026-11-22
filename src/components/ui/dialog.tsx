@@ -51,7 +51,9 @@ export function Dialog({
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
   const onOpenChangeRef = React.useRef(onOpenChange);
-  onOpenChangeRef.current = onOpenChange;
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
 
   const titleId = React.useId();
   const descriptionId = React.useId();

@@ -2,6 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import vm from "node:vm";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
@@ -136,11 +137,17 @@ describe("bigbullui Component Library Integrity", () => {
     );
   });
 
-  it("utils.ts exists and exports cn", () => {
+  it("utils.ts exists, exports cn, and matches bin/cli.js UTILS_CONTENT", () => {
     const utilsPath = path.join(uiDir, "lib", "utils.ts");
     assert.ok(fs.existsSync(utilsPath), "src/components/ui/lib/utils.ts must exist");
-    const utilsContent = fs.readFileSync(utilsPath, "utf8");
+    const utilsContent = fs.readFileSync(utilsPath, "utf8").replace(/\r\n/g, "\n").trim();
     assert.match(utilsContent, /export\s+function\s+cn\b/);
+
+    const cliContent = fs.readFileSync(path.join(rootDir, "bin", "cli.js"), "utf8");
+    const match = cliContent.match(/const UTILS_CONTENT = \[([\s\S]*?)\]\.join\(['"]\\n['"]\);/);
+    assert.ok(match, "bin/cli.js must define UTILS_CONTENT");
+    const cliLines = vm.runInNewContext(`[${match[1]}]`);
+    assert.equal(cliLines.join("\n").trim(), utilsContent, "bin/cli.js UTILS_CONTENT must stay byte-identical to src/components/ui/lib/utils.ts");
   });
 
   it("shadcn registry: components install out of the box (utils.json + deps)", () => {
@@ -335,11 +342,15 @@ describe("bigbullui Component Library Integrity", () => {
     assert.deepEqual(violations, [], `Turkish UI copy found (DESIGN.md requires English):\n${violations.join("\n")}`);
   });
 
-  it("contrast gate: status text tokens pass WCAG AA on page background", () => {
+  it("contrast gate: light and dark text/fill tokens pass WCAG AA across surfaces", () => {
     const css = fs.readFileSync(path.join(rootDir, "bigbullui.css"), "utf8");
-    const root = css.slice(css.indexOf(":root"), css.indexOf("\n.dark"));
-    const vars = {};
-    for (const m of root.matchAll(/--([a-z-]+):\s*(#[0-9a-fA-F]{6})/g)) vars[m[1]] = m[2];
+    const parseVars = (block) => {
+      const vars = {};
+      for (const m of block.matchAll(/--([a-z-]+):\s*(#[0-9a-fA-F]{6})/g)) vars[m[1]] = m[2];
+      return vars;
+    };
+    const light = parseVars(css.slice(css.indexOf(":root"), css.indexOf("\n.dark")));
+    const dark = parseVars(css.slice(css.indexOf("\n.dark"), css.indexOf("@theme")));
     const lum = (hex) => {
       const c = [0, 2, 4].map((i) => {
         const v = parseInt(hex.slice(i + 1, i + 3), 16) / 255;
@@ -348,14 +359,27 @@ describe("bigbullui Component Library Integrity", () => {
       return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
     };
     const ratio = (a, b) => {
-      const x = lum(vars[a]), y = lum(vars[b]);
+      const x = lum(a), y = lum(b);
       return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
     };
-    const pairs = [["success", "background"], ["warning", "background"], ["info", "background"], ["destructive", "background"], ["muted-foreground", "background"], ["foreground", "background"], ["accent", "background"]];
-    const failures = pairs
-      .map(([fg, bg]) => ({ fg, bg, r: ratio(fg, bg) }))
-      .filter((p) => p.r < 4.5)
-      .map((p) => `${p.fg} on ${p.bg}: ${p.r.toFixed(2)}:1`);
+    const failures = [];
+    const check = (mode, vars, fg, bg) => {
+      const r = ratio(vars[fg], vars[bg]);
+      if (r < 4.5) failures.push(`${mode} ${fg} on ${bg}: ${r.toFixed(2)}:1`);
+    };
+    for (const bg of ["background", "card", "muted"]) {
+      for (const fg of ["foreground", "muted-foreground", "destructive", "success", "warning", "info", "accent", "accent-strong"]) {
+        check("light", light, fg, bg);
+      }
+      for (const fg of ["foreground", "muted-foreground", "destructive", "success", "warning", "info", "accent-strong"]) {
+        check("dark", dark, fg, bg);
+      }
+    }
+    for (const [fg, bg] of [["primary-foreground", "primary"], ["secondary-foreground", "secondary"], ["accent-foreground", "accent"]]) {
+      check("light", light, fg, bg);
+      check("dark", dark, fg, bg);
+    }
+    assert.ok(css.includes(".bg-info.text-white"), "bigbullui.css dark override must include .bg-info.text-white");
     assert.deepEqual(failures, [], `Text tokens below WCAG AA 4.5:1:\n${failures.join("\n")}`);
   });
 
@@ -434,5 +458,101 @@ describe("bigbullui Component Library Integrity", () => {
     const buttonHead = fs.readFileSync(buttonPath, "utf8").trimStart();
     assert.ok(buttonHead.startsWith('"use client"') || buttonHead.startsWith("'use client'"), "dist/components/ui/button.mjs must start with 'use client'");
     assert.ok(!barrelHead.startsWith('"use client"') && !barrelHead.startsWith("'use client'"), "dist/index.mjs barrel must not emit top-level 'use client'");
+  });
+
+  it("reduced motion safety: never strip focus rings or hide interactive UI on motion-reduce", () => {
+    const allowHidden = new Set(["seasonal-snow.tsx"]);
+    const violations = [];
+    for (const file of uiFiles) {
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      if (/motion-reduce:focus-visible:ring-0/.test(content)) {
+        violations.push(`${file}: motion-reduce:focus-visible:ring-0 disables keyboard focus indicator`);
+      }
+      if (!allowHidden.has(file) && /motion-reduce:hidden/.test(content)) {
+        violations.push(`${file}: motion-reduce:hidden hides component for reduced-motion users`);
+      }
+    }
+    assert.deepEqual(violations, [], `Accessibility / reduced-motion violations:\n${violations.join("\n")}`);
+  });
+
+  it("CSP & CSS keyframes: zero inline <style> tags in UI components and zero duplicate/missing @keyframes in bigbullui.css", () => {
+    const css = fs.readFileSync(path.join(rootDir, "bigbullui.css"), "utf8");
+    const defined = new Map();
+    const dupes = [];
+    for (const m of css.matchAll(/@keyframes\s+([A-Za-z0-9_-]+)/g)) {
+      const name = m[1];
+      defined.set(name, (defined.get(name) ?? 0) + 1);
+      if (defined.get(name) > 1) dupes.push(name);
+    }
+    assert.deepEqual(dupes, [], `Duplicate @keyframes in bigbullui.css: ${dupes.join(", ")}`);
+
+    const twBuiltins = new Set(["spin", "ping", "pulse", "bounce", "none"]);
+    const inlineStyles = [];
+    const missingKfs = [];
+    for (const file of uiFiles) {
+      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
+      if (/<style\b/i.test(content)) inlineStyles.push(file);
+      for (const m of content.matchAll(/animate-\[([A-Za-z0-9-]+)(?:_|\])/g)) {
+        if (!defined.has(m[1]) && !twBuiltins.has(m[1])) missingKfs.push(`${file}: animate-[${m[1]}...]`);
+      }
+      for (const m of content.matchAll(/animation:\s*(?:["'`]([A-Za-z0-9-]+))/g)) {
+        if (m[1] && m[1] !== "none" && !defined.has(m[1]) && !twBuiltins.has(m[1])) {
+          missingKfs.push(`${file}: style animation=${m[1]}`);
+        }
+      }
+    }
+    assert.deepEqual(inlineStyles, [], `Inline <style> tags break strict CSP and duplicate keyframes:\n${inlineStyles.join("\n")}`);
+    assert.deepEqual(missingKfs, [], `Animation references missing @keyframes in bigbullui.css:\n${missingKfs.join("\n")}`);
+  });
+
+  it("overlay & keyboard a11y: every fixed inset-0 overlay wires focus-trap helpers and clickable div/span controls are keyboard-accessible", () => {
+    const missingTrap = [];
+    const clickableIssues = [];
+    const focusDelegatorFiles = new Set(["console-panel.tsx", "inline-multiselect.tsx", "tag-input.tsx"]);
+
+    for (const file of uiFiles) {
+      const s = fs.readFileSync(path.join(uiDir, file), "utf8");
+      if (/fixed inset-0/.test(s) && !/focus-trap/.test(s)) {
+        missingTrap.push(file);
+      }
+      const tagRegex = /<(div|span)\b/g;
+      let m;
+      while ((m = tagRegex.exec(s)) !== null) {
+        let i = m.index + m[1].length + 1;
+        let brace = 0;
+        let quote = null;
+        while (i < s.length) {
+          const ch = s[i];
+          if (quote) {
+            if (ch === "\\") { i += 2; continue; }
+            if (ch === quote) quote = null;
+          } else {
+            if (ch === '"' || ch === "'" || ch === "`") quote = ch;
+            else if (ch === "{") brace++;
+            else if (ch === "}") { if (brace > 0) brace--; }
+            else if (ch === ">" && brace === 0) break;
+          }
+          i++;
+        }
+        const tag = s.slice(m.index, i + 1);
+        if (!/\bonClick\s*=/.test(tag)) continue;
+        const isBackdropOrGuard =
+          /aria-hidden/.test(tag) ||
+          /stopPropagation/.test(tag) ||
+          /role=["'](?:presentation|none)["']/.test(tag);
+        const isCompositeOptionOrRadio = /role=["'](?:option|radio)["']/.test(tag);
+        const hasFullKeyboard = /\bonKeyDown\s*=/.test(tag) && /\brole\s*=/.test(tag) && /\btabIndex\b/.test(tag);
+        const isInputDelegator =
+          focusDelegatorFiles.has(file) &&
+          /inputRef\.current\?\.focus\(\)|setOpen\(true\)/.test(tag);
+        if (!isBackdropOrGuard && !isCompositeOptionOrRadio && !hasFullKeyboard && !isInputDelegator) {
+          const line = s.slice(0, m.index).split(/\r?\n/).length;
+          clickableIssues.push(`${file}:${line}`);
+        }
+      }
+    }
+
+    assert.deepEqual(missingTrap, [], `fixed inset-0 overlays missing focus-trap.ts integration:\n${missingTrap.join("\n")}`);
+    assert.deepEqual(clickableIssues, [], `Clickable <div>/<span> elements without keyboard/ARIA support:\n${clickableIssues.join("\n")}`);
   });
 });

@@ -11,6 +11,7 @@ export interface PropField {
   defaultValue?: string | number | boolean;
 }
 
+/** @deprecated Docs-site helper scheduled to move out of the core UI package in v2.0. */
 export interface DocsPropPlaygroundProps extends React.HTMLAttributes<HTMLDivElement> {
   componentName?: string;
   fields?: PropField[];
@@ -24,7 +25,10 @@ const FALLBACK_FIELDS: PropField[] = [
   { name: "tone", type: "enum", control: "select", options: ["paper", "night", "stamp"], defaultValue: "paper" },
 ];
 
-/** Docs prop playground editing props with live preview. */
+/**
+ * @deprecated Docs-site helper scheduled to move out of the core UI package in v2.0.
+ * Docs prop playground editing props with live preview.
+ */
 export function DocsPropPlayground({ componentName = "TicketCard", fields = FALLBACK_FIELDS, renderPreview, className, ...props }: DocsPropPlaygroundProps) {
   const [values, setValues] = React.useState<Record<string, string | number | boolean>>(() =>
     Object.fromEntries(fields.map((f) => [f.name, f.defaultValue ?? ""]))

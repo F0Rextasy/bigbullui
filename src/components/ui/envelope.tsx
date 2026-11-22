@@ -12,15 +12,26 @@ export interface EnvelopeProps {
 }
 
 export function Envelope({ open = false, onOpenChange, sender, recipient, letter }: EnvelopeProps) {
+  const toggle = () => onOpenChange?.(!open);
   return (
     <div
+      role={onOpenChange ? "button" : undefined}
+      tabIndex={onOpenChange ? 0 : undefined}
+      aria-expanded={onOpenChange ? open : undefined}
+      aria-label={onOpenChange ? (open ? "Close envelope" : "Open envelope") : undefined}
       className={cn(
         "relative size-32 rounded-2xl border border-border bg-card p-4 motion-reduce:transition-none",
-        "hover:scale-[1.02] motion-reduce:hover:scale-100 transition-transform"
+        "hover:scale-[1.02] motion-reduce:hover:scale-100 transition-transform",
+        onOpenChange && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       )}
-      onClick={() => onOpenChange && onOpenChange(!open)}
+      onClick={onOpenChange ? toggle : undefined}
+      onKeyDown={onOpenChange ? (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      } : undefined}
     >
-      <style>{`@keyframes envFlapOpen { from { transform: rotateX(-85deg); opacity: 0.4; } to { transform: rotateX(0deg); opacity: 1; } }`}</style>
       <div
         className={cn(
           "rounded-t-2xl border-b border-border bg-secondary p-3 motion-reduce:animate-none!"

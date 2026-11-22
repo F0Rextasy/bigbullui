@@ -37,17 +37,6 @@ export function TwoFactor({
 
   return (
     <div className={cn("w-full max-w-sm space-y-5", className)} {...props}>
-      <style>{`
-        @keyframes twofaScan {
-          0% { top: 4%; opacity: 0.9; }
-          50% { top: 92%; opacity: 1; }
-          100% { top: 4%; opacity: 0.9; }
-        }
-        @keyframes twofaIn {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
 
       <div className="text-center">
         <h3 className="text-lg font-semibold tracking-tight">Two-Factor Authentication</h3>

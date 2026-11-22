@@ -465,10 +465,18 @@ export function ActivityFeed({
                     return (
                       <div
                         key={item.id}
+                        role={onItemClick ? "button" : undefined}
+                        tabIndex={onItemClick ? 0 : undefined}
                         onClick={() => onItemClick?.(item)}
+                        onKeyDown={onItemClick ? (e) => {
+                          if (e.target === e.currentTarget && (e.key === "Enter" || e.key === " ")) {
+                            e.preventDefault();
+                            onItemClick(item);
+                          }
+                        } : undefined}
                         className={cn(
-                          "relative group",
-                          onItemClick && "cursor-pointer"
+                          "relative group rounded-lg",
+                          onItemClick && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         )}
                       >
                         {/* Timeline Node Stamp & Avatar */}

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/components/ui/lib/utils";
 
 import { ChatWindow } from "@/components/ui/chat-window";
 import { ChatBubble } from "@/components/ui/chat-bubble";
@@ -22,15 +21,6 @@ import type { Follower } from "@/components/ui/follower-list";
 
 // Deterministic seed data for all 12 components
 
-type ChatMessageLike = {
-  id: string;
-  author: string;
-  initials?: string;
-  body: string;
-  time?: string;
-  direction?: "incoming" | "outgoing";
-};
-
 const sampleChatMessages: ChatMessage[] = [
   { id: "1", author: "Alex", initials: "AM", body: "Hey! How's it going?", time: "2:15 PM", direction: "outgoing" },
   { id: "2", author: "Sam", initials: "SB", body: "All good here, just working on the bigbullui components. How about you?", time: "2:16 PM", direction: "incoming" },
@@ -39,14 +29,6 @@ const sampleChatMessages: ChatMessage[] = [
 ];
 
 // CommentThread seed data
-type CommentLike = {
-  id: string;
-  author: string;
-  initials?: string;
-  body: string;
-  time?: string;
-  children?: CommentLike[];
-};
 const sampleComments: CommentNode[] = [
   { id: "1", author: "Jordan", initials: "JD", body: "This is an amazing component library!", time: "3 hours ago", children: [
     { id: "1.1", author: "Casey", initials: "CS", body: "Agreed, the animation quality is top-notch.", time: "2 hours ago" },
@@ -68,7 +50,6 @@ const sampleReactions: ReactionLike[] = [
 // ShareMenu - no extra seed data needed, standalone component
 
 // StoryViewer seed data
-type StoryLike = { id: string; author: string; initials?: string; body?: string };
 const sampleStories: Story[] = [
   { id: "1", author: "Casey", initials: "CS", body: "New post!" },
   { id: "2", author: "Riley", initials: "RL", body: "Just deployed!" },
@@ -88,7 +69,6 @@ const samplePostCard = {
 };
 
 // FollowerList seed data
-type FollowerLike = { id: string; avatar?: string; name: string; handle: string };
 const sampleFollowers: Follower[] = [
   { id: "1", avatar: "AM", name: "Alex", handle: "@alex" },
   { id: "2", avatar: "SB", name: "Sam", handle: "@sam" },

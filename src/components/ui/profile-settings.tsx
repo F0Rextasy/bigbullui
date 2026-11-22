@@ -22,7 +22,6 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
 
   return (
     <div className={cn("w-full max-w-md space-y-4", className)} {...props}>
-      <style>{`@keyframes profIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="flex items-center gap-4 animate-[profIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <span className="flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground transition-transform duration-300 hover:scale-105 motion-reduce:hover:scale-100 motion-reduce:transition-none">

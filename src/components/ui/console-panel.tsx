@@ -38,7 +38,6 @@ export function ConsolePanel({ lines = [], prompt = ">", onSubmit, className, ..
       onClick={() => inputRef.current?.focus()}
       {...props}
     >
-      <style>{`@keyframes cpIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-center justify-between border-b border-border/40 bg-secondary/40 px-3 py-1.5">
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">console</span>
         <span className="flex gap-1" aria-hidden="true">

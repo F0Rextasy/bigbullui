@@ -21,7 +21,6 @@ export interface VideoListProps extends Omit<React.HTMLAttributes<HTMLDivElement
 export function VideoList({ videos = [], onSelect, className, ...props }: VideoListProps) {
   return (
     <div className={cn("w-full max-w-lg space-y-2", className)} {...props}>
-      <style>{`@keyframes vlIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {videos.map((v, idx) => (
         <button
           type="button"

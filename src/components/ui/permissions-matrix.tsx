@@ -23,25 +23,23 @@ export interface PermissionsMatrixProps extends React.HTMLAttributes<HTMLDivElem
 
 /** Role-permission access matrix with interactive toggles. */
 export function PermissionsMatrix({ roles = [], permissions = [], value, onValueChange, className, ...props }: PermissionsMatrixProps) {
-  const [internal, setInternal] = React.useState<Record<string, string[]>>(() => {
-    if (value) return value;
+  const [innerMap, setInnerMap] = React.useState<Record<string, string[]>>(() => {
     const map: Record<string, string[]> = {};
     for (const r of roles) map[r.id] = [];
     return map;
   });
-  React.useEffect(() => { if (value) setInternal(value); }, [value]);
+  const activeMap = value ?? innerMap;
 
   const toggle = (roleId: string, permId: string) => {
-    const next = { ...internal };
+    const next = { ...activeMap };
     const list = next[roleId] ?? [];
     next[roleId] = list.includes(permId) ? list.filter((p) => p !== permId) : [...list, permId];
-    setInternal(next);
+    if (!value) setInnerMap(next);
     onValueChange?.(next);
   };
 
   return (
     <div className={cn("overflow-hidden rounded-lg border border-border", className)} {...props}>
-      <style>{`@keyframes permPop { 0% { transform: scale(0.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }`}</style>
       <div className="overflow-x-auto">
         <table className="w-full min-w-max text-sm">
           <thead>
@@ -53,11 +51,11 @@ export function PermissionsMatrix({ roles = [], permissions = [], value, onValue
             </tr>
           </thead>
           <tbody>
-            {permissions.map((perm, rowIdx) => (
+            {permissions.map((perm) => (
               <tr key={perm.id} className="border-b border-border/50 last:border-0 transition-colors hover:bg-secondary/30 motion-reduce:transition-none">
                 <td className="px-3 py-2 text-foreground" style={{ animation: undefined }}>{perm.label}</td>
                 {roles.map((role) => {
-                  const checked = (internal[role.id] ?? []).includes(perm.id);
+                  const checked = (activeMap[role.id] ?? []).includes(perm.id);
                   return (
                     <td key={role.id} className="px-3 py-2 text-center">
                       <button

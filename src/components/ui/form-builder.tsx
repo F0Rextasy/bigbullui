@@ -19,11 +19,13 @@ export function FormBuilder({
   className,
   ...props
 }: FormBuilderProps) {
+  const nextIdRef = React.useRef(2);
   const [fields, setFields] = React.useState<BuilderField[]>([
     { id: "f1", kind: "text", label: "Holder name" },
   ]);
   const add = (kind: BuilderField["kind"]) => {
-    const next = [...fields, { id: `f${Date.now()}`, kind, label: `Field ${fields.length + 1}` }];
+    const id = `f${nextIdRef.current++}`;
+    const next = [...fields, { id, kind, label: `Field ${fields.length + 1}` }];
     setFields(next);
     onBuild?.(next);
   };

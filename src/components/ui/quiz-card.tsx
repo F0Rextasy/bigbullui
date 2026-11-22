@@ -28,7 +28,6 @@ export function QuizCard({ question = "", options = [], onAnswer, className, ...
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`@keyframes qcPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }`}</style>
       <p className="text-sm font-semibold">{question}</p>
       <ul className="mt-3 space-y-1.5">
         {options.map((opt, idx) => {

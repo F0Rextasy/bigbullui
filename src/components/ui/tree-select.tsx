@@ -44,8 +44,7 @@ export function TreeSelect({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const toggleExpand = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const toggleNodeExpand = (id: string) => {
     setExpandedIds((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
@@ -65,18 +64,36 @@ export function TreeSelect({
     return (
       <div key={node.id} className="space-y-0.5">
         <div
+          role="treeitem"
+          aria-expanded={hasChildren ? isExpanded : undefined}
+          aria-selected={isSelected}
+          tabIndex={0}
           onClick={() => {
             if (hasChildren) {
-              setExpandedIds((prev) =>
-                prev.includes(node.id) ? prev.filter((i) => i !== node.id) : [...prev, node.id]
-              );
+              toggleNodeExpand(node.id);
             } else {
               handleSelect(node);
             }
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              if (hasChildren) toggleNodeExpand(node.id);
+              else handleSelect(node);
+            } else if (e.key === "ArrowRight" && hasChildren && !isExpanded) {
+              e.preventDefault();
+              setExpandedIds((prev) => (prev.includes(node.id) ? prev : [...prev, node.id]));
+            } else if (e.key === "ArrowLeft" && hasChildren && isExpanded) {
+              e.preventDefault();
+              setExpandedIds((prev) => prev.filter((i) => i !== node.id));
+            } else if (e.key === "Escape") {
+              e.preventDefault();
+              setIsOpen(false);
+            }
+          }}
           style={{ paddingLeft: `${depth * 14 + 6}px` }}
           className={cn(
-            "flex cursor-pointer items-center justify-between rounded-md py-1 pe-2 text-xs transition-colors",
+            "flex cursor-pointer items-center justify-between rounded-md py-1 pe-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             isSelected
               ? "bg-accent font-bold text-accent-foreground shadow-xs"
               : "text-foreground hover:bg-secondary"
@@ -84,15 +101,14 @@ export function TreeSelect({
         >
           <div className="flex items-center gap-1.5 truncate">
             {hasChildren ? (
-              <button
-                type="button"
-                onClick={(e) => toggleExpand(node.id, e)}
+              <span
+                aria-hidden="true"
                 className="size-3.5 flex items-center justify-center text-[10px] text-muted-foreground transition-transform"
               >
                 {isExpanded ? "▼" : "▶"}
-              </button>
+              </span>
             ) : (
-              <span className="text-[10px] text-accent font-bold">●</span>
+              <span className="text-[10px] text-accent font-bold" aria-hidden="true">●</span>
             )}
             <span className="truncate">{node.label}</span>
           </div>
@@ -111,6 +127,8 @@ export function TreeSelect({
     <div ref={containerRef} className={cn("relative w-full max-w-sm font-mono select-none", className)}>
       <button
         type="button"
+        aria-haspopup="tree"
+        aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
           "flex w-full cursor-pointer items-center justify-between rounded-lg border-2 border-foreground bg-card px-3 py-2 text-xs transition-all shadow-xs",
@@ -127,7 +145,7 @@ export function TreeSelect({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-2 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both] text-xs">
+        <div role="tree" aria-label={placeholder} className="absolute left-0 top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-2 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both] text-xs">
           <div className="border-b border-dashed border-border pb-1.5 mb-1.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
             SELECT SEATING ZONE
           </div>

@@ -20,10 +20,6 @@ export interface OrderTrackingProps extends React.HTMLAttributes<HTMLDivElement>
 export function OrderTracking({ orderId = "", steps = [], courier, className, ...props }: OrderTrackingProps) {
   return (
     <div className={cn("w-full max-w-md rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`
-        @keyframes otLine { from { transform: scaleX(0); } }
-        @keyframes otPop { 0% { transform: scale(0); } 70% { transform: scale(1.3); } 100% { transform: scale(1); } }
-      `}</style>
       <div className="flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Order {orderId}</span>
         {courier && <span className="font-mono text-[10px] text-muted-foreground">{courier}</span>}

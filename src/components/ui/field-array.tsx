@@ -31,7 +31,6 @@ export function FieldArray({ label = "Fields", rows = [], onRowsChange, placehol
 
   return (
     <div className={cn("w-full max-w-sm space-y-2", className)} {...props}>
-      <style>{`@keyframes faIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label} · {rows.length}</p>
       {rows.map((row, idx) => (
         <div key={row.id} className="flex items-center gap-1.5 animate-[faIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>

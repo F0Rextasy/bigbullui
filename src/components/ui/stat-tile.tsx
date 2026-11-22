@@ -15,7 +15,6 @@ export interface StatTileProps extends React.HTMLAttributes<HTMLDivElement> {
 export function StatTile({ label = "", value = "", delta, spark, className, ...props }: StatTileProps) {
   return (
     <TiltCard maxTilt={4} glare={false} className={cn("p-4", className)} {...props}>
-      <style>{`@keyframes statRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</p>
       <div className="mt-1.5 flex items-end justify-between gap-2">
         <span className="font-mono text-2xl font-bold tabular-nums animate-[statRise_0.4s_ease-out_both] motion-reduce:animate-none">{value}</span>

@@ -83,7 +83,6 @@ export function SidebarV2({ items = [], activeId, onNavigate, title = "Menu", cl
 
   return (
     <nav className={cn("w-full max-w-56 rounded-lg border border-border bg-card p-2", className)} aria-label={title} {...props}>
-      <style>{`@keyframes sb2In { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       <p className="px-2 pb-2 pt-1 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{title}</p>
       <ul className="space-y-0.5">{renderItems(items, 0)}</ul>
     </nav>

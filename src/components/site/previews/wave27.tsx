@@ -64,7 +64,11 @@ export const wave27Previews: Record<string, React.ComponentType> = {
     return <div className="w-full max-w-md"><LoremTyper /></div>;
   },
   "bottom-sheet": function BottomSheetPreview() {
-    return <BottomSheet />;
+    return (
+      <BottomSheet title="Seat options">
+        Orchestra Row C, two seats held for 10 minutes.
+      </BottomSheet>
+    );
   },
   "swipe-actions": function SwipeActionsPreview() {
     return <div className="w-full max-w-md"><SwipeActions /></div>;

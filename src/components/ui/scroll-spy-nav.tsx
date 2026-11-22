@@ -49,7 +49,6 @@ export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
   const activeSectionRef = React.useRef<HTMLDivElement>(null!);
 
   React.useEffect(() => {
-    const activeSection = sections[activeIndex];
     const element = refs.current[activeIndex];
     if (element) {
       activeSectionRef.current = element;

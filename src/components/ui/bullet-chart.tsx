@@ -21,7 +21,6 @@ export function BulletChart({ label = "", value = 0, target = 0, max = 0, unit =
 
   return (
     <div className={cn("w-full max-w-md", className)} {...props}>
-      <style>{`@keyframes bltGrow { from { width: 0; } }`}</style>
       <div className="flex items-baseline justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
         <span className="font-mono text-xs tabular-nums">

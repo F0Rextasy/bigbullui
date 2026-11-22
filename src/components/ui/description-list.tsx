@@ -31,11 +31,11 @@ export function DescriptionList({
       {items.map((item, index) => (
         <div
           key={item.term}
+          style={{ animationDelay: `${index * 40}ms` }}
           className={cn(
             "row-span-2",
-            `motion-safe:animate-[fade-in-up_0.3s_ease-out_both]`,
-            `animation-delay: ${index * 40}ms`,
-            className
+            rowClasses,
+            "motion-safe:animate-[fade-in-up_0.3s_ease-out_both]",
           )}
         >
           <dt className="font-mono text-[9px] text-muted-foreground uppercase tracking-[0.1em]">

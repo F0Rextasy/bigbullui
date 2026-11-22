@@ -90,7 +90,12 @@ export function TransferList({
         </span>
       </div>
 
-      <div className="mt-2 min-h-[140px] space-y-1 overflow-y-auto">
+      <div
+        role="listbox"
+        aria-label={title}
+        aria-multiselectable="true"
+        className="mt-2 min-h-[140px] space-y-1 overflow-y-auto"
+      >
         {items.length === 0 ? (
           <div className="flex h-28 items-center justify-center text-[10px] text-muted-foreground uppercase">
             NO TICKETS
@@ -99,8 +104,11 @@ export function TransferList({
           items.map((item) => {
             const isChecked = selected.includes(item.id);
             return (
-              <div
+              <button
                 key={item.id}
+                type="button"
+                role="option"
+                aria-selected={isChecked}
                 onClick={() =>
                   setSelected((prev) =>
                     prev.includes(item.id)
@@ -109,7 +117,7 @@ export function TransferList({
                   )
                 }
                 className={cn(
-                  "flex cursor-pointer items-center justify-between rounded-md px-2.5 py-1.5 text-xs transition-colors",
+                  "flex w-full cursor-pointer items-center justify-between rounded-md px-2.5 py-1.5 text-left text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   isChecked ? "bg-accent text-accent-foreground font-bold" : "hover:bg-secondary text-foreground"
                 )}
               >
@@ -119,7 +127,7 @@ export function TransferList({
                     [{item.badge}]
                   </span>
                 )}
-              </div>
+              </button>
             );
           })
         )}

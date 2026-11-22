@@ -17,11 +17,6 @@ export interface SizePickerProps {
   className?: string;
 }
 
-const SizeChip = "size-chip";
-const Selected = "size-chip-selected";
-const OutOfStock = "size-chip-out-of-stock";
-const FadeIn = "size-picker-fade-in";
-
 const sizeMap: Record<string, string> = {
   S: "text-xs py-1 px-2 rounded border border-border hover:bg-secondary/20 transition-colors",
   M: "text-sm py-1.5 px-3 rounded border border-border hover:bg-secondary/20 transition-colors",
@@ -36,20 +31,14 @@ export function SizePicker({
   onValueChange,
   className,
 }: SizePickerProps) {
-  const [controlledValue, setControlledValue] = React.useState<
-    | string
-    | undefined
-  >(defaultValue ?? undefined);
-
-  React.useEffect(() => {
-    if (value !== undefined) setControlledValue(value);
-  }, [value]);
+  const [internalValue, setInternalValue] = React.useState<string | undefined>(defaultValue);
+  const currentValue = value !== undefined ? value : internalValue;
 
   return (
-    <div className={cn("space-y-1.5", className)}>
+    <div className={cn("flex flex-wrap gap-1.5", className)}>
       {sizes.map((opt, i) => {
         const isAvailable = opt.available !== false;
-        const isSelected = controlledValue === opt.label;
+        const isSelected = currentValue === opt.label;
         const isOutOfStock = !isAvailable;
 
         return (
@@ -57,21 +46,19 @@ export function SizePicker({
             key={i}
             type="button"
             className={cn(
-              "inline-flex rounded-md border border-2 border-dashed items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-mono uppercase tracking-wider",
-              isSelected && Selected,
-              isOutOfStock && OutOfStock,
-              !isSelected && !isOutOfStock && SizeChip,
+              "inline-flex rounded-md border-2 border-dashed items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-mono uppercase tracking-wider motion-reduce:transition-none",
               sizeMap[opt.label],
-              "motion-reduce:transition-none",
-              "cursor-pointer"
+              isSelected && "border-accent bg-accent/10 text-accent-strong font-bold",
+              isOutOfStock && "opacity-50 line-through cursor-not-allowed",
+              !isSelected && !isOutOfStock && "border-border hover:border-foreground cursor-pointer"
             )}
             onClick={() => {
-              if (isAvailable && onValueChange) {
-                onValueChange(opt.label);
-              }
+              if (!isAvailable) return;
+              if (value === undefined) setInternalValue(opt.label);
+              onValueChange?.(opt.label);
             }}
+            aria-pressed={isSelected}
             disabled={!isAvailable}
-            aria-disabled={!isAvailable}
             title={isAvailable ? `Select ${opt.label}` : "Out of stock"}
           >
             <span className="relative">

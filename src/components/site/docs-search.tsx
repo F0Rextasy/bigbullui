@@ -8,8 +8,38 @@ import { Kbd } from "@/components/ui/kbd";
 import { useSearchPalette } from "@/components/site/search-store";
 import { categories } from "@/lib/registry-categories";
 import { BLOCK_SLUGS, slugTitle } from "@/lib/site-meta";
-import catalog from "@/data/catalog.json";
-import iconsMeta from "@/../public/icons.json";
+
+type CatalogIndexItem = { name: string; title: string; category: string };
+interface LoadedSearchIndex {
+  components: CatalogIndexItem[];
+  icons: string[];
+}
+
+let cachedIndex: LoadedSearchIndex | null = null;
+let inflightIndex: Promise<LoadedSearchIndex> | null = null;
+
+async function loadSearchIndex(): Promise<LoadedSearchIndex> {
+  if (cachedIndex) return cachedIndex;
+  if (!inflightIndex) {
+    inflightIndex = Promise.all([
+      fetch("/components.json").then((r) => (r.ok ? r.json() : { components: [] })),
+      fetch("/icons.json").then((r) => (r.ok ? r.json() : { icons: [] })),
+    ])
+      .then(([compData, iconData]) => {
+        const next: LoadedSearchIndex = {
+          components: Array.isArray(compData?.components) ? compData.components : [],
+          icons: Array.isArray(iconData?.icons) ? iconData.icons : [],
+        };
+        cachedIndex = next;
+        return next;
+      })
+      .catch(() => {
+        inflightIndex = null;
+        return { components: [], icons: [] };
+      });
+  }
+  return inflightIndex;
+}
 
 const GUIDES: { id: string; label: string; hint: string; href: string }[] = [
   { id: "docs", label: "Components overview", hint: "Browse every component", href: "/docs" },
@@ -51,6 +81,39 @@ const SYNONYMS: Record<string, string[]> = {
   theme: ["tema", "dark", "gece"],
 };
 
+const DOCS_QUERY_SYNONYMS: Record<string, string> = {
+  buton: "button",
+  dugme: "button",
+  kart: "card",
+  bilet: "ticket",
+  stub: "ticket",
+  tablo: "table",
+  giris: "input",
+  yukle: "upload",
+  dosya: "file",
+  resim: "image",
+  ses: "audio",
+  mesaj: "message",
+  sayfa: "page",
+  arama: "search",
+  grafik: "chart",
+  liste: "list",
+  takvim: "calendar",
+  saat: "clock",
+  tarih: "date",
+  fiyat: "price",
+  odeme: "payment",
+  kullanici: "user",
+  ayarlar: "settings",
+  bildirim: "notification",
+  sifre: "password",
+  modal: "dialog",
+  pencere: "dialog",
+  sekme: "tabs",
+  rozet: "badge",
+  onay: "confirm",
+};
+
 function keywordsFor(name: string, title: string): string[] {
   const base = [name, ...name.split("-"), ...title.toLowerCase().split(" ")];
   const extra: string[] = [];
@@ -66,7 +129,24 @@ export function DocsSearch({
   trigger?: (setOpen: (open: boolean) => void) => React.ReactNode;
 } = {}) {
   const { open, setOpen, isHost } = useSearchPalette();
+  const [indexData, setIndexData] = React.useState<LoadedSearchIndex | null>(() => cachedIndex);
   const router = useRouter();
+
+  const prefetchIndex = React.useCallback(() => {
+    if (indexData) return;
+    void loadSearchIndex().then((data) => setIndexData(data));
+  }, [indexData]);
+
+  React.useEffect(() => {
+    if (!isHost || !open || indexData) return;
+    let active = true;
+    void loadSearchIndex().then((data) => {
+      if (active) setIndexData(data);
+    });
+    return () => {
+      active = false;
+    };
+  }, [isHost, open, indexData]);
 
   const items: CommandItem[] = React.useMemo(
     () => [
@@ -78,7 +158,7 @@ export function DocsSearch({
         keywords: ["guide", "docs", g.id],
         onSelect: () => router.push(g.href),
       })),
-      ...catalog.items.map((c) => ({
+      ...(indexData?.components ?? []).map((c) => ({
         id: c.name,
         label: c.title,
         category: categoryName(c.category),
@@ -92,7 +172,7 @@ export function DocsSearch({
         keywords: ["block", ...slug.split("-"), slugTitle(slug).toLowerCase()],
         onSelect: () => router.push(`/blocks/${slug}`),
       })),
-      ...(iconsMeta.icons as string[]).map((name) => ({
+      ...(indexData?.icons ?? []).map((name) => ({
         id: `icon-${name}`,
         label: name,
         category: "Icons",
@@ -100,7 +180,7 @@ export function DocsSearch({
         onSelect: () => router.push(`/icons/${name}`),
       })),
     ],
-    [router]
+    [indexData, router]
   );
 
   return (
@@ -110,7 +190,12 @@ export function DocsSearch({
       ) : (
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onMouseEnter={prefetchIndex}
+          onFocus={prefetchIndex}
+          onClick={() => {
+            prefetchIndex();
+            setOpen(true);
+          }}
           className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-dashed border-border bg-transparent px-3 py-2 text-sm text-muted-foreground transition-colors hover:border-foreground/50 hover:text-foreground"
         >
           <span>Search components...</span>
@@ -126,6 +211,7 @@ export function DocsSearch({
               open={open}
               onOpenChange={setOpen}
               items={items}
+              synonyms={DOCS_QUERY_SYNONYMS}
               placeholder="Search components and guides..."
             />,
             document.body

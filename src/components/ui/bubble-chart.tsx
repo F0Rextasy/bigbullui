@@ -23,7 +23,6 @@ export function BubbleChart({ points = [], height = 240, className, ...props }: 
 
   return (
     <svg viewBox="0 0 100 62" style={{ height }} className={cn("w-full", className)} role="img" aria-label="Bubble chart" onMouseLeave={() => setHover(null)} {...props}>
-      <style>{`@keyframes bcPop { from { transform: scale(0); opacity: 0; } }`}</style>
       {/* Izgara */}
       {[20, 40, 60, 80].map((x) => <line key={x} x1={x} y1={4} x2={x} y2={58} stroke="var(--border)" strokeWidth="0.2" strokeDasharray="1 1" />)}
       {[20, 40].map((y) => <line key={y} x1={2} y1={y} x2={98} y2={y} stroke="var(--border)" strokeWidth="0.2" strokeDasharray="1 1" />)}

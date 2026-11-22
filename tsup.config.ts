@@ -12,9 +12,35 @@ function collectDistFiles(dir: string, acc: string[] = []): string[] {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) collectDistFiles(full, acc);
-    else if (entry.name.endsWith(".mjs") || entry.name.endsWith(".js")) acc.push(full);
+    else if (
+      entry.name.endsWith(".mjs") ||
+      entry.name.endsWith(".js") ||
+      entry.name.endsWith(".d.mts")
+    ) {
+      acc.push(full);
+    }
   }
   return acc;
+}
+
+function rewriteEsmRelativeSpecifiers(src: string, filePath: string): string {
+  return src.replace(
+    /((?:from|import)\s*|\bimport\(\s*)(["'])(\.\.?\/[^"']+?)\2/g,
+    (full, prefix, quote, spec) => {
+      if (/\.[cm]?(js|ts)$/.test(spec)) return full;
+      const base = path.resolve(path.dirname(filePath), spec);
+      if (fs.existsSync(`${base}.mjs`) || fs.existsSync(`${base}.d.mts`)) {
+        return `${prefix}${quote}${spec}.mjs${quote}`;
+      }
+      if (
+        fs.existsSync(path.join(base, "index.mjs")) ||
+        fs.existsSync(path.join(base, "index.d.mts"))
+      ) {
+        return `${prefix}${quote}${spec}/index.mjs${quote}`;
+      }
+      return full;
+    }
+  );
 }
 
 function normalizeDistDirectives() {
@@ -22,43 +48,28 @@ function normalizeDistDirectives() {
   if (!fs.existsSync(distDir)) return;
 
   const files = collectDistFiles(distDir);
-  const pureFiles = new Set<string>();
-
-  for (const base of ["utils.mjs", "utils.js"]) {
-    const entry = path.join(distDir, "components", "ui", "lib", base);
-    if (!fs.existsSync(entry)) continue;
-    pureFiles.add(entry);
-    const content = fs.readFileSync(entry, "utf8");
-    for (const m of content.matchAll(/(?:from|require)\(\s*["']([^"']*chunk-[^"']+)["']\s*\)|from\s*["']([^"']*chunk-[^"']+)["']/g)) {
-      const rel = m[1] ?? m[2];
-      if (!rel) continue;
-      const resolved = path.resolve(path.dirname(entry), rel);
-      if (fs.existsSync(resolved)) pureFiles.add(resolved);
-    }
-  }
-
-  // Root entry barrels only re-export chunks (component/hook chunks carry their own "use client"; directive),
-  // keeping pure exports like cn() / isSafeUrl() / escapeRegExp() callable from Server Components.
-  for (const barrelBase of ["index.mjs", "index.js"]) {
-    const barrel = path.join(distDir, barrelBase);
-    if (!fs.existsSync(barrel)) continue;
-    pureFiles.add(barrel);
-    const content = fs.readFileSync(barrel, "utf8");
-    for (const m of content.matchAll(/(?:^|[;\n])\s*(?:import|require\()\s*["']([^"']*chunk-[^"']+)["']/g)) {
-      const resolved = path.resolve(distDir, m[1]);
-      if (fs.existsSync(resolved)) pureFiles.add(resolved);
-    }
-  }
+  const pureFiles = new Set<string>([
+    path.join(distDir, "index.mjs"),
+    path.join(distDir, "index.js"),
+    path.join(distDir, "components", "ui", "lib", "utils.mjs"),
+    path.join(distDir, "components", "ui", "lib", "utils.js"),
+  ]);
 
   for (const filePath of files) {
     const raw = fs.readFileSync(filePath, "utf8");
-    const stripped = raw.replace(/"use client";\s*/g, "");
-    if (pureFiles.has(filePath)) {
-      if (stripped !== raw) fs.writeFileSync(filePath, stripped, "utf8");
-    } else {
-      const next = `"use client";\n${stripped}`;
-      if (next !== raw) fs.writeFileSync(filePath, next, "utf8");
+    if (filePath.endsWith(".d.mts")) {
+      const nextDts = rewriteEsmRelativeSpecifiers(raw, filePath);
+      if (nextDts !== raw) fs.writeFileSync(filePath, nextDts, "utf8");
+      continue;
     }
+
+    let body = raw.replace(/"use client";\s*/g, "");
+    if (filePath.endsWith(".mjs")) {
+      body = rewriteEsmRelativeSpecifiers(body, filePath);
+    }
+
+    const next = pureFiles.has(filePath) ? body : `"use client";\n${body}`;
+    if (next !== raw) fs.writeFileSync(filePath, next, "utf8");
   }
 }
 
@@ -77,7 +88,8 @@ export default defineConfig({
       incremental: false,
     },
   },
-  splitting: true,
+  splitting: false,
+  bundle: false,
   sourcemap: false,
   clean: true,
   external: ["react", "react-dom"],

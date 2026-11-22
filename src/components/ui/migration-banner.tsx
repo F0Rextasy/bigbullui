@@ -17,7 +17,6 @@ export function MigrationBanner({ title = "Migrating data to new system", progre
 
   return (
     <div className={cn("w-full rounded-lg border border-info/40 bg-info/5", className)} {...props}>
-      <style>{`@keyframes migIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-center gap-3 px-4 py-3">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-info animate-pulse motion-reduce:animate-none" aria-hidden="true">
           <path d="M21 12a9 9 0 1 1-2.64-6.36" /><path d="M21 3v6h-6" />

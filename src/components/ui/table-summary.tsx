@@ -20,7 +20,6 @@ export interface TableSummaryProps extends React.HTMLAttributes<HTMLDivElement> 
 export function TableSummary({ rows = [], caption, className, ...props }: TableSummaryProps) {
   return (
     <div className={cn("w-full max-w-sm rounded-lg border-2 border-dashed border-border bg-card p-4", className)} {...props}>
-      <style>{`@keyframes tsIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {caption && <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{caption}</p>}
       <dl className="space-y-1.5">
         {rows.map((row, idx) => (

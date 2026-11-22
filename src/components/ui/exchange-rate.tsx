@@ -62,7 +62,6 @@ export function ExchangeRate({ rates = RATE_TABLE, defaultFrom = "TRY", defaultT
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`@keyframes exSwap { from { transform: rotate(0); } to { transform: rotate(180deg); } }`}</style>
       <div className="flex items-center gap-2">
         <input
           type="number"

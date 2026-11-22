@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { registerEscapeLayer } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export type FabPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
@@ -33,14 +34,23 @@ export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(function Fab(
   ref
 ) {
   const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+
+  const setMergedRef = React.useCallback(
+    (node: HTMLButtonElement | null) => {
+      triggerRef.current = node;
+      if (typeof ref === "function") ref(node);
+      else if (ref) ref.current = node;
+    },
+    [ref]
+  );
 
   React.useEffect(() => {
     if (!open) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return registerEscapeLayer(() => {
+      setOpen(false);
+      triggerRef.current?.focus();
+    });
   }, [open]);
 
   const hasActions = Boolean(actions && actions.length > 0);
@@ -86,7 +96,7 @@ export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(function Fab(
       )}
 
       <button
-        ref={ref}
+        ref={setMergedRef}
         type="button"
         onClick={() => {
           if (hasActions) setOpen((prev) => !prev);

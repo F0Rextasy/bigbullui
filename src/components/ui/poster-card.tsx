@@ -15,7 +15,6 @@ export interface PosterCardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function PosterCard({ title, subtitle, date, gradient, className, children, ...props }: PosterCardProps) {
   return (
     <div className={cn("group relative aspect-[3/4] w-full max-w-56 overflow-hidden rounded-lg border border-border bg-secondary", className)} {...props}>
-      <style>{`@keyframes pcZoom { from { transform: scale(1); } to { transform: scale(1.06); } }`}</style>
       <div className="absolute inset-0" aria-hidden="true">
         {gradient ?? <div className="size-full bg-gradient-to-br from-accent/40 via-secondary to-card" />}
       </div>

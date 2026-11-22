@@ -114,8 +114,10 @@ export function AlertDialog({
   const panelRef = React.useRef<HTMLDivElement | null>(null);
   const onOpenChangeRef = React.useRef(onOpenChange);
   const onCancelRef = React.useRef(onCancel);
-  onOpenChangeRef.current = onOpenChange;
-  onCancelRef.current = onCancel;
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+    onCancelRef.current = onCancel;
+  });
   const [titleCount, setTitleCount] = React.useState(0);
   const [descCount, setDescCount] = React.useState(0);
 

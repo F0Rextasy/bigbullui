@@ -19,36 +19,44 @@ const MONTHS = [
 
 export function MonthPicker({
   value: controlledValue,
-  defaultValue = new Date().getMonth(),
+  defaultValue,
   onValueChange,
   year: controlledYear,
   onYearChange,
   className,
 }: MonthPickerProps) {
-  const year = controlledYear ?? new Date().getFullYear();
-  const month = controlledValue ?? defaultValue;
-
-  const [internalMonth, setInternalMonth] = React.useState(month);
-  const [internalYear, setInternalYear] = React.useState(year);
+  const [internalMonth, setInternalMonth] = React.useState(() => controlledValue ?? defaultValue ?? 0);
+  const [internalYear, setInternalYear] = React.useState(() => controlledYear ?? 2026);
   const isControlled = controlledValue !== undefined;
+  const activeMonth = isControlled ? controlledValue : internalMonth;
+  const activeYear = controlledYear ?? internalYear;
 
   React.useEffect(() => {
-    if (isControlled) {
-      setInternalMonth(controlledValue!);
-      setInternalYear(controlledYear ?? new Date().getFullYear());
+    if (controlledValue !== undefined || defaultValue !== undefined) {
+      if (controlledYear !== undefined) return;
     }
-  }, [isControlled, controlledValue, controlledYear]);
+    const id = setTimeout(() => {
+      const now = new Date();
+      if (controlledValue === undefined && defaultValue === undefined) {
+        setInternalMonth(now.getMonth());
+      }
+      if (controlledYear === undefined) {
+        setInternalYear(now.getFullYear());
+      }
+    }, 0);
+    return () => clearTimeout(id);
+  }, [controlledValue, defaultValue, controlledYear]);
 
-  const prevYear = internalYear - 1;
-  const nextYear = internalYear + 1;
+  const prevYear = activeYear - 1;
+  const nextYear = activeYear + 1;
 
   const handleMonthSelect = (m: number) => {
-    setInternalMonth(m);
+    if (!isControlled) setInternalMonth(m);
     onValueChange?.(m);
   };
 
   const handleYearChange = (y: number) => {
-    setInternalYear(y);
+    if (controlledYear === undefined) setInternalYear(y);
     onYearChange?.(y);
   };
 
@@ -64,25 +72,27 @@ export function MonthPicker({
           <button
             type="button"
             onClick={() => handleYearChange(prevYear)}
-            className="prev-year hover:text-muted-foreground transition-colors"
+            aria-label="Previous year"
+            className="prev-year hover:text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M15 18l-6-6L3 9l6-3 6 6-6 6Z" />
             </svg>
           </button>
           <span className="font-mono uppercase tracking-[0.15em] text-[10px] text-muted-foreground">
-            {MONTHS[internalMonth]}
+            {MONTHS[activeMonth]}
           </span>
           <span className="mx-2 text-[10px]/7 uppercase tracking-wider">/</span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{internalYear}</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{activeYear}</span>
         </div>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => handleYearChange(nextYear)}
-            className="next-year hover:text-muted-foreground transition-colors"
+            aria-label="Next year"
+            className="next-year hover:text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M9 18l6-6v-3L15 9l-6-6 6-6Z" />
             </svg>
           </button>
@@ -91,26 +101,23 @@ export function MonthPicker({
 
       <div className="grid grid-cols-3 gap-1">
         {Array.from({ length: 12 }, (_, i) => i).map((monthIdx) => {
-          const isSelected = internalMonth === monthIdx;
-          const handleClick = () => {
-            setInternalMonth(monthIdx);
-            onValueChange?.(monthIdx);
-          };
-
+          const isSelected = activeMonth === monthIdx;
           const bgClass = cn(
-            "rounded-sm px-3 py-1.5 cursor-pointer select-none",
+            "rounded-sm px-3 py-1.5 text-left cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             isSelected && "bg-accent text-accent-foreground",
             "hover:bg-accent/20 transition-colors"
           );
 
           return (
-            <div
+            <button
               key={monthIdx}
-              onClick={handleClick}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => handleMonthSelect(monthIdx)}
               className={bgClass}
             >
               {MONTHS[monthIdx]}
-            </div>
+            </button>
           );
         })}
       </div>

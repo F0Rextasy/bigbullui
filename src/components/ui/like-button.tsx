@@ -3,14 +3,6 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-const likeBurstKeyframe = `
-  @keyframes likeBurst {
-    0% { opacity: 0; transform: scale(0); }
-    50% { opacity: 1; transform: scale(1.2); }
-    100% { opacity: 0; transform: scale(0); }
-  }
-`;
-
 const LikeButton: React.FC<{ onClick?: () => void; initiallyActive?: boolean }> = ({
   onClick,
   initiallyActive = false,

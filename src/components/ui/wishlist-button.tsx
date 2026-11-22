@@ -75,12 +75,6 @@ export function WishlistButton({
         ))}
       </div>
     )}
-    <style>{`
-      @keyframes wishlistBurst {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-24px) scale(0.8); opacity: 0; }
-      }
-    `}</style>
     </div>
   );
 }

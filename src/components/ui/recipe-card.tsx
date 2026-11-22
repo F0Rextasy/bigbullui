@@ -24,7 +24,6 @@ export function RecipeCard({ title = "", minutes = 0, servings = 0, ingredients 
 
   return (
     <div className={cn("w-full max-w-sm overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes rcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="flex items-start justify-between border-b border-dashed border-border p-4">
         <div>

@@ -41,10 +41,6 @@ export function UserTable({ users = [], onRemove, className, ...props }: UserTab
 
   return (
     <div className={cn("w-full max-w-2xl overflow-hidden rounded-lg border border-border", className)} {...props}>
-      <style>{`
-        @keyframes userRowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes userRowOut { to { opacity: 0; transform: translateX(24px); } }
-      `}</style>
       <div className="overflow-x-auto">
         <table className="w-full min-w-max text-sm">
           <thead>

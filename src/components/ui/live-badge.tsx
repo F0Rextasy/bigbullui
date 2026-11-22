@@ -15,16 +15,6 @@ export function LiveBadge({
   className,
   ...props
 }: LiveBadgeProps) {
-  // Embedded keyframe for blinking LIVE dot
-  const blinkKeyframes = {
-    "liveBadgeBlink": `
-      @keyframes liveBadgeBlink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.2; }
-      }
-    `
-  };
-
   const motionReduceClass = "motion-reduce:animate-none motion-reduce:transition-none";
 
   return (
@@ -40,7 +30,7 @@ export function LiveBadge({
       {/* Blinking LIVE dot */}
       <span
         className={cn(
-          "w-1.5 h-1.5 rounded-full bg-primary animate-[liveBadgeBlink_1s_ease-in_out]",
+          "w-1.5 h-1.5 rounded-full bg-primary animate-[liveBadgeBlink_1s_ease-in-out_infinite]",
           motionReduceClass
         )}
         aria-hidden="true"

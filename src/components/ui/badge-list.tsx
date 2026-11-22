@@ -18,10 +18,6 @@ export interface BadgeListProps extends React.HTMLAttributes<HTMLDivElement> {
 export function BadgeList({ badges = [], className, ...props }: BadgeListProps) {
   return (
     <div className={cn("grid grid-cols-3 gap-3 sm:grid-cols-4", className)} {...props}>
-      <style>{`
-        @keyframes blPop { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes blShine { 0% { transform: translateX(-120%) rotate(25deg); } 100% { transform: translateX(220%) rotate(25deg); } }
-      `}</style>
       {badges.map((b, idx) => (
         <div
           key={b.id}

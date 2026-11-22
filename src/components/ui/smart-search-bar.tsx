@@ -47,8 +47,10 @@ export function SmartSearchBar({
   const listboxId = React.useId();
 
   React.useEffect(() => {
-    if (controlledHistory === undefined) setInnerHistory(readHistory());
-  }, [controlledHistory ]);
+    if (controlledHistory !== undefined) return;
+    const t = setTimeout(() => setInnerHistory(readHistory()), 0);
+    return () => clearTimeout(t);
+  }, [controlledHistory]);
 
   const submit = (v: string) => {
     const trimmed = v.trim();

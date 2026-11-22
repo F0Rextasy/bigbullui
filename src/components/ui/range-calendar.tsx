@@ -16,6 +16,8 @@ function toYmd(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+const DEFAULT_RANGE_DATE = new Date(2026, 0, 1);
+
 export function RangeCalendar({
   start: controlledStart,
   end: controlledEnd,
@@ -31,9 +33,13 @@ export function RangeCalendar({
   const start = controlledStart ?? innerStart;
   const end = controlledEnd ?? innerEnd;
 
-  const base = new Date();
-  base.setDate(1);
-  base.setMonth(base.getMonth() + monthOffset);
+  const [anchor, setAnchor] = React.useState<Date>(DEFAULT_RANGE_DATE);
+  React.useEffect(() => {
+    const t = setTimeout(() => setAnchor(new Date()), 0);
+    return () => clearTimeout(t);
+  }, []);
+
+  const base = new Date(anchor.getFullYear(), anchor.getMonth() + monthOffset, 1);
   const year = base.getFullYear();
   const month = base.getMonth();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -55,7 +61,7 @@ export function RangeCalendar({
     onRangeChange?.(s, e);
   };
 
-  const monthName = base.toLocaleString(undefined, { month: "long", year: "numeric" });
+  const monthName = base.toLocaleString("en-US", { month: "long", year: "numeric" });
   const nights = start && end
     ? Math.round((new Date(end).getTime() - new Date(start).getTime()) / 86400000)
     : 0;

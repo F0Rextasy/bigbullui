@@ -20,11 +20,6 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
 
   return (
     <div className={cn("flex w-40 flex-col items-center", className)} {...props}>
-      <style>{`
-        @keyframes mbFlag { 0% { transform: rotate(0deg); } 100% { transform: rotate(45deg); } }
-        @keyframes mbLetter { 0% { transform: translateY(-20px) scale(0.8); opacity: 0; } 60% { opacity: 1; } 100% { transform: translateY(0) scale(1); opacity: 0; } }
-        @keyframes mbBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
-      `}</style>
 
       <div className="relative">
         {/* Bayrak */}

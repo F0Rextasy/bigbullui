@@ -35,7 +35,6 @@ export function NotificationFeed({ notifications = [], onMarkRead, className, ..
 
   return (
     <div className={cn("w-full max-w-md space-y-2", className)} {...props}>
-      <style>{`@keyframes nfIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {notifications.map((n, idx) => {
         const t = TYPE_ICON[n.type ?? "info"];
         const isRead = read.has(n.id) || !n.unread;

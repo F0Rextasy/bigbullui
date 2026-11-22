@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface KeyboardShortcut {
@@ -15,29 +16,52 @@ export interface KeyboardNavHelperProps extends React.HTMLAttributes<HTMLDivElem
 /** Keyboard shortcuts modal overlay triggered by "?" key. */
 export function KeyboardNavHelper({ shortcuts, className, ...props }: KeyboardNavHelperProps) {
   const [open, setOpen] = React.useState(false);
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable) return;
       if (e.key === "?") { e.preventDefault(); setOpen((o) => !o); }
-      if (e.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  React.useEffect(() => {
+    if (!open) return;
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => setOpen(false));
+    const onKey = (e: KeyboardEvent) => {
+      if (panelRef.current) trapFocus(panelRef.current, e);
+    };
+    document.addEventListener("keydown", onKey);
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
+    };
+  }, [open]);
+
   if (!open) return null;
 
   return (
-    <div className={cn("fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4", className)} onClick={() => setOpen(false)} {...props}>
-      <style>{`@keyframes khIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }`}</style>
+    <div className={cn("fixed inset-0 z-50 flex items-center justify-center p-4", className)} {...props}>
+      <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} aria-hidden="true" />
       <div
+        ref={panelRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Keyboard shortcuts"
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[khIn_0.2s_ease-out_both] motion-reduce:animate-none"
+        className="relative z-10 w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[khIn_0.2s_ease-out_both] motion-reduce:animate-none focus:outline-none"
       >
         <div className="flex items-center justify-between">
           <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Keyboard Shortcuts</h3>

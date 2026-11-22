@@ -21,7 +21,7 @@ export function SparkBars({
   ...props
 }: SparkBarsProps) {
   if (data.length === 0) {
-    return <svg width={width} height={height} className={className} aria-hidden {...props} />;
+    return <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className={className} aria-hidden="true" {...props} />;
   }
   const max = Math.max(...data, 1);
   const gap = 2;

@@ -53,7 +53,8 @@ const EmojiPicker: React.FC<{
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search emoji..."
-          className="flex-1 rounded-border border-input px-3 py-2 text-sm"
+          aria-label="Search emoji"
+          className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm"
         />
       </div>
 
@@ -63,6 +64,7 @@ const EmojiPicker: React.FC<{
           <button
             type="button"
             key={emoji}
+            aria-pressed={selected === emoji}
             onClick={() => {
               setSelected(emoji);
               onSelect(emoji);
@@ -70,6 +72,7 @@ const EmojiPicker: React.FC<{
             className={cn(
               "rounded-md px-2 py-1 text-[12px]",
               "hover:bg-accent/10 hover:text-foreground transition-colors duration-150",
+              selected === emoji && "bg-accent/20 ring-1 ring-accent font-semibold",
               "motion-reduce:animate-none"
             )}
           >

@@ -35,7 +35,9 @@ export function Accordion({
   );
 
   const onValueChangeRef = React.useRef(onValueChange);
-  onValueChangeRef.current = onValueChange;
+  React.useEffect(() => {
+    onValueChangeRef.current = onValueChange;
+  });
 
   const toggle = React.useCallback(
     (id: string) => {

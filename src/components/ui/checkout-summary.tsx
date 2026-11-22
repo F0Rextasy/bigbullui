@@ -21,9 +21,6 @@ export interface CheckoutSummaryProps {
   onCheckout?: () => void;
 }
 
-const StepSlide = "checkout-step-slide";
-const FadeIn = "checkout-fade-in";
-
 export function CheckoutSummary({
   items = [],
   subtotal = "$0.00",
@@ -58,10 +55,7 @@ export function CheckoutSummary({
         {items.map((it) => (
           <div
             key={it.id}
-            className={cn(
-              "flex items-baseline justify-between py-2 border-b border-border/50 last:border-0",
-              StepSlide
-            )}
+            className="flex items-baseline justify-between border-b border-border/50 py-2 last:border-0"
           >
             <span className="font-medium line-clamp-1 min-w-0">{it.title}</span>
             <div className="flex items-baseline gap-2">
@@ -116,10 +110,7 @@ export function CheckoutSummary({
         <button
           type="button"
           onClick={() => onCheckout?.()}
-          className={cn(
-            "mt-4 w-full rounded-md bg-accent text-accent-foreground px-4 py-2 text-sm font-semibold uppercase tracking-widest hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition-colors duration-150 motion-reduce:transition-none motion-reduce:focus-visible:ring-0",
-            FadeIn
-          )}
+          className="mt-4 w-full rounded-md bg-accent px-4 py-2 text-sm font-semibold uppercase tracking-widest text-accent-foreground transition-colors duration-150 hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         >
           {cta}
         </button>

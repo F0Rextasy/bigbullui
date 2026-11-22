@@ -36,7 +36,6 @@ export function InboxList({ items = [], onSelect, className, ...props }: InboxLi
 
   return (
     <div className={cn("w-full max-w-lg divide-y divide-border/60 overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes inboxIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       {items.map((item, idx) => (
         <button
           type="button"

@@ -20,7 +20,7 @@ export function SearchFilterBar({
   value,
   defaultValue,
   onValueChange,
-  placeholder = "Ara…",
+  placeholder = "Search…",
   sorts = [],
   activeSort,
   onSortChange,
@@ -31,26 +31,26 @@ export function SearchFilterBar({
 }: SearchFilterBarProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? "");
   const query = value ?? internal;
-  const [activeFilters, setActiveFilters] = React.useState<Set<string>>(
-    () => new Set(filters.filter((f) => f.active).map((f) => f.id))
-  );
-  React.useEffect(() => {
-    setActiveFilters(new Set(filters.filter((f) => f.active).map((f) => f.id)));
-  }, [filters]);
+  const [filterEntry, setFilterEntry] = React.useState(() => ({
+    base: filters,
+    set: new Set(filters.filter((f) => f.active).map((f) => f.id)),
+  }));
+  const activeFilters =
+    filterEntry.base === filters
+      ? filterEntry.set
+      : new Set(filters.filter((f) => f.active).map((f) => f.id));
 
   const setQuery = (v: string) => { setInternal(v); onValueChange?.(v); };
   const toggleFilter = (id: string) => {
-    setActiveFilters((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
+    const next = new Set(activeFilters);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    setFilterEntry({ base: filters, set: next });
     onFilterToggle?.(id);
   };
 
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)} role="search" {...props}>
-      <style>{`@keyframes sfbChip { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }`}</style>
       {/* Arama */}
       <div className="relative min-w-40 flex-1">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" aria-hidden="true">

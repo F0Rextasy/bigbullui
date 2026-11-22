@@ -23,7 +23,6 @@ export function GlossaryList({ terms = [], className, ...props }: GlossaryListPr
 
   return (
     <div className={cn("w-full max-w-md", className)} {...props}>
-      <style>{`@keyframes glIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {/* Harf indeksi */}
       <div className="flex flex-wrap gap-1" role="tablist" aria-label="Harf indeksi">
         {letters.map((letter) => (

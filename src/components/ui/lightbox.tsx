@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface LightboxImage {
@@ -24,26 +25,52 @@ export function Lightbox({
   initialIndex = 0,
   className,
 }: LightboxProps) {
-  const [currentIndex, setCurrentIndex] = React.useState(initialIndex);
+  const [nav, setNav] = React.useState({ base: initialIndex, index: initialIndex });
+  const currentIndex = nav.base === initialIndex ? nav.index : initialIndex;
+  const setCurrentIndex = React.useCallback(
+    (updater: (i: number) => number) => {
+      setNav((prev) => {
+        const cur = prev.base === initialIndex ? prev.index : initialIndex;
+        return { base: initialIndex, index: updater(cur) };
+      });
+    },
+    [initialIndex]
+  );
+
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
 
   React.useEffect(() => {
-    setCurrentIndex(initialIndex);
-  }, [initialIndex]);
+    onOpenChangeRef.current = onOpenChange;
+  });
 
   React.useEffect(() => {
     if (!open) return;
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => onOpenChangeRef.current(false));
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onOpenChange(false);
+      if (panelRef.current) trapFocus(panelRef.current, e);
       if (e.key === "ArrowRight") setCurrentIndex((i) => (i < images.length - 1 ? i + 1 : 0));
       if (e.key === "ArrowLeft") setCurrentIndex((i) => (i > 0 ? i - 1 : images.length - 1));
     };
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, images.length, onOpenChange]);
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
+    };
+  }, [open, images.length, setCurrentIndex]);
 
   if (!open || images.length === 0) return null;
 
-  const current = images[currentIndex];
+  const current = images[currentIndex] ?? images[0];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 font-mono select-none">
@@ -56,11 +83,13 @@ export function Lightbox({
 
       {/* Lightbox Card */}
       <div
+        ref={panelRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Ticket lightbox viewer"
         className={cn(
-          "relative z-50 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] motion-safe:animate-[scale-in_0.15s_ease-out_both]",
+          "relative z-50 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] motion-safe:animate-[scale-in_0.15s_ease-out_both] focus:outline-none",
           className
         )}
       >

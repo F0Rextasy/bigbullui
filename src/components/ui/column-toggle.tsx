@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { registerEscapeLayer } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface ColumnToggleProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onToggle"> {
@@ -11,18 +12,29 @@ export interface ColumnToggleProps extends Omit<React.HTMLAttributes<HTMLDivElem
 /** Column visibility toggle dropdown menu for data grids. */
 export function ColumnToggle({ columns = [], onToggle, className, ...props }: ColumnToggleProps) {
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState(
-    () => new Map(columns.map((c) => [c.id, c.visible !== false]))
-  );
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const [stateEntry, setStateEntry] = React.useState(() => ({
+    base: columns,
+    map: new Map(columns.map((c) => [c.id, c.visible !== false])),
+  }));
+  const state =
+    stateEntry.base === columns
+      ? stateEntry.map
+      : new Map(columns.map((c) => [c.id, c.visible !== false]));
+
   React.useEffect(() => {
-    setState(new Map(columns.map((c) => [c.id, c.visible !== false])));
-  }, [columns]);
+    if (!open) return;
+    return registerEscapeLayer(() => {
+      setOpen(false);
+      triggerRef.current?.focus();
+    });
+  }, [open]);
 
   const toggle = (id: string) => {
     const next = new Map(state);
     const val = !(next.get(id) ?? true);
     next.set(id, val);
-    setState(next);
+    setStateEntry({ base: columns, map: next });
     onToggle?.(id, val);
   };
 
@@ -31,6 +43,7 @@ export function ColumnToggle({ columns = [], onToggle, className, ...props }: Co
   return (
     <div className={cn("relative inline-block", className)} {...props}>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
@@ -42,7 +55,7 @@ export function ColumnToggle({ columns = [], onToggle, className, ...props }: Co
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
           <rect x="3" y="4" width="18" height="16" rx="2" /><path d="M10 4v16" />
         </svg>
-        Kolonlar ({visibleCount}/{columns.length})
+        Columns ({visibleCount}/{columns.length})
       </button>
       {open && (
         <>

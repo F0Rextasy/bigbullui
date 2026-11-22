@@ -3,13 +3,6 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-const dotKeyframe = `
-  @keyframes typingDotBounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-8px); }
-  }
-`;
-
 const TypingIndicator: React.FC = () => {
   const [dots, setDots] = React.useState< number[]>([0, 0, 0]);
 
@@ -36,7 +29,7 @@ const TypingIndicator: React.FC = () => {
       <span
         className={cn(
           "w-2 h-2 rounded-full bg-accent",
-          "animate-[typingDotBounce_1.2s_ease-in_out_both]",
+          "animate-[typingDotBounce_1.2s_ease-in-out_infinite]",
           "motion-reduce:animate-none"
         )}
         style={{ animationDelay: `${dots[0] * 120}ms` }}
@@ -44,7 +37,7 @@ const TypingIndicator: React.FC = () => {
       <span
         className={cn(
           "w-2 h-2 rounded-full bg-accent",
-          "animate-[typingDotBounce_1.2s_ease-in_out_both]",
+          "animate-[typingDotBounce_1.2s_ease-in-out_infinite]",
           "motion-reduce:animate-none"
         )}
         style={{ animationDelay: `${dots[1] * 120}ms` }}
@@ -52,7 +45,7 @@ const TypingIndicator: React.FC = () => {
       <span
         className={cn(
           "w-2 h-2 rounded-full bg-accent",
-          "animate-[typingDotBounce_1.2s_ease-in_out_both]",
+          "animate-[typingDotBounce_1.2s_ease-in-out_infinite]",
           "motion-reduce:animate-none"
         )}
         style={{ animationDelay: `${dots[2] * 120}ms` }}

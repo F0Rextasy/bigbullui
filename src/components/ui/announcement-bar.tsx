@@ -131,7 +131,9 @@ export function AnnouncementBar({
 
   React.useEffect(() => {
     if (targetDate) {
-      setTimeLeft(calculateRemaining());
+      const initTimer = setTimeout(() => {
+        setTimeLeft(calculateRemaining());
+      }, 0);
       const interval = setInterval(() => {
         const remaining = calculateRemaining();
         setTimeLeft(remaining);
@@ -139,14 +141,19 @@ export function AnnouncementBar({
           clearInterval(interval);
         }
       }, 1000);
-      return () => clearInterval(interval);
+      return () => {
+        clearTimeout(initTimer);
+        clearInterval(interval);
+      };
     }
     return undefined;
   }, [targetDate, calculateRemaining]);
 
   React.useEffect(() => {
     if (countdownSeconds && !targetDate) {
-      setSecondsRemaining(countdownSeconds);
+      const initTimer = setTimeout(() => {
+        setSecondsRemaining(countdownSeconds);
+      }, 0);
       const interval = setInterval(() => {
         setSecondsRemaining((prev) => {
           if (prev === null || prev <= 1) {
@@ -156,7 +163,10 @@ export function AnnouncementBar({
           return prev - 1;
         });
       }, 1000);
-      return () => clearInterval(interval);
+      return () => {
+        clearTimeout(initTimer);
+        clearInterval(interval);
+      };
     }
     return undefined;
   }, [countdownSeconds, targetDate]);

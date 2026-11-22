@@ -23,7 +23,6 @@ export function ImageCarousel({ images = [], autoPlay, interval = 4000, classNam
 
   return (
     <div className={cn("relative w-full overflow-hidden rounded-lg border border-border", className)} {...props}>
-      <style>{`@keyframes icSlide { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }`}</style>
       <div className="aspect-video w-full">
         {images.map((img, i) => (
            

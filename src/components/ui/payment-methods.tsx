@@ -31,7 +31,6 @@ export function PaymentMethods({ methods = [], value, defaultValue, onValueChang
 
   return (
     <div className={cn("grid grid-cols-2 gap-2", className)} role="radiogroup" aria-label="Payment method" {...props}>
-      <style>{`@keyframes pmIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {methods.map((m, idx) => {
         const selected = active === m.id;
         return (

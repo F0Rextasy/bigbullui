@@ -13,7 +13,6 @@ export interface EmptyColSpanProps extends React.HTMLAttributes<HTMLTableCellEle
 export function EmptyColSpan({ colSpan = 1, message = "Veri yok", icon, className, ...props }: EmptyColSpanProps) {
   return (
     <td colSpan={colSpan} className={cn("px-4 py-10 text-center", className)} {...props}>
-      <style>{`@keyframes ecFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }`}</style>
       <div className="flex flex-col items-center gap-2 text-muted-foreground">
         {icon ?? (
           <span className="flex size-10 items-center justify-center rounded-full border border-dashed border-border motion-reduce:animate-none!" style={{ animation: "ecFloat 2.5s ease-in-out infinite" }} aria-hidden="true">

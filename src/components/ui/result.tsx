@@ -51,6 +51,8 @@ export function Result({ status, title, description, actions }: ResultProps) {
     >
       <div className={cn("flex items-center justify-center mb-6", "motion-reduce:animate-none")}>
         <div
+          role="img"
+          aria-label={label}
           className={cn(
             "w-14 h-14 rounded-full flex items-center justify-center",
             iconClass,

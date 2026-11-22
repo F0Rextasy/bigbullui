@@ -50,10 +50,7 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
   }, [clearTimers]);
 
   React.useEffect(() => {
-    if (!visible) {
-      setCoords(null);
-      return;
-    }
+    if (!visible) return;
     const updatePosition = () => {
       const rect = triggerWrapRef.current?.getBoundingClientRect();
       if (!rect || (rect.width === 0 && rect.height === 0)) {
@@ -65,16 +62,19 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
         left: rect.left + rect.width / 2,
       });
     };
-    updatePosition();
+    const raf = requestAnimationFrame(updatePosition);
     const releaseEscape = registerEscapeLayer(hideNow);
     window.addEventListener("scroll", updatePosition, true);
     window.addEventListener("resize", updatePosition);
     return () => {
+      cancelAnimationFrame(raf);
       releaseEscape();
       window.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);
     };
   }, [visible, side, hideNow]);
+
+  const activeCoords = visible ? coords : null;
 
   const childNode = React.isValidElement<{ "aria-describedby"?: string }>(children)
     ? React.cloneElement(children, {
@@ -91,19 +91,19 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
       onMouseEnter={clearTimers}
       onMouseLeave={hideSoon}
       style={
-        coords
+        activeCoords
           ? {
               position: "fixed",
-              top: coords.top,
-              left: coords.left,
+              top: activeCoords.top,
+              left: activeCoords.left,
               transform: side === "top" ? "translate(-50%, -100%)" : "translateX(-50%)",
             }
           : undefined
       }
       className={cn(
         "z-50 w-max max-w-64 rounded-md border border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-primary-foreground shadow-md",
-        !coords && "absolute left-1/2 -translate-x-1/2",
-        !coords && (side === "top" ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"),
+        !activeCoords && "absolute left-1/2 -translate-x-1/2",
+        !activeCoords && (side === "top" ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"),
         animated && "animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!"
       )}
     >
@@ -122,7 +122,7 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
       {...props}
     >
       {childNode}
-      {bubble && coords && typeof document !== "undefined" ? createPortal(bubble, document.body) : bubble}
+      {bubble && activeCoords && typeof document !== "undefined" ? createPortal(bubble, document.body) : bubble}
     </span>
   );
 }

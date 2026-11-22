@@ -3,21 +3,20 @@
 import * as React from "react";
 
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = React.useState(false);
-
-  React.useEffect(() => {
-    const match = window.matchMedia(query);
-    setMatches(match.matches);
-
-    const listener = (event: MediaQueryListEvent) => {
-      setMatches(event.matches);
-    };
-
-    match.addEventListener("change", listener);
-    return () => match.removeEventListener("change", listener);
-  }, [query]);
-
-  return matches;
+  const subscribe = React.useCallback(
+    (onStoreChange: () => void) => {
+      if (typeof window === "undefined") return () => {};
+      const match = window.matchMedia(query);
+      match.addEventListener("change", onStoreChange);
+      return () => match.removeEventListener("change", onStoreChange);
+    },
+    [query],
+  );
+  const getSnapshot = React.useCallback(
+    () => (typeof window !== "undefined" ? window.matchMedia(query).matches : false),
+    [query],
+  );
+  return React.useSyncExternalStore(subscribe, getSnapshot, () => false);
 }
 
 export function useLocalStorage<T>(
@@ -25,16 +24,21 @@ export function useLocalStorage<T>(
   initial: T,
 ): [T, (v: T | ((p: T) => T)) => void] {
   const initialRef = React.useRef(initial);
-  initialRef.current = initial;
+  React.useEffect(() => {
+    initialRef.current = initial;
+  });
   const [state, setState] = React.useState<T>(initial);
 
   React.useEffect(() => {
-    try {
-      const stored = localStorage.getItem(key);
-      setState(stored !== null ? (JSON.parse(stored) as T) : initialRef.current);
-    } catch {
-      setState(initialRef.current);
-    }
+    const id = setTimeout(() => {
+      try {
+        const stored = localStorage.getItem(key);
+        setState(stored !== null ? (JSON.parse(stored) as T) : initialRef.current);
+      } catch {
+        setState(initialRef.current);
+      }
+    }, 0);
+    return () => clearTimeout(id);
   }, [key]);
 
   const setValue = React.useCallback(
@@ -85,7 +89,9 @@ export function useIntersection(
 
 export function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () => void) {
   const handlerRef = React.useRef(handler);
-  handlerRef.current = handler;
+  React.useEffect(() => {
+    handlerRef.current = handler;
+  });
 
   React.useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
@@ -160,7 +166,9 @@ export function useHotkey(
   options?: { meta?: boolean; shift?: boolean; alt?: boolean },
 ) {
   const handlerRef = React.useRef(handler);
-  handlerRef.current = handler;
+  React.useEffect(() => {
+    handlerRef.current = handler;
+  });
   const meta = Boolean(options?.meta);
   const shift = options?.shift;
   const alt = Boolean(options?.alt);

@@ -1,7 +1,9 @@
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
+import vm from "node:vm";
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -13,7 +15,7 @@ const esbuild = need("esbuild");
 const React = need("react");
 const { renderToString } = need("react-dom/server");
 
-const tmpDir = path.join(rootDir, ".tmp-component-tests");
+let tmpDir = "";
 
 function compileUi(slug) {
   return compileModule(path.join(rootDir, "src", "components", "ui", `${slug}.tsx`), `${slug}.cjs`);
@@ -21,6 +23,20 @@ function compileUi(slug) {
 
 function compileLib(slug) {
   return compileModule(path.join(rootDir, "src", "components", "ui", "lib", `${slug}.ts`), `lib-${slug}.cjs`);
+}
+
+function loadBundle(bundlePath) {
+  const localReq = createRequire(bundlePath);
+  const req = (id) => (id.startsWith(".") ? localReq(id) : need(id));
+  req.resolve = need.resolve;
+  const fn = vm.compileFunction(
+    fs.readFileSync(bundlePath, "utf8"),
+    ["exports", "require", "module", "__filename", "__dirname"],
+    { filename: bundlePath },
+  );
+  const mod = { exports: {} };
+  fn(mod.exports, req, mod, bundlePath, path.dirname(bundlePath));
+  return mod.exports;
 }
 
 function compileModule(entryPath, outName) {
@@ -35,17 +51,16 @@ function compileModule(entryPath, outName) {
     jsx: "automatic",
     logLevel: "silent",
   });
-  return need(outfile);
+  return loadBundle(outfile);
 }
 
 describe("bigbullui Behavioral Component Tests", () => {
   before(() => {
-    fs.rmSync(tmpDir, { recursive: true, force: true });
-    fs.mkdirSync(tmpDir, { recursive: true });
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-comp-tests-"));
   });
 
   after(() => {
-    fs.rmSync(tmpDir, { recursive: true, force: true });
+    if (tmpDir) fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 
   it("MarkdownPreview blocks unsafe javascript:/data: URLs and renders semantic h1-h4 headings", () => {
@@ -356,11 +371,127 @@ describe("bigbullui Behavioral Component Tests", () => {
       jsx: "automatic",
       logLevel: "silent",
     });
-    const { TicketIcon } = need(namedIconsOut);
+    const { TicketIcon } = loadBundle(namedIconsOut);
     const decoHtml = renderToString(React.createElement(TicketIcon, {}));
     const labeledHtml = renderToString(React.createElement(TicketIcon, { "aria-label": "Event ticket" }));
     assert.match(decoHtml, /aria-hidden="true"/);
     assert.match(labeledHtml, /aria-label="Event ticket"/);
     assert.doesNotMatch(labeledHtml, /aria-hidden="true"/);
+  });
+
+  it("cn() resolves Tailwind v4 conflicts, suffixes, borders, and layout classes accurately", () => {
+    const { cn } = compileLib("utils");
+    assert.equal(cn("text-muted-foreground", "text-sm/6"), "text-muted-foreground text-sm/6");
+    assert.equal(cn("text-foreground", "text-ellipsis"), "text-foreground text-ellipsis");
+    assert.equal(cn("border-border", "border-collapse"), "border-border border-collapse");
+    assert.equal(cn("border-border", "border-1"), "border-border border-1");
+    assert.equal(cn("border-2", "border-1"), "border-1");
+    assert.equal(cn("border-border", "border-t-accent"), "border-border border-t-accent");
+    assert.equal(cn("border-t-accent", "border-border"), "border-border");
+    assert.equal(cn("text-red-500", "text-lg!"), "text-red-500 text-lg!");
+    assert.equal(cn("text-sm", "text-lg!"), "text-lg!");
+    assert.equal(cn("flex", "hidden!"), "hidden!");
+    assert.equal(cn("justify-start", "justify-end"), "justify-end");
+    assert.equal(cn("items-start", "items-center"), "items-center");
+    assert.equal(cn("top-0", "top-4"), "top-4");
+    assert.equal(cn("ring-1", "ring-2"), "ring-2");
+    assert.equal(cn("grid-cols-2", "grid-cols-4"), "grid-cols-4");
+    assert.equal(cn("space-y-2", "space-y-4"), "space-y-4");
+  });
+
+  it("Wave A fixes: DateRangePicker, Truncate, CartDrawer, ConfirmDialog, AudioPlayer, Receipt, OrgChart, Meter, BottomSheet, UserCard", () => {
+    const { DateRangePicker } = compileUi("date-range-picker");
+    const drpHtml = renderToString(
+      React.createElement(DateRangePicker, {
+        defaultValue: [new Date(2024, 0, 1), new Date(2024, 0, 7)],
+      })
+    );
+    assert.match(drpHtml, /Nights: 6/);
+    assert.match(drpHtml, /<button[^>]*aria-label="[^"]*Jan 01 2024/);
+    assert.doesNotMatch(drpHtml, /font-\[10px\]/);
+
+    const { Truncate } = compileUi("truncate");
+    const trHtml = renderToString(React.createElement(Truncate, { lines: 2 }, "Long text line"));
+    assert.match(trHtml, /WebkitLineClamp:2|-webkit-line-clamp:2/i);
+    assert.doesNotMatch(trHtml, /max-height:2\.5px/);
+    assert.doesNotMatch(trHtml, /text-primary-foreground/);
+
+    const { CartDrawer } = compileUi("cart-drawer");
+    const cartHtml = renderToString(
+      React.createElement(CartDrawer, {
+        open: true,
+        onOpenChange: () => {},
+        items: [
+          { id: "1", title: "Ticket", price: "$50", qty: 2 },
+          { id: "2", title: "Fee", price: "$5.50", qty: 1 },
+        ],
+      })
+    );
+    assert.match(cartHtml, /\$105\.50/);
+    assert.doesNotMatch(cartHtml, /motion-reduce:hidden/);
+    assert.doesNotMatch(cartHtml, /motion-reduce:focus-visible:ring-0/);
+
+    const { ConfirmDialog } = compileUi("confirm-dialog");
+    const cdHtml = renderToString(
+      React.createElement(ConfirmDialog, {
+        open: true,
+        onOpenChange: () => {},
+        title: "Confirm?",
+        onConfirm: () => {},
+        onCancel: () => {},
+      })
+    );
+    assert.match(cdHtml, /fixed inset-0 z-50 flex items-center justify-center/);
+    assert.match(cdHtml, /role="alertdialog"/);
+
+    const { AudioPlayer } = compileUi("audio-player");
+    const apHtml = renderToString(
+      React.createElement(AudioPlayer, { title: "Live", cover: "https://ui.bigbullapp.com/c.jpg", duration: 0 })
+    );
+    assert.match(apHtml, /<img[^>]+src="https:\/\/ui\.bigbullapp\.com\/c\.jpg"/);
+    assert.doesNotMatch(apHtml, /NaN%/);
+    assert.doesNotMatch(apHtml, /hover:bg-primary-50/);
+
+    const { Receipt } = compileUi("receipt");
+    const rcHtml = renderToString(
+      React.createElement(Receipt, {
+        items: [{ label: "VIP", price: "$100.00" }],
+        taxRate: 0.1,
+        total: "$110.00",
+      })
+    );
+    assert.match(rcHtml, /100\.00/);
+    assert.match(rcHtml, /Tax \(10%\)/);
+    assert.match(rcHtml, /10\.00/);
+    assert.doesNotMatch(rcHtml, /NaN|text-muted-thermal/);
+
+    const { OrgChart } = compileUi("org-chart");
+    const orgHtml = renderToString(
+      React.createElement(OrgChart, {
+        root: [{ id: "1", label: "Ada Lovelace", role: "CEO", children: [{ id: "2", label: "Grace Hopper" }] }],
+      })
+    );
+    assert.match(orgHtml, /Grace Hopper/);
+    assert.match(orgHtml, /aria-expanded="true"/);
+
+    const { Meter } = compileUi("meter");
+    const meterHtml = renderToString(React.createElement(Meter, { value: 50, min: 10, max: 10, optimum: 10 }));
+    assert.match(meterHtml, /role="meter"/);
+    assert.doesNotMatch(meterHtml, /NaN%/);
+
+    const { BottomSheet } = compileUi("bottom-sheet");
+    const bsControlled = renderToString(
+      React.createElement(BottomSheet, { open: true, onOpenChange: () => {}, title: "Filter" }, "Body")
+    );
+    assert.doesNotMatch(bsControlled, /Open sheet/);
+    assert.doesNotMatch(bsControlled, /Orchestra Row C/);
+
+    const { UserCard } = compileUi("user-card");
+    const ucHtml = renderToString(React.createElement(UserCard, { initials: "BB", name: "Bull" }));
+    assert.match(ucHtml, />BB<\/span>/);
+
+    const { RichTextEditor } = compileUi("rich-text-editor");
+    const rteHtml = renderToString(React.createElement(RichTextEditor, { defaultValue: "<p>Hello</p>" }));
+    assert.match(rteHtml, /role="textbox"/);
   });
 });

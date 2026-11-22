@@ -11,108 +11,83 @@ export interface FileInputProps {
 }
 
 export function FileInput({
-  accept = "*",
+  accept,
   multiple = false,
   onFilesChange,
   className,
 }: FileInputProps) {
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
-  const [fileNames, setFileNames] = React.useState<string[]>([]);
-  const [selectionCount, setSelectionCount] = React.useState(0);
 
-  const [isControlled, setIsControlled] = React.useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files || [];
-    const fileArray = Array.from(files);
+    const fileArray = Array.from(e.target.files ?? []);
     setSelectedFiles(fileArray);
-    const names = fileArray.map((f) => f.name);
-    setFileNames(names);
-    setSelectionCount(fileArray.length);
     onFilesChange?.(fileArray);
   };
 
   const removeFile = (index: number) => {
     const remaining = selectedFiles.filter((_, i) => i !== index);
     setSelectedFiles(remaining);
-    const remainingNames = remaining.map((f) => f.name);
-    setFileNames(remainingNames);
-    setSelectionCount(remaining.length);
+    if (remaining.length === 0 && inputRef.current) {
+      inputRef.current.value = "";
+    }
     onFilesChange?.(remaining);
   };
-
-  const triggerClick = () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = accept;
-    input.multiple = multiple;
-    input.addEventListener("change", handleChange as unknown as EventListener);
-    input.click();
-  };
-
-  const classes = cn(
-    "rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm transition-colors",
-    "ring-2 ring-ring focus-visible:outline-none focus-visible:ring-2",
-    className,
-  );
-
-  const chipClass = cn(
-    "inline-flex items-center rounded-md bg-secondary/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.15em] text-secondary-foreground me-1 mb-1",
-  );
 
   return (
     <div className={cn("relative flex flex-col gap-2", className)}>
       <div>
         <input
+          ref={inputRef}
           type="file"
           accept={accept}
           multiple={multiple}
           onChange={handleChange}
-          className={classes}
-          style={{ display: "none" }}
+          className="sr-only"
+          aria-hidden="true"
+          tabIndex={-1}
         />
         <button
           type="button"
-          onClick={triggerClick}
-          className="flex items-center gap-2 rounded-md border border-transparent bg-secondary px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-secondary-foreground hover:bg-secondary/90 transition-colors"
+          onClick={() => inputRef.current?.click()}
+          className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-secondary px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-secondary-foreground transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M10 8a2 2 0 0 0-2 2H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h4a2 2 0 0 1 2 2h6a2 2 0 0 1 2 2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2h-6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h4z" />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
           </svg>
           {multiple ? "Choose files" : "Choose file"}
         </button>
       </div>
 
-      {selectedFiles.length > 0 && (
-        <div className="flex flex-wrap gap-1">
-          {fileNames.map((name, idx) => (
-            <div
-              key={idx}
-              className={cn(
-                chipClass,
-                "hover:bg-secondary/30 transition-colors"
-              )}
-            >
-              <span>{name}</span>
-              <button
-                type="button"
-                onClick={() => removeFile(idx)}
-                className="ms-1 text-[10px] uppercase tracking-[0.15em] hover:text-destructive transition-colors"
+      {selectedFiles.length > 0 ? (
+        <>
+          <div className="flex flex-wrap gap-1">
+            {selectedFiles.map((file, idx) => (
+              <div
+                key={`${file.name}-${idx}`}
+                className="inline-flex items-center rounded-md border border-border bg-secondary/40 px-2 py-0.5 font-mono text-[10px] text-secondary-foreground transition-colors hover:bg-secondary/60"
               >
-                ×
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {selectedFiles.length > 0 && (
-        <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
-          {selectionCount} file{selectionCount > 1 ? "s" : ""} selected
-        </p>
-      )}
+                <span className="max-w-44 truncate">{file.name}</span>
+                <button
+                  type="button"
+                  aria-label={`Remove ${file.name}`}
+                  onClick={() => removeFile(idx)}
+                  className="ms-1.5 cursor-pointer rounded-xs px-0.5 text-[10px] uppercase tracking-[0.15em] transition-colors hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+            {selectedFiles.length} file{selectedFiles.length > 1 ? "s" : ""} selected
+          </p>
+        </>
+      ) : null}
     </div>
   );
 }
 
 FileInput.displayName = "FileInput";
-

@@ -30,7 +30,6 @@ export function PollResults({
   const winner = options.reduce((a, b) => (b.votes > a.votes ? b : a), options[0]);
   return (
     <div className={cn("w-full max-w-sm rounded-lg border-2 border-foreground bg-card p-4", className)} {...props}>
-      <style>{`@keyframes pollGrow { from { width: 0; } }`}</style>
       <h3 className="text-sm font-black">{question}</h3>
       <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{total} total votes</p>
       <div className="mt-3 space-y-2">

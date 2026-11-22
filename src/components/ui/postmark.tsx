@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "./lib/utils";
 
 export interface PostmarkProps {
   city: string;
@@ -13,9 +12,11 @@ export function Postmark({ city = "NEW YORK", date, serial }: PostmarkProps) {
   const [clientDate, setClientDate] = React.useState("");
 
   React.useEffect(() => {
-    if (date === undefined) {
+    if (date !== undefined) return;
+    const id = setTimeout(() => {
       setClientDate(new Date().toLocaleDateString("en-US"));
-    }
+    }, 0);
+    return () => clearTimeout(id);
   }, [date]);
 
   const displayDate = date ?? clientDate;

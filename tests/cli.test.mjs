@@ -150,8 +150,51 @@ describe("bigbullui CLI end-to-end", () => {
     assert.ok(tools && tools.result.tools.length >= 6, "tools/list exposes all tools");
     const call = byId.get(3);
     assert.ok(call && call.result && !call.result.isError, "list_components succeeds locally");
-    const bad = byId.get(4);
-    assert.ok(bad && bad.result && bad.result.isError === true, "invalid name returns isError result, not protocol error");
+      const bad = byId.get(4);
+      assert.ok(bad && bad.result && bad.result.isError === true, "invalid name returns isError result, not protocol error");
+    });
+
+  it("MCP get_component returns bundled sibling files and registryDependencies, and flushes trailing stdin", () => {
+    const res = spawnSync(
+      "node",
+      [cli, "mcp"],
+      {
+        cwd: workdir,
+        encoding: "utf8",
+        timeout: 30000,
+        input:
+          '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_component","arguments":{"name":"stat-tile"}}}\n' +
+          '{"jsonrpc":"2.0","id":2,"method":"ping"}',
+      }
+    );
+    const lines = (res.stdout || "").trim().split("\n").map((l) => JSON.parse(l));
+    const byId = new Map(lines.map((m) => [m.id, m]));
+    const stat = byId.get(1);
+    assert.ok(stat && stat.result && !stat.result.isError, "get_component(stat-tile) succeeded");
+    const payload = JSON.parse(stat.result.content[0].text);
+    assert.ok(Array.isArray(payload.files) && payload.files.length >= 2, "multi-file component includes sibling files");
+    assert.ok(payload.files.some((f) => f.path.endsWith("tilt-card.tsx")), "stat-tile includes tilt-card.tsx");
+    assert.ok(Array.isArray(payload.registryDependencies) && payload.registryDependencies.some((d) => d.includes("utils.json")), "get_component includes registryDependencies");
+    const ping = byId.get(2);
+    assert.ok(ping && ping.result, "trailing JSON-RPC request without newline is flushed on stdin end");
+  });
+
+  it("doctor passes on a create-bigbull-app style project importing bigbullui/css", () => {
+    const appDir = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-doctor-"));
+    try {
+      fs.mkdirSync(path.join(appDir, "app"), { recursive: true });
+      fs.mkdirSync(path.join(appDir, "components", "ui", "lib"), { recursive: true });
+      fs.mkdirSync(path.join(appDir, "node_modules", "tailwindcss"), { recursive: true });
+      fs.mkdirSync(path.join(appDir, "node_modules", "bigbullui"), { recursive: true });
+      fs.writeFileSync(path.join(appDir, "app", "globals.css"), '@import "tailwindcss";\n@import "bigbullui/css";\n');
+      fs.writeFileSync(path.join(appDir, "components", "ui", "lib", "utils.ts"), "export const cn = () => '';\n");
+      fs.writeFileSync(path.join(appDir, "node_modules", "bigbullui", "bigbullui.css"), "/* tokens */\n");
+      const res = spawnSync("node", [cli, "doctor"], { cwd: appDir, encoding: "utf8", timeout: 15000 });
+      assert.equal(res.status, 0, `doctor should exit 0, got stderr=${res.stderr} stdout=${res.stdout}`);
+      assert.match(res.stdout, /Healthy/);
+    } finally {
+      fs.rmSync(appDir, { recursive: true, force: true });
+    }
   });
 
   it("init and tokens strip package-local @source directive from bigbullui.css", () => {

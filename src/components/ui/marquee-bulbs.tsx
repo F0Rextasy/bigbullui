@@ -18,12 +18,6 @@ export function MarqueeBulbs({ text = "", bulbs = true }: MarqueeBulbsProps) {
         "overflow-hidden"
       )}
     >
-      <style>{`
-        @keyframes marqueeSlide {
-          from { transform: translateX(100%); }
-          to { transform: translateX(-100%); }
-        }
-      `}</style>
 
       <div className="flex gap-2 pt-2">
         {Array.from({ length: bulbCount }, (_, i) => (

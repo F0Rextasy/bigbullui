@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface MobileMenuItem {
@@ -17,18 +18,39 @@ export interface MobileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /** Fullscreen mobile navigation overlay with staggered entrance. */
 export function MobileMenu({ items, open, onOpenChange, className, ...props }: MobileMenuProps) {
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
+
   React.useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onOpenChange(false); };
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => onOpenChangeRef.current(false));
+    const onKey = (e: KeyboardEvent) => {
+      if (panelRef.current) trapFocus(panelRef.current, e);
+    };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, onOpenChange]);
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
+    };
+  }, [open]);
 
   if (!open) return null;
 
   return (
-    <div className={cn("fixed inset-0 z-50 flex flex-col bg-background", className)} role="dialog" aria-modal="true" aria-label="Mobile menu" {...props}>
-      <style>{`@keyframes mmIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+    <div ref={panelRef} tabIndex={-1} className={cn("fixed inset-0 z-50 flex flex-col bg-background focus:outline-none", className)} role="dialog" aria-modal="true" aria-label="Mobile menu" {...props}>
       <div className="flex items-center justify-between border-b-2 border-dashed border-border px-4 py-3">
         <span className="font-mono text-xs font-bold uppercase tracking-widest">Menu</span>
         <button

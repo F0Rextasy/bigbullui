@@ -11,9 +11,6 @@ export interface IdCardProps {
   className?: string;
 }
 
-const Entrance = "id-card-entrance";
-const ScaleIn = "id-card-scale-in";
-
 export function IdCard({
   name = "",
   role = "",
@@ -29,12 +26,7 @@ export function IdCard({
       )}
     >
       {/* Top accent bar */}
-      <div
-        className={cn(
-          "absolute -inset-1 bg-accent opacity-10",
-          ScaleIn
-        )}
-      />
+      <div className="absolute -inset-1 bg-accent opacity-10" />
 
       {/* Avatar */}
       <div className="relative w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">

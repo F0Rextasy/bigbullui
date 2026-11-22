@@ -14,7 +14,6 @@ export interface TutorialHighlightProps extends React.HTMLAttributes<HTMLDivElem
 export function TutorialHighlight({ step = 1, total = 4, hint = "Drag the stick to move", onNext, className, children, ...props }: TutorialHighlightProps) {
   return (
     <div className={cn("relative w-full touch-none select-none", className)} style={{ touchAction: "none" }} {...props}>
-      <style>{`@keyframes tutRing { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }`}</style>
       <div className="relative rounded-md border-2 border-dashed border-accent p-3" role="group" aria-label={`Tutorial step ${step} of ${total}`}>
         <span aria-hidden="true" className="pointer-events-none absolute -inset-1 rounded-md border-2 border-accent/50 animate-[tutRing_1.4s_ease-in-out_infinite] motion-reduce:animate-none" />
         {children ?? <p className="flex min-h-11 items-center justify-center font-mono text-xs text-muted-foreground">TARGET CONTROL</p>}

@@ -25,8 +25,23 @@ for (const m of registry.matchAll(/\{\s*name:\s*"([^"]+)",\s*title:\s*"([^"]+)"/
 }
 
 const catalogItems = [];
-for (const m of registry.matchAll(/\{ name: "([^"]+)", title: "([^"]+)", description: "(?:[^"\\]|\\.)*", category: "([^"]+)"(, isNew: true)?/g)) {
-  catalogItems.push({ name: m[1], title: m[2], category: m[3], ...(m[4] ? { isNew: true } : {}) });
+const metas = [];
+for (const m of registry.matchAll(/\{\s*name:\s*"([^"]+)",\s*title:\s*"((?:[^"\\]|\\.)+)",\s*description:\s*"((?:[^"\\]|\\.)*)",\s*category:\s*"([^"]+)"([^}\n]*)\}/g)) {
+  const name = m[1];
+  const title = m[2].replace(/\\"/g, '"');
+  const description = m[3].replace(/\\"/g, '"');
+  const category = m[4];
+  const tail = m[5] ?? "";
+  const isNew = /\bisNew:\s*true\b/.test(tail);
+  const statusMatch = tail.match(/\bstatus:\s*"([^"]+)"/);
+  const replacedMatch = tail.match(/\breplacedBy:\s*"([^"]+)"/);
+  const extra = {
+    ...(isNew ? { isNew: true } : {}),
+    ...(statusMatch ? { status: statusMatch[1] } : {}),
+    ...(replacedMatch ? { replacedBy: replacedMatch[1] } : {}),
+  };
+  catalogItems.push({ name, title, category, ...extra });
+  metas.push({ name, title, description, category, ...extra });
 }
 const registryNames = [...registry.matchAll(/\{\s*name:\s*"([^"]+)"/g)].map((m) => m[1]);
 const missingCatalog = registryNames.filter((n) => !catalogItems.some((c) => c.name === n));
@@ -215,10 +230,6 @@ for (const slug of blockSlugList) {
 console.log(`generate-registry-json: ${blockCount} blocks in public/r/`);
 
 // Compact indexes for the MCP server and other index consumers.
-const metas = [];
-for (const m of registry.matchAll(/\{\s*name:\s*"([^"]+)",\s*title:\s*"((?:[^"\\]|\\.)+)",\s*description:\s*"((?:[^"\\]|\\.)+)",\s*category:\s*"([^"]+)"/g)) {
-  metas.push({ name: m[1], title: m[2].replace(/\\"/g, '"'), description: m[3].replace(/\\"/g, '"'), category: m[4] });
-}
 writeJsonAtomic(path.join(rootDir, "public", "components.json"), { updated: new Date().toISOString().slice(0, 10), count: metas.length, components: metas });
 const blockSlugs = blockSlugList;
 writeJsonAtomic(path.join(rootDir, "public", "blocks.json"), { updated: new Date().toISOString().slice(0, 10), count: blockSlugs.length, blocks: blockSlugs });

@@ -33,7 +33,6 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
 
   return (
     <div className={cn("w-full max-w-md space-y-2", className)} {...props}>
-      <style>{`@keyframes evIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {vars.map((v, idx) => {
         const shown = !v.secret || revealed.has(idx);
         return (

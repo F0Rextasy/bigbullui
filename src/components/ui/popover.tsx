@@ -16,7 +16,8 @@ function assignRef<T>(ref: React.Ref<T> | undefined, node: T | null) {
 interface PopoverContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
-  triggerRef: React.RefObject<HTMLButtonElement | null>;
+  setTriggerEl: (el: HTMLButtonElement | null) => void;
+  getTriggerEl: () => HTMLButtonElement | null;
 }
 
 const PopoverCtx = React.createContext<PopoverContextValue | null>(null);
@@ -39,7 +40,10 @@ export function Popover({
   const open = isControlled ? controlledOpen : uncontrolledOpen;
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const onOpenChangeRef = React.useRef(onOpenChange);
-  onOpenChangeRef.current = onOpenChange;
+
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
 
   const setOpen = React.useCallback(
     (nextOpen: boolean) => {
@@ -51,7 +55,16 @@ export function Popover({
     [isControlled]
   );
 
-  const ctxValue = React.useMemo(() => ({ open, setOpen, triggerRef }), [open, setOpen]);
+  const setTriggerEl = React.useCallback((el: HTMLButtonElement | null) => {
+    triggerRef.current = el;
+  }, []);
+
+  const getTriggerEl = React.useCallback(() => triggerRef.current, []);
+
+  const ctxValue = React.useMemo(
+    () => ({ open, setOpen, setTriggerEl, getTriggerEl }),
+    [open, setOpen, setTriggerEl, getTriggerEl]
+  );
 
   return (
     <PopoverCtx.Provider value={ctxValue}>
@@ -77,17 +90,17 @@ export function PopoverTrigger({ children }: PopoverTriggerProps) {
 
   return React.cloneElement(children, {
     ref: (node: HTMLButtonElement | null) => {
-      ctx.triggerRef.current = node;
+      ctx.setTriggerEl(node);
       assignRef(childRef, node);
     },
     "aria-haspopup": "dialog",
     "aria-expanded": ctx.open,
     onMouseDown: (e: React.MouseEvent) => {
-      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
+      ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
       children.props.onMouseDown?.(e);
     },
     onClick: (e: React.MouseEvent) => {
-      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
+      ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
       children.props.onClick?.(e);
       ctx.setOpen(!ctx.open);
     },
@@ -115,15 +128,13 @@ export function PopoverContent({
   const [coords, setCoords] = React.useState<{ top: number; left: number } | null>(null);
   const open = Boolean(ctx?.open);
   const setOpen = ctx?.setOpen;
+  const getTriggerEl = ctx?.getTriggerEl;
 
   React.useEffect(() => {
-    if (!open || !setOpen) {
-      setCoords(null);
-      return;
-    }
+    if (!open || !setOpen) return;
 
     const updatePosition = () => {
-      const rect = ctx?.triggerRef.current?.getBoundingClientRect();
+      const rect = getTriggerEl?.()?.getBoundingClientRect();
       if (!rect || (rect.width === 0 && rect.height === 0)) {
         setCoords(null);
         return;
@@ -133,14 +144,15 @@ export function PopoverContent({
       setCoords({ top: rect.bottom + 8, left });
     };
 
-    updatePosition();
+    const posRaf = requestAnimationFrame(updatePosition);
 
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
+      const triggerEl = getTriggerEl?.();
       if (
         contentRef.current &&
         !contentRef.current.contains(target) &&
-        !ctx?.triggerRef.current?.contains(target)
+        !triggerEl?.contains(target)
       ) {
         setOpen?.(false);
       }
@@ -148,19 +160,20 @@ export function PopoverContent({
 
     const releaseEscape = registerEscapeLayer(() => {
       setOpen(false);
-      ctx?.triggerRef.current?.focus();
+      getTriggerEl?.()?.focus();
     });
 
     document.addEventListener("mousedown", handleClickOutside);
     window.addEventListener("scroll", updatePosition, true);
     window.addEventListener("resize", updatePosition);
     return () => {
+      cancelAnimationFrame(posRaf);
       document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);
       releaseEscape();
     };
-  }, [open, setOpen, ctx?.triggerRef, align]);
+  }, [open, setOpen, getTriggerEl, align]);
 
   if (!open) return null;
 

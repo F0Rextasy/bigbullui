@@ -25,7 +25,6 @@ export function ShippingOptions({ options = [], value, defaultValue, onValueChan
 
   return (
     <div className={cn("w-full max-w-sm space-y-2", className)} role="radiogroup" aria-label="Shipping options" {...props}>
-      <style>{`@keyframes soIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {options.map((opt, idx) => {
         const selected = active === opt.id;
         return (

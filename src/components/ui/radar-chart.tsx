@@ -44,21 +44,18 @@ export function RadarChart({
       >
         {/* Web - dashed axes */}
         <g className="motion-reduce:transition-none">
-          {axisPoints.map((pt, i) => {
-            const nextPt = axisPoints[(i + 1) % n];
-            return (
-              <line
-                key={i}
-                x1={cx}
-                y1={cy}
-                x2={pt.x}
-                y2={pt.y}
-                stroke="currentColor"
-                strokeWidth={1}
-                strokeOpacity={0.3}
-              />
-            );
-          })}
+          {axisPoints.map((pt, i) => (
+            <line
+              key={i}
+              x1={cx}
+              y1={cy}
+              x2={pt.x}
+              y2={pt.y}
+              stroke="currentColor"
+              strokeWidth={1}
+              strokeOpacity={0.3}
+            />
+          ))}
         </g>
 
         {/* Filled polygon - animates in from center */}

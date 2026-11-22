@@ -44,7 +44,6 @@ export function CodeEditor({ value, defaultValue = "", onValueChange, language =
 
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card transition-colors duration-200 motion-reduce:transition-none", focused && "border-foreground/40", className)} {...props}>
-      <style>{`@keyframes ceIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
       <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-3 py-1.5">
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{language}</span>
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{lineCount} lines</span>

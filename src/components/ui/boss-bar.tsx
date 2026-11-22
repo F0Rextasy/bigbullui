@@ -15,7 +15,6 @@ export function BossBar({ name, value, max = 1000, phases = 3, className, ...pro
   const pct = Math.max(0, Math.min(100, (value / Math.max(1, max)) * 100));
   return (
     <div className={cn("w-full select-none", className)} {...props}>
-      <style>{`@keyframes bossSweep { from { opacity: 0.2; } to { opacity: 1; } }`}</style>
       <p className="text-center font-mono text-xs font-black uppercase tracking-[0.25em] text-foreground">
         {name}
       </p>

@@ -20,7 +20,6 @@ export function VoiceIndicator({ name = "ADA", speaking = true, muted = false, l
       style={{ touchAction: "none" }}
       {...props}
     >
-      <style>{`@keyframes voiceBar { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }`}</style>
       <span className="flex h-6 items-end gap-0.5" aria-hidden="true">
         {[0.5, 0.9, 0.65, 1, 0.55].map((h, i) => (
           <span

@@ -32,19 +32,20 @@ export function Terminal({
 }: TerminalProps) {
   const [command, setCommand] = React.useState("");
   const [history, setHistory] = React.useState<TerminalLine[]>([]);
-  const [visibleCount, setVisibleCount] = React.useState(lines.length);
+  const loopKey = `${loop}:${lines.length}`;
+  const [visEntry, setVisEntry] = React.useState({ key: loopKey, count: loop ? 1 : lines.length });
+  const visibleCount = !loop || lines.length === 0 ? lines.length : (visEntry.key === loopKey ? visEntry.count : 1);
 
   React.useEffect(() => {
-    if (!loop || lines.length === 0) {
-      setVisibleCount(lines.length);
-      return;
-    }
-    setVisibleCount(1);
+    if (!loop || lines.length === 0) return;
     const id = setInterval(() => {
-      setVisibleCount((prev) => (prev >= lines.length ? 1 : prev + 1));
+      setVisEntry((prev) => {
+        const cur = prev.key === loopKey ? prev.count : 1;
+        return { key: loopKey, count: cur >= lines.length ? 1 : cur + 1 };
+      });
     }, 800);
     return () => clearInterval(id);
-  }, [lines.length, loop]);
+  }, [lines.length, loop, loopKey]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

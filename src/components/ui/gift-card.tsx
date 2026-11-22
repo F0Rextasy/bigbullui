@@ -10,9 +10,6 @@ export interface GiftCardProps {
   className?: string;
 }
 
-const RibbonEnter = "gift-card-ribbon-enter";
-const FadeIn = "gift-card-fade-in";
-
 export function GiftCard({
   amount,
   recipient,
@@ -28,10 +25,7 @@ export function GiftCard({
     >
       {/* Amount badge */}
       <div
-        className={cn(
-          "absolute -top-1 -right-1 rounded-xl bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider px-2 py-1",
-          RibbonEnter
-        )}
+        className="absolute -top-1 -right-1 rounded-xl bg-accent px-2 py-1 text-xs font-bold uppercase tracking-wider text-accent-foreground"
       >
         {amount}
       </div>
@@ -44,10 +38,7 @@ export function GiftCard({
 
       {/* Decorative ribbon */}
       <div
-        className={cn(
-          "absolute -bottom-1 -left-1 w-12 h-0.5 bg-accent",
-          RibbonEnter
-        )}
+        className="absolute -bottom-1 -left-1 h-0.5 w-12 bg-accent"
       />
     </div>
   );

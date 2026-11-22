@@ -83,8 +83,15 @@ export function QrReader({
   className,
   ...props
 }: QrReaderProps) {
-  const [isScanning, setIsScanning] = React.useState(active);
-  const [laserActive, setLaserActive] = React.useState(showLaser);
+  const [scanEntry, setScanEntry] = React.useState(() => ({ base: active, val: active }));
+  const isScanning = scanEntry.base === active ? scanEntry.val : active;
+  const setIsScanning = React.useCallback(
+    (next: boolean) => setScanEntry({ base: active, val: next }),
+    [active],
+  );
+  const [laserEntry, setLaserEntry] = React.useState(() => ({ base: showLaser, val: showLaser }));
+  const laserActive = laserEntry.base === showLaser ? laserEntry.val : showLaser;
+  const setLaserActive = (next: boolean) => setLaserEntry({ base: showLaser, val: next });
   const [torchOn, setTorchOn] = React.useState(false);
   const [scanResult, setScanResult] = React.useState<TicketScanData | null>(
     defaultScanResult
@@ -95,20 +102,11 @@ export function QrReader({
   );
   const [mockIndex, setMockIndex] = React.useState(0);
 
-  // Sync prop changes
-  React.useEffect(() => {
-    setIsScanning(active);
-  }, [active]);
-
-  React.useEffect(() => {
-    setLaserActive(showLaser);
-  }, [showLaser]);
-
   const triggerScanSimulation = React.useCallback(() => {
     if (!isScanning && scanResult) {
       // If already scanned, reset first
       setScanResult(null);
-      setIsScanning(true);
+      setScanEntry({ base: active, val: true });
       setDetectionPulse(false);
       onReset?.();
       return;
@@ -120,7 +118,7 @@ export function QrReader({
     // Trigger visual pulse
     setDetectionPulse(true);
     setScanResult(nextTicket);
-    setIsScanning(false);
+    setScanEntry({ base: active, val: false });
     onScan?.(nextTicket);
 
     const timer = setTimeout(() => {
@@ -128,14 +126,14 @@ export function QrReader({
     }, 1800);
 
     return () => clearTimeout(timer);
-  }, [isScanning, scanResult, mockIndex, onScan, onReset]);
+  }, [active, isScanning, scanResult, mockIndex, onScan, onReset]);
 
   const handleReset = React.useCallback(() => {
     setScanResult(null);
     setIsScanning(true);
     setDetectionPulse(false);
     onReset?.();
-  }, [onReset]);
+  }, [onReset, setIsScanning]);
 
   const cycleCamera = React.useCallback(() => {
     setCameraMode((prev) => {
@@ -155,19 +153,6 @@ export function QrReader({
       aria-label={title}
       {...props}
     >
-      <style>{`
-        @keyframes laserSweep {
-          0% { top: 4%; opacity: 0.9; }
-          50% { top: 92%; opacity: 1; }
-          100% { top: 4%; opacity: 0.9; }
-        }
-        @keyframes pulseRingSweep {
-          0% { transform: scale(0.96); opacity: 0.9; }
-          50% { transform: scale(1.06); opacity: 0.3; }
-          100% { transform: scale(0.96); opacity: 0.9; }
-        }
-      `}</style>
-
       {/* Ticket Edge Notches */}
       <div
         className="size-5 rounded-full bg-background border-2 border-foreground absolute top-1/2 -left-2.5 -translate-y-1/2 z-30 pointer-events-none"
@@ -359,7 +344,7 @@ export function QrReader({
               {/* Animated Red Laser Sweep Line */}
               {laserActive && isScanning && !scanResult && (
                 <div
-                  className="absolute left-0 right-0 z-30 pointer-events-none motion-reduce:animate-none!"
+                  className="absolute inset-0 z-30 pointer-events-none motion-reduce:animate-none!"
                   style={{
                     animation: "laserSweep 2.2s ease-in-out infinite",
                   }}

@@ -31,7 +31,6 @@ export function DiffEditor({ before = "", after = "", readOnly, onBeforeChange, 
 
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes deIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
       <div className="grid grid-cols-2 divide-x divide-border border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
         <span className="px-3 py-1.5">Original</span>
         <span className="px-3 py-1.5">After</span>

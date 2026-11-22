@@ -12,12 +12,11 @@ const PRI: Record<string, string> = { low: "text-muted-foreground", med: "text-w
 
 /** Task list item rows: assignee chip + priority dot indicator. */
 export function TaskList({ tasks = [], onToggle, className, ...props }: TaskListProps) {
-  const [state, setState] = React.useState(tasks);
-  React.useEffect(() => setState(tasks), [tasks]);
+  const [entry, setEntry] = React.useState(() => ({ base: tasks, list: tasks }));
+  const state = entry.base === tasks ? entry.list : tasks;
 
   return (
     <ul className={cn("w-full max-w-sm space-y-1", className)} {...props}>
-      <style>{`@keyframes tlIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {state.map((t, idx) => (
         <li
           key={t.id}
@@ -26,14 +25,25 @@ export function TaskList({ tasks = [], onToggle, className, ...props }: TaskList
         >
           <input
             type="checkbox"
-            checked={t.done}
-            onChange={() => { setState((s) => s.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x))); onToggle?.(t.id); }}
+            checked={Boolean(t.done)}
+            onChange={() => {
+              setEntry({
+                base: tasks,
+                list: state.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)),
+              });
+              onToggle?.(t.id);
+            }}
             className="size-3.5 shrink-0 accent-accent"
             aria-label={t.label}
           />
           <span className={cn("min-w-0 flex-1 truncate text-sm transition-colors motion-reduce:transition-none", t.done && "text-muted-foreground line-through")}>{t.label}</span>
           {t.assignee && <span className="shrink-0 rounded-full bg-secondary px-1.5 py-px font-mono text-[9px] text-secondary-foreground">{t.assignee}</span>}
-          {t.priority && <span className={cn("size-1.5 shrink-0 rounded-full", t.priority === "high" ? "bg-destructive" : t.priority === "med" ? "bg-warning" : "bg-border")} aria-label={t.priority} />}
+          {t.priority && (
+            <span
+              className={cn("size-1.5 shrink-0 rounded-full bg-current", PRI[t.priority] ?? "text-border")}
+              aria-label={t.priority}
+            />
+          )}
         </li>
       ))}
     </ul>

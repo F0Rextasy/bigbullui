@@ -24,7 +24,6 @@ export function ActivityV2({ items = [], filters, className, ...props }: Activit
 
   return (
     <div className={cn("w-full max-w-md", className)} {...props}>
-      <style>{`@keyframes av2In { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="mb-3 flex flex-wrap gap-1.5">
         <button
           type="button"

@@ -3,21 +3,40 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
+function subscribeOnline(onChange: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("offline", onChange);
+  window.addEventListener("online", onChange);
+  return () => {
+    window.removeEventListener("offline", onChange);
+    window.removeEventListener("online", onChange);
+  };
+}
+
+function getOnlineSnapshot(): boolean {
+  return typeof navigator !== "undefined" ? navigator.onLine : true;
+}
+
 /** Offline warning banner: monitors navigator.onLine state. */
 export function OfflineBanner({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  const [online, setOnline] = React.useState(true);
+  const online = React.useSyncExternalStore(subscribeOnline, getOnlineSnapshot, () => true);
   const [reconnecting, setReconnecting] = React.useState(false);
 
   React.useEffect(() => {
-    setOnline(navigator.onLine);
-    const goOffline = () => setOnline(false);
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const goOffline = () => {
+      if (timer) clearTimeout(timer);
+      setReconnecting(false);
+    };
     const goOnline = () => {
       setReconnecting(true);
-      setTimeout(() => { setReconnecting(false); setOnline(true); }, 1200);
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => setReconnecting(false), 1200);
     };
     window.addEventListener("offline", goOffline);
     window.addEventListener("online", goOnline);
     return () => {
+      if (timer) clearTimeout(timer);
       window.removeEventListener("offline", goOffline);
       window.removeEventListener("online", goOnline);
     };
@@ -27,7 +46,6 @@ export function OfflineBanner({ className, ...props }: React.HTMLAttributes<HTML
 
   return (
     <div className={cn("flex items-center justify-center gap-2 border-b px-4 py-1.5", online ? "border-success/40 bg-success/10" : "border-destructive/40 bg-destructive/10", className)} role="status" {...props}>
-      <style>{`@keyframes obDots { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }`}</style>
       {reconnecting ? (
         <>
           <span className="flex gap-0.5" aria-hidden="true">

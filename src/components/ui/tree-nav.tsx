@@ -36,6 +36,10 @@ function TreeItem({
   return (
     <div className="space-y-0.5">
       <div
+        role="treeitem"
+        aria-expanded={hasChildren ? isOpen : undefined}
+        aria-selected={isSelected}
+        tabIndex={0}
         onClick={() => {
           if (hasChildren) {
             setIsOpen(!isOpen);
@@ -43,9 +47,22 @@ function TreeItem({
             onSelect?.(node);
           }
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            if (hasChildren) setIsOpen(!isOpen);
+            else onSelect?.(node);
+          } else if (e.key === "ArrowRight" && hasChildren && !isOpen) {
+            e.preventDefault();
+            setIsOpen(true);
+          } else if (e.key === "ArrowLeft" && hasChildren && isOpen) {
+            e.preventDefault();
+            setIsOpen(false);
+          }
+        }}
         style={{ paddingLeft: `${level * 14 + 6}px` }}
         className={cn(
-          "flex cursor-pointer items-center justify-between rounded-md py-1 pe-2 text-xs transition-colors",
+          "flex cursor-pointer items-center justify-between rounded-md py-1 pe-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isSelected
             ? "bg-accent font-bold text-accent-foreground shadow-xs"
             : "text-foreground hover:bg-secondary"
@@ -109,7 +126,7 @@ export function TreeNav({
       <div className="border-b border-dashed border-border pb-2 mb-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
         ARENA SEATING ZONES
       </div>
-      <div className="space-y-0.5">
+      <div role="tree" aria-label="Arena seating zones" className="space-y-0.5">
         {data.map((node) => (
           <TreeItem
             key={node.id}

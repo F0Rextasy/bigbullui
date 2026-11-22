@@ -21,8 +21,7 @@ export function QuickActions({ actions = [], className, ...props }: QuickActions
 
   return (
     <div className={cn("inline-flex divide-x divide-border/60 overflow-hidden rounded-md border border-border bg-card", className)} role="toolbar" aria-label="Quick actions" {...props}>
-      <style>{`@keyframes qaFlash { from { background-color: var(--accent); } to { background-color: transparent; } }`}</style>
-      {actions.map((a, idx) => (
+      {actions.map((a) => (
         <button
           type="button"
           key={a.id}

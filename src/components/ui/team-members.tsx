@@ -33,10 +33,6 @@ export function TeamMembers({ members = [], onInvite, onRemove, className, ...pr
 
   return (
     <div className={cn("w-full max-w-md rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`
-        @keyframes teamIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes teamStamp { 0% { transform: scale(0.8); opacity: 0; } 70% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
-      `}</style>
       <div className="border-b border-border px-4 py-3">
         <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Team Members · {list.length}</h3>
       </div>

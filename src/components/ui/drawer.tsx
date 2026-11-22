@@ -154,7 +154,9 @@ export function DrawerContent({
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
   const setOpenRef = React.useRef(ctx.setOpen);
-  setOpenRef.current = ctx.setOpen;
+  React.useEffect(() => {
+    setOpenRef.current = ctx.setOpen;
+  });
 
   const [dragOffset, setDragOffset] = React.useState(0);
   const [isDragging, setIsDragging] = React.useState(false);
@@ -186,16 +188,10 @@ export function DrawerContent({
       releaseEscape();
       releaseScroll();
       restoreRef.current?.focus();
-    };
-  }, [ctx.open]);
-
-  // Reset drag state whenever drawer is closed
-  React.useEffect(() => {
-    if (!ctx.open) {
+      currentOffsetRef.current = 0;
       setDragOffset(0);
       setIsDragging(false);
-      currentOffsetRef.current = 0;
-    }
+    };
   }, [ctx.open]);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {

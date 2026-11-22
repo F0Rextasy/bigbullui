@@ -10,18 +10,19 @@ export interface CountdownStartProps extends React.HTMLAttributes<HTMLDivElement
 
 /** Countdown start: 3-2-1-GO match opener with auto tick. */
 export function CountdownStart({ from = 3, onGo, className, ...props }: CountdownStartProps) {
-  const [n, setN] = React.useState(from);
-  React.useEffect(() => {
-    setN(from);
-  }, [from]);
+  const [entry, setEntry] = React.useState(() => ({ base: from, n: from }));
+  const n = entry.base === from ? entry.n : from;
   React.useEffect(() => {
     if (n <= 0) {
       onGo?.();
       return;
     }
-    const t = setTimeout(() => setN((v) => v - 1), 900);
+    const t = setTimeout(() => setEntry((prev) => ({
+      base: from,
+      n: (prev.base === from ? prev.n : from) - 1,
+    })), 900);
     return () => clearTimeout(t);
-  }, [n, onGo]);
+  }, [n, from, onGo]);
   return (
     <div
       role="timer"
@@ -30,7 +31,6 @@ export function CountdownStart({ from = 3, onGo, className, ...props }: Countdow
       style={{ touchAction: "none" }}
       {...props}
     >
-      <style>{`@keyframes countZoom { 0% { transform: scale(0.6); opacity: 0; } 40% { opacity: 1; } 100% { transform: scale(1.15); } }`}</style>
       <span key={n} className="animate-[countZoom_0.85s_ease-out] font-mono text-4xl font-black tabular-nums motion-reduce:animate-none" aria-hidden="true">
         {n > 0 ? n : "GO"}
       </span>

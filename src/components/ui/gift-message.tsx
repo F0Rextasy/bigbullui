@@ -15,10 +15,6 @@ export function GiftMessage({ from, message, onOpen, className, ...props }: Gift
 
   return (
     <div className={cn("w-full max-w-xs", className)} {...props}>
-      <style>{`
-        @keyframes gmPop { 0% { transform: scale(0.85) rotate(-3deg); opacity: 0; } 70% { transform: scale(1.05) rotate(1deg); } 100% { transform: scale(1) rotate(0); opacity: 1; } }
-        @keyframes gmRibbon { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
-      `}</style>
 
       {!opened ? (
         <button

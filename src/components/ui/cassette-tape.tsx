@@ -12,7 +12,6 @@ export interface CassetteTapeProps {
 export function CassetteTape({ title, playing = false, onToggle }: CassetteTapeProps) {
   return (
     <div className="w-64 max-w-full">
-      <style>{`@keyframes ctSpin { to { transform: rotate(360deg); } }`}</style>
       <div
         className={cn(
           "relative rounded-md border border-border bg-card p-4 motion-reduce:transition-none"

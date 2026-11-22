@@ -20,7 +20,6 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
 
   return (
     <div className={cn("flex min-h-[420px] overflow-hidden rounded-lg border border-border bg-background", className)} {...props}>
-      <style>{`@keyframes adminIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
 
       {/* Sidebar */}
       <aside className={cn("flex shrink-0 flex-col border-r border-border bg-card transition-all duration-300 motion-reduce:transition-none", collapsed ? "w-14" : "w-52")}>

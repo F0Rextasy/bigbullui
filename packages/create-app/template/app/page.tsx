@@ -1,5 +1,6 @@
 import { Button } from "bigbullui";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "bigbullui";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function Home() {
   return (
@@ -18,8 +19,9 @@ export default function Home() {
           <CardTitle>Admit one</CardTitle>
           <CardDescription>Your bigbullui starter is ready.</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <Button>Get Started</Button>
+          <ThemeToggle />
         </CardContent>
       </Card>
     </main>

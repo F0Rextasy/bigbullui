@@ -41,7 +41,6 @@ export function KanbanV2({ columns = [], onMove, className, ...props }: KanbanV2
 
   return (
     <div className={cn("flex w-full gap-3 overflow-x-auto pb-2", className)} {...props}>
-      <style>{`@keyframes kbIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {board.map((col, idx) => (
         <div
           key={col.id}

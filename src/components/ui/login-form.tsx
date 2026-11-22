@@ -34,17 +34,6 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
 
   return (
     <form onSubmit={handleSubmit} className={cn("w-full max-w-sm space-y-4", className)} noValidate {...props}>
-      <style>{`
-        @keyframes loginShake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-4px); }
-          75% { transform: translateX(4px); }
-        }
-        @keyframes loginIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
 
       <div className="space-y-1.5 animate-[loginIn_0.35s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={emailId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Email</label>

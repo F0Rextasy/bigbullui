@@ -17,6 +17,7 @@ const eslintConfig = defineConfig([
     "packages/**/dist/**",
     ".wave/**",
     "public/clips/**",
+    ".tmp-*/**",
   ]),
   {
     // Docs preview maps are keyed by slug and always rendered as components,
@@ -30,9 +31,6 @@ const eslintConfig = defineConfig([
     },
   },
   {
-    // Effect-state sync and ref patterns below are runtime-verified
-    // (tsc + build + browser QA); keep the compiler hints as warnings
-    // while the gradual cleanup in TODO.md proceeds.
     files: ["src/components/ui/**/*.tsx"],
     rules: {
       "@next/next/no-img-element": "off",
@@ -41,12 +39,14 @@ const eslintConfig = defineConfig([
   {
     files: ["src/**/*.{ts,tsx}"],
     rules: {
-      "react-hooks/set-state-in-effect": "warn",
-      "react-hooks/refs": "warn",
-      "react-hooks/purity": "warn",
-      "react-hooks/set-state-in-render": "warn",
-      "react-hooks/immutability": "warn",
-      "react-hooks/static-components": "warn",
+      "@typescript-eslint/no-unused-vars": "error",
+      "react-hooks/exhaustive-deps": "error",
+      "react-hooks/set-state-in-effect": "error",
+      "react-hooks/refs": "error",
+      "react-hooks/purity": "error",
+      "react-hooks/set-state-in-render": "error",
+      "react-hooks/immutability": "error",
+      "react-hooks/static-components": "error",
     },
   },
 ]);

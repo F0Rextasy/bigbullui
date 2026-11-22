@@ -24,7 +24,6 @@ export function PriceCompare({ title = "", offers = [], currency = "$", classNam
 
   return (
     <div className={cn("w-full max-w-md overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes pcIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="border-b border-border px-4 py-2.5">
         <h3 className="truncate text-sm font-semibold">{title}</h3>
       </div>

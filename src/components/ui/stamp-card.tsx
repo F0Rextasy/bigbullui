@@ -10,9 +10,6 @@ export interface StampCardProps {
   className?: string;
 }
 
-const Pulse = "stamp-card-pulse";
-const Entrance = "stamp-card-entrance";
-
 export function StampCard({
   text = "ADMITTED",
   subtext = "OFFICIAL STUB",
@@ -38,10 +35,7 @@ export function StampCard({
         </span>
 
         {/* Pulse indicator */}
-        <span className={cn(
-          "size-1.5 rounded-full bg-accent",
-          Pulse
-        )} />
+        <span className="size-1.5 rounded-full bg-accent motion-safe:animate-pulse" aria-hidden="true" />
       </div>
 
       {/* Subtext */}

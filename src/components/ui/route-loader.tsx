@@ -17,13 +17,6 @@ export function RouteLoader({ active, className, ...props }: RouteLoaderProps) {
       aria-label="Page loading"
       {...props}
     >
-      <style>{`
-        @keyframes rlRun {
-          0% { transform: translateX(-100%) scaleX(0.4); }
-          50% { transform: translateX(30%) scaleX(0.5); }
-          100% { transform: translateX(100%) scaleX(0.4); }
-        }
-      `}</style>
       {active && <div className="h-full w-full bg-accent motion-reduce:animate-none!" style={{ animation: "rlRun 1.2s ease-in-out infinite" }} />}
     </div>
   );

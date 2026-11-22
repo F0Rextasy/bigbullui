@@ -36,13 +36,14 @@ export interface ToastProviderProps {
   children: React.ReactNode;
 }
 
+const emptySubscribe = () => () => {};
+
 export function ToastProvider({ children }: ToastProviderProps) {
   const [toasts, setToasts] = React.useState<ToastItem[]>([]);
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = React.useSyncExternalStore(emptySubscribe, () => true, () => false);
   const timersRef = React.useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
 
   React.useEffect(() => {
-    setMounted(true);
     const timers = timersRef.current;
     return () => {
       timers.forEach((timer) => clearTimeout(timer));

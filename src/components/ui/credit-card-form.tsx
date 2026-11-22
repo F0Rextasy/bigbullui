@@ -31,9 +31,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
 
   return (
     <form onSubmit={(e) => { e.preventDefault(); if (valid) onSubmit?.({ number, name, expiry, cvv }); }} className={cn("w-full max-w-sm space-y-3.5", className)} noValidate {...props}>
-      <style>{`@keyframes ccIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
-
-      <div className="space-y-1 animate-[ccIn_0.25s_ease-out_both] motion-reduce:animate-none">
+      <div className="space-y-1 animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={numId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Card Number</label>
         <input
           id={numId}
@@ -50,7 +48,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
         />
       </div>
 
-      <div className="space-y-1 animate-[ccIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
+      <div className="space-y-1 animate-[creditCardIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
         <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Name on Card</label>
         <input
           id={nameId}
@@ -62,7 +60,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-3 animate-[ccIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
+      <div className="grid grid-cols-2 gap-3 animate-[creditCardIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
         <div className="space-y-1">
           <label htmlFor={expId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Expiry</label>
           <input
@@ -96,7 +94,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
           "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
-          "disabled:pointer-events-none disabled:opacity-40 animate-[ccIn_0.25s_ease-out_0.18s_both] motion-reduce:animate-none"
+          "disabled:pointer-events-none disabled:opacity-40 animate-[creditCardIn_0.25s_ease-out_0.18s_both] motion-reduce:animate-none"
         )}
       >
         Complete payment

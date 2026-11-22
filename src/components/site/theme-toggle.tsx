@@ -3,11 +3,11 @@
 import * as React from "react";
 import { useTheme } from "@/components/theme-provider";
 
+const emptySubscribe = () => () => {};
+
 export function ThemeToggle() {
   const { resolved, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => setMounted(true), []);
+  const mounted = React.useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const next = resolved === "dark" ? "light" : "dark";
 

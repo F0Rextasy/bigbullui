@@ -21,7 +21,6 @@ export function StepperV2({ steps = [], current = 0, vertical = true, className,
   if (vertical) {
     return (
       <ol className={cn("relative space-y-0", className)} {...props}>
-        <style>{`@keyframes stvIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
         {steps.map((s, i) => {
           const state = i < current ? "done" : i === current ? "active" : "upcoming";
           const last = i === steps.length - 1;

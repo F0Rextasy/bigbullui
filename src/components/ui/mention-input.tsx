@@ -120,17 +120,26 @@ export function MentionInput({
       />
 
       {popupOpen && filteredMentions.length > 0 && (
-        <div className="absolute left-2 bottom-full z-50 mb-1 w-56 rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both]">
+        <div role="listbox" aria-label="Mentions" className="absolute left-2 bottom-full z-50 mb-1 w-56 rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both]">
           <div className="border-b border-dashed border-border px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
             SELECT TICKET MENTION
           </div>
           {filteredMentions.map((item, idx) => (
             <div
               key={item.id}
+              role="option"
+              aria-selected={idx === selectedIndex}
+              tabIndex={0}
               onClick={() => insertMention(item)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  insertMention(item);
+                }
+              }}
               onMouseEnter={() => setSelectedIndex(idx)}
               className={cn(
-                "flex cursor-pointer items-center justify-between rounded-sm px-2 py-1.5 text-xs transition-colors",
+                "flex cursor-pointer items-center justify-between rounded-sm px-2 py-1.5 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 idx === selectedIndex
                   ? "bg-accent font-bold text-accent-foreground"
                   : "text-foreground hover:bg-secondary"

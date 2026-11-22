@@ -14,7 +14,6 @@ export function ManaBar({ value, max = 100, label = "MP", className, ...props }:
   const pct = Math.max(0, Math.min(100, (value / Math.max(1, max)) * 100));
   return (
     <div className={cn("w-full min-w-44 select-none", className)} {...props}>
-      <style>{`@keyframes mpShimmer { from { transform: translateX(-100%); } to { transform: translateX(220%); } }`}</style>
       <div className="mb-1 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.15em]">
         <span className="text-muted-foreground">{label}</span>
         <span className="font-bold tabular-nums text-foreground" role="status" aria-label={`${label} ${value} of ${max}`}>

@@ -61,12 +61,11 @@ export function KanbanLite({
   className,
   ...props
 }: KanbanLiteProps) {
-  const [columns, setColumns] = React.useState<KanbanColumn[]>(propColumns || DEFAULT_COLUMNS);
-
-  // Sync if propColumns changes
-  React.useEffect(() => {
-    if (propColumns) setColumns(propColumns);
-  }, [propColumns]);
+  const [entry, setEntry] = React.useState<{ base: KanbanColumn[] | undefined; cols: KanbanColumn[] }>(() => ({
+    base: propColumns,
+    cols: propColumns || DEFAULT_COLUMNS,
+  }));
+  const columns = entry.base === propColumns ? entry.cols : (propColumns || DEFAULT_COLUMNS);
 
   const moveTicket = (ticketId: string, currentColIdx: number, direction: "left" | "right") => {
     const targetColIdx = direction === "left" ? currentColIdx - 1 : currentColIdx + 1;
@@ -87,7 +86,7 @@ export function KanbanLite({
       return col;
     });
 
-    setColumns(nextColumns);
+    setEntry({ base: propColumns, cols: nextColumns });
     onMoveTicket?.(ticketId, fromCol.id, toCol.id);
   };
 

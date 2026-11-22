@@ -243,10 +243,10 @@ function AnimatedButtonPreview() {
   );
 }
 
+const PREVIEW_COUNTDOWN_TARGET = new Date("2028-12-31T23:59:59Z");
+
 function AnimatedCountdownPreview() {
-  // Target date 3 days from now
-  const target = React.useMemo(() => new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), []);
-  return <Countdown targetDate={target} />;
+  return <Countdown targetDate={PREVIEW_COUNTDOWN_TARGET} />;
 }
 
 function AnimatedSparklinePreview() {

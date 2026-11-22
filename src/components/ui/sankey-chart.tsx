@@ -97,7 +97,7 @@ export const SankeyChart = React.forwardRef<SVGSVGElement, SankeyChartProps>(
         )}
       >
         {/* Render ribbons for flows */}
-        {sortedFlows.map((flow, i) => {
+        {sortedFlows.map((flow) => {
           const fromNode = leftNodeMap.get(flow.from) || rightNodeMap.get(flow.from);
           const toNode = leftNodeMap.get(flow.to) || rightNodeMap.get(flow.to);
 
@@ -125,7 +125,7 @@ export const SankeyChart = React.forwardRef<SVGSVGElement, SankeyChartProps>(
         })}
 
         {/* Render nodes */}
-        {leftNodes.map((node, i) => (
+        {leftNodes.map((node) => (
           <g key={node.id} style={{ opacity: 1 }}>
             <rect
               x={leftPositions.get(node.id)!.x - 30}
@@ -157,7 +157,7 @@ export const SankeyChart = React.forwardRef<SVGSVGElement, SankeyChartProps>(
           </g>
         ))}
 
-        {rightNodes.map((node, i) => (
+        {rightNodes.map((node) => (
           <g key={node.id} style={{ opacity: 1 }}>
             <rect
               x={rightPositions.get(node.id)!.x - 30}

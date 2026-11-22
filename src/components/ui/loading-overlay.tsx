@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { lockBodyScroll } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export type LoadingOverlayProps = {
@@ -9,8 +10,17 @@ export type LoadingOverlayProps = {
 };
 
 export function LoadingOverlay({ active, label }: LoadingOverlayProps) {
+  React.useEffect(() => {
+    if (!active) return;
+    return lockBodyScroll();
+  }, [active]);
+
   return (
     <div
+      role="status"
+      aria-live="polite"
+      aria-busy={active}
+      aria-hidden={!active}
       className={cn(
         "fixed inset-0 z-40 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300",
         "motion-reduce:animate-none",

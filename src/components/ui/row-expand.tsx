@@ -19,7 +19,6 @@ export function RowExpandList({ items = [], className, ...props }: RowExpandList
 
   return (
     <div className={cn("w-full max-w-md divide-y divide-border/60 overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes reIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {items.map((item, idx) => {
         const open = openId === item.id;
         return (

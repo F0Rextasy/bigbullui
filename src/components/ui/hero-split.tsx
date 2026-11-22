@@ -16,8 +16,6 @@ export interface HeroSplitProps extends Omit<React.HTMLAttributes<HTMLDivElement
 export function HeroSplit({ eyebrow, title, description, actions, visual, className, ...props }: HeroSplitProps) {
   return (
     <section className={cn("grid grid-cols-1 items-center gap-8 overflow-hidden rounded-xl border border-border bg-card p-8 lg:grid-cols-2 lg:p-12", className)} {...props}>
-      <style>{`@keyframes hsLeft { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
-      @keyframes hsRight { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }`}</style>
 
       <div className="animate-[hsLeft_0.45s_cubic-bezier(0.16,1,0.3,1)_both] motion-reduce:animate-none">
         {eyebrow && (

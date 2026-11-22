@@ -18,7 +18,6 @@ export function UploadProgress({ filename, progress, onCancel, className, ...pro
 
   return (
     <div className={cn("flex w-full max-w-sm items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5", className)} {...props}>
-      <style>{`@keyframes upFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <span className="relative size-10 shrink-0" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label={filename}>
         <svg viewBox="0 0 40 40" className="size-full -rotate-90">
           <circle cx="20" cy="20" r={R} fill="none" stroke="var(--border)" strokeWidth="3" />

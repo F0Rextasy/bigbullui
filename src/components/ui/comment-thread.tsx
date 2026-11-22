@@ -27,8 +27,6 @@ const CommentThread: React.FC<CommentThreadProps> = ({
   ): React.ReactNode => {
     if (depth > maxDepth) return null;
 
-    const isLast = depth === 0; // simplified
-
     return (
       <div
         key={node.id}

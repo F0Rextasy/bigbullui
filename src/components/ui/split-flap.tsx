@@ -17,8 +17,10 @@ export interface SplitFlapCharProps extends React.HTMLAttributes<HTMLDivElement>
   char?: string;
   size?: "sm" | "md" | "lg";
   color?: "default" | "accent" | "amber" | "green" | "destructive" | "muted";
+  delay?: number;
   sound?: boolean;
-  onFlip?: () => void;
+  onFlip?: (char: string) => void;
+  onSettled?: () => void;
   className?: string;
 }
 
@@ -41,6 +43,7 @@ export interface SplitFlapRowProps extends React.HTMLAttributes<HTMLDivElement> 
   status: string;
   remarks?: string;
   sound?: boolean;
+  onFlip?: (char: string, index: number) => void;
   className?: string;
 }
 
@@ -113,8 +116,10 @@ export function SplitFlapChar({
   char = " ",
   size = "md",
   color = "default",
+  delay = 0,
   sound = false,
   onFlip,
+  onSettled,
   className,
   ...props
 }: SplitFlapCharProps) {
@@ -124,6 +129,13 @@ export function SplitFlapChar({
   const [prevChar, setPrevChar] = React.useState(targetChar);
   const [isFlipping, setIsFlipping] = React.useState(false);
   const audioCtxRef = React.useRef<AudioContext | null>(null);
+  const onFlipRef = React.useRef(onFlip);
+  const onSettledRef = React.useRef(onSettled);
+
+  React.useEffect(() => {
+    onFlipRef.current = onFlip;
+    onSettledRef.current = onSettled;
+  });
 
   React.useEffect(() => {
     if (targetChar === displayCharRef.current) return;
@@ -137,43 +149,49 @@ export function SplitFlapChar({
 
     let currentIdx = startIdx === -1 ? 0 : startIdx;
     const targetValidIdx = endIdx === -1 ? 0 : endIdx;
+    let interval: ReturnType<typeof setInterval> | null = null;
+    let flipResetTimeout: ReturnType<typeof setTimeout> | null = null;
 
-    const interval = setInterval(() => {
+    const startTimer = setTimeout(() => {
       if (!mounted) return;
-      step += 1;
+      interval = setInterval(() => {
+        if (!mounted) return;
+        step += 1;
 
-      if (currentIdx !== targetValidIdx && step < maxSteps) {
-        currentIdx = (currentIdx + 1) % FLAP_CHARSET.length;
-        const nextChar = FLAP_CHARSET[currentIdx];
-        setPrevChar(displayCharRef.current);
-        displayCharRef.current = nextChar;
-        setDisplayChar(nextChar);
-        setIsFlipping(true);
+        if (currentIdx !== targetValidIdx && step < maxSteps) {
+          currentIdx = (currentIdx + 1) % FLAP_CHARSET.length;
+          const nextChar = FLAP_CHARSET[currentIdx];
+          setPrevChar(displayCharRef.current);
+          displayCharRef.current = nextChar;
+          setDisplayChar(nextChar);
+          setIsFlipping(true);
 
-        if (sound) {
-          playMechanicalClick(audioCtxRef);
+          if (sound) {
+            playMechanicalClick(audioCtxRef);
+          }
+          onFlipRef.current?.(nextChar);
+
+          flipResetTimeout = setTimeout(() => {
+            if (mounted) setIsFlipping(false);
+          }, 35);
+        } else {
+          setPrevChar(displayCharRef.current);
+          displayCharRef.current = targetChar;
+          setDisplayChar(targetChar);
+          setIsFlipping(false);
+          if (interval) clearInterval(interval);
+          onSettledRef.current?.();
         }
-        if (onFlip) {
-          onFlip();
-        }
-
-        setTimeout(() => {
-          if (mounted) setIsFlipping(false);
-        }, 35);
-      } else {
-        setPrevChar(displayCharRef.current);
-        displayCharRef.current = targetChar;
-        setDisplayChar(targetChar);
-        setIsFlipping(false);
-        clearInterval(interval);
-      }
-    }, 45);
+      }, 45);
+    }, Math.max(0, delay));
 
     return () => {
       mounted = false;
-      clearInterval(interval);
+      clearTimeout(startTimer);
+      if (interval) clearInterval(interval);
+      if (flipResetTimeout) clearTimeout(flipResetTimeout);
     };
-  }, [targetChar, sound, onFlip]);
+  }, [targetChar, sound, delay]);
 
   const sizeClasses = {
     sm: "w-5 h-7 text-xs",
@@ -273,6 +291,8 @@ export function SplitFlapText({
     return raw.padEnd(length, " ").slice(0, length);
   }, [value, length]);
 
+  const chars = paddedValue.split("");
+
   return (
     <div
       className={cn("inline-flex items-center gap-[2px]", className)}
@@ -280,13 +300,15 @@ export function SplitFlapText({
       aria-label={value}
       {...props}
     >
-      {paddedValue.split("").map((ch, idx) => (
+      {chars.map((ch, idx) => (
         <SplitFlapChar
           key={idx}
           char={ch}
           size={size}
           color={color}
+          delay={idx * stagger}
           sound={sound && idx === 0}
+          onSettled={idx === chars.length - 1 ? onComplete : undefined}
         />
       ))}
     </div>
@@ -304,6 +326,7 @@ export function SplitFlapRow({
   status = "",
   remarks,
   sound = false,
+  onFlip,
   className,
   ...props
 }: SplitFlapRowProps) {
@@ -325,7 +348,7 @@ export function SplitFlapRow({
     >
       {/* Time */}
       <div className="col-span-2 sm:col-span-2">
-        <SplitFlapText value={time} length={5} size="sm" sound={sound} />
+        <SplitFlapText value={time} length={5} size="sm" sound={sound} onComplete={onFlip ? () => onFlip(status, 0) : undefined} />
       </div>
 
       {/* Train / Flight */}
@@ -357,6 +380,12 @@ export function SplitFlapRow({
           color={statusColor}
         />
       </div>
+
+      {remarks && (
+        <div className="col-span-12 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          {remarks}
+        </div>
+      )}
     </div>
   );
 }
@@ -419,15 +448,12 @@ export function SplitFlapBoard({
   className,
   ...props
 }: SplitFlapBoardProps) {
-  const [boardRows, setBoardRows] = React.useState<SplitFlapRowData[]>(rows);
-  const [soundActive, setSoundActive] = React.useState(sound);
+  const [shuffledEntry, setShuffledEntry] = React.useState<{ base: SplitFlapRowData[]; rows: SplitFlapRowData[] } | null>(null);
+  const [innerSound, setInnerSound] = React.useState(sound);
   const [filter, setFilter] = React.useState<string>("ALL");
   const [clockTime, setClockTime] = React.useState("08:42:15");
-
-  // Keep internal sound synced if controlled
-  React.useEffect(() => {
-    setSoundActive(sound);
-  }, [sound]);
+  const soundActive = onSoundChange ? sound : innerSound;
+  const boardRows = shuffledEntry?.base === rows ? shuffledEntry.rows : rows;
 
   // Update clock every second
   React.useEffect(() => {
@@ -443,28 +469,24 @@ export function SplitFlapBoard({
 
   const handleToggleSound = () => {
     const next = !soundActive;
-    setSoundActive(next);
-    if (onSoundChange) {
-      onSoundChange(next);
-    }
+    if (!onSoundChange) setInnerSound(next);
+    onSoundChange?.(next);
   };
 
   const handleShuffle = () => {
-    const shuffled = [...boardRows].map((r) => {
-      const statuses: SplitFlapRowData["status"][] = [
-        "ON TIME",
-        "BOARDING",
-        "DELAYED",
-        "FINAL CALL",
-        "ON TIME",
-      ];
-      const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-      return {
-        ...r,
-        status: randomStatus,
-      };
+    const statuses: SplitFlapRowData["status"][] = [
+      "ON TIME",
+      "BOARDING",
+      "DELAYED",
+      "FINAL CALL",
+      "ON TIME",
+    ];
+    const shuffled = boardRows.map((r, idx) => {
+      const nextStatus = statuses[Math.floor(Math.random() * statuses.length)];
+      onFlip?.(nextStatus, idx);
+      return { ...r, status: nextStatus };
     });
-    setBoardRows(shuffled);
+    setShuffledEntry({ base: rows, rows: shuffled });
   };
 
   const filteredRows = React.useMemo(() => {
@@ -597,6 +619,7 @@ export function SplitFlapBoard({
               status={r.status}
               remarks={r.remarks}
               sound={soundActive && i === 0}
+              onFlip={onFlip ? (ch) => onFlip(ch, i) : undefined}
             />
           ))
         )}

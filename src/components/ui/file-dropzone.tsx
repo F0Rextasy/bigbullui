@@ -44,6 +44,9 @@ export function FileDropzone({
   return (
     <div className={cn("w-full space-y-3", className)} {...props}>
       <div
+        role="button"
+        tabIndex={0}
+        aria-label="Upload file attachment"
         onDragOver={(e) => {
           e.preventDefault();
           setIsDragOver(true);
@@ -55,8 +58,14 @@ export function FileDropzone({
           handleFiles(e.dataTransfer.files);
         }}
         onClick={() => inputRef.current?.click()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            inputRef.current?.click();
+          }
+        }}
         className={cn(
-          "flex min-h-[160px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-colors select-none",
+          "flex min-h-[160px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isDragOver
             ? "border-accent bg-accent/10"
             : "border-border bg-card hover:border-foreground/50 hover:bg-secondary/40"

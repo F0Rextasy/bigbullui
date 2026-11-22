@@ -18,7 +18,6 @@ export function LowHpPulse({ active = true, intensity = 1, className, children, 
       style={{ touchAction: "none" }}
       {...props}
     >
-      <style>{`@keyframes lowHp { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }`}</style>
       {active && (
         <span
           aria-hidden="true"

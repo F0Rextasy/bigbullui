@@ -24,7 +24,10 @@ export function StampField({
   const [today, setToday] = React.useState("");
 
   React.useEffect(() => {
-    setToday(new Date().toLocaleDateString("en-US", { dateStyle: "medium" }).toUpperCase());
+    const t = setTimeout(() => {
+      setToday(new Date().toLocaleDateString("en-US", { dateStyle: "medium" }).toUpperCase());
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
 
   const stamp = () => {

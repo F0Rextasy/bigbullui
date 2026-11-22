@@ -8,46 +8,83 @@ const STORAGE_KEY = "bigbullui-theme";
 const ThemeCtx = React.createContext<{ theme: Theme; resolved: "light" | "dark"; setTheme: (t: Theme) => void } | null>(null);
 
 function systemDark(): boolean {
-  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  try {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch {
+    return false;
+  }
 }
 
-function apply(theme: Theme): "light" | "dark" {
-  const resolved = theme === "system" ? (systemDark() ? "dark" : "light") : theme;
-  document.documentElement.classList.toggle("dark", resolved === "dark");
-  return resolved;
+function readStoredTheme(): Theme {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw === "light" || raw === "dark" || raw === "system") return raw;
+  } catch {
+    // Storage may be blocked in sandboxed iframes or strict privacy modes
+  }
+  return "system";
+}
+
+function writeStoredTheme(next: Theme): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, next);
+  } catch {
+    // Ignore storage write errors so theme toggling keeps working in memory
+  }
+}
+
+function applyDomTheme(resolved: "light" | "dark"): void {
+  if (typeof document !== "undefined") {
+    document.documentElement.classList.toggle("dark", resolved === "dark");
+  }
+}
+
+function subscribeTheme(onChange: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  let media: MediaQueryList | null = null;
+  try {
+    media = window.matchMedia("(prefers-color-scheme: dark)");
+    media.addEventListener("change", onChange);
+  } catch {
+    media = null;
+  }
+  window.addEventListener("bigbullui-theme-change", onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    media?.removeEventListener("change", onChange);
+    window.removeEventListener("bigbullui-theme-change", onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
+function getResolvedThemeSnapshot(): "light" | "dark" {
+  const t = readStoredTheme();
+  return t === "system" ? (systemDark() ? "dark" : "light") : t;
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = React.useState<Theme>("system");
-  const [resolved, setResolved] = React.useState<"light" | "dark">("light");
+  const theme = React.useSyncExternalStore(
+    subscribeTheme,
+    readStoredTheme,
+    () => "system" as Theme
+  );
+  const resolved = React.useSyncExternalStore(
+    subscribeTheme,
+    getResolvedThemeSnapshot,
+    () => "light" as const
+  );
 
   React.useEffect(() => {
-    const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
-    setThemeState(stored);
-    setResolved(apply(stored));
-
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => {
-      const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
-      if (stored === "system") setResolved(apply("system"));
-    };
-    const syncFromStorage = () => {
-      const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
-      setThemeState(stored);
-      setResolved(stored === "dark" || (stored === "system" && systemDark()) ? "dark" : "light");
-    };
-    media.addEventListener("change", onChange);
-    window.addEventListener("bigbullui-theme-change", syncFromStorage);
-    return () => {
-      media.removeEventListener("change", onChange);
-      window.removeEventListener("bigbullui-theme-change", syncFromStorage);
-    };
-  }, []);
+    applyDomTheme(resolved);
+  }, [resolved]);
 
   const setTheme = React.useCallback((next: Theme) => {
-    localStorage.setItem(STORAGE_KEY, next);
-    setThemeState(next);
-    setResolved(apply(next));
+    writeStoredTheme(next);
+    const nextResolved = next === "system" ? (systemDark() ? "dark" : "light") : next;
+    applyDomTheme(nextResolved);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("bigbullui-theme-change"));
+    }
   }, []);
 
   return <ThemeCtx.Provider value={{ theme, resolved, setTheme }}>{children}</ThemeCtx.Provider>;

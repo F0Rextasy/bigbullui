@@ -9,13 +9,6 @@ export type TextDiffProps = {
   mode?: TextDiffMode;
 };
 
-const diffStaggerKeyframes = `
-  @keyframes slideIn {
-    from { transform: translateY(8px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-`;
-
 const TextDiff = ({ before = "", after = "", mode = "inline" }: TextDiffProps) => {
   const beforeWords = before.split(/\s+/);
   const afterWords = after.split(/\s+/);
@@ -56,7 +49,7 @@ const TextDiff = ({ before = "", after = "", mode = "inline" }: TextDiffProps) =
         key={i}
         className={cn(
           "underline underline-accent",
-          "animate-slideIn 0.2s ease-out"
+          "animate-[slideIn_0.2s_ease-out_both] motion-reduce:animate-none"
         )}
       >
         {word}{" "}
@@ -75,7 +68,7 @@ const TextDiff = ({ before = "", after = "", mode = "inline" }: TextDiffProps) =
         key={i}
         className={cn(
           "line-through line-through-destructive",
-          "animate-slideIn 0.2s ease-out"
+          "animate-[slideIn_0.2s_ease-out_both] motion-reduce:animate-none"
         )}
       >
         {word}{" "}
@@ -91,7 +84,6 @@ const TextDiff = ({ before = "", after = "", mode = "inline" }: TextDiffProps) =
         "motion-reduce:animate-none"
       )}
     >
-      <style>{diffStaggerKeyframes}</style>
       {mode === "side" ? (
         <div className="flex">
           <div className="w-1/2">

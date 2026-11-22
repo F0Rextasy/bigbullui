@@ -13,26 +13,9 @@ export type FormFieldProps = {
   children?: React.ReactNode;
 };
 
-const formFieldShake = `
-  @keyframes formFieldShake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-    20%, 40%, 60%, 80% { transform: translateX(4px); }
-  }
-`;
-
 export function FormField({ label, htmlFor, description, error, required = false, className, children }: FormFieldProps) {
-  const [showError, setShowError] = React.useState(false);
-
-  React.useEffect(() => {
-    if (error) {
-      setShowError(true);
-    }
-  }, [error]);
-
   return (
     <div className={cn("space-y-2", className)}>
-      <style>{formFieldShake}</style>
       {label !== undefined && (
         <label htmlFor={htmlFor} className={cn("block text-sm font-medium text-foreground", "motion-reduce:transition-none")}>
           {label}

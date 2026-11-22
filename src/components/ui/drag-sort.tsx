@@ -15,11 +15,10 @@ export interface DragSortProps extends React.HTMLAttributes<HTMLUListElement> {
 
 /** Drag and drop sortable list using HTML5 drag events with smooth displacement. */
 export function DragSort({ items = [], onReorder, className, ...props }: DragSortProps) {
-  const [order, setOrder] = React.useState(items);
+  const [entry, setEntry] = React.useState(() => ({ base: items, order: items }));
+  const order = entry.base === items ? entry.order : items;
   const [dragId, setDragId] = React.useState<string | null>(null);
   const [overId, setOverId] = React.useState<string | null>(null);
-
-  React.useEffect(() => setOrder(items), [items]);
 
   const handleDrop = (targetId: string) => {
     if (!dragId || dragId === targetId) { setDragId(null); setOverId(null); return; }
@@ -29,7 +28,7 @@ export function DragSort({ items = [], onReorder, className, ...props }: DragSor
     const next = [...order];
     const [moved] = next.splice(from, 1);
     next.splice(to, 0, moved);
-    setOrder(next);
+    setEntry({ base: items, order: next });
     onReorder?.(next);
     setDragId(null);
     setOverId(null);
@@ -37,7 +36,6 @@ export function DragSort({ items = [], onReorder, className, ...props }: DragSor
 
   return (
     <ul className={cn("space-y-1.5", className)} {...props}>
-      <style>{`@keyframes dragSortPop { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }`}</style>
       {order.map((item, idx) => (
         <li
           key={item.id}

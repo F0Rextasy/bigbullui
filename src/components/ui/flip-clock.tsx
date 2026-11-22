@@ -29,7 +29,7 @@ export function FlipClock({ time = "", className }: FlipClockProps) {
   );
 }
 
-function FlipDigit({ value = 0, index = 0 }: { value: number; index: number }) {
+function FlipDigit({ value = 0 }: { value: number; index?: number }) {
   const digitStyles = [
     "rotateX(0deg) scale(1)",     // 0
     "rotateX(90deg) scale(0.95)", // 1

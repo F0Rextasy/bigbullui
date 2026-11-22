@@ -22,7 +22,9 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
   const patternId = React.useId();
   const testId = React.useId();
   const onMatchRef = React.useRef(onMatch);
-  onMatchRef.current = onMatch;
+  React.useEffect(() => {
+    onMatchRef.current = onMatch;
+  });
 
   const { segments, matches, error } = React.useMemo(() => {
     try {
@@ -59,7 +61,6 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
 
   return (
     <div className={cn("w-full max-w-md space-y-3", className)} {...props}>
-      <style>{`@keyframes rtIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="space-y-1">
         <label htmlFor={patternId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Pattern</label>
         <input

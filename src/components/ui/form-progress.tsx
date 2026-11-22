@@ -15,7 +15,6 @@ export function FormProgress({ total, completed, label = "Completed", className,
 
   return (
     <div className={cn("w-full", className)} {...props}>
-      <style>{`@keyframes fpFill { from { transform: scaleX(0); } }`}</style>
       <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
         <span>{label}</span>
         <span className="tabular-nums">{completed}/{total} · %{pct}</span>

@@ -14,9 +14,12 @@ export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...prop
   const [now, setNow] = React.useState<Date | null>(null);
 
   React.useEffect(() => {
-    setNow(new Date());
+    const init = setTimeout(() => setNow(new Date()), 0);
     const t = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(t);
+    return () => {
+      clearTimeout(init);
+      clearInterval(t);
+    };
   }, []);
 
   const punch = (type: "in" | "out") => {
@@ -27,7 +30,6 @@ export function PunchClock({ employeeId = "EMP-042", onPunch, className, ...prop
 
   return (
     <div className={cn("w-56 rounded-lg border-2 border-dashed border-border bg-card p-4", className)} {...props}>
-      <style>{`@keyframes pcFeed { from { transform: translateY(-16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`}</style>
       <p className="text-center font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Time clock · {employeeId}</p>
 
       <p className="mt-2 text-center font-mono text-2xl font-bold tabular-nums text-accent" suppressHydrationWarning>

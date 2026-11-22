@@ -21,10 +21,6 @@ export function MilestoneChart({ milestones = [], className, ...props }: Milesto
 
   return (
     <div className={cn("w-full max-w-md px-2 py-4", className)} {...props}>
-      <style>{`
-        @keyframes mcLine { from { transform: scaleX(0); } }
-        @keyframes mcPop { 0% { transform: scale(0); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
-      `}</style>
       <div className="relative">
         {/* Base track */}
         <div className="absolute left-0 right-0 top-2.5 h-0.5 rounded-full bg-border/60" aria-hidden="true" />

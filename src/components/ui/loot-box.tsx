@@ -13,7 +13,6 @@ export function LootBox({ locked = false, onOpen, className, ...props }: LootBox
   const [open, setOpen] = React.useState(false);
   return (
     <div className={cn("flex touch-none select-none flex-col items-center gap-2", className)} style={{ touchAction: "none" }} {...props}>
-      <style>{`@keyframes crateShake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }`}</style>
       <div
         role="img"
         aria-label={open ? "Loot box opened" : locked ? "Loot box locked" : "Loot box ready"}

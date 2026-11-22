@@ -14,7 +14,6 @@ export function DangerZone({ title = "Danger Zone", actions = [], className, ...
 
   return (
     <div className={cn("w-full max-w-md rounded-lg border-2 border-destructive/40 p-4", className)} {...props}>
-      <style>{`@keyframes dzIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-destructive">{title}</h3>
       <ul className="mt-3 space-y-2.5">
         {actions.map((a, idx) => (

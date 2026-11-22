@@ -27,7 +27,6 @@ export function SkeletonV2({ className, shimmer = true, ...props }: SkeletonV2Pr
           )}
         />
       )}
-      <style>{`@keyframes skeletonV2Sweep { 100% { transform: translateX(100%); } }`}</style>
     </div>
   );
 }

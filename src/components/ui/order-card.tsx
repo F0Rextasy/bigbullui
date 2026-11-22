@@ -11,9 +11,6 @@ export interface OrderCardProps {
   className?: string;
 }
 
-const ProgressBar = "order-progress-bar";
-const StatusEnter = "order-status-enter";
-
 export function OrderCard({
   orderId,
   status = "Processing",
@@ -35,8 +32,7 @@ export function OrderCard({
           status === "Processing" && "bg-warning text-white",
           status === "Shipped" && "bg-success text-white",
           status === "Delivered" && "bg-success text-white",
-          status === "Cancelled" && "bg-destructive text-white",
-          StatusEnter
+          status === "Cancelled" && "bg-destructive text-white"
         )}>
           {status}
         </span>
@@ -47,10 +43,7 @@ export function OrderCard({
         <div className="w-full bg-secondary/40 rounded-full h-2 mb-3 overflow-hidden">
           <div
             style={{ width: `${Math.min(Math.max(progress * 100, 0), 100)}%` }}
-            className={cn(
-              "h-full bg-accent rounded-full transition-[width] duration-500 motion-reduce:transition-none",
-              ProgressBar
-            )}
+            className="h-full rounded-full bg-accent transition-[width] duration-500 motion-reduce:transition-none"
           />
         </div>
       )}

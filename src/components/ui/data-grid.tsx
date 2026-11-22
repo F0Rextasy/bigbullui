@@ -47,7 +47,6 @@ export function DataGrid<T extends Record<string, unknown>>({ columns = [], rows
 
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border", className)} {...props}>
-      <style>{`@keyframes dgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="max-h-80 overflow-auto">
         <table className="w-full min-w-max text-sm">
           <thead className="sticky top-0 z-10 bg-secondary/95 backdrop-blur-sm">

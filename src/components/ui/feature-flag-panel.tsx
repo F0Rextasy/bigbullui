@@ -29,7 +29,6 @@ export function FeatureFlagPanel({ flags = [], onToggle, className, ...props }: 
 
   return (
     <div className={cn("w-full max-w-md divide-y divide-border/60 rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes ffSlide { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       {state.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-3 px-4 py-3 animate-[ffSlide_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
           <div className="min-w-0 flex-1">

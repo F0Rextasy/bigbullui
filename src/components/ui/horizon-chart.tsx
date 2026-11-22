@@ -22,7 +22,7 @@ export function HorizonChart({
   const bandCount = Math.max(1, Math.floor(bands));
   const n = data.length;
   if (n === 0) {
-    return <svg width={width} height={height} className={className} aria-hidden="true" {...props} />;
+    return <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className={className} aria-hidden="true" {...props} />;
   }
   const max = Math.max(...data, 1);
   const x = (i: number) => (i / Math.max(n - 1, 1)) * width;

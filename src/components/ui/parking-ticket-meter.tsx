@@ -18,24 +18,32 @@ export function ParkingTicketMeter({
   className,
   ...props
 }: ParkingTicketMeterProps) {
-  const [now, setNow] = React.useState<number | null>(null);
-  const fallbackStartRef = React.useRef<number | null>(null);
+  const [tick, setTick] = React.useState<{ startMs: number; now: number } | null>(null);
   const expiredFiredRef = React.useRef(false);
   const onExpireRef = React.useRef(onExpire);
-  onExpireRef.current = onExpire;
+  React.useEffect(() => {
+    onExpireRef.current = onExpire;
+  });
 
   React.useEffect(() => {
-    const t0 = Date.now();
-    if (fallbackStartRef.current === null) fallbackStartRef.current = t0;
-    setNow(t0);
-    const id = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(id);
+    const startTimer = setTimeout(() => {
+      const t0 = Date.now();
+      setTick((prev) => ({ startMs: prev?.startMs ?? t0, now: t0 }));
+    }, 0);
+    const id = setInterval(() => {
+      const t = Date.now();
+      setTick((prev) => ({ startMs: prev?.startMs ?? t, now: t }));
+    }, 1000);
+    return () => {
+      clearTimeout(startTimer);
+      clearInterval(id);
+    };
   }, []);
 
-  const start = enteredAt ?? fallbackStartRef.current ?? 0;
-  const elapsedMin = now === null ? 0 : Math.max(0, (now - start) / 60000);
+  const start = enteredAt ?? tick?.startMs ?? 0;
+  const elapsedMin = tick === null ? 0 : Math.max(0, (tick.now - start) / 60000);
   const leftMin = allowanceMin - elapsedMin;
-  const expired = now !== null && leftMin <= 0;
+  const expired = tick !== null && leftMin <= 0;
   const pct = allowanceMin > 0 ? Math.min(100, Math.max(0, (leftMin / allowanceMin) * 100)) : 0;
 
   React.useEffect(() => {

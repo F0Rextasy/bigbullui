@@ -55,7 +55,6 @@ export function DurationInput({ value, defaultValue = { hours: 0, minutes: 0 }, 
 
   return (
     <div className={cn("inline-flex items-start gap-2 rounded-lg border border-border bg-background p-3", className)} role="group" aria-label={label} {...props}>
-      <style>{`@keyframes durIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }`}</style>
       {unit("hours", 99, "Saat")}
       <span className="pt-6 font-mono text-lg text-muted-foreground" aria-hidden="true">:</span>
       {unit("minutes", 59, "Dakika")}

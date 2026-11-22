@@ -17,10 +17,6 @@ export interface InvoiceProps {
   className?: string;
 }
 
-const StripeEnter = "invoice-stripe-enter";
-const TotalRise = "invoice-total-rise";
-const Pulse = "invoice-status-pulse";
-
 /** Parse a display price string ("$1,234.56", "1.234,56", "($5)", "-$5") into a number. Invalid input yields 0, never NaN. */
 function parsePrice(raw: string): number {
   const s = raw.trim();
@@ -71,8 +67,7 @@ export function Invoice({
             "px-2 py-0.5 rounded text-xs font-mono uppercase tracking-widest",
             status === "draft" && "bg-secondary/20 text-muted-foreground",
             status === "paid" && "bg-accent/10 text-accent",
-            status === "void" && "bg-destructive/10 text-destructive",
-            TotalRise
+            status === "void" && "bg-destructive/10 text-destructive"
           )}>
             {status}
           </span>
@@ -123,7 +118,7 @@ export function Invoice({
             <span className="font-mono text-right ms-2">{tax.toFixed(2)}</span>
           </div>
         )}
-        <div className={cn("flex items-baseline justify-between pt-1", TotalRise)}>
+        <div className="flex items-baseline justify-between pt-1">
           <span className="font-medium">Total</span>
           <span className="font-medium text-accent text-right">{total.toFixed(2)}</span>
         </div>

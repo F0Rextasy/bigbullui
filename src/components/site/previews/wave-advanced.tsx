@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Carousel } from "@/components/ui/carousel";
 import { QrCode } from "@/components/ui/qr-code";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { ImageCrop } from "@/components/ui/image-crop";

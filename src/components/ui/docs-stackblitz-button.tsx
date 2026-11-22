@@ -1,32 +1,46 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "./lib/utils";
+import { cn, isSafeUrl } from "./lib/utils";
 
 const STARTER_URL =
   "https://stackblitz.com/fork/github/F0Rextasy/bigbullui/tree/main/packages/create-app/template?file=app%2Fpage.tsx";
 
+/** @deprecated Docs-site helper scheduled to move out of the core UI package in v2.0. */
 export interface DocsStackblitzButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   componentName?: string;
   files?: Record<string, string>;
+  templateUrl?: string;
+  titlePrefix?: string;
 }
 
-/** Docs button opening the stub example in StackBlitz via POST project form or template fork. */
-export function DocsStackblitzButton({ componentName = "button", files, className, ...props }: DocsStackblitzButtonProps) {
+/**
+ * @deprecated Docs-site helper scheduled to move out of the core UI package in v2.0.
+ * Docs button opening the stub example in StackBlitz via POST project form or template fork.
+ */
+export function DocsStackblitzButton({
+  componentName = "button",
+  files,
+  templateUrl = STARTER_URL,
+  titlePrefix = "bigbullui",
+  className,
+  ...props
+}: DocsStackblitzButtonProps) {
   const formRef = React.useRef<HTMLFormElement>(null);
+  const safeTemplateUrl = isSafeUrl(templateUrl) ? templateUrl : STARTER_URL;
   const open = () => {
     if (files && Object.keys(files).length > 0 && formRef.current) {
       formRef.current.submit();
       return;
     }
-    window.open(STARTER_URL, "_blank", "noopener,noreferrer");
+    window.open(safeTemplateUrl, "_blank", "noopener,noreferrer");
   };
   return (
     <div className={cn("flex items-center gap-2", className)} {...props}>
       {files && Object.keys(files).length > 0 ? (
         <form ref={formRef} action="https://stackblitz.com/run" method="POST" target="_blank" className="hidden" aria-hidden="true">
           <input type="hidden" name="project[template]" value="create-react-app" />
-          <input type="hidden" name="project[title]" value={`bigbullui — ${componentName}`} />
+          <input type="hidden" name="project[title]" value={`${titlePrefix} — ${componentName}`} />
           {Object.entries(files).map(([name, contents]) => (
             <input key={name} type="hidden" name={`project[files][${name}]`} value={contents} />
           ))}

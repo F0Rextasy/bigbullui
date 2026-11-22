@@ -20,61 +20,10 @@ export interface CommandPaletteProps {
   onOpenChange: (open: boolean) => void;
   items: CommandItem[];
   placeholder?: string;
+  synonyms?: Record<string, string | string[]>;
 }
 
-const SYNONYMS: Record<string, string> = {
-  buton: "button",
-  düğme: "button",
-  kart: "card",
-  bilet: "ticket",
-  stub: "ticket",
-  tablo: "table",
-  giriş: "input",
-  giris: "input",
-  yükle: "upload",
-  yukle: "upload",
-  dosya: "file",
-  resim: "image",
-  fotograf: "image",
-  ses: "audio",
-  ileti: "message",
-  mesaj: "message",
-  sayfa: "page",
-  menü: "menu",
-  menu: "menu",
-  arama: "search",
-  grafik: "chart",
-  liste: "list",
-  takvim: "calendar",
-  saat: "clock",
-  tarih: "date",
-  fiyat: "price",
-  odeme: "payment",
-  ödeme: "payment",
-  kullanici: "user",
-  kullanıcı: "user",
-  ayarlar: "settings",
-  bildirim: "notification",
-  sifre: "password",
-  şifre: "password",
-  modal: "dialog",
-  pencere: "dialog",
-  sekme: "tabs",
-  rozet: "badge",
-  onay: "confirm",
-  formlar: "form",
-  ticket: "bilet",
-  card: "kart",
-  ticketcard: "ticket card",
-  button: "buton",
-  table: "tablo",
-  search: "arama",
-  chart: "grafik",
-  dialog: "modal",
-  user: "kullanici",
-  file: "dosya",
-  image: "resim",
-};
+const EMPTY_SYNONYMS: Record<string, string | string[]> = {};
 
 function normalizeWord(word: string): string {
   return word
@@ -86,11 +35,13 @@ function normalizeWord(word: string): string {
     .trim();
 }
 
-function expandToken(token: string): string[] {
+function expandToken(token: string, synonyms: Record<string, string | string[]>): string[] {
   const out = [token];
-  const mapped = SYNONYMS[token];
-  if (mapped && mapped !== token) {
-    for (const w of wordsOf(mapped)) {
+  const mapped = synonyms[token];
+  if (!mapped) return out;
+  const list = Array.isArray(mapped) ? mapped : [mapped];
+  for (const entry of list) {
+    for (const w of wordsOf(entry)) {
       if (w !== token && !out.includes(w)) out.push(w);
     }
   }
@@ -136,6 +87,7 @@ export function CommandPalette({
   onOpenChange,
   items = [],
   placeholder = "Type a command or search tickets...",
+  synonyms = EMPTY_SYNONYMS,
 }: CommandPaletteProps) {
   const [search, setSearch] = React.useState("");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -143,79 +95,80 @@ export function CommandPalette({
 
   const MAX_RESULTS = 60;
 
-  function scoreItem(item: CommandItem, tokens: string[]): number {
-    const labelWords = wordsOf(item.label);
-    const labelFlat = labelWords.join(" ");
-    const labelSmushed = labelWords.join("");
-    const categoryWords = wordsOf(item.category ?? "");
-    const hintWords = wordsOf(item.hint ?? "");
-    const keywordWords = (item.keywords ?? []).flatMap(wordsOf);
-    const keywordSmushed = keywordWords.join("");
-    let score = 0;
-    for (const rawToken of tokens) {
-      const variants = expandToken(rawToken);
-      const tokenSmushed = rawToken.replace(/\s+/g, "");
-      let tokenScore = 0;
-      const hit = (words: string[], exact: number, prefix: number, sub: number, fuzzy: number) => {
-        for (const w of words) {
-          for (const v of variants) {
-            if (w === v) tokenScore = Math.max(tokenScore, exact);
-            else if (w.startsWith(v)) tokenScore = Math.max(tokenScore, prefix);
-            else if (w.includes(v)) tokenScore = Math.max(tokenScore, sub);
-            else if (isFuzzyMatch(w, v)) tokenScore = Math.max(tokenScore, fuzzy);
-          }
-        }
-      };
-      hit(labelWords, 120, 100, 50, 70);
-      hit(keywordWords, 60, 40, 20, 30);
-      hit(categoryWords, 20, 10, 5, 8);
-      hit(hintWords, 10, 5, 2, 4);
-      if (tokenSmushed.length >= 4) {
-        if (labelSmushed.includes(tokenSmushed)) tokenScore = Math.max(tokenScore, 80);
-        else if (keywordSmushed.includes(tokenSmushed)) tokenScore = Math.max(tokenScore, 35);
-      }
-      if (labelFlat.startsWith(tokens.join(" "))) tokenScore += 30;
-      if (tokenScore === 0) return 0;
-      score += tokenScore;
+  const { filteredItems, totalMatches } = React.useMemo(() => {
+    const query = search.trim().toLowerCase();
+    if (!query) {
+      return { filteredItems: items.slice(0, MAX_RESULTS), totalMatches: items.length };
     }
-    return score;
-  }
-
-  const filteredItems = React.useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return items.slice(0, MAX_RESULTS);
     const tokens = wordsOf(query);
-    return items
-      .map((item) => ({ item, score: scoreItem(item, tokens) }))
-      .filter((entry) => entry.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .slice(0, MAX_RESULTS)
-      .map((entry) => entry.item);
-  }, [items, search]);
-
-  const totalMatches = React.useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return items.length;
-    const tokens = wordsOf(query);
-    return items.filter((item) => scoreItem(item, tokens) > 0).length;
-  }, [items, search]);
-
-  React.useEffect(() => {
-    setSelectedIndex(0);
-  }, [filteredItems.length]);
+    const scored: { item: CommandItem; score: number }[] = [];
+    for (const item of items) {
+      const labelWords = wordsOf(item.label);
+      const labelFlat = labelWords.join(" ");
+      const labelSmushed = labelWords.join("");
+      const categoryWords = wordsOf(item.category ?? "");
+      const hintWords = wordsOf(item.hint ?? "");
+      const keywordWords = (item.keywords ?? []).flatMap(wordsOf);
+      const keywordSmushed = keywordWords.join("");
+      let score = 0;
+      let missed = false;
+      for (const rawToken of tokens) {
+        const variants = expandToken(rawToken, synonyms);
+        const tokenSmushed = rawToken.replace(/\s+/g, "");
+        let tokenScore = 0;
+        const hit = (words: string[], exact: number, prefix: number, sub: number, fuzzy: number) => {
+          for (const w of words) {
+            for (const v of variants) {
+              if (w === v) tokenScore = Math.max(tokenScore, exact);
+              else if (w.startsWith(v)) tokenScore = Math.max(tokenScore, prefix);
+              else if (w.includes(v)) tokenScore = Math.max(tokenScore, sub);
+              else if (isFuzzyMatch(w, v)) tokenScore = Math.max(tokenScore, fuzzy);
+            }
+          }
+        };
+        hit(labelWords, 120, 100, 50, 70);
+        hit(keywordWords, 60, 40, 20, 30);
+        hit(categoryWords, 20, 10, 5, 8);
+        hit(hintWords, 10, 5, 2, 4);
+        if (tokenSmushed.length >= 4) {
+          if (labelSmushed.includes(tokenSmushed)) tokenScore = Math.max(tokenScore, 80);
+          else if (keywordSmushed.includes(tokenSmushed)) tokenScore = Math.max(tokenScore, 35);
+        }
+        if (labelFlat.startsWith(tokens.join(" "))) tokenScore += 30;
+        if (tokenScore === 0) {
+          missed = true;
+          break;
+        }
+        score += tokenScore;
+      }
+      if (!missed && score > 0) scored.push({ item, score });
+    }
+    scored.sort((a, b) => b.score - a.score);
+    return {
+      filteredItems: scored.slice(0, MAX_RESULTS).map((entry) => entry.item),
+      totalMatches: scored.length,
+    };
+  }, [items, search, synonyms]);
 
   const panelRef = React.useRef<HTMLDivElement>(null);
   const returnFocusRef = React.useRef<HTMLElement | null>(null);
   const onOpenChangeRef = React.useRef(onOpenChange);
-  onOpenChangeRef.current = onOpenChange;
   const listId = React.useId();
+
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
+
+  const activeIndex = filteredItems.length === 0 ? 0 : Math.min(selectedIndex, filteredItems.length - 1);
 
   React.useEffect(() => {
     if (!open) return;
     returnFocusRef.current = document.activeElement as HTMLElement | null;
-    setSearch("");
-    setSelectedIndex(0);
-    const focusTimer = setTimeout(() => inputRef.current?.focus(), 50);
+    const focusTimer = setTimeout(() => {
+      setSearch("");
+      setSelectedIndex(0);
+      inputRef.current?.focus();
+    }, 0);
     const releaseScroll = lockBodyScroll();
     const releaseEscape = registerEscapeLayer(() => {
       onOpenChangeRef.current?.(false);
@@ -248,9 +201,9 @@ export function CommandPalette({
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredItems.length - 1));
-    } else if (e.key === "Enter" && filteredItems[selectedIndex]) {
+    } else if (e.key === "Enter" && filteredItems[activeIndex]) {
       e.preventDefault();
-      filteredItems[selectedIndex].onSelect?.();
+      filteredItems[activeIndex].onSelect?.();
       onOpenChangeRef.current?.(false);
     }
   };
@@ -304,7 +257,7 @@ export function CommandPalette({
             aria-expanded={filteredItems.length > 0}
             aria-controls={listId}
             aria-activedescendant={
-              filteredItems[selectedIndex] ? `${listId}-item-${filteredItems[selectedIndex].id}` : undefined
+              filteredItems[activeIndex] ? `${listId}-item-${filteredItems[activeIndex].id}` : undefined
             }
             value={search}
             onChange={(e) => {

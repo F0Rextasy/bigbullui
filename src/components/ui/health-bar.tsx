@@ -17,7 +17,6 @@ export function HealthBar({ value, max = 100, label = "HP", segments = 10, class
   const low = pct <= 25;
   return (
     <div className={cn("w-full min-w-44 select-none", className)} {...props}>
-      <style>{`@keyframes hpPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }`}</style>
       <div className="mb-1 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.15em]">
         <span className="text-muted-foreground">{label}</span>
         <span

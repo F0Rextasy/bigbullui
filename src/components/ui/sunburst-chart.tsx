@@ -35,7 +35,7 @@ export function SunburstChart({ slices = [], height = 260, className, ...props }
   const cx = 50, cy = 50;
 
   const root = slices.filter((s) => s.parentId === null);
-  const rootTotal = root.reduce((s, r) => s + r.value, 0);
+  const rootTotal = root.reduce((s, r) => s + r.value, 0) || 1;
   const rootChildren = new Map<string, SunburstRing[]>();
   for (const s of slices) {
     if (s.parentId === null) continue;
@@ -44,24 +44,29 @@ export function SunburstChart({ slices = [], height = 260, className, ...props }
     rootChildren.set(s.parentId, list);
   }
 
+  const segments: Array<{ seg: SunburstRing; start: number; end: number; sweep: number }> = [];
   let angle = -Math.PI / 2;
+  for (const seg of root) {
+    const sweep = (seg.value / rootTotal) * Math.PI * 2;
+    const start = angle;
+    const end = angle + sweep;
+    angle = end;
+    segments.push({ seg, start, end, sweep });
+  }
 
   return (
     <svg viewBox="0 0 100 100" style={{ height }} className={cn("w-full max-w-sm mx-auto", className)} role="img" aria-label="Sunburst chart" {...props}>
-      <style>{`@keyframes sbIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }`}</style>
-      {root.map((seg, idx) => {
-        const sweep = (seg.value / rootTotal) * Math.PI * 2;
-        const start = angle;
-        const end = angle + sweep;
-        angle = end;
+      {segments.map(({ seg, start, end, sweep }, idx) => {
         const isActive = hover === seg.id || (hover !== null && rootChildren.get(seg.id)?.some((c) => c.id === hover));
+        const children = rootChildren.get(seg.id) ?? [];
+        const segTotal = seg.value || 1;
 
         return (
           <g key={seg.id} className="motion-reduce:animate-none!" style={{ animation: "sbIn 0.45s ease-out both", animationDelay: `${idx * 100}ms`, transformOrigin: `${cx}px ${cy}px` }}>
             {/* Outer ring slices */}
-            {(rootChildren.get(seg.id) ?? []).map((child, cIdx) => {
-              const childSweep = (child.value / seg.value) * sweep;
-              const childStart = start + (cIdx / (rootChildren.get(seg.id)!.length)) * sweep * 0 + (rootChildren.get(seg.id)!.slice(0, cIdx).reduce((s, c) => s + c.value, 0) / seg.value) * sweep;
+            {children.map((child, cIdx) => {
+              const childSweep = (child.value / segTotal) * sweep;
+              const childStart = start + (children.slice(0, cIdx).reduce((s, c) => s + c.value, 0) / segTotal) * sweep;
               const childEnd = childStart + childSweep;
               const dim = hover !== null && !isActive && hover !== child.id;
               return (

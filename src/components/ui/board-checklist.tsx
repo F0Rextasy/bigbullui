@@ -27,23 +27,19 @@ const PRIORITY_LABEL: Record<NonNullable<TaskItem["priority"]>, string> = { low:
 
 /** Task checklist: checkbox + assignee + priority + progress. */
 export function BoardChecklist({ title = "Tasks", items = [], onToggle, className, ...props }: BoardChecklistProps) {
-  const [list, setList] = React.useState(items);
-  React.useEffect(() => setList(items), [items]);
+  const [entry, setEntry] = React.useState(() => ({ base: items, list: items }));
+  const list = entry.base === items ? entry.list : items;
   const doneCount = list.filter((i) => i.done).length;
   const pct = Math.round((doneCount / Math.max(1, list.length)) * 100);
 
   const toggle = (id: string) => {
     const next = list.map((i) => (i.id === id ? { ...i, done: !i.done } : i));
-    setList(next);
+    setEntry({ base: items, list: next });
     onToggle?.(id);
   };
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`
-        @keyframes bcCheck { 0% { transform: scale(0.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
-        @keyframes bcIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
 
       <div className="flex items-center justify-between">
         <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{title}</h3>

@@ -26,7 +26,6 @@ export function MentionList({ users = [], onSelect, className, ...props }: Menti
       aria-label="Mention suggestions"
       {...props}
     >
-      <style>{`@keyframes mlIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {users.map((u, idx) => (
         <li key={u.id} role="option" aria-selected={idx === highlight}>
           <button

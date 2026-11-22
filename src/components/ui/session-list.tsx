@@ -34,8 +34,6 @@ export function SessionList({ sessions = [], onRevoke, className, ...props }: Se
 
   return (
     <div className={cn("w-full max-w-md space-y-2", className)} {...props}>
-      <style>{`@keyframes sessionSlide { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
-      @keyframes sessionOut { to { opacity: 0; transform: translateX(24px); } }`}</style>
       {visible.map((s, idx) => (
         <div
           key={s.id}

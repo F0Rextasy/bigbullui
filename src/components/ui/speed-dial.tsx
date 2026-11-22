@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { registerEscapeLayer } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export type SpeedDialPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
@@ -36,22 +37,24 @@ export function SpeedDial({
   children,
 }: SpeedDialProps) {
   const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
 
-  const setOpenState = React.useCallback(
-    (next: boolean) => {
-      setOpen(next);
-      onOpenChange?.(next);
-    },
-    [onOpenChange]
-  );
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
+
+  const setOpenState = React.useCallback((next: boolean) => {
+    setOpen(next);
+    onOpenChangeRef.current?.(next);
+  }, []);
 
   React.useEffect(() => {
     if (!open) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpenState(false);
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return registerEscapeLayer(() => {
+      setOpenState(false);
+      triggerRef.current?.focus();
+    });
   }, [open, setOpenState]);
 
   const backdropClassName = cn(
@@ -68,12 +71,6 @@ export function SpeedDial({
 
   return (
     <div>
-      <style>{`
-        @keyframes speedDialScaleIn {
-          from { opacity: 0; transform: scale(0.8) translateY(10px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-      `}</style>
 
       <div
         className={cn(
@@ -84,6 +81,7 @@ export function SpeedDial({
         )}
       >
         <button
+          ref={triggerRef}
           type="button"
           className={cn(
             "relative flex cursor-pointer items-center justify-center select-none",
@@ -101,7 +99,7 @@ export function SpeedDial({
         </button>
 
         {open && (
-          <div className={backdropClassName} onClick={() => setOpenState(false)} />
+          <div aria-hidden="true" className={backdropClassName} onClick={() => setOpenState(false)} />
         )}
 
         {open && (

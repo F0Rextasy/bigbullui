@@ -211,28 +211,46 @@ export function DockItem({
   const itemRef = React.useRef<HTMLElement>(null);
   const [isHovered, setIsHovered] = React.useState(false);
   const [isPressed, setIsPressed] = React.useState(false);
+  const [scale, setScale] = React.useState(1);
 
   // Calculate dynamic magnification based on distance to cursor
-  const scale = React.useMemo(() => {
-    if (!magnify || !itemRef.current) return 1;
-
-    if (orientation === "horizontal") {
-      if (mouseX === null) return 1;
-      const el = itemRef.current;
-      const itemCenter = el.offsetLeft + el.offsetWidth / 2;
-      const delta = Math.abs(mouseX - itemCenter);
-      if (delta > distance) return 1;
-      const factor = Math.cos((delta / distance) * (Math.PI / 2));
-      return 1 + (magnification - 1) * factor;
-    } else {
-      if (mouseY === null) return 1;
-      const el = itemRef.current;
-      const itemCenter = el.offsetTop + el.offsetHeight / 2;
-      const delta = Math.abs(mouseY - itemCenter);
-      if (delta > distance) return 1;
-      const factor = Math.cos((delta / distance) * (Math.PI / 2));
-      return 1 + (magnification - 1) * factor;
-    }
+  React.useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      if (!magnify || !itemRef.current) {
+        setScale(1);
+        return;
+      }
+      if (orientation === "horizontal") {
+        if (mouseX === null) {
+          setScale(1);
+          return;
+        }
+        const el = itemRef.current;
+        const itemCenter = el.offsetLeft + el.offsetWidth / 2;
+        const delta = Math.abs(mouseX - itemCenter);
+        if (delta > distance) {
+          setScale(1);
+          return;
+        }
+        const factor = Math.cos((delta / distance) * (Math.PI / 2));
+        setScale(1 + (magnification - 1) * factor);
+      } else {
+        if (mouseY === null) {
+          setScale(1);
+          return;
+        }
+        const el = itemRef.current;
+        const itemCenter = el.offsetTop + el.offsetHeight / 2;
+        const delta = Math.abs(mouseY - itemCenter);
+        if (delta > distance) {
+          setScale(1);
+          return;
+        }
+        const factor = Math.cos((delta / distance) * (Math.PI / 2));
+        setScale(1 + (magnification - 1) * factor);
+      }
+    });
+    return () => cancelAnimationFrame(raf);
   }, [magnify, orientation, mouseX, mouseY, distance, magnification]);
 
   const computedSize = iconSize * scale;

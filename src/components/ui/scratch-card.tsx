@@ -11,23 +11,36 @@ export interface ScratchCardProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   onReveal?: (code: string) => void;
 }
 
-export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverText = "SCRATCH HERE", className, ...props }: ScratchCardProps) {
+export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverText = "SCRATCH HERE", onReveal, className, ...props }: ScratchCardProps) {
   const [scratched, setScratched] = React.useState(0);
-  const [revealed, setRevealed] = React.useState(false);
   const { copied, copy } = useCopy(1400);
   const areaRef = React.useRef<HTMLDivElement>(null);
-
-  const scratch = (clientX: number, clientY: number) => {
-    const el = areaRef.current;
-    if (!el || revealed) return;
-    const rect = el.getBoundingClientRect();
-    if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return;
-    setScratched((s) => Math.min(s + 7, 100));
-  };
+  const onRevealRef = React.useRef(onReveal);
+  const revealedFiredRef = React.useRef(false);
 
   React.useEffect(() => {
-    if (scratched >= 60 && !revealed) setRevealed(true);
-  }, [scratched, revealed ]);
+    onRevealRef.current = onReveal;
+  });
+
+  const revealed = scratched >= 60;
+
+  const scratch = React.useCallback(
+    (clientX: number, clientY: number) => {
+      const el = areaRef.current;
+      if (!el || revealedFiredRef.current) return;
+      const rect = el.getBoundingClientRect();
+      if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return;
+      setScratched((s) => {
+        const next = Math.min(s + 7, 100);
+        if (next >= 60 && !revealedFiredRef.current) {
+          revealedFiredRef.current = true;
+          onRevealRef.current?.(code);
+        }
+        return next;
+      });
+    },
+    [code]
+  );
 
   React.useEffect(() => {
     if (revealed) return;
@@ -38,8 +51,7 @@ export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverTe
     };
     el.addEventListener("pointermove", onMove);
     return () => el.removeEventListener("pointermove", onMove);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [revealed ]);
+  }, [revealed, scratch]);
 
   return (
     <div className={cn("w-full max-w-xs overflow-hidden rounded-lg border-2 border-foreground bg-card", className)} {...props}>
@@ -53,9 +65,13 @@ export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverTe
         tabIndex={0}
         aria-label={revealed ? `Revealed: ${prize}` : "Scratch to reveal prize"}
         onKeyDown={(e) => {
-          if (e.key === "Enter") {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
             setScratched(100);
-            setRevealed(true);
+            if (!revealedFiredRef.current) {
+              revealedFiredRef.current = true;
+              onRevealRef.current?.(code);
+            }
           }
         }}
         className="relative m-4 flex h-32 cursor-crosshair touch-none items-center justify-center rounded-md bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

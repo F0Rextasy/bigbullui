@@ -25,10 +25,6 @@ export function TicketValidator({ onValidate, result, className, ...props }: Tic
 
   return (
     <div className={cn("w-full max-w-xs rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`
-        @keyframes tvBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        @keyframes tvShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-      `}</style>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Ticket Validator</p>
 
       {/* Indicator light */}

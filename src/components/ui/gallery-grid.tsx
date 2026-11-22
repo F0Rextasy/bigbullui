@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface GalleryImage {
@@ -17,22 +18,36 @@ export interface GalleryGridProps extends React.HTMLAttributes<HTMLDivElement> {
 /** Image gallery grid: expandable fullscreen lightbox view. */
 export function GalleryGrid({ images = [], columns = 3, className, ...props }: GalleryGridProps) {
   const [active, setActive] = React.useState<number | null>(null);
+  const isOpen = active !== null;
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
   const colClass = { 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4" }[columns];
 
   React.useEffect(() => {
-    if (active === null) return;
+    if (!isOpen) return;
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => setActive(null));
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActive(null);
+      if (panelRef.current) trapFocus(panelRef.current, e);
       if (e.key === "ArrowRight") setActive((a) => (a === null ? null : (a + 1) % images.length));
       if (e.key === "ArrowLeft") setActive((a) => (a === null ? null : (a - 1 + images.length) % images.length));
     };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [active, images.length]);
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
+    };
+  }, [isOpen, images.length]);
 
   return (
     <div className={cn("w-full", className)} {...props}>
-      <style>{`@keyframes ggIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }`}</style>
       <div className={cn("grid gap-2", colClass)}>
         {images.map((img, idx) => (
           <button
@@ -51,11 +66,18 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
 
       {/* Lightbox */}
       {active !== null && images[active] && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 motion-safe:animate-[fade-in_0.2s_ease-out]" onClick={() => setActive(null)}>
-          <div className="relative max-h-full max-w-2xl animate-[ggIn_0.25s_ease-out_both] motion-reduce:animate-none" onClick={(e) => e.stopPropagation()}>
-            { }
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 motion-safe:animate-[fade-in_0.2s_ease-out]">
+          <div className="absolute inset-0 bg-black/80" onClick={() => setActive(null)} aria-hidden="true" />
+          <div
+            ref={panelRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label={images[active].alt ?? `Image ${active + 1} of ${images.length}`}
+            className="relative z-10 flex max-h-full max-w-2xl flex-col items-center animate-[ggIn_0.25s_ease-out_both] motion-reduce:animate-none focus:outline-none"
+          >
             <img src={images[active].src} alt={images[active].alt ?? ""} className="max-h-[80vh] rounded-lg border-2 border-dashed border-border object-contain" />
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-2 flex w-full items-center justify-between">
               <button
                 type="button"
                 onClick={() => setActive((a) => (a !== null ? (a - 1 + images.length) % images.length : null))}
@@ -72,15 +94,15 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
                 Next →
               </button>
             </div>
+            <button
+              type="button"
+              onClick={() => setActive(null)}
+              className="mt-3 rounded-sm border border-border bg-card/80 px-3 py-1 font-mono text-[10px] uppercase text-foreground transition-colors hover:bg-card focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
+              aria-label="Close"
+            >
+              Close
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => setActive(null)}
-            className="absolute right-4 top-4 rounded-sm p-1.5 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white motion-reduce:transition-none"
-            aria-label="Close"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
-          </button>
         </div>
       )}
     </div>

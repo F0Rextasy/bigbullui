@@ -32,12 +32,6 @@ const CurrencyDisplay = ({
         "motion-reduce:animate-none"
       )}
     >
-      <style>{`
-        @keyframes currencyPulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-      `}</style>
       <span>{parts[0]}</span>
       <span className="text-xs opacity-60">
         .{parts[1] || "00"}

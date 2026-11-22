@@ -34,12 +34,17 @@ const TimeAgo = ({ date, live = true }: TimeAgoProps) => {
   const [text, setText] = React.useState<string>("JUST NOW");
 
   React.useEffect(() => {
-    setText(formatTimeAgo(date));
-    if (!live) return;
+    const initTimer = setTimeout(() => {
+      setText(formatTimeAgo(date));
+    }, 0);
+    if (!live) return () => clearTimeout(initTimer);
     const interval = setInterval(() => {
       setText(formatTimeAgo(date));
     }, 30_000);
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(initTimer);
+      clearInterval(interval);
+    };
   }, [live, date]);
 
   return (

@@ -16,6 +16,7 @@ const MONTHS = [
   "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
 ];
 const DAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
+const DEFAULT_VIEW_DATE = new Date(2026, 0, 1);
 
 export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(function DatePicker(
   {
@@ -34,7 +35,17 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(f
   const isControlled = controlledValue !== undefined;
   const selectedDate = isControlled ? controlledValue : internalDate;
 
-  const [viewDate, setViewDate] = React.useState(selectedDate || new Date());
+  const [viewDate, setViewDate] = React.useState(() => selectedDate || DEFAULT_VIEW_DATE);
+  const userNavigatedRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (selectedDate || userNavigatedRef.current) return;
+    const t = setTimeout(() => {
+      if (!userNavigatedRef.current) setViewDate(new Date());
+    }, 0);
+    return () => clearTimeout(t);
+  }, [selectedDate]);
+
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
 
@@ -106,7 +117,11 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(f
           <div className="flex items-center justify-between border-b-2 border-dashed border-border pb-3">
             <button
               type="button"
-              onClick={() => setViewDate(new Date(year, month - 1, 1))}
+              aria-label="Previous month"
+              onClick={() => {
+                userNavigatedRef.current = true;
+                setViewDate(new Date(year, month - 1, 1));
+              }}
               className="size-7 rounded-sm border border-border bg-secondary flex items-center justify-center font-mono text-xs hover:bg-foreground hover:text-background cursor-pointer"
             >
               ←
@@ -116,7 +131,11 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(f
             </span>
             <button
               type="button"
-              onClick={() => setViewDate(new Date(year, month + 1, 1))}
+              aria-label="Next month"
+              onClick={() => {
+                userNavigatedRef.current = true;
+                setViewDate(new Date(year, month + 1, 1));
+              }}
               className="size-7 rounded-sm border border-border bg-secondary flex items-center justify-center font-mono text-xs hover:bg-foreground hover:text-background cursor-pointer"
             >
               →

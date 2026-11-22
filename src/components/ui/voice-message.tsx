@@ -23,9 +23,10 @@ const VoiceMessage: React.FC<{
             <span
               key={i}
               className={cn(
-                "rounded-full bg-accent flex-1",
-                "animate-[waveformBounce_0.8s_ease-in_out_both]",
-                              )}
+                "h-4 w-1 origin-bottom rounded-full bg-accent flex-1",
+                "animate-[waveformBounce_0.8s_ease-in-out_infinite]",
+                "motion-reduce:animate-none"
+              )}
               style={{ animationDelay: `${i * 20}ms` }}
             />
           ))}

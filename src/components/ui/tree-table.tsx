@@ -62,7 +62,6 @@ export function TreeTable({ nodes = [], className, ...props }: TreeTableProps) {
 
   return (
     <div className={cn("w-full max-w-md overflow-hidden rounded-lg border border-border", className)} {...props}>
-      <style>{`@keyframes ttIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">

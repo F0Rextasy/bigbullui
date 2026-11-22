@@ -19,32 +19,44 @@ export function StreamingText({
   className,
   ...props
 }: StreamingTextProps) {
-  const [count, setCount] = React.useState(0);
+  const [state, setState] = React.useState<{ forText: string; count: number }>({ forText: text, count: 0 });
   const doneRef = React.useRef(false);
+  const onDoneRef = React.useRef(onDone);
+
+  React.useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
+
   React.useEffect(() => {
     doneRef.current = false;
-    setCount(0);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(text.length);
-      onDone?.();
-      doneRef.current = true;
-      return;
+      const reducedTimer = window.setTimeout(() => {
+        setState({ forText: text, count: text.length });
+        if (!doneRef.current) {
+          doneRef.current = true;
+          onDoneRef.current?.();
+        }
+      }, 0);
+      return () => window.clearTimeout(reducedTimer);
     }
     const id = window.setInterval(() => {
-      setCount((c) => {
-        if (c >= text.length) {
+      setState((prev) => {
+        const cur = prev.forText === text ? prev.count : 0;
+        if (cur >= text.length) {
           window.clearInterval(id);
           if (!doneRef.current) {
             doneRef.current = true;
-            onDone?.();
+            onDoneRef.current?.();
           }
-          return c;
+          return prev.forText === text ? prev : { forText: text, count: cur };
         }
-        return c + 1;
+        return { forText: text, count: cur + 1 };
       });
     }, Math.max(4, speedMs));
     return () => window.clearInterval(id);
-  }, [text, speedMs, onDone]);
+  }, [text, speedMs]);
+
+  const count = state.forText === text ? state.count : 0;
   const streaming = count < text.length;
   return (
     <div

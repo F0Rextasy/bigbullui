@@ -10,21 +10,21 @@ export interface DamageVignetteProps extends React.HTMLAttributes<HTMLDivElement
 
 /** Damage vignette: edge flash that pulses on every hitKey change, silent under motion-reduce. */
 export function DamageVignette({ hitKey, intensity = 0.55, className, children, ...props }: DamageVignetteProps) {
-  const [flash, setFlash] = React.useState(0);
+  const [dismissedKey, setDismissedKey] = React.useState(0);
+  const flashing = hitKey > 0 && dismissedKey !== hitKey;
+
   React.useEffect(() => {
     if (hitKey <= 0) return;
-    setFlash((f) => f + 1);
-    const t = setTimeout(() => setFlash((f) => Math.max(0, f - 1)), 450);
+    const t = setTimeout(() => setDismissedKey(hitKey), 450);
     return () => clearTimeout(t);
   }, [hitKey]);
 
   return (
     <div className={cn("relative overflow-hidden", className)} {...props}>
-      <style>{`@keyframes dmgFlash { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }`}</style>
       {children}
-      {flash > 0 && (
+      {flashing && (
         <div
-          key={flash}
+          key={hitKey}
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 animate-[dmgFlash_0.45s_ease-out] motion-reduce:animate-none"
           style={{

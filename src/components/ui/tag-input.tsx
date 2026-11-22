@@ -337,10 +337,6 @@ export function TagInput({
           return (
             <div
               key={`${tag}-${index}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onTagClick?.(tag);
-              }}
               className={cn(
                 "group relative inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-mono select-none transition-all duration-100",
                 tagVariantStyles(index)
@@ -358,7 +354,24 @@ export function TagInput({
               </span>
 
               {/* Tag Label */}
-              <span className="font-semibold tracking-wide">{tag}</span>
+              <span
+                role={onTagClick ? "button" : undefined}
+                tabIndex={onTagClick ? 0 : undefined}
+                onClick={onTagClick ? (e) => { e.stopPropagation(); onTagClick(tag); } : undefined}
+                onKeyDown={onTagClick ? (e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onTagClick(tag);
+                  }
+                } : undefined}
+                className={cn(
+                  "font-semibold tracking-wide",
+                  onTagClick && "cursor-pointer hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xs"
+                )}
+              >
+                {tag}
+              </span>
 
               {/* Remove Notch Button */}
               {!disabled && (

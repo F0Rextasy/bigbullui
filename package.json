@@ -64,6 +64,36 @@
         "default": "./dist/components/ui/lib/utils.js"
       }
     },
+    "./hooks": {
+      "import": {
+        "types": "./dist/components/ui/lib/hooks.d.mts",
+        "default": "./dist/components/ui/lib/hooks.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/hooks.d.ts",
+        "default": "./dist/components/ui/lib/hooks.js"
+      }
+    },
+    "./focus-trap": {
+      "import": {
+        "types": "./dist/components/ui/lib/focus-trap.d.mts",
+        "default": "./dist/components/ui/lib/focus-trap.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/focus-trap.d.ts",
+        "default": "./dist/components/ui/lib/focus-trap.js"
+      }
+    },
+    "./use-ticket-audio": {
+      "import": {
+        "types": "./dist/components/ui/lib/use-ticket-audio.d.mts",
+        "default": "./dist/components/ui/lib/use-ticket-audio.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/use-ticket-audio.d.ts",
+        "default": "./dist/components/ui/lib/use-ticket-audio.js"
+      }
+    },
     "./components/ui/*": {
       "import": {
         "types": "./dist/components/ui/*.d.mts",
@@ -90,7 +120,7 @@
     "README.md",
     "LICENSE"
   ],
-  "sideEffects": false,
+  "sideEffects": ["*.css"],
   "engines": {
     "node": ">=20"
   },

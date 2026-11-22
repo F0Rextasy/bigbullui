@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { registerEscapeLayer } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface MegaMenuColumn {
@@ -19,17 +20,19 @@ export interface MegaMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 export function MegaMenu({ trigger, columns, featured, className, ...props }: MegaMenuProps) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
 
   React.useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return registerEscapeLayer(() => {
+      setOpen(false);
+      triggerRef.current?.focus();
+    });
   }, [open]);
 
   return (
     <div ref={ref} className={cn("relative", className)} {...props}>
-      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+      <button ref={triggerRef} type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
         {trigger}
       </button>
       {open && (

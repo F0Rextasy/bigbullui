@@ -27,7 +27,6 @@ export function ColorTokenTable({ tokens = [], className, ...props }: ColorToken
 
   return (
     <div className={cn("w-full max-w-md overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes ctRow { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">

@@ -11,7 +11,6 @@ export interface TrophyShelfProps extends React.HTMLAttributes<HTMLDivElement> {
 export function TrophyShelf({ trophies = [], className, ...props }: TrophyShelfProps) {
   return (
     <div className={cn("w-full max-w-sm", className)} {...props}>
-      <style>{`@keyframes trIn { 0% { transform: translateY(-14px) scale(0.8); opacity: 0; } 70% { transform: translateY(2px) scale(1.05); opacity: 1; } 100% { transform: translateY(0) scale(1); opacity: 1; } }`}</style>
       <div className="rounded-lg border-2 border-dashed border-border bg-card p-4">
         <div className="flex items-end justify-around gap-2">
           {trophies.map((t, idx) => (

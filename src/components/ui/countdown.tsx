@@ -38,7 +38,9 @@ export function Countdown({
   });
 
   React.useEffect(() => {
-    setTimeLeft(calculateTimeLeft());
+    const initTimer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 0);
     const timer = setInterval(() => {
       const next = calculateTimeLeft();
       setTimeLeft(next);
@@ -47,7 +49,10 @@ export function Countdown({
         onComplete?.();
       }
     }, 1000);
-    return () => clearInterval(timer);
+    return () => {
+      clearTimeout(initTimer);
+      clearInterval(timer);
+    };
   }, [calculateTimeLeft, onComplete]);
 
   const units = [

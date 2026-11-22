@@ -13,9 +13,6 @@ export interface ArticleCardProps {
   className?: string;
 }
 
-const FadeInUp = "motion-safe:animate-fade-in-up fade-in-up-0s";
-const SlideIn = "article-category-slide-in";
-
 export function ArticleCard({
   title,
   excerpt,
@@ -48,11 +45,7 @@ export function ArticleCard({
         {/* Category badge */}
         {category && (
           <div
-            className={cn(
-              "inline-flex items-center rounded border border-dashed border-border text-xs font-mono uppercase tracking-widest px-2 py-0.5 text-muted-foreground",
-              "bg-secondary/10",
-              SlideIn
-            )}
+            className="inline-flex items-center rounded border border-dashed border-border bg-secondary/10 px-2 py-0.5 font-mono text-xs uppercase tracking-widest text-muted-foreground motion-safe:animate-fade-in-up motion-reduce:animate-none"
           >
             {category}
           </div>

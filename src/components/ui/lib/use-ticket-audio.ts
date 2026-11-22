@@ -18,7 +18,9 @@ export interface UseTicketAudioResult {
 export function useTicketAudio(options?: UseTicketAudioOptions): UseTicketAudioResult {
   const [muted, setMuted] = React.useState(options?.initialMuted ?? false);
   const mutedRef = React.useRef(muted);
-  mutedRef.current = muted;
+  React.useEffect(() => {
+    mutedRef.current = muted;
+  });
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
 
   React.useEffect(() => {

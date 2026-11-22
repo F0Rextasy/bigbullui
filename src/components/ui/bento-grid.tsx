@@ -25,7 +25,6 @@ export function BentoGrid({ cells = [], columns = 4, className, ...props }: Bent
 
   return (
     <div className={cn("grid auto-rows-min gap-3", colClass, className)} {...props}>
-      <style>{`@keyframes bentoIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
       {cells.map((cell, idx) => (
         <div
           key={cell.id}

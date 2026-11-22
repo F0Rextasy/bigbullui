@@ -7,26 +7,21 @@ export type LiveClockProps = {
   variant?: "digital" | "badge";
 };
 
-const clockFlipKeyframes = `
-  @keyframes clockFlip {
-    from { transform: translateY(0) rotate(0deg); }
-    to { transform: translateY(-100%) rotate(180deg); }
-  }
-`;
-
 const LiveClock = ({ timezone, variant = "digital" }: LiveClockProps) => {
   const [time, setTime] = React.useState<Date | null>(null);
 
   React.useEffect(() => {
-    setTime(new Date());
-    const tick = setTimeout(() => setTime(new Date()), 1000);
-    return () => clearTimeout(tick);
+    const start = setTimeout(() => setTime(new Date()), 0);
+    const tick = setInterval(() => setTime(new Date()), 1000);
+    return () => {
+      clearTimeout(start);
+      clearInterval(tick);
+    };
   }, []);
 
-  const formatted = (time ?? new Date(0)).toLocaleTimeString("en-US", {
-    hour12: false,
-    timeZone: timezone,
-  });
+  const formatted = time
+    ? time.toLocaleTimeString("en-US", { hour12: false, timeZone: timezone })
+    : "--:--:--";
 
   const digits = formatted.split(":");
 
@@ -40,7 +35,6 @@ const LiveClock = ({ timezone, variant = "digital" }: LiveClockProps) => {
         "motion-reduce:animate-none"
       )}
     >
-      <style>{clockFlipKeyframes}</style>
       {digits.map((digit, i) => (
         <span key={i} className="min-wmax">
           {digit}

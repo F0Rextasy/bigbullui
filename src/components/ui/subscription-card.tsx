@@ -16,7 +16,6 @@ export interface SubscriptionCardProps extends React.HTMLAttributes<HTMLDivEleme
 export function SubscriptionCard({ plan, price, cycle, renewDate, features = [], onCancel, className, ...props }: SubscriptionCardProps) {
   return (
     <div className={cn("w-full max-w-sm rounded-lg border-2 border-dashed border-accent/40 bg-card p-5", className)} {...props}>
-      <style>{`@keyframes subIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-start justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Abonelik</p>

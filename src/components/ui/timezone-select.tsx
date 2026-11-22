@@ -9,7 +9,9 @@ export interface TimezoneOption {
   offset: string;
 }
 
-function buildTimezones(): TimezoneOption[] {
+const SSR_TIMEZONE_REF = new Date("2026-01-15T12:00:00Z");
+
+function buildTimezones(refDate: Date = SSR_TIMEZONE_REF): TimezoneOption[] {
   const zones = [
     "UTC",
     "Europe/Istanbul",
@@ -32,7 +34,7 @@ function buildTimezones(): TimezoneOption[] {
       const parts = new Intl.DateTimeFormat("en", {
         timeZone: zone,
         timeZoneName: "shortOffset",
-      }).formatToParts(new Date());
+      }).formatToParts(refDate);
       const tz = parts.find((p) => p.type === "timeZoneName")?.value ?? "";
       const m = tz.match(/GMT([+-])(\d+)(?::(\d+))?/);
       if (m) offset = `${m[1]}${m[2].padStart(2, "0")}:${m[3] ?? "00"}`;
@@ -58,7 +60,11 @@ export function TimezoneSelect({
   className,
   ...props
 }: TimezoneSelectProps) {
-  const zones = React.useMemo(() => buildTimezones(), []);
+  const [zones, setZones] = React.useState<TimezoneOption[]>(() => buildTimezones(SSR_TIMEZONE_REF));
+  React.useEffect(() => {
+    const t = setTimeout(() => setZones(buildTimezones(new Date())), 0);
+    return () => clearTimeout(t);
+  }, []);
   const [inner, setInner] = React.useState(defaultValue);
   const value = controlledValue ?? inner;
   const [open, setOpen] = React.useState(false);

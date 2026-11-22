@@ -16,6 +16,7 @@ const MONTHS = [
 ];
 
 const DAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
+const DEFAULT_CALENDAR_DATE = new Date(2026, 0, 1);
 
 export function Calendar({
   value: controlledValue,
@@ -23,25 +24,48 @@ export function Calendar({
   onValueChange,
   className,
 }: CalendarProps) {
-  const [uncontrolledValue, setUncontrolledValue] = React.useState<Date | undefined>(
-    defaultValue || new Date()
-  );
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<Date | undefined>(defaultValue);
   const isControlled = controlledValue !== undefined;
   const selectedDate = isControlled ? controlledValue : uncontrolledValue;
 
-  const [viewDate, setViewDate] = React.useState(selectedDate || new Date());
+  const [viewDate, setViewDate] = React.useState(() => selectedDate || DEFAULT_CALENDAR_DATE);
+  const [today, setToday] = React.useState<Date | null>(null);
+  const userInteractedRef = React.useRef(false);
+
+  React.useEffect(() => {
+    const t = setTimeout(() => {
+      const now = new Date();
+      setToday(now);
+      if (!userInteractedRef.current) {
+        if (!isControlled && !defaultValue) {
+          setUncontrolledValue(now);
+        }
+        if (!controlledValue && !defaultValue) {
+          setViewDate(now);
+        }
+      }
+    }, 0);
+    return () => clearTimeout(t);
+  }, [isControlled, controlledValue, defaultValue]);
 
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
 
-  const prevMonth = () => setViewDate(new Date(year, month - 1, 1));
-  const nextMonth = () => setViewDate(new Date(year, month + 1, 1));
+  const prevMonth = () => {
+    userInteractedRef.current = true;
+    setViewDate(new Date(year, month - 1, 1));
+  };
+  const nextMonth = () => {
+    userInteractedRef.current = true;
+    setViewDate(new Date(year, month + 1, 1));
+  };
 
   // Days calculations
   const firstDayOfWeek = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   const handleSelectDay = (day: number) => {
+    userInteractedRef.current = true;
     const newDate = new Date(year, month, day);
     if (!isControlled) {
       setUncontrolledValue(newDate);
@@ -50,7 +74,7 @@ export function Calendar({
   };
 
   const isToday = (day: number) => {
-    const today = new Date();
+    if (!today) return false;
     return (
       today.getDate() === day &&
       today.getMonth() === month &&

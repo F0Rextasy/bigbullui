@@ -34,7 +34,6 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
       noValidate
       {...props}
     >
-      <style>{`@keyframes regIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Full Name</label>

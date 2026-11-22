@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { readFileSync, existsSync } from "node:fs";
@@ -17,10 +18,31 @@ export function generateStaticParams() {
   return components.map((component) => ({ slug: component.name }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const meta = components.find((component) => component.name === slug);
-  return { title: meta ? meta.title : "Component" };
+  if (!meta) return { title: "Component" };
+  const url = `/docs/${meta.name}`;
+  return {
+    title: meta.title,
+    description: meta.description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${meta.title} | bigbullui`,
+      description: meta.description,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${meta.title} | bigbullui`,
+      description: meta.description,
+    },
+  };
 }
 export default async function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -89,18 +111,40 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
       <header className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="accent">Component</Badge>
+          {meta.status === "deprecated" ? (
+            <Badge variant="outline" className="border-warning bg-card text-foreground">
+              Deprecated
+            </Badge>
+          ) : null}
           <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
             {meta.category}
           </span>
-          <span className="rounded border border-border bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
-            {(sizes.sizes as Record<string, { kb: number }>)[meta.name] ? `${(sizes.sizes as Record<string, { kb: number }>)[meta.name].kb} KB gzip` : "Zero dependencies"}
-          </span>
+          {(sizes.sizes as Record<string, { kb: number }>)[meta.name] ? (
+            <span className="rounded border border-border bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+              {(sizes.sizes as Record<string, { kb: number }>)[meta.name].kb} KB gzip
+            </span>
+          ) : null}
           <span className="rounded border border-border bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
             Zero dependencies
           </span>
         </div>
         <h1 className="text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">{meta.title}</h1>
         <p className="text-muted-foreground">{meta.description}</p>
+        {meta.status === "deprecated" ? (
+          <div className="rounded-md border border-dashed border-warning bg-card px-4 py-3 text-xs text-foreground">
+            {meta.replacedBy ? (
+              <>
+                This component is deprecated. Use{" "}
+                <Link href={`/docs/${meta.replacedBy}`} className="font-mono font-semibold text-accent-strong underline">
+                  {meta.replacedBy}
+                </Link>{" "}
+                for new projects.
+              </>
+            ) : (
+              <>This docs-site helper is deprecated in the core UI package and scheduled to move in v2.0.</>
+            )}
+          </div>
+        ) : null}
       </header>
 
       <section className="space-y-3">

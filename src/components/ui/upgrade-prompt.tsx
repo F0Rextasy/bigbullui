@@ -28,10 +28,6 @@ export function UpgradePrompt({
 
   return (
     <div className={cn("relative w-full max-w-sm overflow-hidden rounded-lg border border-accent/40 bg-gradient-to-br from-accent/10 via-card to-card p-5", className)} {...props}>
-      <style>{`
-        @keyframes upShine { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(220%); } }
-        @keyframes upIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
       <div className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-accent/10 to-transparent motion-reduce:animate-none!" style={{ animation: "upShine 3.5s ease-in-out infinite" }} aria-hidden="true" />
       <button
         type="button"

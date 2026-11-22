@@ -3,13 +3,6 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-const loadingDotsBounceKeyframes = `
-  @keyframes loadingDotsBounce {
-    0%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-8px); }
-  }
-`;
-
 export type LoadingDotsProps = {
   size?: "sm" | "md" | "lg";
   tone?: "default" | "accent" | "destructive";
@@ -43,7 +36,6 @@ export function LoadingDots({ size = "md", tone = "default" }: LoadingDotsProps)
 
   return (
     <div className={cn("flex items-center gap-2", "motion-reduce:animate-none")}>
-      <style>{loadingDotsBounceKeyframes}</style>
       {[0, 1, 2].map((i) => (
         <div
           key={i}

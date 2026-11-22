@@ -15,16 +15,6 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
 
   return (
     <div className={cn("w-full max-w-sm", className)} {...props}>
-      <style>{`
-        @keyframes forgotSwap {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes forgotCheck {
-          from { stroke-dashoffset: 24; }
-          to { stroke-dashoffset: 0; }
-        }
-      `}</style>
 
       {!sent ? (
         <div className="space-y-4 animate-[forgotSwap_0.3s_ease-out_both] motion-reduce:animate-none">

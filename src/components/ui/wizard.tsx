@@ -43,10 +43,6 @@ export function Wizard({ steps = [], onFinish, children = [], className, ...prop
 
   return (
     <div className={cn("w-full max-w-lg rounded-lg border border-border bg-card p-6", className, error && "border-destructive")} {...props}>
-      <style>{`
-        @keyframes wzIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes wzShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-      `}</style>
 
       {/* Step indicators */}
       <ol className="flex items-center gap-2" aria-label="Wizard steps">

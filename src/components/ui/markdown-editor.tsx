@@ -83,7 +83,6 @@ export function MarkdownEditor({ value, defaultValue = "# Heading\n\n**bold** an
 
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes mdIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div role="tablist" aria-label="Markdown editor tabs" className="flex border-b border-border bg-secondary/60">
         {(["write", "preview"] as const).map((t) => (
           <button

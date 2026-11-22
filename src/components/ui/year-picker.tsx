@@ -28,20 +28,20 @@ export function YearPicker({
   to,
   className,
 }: YearPickerProps) {
-  const minYear = from ?? new Date().getFullYear() - 10;
-  const maxYear = to ?? new Date().getFullYear() + 10;
+  const [baseYear, setBaseYear] = React.useState(2026);
+  React.useEffect(() => {
+    if (from !== undefined && to !== undefined) return;
+    const id = setTimeout(() => setBaseYear(new Date().getFullYear()), 0);
+    return () => clearTimeout(id);
+  }, [from, to]);
+
+  const minYear = from ?? baseYear - 10;
+  const maxYear = to ?? baseYear + 10;
   const years = generateYears(minYear, maxYear);
 
-  const [internalValue, setInternalValue] = React.useState<number | undefined>(
-    controlledValue ?? defaultValue
-  );
+  const [internalValue, setInternalValue] = React.useState<number | undefined>(defaultValue);
   const isControlled = controlledValue !== undefined;
-
-  React.useEffect(() => {
-    if (isControlled) {
-      setInternalValue(controlledValue);
-    }
-  }, [isControlled, controlledValue]);
+  const activeValue = isControlled ? controlledValue : internalValue;
 
   const pageSize = 12;
   const totalPages = Math.ceil(years.length / pageSize);
@@ -57,7 +57,7 @@ export function YearPicker({
   };
 
   const handleYearSelect = (year: number) => {
-    setInternalValue(year);
+    if (!isControlled) setInternalValue(year);
     onValueChange?.(year);
   };
 
@@ -73,9 +73,10 @@ export function YearPicker({
           <button
             type="button"
             onClick={() => handlePageChange(prevPage)}
-            className="prev-page hover:text-muted-foreground transition-colors"
+            aria-label="Previous years"
+            className="prev-page hover:text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M15 18l-6-6L3 9l6-3 6 6-6 6Z" />
             </svg>
           </button>
@@ -91,9 +92,10 @@ export function YearPicker({
           <button
             type="button"
             onClick={() => handlePageChange(nextPage)}
-            className="next-page hover:text-muted-foreground transition-colors"
+            aria-label="Next years"
+            className="next-page hover:text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M9 18l6-6v-3L15 9l-6-6 6-6Z" />
             </svg>
           </button>
@@ -102,25 +104,23 @@ export function YearPicker({
 
       <div className="grid grid-cols-3 gap-1">
         {pageYears.map((y) => {
-          const isSelected = internalValue === y;
-          const handleClick = () => {
-            handleYearSelect(y);
-          };
-
+          const isSelected = activeValue === y;
           const bgClass = cn(
-            "rounded-sm px-2 py-1 cursor-pointer select-none",
+            "rounded-sm px-2 py-1 text-center cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             isSelected && "bg-accent text-accent-foreground",
             "hover:bg-accent/20 transition-colors"
           );
 
           return (
-            <div
+            <button
               key={y}
-              onClick={handleClick}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => handleYearSelect(y)}
               className={bgClass}
             >
               {y}
-            </div>
+            </button>
           );
         })}
       </div>

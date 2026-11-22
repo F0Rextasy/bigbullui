@@ -25,7 +25,9 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
   const code = digits.join("");
   const complete = code.length === length && digits.every((d) => d !== "");
   const onVerifyRef = React.useRef(onVerify);
-  onVerifyRef.current = onVerify;
+  React.useEffect(() => {
+    onVerifyRef.current = onVerify;
+  });
 
   React.useEffect(() => {
     if (complete) onVerifyRef.current?.(code);
@@ -53,13 +55,6 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
 
   return (
     <div className={cn("w-full max-w-sm space-y-4", className)} {...props}>
-      <style>{`
-        @keyframes otpPop {
-          0% { transform: scale(0.9); }
-          60% { transform: scale(1.06); }
-          100% { transform: scale(1); }
-        }
-      `}</style>
       <div className="flex justify-center gap-2">
         {digits.map((d, i) => (
           <input

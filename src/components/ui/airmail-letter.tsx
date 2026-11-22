@@ -16,12 +16,6 @@ export function AirmailLetter({ lines = [], className }: AirmailLetterProps) {
         className
       )}
     >
-      <style>{`
-        @keyframes airmailUnfold {
-          from { transform: translateY(20px) scale(0.95); opacity: 0; }
-          to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-      `}</style>
 
       <div
         className="absolute top-3 right-3 size-6 rounded-full border border-destructive bg-destructive"

@@ -21,7 +21,6 @@ export function SeasonalSnow({ title = "Winter Gala", flakes = 14, className, ch
   );
   return (
     <div className={cn("relative w-full max-w-sm overflow-hidden rounded-lg border-2 border-foreground bg-card p-6 text-center", className)} {...props}>
-      <style>{`@keyframes snowFall { 0% { transform: translateY(-12px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(150px); opacity: 0; } }`}</style>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 motion-reduce:hidden">
         {drops.map((d, i) => (
           <span

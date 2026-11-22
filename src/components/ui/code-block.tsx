@@ -71,7 +71,7 @@ function tokenizeLine(line: string, isTerminal: boolean): React.ReactNode {
   let keyIndex = 0;
 
   while ((match = tokenRegex.exec(line)) !== null) {
-    const [fullMatch, strToken, kwToken, numToken, punctToken] = match;
+    const [, strToken, kwToken, numToken, punctToken] = match;
     const matchStart = match.index;
 
     // Plain text before token

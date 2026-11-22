@@ -15,8 +15,16 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
   const q = query.trim().toLowerCase();
 
   React.useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (categories.some((c) => c.id === hash)) setActiveCategory(hash);
+    const syncFromHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (categories.some((c) => c.id === hash)) setActiveCategory(hash);
+    };
+    const timer = setTimeout(syncFromHash, 0);
+    window.addEventListener("hashchange", syncFromHash);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("hashchange", syncFromHash);
+    };
   }, []);
 
   const selectCategory = (id: string | null) => {

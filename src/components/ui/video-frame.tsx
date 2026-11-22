@@ -68,8 +68,18 @@ export function VideoFrame({
 
       {/* Screen Area */}
       <div
+        role="button"
+        tabIndex={0}
+        aria-label={isPlaying ? `Pause ${title}` : `Play ${title}`}
+        aria-pressed={isPlaying}
         onClick={togglePlay}
-        className="group relative flex aspect-video w-full cursor-pointer items-center justify-center bg-zinc-950"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            togglePlay();
+          }
+        }}
+        className="group relative flex aspect-video w-full cursor-pointer items-center justify-center bg-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {src ? (
           <video

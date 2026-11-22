@@ -13,7 +13,7 @@ const features = [
   {
     tag: "01 · ZERO DEPENDENCIES",
     title: "Pure React 19 + Tailwind v4",
-    desc: "Components import ONLY React and a 7-line cn utility. No Radix, Lucide, or Framer Motion bloat slowing down your bundles.",
+    desc: "Components import ONLY React and a tiny zero-dependency cn utility. No Radix, Lucide, or Framer Motion bloat slowing down your bundles.",
   },
   {
     tag: "02 · CODE YOU OWN",

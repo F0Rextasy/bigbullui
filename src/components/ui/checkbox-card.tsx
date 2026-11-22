@@ -41,7 +41,6 @@ export function CheckboxCard({ title, description, checked, defaultChecked, onCh
       )}
       {...props}
     >
-      <style>{`@keyframes ccPop { 0% { transform: scale(0.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }`}</style>
       <span
         className={cn(
           "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border transition-all duration-150 motion-reduce:transition-none",

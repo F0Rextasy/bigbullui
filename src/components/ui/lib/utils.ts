@@ -21,7 +21,7 @@ const FONT_WEIGHT_SET = new Set(["thin", "extralight", "light", "normal", "mediu
 const BORDER_STYLE_SET = new Set(["solid", "dashed", "dotted", "double", "hidden", "none"]);
 const SHADOW_SIZE_SET = new Set(["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inner", "none"]);
 const ROUNDED_SIZE_SET = new Set(["none", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"]);
-const BG_NON_COLOR = /^(?:none|gradient-|linear-|radial-|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$)/;
+const BG_NON_COLOR = /^(?:none|gradient-|linear$|linear-|radial$|radial-|conic$|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$|blend-|size-|position-)/;
 
 function splitVariant(token: string): [string, string] {
   let depth = 0;
@@ -36,7 +36,8 @@ function splitVariant(token: string): [string, string] {
 }
 
 function getConflictKeys(rawBase: string): string[] {
-  const base = rawBase.startsWith("!") ? rawBase.slice(1) : rawBase;
+  let base = rawBase.startsWith("!") ? rawBase.slice(1) : rawBase;
+  if (base.endsWith("!")) base = base.slice(0, -1);
   const negStripped = base.startsWith("-") ? base.slice(1) : base;
 
   if (DISPLAY_SET.has(base)) return ["display"];
@@ -49,6 +50,14 @@ function getConflictKeys(rawBase: string): string[] {
     return SPACING_DIRS[key] ?? [key];
   }
 
+  if (negStripped.startsWith("space-x-")) return ["space-x"];
+  if (negStripped.startsWith("space-y-")) return ["space-y"];
+  if (negStripped.startsWith("inset-x-")) return ["inset-x", "left", "right", "start", "end"];
+  if (negStripped.startsWith("inset-y-")) return ["inset-y", "top", "bottom"];
+  if (negStripped.startsWith("inset-")) return ["inset", "inset-x", "inset-y", "top", "right", "bottom", "left", "start", "end"];
+  const posSide = negStripped.match(/^(top|right|bottom|left|start|end)-/);
+  if (posSide) return [posSide[1]];
+
   if (/^size-/.test(base)) return ["size", "w", "h"];
   if (/^w-/.test(base)) return ["w"];
   if (/^h-/.test(base)) return ["h"];
@@ -58,6 +67,15 @@ function getConflictKeys(rawBase: string): string[] {
     if (base.startsWith("gap-y-")) return ["gap-y"];
     return ["gap", "gap-x", "gap-y"];
   }
+  if (/^grid-cols-/.test(base)) return ["grid-cols"];
+  if (/^grid-rows-/.test(base)) return ["grid-rows"];
+  if (/^flex-(?:row|row-reverse|col|col-reverse)$/.test(base)) return ["flex-dir"];
+  if (/^flex-(?:wrap|wrap-reverse|nowrap)$/.test(base)) return ["flex-wrap"];
+  if (base.startsWith("justify-items-")) return ["justify-items"];
+  if (base.startsWith("justify-self-")) return ["justify-self"];
+  if (base.startsWith("justify-")) return ["justify"];
+  if (base.startsWith("items-")) return ["items"];
+  if (base.startsWith("self-")) return ["self"];
   if (/^-?z-/.test(base)) return ["z"];
   if (/^opacity-/.test(base)) return ["opacity"];
   if (/^cursor-/.test(base)) return ["cursor"];
@@ -76,27 +94,61 @@ function getConflictKeys(rawBase: string): string[] {
     return ["rounded"];
   }
 
-  if (base === "border" || /^border-(0|2|4|8|\[[^\]#]+(?:px|rem|em)\])$/.test(base)) {
-    return ["border-w"];
+  if (base === "border" || /^border-(?:\d+|\[(?:length:[^\]]+|[^\]#]+(?:px|rem|em))\])$/.test(base)) {
+    return ["border-w", "border-w-t", "border-w-r", "border-w-b", "border-w-l", "border-w-x", "border-w-y", "border-w-s", "border-w-e"];
   }
-  if (/^border-(t|r|b|l|x|y|s|e)(?:-(?:0|2|4|8|\[[^\]#]+\]))?$/.test(base)) {
-    return [`border-w-${base[7]}`];
+  const bwSide = base.match(/^border-(t|r|b|l|x|y|s|e)(?:-(?:\d+|\[(?:length:[^\]]+|[^\]#]+(?:px|rem|em))\]))?$/);
+  if (bwSide) {
+    const side = bwSide[1];
+    if (side === "x") return ["border-w-x", "border-w-l", "border-w-r"];
+    if (side === "y") return ["border-w-y", "border-w-t", "border-w-b"];
+    return [`border-w-${side}`];
+  }
+  if (base === "border-collapse" || base === "border-separate") {
+    return ["border-collapse"];
+  }
+  if (base.startsWith("border-spacing-")) {
+    if (base.startsWith("border-spacing-x-")) return ["border-spacing-x"];
+    if (base.startsWith("border-spacing-y-")) return ["border-spacing-y"];
+    return ["border-spacing", "border-spacing-x", "border-spacing-y"];
   }
   if (base.startsWith("border-") && BORDER_STYLE_SET.has(base.slice(7))) {
     return ["border-style"];
   }
-  if (base.startsWith("border-")) {
-    return ["border-color"];
+  const bcSide = base.match(/^border-(t|r|b|l|x|y|s|e)-/);
+  if (bcSide) {
+    const side = bcSide[1];
+    if (side === "x") return ["border-c-x", "border-c-l", "border-c-r"];
+    if (side === "y") return ["border-c-y", "border-c-t", "border-c-b"];
+    return [`border-c-${side}`];
   }
+  if (base.startsWith("border-")) {
+    return ["border-color", "border-c-t", "border-c-r", "border-c-b", "border-c-l", "border-c-x", "border-c-y", "border-c-s", "border-c-e"];
+  }
+
+  if (base === "ring-inset") return ["ring-inset"];
+  if (base.startsWith("ring-offset-")) {
+    return /^ring-offset-(?:\d+|\[(?:length:[^\]]+|[^\]#]+(?:px|rem|em))\])/.test(base)
+      ? ["ring-offset-w"]
+      : ["ring-offset-color"];
+  }
+  if (base === "ring" || /^ring-(?:\d+|\[(?:length:[^\]]+|[^\]#]+(?:px|rem|em))\])$/.test(base)) {
+    return ["ring-w"];
+  }
+  if (base.startsWith("ring-")) return ["ring-color"];
 
   if (base.startsWith("text-")) {
     const rest = base.slice(5);
     if (TEXT_ALIGN_SET.has(rest)) return ["text-align"];
-    if (TEXT_SIZE_SET.has(rest) || /^\[(?:length:|[\d.]+(?:px|rem|em|vw|vh|%))/.test(rest)) {
-      return ["text-size"];
-    }
+    if (rest === "ellipsis" || rest === "clip") return ["text-overflow"];
     if (rest === "wrap" || rest === "nowrap" || rest === "balance" || rest === "pretty") {
       return ["text-wrap"];
+    }
+    if (rest === "shadow" || rest.startsWith("shadow-")) return ["text-shadow"];
+    const slashIdx = rest.indexOf("/");
+    const sizeHead = slashIdx === -1 ? rest : rest.slice(0, slashIdx);
+    if (TEXT_SIZE_SET.has(sizeHead) || /^\[(?:length:|[\d.]+(?:px|rem|em|vw|vh|%))/.test(sizeHead)) {
+      return slashIdx !== -1 ? ["text-size", "leading"] : ["text-size"];
     }
     return ["text-color"];
   }

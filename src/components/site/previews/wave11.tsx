@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Carousel } from "@/components/ui/carousel";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { EmailInput } from "@/components/ui/email-input";
 import { DateRangePicker } from "@/components/ui/date-range-picker";

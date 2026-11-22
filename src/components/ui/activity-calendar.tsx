@@ -13,6 +13,8 @@ function toYmd(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+const DEFAULT_ANCHOR = new Date(2026, 0, 1);
+
 export function ActivityCalendar({
   data = {},
   weeks = 12,
@@ -20,7 +22,11 @@ export function ActivityCalendar({
   className,
   ...props
 }: ActivityCalendarProps) {
-  const today = new Date();
+  const [today, setToday] = React.useState<Date>(DEFAULT_ANCHOR);
+  React.useEffect(() => {
+    const t = setTimeout(() => setToday(new Date()), 0);
+    return () => clearTimeout(t);
+  }, []);
   const days: { date: string; value: number }[] = [];
   for (let i = weeks * 7 - 1; i >= 0; i--) {
     const d = new Date(today);

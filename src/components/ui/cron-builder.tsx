@@ -50,7 +50,6 @@ export function CronBuilder({ value, defaultValue = "0 9 * * *", onValueChange, 
 
   return (
     <div className={cn("w-full max-w-md space-y-3", className)} {...props}>
-      <style>{`@keyframes crIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       {/* Presets */}
       <div className="flex flex-wrap gap-1.5">

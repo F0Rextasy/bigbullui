@@ -60,7 +60,7 @@ const Carousel = React.forwardRef<
         )}
         style={{ transform: `translateX(${-activeIndex * 100}%)` }}
       >
-        {items.map((item, index) => (
+        {items.map((item) => (
           <div
             key={item.title}
             className={cn(

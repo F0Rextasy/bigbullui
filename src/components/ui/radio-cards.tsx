@@ -90,16 +90,19 @@ export function RadioCards({
   );
 
   React.useEffect(() => {
-    if (disabled) {
-      setFallbackRegisteredStop(undefined);
-      return;
-    }
-    const entries = Array.from(itemElementsRef.current.entries()).filter(([, info]) => !info.disabled);
-    if (currentValue && entries.some(([id]) => id === currentValue)) {
-      setFallbackRegisteredStop(currentValue);
-    } else {
-      setFallbackRegisteredStop(entries[0]?.[0]);
-    }
+    const t = setTimeout(() => {
+      if (disabled) {
+        setFallbackRegisteredStop(undefined);
+        return;
+      }
+      const entries = Array.from(itemElementsRef.current.entries()).filter(([, info]) => !info.disabled);
+      if (currentValue && entries.some(([id]) => id === currentValue)) {
+        setFallbackRegisteredStop(currentValue);
+      } else {
+        setFallbackRegisteredStop(entries[0]?.[0]);
+      }
+    }, 0);
+    return () => clearTimeout(t);
   }, [currentValue, disabled, children]);
 
   const activeTabStop = React.useMemo(() => {

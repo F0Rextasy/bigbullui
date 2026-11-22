@@ -9,13 +9,6 @@ export interface NowServingProps {
 }
 
 export function NowServing({ number = "", className }: NowServingProps) {
-  const [flapState, setFlapState] = React.useState<number[]>([]);
-
-  React.useEffect(() => {
-    const digits = number.split("").map(d => parseInt(d, 10) || 0);
-    setFlapState(digits);
-  }, [number]);
-
   return (
     <div
       className={cn(

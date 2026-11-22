@@ -22,7 +22,6 @@ export function RefundCard({ orderId = "", amount = "", reason, status = "pendin
   const s = STATUS[status] ?? STATUS.pending;
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`@keyframes rfIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-center justify-between animate-[rfIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Order {orderId}</span>
         <span className={cn("rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider", s.cls)}>{s.label}</span>

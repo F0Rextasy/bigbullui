@@ -10,8 +10,10 @@ export interface ReceiptProps {
   className?: string;
 }
 
-const FadeIn = "receipt-fade-in";
-const ZigZag = "receipt-zig-zag";
+function parseAmount(raw: string): number {
+  const n = parseFloat(raw.replace(/[^0-9.-]/g, ""));
+  return Number.isFinite(n) ? n : 0;
+}
 
 export function Receipt({
   items = [],
@@ -19,53 +21,49 @@ export function Receipt({
   total = "",
   className,
 }: ReceiptProps) {
-  const subtotal = items.reduce((sum, it) => sum + parseFloat(it.price), 0);
-  const tax = subtotal * taxRate;
+  const subtotal = items.reduce((sum, it) => sum + parseAmount(it.price), 0);
+  const tax = subtotal * Math.max(0, taxRate);
 
   return (
     <div
       className={cn(
-        "w-full rounded-lg border border-foreground bg-secondary text-secondary-foreground shadow-sm",
-        FadeIn,
-        className
+        "w-full rounded-lg border border-foreground bg-secondary p-4 text-secondary-foreground shadow-sm motion-safe:animate-[fade-in_0.2s_ease-out_both]",
+        className,
       )}
     >
-      {/* Receipt header */}
-      <div className="border-b border-border/80 pb-4 mb-4">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-xs uppercase tracking-widest text-muted-thermal">THERMAL RECEIPT</span>
-        </div>
+      <div className="mb-3 border-b border-dashed border-border/80 pb-3">
+        <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          THERMAL RECEIPT
+        </span>
       </div>
 
-      {/* Items list with zig-zag bottom */}
-      <div className="space-y-2 max-h-96 overflow-y-auto">
+      <div className="max-h-96 space-y-2 overflow-y-auto">
         {items.map((it, i) => (
-          <div
-            key={i}
-            className={cn(
-              "flex items-baseline py-1.5",
-              ZigZag
-            )}
-          >
-            <span className="font-mono text-xs flex-1 line-clamp-1">{it.label}</span>
-            <span className="font-mono text-right text-xs opacity-80">{it.price}</span>
+          <div key={`${it.label}-${i}`} className="flex items-baseline justify-between gap-2 py-1">
+            <span className="line-clamp-1 flex-1 font-mono text-xs">{it.label}</span>
+            <span className="text-right font-mono text-xs opacity-80">{it.price}</span>
           </div>
         ))}
       </div>
 
-      {/* Totals row with dashed separator */}
-      <div
-        className={cn(
-          "flex items-baseline justify-between pt-2 border-t border-dashed border-border/50",
-          ZigZag
-        )}
-      >
-        <span className="text-xs font-mono text-muted-foreground">Total</span>
-        <span className="font-mono text-right font-bold">{total}</span>
+      <div className="mt-3 space-y-1 border-t border-dashed border-border/80 pt-3 font-mono text-xs">
+        <div className="flex items-baseline justify-between text-muted-foreground">
+          <span>Subtotal</span>
+          <span>{subtotal.toFixed(2)}</span>
+        </div>
+        {taxRate > 0 ? (
+          <div className="flex items-baseline justify-between text-muted-foreground">
+            <span>{`Tax (${Math.round(taxRate * 100)}%)`}</span>
+            <span>{tax.toFixed(2)}</span>
+          </div>
+        ) : null}
+        <div className="flex items-baseline justify-between pt-1 text-sm font-bold text-foreground">
+          <span>Total</span>
+          <span>{total}</span>
+        </div>
       </div>
 
-      {/* Footer */}
-      <div className="mt-3 text-xs uppercase tracking-wider text-muted-foreground">
+      <div className="mt-3 border-t border-dashed border-border/60 pt-2 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
         Thank you for your purchase!
       </div>
     </div>

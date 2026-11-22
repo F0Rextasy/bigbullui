@@ -18,8 +18,6 @@ export function StickyFooter({ left, right, className, children, ...props }: Sti
       )}
       {...props}
     >
-      <style>{`@keyframes sfUp { from { transform: translateY(100%); } to { transform: translateY(0); } }`}</style>
-      <style>{`@keyframes sfUp2 { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`}</style>
       <div className="animate-[sfUp2_0.3s_ease-out_both] motion-reduce:animate-none">{left ?? children}</div>
       <div className="shrink-0 animate-[sfUp2_0.3s_ease-out_0.1s_both] motion-reduce:animate-none">{right}</div>
     </div>

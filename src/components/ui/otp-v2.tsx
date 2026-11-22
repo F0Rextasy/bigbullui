@@ -19,7 +19,9 @@ export function OtpV2({ length = 6, error: errorProp, onComplete, className, ...
   const code = digits.join("");
   const done = code.length === length && digits.every((d) => d !== "");
   const onCompleteRef = React.useRef(onComplete);
-  onCompleteRef.current = onComplete;
+  React.useEffect(() => {
+    onCompleteRef.current = onComplete;
+  });
 
   React.useEffect(() => {
     if (done) onCompleteRef.current?.(code);
@@ -42,7 +44,6 @@ export function OtpV2({ length = 6, error: errorProp, onComplete, className, ...
 
   return (
     <div className={cn("w-full max-w-sm space-y-3", className)} {...props}>
-      <style>{`@keyframes otpShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }`}</style>
       <p className="text-center font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
         Enter verification code
       </p>

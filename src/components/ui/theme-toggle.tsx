@@ -70,6 +70,8 @@ function playTicketPunchSound(): void {
   }
 }
 
+const emptySubscribe = () => () => {};
+
 export function ThemeToggle({
   dark,
   defaultDark = false,
@@ -86,21 +88,27 @@ export function ThemeToggle({
 }: ThemeToggleProps) {
   const isControlled = dark !== undefined;
   const [internalDark, setInternalDark] = React.useState<boolean>(defaultDark);
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = React.useSyncExternalStore(emptySubscribe, () => true, () => false);
   const [isPunching, setIsPunching] = React.useState(false);
 
   // Initialize theme from DOM or localStorage on client mount
   React.useEffect(() => {
-    setMounted(true);
-    if (!isControlled && syncHtmlDark && typeof document !== "undefined") {
+    if (isControlled || !syncHtmlDark || typeof document === "undefined") return;
+    const id = setTimeout(() => {
       const isDocDark = document.documentElement.classList.contains("dark");
-      const stored = localStorage.getItem("bigbullui-theme");
+      let stored: string | null = null;
+      try {
+        stored = localStorage.getItem("bigbullui-theme");
+      } catch {
+        // storage unavailable
+      }
       const initial = stored ? stored === "dark" : isDocDark;
       setInternalDark(initial);
       if (initial !== isDocDark) {
         document.documentElement.classList.toggle("dark", initial);
       }
-    }
+    }, 0);
+    return () => clearTimeout(id);
   }, [isControlled, syncHtmlDark]);
 
   // Keep internal state in sync if external class changes on html element
@@ -123,7 +131,7 @@ export function ThemeToggle({
   const activeDark = isControlled ? Boolean(dark) : internalDark;
 
   const handleToggle = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>) => {
+    () => {
       if (disabled) return;
 
       const nextDark = !activeDark;
@@ -161,7 +169,7 @@ export function ThemeToggle({
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(e);
     if (!e.defaultPrevented) {
-      handleToggle(e);
+      handleToggle();
     }
   };
 
@@ -169,7 +177,7 @@ export function ThemeToggle({
     onKeyDown?.(e);
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
-      handleToggle(e);
+      handleToggle();
     }
   };
 

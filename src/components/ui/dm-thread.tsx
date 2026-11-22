@@ -36,7 +36,6 @@ export function DmThread({ name = "", initials = "", online = false, messages = 
 
   return (
     <div className={cn("flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`@keyframes dmIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       {/* Header */}
       <div className="flex items-center gap-2.5 border-b border-border px-4 py-2.5">

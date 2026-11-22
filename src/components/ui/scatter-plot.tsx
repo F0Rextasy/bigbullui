@@ -75,6 +75,7 @@ export function ScatterPlot({
                 fill={pt.color || "currentColor"}
                 stroke={pt.color || "currentColor"}
                 strokeWidth={1}
+                style={{ animationDelay: `${delay}ms` }}
                 className={cn(
                   "transition-all duration-300",
                   "motion-reduce:transition-none",

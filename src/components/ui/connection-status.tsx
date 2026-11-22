@@ -19,7 +19,6 @@ export function ConnectionStatus({ latencyMs, online = true, className, ...props
       role="status"
       {...props}
     >
-      <style>{`@keyframes csPing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }`}</style>
       <span className="relative flex size-1.5">
         {online && <span className="absolute inline-flex size-full rounded-full bg-current motion-reduce:animate-none!" style={{ animation: "csPing 1.6s ease-out infinite" }} aria-hidden="true" />}
         <span className={cn("relative inline-flex size-1.5 rounded-full", online ? "bg-current" : "bg-current")} aria-hidden="true" />

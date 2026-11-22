@@ -31,12 +31,6 @@ export function ReceiptPrinter({ lines = [], total, autoFeed = true, className }
       {autoFeed && (
         <div className="mt-2 h-2 bg-border/30 rounded w-full animate-[receiptFeed2_0.3s_ease-out_forwards] motion-reduce:animate-none"/>
       )}
-      <style>{`
-        @keyframes receiptFeed {
-          from { transform: translateY(-100%); }
-          to { transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 }

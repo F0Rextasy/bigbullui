@@ -25,7 +25,6 @@ export function ResponsiveNav({ brand = "bigbullui", items = [], activeId, break
 
   return (
     <nav className={cn("relative border-b-2 border-dashed border-border bg-background", className)} {...props}>
-      <style>{`@keyframes rnvDrop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-center justify-between px-4 py-3">
         <span className="font-mono text-sm font-bold uppercase tracking-widest">{brand}</span>
 

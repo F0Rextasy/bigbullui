@@ -115,7 +115,6 @@ export function SerialInput({
 
   return (
     <div className={cn("inline-flex items-center gap-0.5", className)} {...props}>
-      <style>{`@keyframes serialPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }`}</style>
       {renderGroups()}
     </div>
   );

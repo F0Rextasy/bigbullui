@@ -30,65 +30,43 @@ export function EmailInput({
   className,
 }: EmailInputProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue);
-  const [error, setError] = React.useState(false);
-  const [showSuggestion, setShowSuggestion] = React.useState(false);
-  const [suggestionDomain, setSuggestionDomain] = React.useState("");
+  const [blurredInvalid, setBlurredInvalid] = React.useState(false);
+  const [dismissedValue, setDismissedValue] = React.useState<string | null>(null);
   const errorId = React.useId();
 
   const isControlled = controlledValue !== undefined;
   const currentValue = isControlled ? controlledValue : internalValue;
+  const error = validate && blurredInvalid && !validateEmail(currentValue);
 
-  React.useEffect(() => {
-    if (isControlled) {
-      setInternalValue(controlledValue);
-      setError(false);
-      setShowSuggestion(false);
-    }
-  }, [isControlled, controlledValue]);
+  const matchedDomain = React.useMemo(() => {
+    const match = currentValue.match(/@([a-zA-Z0-9.-]+)$/);
+    if (!match) return "";
+    return SUGGESTION_DOMAINS.find((s) => s.domain === match[1])?.domain ?? "";
+  }, [currentValue]);
+
+  const showSuggestion = Boolean(matchedDomain) && dismissedValue !== currentValue;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    setInternalValue(val);
-    setError(false);
-    setShowSuggestion(false);
+    if (!isControlled) setInternalValue(val);
+    setBlurredInvalid(false);
+    setDismissedValue(null);
     onValueChange?.(val);
   };
 
   const handleBlur = () => {
     if (validate && !validateEmail(currentValue)) {
-      setError(true);
+      setBlurredInvalid(true);
     }
   };
-
-  const detectDomain = () => {
-    const match = currentValue.match(/@([a-zA-Z0-9.-]+)$/);
-    if (match) {
-      const domain = match[1];
-      const suggestion = SUGGESTION_DOMAINS.find((s) => s.domain === domain);
-      if (suggestion) {
-        setSuggestionDomain(suggestion.domain);
-        setShowSuggestion(true);
-      } else {
-        setShowSuggestion(false);
-      }
-    } else {
-      setShowSuggestion(false);
-    }
-  };
-
-  React.useEffect(detectDomain, [currentValue]);
 
   const classes = cn(
-    "relative rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm transition-colors",
-    "ring-2 ring-ring focus-visible:outline-none focus-visible:ring-2",
+    "relative w-full rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm transition-colors",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
     className,
   );
 
-  const errorClasses = cn(
-    "ring-1 ring-destructive/50",
-    error && "placeholder-destructive",
-    !error && "",
-  );
+  const errorClasses = "border-destructive ring-1 ring-destructive/50 placeholder:text-destructive";
 
   return (
     <div className={cn("relative space-y-1.5", className)}>
@@ -97,7 +75,7 @@ export function EmailInput({
         value={currentValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        className={cn(classes, error && "border-destructive ring-destructive/50")}
+        className={cn(classes, error && errorClasses)}
         aria-invalid={error || undefined}
         aria-describedby={error ? errorId : undefined}
       />
@@ -108,11 +86,11 @@ export function EmailInput({
       )}
       {showSuggestion && !error && (
         <div
-          onMouseLeave={() => setShowSuggestion(false)}
+          onMouseLeave={() => setDismissedValue(currentValue)}
           className="absolute right-2 top-full mt-1 rounded-md bg-secondary p-1.5 shadow-xs text-[10px] uppercase tracking-[0.15em] text-secondary-foreground motion-safe:animate-[slide-in_0.2s_ease-out_both] z-20"
         >
           <span className="font-mono me-1">@</span>
-          <span className="font-medium">{suggestionDomain}</span>
+          <span className="font-medium">{matchedDomain}</span>
         </div>
       )}
     </div>

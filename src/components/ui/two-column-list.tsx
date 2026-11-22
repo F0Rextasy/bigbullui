@@ -25,7 +25,6 @@ export function TwoColumnList({ items = [], className, ...props }: TwoColumnList
 
   return (
     <div className={cn("grid grid-cols-1 gap-x-10 sm:grid-cols-2", className)} {...props}>
-      <style>{`@keyframes twoColIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <ul>{left.map((item, i) => <Row key={item.id} item={item} idx={i} />)}</ul>
       <ul>{right.map((item, i) => <Row key={item.id} item={item} idx={i + half} />)}</ul>
     </div>

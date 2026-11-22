@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 export interface InviteModalProps {
   open: boolean;
@@ -15,29 +16,54 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
   const [role, setRole] = React.useState(roles[roles.length - 1]);
   const [sent, setSent] = React.useState(false);
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const panelRef = React.useRef<HTMLDivElement>(null);
+  const restoreRef = React.useRef<HTMLElement | null>(null);
+  const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onOpenChangeRef = React.useRef(onOpenChange);
+
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
+
+  React.useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!open) return;
+    restoreRef.current = document.activeElement as HTMLElement | null;
+    const releaseScroll = lockBodyScroll();
+    const releaseEscape = registerEscapeLayer(() => onOpenChangeRef.current(false));
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onOpenChange(false);
+      if (panelRef.current) trapFocus(panelRef.current, event);
     };
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, onOpenChange]);
+    if (panelRef.current) {
+      const focusables = getFocusable(panelRef.current);
+      (focusables[0] ?? panelRef.current).focus();
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      releaseEscape();
+      releaseScroll();
+      restoreRef.current?.focus();
+    };
+  }, [open]);
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={() => onOpenChange(false)}>
-      <style>{`
-        @keyframes invScale { from { opacity: 0; transform: scale(0.95) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-      `}</style>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40" onClick={() => onOpenChange(false)} aria-hidden="true" />
       <div
+        ref={panelRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Invite team member"
-        onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[invScale_0.25s_cubic-bezier(0.16,1,0.3,1)_both] motion-reduce:animate-none"
+        className="relative z-10 w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[invScale_0.25s_cubic-bezier(0.16,1,0.3,1)_both] motion-reduce:animate-none focus:outline-none"
       >
         {!sent ? (
           <>
@@ -82,7 +108,16 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
               <button
                 type="button"
                 disabled={!valid}
-                onClick={() => { onSend?.(email, role); setSent(true); setTimeout(() => { setSent(false); setEmail(""); onOpenChange(false); }, 1500); }}
+                onClick={() => {
+                  onSend?.(email, role);
+                  setSent(true);
+                  if (timerRef.current) clearTimeout(timerRef.current);
+                  timerRef.current = setTimeout(() => {
+                    setSent(false);
+                    setEmail("");
+                    onOpenChangeRef.current(false);
+                  }, 1500);
+                }}
                 className="rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
               >
                 Send Invite

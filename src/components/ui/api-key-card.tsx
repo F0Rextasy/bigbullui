@@ -25,17 +25,6 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
 
   return (
     <div className={cn("w-full max-w-md rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`
-        @keyframes apiKeyIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes apiKeyStamp {
-          0% { transform: scale(0.8); opacity: 0; }
-          60% { transform: scale(1.1); opacity: 1; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-      `}</style>
       <div className="flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
         <span className="inline-flex items-center gap-1 rounded-full border border-success/50 bg-success/10 px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-success">

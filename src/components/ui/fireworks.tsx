@@ -21,18 +21,6 @@ export function Fireworks({ active = true, bursts = 5 }: FireworksProps) {
       className={cn("relative size-64 overflow-hidden motion-reduce:animate-none", !active && "opacity-40")}
       aria-hidden="true"
     >
-      <style>{`
-        @keyframes fireworkRise {
-          0% { transform: translate(-50%, 0) scale(0.4); opacity: 0; }
-          15% { opacity: 1; }
-          60% { transform: translate(-50%, -140px) scale(1); opacity: 1; }
-          100% { transform: translate(-50%, -170px) scale(0.8); opacity: 0; }
-        }
-        @keyframes fireworkSpread {
-          0% { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
-          100% { transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
-        }
-      `}</style>
 
       {/* Rockets */}
       {Array.from({ length: count }, (_, i) => {

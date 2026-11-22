@@ -11,11 +11,18 @@ export interface RespawnTimerProps extends React.HTMLAttributes<HTMLDivElement> 
 
 /** Respawn timer: circular countdown ring with skip button. */
 export function RespawnTimer({ seconds = 5, total = 10, onDone, className, ...props }: RespawnTimerProps) {
-  const [left, setLeft] = React.useState(seconds);
+  const [entry, setEntry] = React.useState(() => ({ base: seconds, left: seconds }));
+  const left = entry.base === seconds ? entry.left : seconds;
+  const setLeft = React.useCallback(
+    (next: number | ((v: number) => number)) => {
+      setEntry((prev) => {
+        const cur = prev.base === seconds ? prev.left : seconds;
+        return { base: seconds, left: typeof next === "function" ? next(cur) : next };
+      });
+    },
+    [seconds]
+  );
   const pct = Math.max(0, Math.min(100, (left / Math.max(1, total)) * 100));
-  React.useEffect(() => {
-    setLeft(seconds);
-  }, [seconds]);
   React.useEffect(() => {
     if (left <= 0) {
       onDone?.();
@@ -23,7 +30,7 @@ export function RespawnTimer({ seconds = 5, total = 10, onDone, className, ...pr
     }
     const t = setTimeout(() => setLeft((v) => v - 1), 1000);
     return () => clearTimeout(t);
-  }, [left, onDone]);
+  }, [left, onDone, setLeft]);
   return (
     <div
       role="timer"

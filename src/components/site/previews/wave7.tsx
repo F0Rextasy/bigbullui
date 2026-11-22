@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Carousel } from "@/components/ui/carousel";
 import { AudioPlayer } from "@/components/ui/audio-player";
 import { VideoPlayer } from "@/components/ui/video-player";
 import { Playlist } from "@/components/ui/playlist";

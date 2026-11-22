@@ -118,14 +118,23 @@ export function Autocomplete({
       </div>
 
       {isOpen && filteredOptions.length > 0 && (
-        <div className="absolute left-0 top-full z-50 mt-1 max-h-56 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both] text-xs">
+        <div role="listbox" aria-label="Suggestions" className="absolute left-0 top-full z-50 mt-1 max-h-56 w-full overflow-y-auto rounded-lg border-2 border-foreground bg-card p-1 shadow-xl outline-1 outline-dashed outline-offset-[-4px] motion-safe:animate-[scale-in_0.12s_ease-out_both] text-xs">
           {filteredOptions.map((opt, idx) => (
             <div
               key={opt.value}
+              role="option"
+              aria-selected={idx === selectedIndex}
+              tabIndex={0}
               onClick={() => handleSelect(opt)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleSelect(opt);
+                }
+              }}
               onMouseEnter={() => setSelectedIndex(idx)}
               className={cn(
-                "flex cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 transition-colors",
+                "flex cursor-pointer items-center justify-between rounded-sm px-2.5 py-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 idx === selectedIndex
                   ? "bg-accent font-bold text-accent-foreground"
                   : "text-foreground hover:bg-secondary"

@@ -19,7 +19,6 @@ export function ComboCounter({ count = 12, best = 48, className, ...props }: Com
       style={{ touchAction: "none" }}
       {...props}
     >
-      <style>{`@keyframes comboPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }`}</style>
       <span key={count} className="animate-[comboPop_0.25s_ease-out] font-mono text-2xl font-black tabular-nums motion-reduce:animate-none" aria-hidden="true">
         {count}x
       </span>

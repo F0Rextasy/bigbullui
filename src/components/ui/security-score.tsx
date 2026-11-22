@@ -24,11 +24,6 @@ export function SecurityScore({ checks = [], className, ...props }: SecurityScor
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-5", className)} {...props}>
-      <style>{`
-        @keyframes secDraw { from { stroke-dashoffset: ${C}; } }
-        @keyframes secIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
-      `}</style>
-
       <div className="flex items-center gap-5">
         <div className="relative size-28 shrink-0">
           <svg viewBox="0 0 100 58" className="size-full">
@@ -41,7 +36,12 @@ export function SecurityScore({ checks = [], className, ...props }: SecurityScor
               strokeLinecap="round"
               className={cn(tone, "motion-reduce:animate-none! motion-reduce:transition-none")}
               strokeDasharray={C}
-              style={{ strokeDashoffset: C - (C * percent) / 100, animation: "secDraw 0.8s cubic-bezier(0.16,1,0.3,1) both", transition: "stroke-dashoffset 0.5s ease-out" }}
+              style={{
+                strokeDashoffset: C - (C * percent) / 100,
+                "--sec-dash": C,
+                animation: "secDraw 0.8s cubic-bezier(0.16,1,0.3,1) both",
+                transition: "stroke-dashoffset 0.5s ease-out",
+              } as React.CSSProperties}
             />
           </svg>
           <div className="absolute inset-x-0 bottom-0 text-center">

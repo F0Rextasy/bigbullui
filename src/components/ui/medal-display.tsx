@@ -24,7 +24,6 @@ const TIER = {
 export function MedalDisplay({ medals = [], className, ...props }: MedalDisplayProps) {
   return (
     <div className={cn("w-full max-w-sm space-y-2", className)} {...props}>
-      <style>{`@keyframes mdShine { 0% { transform: translateX(-120%); } 100% { transform: translateX(220%); } }`}</style>
       {medals.map((m, idx) => {
         const t = TIER[m.tier];
         return (

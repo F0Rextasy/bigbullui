@@ -19,15 +19,11 @@ export function ComboButtons({
   className,
   ...props
 }: ComboButtonsProps) {
-  const [hits, setHits] = React.useState(0);
-  const [done, setDone] = React.useState(false);
   const [cycle, setCycle] = React.useState(0);
-
-  const seqKey = sequence.join(",");
-  React.useEffect(() => {
-    setHits(0);
-    setDone(false);
-  }, [cycle, seqKey]);
+  const seqKey = `${cycle}:${sequence.join(",")}`;
+  const [combo, setCombo] = React.useState({ key: seqKey, hits: 0, done: false });
+  const hits = combo.key === seqKey ? combo.hits : 0;
+  const done = combo.key === seqKey ? combo.done : false;
 
   React.useEffect(() => {
     if (done) return;
@@ -39,14 +35,14 @@ export function ComboButtons({
     if (done) return;
     if (glyph === sequence[hits]) {
       const next = hits + 1;
-      setHits(next);
+      const completed = next >= sequence.length;
+      setCombo({ key: seqKey, hits: next, done: completed });
       onProgress?.(next, sequence.length);
-      if (next >= sequence.length) {
-        setDone(true);
+      if (completed) {
         onComplete?.();
       }
     } else {
-      setHits(0);
+      setCombo({ key: seqKey, hits: 0, done: false });
       onProgress?.(0, sequence.length);
     }
   };
@@ -55,7 +51,6 @@ export function ComboButtons({
 
   return (
     <div className={cn("w-full max-w-xs touch-none select-none rounded-lg border-2 border-foreground bg-card p-3", className)} style={{ touchAction: "none" }} {...props}>
-      <style>{`@keyframes comboDrain { from { width: 100%; } to { width: 0%; } }`}</style>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Combo input</p>
       <div className="mt-2 flex items-center gap-1.5" role="list" aria-label="Required sequence">
         {sequence.map((g, i) => (

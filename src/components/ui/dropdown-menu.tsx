@@ -16,8 +16,10 @@ function assignRef<T>(ref: React.Ref<T> | undefined, node: T | null) {
 interface DropdownMenuContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
-  triggerRef: React.RefObject<HTMLButtonElement | null>;
-  openFocusTargetRef: React.MutableRefObject<"first" | "last" | null>;
+  setTriggerEl: (el: HTMLButtonElement | null) => void;
+  getTriggerEl: () => HTMLButtonElement | null;
+  setOpenFocusTarget: (target: "first" | "last" | null) => void;
+  consumeOpenFocusTarget: () => "first" | "last" | null;
 }
 
 const DropdownMenuCtx = React.createContext<DropdownMenuContextValue | null>(null);
@@ -41,7 +43,10 @@ export function DropdownMenu({
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const openFocusTargetRef = React.useRef<"first" | "last" | null>(null);
   const onOpenChangeRef = React.useRef(onOpenChange);
-  onOpenChangeRef.current = onOpenChange;
+
+  React.useEffect(() => {
+    onOpenChangeRef.current = onOpenChange;
+  });
 
   const setOpen = React.useCallback(
     (nextOpen: boolean) => {
@@ -54,9 +59,25 @@ export function DropdownMenu({
     [isControlled]
   );
 
+  const setTriggerEl = React.useCallback((el: HTMLButtonElement | null) => {
+    triggerRef.current = el;
+  }, []);
+
+  const getTriggerEl = React.useCallback(() => triggerRef.current, []);
+
+  const setOpenFocusTarget = React.useCallback((target: "first" | "last" | null) => {
+    openFocusTargetRef.current = target;
+  }, []);
+
+  const consumeOpenFocusTarget = React.useCallback(() => {
+    const val = openFocusTargetRef.current;
+    openFocusTargetRef.current = null;
+    return val;
+  }, []);
+
   const ctxValue = React.useMemo(
-    () => ({ open, setOpen, triggerRef, openFocusTargetRef }),
-    [open, setOpen]
+    () => ({ open, setOpen, setTriggerEl, getTriggerEl, setOpenFocusTarget, consumeOpenFocusTarget }),
+    [open, setOpen, setTriggerEl, getTriggerEl, setOpenFocusTarget, consumeOpenFocusTarget]
   );
 
   return (
@@ -84,17 +105,17 @@ export function DropdownMenuTrigger({ children }: DropdownMenuTriggerProps) {
 
   return React.cloneElement(children, {
     ref: (node: HTMLButtonElement | null) => {
-      ctx.triggerRef.current = node;
+      ctx.setTriggerEl(node);
       assignRef(childRef, node);
     },
     "aria-haspopup": "menu",
     "aria-expanded": ctx.open,
     onMouseDown: (e: React.MouseEvent) => {
-      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
+      ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
       children.props.onMouseDown?.(e);
     },
     onClick: (e: React.MouseEvent) => {
-      ctx.triggerRef.current = e.currentTarget as HTMLButtonElement;
+      ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
       children.props.onClick?.(e);
       ctx.setOpen(!ctx.open);
     },
@@ -102,7 +123,7 @@ export function DropdownMenuTrigger({ children }: DropdownMenuTriggerProps) {
       children.props.onKeyDown?.(e);
       if ((e.key === "ArrowDown" || e.key === "ArrowUp") && !ctx.open) {
         e.preventDefault();
-        ctx.openFocusTargetRef.current = e.key === "ArrowUp" ? "last" : "first";
+        ctx.setOpenFocusTarget(e.key === "ArrowUp" ? "last" : "first");
         ctx.setOpen(true);
       }
     },
@@ -130,15 +151,14 @@ export function DropdownMenuContent({
   const [coords, setCoords] = React.useState<{ top: number; left: number } | null>(null);
   const open = Boolean(ctx?.open);
   const setOpen = ctx?.setOpen;
+  const getTriggerEl = ctx?.getTriggerEl;
+  const consumeOpenFocusTarget = ctx?.consumeOpenFocusTarget;
 
   React.useEffect(() => {
-    if (!open || !setOpen) {
-      setCoords(null);
-      return;
-    }
+    if (!open || !setOpen) return;
 
     const updatePosition = () => {
-      const rect = ctx?.triggerRef.current?.getBoundingClientRect();
+      const rect = getTriggerEl?.()?.getBoundingClientRect();
       if (!rect || (rect.width === 0 && rect.height === 0)) {
         setCoords(null);
         return;
@@ -148,27 +168,25 @@ export function DropdownMenuContent({
       setCoords({ top: rect.bottom + 6, left });
     };
 
-    updatePosition();
-
-    const targetMode = ctx?.openFocusTargetRef.current;
-    let rafId = 0;
-    if (targetMode && ctx) {
-      ctx.openFocusTargetRef.current = null;
-      rafId = requestAnimationFrame(() => {
+    const targetMode = consumeOpenFocusTarget?.();
+    const posRaf = requestAnimationFrame(() => {
+      updatePosition();
+      if (targetMode) {
         const items = Array.from(
           contentRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]:not(:disabled)') ?? []
         );
         if (targetMode === "last") items[items.length - 1]?.focus();
         else items[0]?.focus();
-      });
-    }
+      }
+    });
 
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
+      const triggerEl = getTriggerEl?.();
       if (
         contentRef.current &&
         !contentRef.current.contains(target) &&
-        !ctx?.triggerRef.current?.contains(target)
+        !triggerEl?.contains(target)
       ) {
         setOpen?.(false);
       }
@@ -176,7 +194,7 @@ export function DropdownMenuContent({
 
     const releaseEscape = registerEscapeLayer(() => {
       setOpen(false);
-      ctx?.triggerRef.current?.focus();
+      getTriggerEl?.()?.focus();
     });
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -211,22 +229,24 @@ export function DropdownMenuContent({
     window.addEventListener("scroll", updatePosition, true);
     window.addEventListener("resize", updatePosition);
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      cancelAnimationFrame(posRaf);
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);
       releaseEscape();
     };
-  }, [open, setOpen, ctx, align]);
+  }, [open, setOpen, getTriggerEl, consumeOpenFocusTarget, align]);
 
   if (!open) return null;
 
-  const portalStyle: React.CSSProperties | undefined = coords
+  const activeCoords = coords;
+
+  const portalStyle: React.CSSProperties | undefined = activeCoords
     ? {
         position: "fixed",
-        top: coords.top,
-        left: coords.left,
+        top: activeCoords.top,
+        left: activeCoords.left,
         transform: align === "end" ? "translateX(-100%)" : align === "center" ? "translateX(-50%)" : undefined,
         ...style,
       }
@@ -239,10 +259,10 @@ export function DropdownMenuContent({
       style={portalStyle}
       className={cn(
         "z-50 min-w-[180px] overscroll-contain rounded-md border-[1.5px] border-foreground bg-card p-1 shadow-lg outline-1 outline-dashed outline-offset-[-5px]",
-        !coords && "absolute mt-1.5",
-        !coords && align === "start" && "left-0",
-        !coords && align === "center" && "left-1/2 -translate-x-1/2",
-        !coords && align === "end" && "right-0",
+        !activeCoords && "absolute mt-1.5",
+        !activeCoords && align === "start" && "left-0",
+        !activeCoords && align === "center" && "left-1/2 -translate-x-1/2",
+        !activeCoords && align === "end" && "right-0",
         animated && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
         className
       )}
@@ -252,7 +272,7 @@ export function DropdownMenuContent({
     </div>
   );
 
-  return coords && typeof document !== "undefined" ? createPortal(menu, document.body) : menu;
+  return activeCoords && typeof document !== "undefined" ? createPortal(menu, document.body) : menu;
 }
 
 export interface DropdownMenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

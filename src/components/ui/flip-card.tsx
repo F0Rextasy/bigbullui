@@ -30,12 +30,6 @@ export function FlipCard({ front, back, trigger = "click", className, ...props }
       aria-pressed={trigger === "click" ? flipped : undefined}
       {...props}
     >
-      <style>{`
-        @keyframes flipCardIn {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
       <div
         className={cn(
           "relative size-full transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none",

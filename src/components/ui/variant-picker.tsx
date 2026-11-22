@@ -18,20 +18,6 @@ export interface VariantPickerProps {
   className?: string;
 }
 
-const ColorSwatch = "color-swatch";
-const SelectedSwatch = "color-swatch-selected";
-const SizeChip = "size-picker-chip";
-const FadeIn = "variant-picker-fade-in";
-
-// Explicit color map; NO dynamic class strings
-const colorMap: Record<string, string> = {
-  navy: "bg-navy hover:bg-navy/80",
-  green: "bg-green-500 hover:bg-green-400",
-  black: "bg-gray-900 hover:bg-gray-800",
-  white: "bg-white hover:bg-gray-100",
-  brown: "bg-warning hover:bg-warning",
-};
-
 export function VariantPicker({
   colors = [],
   sizes,
@@ -54,25 +40,21 @@ export function VariantPicker({
         <div className="flex gap-1.5">
           {colors.map((opt, i) => {
             const selected = controlledValue === opt.name;
-            const baseClass = colorMap[opt.name] || "bg-gray-200 hover:bg-gray-300";
 
             return (
               <button
                 key={i}
                 type="button"
                 className={cn(
-                  "rounded-full w-6 h-6 transition-colors",
-                  ColorSwatch,
-                  selected && SelectedSwatch,
-                  "motion-reduce:transition-none",
+                  "rounded-full w-6 h-6 border border-border transition-colors motion-reduce:transition-none",
+                  selected && "ring-2 ring-ring ring-offset-2 ring-offset-background",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 )}
                 style={{ backgroundColor: opt.className ? `var(${opt.className})` : "var(--secondary)" }}
                 onClick={() => { setInternalColor(opt.name); onColorChange?.(opt.name); }}
+                aria-pressed={selected}
                 aria-label={`Select ${opt.name} color`}
-              >
-                {/* Swatch fills from explicit map */}
-              </button>
+              />
             );
           })}
         </div>
@@ -87,12 +69,7 @@ export function VariantPicker({
               <button
                 key={i}
                 type="button"
-                className={cn(
-                  "inline-flex rounded-md border border-2 border-dashed items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-mono uppercase tracking-wider",
-                  SizeChip,
-                  "motion-reduce:transition-none",
-                  "cursor-pointer"
-                )}
+                className="inline-flex rounded-md border-2 border-dashed border-border items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-mono uppercase tracking-wider hover:border-foreground motion-reduce:transition-none cursor-pointer"
                 onClick={() => onSizeChange?.(size)}
                 aria-label={`Select size ${size}`}
               >

@@ -32,10 +32,22 @@ function packageRoot() {
 }
 
 const FETCH_TIMEOUT_MS = 15000;
+const MAX_FETCH_BYTES = 5 * 1024 * 1024;
 
 function fetchUrl(url, redirects = 0) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, { headers: { "User-Agent": "bigbullui-mcp" } }, (res) => {
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      reject(new Error(`Invalid URL: ${url}`));
+      return;
+    }
+    if (parsed.protocol !== "https:") {
+      reject(new Error(`Refusing non-HTTPS URL: ${url}`));
+      return;
+    }
+    const req = https.get(parsed, { headers: { "User-Agent": "bigbullui-mcp" } }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         res.resume();
         if (redirects >= 5) {
@@ -43,7 +55,18 @@ function fetchUrl(url, redirects = 0) {
           reject(new Error(`Too many redirects fetching ${url}`));
           return;
         }
-        fetchUrl(new URL(res.headers.location, url).href, redirects + 1).then(resolve, reject);
+        let nextUrl;
+        try {
+          nextUrl = new URL(res.headers.location, parsed);
+        } catch {
+          reject(new Error(`Invalid redirect location fetching ${url}`));
+          return;
+        }
+        if (nextUrl.protocol !== "https:") {
+          reject(new Error(`Refusing non-HTTPS redirect to ${nextUrl.href}`));
+          return;
+        }
+        fetchUrl(nextUrl.href, redirects + 1).then(resolve, reject);
         return;
       }
       if (res.statusCode !== 200) {
@@ -52,11 +75,22 @@ function fetchUrl(url, redirects = 0) {
         reject(new Error(`HTTP ${res.statusCode} for ${url}`));
         return;
       }
-      let data = "";
-      res.on("data", (chunk) => (data += chunk));
+      const chunks = [];
+      let totalBytes = 0;
+      let aborted = false;
+      res.on("data", (chunk) => {
+        totalBytes += chunk.length;
+        if (totalBytes > MAX_FETCH_BYTES) {
+          aborted = true;
+          req.destroy(new Error(`Response exceeded ${MAX_FETCH_BYTES} bytes for ${url}`));
+          return;
+        }
+        chunks.push(chunk);
+      });
       res.on("end", () => {
+        if (aborted) return;
         res.destroy();
-        resolve(data);
+        resolve(Buffer.concat(chunks).toString("utf8"));
       });
       res.on("error", reject);
     });
@@ -181,17 +215,36 @@ async function callTool(name, args) {
     if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`Invalid component name: ${a.name}`);
     const reg = await loadJson(`public/r/${slug}.json`, `${SITE}/r/${slug}.json`).catch(() => null);
     if (!reg) throw new Error(`Unknown component: ${slug}. Use list_components to discover names.`);
-    const file = reg.files && reg.files[0];
+    const regFiles = Array.isArray(reg.files) ? reg.files : [];
+    const file = regFiles[0];
     const full = file && typeof file.content === "string" ? file.content : "";
     const docsUrl = reg.type === "registry:block" ? `${SITE}/blocks/${slug}` : `${SITE}/docs/${slug}`;
-    // Cap AI context size, but never truncate silently.
+    // Cap total AI context size across all files without silently omitting bundled dependencies.
+    const MAX_TOTAL = 60000;
+    let remaining = MAX_TOTAL;
+    let truncated = false;
+    const files = [];
+    for (const f of regFiles) {
+      const content = typeof f.content === "string" ? f.content : "";
+      const slice = remaining > 0 ? content.slice(0, remaining) : "";
+      if (slice.length < content.length) truncated = true;
+      remaining = Math.max(0, remaining - slice.length);
+      files.push({
+        path: f.path,
+        ...(f.target ? { target: f.target } : {}),
+        type: f.type,
+        content: slice,
+      });
+    }
     return {
       name: reg.name,
       title: reg.title,
       docs: docsUrl,
       install: `npx bigbullui add ${slug}`,
-      source: full.slice(0, 60000),
-      truncated: full.length > 60000,
+      registryDependencies: Array.isArray(reg.registryDependencies) ? reg.registryDependencies : [],
+      files,
+      source: full.slice(0, MAX_TOTAL),
+      truncated: truncated || full.length > MAX_TOTAL,
     };
   }
   if (name === "list_blocks") {
@@ -289,6 +342,15 @@ async function handle(msg) {
 }
 
 let buffer = "";
+function processLine(line) {
+  if (!line) return;
+  try {
+    handle(JSON.parse(line)).catch((err) => process.stderr.write(`mcp error: ${err.message}\n`));
+  } catch (err) {
+    fail(null, -32700, `Parse error: ${err.message}`);
+  }
+}
+
 process.stdin.setEncoding("utf8");
 process.stdin.on("data", (chunk) => {
   buffer += chunk;
@@ -296,11 +358,11 @@ process.stdin.on("data", (chunk) => {
   while ((idx = buffer.indexOf("\n")) >= 0) {
     const line = buffer.slice(0, idx).trim();
     buffer = buffer.slice(idx + 1);
-    if (!line) continue;
-    try {
-      handle(JSON.parse(line)).catch((err) => process.stderr.write(`mcp error: ${err.message}\n`));
-    } catch (err) {
-      fail(null, -32700, `Parse error: ${err.message}`);
-    }
+    processLine(line);
   }
+});
+process.stdin.on("end", () => {
+  const trailing = buffer.trim();
+  buffer = "";
+  processLine(trailing);
 });

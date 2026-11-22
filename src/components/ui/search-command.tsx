@@ -38,10 +38,7 @@ export function SearchCommand({
         (item.hint ?? "").toLowerCase().includes(q),
     );
   const visible = matches.slice(0, maxVisible);
-
-  React.useEffect(() => {
-    setActive(0);
-  }, [query]);
+  const safeActive = visible.length === 0 ? 0 : Math.min(active, visible.length - 1);
 
   React.useEffect(() => {
     if (!focused) return;
@@ -50,11 +47,12 @@ export function SearchCommand({
     };
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
-  }, [focused ]);
+  }, [focused]);
 
   const run = (item: SearchCommandItem) => {
     item.onSelect?.();
     setQuery("");
+    setActive(0);
     setFocused(false);
   };
 
@@ -64,7 +62,10 @@ export function SearchCommand({
         <span aria-hidden className="text-sm text-muted-foreground">⌕</span>
         <input
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActive(0);
+          }}
           onFocus={() => setFocused(true)}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") {
@@ -73,9 +74,9 @@ export function SearchCommand({
             } else if (e.key === "ArrowUp") {
               e.preventDefault();
               setActive((a) => (a - 1 + Math.max(visible.length, 1)) % Math.max(visible.length, 1));
-            } else if (e.key === "Enter" && visible[active]) {
+            } else if (e.key === "Enter" && visible[safeActive]) {
               e.preventDefault();
-              run(visible[active]);
+              run(visible[safeActive]);
             } else if (e.key === "Escape") {
               setFocused(false);
             }
@@ -91,7 +92,7 @@ export function SearchCommand({
           <button
             type="button"
             aria-label="Clear search"
-            onClick={() => setQuery("")}
+            onClick={() => { setQuery(""); setActive(0); }}
             className="cursor-pointer font-mono text-xs text-muted-foreground hover:text-foreground"
           >
             ✕
@@ -104,19 +105,19 @@ export function SearchCommand({
             <div
               key={item.id}
               role="option"
-              aria-selected={i === active}
+              aria-selected={i === safeActive}
               onMouseEnter={() => setActive(i)}
               onClick={() => run(item)}
               className={cn(
                 "cursor-pointer rounded px-3 py-2 transition-colors",
-                i === active ? "bg-accent" : "hover:bg-secondary",
+                i === safeActive ? "bg-accent" : "hover:bg-secondary",
               )}
             >
-              <p className={cn("font-mono text-sm", i === active ? "font-bold text-accent-foreground" : "")}>
+              <p className={cn("font-mono text-sm", i === safeActive ? "font-bold text-accent-foreground" : "")}>
                 {item.label}
               </p>
               {item.hint ? (
-                <p className={cn("truncate font-mono text-[11px]", i === active ? "text-accent-foreground/80" : "text-muted-foreground")}>
+                <p className={cn("truncate font-mono text-[11px]", i === safeActive ? "text-accent-foreground/80" : "text-muted-foreground")}>
                   {item.hint}
                 </p>
               ) : null}

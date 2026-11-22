@@ -11,10 +11,6 @@ export interface EventCardProps {
   className?: string;
 }
 
-const FadeInUp = "motion-safe:animate-fade-in-up-0s fade-in-up-1";
-const ScaleIn = "event-date-scale-in";
-const Pulse = "event-stamp-pulse";
-
 export function EventCard({
   title,
   date = "Oct 14",
@@ -32,11 +28,7 @@ export function EventCard({
       {/* Date block with dashed left edge */}
       <div className="relative flex items-start gap-3">
         <div
-          className={cn(
-            "group/[.event-active]:translate-y-0 shrink-0 size-8 rounded-full border-2 border-dashed border-border bg-secondary/10 flex flex-col items-center justify-center transition-all duration-300 motion-reduce:transition-none",
-            ScaleIn,
-            "event-date"
-          )}
+          className="shrink-0 size-8 rounded-full border-2 border-dashed border-border bg-secondary/10 flex flex-col items-center justify-center transition-all duration-300 motion-reduce:transition-none"
         >
           <div className="font-mono text-[24px] font-black uppercase tracking-widest">{date.slice(0, 2)}</div>
           <div className="font-mono text-[10px] uppercase tracking-widest">{date.slice(2)}</div>
@@ -56,10 +48,7 @@ export function EventCard({
       {/* Venue chip */}
       {venue && (
         <div
-          className={cn(
-            "mt-3 inline-flex items-center rounded border border-dashed border-border bg-secondary/10 px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground",
-            Pulse
-          )}
+          className="mt-3 inline-flex items-center rounded border border-dashed border-border bg-secondary/10 px-2.5 py-1 text-xs font-mono uppercase tracking-wider text-muted-foreground"
         >
           {venue}
         </div>

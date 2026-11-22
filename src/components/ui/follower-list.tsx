@@ -68,7 +68,7 @@ const FollowButton: React.FC<{
 const FollowerList: React.FC<FollowerListProps> = ({ followers = [] }) => {
   return (
     <div className="space-y-1">
-      {followers.map((follower, idx) => (
+      {followers.map((follower) => (
         <div
           key={follower.id}
           className={cn(

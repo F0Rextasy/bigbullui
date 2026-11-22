@@ -22,10 +22,6 @@ export function SettingsSection({ title, description, rows = [], onSave, classNa
 
   return (
     <section className={cn("w-full max-w-xl rounded-lg border border-border bg-card", className)} {...props}>
-      <style>{`
-        @keyframes setIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes setStamp { 0% { transform: scale(0.7); opacity: 0; } 70% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-      `}</style>
       <div className="border-b border-border px-4 py-3">
         <h3 className="text-sm font-semibold">{title}</h3>
         {description && <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>}

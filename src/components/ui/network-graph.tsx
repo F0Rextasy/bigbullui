@@ -31,7 +31,6 @@ export function NetworkGraph({ nodes = [], edges = [], height = 260, className, 
 
   return (
     <svg viewBox="0 0 100 62" style={{ height }} className={cn("w-full", className)} role="img" aria-label="Network graph" {...props}>
-      <style>{`@keyframes ngDraw { from { stroke-dashoffset: 60; } } @keyframes ngNode { from { transform: scale(0); } }`}</style>
       {edges.map((edge, idx) => {
         const a = byId.get(edge.from);
         const b = byId.get(edge.to);

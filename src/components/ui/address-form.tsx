@@ -31,7 +31,6 @@ export function AddressForm({ value = {}, onValueChange, className, ...props }: 
 
   return (
     <form className={cn("w-full max-w-md space-y-3", className)} onSubmit={(e) => e.preventDefault()} {...props}>
-      <style>{`@keyframes afIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="space-y-1 animate-[afIn_0.25s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={streetId} className={labelCls}>Street</label>
         <input id={streetId} value={value.street ?? ""} onChange={(e) => set({ street: e.target.value })} placeholder="123 Main St" className={inputCls} />

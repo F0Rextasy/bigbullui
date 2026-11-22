@@ -33,7 +33,6 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
     const [cropRect, setCropRect] = React.useState<{ x: number; y: number; w: number; h: number }>({ x: 0, y: 0, w: 0, h: 0 });
     const [isResizing, setIsResizing] = React.useState<boolean>(false);
     const [resizeHandle, setResizeHandle] = React.useState<'nw' | 'ne' | 'sw' | 'se' | null>(null);
-    const [selection, setSelection] = React.useState<{ x: number; y: number; w: number; h: number }>({ x: 0, y: 0, w: 0, h: 0 });
 
     // Load image dimensions
     React.useEffect(() => {
@@ -211,7 +210,7 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
               "transition-all duration-200",
               "group-hover:-translate-y-0.5 group-focus-within:-translate-y-0.5",
               "motion-reduce:transition-none",
-              isResizing && "motion-safe:animate-[pulse_1s_ease-in_out]",
+              isResizing && "motion-safe:animate-[pulse_1s_ease-in-out_infinite]",
             )}
             style={{
               left: `${cropRect.x}px`,
@@ -240,8 +239,8 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
               height: `${cropRect.h > 0 ? cropRect.h : 20}px`,
             }}
             onPointerDown={e => handlePointerDown(e, 'nw')}
-            onPointerUp={e => setIsResizing(false)}
-            onPointerLeave={e => setIsResizing(false)}
+            onPointerUp={() => setIsResizing(false)}
+            onPointerLeave={() => setIsResizing(false)}
           />
         )}
 

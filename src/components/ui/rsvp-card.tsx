@@ -10,9 +10,6 @@ export interface RsvpCardProps {
   className?: string;
 }
 
-const CheckEnter = "rsvp-check-enter";
-const FadeIn = "rsvp-fade-in";
-
 export function RsvpCard({
   eventTitle,
   attending = false,
@@ -31,11 +28,11 @@ export function RsvpCard({
         <button
           type="button"
           onClick={() => onToggle?.(!attending)}
+          aria-pressed={attending}
           className={cn(
-            "flex size-8 rounded-full border-2 border-dashed border-border items-center justify-center cursor-pointer transition-colors duration-150",
-            attending && "bg-accent text-accent",
-            !attending && "hover:bg-accent hover:text-accent-foreground",
-            CheckEnter
+            "flex size-8 rounded-full border-2 border-dashed border-border items-center justify-center cursor-pointer transition-colors duration-150 motion-reduce:transition-none",
+            attending && "bg-accent text-accent-foreground border-accent",
+            !attending && "hover:bg-accent hover:text-accent-foreground"
           )}
         >
           {attending ? (

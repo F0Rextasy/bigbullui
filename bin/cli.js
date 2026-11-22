@@ -75,7 +75,7 @@ const UTILS_CONTENT = [
   'const BORDER_STYLE_SET = new Set(["solid", "dashed", "dotted", "double", "hidden", "none"]);',
   'const SHADOW_SIZE_SET = new Set(["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inner", "none"]);',
   'const ROUNDED_SIZE_SET = new Set(["none", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"]);',
-  'const BG_NON_COLOR = /^(?:none|gradient-|linear-|radial-|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$)/;',
+  'const BG_NON_COLOR = /^(?:none|gradient-|linear$|linear-|radial$|radial-|conic$|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$|blend-|size-|position-)/;',
   '',
   'function splitVariant(token: string): [string, string] {',
   '  let depth = 0;',
@@ -90,7 +90,8 @@ const UTILS_CONTENT = [
   '}',
   '',
   'function getConflictKeys(rawBase: string): string[] {',
-  '  const base = rawBase.startsWith("!") ? rawBase.slice(1) : rawBase;',
+  '  let base = rawBase.startsWith("!") ? rawBase.slice(1) : rawBase;',
+  '  if (base.endsWith("!")) base = base.slice(0, -1);',
   '  const negStripped = base.startsWith("-") ? base.slice(1) : base;',
   '',
   '  if (DISPLAY_SET.has(base)) return ["display"];',
@@ -103,6 +104,14 @@ const UTILS_CONTENT = [
   '    return SPACING_DIRS[key] ?? [key];',
   '  }',
   '',
+  '  if (negStripped.startsWith("space-x-")) return ["space-x"];',
+  '  if (negStripped.startsWith("space-y-")) return ["space-y"];',
+  '  if (negStripped.startsWith("inset-x-")) return ["inset-x", "left", "right", "start", "end"];',
+  '  if (negStripped.startsWith("inset-y-")) return ["inset-y", "top", "bottom"];',
+  '  if (negStripped.startsWith("inset-")) return ["inset", "inset-x", "inset-y", "top", "right", "bottom", "left", "start", "end"];',
+  '  const posSide = negStripped.match(/^(top|right|bottom|left|start|end)-/);',
+  '  if (posSide) return [posSide[1]];',
+  '',
   '  if (/^size-/.test(base)) return ["size", "w", "h"];',
   '  if (/^w-/.test(base)) return ["w"];',
   '  if (/^h-/.test(base)) return ["h"];',
@@ -112,6 +121,15 @@ const UTILS_CONTENT = [
   '    if (base.startsWith("gap-y-")) return ["gap-y"];',
   '    return ["gap", "gap-x", "gap-y"];',
   '  }',
+  '  if (/^grid-cols-/.test(base)) return ["grid-cols"];',
+  '  if (/^grid-rows-/.test(base)) return ["grid-rows"];',
+  '  if (/^flex-(?:row|row-reverse|col|col-reverse)$/.test(base)) return ["flex-dir"];',
+  '  if (/^flex-(?:wrap|wrap-reverse|nowrap)$/.test(base)) return ["flex-wrap"];',
+  '  if (base.startsWith("justify-items-")) return ["justify-items"];',
+  '  if (base.startsWith("justify-self-")) return ["justify-self"];',
+  '  if (base.startsWith("justify-")) return ["justify"];',
+  '  if (base.startsWith("items-")) return ["items"];',
+  '  if (base.startsWith("self-")) return ["self"];',
   '  if (/^-?z-/.test(base)) return ["z"];',
   '  if (/^opacity-/.test(base)) return ["opacity"];',
   '  if (/^cursor-/.test(base)) return ["cursor"];',
@@ -130,27 +148,61 @@ const UTILS_CONTENT = [
   '    return ["rounded"];',
   '  }',
   '',
-  '  if (base === "border" || /^border-(0|2|4|8|\\[[^\\]#]+(?:px|rem|em)\\])$/.test(base)) {',
-  '    return ["border-w"];',
+  '  if (base === "border" || /^border-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {',
+  '    return ["border-w", "border-w-t", "border-w-r", "border-w-b", "border-w-l", "border-w-x", "border-w-y", "border-w-s", "border-w-e"];',
   '  }',
-  '  if (/^border-(t|r|b|l|x|y|s|e)(?:-(?:0|2|4|8|\\[[^\\]#]+\\]))?$/.test(base)) {',
-  '    return [`border-w-${base[7]}`];',
+  '  const bwSide = base.match(/^border-(t|r|b|l|x|y|s|e)(?:-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\]))?$/);',
+  '  if (bwSide) {',
+  '    const side = bwSide[1];',
+  '    if (side === "x") return ["border-w-x", "border-w-l", "border-w-r"];',
+  '    if (side === "y") return ["border-w-y", "border-w-t", "border-w-b"];',
+  '    return [`border-w-${side}`];',
+  '  }',
+  '  if (base === "border-collapse" || base === "border-separate") {',
+  '    return ["border-collapse"];',
+  '  }',
+  '  if (base.startsWith("border-spacing-")) {',
+  '    if (base.startsWith("border-spacing-x-")) return ["border-spacing-x"];',
+  '    if (base.startsWith("border-spacing-y-")) return ["border-spacing-y"];',
+  '    return ["border-spacing", "border-spacing-x", "border-spacing-y"];',
   '  }',
   '  if (base.startsWith("border-") && BORDER_STYLE_SET.has(base.slice(7))) {',
   '    return ["border-style"];',
   '  }',
-  '  if (base.startsWith("border-")) {',
-  '    return ["border-color"];',
+  '  const bcSide = base.match(/^border-(t|r|b|l|x|y|s|e)-/);',
+  '  if (bcSide) {',
+  '    const side = bcSide[1];',
+  '    if (side === "x") return ["border-c-x", "border-c-l", "border-c-r"];',
+  '    if (side === "y") return ["border-c-y", "border-c-t", "border-c-b"];',
+  '    return [`border-c-${side}`];',
   '  }',
+  '  if (base.startsWith("border-")) {',
+  '    return ["border-color", "border-c-t", "border-c-r", "border-c-b", "border-c-l", "border-c-x", "border-c-y", "border-c-s", "border-c-e"];',
+  '  }',
+  '',
+  '  if (base === "ring-inset") return ["ring-inset"];',
+  '  if (base.startsWith("ring-offset-")) {',
+  '    return /^ring-offset-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])/.test(base)',
+  '      ? ["ring-offset-w"]',
+  '      : ["ring-offset-color"];',
+  '  }',
+  '  if (base === "ring" || /^ring-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {',
+  '    return ["ring-w"];',
+  '  }',
+  '  if (base.startsWith("ring-")) return ["ring-color"];',
   '',
   '  if (base.startsWith("text-")) {',
   '    const rest = base.slice(5);',
   '    if (TEXT_ALIGN_SET.has(rest)) return ["text-align"];',
-  '    if (TEXT_SIZE_SET.has(rest) || /^\\[(?:length:|[\\d.]+(?:px|rem|em|vw|vh|%))/.test(rest)) {',
-  '      return ["text-size"];',
-  '    }',
+  '    if (rest === "ellipsis" || rest === "clip") return ["text-overflow"];',
   '    if (rest === "wrap" || rest === "nowrap" || rest === "balance" || rest === "pretty") {',
   '      return ["text-wrap"];',
+  '    }',
+  '    if (rest === "shadow" || rest.startsWith("shadow-")) return ["text-shadow"];',
+  '    const slashIdx = rest.indexOf("/");',
+  '    const sizeHead = slashIdx === -1 ? rest : rest.slice(0, slashIdx);',
+  '    if (TEXT_SIZE_SET.has(sizeHead) || /^\\[(?:length:|[\\d.]+(?:px|rem|em|vw|vh|%))/.test(sizeHead)) {',
+  '      return slashIdx !== -1 ? ["text-size", "leading"] : ["text-size"];',
   '    }',
   '    return ["text-color"];',
   '  }',
@@ -244,7 +296,6 @@ function printHelp() {
   console.log(`    ${c.green}update${c.reset} [components]     Check installed components against the registry (use -f to apply)`);
   console.log(`    ${c.green}doctor${c.reset}                 Diagnose setup: deps, tokens, utils, dark mode`);
   console.log(`    ${c.green}list${c.reset} [filter]          List components (or pass --blocks / --icons)`);
-  console.log(`    ${c.green}list${c.reset} [filter]          List available components (optional search filter)`);
   console.log(`    ${c.green}init${c.reset}                   Initialize bigbullui utils and tokens in your project`);
   console.log(`    ${c.green}tokens${c.reset}                 Export bigbullui.css design tokens locally`);
   console.log(`    ${c.green}help${c.reset}                   Show this help message\n`);
@@ -289,10 +340,22 @@ function detectTargetDir(customDir) {
 }
 
 const FETCH_TIMEOUT_MS = 15000;
+const MAX_FETCH_BYTES = 5 * 1024 * 1024;
 
 function fetchUrl(url, redirects = 0) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, (res) => {
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      reject(new Error(`Invalid URL: ${url}`));
+      return;
+    }
+    if (parsed.protocol !== "https:") {
+      reject(new Error(`Refusing non-HTTPS URL: ${url}`));
+      return;
+    }
+    const req = https.get(parsed, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         res.resume();
         if (redirects >= 5) {
@@ -300,7 +363,18 @@ function fetchUrl(url, redirects = 0) {
           reject(new Error(`Too many redirects fetching ${url}`));
           return;
         }
-        fetchUrl(new URL(res.headers.location, url).href, redirects + 1).then(resolve, reject);
+        let nextUrl;
+        try {
+          nextUrl = new URL(res.headers.location, parsed);
+        } catch {
+          reject(new Error(`Invalid redirect location fetching ${url}`));
+          return;
+        }
+        if (nextUrl.protocol !== "https:") {
+          reject(new Error(`Refusing non-HTTPS redirect to ${nextUrl.href}`));
+          return;
+        }
+        fetchUrl(nextUrl.href, redirects + 1).then(resolve, reject);
         return;
       }
       if (res.statusCode !== 200) {
@@ -309,11 +383,22 @@ function fetchUrl(url, redirects = 0) {
         reject(new Error(`Failed to fetch ${url} (HTTP ${res.statusCode})`));
         return;
       }
-      let data = "";
-      res.on("data", (chunk) => (data += chunk));
+      const chunks = [];
+      let totalBytes = 0;
+      let aborted = false;
+      res.on("data", (chunk) => {
+        totalBytes += chunk.length;
+        if (totalBytes > MAX_FETCH_BYTES) {
+          aborted = true;
+          req.destroy(new Error(`Response exceeded ${MAX_FETCH_BYTES} bytes fetching ${url}`));
+          return;
+        }
+        chunks.push(chunk);
+      });
       res.on("end", () => {
+        if (aborted) return;
         res.destroy();
-        resolve(data);
+        resolve(Buffer.concat(chunks).toString("utf8"));
       });
       res.on("error", reject);
     });
@@ -416,8 +501,17 @@ async function getIconContent(slug) {
 // Temp file + rename: a crash mid-write never leaves a truncated file behind.
 function writeFileAtomic(filePath, data) {
   const tmp = `${filePath}.tmp-${process.pid}`;
-  fs.writeFileSync(tmp, data, "utf8");
-  fs.renameSync(tmp, filePath);
+  try {
+    fs.writeFileSync(tmp, data, "utf8");
+    fs.renameSync(tmp, filePath);
+  } catch (err) {
+    try {
+      fs.unlinkSync(tmp);
+    } catch {
+      // Ignore cleanup error if temp file was never created
+    }
+    throw err;
+  }
 }
 
 // One resolver for both component files and icon/lib files.
@@ -822,14 +916,21 @@ function handleDoctor() {
   checks.push({ label: `Node ${process.versions.node} (>= 20)`, ok: major >= 20, hint: "Install Node.js 20 or newer." });
   const hasTailwind = fs.existsSync(path.join(cwd, "node_modules", "tailwindcss"));
   checks.push({ label: "tailwindcss installed", ok: hasTailwind, hint: "Run npm install -D tailwindcss @tailwindcss/postcss." });
-  const hasCss = fs.existsSync(path.join(cwd, "bigbullui.css"));
-  checks.push({ label: "bigbullui.css in project root", ok: hasCss, hint: "Run npx bigbullui tokens." });
-  const cssFiles = ["app/globals.css", "src/index.css", "src/globals.css", "styles/globals.css"]
+  const hasLocalCss = fs.existsSync(path.join(cwd, "bigbullui.css"));
+  const hasPkgCss = fs.existsSync(path.join(cwd, "node_modules", "bigbullui", "bigbullui.css"));
+  const cssFiles = ["app/globals.css", "src/app/globals.css", "src/index.css", "src/globals.css", "styles/globals.css"]
     .map((p) => path.join(cwd, p))
     .filter((p) => fs.existsSync(p));
+  const importsPkgCss = cssFiles.some((p) => fs.readFileSync(p, "utf8").includes("bigbullui/css"));
   const wired = cssFiles.some((p) => {
     const t = fs.readFileSync(p, "utf8");
     return t.includes("bigbullui/css") || t.includes("bigbullui.css");
+  });
+  const hasCss = hasLocalCss || (importsPkgCss && hasPkgCss);
+  checks.push({
+    label: !hasLocalCss && importsPkgCss && hasPkgCss ? "bigbullui/css package tokens available" : "bigbullui.css in project root",
+    ok: hasCss,
+    hint: "Install bigbullui or run npx bigbullui tokens.",
   });
   checks.push({ label: "tokens imported in global CSS", ok: wired, hint: 'Add @import "bigbullui/css"; after tailwindcss.' });
   const targetDir = detectTargetDir();

@@ -21,7 +21,6 @@ export function VoiceNoteList({ notes = [], onPlay, className, ...props }: Voice
 
   return (
     <div className={cn("w-full max-w-sm space-y-2", className)} {...props}>
-      <style>{`@keyframes vnIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {notes.map((note, idx) => {
         const isPlaying = playing === note.id;
         return (

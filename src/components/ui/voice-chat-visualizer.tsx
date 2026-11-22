@@ -24,7 +24,6 @@ export function VoiceChatVisualizer({
       aria-label={active ? `${label}, speaking` : `${label}, idle`}
       {...props}
     >
-      <style>{`@keyframes vcvBar { 0%, 100% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } }`}</style>
       <div className="flex items-center gap-2">
         <span className={cn("size-2 rounded-full", active ? "animate-pulse bg-accent motion-reduce:animate-none" : "bg-border")} aria-hidden="true" />
         <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">{label}</p>

@@ -26,13 +26,13 @@ export function StreamGraph({ layers = [], height = 240, className, ...props }: 
   const peak = Math.max(...totals, 1);
   const x = (i: number) => 5 + (i / Math.max(n - 1, 1)) * 90;
 
+  const bands: Array<{ layer: StreamLayer; top: number[]; bottom: number[] }> = [];
   let baseline = totals.map(() => 0);
-  const bands = layers.map((layer) => {
-    const top = totals.map((t, i) => baseline[i] + (layer.data[i] ?? 0));
-    const band = { layer, top, bottom: [...baseline] };
+  for (const layer of layers) {
+    const top = totals.map((_, i) => baseline[i] + (layer.data[i] ?? 0));
+    bands.push({ layer, top, bottom: [...baseline] });
     baseline = top;
-    return band;
-  });
+  }
 
   const y = (v: number) => 92 - (v / peak) * 80;
 

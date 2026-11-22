@@ -14,10 +14,18 @@ export interface CalendarHeatmapProps extends React.HTMLAttributes<HTMLDivElemen
   height?: number;
 }
 
+function parseUtcYmd(dateStr: string): Date {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateStr.trim());
+  if (m) return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  const parsed = new Date(dateStr);
+  return new Date(Date.UTC(parsed.getUTCFullYear(), parsed.getUTCMonth(), parsed.getUTCDate()));
+}
+
 function getWeekNumber(dateStr: string): number {
-  const date = new Date(dateStr);
-  const oneJan = new Date(date.getFullYear(), 0, 1);
-  return Math.ceil(((date.getTime() - oneJan.getTime()) / 86400000) / 7);
+  const date = parseUtcYmd(dateStr);
+  const oneJan = Date.UTC(date.getUTCFullYear(), 0, 1);
+  const diffDays = Math.floor((date.getTime() - oneJan) / 86400000);
+  return Math.floor(diffDays / 7) + 1;
 }
 
 function getMonth(dateStr: string): string {
@@ -25,7 +33,7 @@ function getMonth(dateStr: string): string {
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
-  return months[new Date(dateStr).getMonth()];
+  return months[parseUtcYmd(dateStr).getUTCMonth()];
 }
 
 export function CalendarHeatmap({
@@ -43,12 +51,12 @@ export function CalendarHeatmap({
   );
   const minDate = sorted[0]?.date || "2024-01-01";
   const maxDate = sorted[sorted.length - 1]?.date || "2024-12-31";
-  const firstYear = new Date(minDate).getFullYear();
-  const oneJan = new Date(firstYear, 0, 1);
+  const firstYear = parseUtcYmd(minDate).getUTCFullYear();
+  const oneJanMs = Date.UTC(firstYear, 0, 1);
   const byDate = new Map(sorted.map((d) => [d.date, d]));
 
   const formatYmd = (dt: Date) =>
-    `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+    `${dt.getUTCFullYear()}-${String(dt.getUTCMonth() + 1).padStart(2, "0")}-${String(dt.getUTCDate()).padStart(2, "0")}`;
 
   // Get all unique weeks
   const allWeeks = [...new Set(sorted.map((d) => getWeekNumber(d.date)))].sort(
@@ -58,8 +66,7 @@ export function CalendarHeatmap({
   const rows = allWeeks.map((week) => {
     const daysInWeek: CalendarHeatmapEntry[] = [];
     for (let i = 0; i < 7; i++) {
-      const targetDate = new Date(oneJan);
-      targetDate.setDate(targetDate.getDate() + (week - 1) * 7 + i);
+      const targetDate = new Date(oneJanMs + ((week - 1) * 7 + i) * 86400000);
       const entry = byDate.get(formatYmd(targetDate));
       if (entry) daysInWeek.push(entry);
     }

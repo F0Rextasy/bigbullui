@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { registerEscapeLayer } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
 
 export interface CurrencyOption {
@@ -13,7 +14,7 @@ export const CURRENCIES: CurrencyOption[] = [
   { code: "TRY", symbol: "₺", label: "Turkish Lira" },
   { code: "USD", symbol: "$", label: "US Dollar" },
   { code: "EUR", symbol: "€", label: "Euro" },
-  { code: "GBP", symbol: "£", label: "Sterlin" },
+  { code: "GBP", symbol: "£", label: "British Pound" },
 ];
 
 export interface CurrencySelectProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
@@ -26,12 +27,21 @@ export interface CurrencySelectProps extends Omit<React.HTMLAttributes<HTMLDivEl
 export function CurrencySelect({ value, defaultValue, onValueChange, className, ...props }: CurrencySelectProps) {
   const [internal, setInternal] = React.useState(defaultValue ?? "TRY");
   const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
   const active = CURRENCIES.find((c) => c.code === (value ?? internal)) ?? CURRENCIES[0];
 
+  React.useEffect(() => {
+    if (!open) return;
+    return registerEscapeLayer(() => {
+      setOpen(false);
+      triggerRef.current?.focus();
+    });
+  }, [open]);
+
   return (
-    <div className={cn("relative", className)} onKeyDown={(e) => { if (e.key === "Escape") { setOpen(false); (e.currentTarget.querySelector("button") as HTMLButtonElement | null)?.focus(); } }} {...props}>
-      <style>{`@keyframes curIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+    <div className={cn("relative", className)} {...props}>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
@@ -51,14 +61,14 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
       {open && (
         <>
           <div className="fixed inset-0 z-20" onClick={() => setOpen(false)} aria-hidden="true" />
-          <ul role="listbox" aria-label="Currencies" className="absolute z-30 mt-1 w-full rounded-md border border-border bg-card p-1 shadow-lg animate-[curIn_0.2s_ease-out_both] motion-reduce:animate-none">
+          <div role="listbox" aria-label="Currencies" className="absolute z-30 mt-1 w-full rounded-md border border-border bg-card p-1 shadow-lg animate-[curIn_0.2s_ease-out_both] motion-reduce:animate-none">
             {CURRENCIES.map((c) => (
               <button
                 key={c.code}
                 type="button"
                 role="option"
                 aria-selected={c.code === active.code}
-                onClick={() => { setInternal(c.code); onValueChange?.(c.code); setOpen(false); }}
+                onClick={() => { setInternal(c.code); onValueChange?.(c.code); setOpen(false); triggerRef.current?.focus(); }}
                 className={cn(
                   "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-sm transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
                   c.code === active.code ? "bg-accent/10 text-accent" : "hover:bg-secondary"
@@ -69,7 +79,7 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
                 <span className="font-mono text-[10px] text-muted-foreground">{c.code}</span>
               </button>
             ))}
-          </ul>
+          </div>
         </>
       )}
     </div>

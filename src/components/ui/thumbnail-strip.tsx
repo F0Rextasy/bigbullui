@@ -23,8 +23,7 @@ export function ThumbnailStrip({ images = [], value, defaultValue, onValueChange
 
   return (
     <div className={cn("flex gap-2 overflow-x-auto pb-1", className)} role="radiogroup" aria-label="Thumbnails" {...props}>
-      <style>{`@keyframes tsSel { from { transform: scale(0.92); } to { transform: scale(1); } }`}</style>
-      {images.map((img, idx) => {
+      {images.map((img) => {
         const selected = active === img.id;
         return (
           <button

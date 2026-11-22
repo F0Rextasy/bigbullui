@@ -26,7 +26,6 @@ export function Poll({ question = "", options = [], votedId, onVote, className, 
 
   return (
     <div className={cn("w-full max-w-sm rounded-lg border border-border bg-card p-4", className)} {...props}>
-      <style>{`@keyframes pollGrow { from { width: 0; } }`}</style>
       <h3 className="text-sm font-semibold">{question}</h3>
 
       <div className="mt-3 space-y-1.5">

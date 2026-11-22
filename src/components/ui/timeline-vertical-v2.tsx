@@ -18,7 +18,6 @@ export interface TimelineVerticalV2Props extends React.HTMLAttributes<HTMLDivEle
 export function TimelineVerticalV2({ items = [], className, ...props }: TimelineVerticalV2Props) {
   return (
     <div className={cn("relative w-full max-w-md py-2", className)} {...props}>
-      <style>{`@keyframes tv2In { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <span className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 rounded-full bg-border/60" aria-hidden="true" />
       <ul className="space-y-4">
         {items.map((item, idx) => {

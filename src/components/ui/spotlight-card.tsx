@@ -33,12 +33,6 @@ export function SpotlightCard({ radius = 220, className, children, ...props }: S
       )}
       {...props}
     >
-      <style>{`
-        @keyframes spotlightCardIn {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
       {/* Cursor spotlight beam */}
       <div
         aria-hidden="true"

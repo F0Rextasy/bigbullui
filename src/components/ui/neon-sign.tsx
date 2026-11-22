@@ -20,18 +20,8 @@ export function NeonSign({ text = "", color = "accent", className }: NeonSignPro
         "relative rounded-lg border border-border bg-card p-4 motion-reduce:animate-none motion-reduce:transition-none",
         className
       )}
+      style={{ "--neon-glow": glowColor } as React.CSSProperties}
     >
-      <style>{`
-        @keyframes neonFlicker {
-          0%, 100% { text-shadow: 0 0 5px ${glowColor}, 0 0 10px ${glowColor}, 0 0 15px ${glowColor}; }
-          50% { text-shadow: 0 0 2px ${glowColor}, 0 0 5px ${glowColor}, 0 0 8px ${glowColor}; }
-        }
-        @keyframes buzzLetter {
-          from { text-shadow: 0 0 3px currentColor, 0 0 5px currentColor; }
-          to { text-shadow: 0 0 8px currentColor, 0 0 12px currentColor; }
-        }
-      `}</style>
-
       <div className="font-mono text-[10px] uppercase tracking-[0.15em]">
         {text.split("").map((char, i) => (
           <span
@@ -39,7 +29,7 @@ export function NeonSign({ text = "", color = "accent", className }: NeonSignPro
             className={cn(
               "text-current",
               "inline-block",
-              color === "accent" && "animate-buzzing"
+              color === "accent" && "animate-[buzzLetter_1.8s_ease-in-out_infinite_alternate] motion-reduce:animate-none"
             )}
           >
             {char}

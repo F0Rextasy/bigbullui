@@ -43,7 +43,6 @@ export function AuditLog({ entries = [], filter = "all", className, ...props }: 
 
   return (
     <div className={cn("w-full max-w-md space-y-1.5", className)} {...props}>
-      <style>{`@keyframes auditIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {visible.map((e, idx) => (
         <div
           key={e.id}

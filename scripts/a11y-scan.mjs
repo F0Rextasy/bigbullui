@@ -9,6 +9,7 @@ if (!fs.existsSync(axePath)) {
   console.error("a11y-scan: axe-core not installed (comes with npm install).");
   process.exit(2);
 }
+
 const base = process.env.BIGBULL_BASE ?? "http://localhost:3000";
 const routes = [
   "/",
@@ -27,38 +28,84 @@ const routes = [
   "/icons",
 ];
 
+const themes = ["light", "dark"];
 const browser = await chromium.launch({ headless: true });
 let critical = 0;
 let skipped = 0;
+let scanCount = 0;
+
+async function setTheme(page, theme) {
+  await page.evaluate(async (t) => {
+    document.documentElement.classList.toggle("dark", t === "dark");
+    void document.documentElement.offsetHeight;
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    for (const anim of document.getAnimations({ subtree: true })) {
+      if (anim instanceof CSSTransition) anim.finish();
+    }
+    await new Promise((r) => requestAnimationFrame(r));
+  }, theme);
+}
+
+async function runAxe(page, label) {
+  scanCount += 1;
+  const violations = await page.evaluate(async () => {
+    const result = await window.axe.run({ resultTypes: ["violations"] });
+    return result.violations
+      .filter((v) => v.impact === "critical" || v.impact === "serious")
+      .map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length }));
+  });
+  for (const v of violations) {
+    console.log(`${v.impact === "critical" ? "CRITICAL" : "SERIOUS"} a11y-scan: ${label} ${v.id} x${v.nodes}`);
+    critical += v.nodes;
+  }
+  if (violations.length === 0) console.log(`a11y-scan: ${label} clean`);
+}
+
 for (const route of routes) {
   const page = await browser.newPage();
   try {
     await page.goto(base + route, { waitUntil: "networkidle", timeout: 45000 });
     await page.addScriptTag({ path: axePath });
-    const violations = await page.evaluate(async () => {
-      const result = await window.axe.run({ resultTypes: ["violations"] });
-      return result.violations
-        .filter((v) => v.impact === "critical" || v.impact === "serious")
-        .map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length }));
-    });
-    for (const v of violations) {
-      console.log(`${v.impact === "critical" ? "CRITICAL" : "SERIOUS"} a11y-scan: ${route} ${v.id} x${v.nodes}`);
-      critical += v.nodes;
+    for (const theme of themes) {
+      await setTheme(page, theme);
+      await runAxe(page, `${route} [${theme}]`);
     }
-    if (violations.length === 0) console.log(`a11y-scan: ${route} clean`);
+
+    if (route === "/docs/dialog") {
+      for (const theme of themes) {
+        await setTheme(page, theme);
+        await page.getByRole("button", { name: "Open Dialog" }).click();
+        await page.locator('[role="dialog"]').waitFor({ state: "visible", timeout: 5000 });
+        await runAxe(page, `${route} [${theme}] [overlay:dialog]`);
+        await page.keyboard.press("Escape");
+        await page.locator('[role="dialog"]').waitFor({ state: "detached", timeout: 5000 });
+      }
+    }
+
+    if (route === "/docs") {
+      for (const theme of themes) {
+        await setTheme(page, theme);
+        await page.keyboard.press("Control+k");
+        await page.locator('[role="dialog"]').waitFor({ state: "visible", timeout: 5000 });
+        await runAxe(page, `${route} [${theme}] [overlay:search]`);
+        await page.keyboard.press("Escape");
+        await page.locator('[role="dialog"]').waitFor({ state: "detached", timeout: 5000 });
+      }
+    }
   } catch (error) {
     console.error(`a11y-scan: SKIPPED ${route} ${(error.message ?? error).split("\n")[0]}`);
     skipped += 1;
   }
   await page.close();
 }
+
 await browser.close();
 if (skipped > 0) {
   console.error(`a11y-scan: ${skipped} route(s) SKIPPED — a crashed page must not pass the gate.`);
   process.exit(1);
 }
 if (critical > 0) {
-  console.error(`a11y-scan: ${critical} critical/serious violations found.`);
+  console.error(`a11y-scan: ${critical} critical/serious violations found across ${scanCount} scans.`);
   process.exit(1);
 }
-console.log(`a11y-scan: ${routes.length} routes scanned, no critical/serious violations.`);
+console.log(`a11y-scan: ${scanCount} scans across ${routes.length} routes (light + dark + open overlays), no critical/serious violations.`);

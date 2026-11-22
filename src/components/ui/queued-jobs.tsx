@@ -30,7 +30,6 @@ export function QueuedJobs({ jobs = [], onCancel, className, ...props }: QueuedJ
 
   return (
     <div className={cn("w-full max-w-md space-y-1.5", className)} {...props}>
-      <style>{`@keyframes qjIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {list.map((job, idx) => {
         const m = statusMeta[job.status];
         return (

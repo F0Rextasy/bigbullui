@@ -20,27 +20,41 @@ function polar(cx: number, cy: number, r: number, angle: number): [number, numbe
   return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
 }
 
+function buildPieSegments(slices: PieSlice[], total: number, cx: number, cy: number, r: number) {
+  let acc = 0;
+  return slices.map((s, i) => {
+    const frac = Math.max(s.value, 0) / total;
+    const a0 = acc * 360;
+    acc += frac;
+    const a1 = acc * 360;
+    const [x0, y0] = polar(cx, cy, r, a0);
+    const [x1, y1] = polar(cx, cy, r, a1);
+    return {
+      slice: s,
+      index: i,
+      large: frac > 0.5 ? 1 : 0,
+      mid: (a0 + a1) / 2,
+      x0,
+      y0,
+      x1,
+      y1,
+    };
+  });
+}
+
 export function PieInteractive({ slices = [], size = 220, className, ...props }: PieInteractiveProps) {
   const [active, setActive] = React.useState<number | null>(null);
   const total = slices.reduce((a, s) => a + Math.max(s.value, 0), 0) || 1;
   const R = 80;
   const cx = 100;
   const cy = 100;
-  let acc = 0;
+  const segments = React.useMemo(() => buildPieSegments(slices, total, cx, cy, R), [slices, total]);
 
   return (
     <div className={cn("flex w-full flex-col items-center gap-2", className)} {...props}>
       <svg width={size} height={size} viewBox="0 0 200 200" role="img" aria-label="Interactive pie">
-        {slices.map((s, i) => {
-          const frac = Math.max(s.value, 0) / total;
-          const a0 = acc * 360;
-          acc += frac;
-          const a1 = acc * 360;
-          const [x0, y0] = polar(cx, cy, R, a0);
-          const [x1, y1] = polar(cx, cy, R, a1);
-          const large = frac > 0.5 ? 1 : 0;
+        {segments.map(({ slice: s, index: i, large, mid, x0, y0, x1, y1 }) => {
           const isActive = active === i;
-          const mid = (a0 + a1) / 2;
           const [ox, oy] = polar(0, 0, isActive ? 8 : 0, mid);
           return (
             <path

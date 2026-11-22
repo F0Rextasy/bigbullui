@@ -17,7 +17,6 @@ export function BioCard({ name, initials, bio, links = [], onFollow, className, 
 
   return (
     <div className={cn("w-full max-w-xs rounded-lg border border-border bg-card p-5 text-center", className)} {...props}>
-      <style>{`@keyframes bioIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <span className="mx-auto flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground animate-[bioIn_0.35s_ease-out_both] motion-reduce:animate-none">
         {initials}
       </span>

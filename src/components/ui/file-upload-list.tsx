@@ -380,10 +380,19 @@ export function FileUploadList({
 
       {files.length === 0 ? (
         <div
-          onClick={() => allowAdd && inputRef.current?.click()}
+          role={allowAdd ? "button" : undefined}
+          tabIndex={allowAdd ? 0 : undefined}
+          aria-label={allowAdd ? "Browse files to upload" : undefined}
+          onClick={allowAdd ? () => inputRef.current?.click() : undefined}
+          onKeyDown={allowAdd ? (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          } : undefined}
           className={cn(
-            "p-8 sm:p-12 text-center flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors",
-            allowAdd && "hover:bg-secondary/30"
+            "p-8 sm:p-12 text-center flex flex-col items-center justify-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            allowAdd && "cursor-pointer hover:bg-secondary/30"
           )}
         >
           <div className="size-10 rounded-md border-2 border-dashed border-border bg-secondary flex items-center justify-center text-muted-foreground">

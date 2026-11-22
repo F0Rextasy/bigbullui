@@ -50,8 +50,8 @@ export function ImageCompare({ before, after, alt = "Comparison", defaultPositio
 
       <div
         className={cn(
-          "absolute top-0 bottom-0 w-px bg-border",
-          "dragging:scale-150",
+          "absolute top-0 bottom-0 w-px bg-border transition-transform",
+          dragging && "scale-x-150 bg-accent",
           "motion-reduce:animate-none",
           "motion-reduce:transition-none",
         )}
@@ -60,8 +60,8 @@ export function ImageCompare({ before, after, alt = "Comparison", defaultPositio
         {/* Drag handle */}
         <div
           className={cn(
-            "absolute -left-1/2 -translate-x-1/2 bottom-1/2 transform -rotate-90 w-6 h-6 rounded-full bg-accent text-accent-foreground flex items-center justify-center",
-            "dragging:scale-125",
+            "absolute -left-1/2 -translate-x-1/2 bottom-1/2 transform -rotate-90 w-6 h-6 rounded-full bg-accent text-accent-foreground flex items-center justify-center transition-transform",
+            dragging && "scale-125 ring-2 ring-ring",
             "motion-reduce:animate-none",
             "motion-reduce:transition-none",
           )}

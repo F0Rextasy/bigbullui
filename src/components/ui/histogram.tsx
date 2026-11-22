@@ -21,7 +21,6 @@ export function Histogram({ bins = [], height = 180, className, ...props }: Hist
 
   return (
     <div className={cn("w-full max-w-md", className)} {...props}>
-      <style>{`@keyframes hgGrow { from { transform: scaleY(0); } }`}</style>
       <div className="flex items-end" style={{ height }}>
         {bins.map((bin, idx) => {
           const h = (bin.count / max) * 100;

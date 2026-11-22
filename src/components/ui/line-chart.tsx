@@ -103,7 +103,6 @@ export function LineChart({
       {...props}
       style={{ height: `${height}px` }}
     >
-      <style>{`@keyframes lcDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }`}</style>
       {/* SVG canvas */}
       <svg
         className="h-full w-full"

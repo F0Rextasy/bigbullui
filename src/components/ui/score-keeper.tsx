@@ -23,6 +23,7 @@ const DEFAULT_TEAMS: [ScoreboardTeam, ScoreboardTeam] = [
 export function ScoreKeeper({ teams = DEFAULT_TEAMS, onScoreChange, className, ...props }: ScoreKeeperProps) {
   const [scores, setScores] = React.useState<[number, number]>([teams[0]?.score ?? 0, teams[1]?.score ?? 0]);
   const [pulse, setPulse] = React.useState<string | null>(null);
+  const pulseSeqRef = React.useRef(0);
 
   const change = (teamIdx: 0 | 1, delta: number) => {
     const id = teams[teamIdx]?.id ?? String(teamIdx);
@@ -31,13 +32,12 @@ export function ScoreKeeper({ teams = DEFAULT_TEAMS, onScoreChange, className, .
       next[teamIdx] = Math.max(0, next[teamIdx] + delta);
       return next;
     });
-    setPulse(`${id}-${delta}-${Date.now()}`);
+    setPulse(`${id}-${delta}-${pulseSeqRef.current++}`);
     onScoreChange?.(id, delta);
   };
 
   return (
     <div className={cn("grid w-64 grid-cols-2 overflow-hidden rounded-lg border-2 border-dashed border-border bg-card divide-x-2 divide-dashed divide-border", className)} {...props}>
-      <style>{`@keyframes skPulse { 0% { transform: scale(1.25); color: var(--accent); } 100% { transform: scale(1); } }`}</style>
       {teams.map((team, teamIdx) => (
         <div key={team.id} className="flex flex-col items-center gap-1 p-3">
           <p className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">{team.name}</p>

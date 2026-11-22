@@ -3,7 +3,6 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 import { UsageMeter } from "./usage-meter";
-import { TeamMembers } from "./team-members";
 
 export interface BillingPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   plan: string;
@@ -17,12 +16,11 @@ export interface BillingPanelProps extends React.HTMLAttributes<HTMLDivElement> 
 export function BillingPanel({ plan, price, cycle, invoices = [], onUpgrade, className, ...props }: BillingPanelProps) {
   return (
     <div className={cn("w-full max-w-2xl space-y-4", className)} {...props}>
-      <style>{`@keyframes bpIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       {/* Plan card */}
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-accent/40 bg-accent/5 p-4 animate-[bpIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Mevcut plan</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Current plan</p>
           <p className="mt-0.5 text-lg font-bold">{plan}</p>
           <p className="text-xs text-muted-foreground">{price} / {cycle}</p>
         </div>

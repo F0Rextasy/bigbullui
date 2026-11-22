@@ -138,9 +138,8 @@ export const wave5Previews: Record<string, React.ComponentType> = {
     ]);
     return (
       <DemoShell>
-      <div className="cart-drawer-demo">
-        <style>{`.cart-drawer-demo .cart-drawer-slide-in{display:flex !important;}`}</style>
-        <button
+        <div>
+          <button
           type="button"
           onClick={() => setOpen(true)}
           className="rounded-md bg-accent px-4 py-2 text-sm font-semibold uppercase tracking-widest text-accent-foreground hover:bg-accent/90"

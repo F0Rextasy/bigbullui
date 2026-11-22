@@ -22,6 +22,8 @@ export type ComponentMeta = {
    * removed after two minor versions with a migration note in the changelog.
    */
   status?: "stable" | "experimental" | "deprecated";
+  /** Canonical replacement component slug when deprecated. */
+  replacedBy?: string;
 };
 
 export const categories: { id: ComponentCategory; name: string; description: string }[] = [

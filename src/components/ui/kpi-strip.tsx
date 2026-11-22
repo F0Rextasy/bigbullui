@@ -23,7 +23,6 @@ export function KpiStrip({ tiles = [], className, ...props }: KpiStripProps) {
       className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4", className)}
       {...props}
     >
-      <style>{`@keyframes kpiRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       {tiles.map((tile, i) => (
         <div
           key={tile.label}

@@ -26,13 +26,15 @@ export function ConfettiBurst({
   const [expanded, setExpanded] = React.useState(false);
 
   React.useEffect(() => {
-    if (!active) {
-      setExpanded(false);
-      return;
-    }
+    if (!active) return;
     const raf = requestAnimationFrame(() => setExpanded(true));
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      setExpanded(false);
+    };
   }, [active]);
+
+  const isExpanded = active && expanded;
 
   const pieces = React.useMemo(() => {
     const safeCount = Math.max(1, count);
@@ -63,10 +65,10 @@ export function ConfettiBurst({
           key={idx}
           style={{
             backgroundColor: p.color,
-            transform: expanded
+            transform: isExpanded
               ? `translate(${p.x}px, ${p.y}px) rotate(${p.rotation}deg)`
               : "translate(0px, 0px) scale(0.4)",
-            opacity: expanded ? 1 : 0,
+            opacity: isExpanded ? 1 : 0,
             transition: `transform ${p.duration}s cubic-bezier(0.25, 1, 0.5, 1) ${p.delay}s, opacity 0.15s ease-out ${p.delay}s`,
           }}
           className="absolute size-2.5 rounded-[1px] border border-border shadow-xs motion-reduce:transition-none!"

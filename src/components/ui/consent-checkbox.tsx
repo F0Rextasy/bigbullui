@@ -26,7 +26,6 @@ export function ConsentCheckbox({ text, linkLabel = "devam et", linkHref = "#", 
       )}
       {...props}
     >
-      <style>{`@keyframes consPop { 0% { transform: scale(0.5) rotate(-8deg); } 70% { transform: scale(1.15) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }`}</style>
       <input
         type="checkbox"
         checked={isOn}

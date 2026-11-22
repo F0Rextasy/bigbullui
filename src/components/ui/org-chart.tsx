@@ -3,9 +3,6 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-/**
- * OrgNode for org chart hierarchy
- */
 export interface OrgNode {
   id: string;
   label: string;
@@ -13,183 +10,117 @@ export interface OrgNode {
   children?: OrgNode[];
 }
 
-/**
- * OrgChart - hierarchical boxes tree with connector lines and expand/collapse
- */
-interface OrgChartProps {
+export interface OrgChartProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onToggle"> {
   root?: OrgNode[];
   expanded?: Set<string>;
   onToggle?: (id: string) => void;
 }
 
-/**
- * Recursively render org chart nodes
- */
-const OrgChartInner = ({
-  root = [],
-  expanded = new Set(),
-  onToggle,
-}: {
-  root?: OrgNode[];
-  expanded?: Set<string>;
-  onToggle?: (id: string) => void;
-}) => {
-  const renderNode = (node: OrgNode, depth: number) => {
-    const isExpanded = expanded.has(node.id);
-    const childrenList = node.children || [];
+function collectIds(nodes: OrgNode[], acc = new Set<string>()): Set<string> {
+  for (const n of nodes) {
+    if (n.children && n.children.length > 0) {
+      acc.add(n.id);
+      collectIds(n.children, acc);
+    }
+  }
+  return acc;
+}
 
-    return (
-      <div key={node.id} className="flex flex-col">
-        {/* Expand/collapse button for nodes with children */}
-        {childrenList.length > 0 && (
-          <button
-            type="button"
-            onClick={() => onToggle?.(node.id)}
-            className={cn(
-              "p-1 rounded-sm hover:bg-secondary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              "motion-reduce:transition-none",
-              "flex-shrink-0",
-              isExpanded && "rotate-180",
-            )}
-            aria-label={isExpanded ? "Collapse" : "Expand"}
-          >
-            <svg
-              width={12}
-              height={12}
-              viewBox="0 0 12 12"
-              className={cn("fill-current")}
-            >
-              <path d="M6 2l-4 4 4 4 1-2z" />
-            </svg>
-          </button>
-        )}
+function initialsOf(label: string): string {
+  return label
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
 
-        {/* Node box */}
-        <div
-          className={cn(
-            "relative w-full rounded-md border border-border bg-card p-2 mb-2",
-            "motion-reduce:transition-none",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            "group",
-          )}
-          onMouseEnter={() => {}}
-          onMouseLeave={() => {}}
-        >
-          {/* Avatar initials */}
-          <div
-            className={cn(
-              "absolute -inset-0 flex items-center justify-center pointer-events-none",
-              "bg-secondary/10",
-              "motion-reduce:animate-none",
+export const OrgChart = React.forwardRef<HTMLDivElement, OrgChartProps>(
+  function OrgChartComponent({ root = [], expanded: controlledExpanded, onToggle, className, ...props }, ref) {
+    const [innerExpanded, setInnerExpanded] = React.useState<Set<string>>(() => collectIds(root));
+    const activeExpanded = controlledExpanded ?? innerExpanded;
+
+    const handleToggle = (id: string) => {
+      if (controlledExpanded === undefined) {
+        setInnerExpanded((prev) => {
+          const next = new Set(prev);
+          if (next.has(id)) next.delete(id);
+          else next.add(id);
+          return next;
+        });
+      }
+      onToggle?.(id);
+    };
+
+    const renderNode = (node: OrgNode, depth: number) => {
+      const childrenList = node.children ?? [];
+      const hasChildren = childrenList.length > 0;
+      const isExpanded = activeExpanded.has(node.id);
+
+      return (
+        <div key={node.id} className="flex flex-col">
+          <div className="mb-2 flex items-start gap-2 rounded-md border border-border bg-card p-2.5 shadow-2xs">
+            {hasChildren ? (
+              <button
+                type="button"
+                aria-expanded={isExpanded}
+                aria-label={isExpanded ? `Collapse ${node.label}` : `Expand ${node.label}`}
+                onClick={() => handleToggle(node.id)}
+                className="mt-0.5 shrink-0 cursor-pointer rounded-sm p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className={cn("transition-transform duration-150 motion-reduce:transition-none", isExpanded && "rotate-90")}
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            ) : (
+              <span className="mt-0.5 inline-block size-5 shrink-0" aria-hidden="true" />
             )}
-          >
-            <span
-              className={cn(
-                "text-xxs font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground",
-                "select-none",
-              )}
-            >
-              {node.label
-                .split(" ")
-                .map(w => w[0])
-                .join("")}
-            </span>
+
+            <div className="flex size-7 shrink-0 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[10px] font-bold uppercase text-foreground">
+              {initialsOf(node.label)}
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-medium text-foreground">{node.label}</span>
+              {node.role ? (
+                <span className="mt-0.5 block truncate font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                  {node.role}
+                </span>
+              ) : null}
+            </div>
           </div>
 
-          {/* Node label */}
-          <span
-            className={cn(
-              "block text-sm font-medium text-foreground",
-              "motion-reduce:transition-none",
-            )}
-          >
-            {node.label}
-          </span>
-
-          {/* Role if present */}
-          {node.role && (
-            <span
-              className={cn(
-                "text-xxs text-muted-foreground",
-                "mt-0.5",
-                "motion-reduce:transition-none",
-              )}
-            >
-              {node.role}
-            </span>
-          )}
-
-          {/* Connectors to children */}
-          {childrenList.map((child, childIndex) => {
-            const isLast = childIndex === childrenList.length - 1;
-
-            return (
-              <div
-                key={child.id}
-                className={cn(
-                  "flex items-center",
-                  "motion-reduce:transition-none",
-                )}
-              >
-                {/* Connector line */}
-                <svg
-                  width={40}
-                  height={20}
-                  viewBox="0 0 40 20"
-                  className={cn("transition-opacity duration-200", "group-hover:opacity-100")}
-                >
-                  <path
-                    d="M4 0 L20 0 L20 20 L4 20"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                    fill="none"
-                    opacity={isLast ? 0.5 : 1}
-                  />
-                </svg>
-
-                {/* Child node */}
-                {renderNode(child, depth + 1)}
-              </div>
-            );
-          })}
-
-          {/* Bottom connector line (except for last child at this level) */}
-          {!isExpanded && childrenList.length > 0 && (
-            <div
-              className={cn(
-                "absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-border",
-                "motion-reduce:transition-none",
-              )}
-            />
-          )}
+          {hasChildren && isExpanded ? (
+            <div className="ms-5 border-s-2 border-dashed border-border ps-3">
+              {childrenList.map((child) => renderNode(child, depth + 1))}
+            </div>
+          ) : null}
         </div>
+      );
+    };
+
+    return (
+      <div
+        ref={ref}
+        role="tree"
+        aria-label="Organization hierarchy"
+        className={cn("w-full", className)}
+        {...props}
+      >
+        {root.map((node) => renderNode(node, 0))}
       </div>
     );
-  };
-
-  return (
-    <div
-      className={cn(
-        "w-full",
-        "motion-reduce:animate-none",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-      )}
-    >
-      {/* Render root nodes */}
-      {root.map((node) => (
-        <div key={node.id} className="flex flex-col">
-          {renderNode(node, 0)}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export const OrgChart = React.forwardRef<HTMLElement, OrgChartProps>(
-  function OrgChartComponent(props, ref) {
-    const { root, expanded, onToggle } = props;
-
-    return <OrgChartInner root={root} expanded={expanded} onToggle={onToggle} />;
   },
 );
 OrgChart.displayName = "OrgChart";

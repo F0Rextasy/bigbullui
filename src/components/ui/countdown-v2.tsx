@@ -25,9 +25,12 @@ export function CountdownV2({ targetDate, label = "Doors open in", className, ..
 
   React.useEffect(() => {
     const resolved = targetDate ?? new Date(Date.now() + 2 * 86400000 + 3600000);
-    setNow(diff(resolved));
+    const initTimer = setTimeout(() => setNow(diff(resolved)), 0);
     const t = setInterval(() => setNow(diff(resolved)), 1000);
-    return () => clearInterval(t);
+    return () => {
+      clearTimeout(initTimer);
+      clearInterval(t);
+    };
   }, [targetDate]);
   const units = [["Days", now[0]], ["Hrs", now[1]], ["Min", now[2]], ["Sec", now[3]]] as const;
   return (

@@ -76,7 +76,6 @@ export function MetricCard({
   const isBad = invert ? isPositive : isNegative;
 
   const trendValue = trend?.value;
-  const trendDirectionProp = trend?.direction;
 
   // Format trend string display
   const formattedTrendValue = React.useMemo(() => {

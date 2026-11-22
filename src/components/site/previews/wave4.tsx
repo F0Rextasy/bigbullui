@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Result } from "@/components/ui/result";

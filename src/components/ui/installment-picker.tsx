@@ -24,7 +24,6 @@ export function InstallmentPicker({ plans = [], value, defaultValue, onValueChan
 
   return (
     <div className={cn("w-full max-w-sm overflow-hidden rounded-lg border border-border bg-card", className)} role="radiogroup" aria-label="Installment plans" {...props}>
-      <style>{`@keyframes ipIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="border-b border-border px-4 py-2.5">
         <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Installment Plans</h3>
       </div>

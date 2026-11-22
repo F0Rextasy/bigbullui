@@ -26,10 +26,6 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
 
   return (
     <div className={cn("w-full max-w-sm", className)} {...props}>
-      <style>{`
-        @keyframes cfShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        @keyframes cfCheck { from { stroke-dashoffset: 20; } to { stroke-dashoffset: 0; } }
-      `}</style>
       <div className="flex gap-2">
         <div className="relative min-w-0 flex-1">
           <input

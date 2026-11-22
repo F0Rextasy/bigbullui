@@ -21,7 +21,6 @@ export function SplitScreen({ left, right, rightRatio = 0.45, hideRightOnMobile 
 
   return (
     <div className={cn("flex min-h-[420px] overflow-hidden rounded-lg border border-border", className)} {...props}>
-      <style>{`@keyframes splitIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }`}</style>
       <div
         className={cn("flex flex-col justify-center p-8 animate-[splitIn_0.4s_ease-out_both] motion-reduce:animate-none", hideRightOnMobile && "w-full lg:w-auto")}
         style={{ flexBasis: `${leftPct}%`, flexGrow: 1 }}

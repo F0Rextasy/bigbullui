@@ -18,7 +18,6 @@ export interface FooterNavProps extends React.HTMLAttributes<HTMLElement> {
 export function FooterNav({ brand = "bigbullui", columns = [], copyright = "© 2026", className, ...props }: FooterNavProps) {
   return (
     <footer className={cn("w-full border-t-2 border-dashed border-border bg-card px-6 py-8", className)} {...props}>
-      <style>{`@keyframes fnIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
         <div className="animate-[fnIn_0.3s_ease-out_both] motion-reduce:animate-none">
           <span className="font-mono text-sm font-black uppercase tracking-widest">{brand}</span>

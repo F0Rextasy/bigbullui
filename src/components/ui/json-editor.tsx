@@ -33,7 +33,6 @@ export function JsonEditor({ value, defaultValue = '{\n  "name": "bigbullui",\n 
 
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border bg-card transition-colors duration-200 motion-reduce:transition-none", valid ? "border-border" : "border-destructive", className)} {...props}>
-      <style>{`@keyframes jeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-3 py-1.5">
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">JSON</span>
         <div className="flex items-center gap-2">

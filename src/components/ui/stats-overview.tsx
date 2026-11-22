@@ -13,7 +13,6 @@ export interface StatsOverviewProps extends React.HTMLAttributes<HTMLDivElement>
 export function StatsOverview({ tiles = [], tableTitle = "Recent records", tableRows = [], className, ...props }: StatsOverviewProps) {
   return (
     <div className={cn("space-y-4", className)} {...props}>
-      <style>{`@keyframes soFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {tiles.map((t, i) => (
@@ -48,7 +47,7 @@ export function StatsOverview({ tiles = [], tableTitle = "Recent records", table
             <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{tableTitle}</h3>
           </div>
           <ul className="divide-y divide-border/60">
-            {tableRows.slice(0, 5).map((r, i) => (
+            {tableRows.slice(0, 5).map((r) => (
               <li key={r.label} className="flex items-center justify-between px-4 py-2 text-sm transition-colors hover:bg-secondary/30 motion-reduce:transition-none">
                 <span className="truncate">{r.label}</span>
                 <span className="font-mono text-xs tabular-nums text-muted-foreground">{r.value}</span>

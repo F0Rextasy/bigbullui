@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Carousel } from "@/components/ui/carousel";
 import { LineChart } from "@/components/ui/line-chart";
 import { AreaChart } from "@/components/ui/area-chart";
 import { StackedBar } from "@/components/ui/stacked-bar";
