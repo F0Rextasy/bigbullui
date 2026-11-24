@@ -44,7 +44,7 @@ export function AnchorNav({ items = [], activeId, className, ...props }: AnchorN
       {/* Moving indicator dot */}
       {activeIdx >= 0 && (
         <span
-          className="absolute left-[3px] w-1 rounded-full bg-accent transition-all duration-300 motion-reduce:transition-none"
+          className="absolute left-[3px] w-1 rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-300 motion-reduce:transition-none"
           style={{ top: `${8 + activeIdx * 30}px`, height: `${items[activeIdx] ? 22 : 0}px` }}
           aria-hidden="true"
         />

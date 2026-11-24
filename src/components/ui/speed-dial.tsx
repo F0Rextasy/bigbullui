@@ -11,7 +11,7 @@ export type SpeedDialProps = {
   position?: SpeedDialPosition;
   onOpenChange?: (open: boolean) => void;
   children?: React.ReactNode;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
 export type SpeedDialItem = {
   id: string;
@@ -34,7 +34,7 @@ export function SpeedDial({
   items = [],
   position = "bottom-right",
   onOpenChange,
-  children,
+  children, ...props
 }: SpeedDialProps) {
   const [open, setOpen] = React.useState(false);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -58,7 +58,7 @@ export function SpeedDial({
   }, [open, setOpenState]);
 
   const backdropClassName = cn(
-    "fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm transition-opacity duration-200",
+    "fixed inset-0 z-40 bg-foreground/40 transition-opacity duration-200",
     "motion-reduce:animate-none!",
     "motion-reduce:transition-none",
   );
@@ -70,7 +70,7 @@ export function SpeedDial({
   );
 
   return (
-    <div>
+    <div {...props}>
 
       <div
         className={cn(

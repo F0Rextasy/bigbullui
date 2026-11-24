@@ -41,7 +41,7 @@ export function FlipCard({ front, back, trigger = "click", className, ...props }
           {front}
         </div>
         {/* Back side */}
-        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-lg border border-border bg-accent text-accent-foreground p-5 animate-[flipCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
+        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-lg border border-border bg-accent text-accent-foreground p-5 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
           {back}
         </div>
       </div>

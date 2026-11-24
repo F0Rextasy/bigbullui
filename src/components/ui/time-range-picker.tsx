@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface TimeRangePickerProps {
+export interface TimeRangePickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: [string, string];
   defaultValue?: [string, string];
   onValueChange?: (value: [string, string]) => void;
@@ -23,7 +23,7 @@ export function TimeRangePicker({
   value: controlledValue,
   defaultValue: defaultVals,
   onValueChange,
-  className,
+  className, ...props
 }: TimeRangePickerProps) {
   const [innerValue, setInnerValue] = React.useState<[string, string]>(
     defaultVals ?? ["09:00", "17:00"],
@@ -61,7 +61,7 @@ export function TimeRangePicker({
       className={cn(
         "relative flex flex-col gap-3 rounded-md border border-border bg-card p-4 font-mono",
         className,
-      )}
+      )} {...props}
     >
       <div className="flex items-center justify-between gap-2">
         <label htmlFor={startId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">

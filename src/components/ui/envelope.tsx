@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface EnvelopeProps {
+export interface EnvelopeProps extends React.HTMLAttributes<HTMLElement> {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   sender?: string;
@@ -11,7 +11,7 @@ export interface EnvelopeProps {
   letter?: React.ReactNode;
 }
 
-export function Envelope({ open = false, onOpenChange, sender, recipient, letter }: EnvelopeProps) {
+export function Envelope({ open = false, onOpenChange, sender, recipient, letter, ...props }: EnvelopeProps) {
   const toggle = () => onOpenChange?.(!open);
   return (
     <div
@@ -30,7 +30,7 @@ export function Envelope({ open = false, onOpenChange, sender, recipient, letter
           e.preventDefault();
           toggle();
         }
-      } : undefined}
+      } : undefined} {...props}
     >
       <div
         className={cn(

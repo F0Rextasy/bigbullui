@@ -63,7 +63,7 @@ export function WorldMap({ data = [], height = 220, onCountryHover, className, .
             key={r.code}
             onMouseEnter={() => { setHover(r.code); onCountryHover?.(r.code); }}
             className="motion-reduce:animate-none!"
-            style={{ animation: `wmIn 0.4s ease-out both`, animationDelay: `${idx * 80}ms`, transformOrigin: "center" }}
+            style={{ animation: `durIn 0.4s ease-out both`, animationDelay: `${idx * 80}ms`, transformOrigin: "center" }}
           >
             <rect
               x={r.x} y={r.y} width={r.w} height={r.h} rx="2"

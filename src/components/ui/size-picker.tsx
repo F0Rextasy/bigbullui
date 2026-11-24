@@ -9,7 +9,7 @@ export interface SizeOption {
   stock?: number;
 }
 
-export interface SizePickerProps {
+export interface SizePickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   sizes: SizeOption[];
   value?: string;
   defaultValue?: string;
@@ -29,13 +29,13 @@ export function SizePicker({
   value,
   defaultValue,
   onValueChange,
-  className,
+  className, ...props
 }: SizePickerProps) {
   const [internalValue, setInternalValue] = React.useState<string | undefined>(defaultValue);
   const currentValue = value !== undefined ? value : internalValue;
 
   return (
-    <div className={cn("flex flex-wrap gap-1.5", className)}>
+    <div className={cn("flex flex-wrap gap-1.5", className)} {...props}>
       {sizes.map((opt, i) => {
         const isAvailable = opt.available !== false;
         const isSelected = currentValue === opt.label;

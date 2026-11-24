@@ -32,7 +32,7 @@ export function PriceCompare({ title = "", offers = [], currency = "$", classNam
           <li
             key={o.id}
             className={cn(
-              "flex items-center justify-between gap-3 px-4 py-2.5 animate-[pcIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors motion-reduce:transition-none",
+              "flex items-center justify-between gap-3 px-4 py-2.5 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors motion-reduce:transition-none",
               o.best || o.id === best?.id ? "bg-accent/5" : "hover:bg-secondary/30"
             )}
             style={{ animationDelay: `${idx * 55}ms` }}

@@ -4,44 +4,8 @@ import * as React from "react";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/components/ui/lib/utils";
 import previewWaves from "@/data/preview-waves.json";
-
-type PreviewMap = Record<string, React.ComponentType>;
-
-const WAVE_LOADERS: Record<string, () => Promise<PreviewMap>> = {
-  "wave-core": async () => (await import("@/components/site/previews/wave-core")).waveCorePreviews,
-  "wave-advanced": async () => (await import("@/components/site/previews/wave-advanced")).waveAdvancedPreviews,
-  wave1: async () => (await import("@/components/site/previews/wave1")).wave1Previews,
-  wave2: async () => (await import("@/components/site/previews/wave2")).wave2Previews,
-  wave3: async () => (await import("@/components/site/previews/wave3")).wave3Previews,
-  wave4: async () => (await import("@/components/site/previews/wave4")).wave4Previews,
-  wave5: async () => (await import("@/components/site/previews/wave5")).wave5Previews,
-  wave6: async () => (await import("@/components/site/previews/wave6")).wave6Previews,
-  wave7: async () => (await import("@/components/site/previews/wave7")).wave7Previews,
-  wave8: async () => (await import("@/components/site/previews/wave8")).wave8Previews,
-  wave9: async () => (await import("@/components/site/previews/wave9")).wave9Previews,
-  wave10: async () => (await import("@/components/site/previews/wave10")).wave10Previews,
-  wave11: async () => (await import("@/components/site/previews/wave11")).wave11Previews,
-  wave12: async () => (await import("@/components/site/previews/wave12")).wave12Previews,
-  wave13: async () => (await import("@/components/site/previews/wave13")).wave13Previews,
-  wave14: async () => (await import("@/components/site/previews/wave14")).wave14Previews,
-  wave15: async () => (await import("@/components/site/previews/wave15")).wave15Previews,
-  wave16: async () => (await import("@/components/site/previews/wave16")).wave16Previews,
-  wave17: async () => (await import("@/components/site/previews/wave17")).wave17Previews,
-  wave18: async () => (await import("@/components/site/previews/wave18")).wave18Previews,
-  wave19: async () => (await import("@/components/site/previews/wave19")).wave19Previews,
-  wave20: async () => (await import("@/components/site/previews/wave20")).wave20Previews,
-  wave21: async () => (await import("@/components/site/previews/wave21")).wave21Previews,
-  wave22: async () => (await import("@/components/site/previews/wave22")).wave22Previews,
-  wave23: async () => (await import("@/components/site/previews/wave23")).wave23Previews,
-  wave24: async () => (await import("@/components/site/previews/wave24")).wave24Previews,
-  wave25: async () => (await import("@/components/site/previews/wave25")).wave25Previews,
-  wave26: async () => (await import("@/components/site/previews/wave26")).wave26Previews,
-  wave27: async () => (await import("@/components/site/previews/wave27")).wave27Previews,
-  wave28: async () => (await import("@/components/site/previews/wave28")).wave28Previews,
-  wave29: async () => (await import("@/components/site/previews/wave29")).wave29Previews,
-  wave30: async () => (await import("@/components/site/previews/wave30")).wave30Previews,
-  wave31: async () => (await import("@/components/site/previews/wave31")).wave31Previews,
-};
+import { WAVE_LOADERS, type PreviewMap } from "@/components/site/wave-loaders";
+import { PreviewErrorBoundary } from "@/components/site/preview-error-boundary";
 
 const loadedWaves = new Map<string, PreviewMap>();
 const pendingWaves = new Map<string, Promise<PreviewMap>>();
@@ -164,6 +128,15 @@ export function ComponentPreview({ name }: { name: string }) {
           >
             {previewTheme === "auto" ? `Auto ${isDark ? "Night" : "Paper"}` : isDark ? "Night" : "Paper"}
           </button>
+          <a
+            href={`/preview/${name}`}
+            target="_blank"
+            rel="noreferrer"
+            title="Open isolated preview in a new tab"
+            className="rounded border border-border bg-card px-2 py-0.5 font-mono text-[11px] uppercase text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+          >
+            Open ↗
+          </a>
         </div>
       </div>
 
@@ -172,17 +145,33 @@ export function ComponentPreview({ name }: { name: string }) {
         key={reloadKey}
         className={cn(
           "flex min-h-52 w-full items-center justify-center overflow-x-auto p-4 transition-colors sm:p-8",
-          isDark ? "dark bg-background text-foreground" : "light bg-card text-foreground",
+          previewTheme === "auto"
+            ? "bg-card text-foreground dark:bg-background"
+            : isDark
+              ? "dark bg-background text-foreground"
+              : "light bg-card text-foreground",
           !isAnimated && "[&_*]:animate-none [&_*]:transition-none"
         )}
       >
-        <div className="w-full transition-all duration-300 motion-reduce:transition-none" style={{ maxWidth: viewportWidth }}>
-          {Preview ? (
-            <Preview />
-          ) : (
-            <div className="mx-auto h-28 w-full max-w-md animate-pulse motion-reduce:animate-none rounded-md border border-dashed border-border bg-secondary/40" role="status" aria-label="Loading component preview" />
-          )}
-        </div>
+        {viewport !== "desktop" ? (
+          <iframe
+            key={`${name}-${viewport}-${previewTheme}-${reloadKey}`}
+            src={`/preview/${name}${previewTheme !== "auto" ? `?theme=${previewTheme}` : ""}`}
+            title={`${name} ${viewport} isolated preview`}
+            style={{ width: viewportWidth, maxWidth: "100%" }}
+            className="h-80 rounded-md border-2 border-dashed border-border bg-background"
+          />
+        ) : (
+          <div className="w-full transition-[max-width] duration-300 motion-reduce:transition-none" style={{ maxWidth: viewportWidth }}>
+            <PreviewErrorBoundary resetKey={`${name}-${reloadKey}`}>
+              {Preview ? (
+                <Preview />
+              ) : (
+                <div className="mx-auto h-28 w-full max-w-md animate-pulse motion-reduce:animate-none rounded-md border border-dashed border-border bg-secondary/40" role="status" aria-label="Loading component preview" />
+              )}
+            </PreviewErrorBoundary>
+          </div>
+        )}
       </div>
     </div>
   );

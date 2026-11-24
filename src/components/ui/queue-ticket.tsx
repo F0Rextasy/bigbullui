@@ -1,19 +1,19 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface QueueTicketProps {
+export interface QueueTicketProps extends React.HTMLAttributes<HTMLElement> {
   number: number;
   queueLength?: number;
   className?: string;
 }
 
-export function QueueTicket({ number, queueLength, className }: QueueTicketProps) {
+export function QueueTicket({ number, queueLength, className, ...props }: QueueTicketProps) {
   return (
     <div
       className={cn(
         "relative rounded-lg border border-border bg-card p-6 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       <div className="relative">
         <div className="flex items-start justify-between">

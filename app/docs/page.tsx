@@ -2,8 +2,13 @@ import Link from "next/link";
 import { components } from "@/lib/registry-site";
 import { DocsExplorer } from "@/components/site/docs-explorer";
 import { CodeBox } from "@/components/site/code-box";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Components" };
+export const metadata = buildMetadata({
+  title: "Components",
+  description: "Browse all 660 zero-dependency React 19 + Tailwind CSS v4 UI components in the bigbullui catalog.",
+  path: "/docs",
+});
 
 export default function DocsIndex() {
   return (

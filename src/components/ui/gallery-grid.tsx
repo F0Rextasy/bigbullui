@@ -54,7 +54,7 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
             type="button"
             key={img.id}
             onClick={() => setActive(idx)}
-            className="group relative aspect-square overflow-hidden rounded-md border border-border animate-[ggIn_0.35s_ease-out_both] motion-reduce:animate-none transition-transform duration-200 hover:scale-[1.02] motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+            className="group relative aspect-square overflow-hidden rounded-md border border-border animate-[scale-in_0.35s_ease-out_both] motion-reduce:animate-none transition-transform duration-200 hover:scale-[1.02] motion-reduce:hover:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             style={{ animationDelay: `${idx * 50}ms` }}
             aria-label={img.alt ?? `Image ${idx + 1}`}
           >
@@ -74,7 +74,7 @@ export function GalleryGrid({ images = [], columns = 3, className, ...props }: G
             role="dialog"
             aria-modal="true"
             aria-label={images[active].alt ?? `Image ${active + 1} of ${images.length}`}
-            className="relative z-10 flex max-h-full max-w-2xl flex-col items-center animate-[ggIn_0.25s_ease-out_both] motion-reduce:animate-none focus:outline-none"
+            className="relative z-10 flex max-h-full max-w-2xl flex-col items-center animate-[scale-in_0.25s_ease-out_both] motion-reduce:animate-none focus:outline-none"
           >
             <img src={images[active].src} alt={images[active].alt ?? ""} className="max-h-[80vh] rounded-lg border-2 border-dashed border-border object-contain" />
             <div className="mt-2 flex w-full items-center justify-between">

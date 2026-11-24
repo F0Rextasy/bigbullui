@@ -110,7 +110,7 @@ export function MarkdownEditor({ value, defaultValue = "# Heading\n\n**bold** an
             className="min-h-40 w-full resize-y bg-transparent p-4 font-mono text-xs leading-5 text-foreground focus-visible:outline-none"
           />
         ) : (
-          <div className="min-h-40 p-4 animate-[mdIn_0.25s_ease-out_both] motion-reduce:animate-none">
+          <div className="min-h-40 p-4 animate-[cpIn_0.25s_ease-out_both] motion-reduce:animate-none">
             {renderMarkdown(src)}
           </div>
         )}

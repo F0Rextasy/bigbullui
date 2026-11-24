@@ -54,10 +54,22 @@ const SET_CATEGORIES = {
   "set-e.tsx": "Weather & Nature",
 };
 
+const SYSTEM_SIGNAL_ICONS = new Set([
+  "check-mark", "check-circle", "cross-mark", "cross-circle", "info-mark", "info-circle",
+  "warning-triangle", "help-mark", "help-circle", "plus-mark", "plus-circle",
+  "minus-mark", "minus-circle", "asterisk", "hash-mark", "at-sign", "percent-mark",
+  "plug-power", "bulb-glow", "battery-empty", "battery-half", "battery-full",
+  "wifi-arcs", "wifi-off", "bluetooth-mark", "airplane-mode", "signal-bars",
+  "satellite-dish", "broadcast-tower",
+]);
+
 const all = [];
 for (const file of ["set-core.tsx", "set-a.tsx", "set-b.tsx", "set-c.tsx", "set-d.tsx", "set-e.tsx"]) {
   const src = fs.readFileSync(path.join(setsDir, file), "utf8");
-  for (const e of parseEntries(src)) all.push({ ...e, category: SET_CATEGORIES[file] });
+  for (const e of parseEntries(src)) {
+    const category = SYSTEM_SIGNAL_ICONS.has(e.name) ? "System & Signals" : SET_CATEGORIES[file];
+    all.push({ ...e, category });
+  }
 }
 const seen = new Set();
 const dupes = all.filter((e) => (seen.has(e.name) ? true : (seen.add(e.name), false))).map((e) => e.name);
@@ -89,5 +101,15 @@ export const NAV_CATEGORIES: { name: string; count: number }[] = [
 ${Object.entries(all.reduce((acc, e) => { acc[e.category] = (acc[e.category] ?? 0) + 1; return acc; }, {})).map(([name, count]) => `  { name: ${JSON.stringify(name)}, count: ${count} },`).join("\n")}
 ];
 `;
-fs.writeFileSync(path.join(rootDir, "src/components/site/icon-data.tsx"), dataOut);
-console.log("sync-icons: icon-data.tsx regenerated (referencing STAMP_ICONS)");
+const outPath = path.join(rootDir, "src/components/site/icon-data.tsx");
+if (process.argv.includes("--check")) {
+  const existing = fs.existsSync(outPath) ? fs.readFileSync(outPath, "utf8").replace(/\r\n/g, "\n") : "";
+  if (existing !== dataOut.replace(/\r\n/g, "\n")) {
+    console.error("sync-icons --check: src/components/site/icon-data.tsx is out of date — run node scripts/sync-icons.mjs");
+    process.exit(1);
+  }
+  console.log(`sync-icons --check: OK (${all.length} icons)`);
+} else {
+  fs.writeFileSync(outPath, dataOut);
+  console.log("sync-icons: icon-data.tsx regenerated (referencing STAMP_ICONS)");
+}

@@ -65,10 +65,10 @@ export function PermissionsMatrix({ roles = [], permissions = [], value, onValue
                         aria-label={`${role.label}: ${perm.label}`}
                         onClick={() => toggle(role.id, perm.id)}
                         className={cn(
-                          "inline-flex size-5 items-center justify-center rounded-sm border transition-all duration-150",
+                          "inline-flex size-5 items-center justify-center rounded-sm border transition-colors duration-150",
                           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
                           checked
-                            ? "border-accent bg-accent text-accent-foreground animate-[permPop_0.2s_ease-out] motion-reduce:animate-none"
+                            ? "border-accent bg-accent text-accent-foreground animate-[bcCheck_0.2s_ease-out] motion-reduce:animate-none"
                             : "border-border bg-background hover:border-foreground/40"
                         )}
                       >

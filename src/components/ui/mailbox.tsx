@@ -34,7 +34,7 @@ export function Mailbox({ recipient = "Ada Lovelace", onSend, className, ...prop
           </svg>
         </span>
         {/* Box */}
-        <div className={cn("flex size-28 flex-col items-center justify-center rounded-b-lg rounded-t-md border-2 border-dashed border-border bg-card transition-transform duration-200 motion-reduce:transition-none motion-reduce:animate-none!", sent && "motion-safe:animate-[mbBounce_0.4s_ease-out]")}>
+        <div className={cn("flex size-28 flex-col items-center justify-center rounded-b-lg rounded-t-md border-2 border-dashed border-border bg-card transition-transform duration-200 motion-reduce:transition-none motion-reduce:animate-none!", sent && "motion-safe:animate-[ecFloat_0.4s_ease-out]")}>
           <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">MAIL</span>
           <span className="mt-1 text-2xl" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-6 text-foreground">

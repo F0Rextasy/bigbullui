@@ -17,9 +17,11 @@ const src = path.join(root, "src", "lib", "docs-content.ts");
 const out = path.join(root, "src", "data", "docs-content.json");
 const wavesOut = path.join(root, "src", "data", "preview-waves.json");
 const uiDir = path.join(root, "src", "components", "ui");
-const tmp = path.join(os.tmpdir(), `bigbullui-docs-content-${process.pid}.cjs`);
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-docs-"));
+const tmp = path.join(tmpDir, "docs-content.cjs");
 
 if (!fs.existsSync(src)) {
+  fs.rmSync(tmpDir, { recursive: true, force: true });
   console.error("generate-docs-json: src/lib/docs-content.ts is missing");
   process.exit(1);
 }
@@ -36,7 +38,7 @@ try {
   });
   docsContent = need(tmp).docsContent;
 } finally {
-  fs.rmSync(tmp, { force: true });
+  fs.rmSync(tmpDir, { recursive: true, force: true });
 }
 
 const catalogPath = path.join(root, "src", "data", "catalog.json");
@@ -54,6 +56,70 @@ if (unknownUsage.length > 0 || unknownProps.length > 0) {
     `generate-docs-json: docs keys without a catalog component — usage: [${unknownUsage.slice(0, 10).join(", ")}] props: [${unknownProps.slice(0, 10).join(", ")}]`
   );
   process.exit(1);
+}
+
+const COMMON_PROP_DESC = {
+  className: "Optional Tailwind or custom CSS classes merged with component styles.",
+  children: "Child elements rendered inside the component.",
+  variant: "Visual style variant.",
+  size: "Component size preset.",
+  disabled: "Disables interaction and applies disabled styling.",
+  readOnly: "Makes the control non-editable while remaining focusable.",
+  required: "Marks the input as required for native form validation.",
+  loading: "Displays a busy loading state and blocks duplicate triggers.",
+  open: "Controlled open visibility state.",
+  defaultOpen: "Initial open state when uncontrolled.",
+  value: "Controlled value.",
+  defaultValue: "Initial value when uncontrolled.",
+  checked: "Controlled checked state.",
+  defaultChecked: "Initial checked state when uncontrolled.",
+  pressed: "Controlled pressed toggle state.",
+  defaultPressed: "Initial pressed state when uncontrolled.",
+  placeholder: "Placeholder text shown when empty.",
+  label: "Accessible label text rendered or attached to the control.",
+  title: "Primary heading or title text.",
+  subtitle: "Supporting secondary heading text.",
+  description: "Descriptive helper or subtitle text.",
+  error: "Validation error message rendered in an alert region.",
+  name: "Form field name submitted during form serialization.",
+  id: "DOM element identifier for label association and testing.",
+  href: "Destination URL rendered as a link target.",
+  items: "Structured list of items rendered by the component.",
+  options: "Selectable options list.",
+  columns: "Column definitions describing headers, cell keys, and sorting.",
+  data: "Dataset array rendered in charts, grids, or tables.",
+  min: "Minimum allowed numeric or date bound.",
+  max: "Maximum allowed numeric or date bound.",
+  step: "Step increment for numeric or range adjustments.",
+  dir: "Explicit reading direction override (ltr or rtl).",
+  asChild: "Merges props onto the single child element instead of wrapping.",
+  orientation: "Layout and keyboard navigation axis.",
+  icon: "Custom icon node rendered alongside the label.",
+  status: "Semantic status indicator.",
+  tone: "Semantic surface or emphasis tone.",
+};
+
+function humanizePropName(name) {
+  return name
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[-_]+/g, " ")
+    .toLowerCase();
+}
+
+function describePropFallback(name, type, defaultValue) {
+  const base = COMMON_PROP_DESC[name];
+  if (base) {
+    return defaultValue ? `${base} (Default: ${defaultValue})` : base;
+  }
+  const suffix = defaultValue ? ` (Default: ${defaultValue})` : "";
+  if (name.startsWith("on") && name.length > 2 && /[A-Z]/.test(name[2])) {
+    const action = humanizePropName(name.slice(2));
+    return `Callback invoked on ${action}.${suffix}`;
+  }
+  if (type === "boolean") {
+    return `Toggles ${humanizePropName(name)}.${suffix}`;
+  }
+  return `Configures ${humanizePropName(name)}.${suffix}`;
 }
 
 const mergedProps = {};
@@ -81,7 +147,7 @@ for (const slug of slugs) {
     const desc =
       prop.description ||
       manual?.description ||
-      (prop.defaultValue ? `Default: ${prop.defaultValue}` : "");
+      describePropFallback(prop.name, prop.type, prop.defaultValue);
     nextList.push({
       name: prop.name,
       type: prop.type,
@@ -97,7 +163,7 @@ for (const slug of slugs) {
       nextList.push({
         name: manual.name,
         type: secondary.type,
-        description: secondary.description || manual.description || "",
+        description: secondary.description || manual.description || describePropFallback(manual.name, secondary.type, secondary.defaultValue),
       });
     } else if (manual.name === "className" || manual.name === "children") {
       seen.add(manual.name);

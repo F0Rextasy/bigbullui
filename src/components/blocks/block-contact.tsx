@@ -8,18 +8,20 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Badge } from "../ui/badge";
 
-export interface BlockContactProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockContactProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function BlockContact({ className, onAction, ...props }: BlockContactProps) {
+export function BlockContact({ title, className, onAction, ...props }: BlockContactProps) {
   const [sent, setSent] = React.useState(false);
   return (
     <div className={cn("grid w-full gap-4 lg:grid-cols-5", className)} {...props}>
       <Card className="lg:col-span-2">
         <CardHeader>
           <Badge variant="accent">BOX OFFICE</Badge>
-          <CardTitle>Talk to a human</CardTitle>
+          <CardTitle>{title ?? "Talk to a human"}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm text-muted-foreground">
           <p>Weekdays 09:00 to 18:00, answers within one business day.</p>

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface ColorPickerProps {
+export interface ColorPickerProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (color: string) => void;
@@ -12,23 +12,27 @@ export interface ColorPickerProps {
 }
 
 const DEFAULT_STUB_COLORS = [
-  "#BC3A28", // Stamp Red
-  "#17130C", // Ink Black
-  "#F6F0E0", // Warm Cream
-  "#ECE3CC", // Sand
-  "#D8C9AC", // Tan
-  "#16120B", // Dark Night
-  "#E0573D", // Bright Stamp
-  "#4A3F2C", // Dark Input
+  "#BC3A28",
+  "#17130C",
+  "#F6F0E0",
+  "#ECE3CC",
+  "#D8C9AC",
+  "#16120B",
+  "#E0573D",
+  "#4A3F2C",
 ];
 
-export function ColorPicker({
-  value: controlledValue,
-  defaultValue = "#BC3A28",
-  onValueChange,
-  colors = DEFAULT_STUB_COLORS,
-  className,
-}: ColorPickerProps) {
+export const ColorPicker = React.forwardRef<HTMLDivElement, ColorPickerProps>(function ColorPicker(
+  {
+    value: controlledValue,
+    defaultValue = "#BC3A28",
+    onValueChange,
+    colors = DEFAULT_STUB_COLORS,
+    className,
+    ...props
+  },
+  ref
+) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const currentVal = isControlled ? controlledValue : uncontrolledValue;
@@ -42,10 +46,12 @@ export function ColorPicker({
 
   return (
     <div
+      ref={ref}
       className={cn(
         "inline-flex flex-col gap-3 rounded-lg border-2 border-dashed border-border bg-card p-3 shadow-sm select-none",
         className
       )}
+      {...props}
     >
       <div className="flex items-center justify-between border-b border-dashed border-border pb-2">
         <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -79,7 +85,7 @@ export function ColorPicker({
               )}
             >
               {isSelected ? (
-                <span className="absolute inset-0 flex items-center justify-center font-mono text-xs font-bold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                <span className="absolute inset-0 flex items-center justify-center font-mono text-xs font-bold text-primary-foreground drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                   ✓
                 </span>
               ) : null}
@@ -89,4 +95,5 @@ export function ColorPicker({
       </div>
     </div>
   );
-}
+});
+ColorPicker.displayName = "ColorPicker";

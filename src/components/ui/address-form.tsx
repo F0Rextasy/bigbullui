@@ -31,11 +31,11 @@ export function AddressForm({ value = {}, onValueChange, className, ...props }: 
 
   return (
     <form className={cn("w-full max-w-md space-y-3", className)} onSubmit={(e) => e.preventDefault()} {...props}>
-      <div className="space-y-1 animate-[afIn_0.25s_ease-out_both] motion-reduce:animate-none">
+      <div className="space-y-1 animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={streetId} className={labelCls}>Street</label>
         <input id={streetId} value={value.street ?? ""} onChange={(e) => set({ street: e.target.value })} placeholder="123 Main St" className={inputCls} />
       </div>
-      <div className="grid grid-cols-2 gap-3 animate-[afIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
+      <div className="grid grid-cols-2 gap-3 animate-[creditCardIn_0.25s_ease-out_0.06s_both] motion-reduce:animate-none">
         <div className="space-y-1">
           <label htmlFor={cityId} className={labelCls}>City</label>
           <input id={cityId} value={value.city ?? ""} onChange={(e) => set({ city: e.target.value })} placeholder="New York" className={inputCls} />
@@ -45,7 +45,7 @@ export function AddressForm({ value = {}, onValueChange, className, ...props }: 
           <input id={stateId} value={value.state ?? ""} onChange={(e) => set({ state: e.target.value })} placeholder="NY" className={inputCls} />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 animate-[afIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
+      <div className="grid grid-cols-2 gap-3 animate-[creditCardIn_0.25s_ease-out_0.12s_both] motion-reduce:animate-none">
         <div className="space-y-1">
           <label htmlFor={postalId} className={labelCls}>Postal Code</label>
           <input id={postalId} value={value.postal ?? ""} onChange={(e) => set({ postal: e.target.value })} placeholder="10001" inputMode="numeric" className={cn(inputCls, "font-mono")} />

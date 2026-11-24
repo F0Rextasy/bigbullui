@@ -21,7 +21,7 @@ export function SnippetCard({ code, language = "ts", filename, className, ...pro
         </div>
         <CopyButton value={code} />
       </div>
-      <pre className="overflow-x-auto p-3 animate-[snIn_0.3s_ease-out_both] motion-reduce:animate-none">
+      <pre className="overflow-x-auto p-3 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <code className="font-mono text-xs leading-5 text-foreground">{code}</code>
       </pre>
     </div>

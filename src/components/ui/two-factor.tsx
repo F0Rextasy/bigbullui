@@ -60,7 +60,7 @@ export function TwoFactor({
       </div>
 
       {/* Recovery codes */}
-      <div className="rounded-md border border-border bg-secondary/40 p-3 animate-[twofaIn_0.3s_ease-out_0.15s_both] motion-reduce:animate-none">
+      <div className="rounded-md border border-border bg-secondary/40 p-3 animate-[walletCardIn_0.3s_ease-out_0.15s_both] motion-reduce:animate-none">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Recovery Codes</span>
           <button
@@ -74,7 +74,7 @@ export function TwoFactor({
         </div>
         <div
           aria-hidden={!revealed || undefined}
-          className={cn("mt-2 grid grid-cols-2 gap-1 transition-all duration-300 motion-reduce:transition-none", !revealed && "select-none text-muted-foreground")}
+          className={cn("mt-2 grid grid-cols-2 gap-1 transition-colors duration-300 motion-reduce:transition-none", !revealed && "select-none text-muted-foreground")}
         >
           {codes.map((c) => (
             <code key={c} className="font-mono text-[11px] text-foreground/80">
@@ -96,9 +96,9 @@ export function TwoFactor({
         onClick={onConfirm}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
+          "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
-          "animate-[twofaIn_0.3s_ease-out_0.25s_both] motion-reduce:animate-none"
+          "animate-[walletCardIn_0.3s_ease-out_0.25s_both] motion-reduce:animate-none"
         )}
       >
         Enable 2FA

@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { CodeBox } from "@/components/site/code-box";
+import { ThemeStudio } from "@/components/site/theme-studio";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Design System & Tokens" };
+export const metadata = buildMetadata({
+  title: "Design System & Tokens",
+  description: "Interactive Ticket Stub theme studio, Paper & Night color tokens, typography scale, and CSS custom properties for bigbullui.",
+  path: "/docs/design",
+});
 
 const principles = [
   {
@@ -83,6 +89,8 @@ export default function DesignPage() {
           </div>
         ))}
       </section>
+
+      <ThemeStudio />
 
       {/* DESIGN TOKENS TABLE */}
       <section className="space-y-4">

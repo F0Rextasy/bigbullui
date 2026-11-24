@@ -18,7 +18,7 @@ export function StatsOverview({ tiles = [], tableTitle = "Recent records", table
         {tiles.map((t, i) => (
           <div
             key={t.label}
-            className="rounded-lg border border-border bg-card p-4 animate-[soFade_0.35s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
+            className="rounded-lg border border-border bg-card p-4 animate-[rise-in_0.35s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
             style={{ animationDelay: `${i * 70}ms` }}
           >
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
@@ -42,7 +42,7 @@ export function StatsOverview({ tiles = [], tableTitle = "Recent records", table
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-lg border border-border bg-card animate-[soFade_0.35s_ease-out_0.2s_both] motion-reduce:animate-none">
+        <div className="rounded-lg border border-border bg-card animate-[rise-in_0.35s_ease-out_0.2s_both] motion-reduce:animate-none">
           <div className="border-b border-border px-4 py-2.5">
             <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{tableTitle}</h3>
           </div>
@@ -57,13 +57,13 @@ export function StatsOverview({ tiles = [], tableTitle = "Recent records", table
           </ul>
         </div>
 
-        <div className="rounded-lg border border-dashed border-border bg-secondary/30 p-6 animate-[soFade_0.35s_ease-out_0.28s_both] motion-reduce:animate-none">
+        <div className="rounded-lg border border-dashed border-border bg-secondary/30 p-6 animate-[rise-in_0.35s_ease-out_0.28s_both] motion-reduce:animate-none">
           <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Analytics Overview</h3>
           <div className="mt-4 flex h-24 items-end gap-1.5" aria-hidden="true">
             {[35, 55, 42, 70, 58, 85, 64, 92, 78, 60, 88, 74].map((v, i) => (
               <span
                 key={i}
-                className="flex-1 rounded-t-sm bg-accent/50 transition-all duration-500 ease-out hover:bg-accent motion-reduce:transition-none"
+                className="flex-1 rounded-t-sm bg-accent/50 transition-colors duration-500 ease-out hover:bg-accent motion-reduce:transition-none"
                 style={{ height: `${v}%`, transitionDelay: `${i * 40}ms` }}
               />
             ))}

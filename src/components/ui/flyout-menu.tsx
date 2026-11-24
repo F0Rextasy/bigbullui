@@ -9,7 +9,7 @@ export interface FlyoutMenuItem {
   shortcut?: string;
 }
 
-export interface FlyoutMenuProps {
+export interface FlyoutMenuProps extends Omit<React.HTMLAttributes<HTMLElement>, "onSelect"> {
   trigger: React.ReactNode;
   items: FlyoutMenuItem[];
   onSelect?: (id: string) => void;
@@ -20,7 +20,7 @@ export function FlyoutMenu({
   trigger,
   items,
   onSelect,
-  className,
+  className, ...props
 }: FlyoutMenuProps) {
   const [open, setOpen] = React.useState(false);
   const rootRef = React.useRef<HTMLDivElement>(null);
@@ -71,7 +71,7 @@ export function FlyoutMenu({
       ref={rootRef}
       className={cn("relative inline-block", className)}
       onBlur={handleBlur}
-      onKeyDown={handleRootKeyDown}
+      onKeyDown={handleRootKeyDown} {...props}
     >
       {renderedTrigger}
 

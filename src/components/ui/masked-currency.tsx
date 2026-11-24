@@ -46,7 +46,7 @@ export function MaskedCurrency({
         className
       )}
     >
-      <span className="flex h-full items-center border-r-2 border-dashed border-border bg-secondary/70 px-3 text-xs font-bold text-muted-foreground">
+      <span className="flex h-full items-center border-e-2 border-dashed border-border bg-secondary/70 px-3 text-xs font-bold text-muted-foreground">
         {currency}
       </span>
       <input
@@ -55,7 +55,7 @@ export function MaskedCurrency({
         value={formatCents(currentCents)}
         onChange={handleChange}
         className={cn(
-          "w-full bg-transparent px-3 py-2 text-right text-xs font-bold text-foreground outline-none",
+          "w-full bg-transparent px-3 py-2 text-end text-xs font-bold text-foreground outline-none",
           "focus-visible:ring-1 focus-visible:ring-accent"
         )}
         {...props}

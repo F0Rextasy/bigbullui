@@ -178,7 +178,7 @@ export function PricingTable({
               aria-checked={cycle === "monthly"}
               onClick={() => handleCycleChange("monthly")}
               className={cn(
-                "relative rounded-md px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer select-none",
+                "relative rounded-md px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-colors duration-150 cursor-pointer select-none",
                 cycle === "monthly"
                   ? "bg-foreground text-background shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
@@ -193,7 +193,7 @@ export function PricingTable({
               aria-checked={cycle === "annual"}
               onClick={() => handleCycleChange("annual")}
               className={cn(
-                "relative flex items-center gap-2 rounded-md px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer select-none",
+                "relative flex items-center gap-2 rounded-md px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-colors duration-150 cursor-pointer select-none",
                 cycle === "annual"
                   ? "bg-foreground text-background shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
@@ -223,7 +223,7 @@ export function PricingTable({
             <div
               key={tier.id}
               className={cn(
-                "relative flex flex-col rounded-xl border-2 bg-card transition-all duration-300 overflow-hidden select-none",
+                "relative flex flex-col rounded-xl border-2 bg-card transition-colors duration-300 overflow-hidden select-none",
                 isPopular
                   ? "border-accent shadow-xl ring-2 ring-accent/20 lg:-translate-y-2"
                   : "border-foreground shadow-sm hover:shadow-md hover:-translate-y-1"
@@ -391,7 +391,7 @@ export function PricingTable({
                     <a
                       href={tier.cta.href}
                       className={cn(
-                        "w-full flex items-center justify-center gap-2 rounded-lg py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer active:translate-y-0.5 border-2 text-center",
+                        "w-full flex items-center justify-center gap-2 rounded-lg py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider transition-[transform,width,height,opacity,background-color,border-color] duration-150 cursor-pointer active:translate-y-0.5 border-2 text-center",
                         tier.cta.variant === "accent" || isPopular
                           ? "border-accent bg-accent text-accent-foreground hover:brightness-110 shadow-sm"
                           : tier.cta.variant === "primary"
@@ -408,7 +408,7 @@ export function PricingTable({
                       disabled={tier.cta.disabled}
                       onClick={tier.cta.onClick}
                       className={cn(
-                        "w-full flex items-center justify-center gap-2 rounded-lg py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider transition-all duration-150 cursor-pointer active:translate-y-0.5 border-2 text-center disabled:opacity-50 disabled:cursor-not-allowed",
+                        "w-full flex items-center justify-center gap-2 rounded-lg py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider transition-[transform,width,height,opacity,background-color,border-color] duration-150 cursor-pointer active:translate-y-0.5 border-2 text-center disabled:opacity-50 disabled:cursor-not-allowed",
                         tier.cta.variant === "accent" || (isPopular && tier.cta.variant !== "primary")
                           ? "border-accent bg-accent text-accent-foreground hover:brightness-110 shadow-sm"
                           : tier.cta.variant === "primary"

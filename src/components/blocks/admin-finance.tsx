@@ -8,32 +8,36 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { MetricCard } from "../ui/metric-card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 
-const INVOICES = [
+const DEFAULT_INVOICES = [
   { id: "INV-2041", vendor: "Print House Co", amount: "$4,820", due: "JUN 30", status: "PAID" },
   { id: "INV-2042", vendor: "Stage Lights Ltd", amount: "$12,400", due: "JUL 04", status: "PENDING" },
   { id: "INV-2043", vendor: "Sound Crew Union", amount: "$8,150", due: "JUL 09", status: "PENDING" },
   { id: "INV-2044", vendor: "Venue Deposit", amount: "$25,000", due: "JUL 15", status: "SCHEDULED" },
 ];
 
-const FLOWS = [
+const DEFAULT_FLOWS = [
   { label: "TICKET SALES", amount: "+$48,250", pct: 92 },
   { label: "MERCH CUT", amount: "+$6,310", pct: 48 },
   { label: "VENDOR PAYOUTS", amount: "-$21,370", pct: 64 },
   { label: "VENUE FEES", amount: "-$9,800", pct: 38 },
 ];
 
-export interface AdminFinanceProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminFinanceProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  invoices?: typeof DEFAULT_INVOICES;
+  flows?: typeof DEFAULT_FLOWS;
   onAction?: (action: string) => void;
 }
 
-export function AdminFinance({ className, onAction, ...props }: AdminFinanceProps) {
+export function AdminFinance({ title, invoices = DEFAULT_INVOICES, flows = DEFAULT_FLOWS, className, onAction, ...props }: AdminFinanceProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // FINANCE</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Cash ledger</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Cash ledger"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -53,7 +57,7 @@ export function AdminFinance({ className, onAction, ...props }: AdminFinanceProp
             <CardTitle>Cash waterfall</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {FLOWS.map((flow) => (
+            {flows.map((flow) => (
               <div key={flow.label} className="space-y-1.5">
                 <div className="flex items-center justify-between font-mono text-xs">
                   <span className="font-bold">{flow.label}</span>
@@ -81,7 +85,7 @@ export function AdminFinance({ className, onAction, ...props }: AdminFinanceProp
                 </TableRow>
               </TableHead>
               <TableBody>
-                {INVOICES.map((invoice) => (
+                {invoices.map((invoice) => (
                   <TableRow key={invoice.id}>
                     <TableCell className="font-bold">{invoice.id}</TableCell>
                     <TableCell>{invoice.vendor}</TableCell>

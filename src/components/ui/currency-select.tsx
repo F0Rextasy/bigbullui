@@ -61,7 +61,7 @@ export function CurrencySelect({ value, defaultValue, onValueChange, className, 
       {open && (
         <>
           <div className="fixed inset-0 z-20" onClick={() => setOpen(false)} aria-hidden="true" />
-          <div role="listbox" aria-label="Currencies" className="absolute z-30 mt-1 w-full rounded-md border border-border bg-card p-1 shadow-lg animate-[curIn_0.2s_ease-out_both] motion-reduce:animate-none">
+          <div role="listbox" aria-label="Currencies" className="absolute z-30 mt-1 w-full rounded-md border border-border bg-card p-1 shadow-lg animate-[csIn_0.2s_ease-out_both] motion-reduce:animate-none">
             {CURRENCIES.map((c) => (
               <button
                 key={c.code}

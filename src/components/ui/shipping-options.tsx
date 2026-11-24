@@ -35,9 +35,9 @@ export function ShippingOptions({ options = [], value, defaultValue, onValueChan
             aria-checked={selected}
             onClick={() => { setInternal(opt.id); onValueChange?.(opt.id); }}
             className={cn(
-              "flex w-full items-center gap-3 rounded-md border px-3 py-2.5 text-start transition-all duration-200 motion-reduce:transition-none",
+              "flex w-full items-center gap-3 rounded-md border px-3 py-2.5 text-start transition-[width,height,left,right,opacity,background-color,border-color] duration-200 motion-reduce:transition-none",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              "animate-[soIn_0.3s_ease-out_both] motion-reduce:animate-none",
+              "animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none",
               selected ? "border-accent bg-accent/5" : "border-border hover:border-foreground/40"
             )}
             style={{ animationDelay: `${idx * 55}ms` }}

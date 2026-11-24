@@ -2,8 +2,13 @@ import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { IconsGallery } from "@/components/site/icons-gallery";
 import { CodeBox } from "@/components/site/code-box";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Icon Set" };
+export const metadata = buildMetadata({
+  title: "Icon Set",
+  description: "1,099 hand-drawn Ticket Stub stroke SVG icons in the bigbullicons package with tree-shakeable imports and Draw/Pulse/Spin modes.",
+  path: "/icons",
+});
 
 export default function IconsPage() {
   return (

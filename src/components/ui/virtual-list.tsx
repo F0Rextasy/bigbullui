@@ -9,14 +9,14 @@ export type VirtualListProps<T> = {
   height?: number;
   render?: (item: T, index: number) => React.ReactNode;
   className?: string;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
 export function VirtualList<T>({
   items = [],
   itemHeight = 40,
   height = 320,
   render,
-  className,
+  className, ...props
 }: VirtualListProps<T>) {
   const [scrollTop, setScrollTop] = React.useState(0);
   const safeItemHeight = Math.max(1, itemHeight || 40);
@@ -34,7 +34,7 @@ export function VirtualList<T>({
     <div
       className={cn("relative overflow-auto rounded-md border border-border bg-card", className)}
       onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
-      style={{ height: safeHeight }}
+      style={{ height: safeHeight }} {...props}
     >
       <div className="relative w-full" style={{ height: totalHeight }}>
         <div

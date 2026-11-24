@@ -48,7 +48,7 @@ export function KanbanV2({ columns = [], onMove, className, ...props }: KanbanV2
           onDragLeave={() => setOverCol((c) => (c === col.id ? null : c))}
           onDrop={() => drop(col.id)}
           className={cn(
-            "flex w-48 shrink-0 flex-col rounded-lg border bg-card p-2 transition-colors duration-200 motion-reduce:transition-none animate-[kbIn_0.3s_ease-out_both] motion-reduce:animate-none",
+            "flex w-48 shrink-0 flex-col rounded-lg border bg-card p-2 transition-colors duration-200 motion-reduce:transition-none animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none",
             overCol === col.id && dragging && dragging.from !== col.id ? "border-accent bg-accent/5" : "border-border"
           )}
           style={{ animationDelay: `${idx * 80}ms` }}
@@ -66,7 +66,7 @@ export function KanbanV2({ columns = [], onMove, className, ...props }: KanbanV2
                 onDragEnd={() => { setDragging(null); setOverCol(null); }}
                 className={cn(
                   "cursor-grab rounded-md border border-border bg-background px-2.5 py-2 text-xs select-none",
-                  "transition-all duration-150 motion-reduce:transition-none active:cursor-grabbing",
+                  "transition-colors duration-150 motion-reduce:transition-none active:cursor-grabbing",
                   "hover:border-foreground/30 hover:shadow-sm",
                   dragging?.cardId === card.id && "opacity-40 border-dashed"
                 )}

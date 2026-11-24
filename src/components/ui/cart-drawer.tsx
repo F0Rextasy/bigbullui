@@ -85,7 +85,7 @@ export function CartDrawer({
       <div
         aria-hidden="true"
         onClick={() => onOpenChangeRef.current?.(false)}
-        className="fixed inset-0 bg-foreground/50 backdrop-blur-[2px] overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
+        className="fixed inset-0 bg-foreground/50 overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
       />
 
       <div
@@ -95,7 +95,7 @@ export function CartDrawer({
         aria-labelledby={titleId}
         tabIndex={-1}
         className={cn(
-          "relative z-10 flex h-full w-full max-w-sm flex-col border-l-2 border-foreground bg-card p-6 text-card-foreground shadow-xl outline-none motion-safe:animate-[slide-in_0.2s_ease-out_both]",
+          "relative z-10 flex h-full w-full max-w-sm flex-col border-s-2 border-foreground bg-card p-6 text-card-foreground shadow-xl outline-none motion-safe:animate-[slide-in_0.2s_ease-out_both]",
           className,
         )}
       >

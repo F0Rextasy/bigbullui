@@ -20,7 +20,7 @@ export function TaskList({ tasks = [], onToggle, className, ...props }: TaskList
       {state.map((t, idx) => (
         <li
           key={t.id}
-          className="flex items-center gap-2.5 rounded-md border border-border bg-card px-3 py-2 animate-[tlIn_0.25s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
+          className="flex items-center gap-2.5 rounded-md border border-border bg-card px-3 py-2 animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
           style={{ animationDelay: `${idx * 40}ms` }}
         >
           <input

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface AddToCartButtonProps {
+export interface AddToCartButtonProps extends React.HTMLAttributes<HTMLElement> {
   productName: string;
   onAdd: () => void;
   className?: string;
@@ -12,7 +12,7 @@ export interface AddToCartButtonProps {
 export function AddToCartButton({
   productName,
   onAdd,
-  className,
+  className, ...props
 }: AddToCartButtonProps) {
   const [justAdded, setJustAdded] = React.useState(false);
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -31,7 +31,7 @@ export function AddToCartButton({
   };
 
   return (
-    <span className="relative inline-flex items-center">
+    <span className="relative inline-flex items-center" {...props}>
       <button
         type="button"
         aria-label={productName ? `Add ${productName} to cart` : "Add to Cart"}

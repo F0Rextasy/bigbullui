@@ -33,7 +33,7 @@ export function ThumbnailStrip({ images = [], value, defaultValue, onValueChange
             aria-checked={selected}
             onClick={() => { setInternal(img.id); onValueChange?.(img.id); }}
             className={cn(
-              "relative shrink-0 overflow-hidden rounded-md border-2 transition-all duration-200 motion-reduce:transition-none",
+              "relative shrink-0 overflow-hidden rounded-md border-2 transition-colors duration-200 motion-reduce:transition-none",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               selected ? "border-accent animate-[tsSel_0.2s_ease-out] motion-reduce:animate-none" : "border-transparent opacity-70 hover:opacity-100"
             )}

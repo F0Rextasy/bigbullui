@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface IdCardProps {
+export interface IdCardProps extends Omit<React.HTMLAttributes<HTMLElement>, "role"> {
   name: string;
   role: string;
   department: string;
@@ -16,14 +16,14 @@ export function IdCard({
   role = "",
   department = "",
   badgeNumber = "",
-  className,
+  className, ...props
 }: IdCardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-foreground bg-card text-card-foreground p-6 relative overflow-hidden transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "rounded-lg border border-foreground bg-card text-card-foreground p-6 relative overflow-hidden transition-[transform,opacity,background-color,border-color,color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Top accent bar */}
       <div className="absolute -inset-1 bg-accent opacity-10" />

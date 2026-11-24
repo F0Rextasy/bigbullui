@@ -25,7 +25,7 @@ export function StepperV2({ steps = [], current = 0, vertical = true, className,
           const state = i < current ? "done" : i === current ? "active" : "upcoming";
           const last = i === steps.length - 1;
           return (
-            <li key={s.id} className={cn("relative flex gap-3 pb-6 last:pb-0 animate-[stvIn_0.3s_ease-out_both] motion-reduce:animate-none")} style={{ animationDelay: `${i * 80}ms` }}>
+            <li key={s.id} className={cn("relative flex gap-3 pb-6 last:pb-0 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none")} style={{ animationDelay: `${i * 80}ms` }}>
               {!last && (
                 <span
                   className={cn("absolute left-[11px] top-6 h-full w-0.5 transition-colors duration-300 motion-reduce:transition-none", state === "done" ? "bg-accent" : "bg-border")}

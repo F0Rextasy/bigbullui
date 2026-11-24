@@ -148,7 +148,7 @@ export function TrendBadge({
       }`}
       className={cn(
         // Base badge geometry & ticket stub stamp framing
-        "group relative inline-flex items-center rounded-xs border-2 border-dashed font-mono font-bold select-none transition-all duration-200",
+        "group relative inline-flex items-center rounded-xs border-2 border-dashed font-mono font-bold select-none transition-colors duration-200",
         currentSize.container,
         currentSize.gap,
         toneStyles[resolvedTrend][variant],
@@ -271,7 +271,7 @@ export function TrendBadge({
               key={bar}
               style={{ height: `${bar * 3 + 3}px` }}
               className={cn(
-                "w-[2.5px] rounded-[0.5px] transition-all duration-200",
+                "w-[2.5px] rounded-[0.5px] transition-[width,height,left,right,opacity,background-color,border-color] duration-200",
                 bar <= velocityScore ? "bg-current opacity-100" : "bg-current/25"
               )}
             />
@@ -288,7 +288,7 @@ export function TrendBadge({
 
       {/* Timeframe Tag (e.g. 'vs last hr', '24h') */}
       {timeframe && (
-        <span className="text-[9px] uppercase tracking-widest opacity-65 font-mono border-l border-dashed border-current/40 ps-1.5 ms-0.5">
+        <span className="text-[9px] uppercase tracking-widest opacity-65 font-mono border-s border-dashed border-current/40 ps-1.5 ms-0.5">
           {timeframe}
         </span>
       )}

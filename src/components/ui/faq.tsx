@@ -8,17 +8,17 @@ export interface FaqItem {
   answer: string;
 }
 
-export interface FaqProps {
+export interface FaqProps extends React.HTMLAttributes<HTMLElement> {
   items: FaqItem[];
   defaultOpen?: number;
   className?: string;
 }
 
-export function Faq({ items = [], defaultOpen = 0, className }: FaqProps) {
+export function Faq({ items = [], defaultOpen = 0, className, ...props }: FaqProps) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(defaultOpen);
 
   return (
-    <div className={cn("divide-y divide-dashed divide-border", className)}>
+    <div className={cn("divide-y divide-dashed divide-border", className)} {...props}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
 

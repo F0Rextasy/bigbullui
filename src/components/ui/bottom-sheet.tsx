@@ -74,7 +74,7 @@ export function BottomSheet({
       <div
         aria-hidden="true"
         onClick={() => setOpen(false)}
-        className="absolute inset-0 bg-foreground/50 backdrop-blur-[2px] overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
+        className="absolute inset-0 bg-foreground/50 overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
       />
       <div
         ref={panelRef}

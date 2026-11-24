@@ -69,7 +69,7 @@ export function CronBuilder({ value, defaultValue = "0 9 * * *", onValueChange, 
       </div>
 
       {/* 5 fields */}
-      <div className="grid grid-cols-5 gap-1.5 animate-[crIn_0.3s_ease-out_both] motion-reduce:animate-none">
+      <div className="grid grid-cols-5 gap-1.5 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
         {FIELDS.map((f, i) => (
           <div key={f.key} className="space-y-1">
             <label htmlFor={`cron-${f.key}`} className="block text-center font-mono text-[8px] uppercase tracking-wider text-muted-foreground">{f.label}</label>

@@ -18,15 +18,63 @@ function slugify(group: string): string {
   return group.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }
 
+function BlockThumbnail({ name }: { name: string }) {
+  const hostRef = React.useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = hostRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "160px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={hostRef}
+      aria-hidden="true"
+      className="relative h-36 w-full overflow-hidden rounded-md border border-border bg-background"
+    >
+      {visible ? (
+        <iframe
+          src={`/preview/block/${name}`}
+          title={`${slugTitle(name)} thumbnail preview`}
+          loading="lazy"
+          tabIndex={-1}
+          className="pointer-events-none h-[540px] w-[1080px] origin-top-left scale-[0.28] border-0 sm:scale-[0.31]"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-secondary/30 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+          {slugTitle(name)}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
   const [query, setQuery] = React.useState("");
   const [active, setActive] = React.useState<string | null>(null);
   const q = query.trim().toLowerCase();
+  const normalizedQ = q.replace(/[-_\s]+/g, " ").trim();
 
   const visible = sections
     .map((section) => ({
       ...section,
-      items: section.items.filter((name) => name.includes(q)),
+      items: section.items.filter((name) => {
+        if (!normalizedQ) return true;
+        const hay = `${name.replace(/-/g, " ")} ${slugTitle(name).toLowerCase()} ${section.group.toLowerCase()}`;
+        return hay.includes(normalizedQ);
+      }),
     }))
     .filter((section) => (active === null || section.group === active) && section.items.length > 0);
 
@@ -34,7 +82,7 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
 
   return (
     <div className="space-y-16">
-      <div className="sticky top-16 z-30 -mx-4 border-b border-border bg-background/95 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6">
+      <div className="sticky top-16 z-30 -mx-4 border-b border-border bg-background/95 px-4 py-3 sm:-mx-6 sm:px-6">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3">
           <label className="flex items-center gap-2 rounded-md border border-dashed border-border bg-card px-3 py-2 focus-within:border-foreground/60">
             <span aria-hidden="true" className="font-mono text-xs text-muted-foreground">⌕</span>
@@ -128,6 +176,7 @@ export function BlocksExplorer({ sections }: { sections: BlockSection[] }) {
                 key={name}
                 className="flex flex-col gap-3 rounded-lg border border-dashed border-border bg-card/40 p-3 transition-colors hover:border-foreground/60"
               >
+                <BlockThumbnail name={name} />
                 <Link
                   href={`/blocks/${name}`}
                   className="flex items-start justify-between gap-2 font-mono text-sm font-bold uppercase tracking-wider text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

@@ -27,7 +27,7 @@ export function NpsSurvey({ onScore, className, ...props }: NpsSurveyProps) {
               setSent(false);
             }}
             className={cn(
-              "rounded border py-1.5 font-mono text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+              "rounded border py-1.5 font-mono text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               score === n
                 ? "border-accent bg-accent text-accent-foreground scale-110"
                 : "border-dashed border-border hover:border-foreground"

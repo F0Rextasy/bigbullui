@@ -6,20 +6,29 @@ import { cn } from "./lib/utils";
 export interface PaginationProps {
   page: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  onPageChange?: (page: number) => void;
+  getPageHref?: (page: number) => string;
   siblingCount?: number;
   className?: string;
   "aria-label"?: string;
 }
 
-export function Pagination({
-  page,
-  totalPages,
-  onPageChange,
-  siblingCount = 1,
-  className,
-  "aria-label": ariaLabel = "Pagination",
-}: PaginationProps) {
+export const Pagination = React.forwardRef<HTMLElement, PaginationProps>(function Pagination(
+  {
+    page = 1,
+    totalPages = 1,
+    onPageChange,
+    getPageHref,
+    siblingCount = 1,
+    className,
+    "aria-label": ariaLabel = "Pagination",
+  },
+  ref
+) {
+  if (!Number.isFinite(totalPages) || totalPages < 1) return null;
+
+  const safePage = Math.min(Math.max(1, Number.isFinite(page) ? page : 1), totalPages);
+
   const getPageNumbers = () => {
     const totalNumbers = siblingCount * 2 + 3;
     const totalBlocks = totalNumbers + 2;
@@ -28,8 +37,8 @@ export function Pagination({
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    const startPage = Math.max(2, page - siblingCount);
-    const endPage = Math.min(totalPages - 1, page + siblingCount);
+    const startPage = Math.max(2, safePage - siblingCount);
+    const endPage = Math.min(totalPages - 1, safePage + siblingCount);
 
     const pages: (number | string)[] = [1];
 
@@ -46,38 +55,71 @@ export function Pagination({
     }
 
     pages.push(totalPages);
-    return pages.filter((p): p is number | string => p !== undefined);
+    return pages;
   };
 
   const pages = getPageNumbers();
 
+  const renderControl = (
+    targetPage: number,
+    label: React.ReactNode,
+    opts: { disabled?: boolean; isCurrent?: boolean; ariaLabel?: string }
+  ) => {
+    const commonClass = cn(
+      "flex size-9 items-center justify-center rounded-sm border font-mono text-xs transition-colors",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+      opts.disabled
+        ? "cursor-not-allowed border-border bg-card opacity-40 pointer-events-none"
+        : opts.isCurrent
+        ? "border-primary bg-primary font-semibold text-primary-foreground shadow-xs"
+        : "cursor-pointer border-border bg-card hover:border-foreground hover:bg-secondary active:scale-95 motion-reduce:active:scale-100"
+    );
+
+    if (getPageHref && !opts.disabled) {
+      return (
+        <a
+          href={getPageHref(targetPage)}
+          aria-label={opts.ariaLabel}
+          aria-current={opts.isCurrent ? "page" : undefined}
+          onClick={() => onPageChange?.(targetPage)}
+          className={commonClass}
+        >
+          {label}
+        </a>
+      );
+    }
+
+    return (
+      <button
+        type="button"
+        disabled={opts.disabled}
+        aria-label={opts.ariaLabel}
+        aria-current={opts.isCurrent ? "page" : undefined}
+        onClick={() => onPageChange?.(targetPage)}
+        className={commonClass}
+      >
+        {label}
+      </button>
+    );
+  };
+
   return (
     <nav
-      role="navigation"
+      ref={ref}
       aria-label={ariaLabel}
       className={cn("flex items-center justify-center gap-1.5", className)}
     >
-      <button
-        type="button"
-        disabled={page <= 1}
-        onClick={() => onPageChange(page - 1)}
-        aria-label="Previous page"
-        className={cn(
-          "flex size-9 items-center justify-center rounded-sm border border-border bg-card font-mono text-xs transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          page <= 1
-            ? "cursor-not-allowed opacity-40"
-            : "cursor-pointer hover:border-foreground hover:bg-secondary active:scale-95 motion-reduce:active:scale-100"
-        )}
-      >
-        ←
-      </button>
+      {renderControl(safePage - 1, "←", {
+        disabled: safePage <= 1,
+        ariaLabel: "Previous page",
+      })}
 
       {pages.map((p, idx) => {
         if (p === "...") {
           return (
             <span
               key={`ellipsis-${idx}`}
+              aria-hidden="true"
               className="flex size-9 items-center justify-center font-mono text-xs text-muted-foreground"
             >
               ···
@@ -85,41 +127,21 @@ export function Pagination({
           );
         }
 
-        const isCurrent = p === page;
+        const pageNum = p as number;
         return (
-          <button
-            key={p}
-            type="button"
-            aria-current={isCurrent ? "page" : undefined}
-            onClick={() => onPageChange(p as number)}
-            className={cn(
-              "flex size-9 items-center justify-center rounded-sm border font-mono text-xs font-semibold transition-all",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              isCurrent
-                ? "border-primary bg-primary text-primary-foreground shadow-xs"
-                : "border-border bg-card hover:border-foreground hover:bg-secondary cursor-pointer"
-            )}
-          >
-            {p}
-          </button>
+          <React.Fragment key={pageNum}>
+            {renderControl(pageNum, pageNum, {
+              isCurrent: pageNum === safePage,
+            })}
+          </React.Fragment>
         );
       })}
 
-      <button
-        type="button"
-        disabled={page >= totalPages}
-        onClick={() => onPageChange(page + 1)}
-        aria-label="Next page"
-        className={cn(
-          "flex size-9 items-center justify-center rounded-sm border border-border bg-card font-mono text-xs transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          page >= totalPages
-            ? "cursor-not-allowed opacity-40"
-            : "cursor-pointer hover:border-foreground hover:bg-secondary active:scale-95 motion-reduce:active:scale-100"
-        )}
-      >
-        →
-      </button>
+      {renderControl(safePage + 1, "→", {
+        disabled: safePage >= totalPages,
+        ariaLabel: "Next page",
+      })}
     </nav>
   );
-}
+});
+Pagination.displayName = "Pagination";

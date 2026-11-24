@@ -3,58 +3,41 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-const TypingIndicator: React.FC = () => {
-  const [dots, setDots] = React.useState< number[]>([0, 0, 0]);
+export interface TypingIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: string;
+  showLabel?: boolean;
+}
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setDots((prev) => {
-        const next = [...prev];
-        next[0] = 1 - next[0];
-        next[1] = 1 - next[1];
-        next[2] = 1 - next[2];
-        return next;
-      });
-    }, 300);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div
-      className={cn(
-        "flex items-baseline gap-1",
-        "motion-reduce:animate-none"
-      )}
-    >
-      <span
-        className={cn(
-          "w-2 h-2 rounded-full bg-accent",
-          "animate-[typingDotBounce_1.2s_ease-in-out_infinite]",
-          "motion-reduce:animate-none"
+export const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
+  function TypingIndicator(
+    { label = "Typing...", showLabel = false, className, ...props },
+    ref,
+  ) {
+    return (
+      <div
+        ref={ref}
+        role="status"
+        aria-label={label}
+        className={cn("inline-flex items-center gap-2", className)}
+        {...props}
+      >
+        <span className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-2.5 py-1.5">
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              aria-hidden="true"
+              className="size-1.5 rounded-full bg-accent animate-[loadingDotsBounce_1.2s_ease-in-out_infinite] motion-reduce:animate-none"
+              style={{ animationDelay: `${i * 160}ms` }}
+            />
+          ))}
+        </span>
+        {showLabel && (
+          <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            {label}
+          </span>
         )}
-        style={{ animationDelay: `${dots[0] * 120}ms` }}
-      />
-      <span
-        className={cn(
-          "w-2 h-2 rounded-full bg-accent",
-          "animate-[typingDotBounce_1.2s_ease-in-out_infinite]",
-          "motion-reduce:animate-none"
-        )}
-        style={{ animationDelay: `${dots[1] * 120}ms` }}
-      />
-      <span
-        className={cn(
-          "w-2 h-2 rounded-full bg-accent",
-          "animate-[typingDotBounce_1.2s_ease-in-out_infinite]",
-          "motion-reduce:animate-none"
-        )}
-        style={{ animationDelay: `${dots[2] * 120}ms` }}
-      />
-      {dots[0] === 1 && dots[1] === 1 && dots[2] === 1 && (
-        <span className="text-[10px] font-mono uppercase text-muted-foreground">ADA is typing</span>
-      )}
-    </div>
-  );
-};
-
-export { TypingIndicator };
+      </div>
+    );
+  },
+);
+TypingIndicator.displayName = "TypingIndicator";

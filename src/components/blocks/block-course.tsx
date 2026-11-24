@@ -6,18 +6,21 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 
-const MODULES = [
+const DEFAULT_MODULES = [
   { id: "m1", title: "Week 1 · Foundations", lessons: ["Setup & tokens", "First component", "Dark mode"] },
   { id: "m2", title: "Week 2 · Composition", lessons: ["Layouts", "Blocks", "State patterns"] },
   { id: "m3", title: "Week 3 · Ship", lessons: ["Build & publish", "Docs", "Growth loops"] },
 ];
 
 /** Course page: syllabus accordion + instructor + enroll CTA. */
-export interface BlockCourseProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockCourseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  modules?: typeof DEFAULT_MODULES;
   onAction?: (action: string) => void;
 }
 
-export function BlockCourse({ className, onAction, ...props }: BlockCourseProps) {
+export function BlockCourse({ title, modules = DEFAULT_MODULES, className, onAction, ...props }: BlockCourseProps) {
   const [open, setOpen] = React.useState<string | null>("m1");
   const [enrolled, setEnrolled] = React.useState(false);
 
@@ -26,7 +29,7 @@ export function BlockCourse({ className, onAction, ...props }: BlockCourseProps)
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">Cohort 07 · starts Monday</p>
-          <h2 className="mt-1 font-mono text-2xl font-black uppercase tracking-tight">Ship interfaces in 3 weeks</h2>
+          <h2 className="mt-1 font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Ship interfaces in 3 weeks"}</h2>
         </div>
         <Badge variant="accent">12 seats left</Badge>
       </div>
@@ -38,7 +41,7 @@ export function BlockCourse({ className, onAction, ...props }: BlockCourseProps)
         </div>
       </div>
       <Accordion value={open ?? ""} onValueChange={(v) => setOpen(typeof v === "string" && v ? v : null)} className="w-full">
-        {MODULES.map((m) => (
+        {modules.map((m) => (
           <AccordionItem key={m.id} value={m.id}>
             <AccordionTrigger isOpen={open === m.id} contentId={`${m.id}-body`} onClick={() => setOpen(open === m.id ? null : m.id)}>
               {m.title}

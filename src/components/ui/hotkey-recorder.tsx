@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface HotkeyRecorderProps {
+export interface HotkeyRecorderProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -14,7 +14,7 @@ export function HotkeyRecorder({
   value: controlledValue,
   defaultValue = "",
   onValueChange,
-  className,
+  className, ...props
 }: HotkeyRecorderProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue);
   const [recorded, setRecorded] = React.useState("");
@@ -93,7 +93,7 @@ export function HotkeyRecorder({
   );
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-2", className)} {...props}>
       <div>
         <button
           type="button"

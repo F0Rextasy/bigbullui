@@ -24,7 +24,7 @@ export function Separator({
         dashed ? "border-dashed" : "border-solid",
         isHorizontal
           ? "h-0 w-full border-t border-border"
-          : "h-full min-h-4 w-0 border-l border-border",
+          : "h-full min-h-4 w-0 border-s border-border",
         className
       )}
       {...props}

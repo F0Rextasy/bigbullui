@@ -69,7 +69,7 @@ export function OtpVerify({ length = 6, onVerify, resendSeconds = 30, className,
             aria-label={`Digit ${i + 1}`}
             className={cn(
               "size-11 rounded-md border-2 border-dashed border-border bg-card text-center font-mono text-lg font-bold",
-              "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+              "transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               d && "border-accent animate-[otpPop_0.2s_ease-out] motion-reduce:animate-none"
             )}
           />

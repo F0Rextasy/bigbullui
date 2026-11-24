@@ -22,7 +22,7 @@ export function RowExpandList({ items = [], className, ...props }: RowExpandList
       {items.map((item, idx) => {
         const open = openId === item.id;
         return (
-          <div key={item.id} className="animate-[reIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
+          <div key={item.id} className="animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
             <button
               type="button"
               onClick={() => setOpenId(open ? null : item.id)}
@@ -36,7 +36,7 @@ export function RowExpandList({ items = [], className, ...props }: RowExpandList
             </button>
             <div
               className={cn(
-                "grid transition-all duration-300 ease-out motion-reduce:transition-none",
+                "grid transition-colors duration-300 ease-out motion-reduce:transition-none",
                 open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
               )}
             >

@@ -580,7 +580,7 @@ export function SplitFlapBoard({
                 type="button"
                 onClick={() => setFilter(f)}
                 className={cn(
-                  "font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border transition-all",
+                  "font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border transition-colors",
                   filter === f
                     ? "border-foreground bg-foreground text-background font-bold"
                     : "border-border bg-card text-muted-foreground hover:text-foreground"
@@ -599,7 +599,7 @@ export function SplitFlapBoard({
         <div className="col-span-3 sm:col-span-2">TRAIN/FLT</div>
         <div className="col-span-4 sm:col-span-5">DESTINATION</div>
         <div className="hidden sm:block sm:col-span-1">TRACK</div>
-        <div className="col-span-3 sm:col-span-2 text-right">STATUS</div>
+        <div className="col-span-3 sm:col-span-2 text-end">STATUS</div>
       </div>
 
       {/* Flap Rows Container */}

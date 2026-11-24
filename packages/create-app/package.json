@@ -29,6 +29,7 @@
     "bin",
     "template",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "engines": {

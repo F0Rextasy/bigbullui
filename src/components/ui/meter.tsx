@@ -103,7 +103,7 @@ export function Meter({
       <div className="relative mt-3 h-6 w-full overflow-hidden rounded border-2 border-foreground bg-secondary/60 p-0.5 shadow-inner">
         <div
           style={{ width: `${percent}%` }}
-          className={cn("h-full rounded-xs transition-all duration-300 ease-out motion-reduce:transition-none", tone)}
+          className={cn("h-full rounded-xs transition-[width,height,left,right,opacity,background-color,border-color] duration-300 ease-out motion-reduce:transition-none", tone)}
         />
         <span
           aria-hidden="true"

@@ -1,4 +1,10 @@
-export const metadata = { title: "Migrate from shadcn" };
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Migrate from shadcn",
+  description: "Step-by-step comparison and CLI guide to adopt bigbullui or migrate existing shadcn/ui components.",
+  path: "/docs/migrate",
+});
 
 const ROWS: [string, string, string][] = [
   ["Install", "npx shadcn@latest init", "npx bigbullui init"],

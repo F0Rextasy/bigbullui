@@ -9,63 +9,77 @@ export interface TocHeading {
   level: 2 | 3;
 }
 
-export interface TocProps {
-  headings: TocHeading[];
-  className?: string;
+export interface TocProps extends React.HTMLAttributes<HTMLElement> {
+  headings?: TocHeading[];
+  onSelectHeading?: (id: string) => void;
 }
 
-export function Toc({ headings = [], className }: TocProps) {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+export const Toc = React.forwardRef<HTMLElement, TocProps>(function Toc(
+  { headings = [], onSelectHeading, className, "aria-label": ariaLabel = "Table of contents", ...props },
+  ref,
+) {
+  const [activeId, setActiveId] = React.useState<string | null>(headings[0]?.id ?? null);
 
-  // Track visible sections via IntersectionObserver
   React.useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    if (typeof IntersectionObserver === "undefined" || headings.length === 0) return;
 
-    headings.forEach((heading) => {
+    const indexById = new Map(headings.map((h, i) => [h.id, i]));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => (indexById.get(a.target.id) ?? 0) - (indexById.get(b.target.id) ?? 0));
+        if (visible[0]?.target.id) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px" },
+    );
+
+    for (const heading of headings) {
       const element = document.getElementById(heading.id);
-      if (element) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                setActiveIndex(headings.indexOf(heading));
-              }
-            });
-          },
-          { rootMargin: "-40% 0px" }
-        );
-        observer.observe(element);
-        observers.push(observer);
-      }
-    });
+      if (element) observer.observe(element);
+    }
 
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
+    return () => observer.disconnect();
   }, [headings]);
 
+  const handleSelect = (heading: TocHeading) => {
+    setActiveId(heading.id);
+    onSelectHeading?.(heading.id);
+    const target = typeof document !== "undefined" ? document.getElementById(heading.id) : null;
+    if (target) {
+      const reduced =
+        typeof window !== "undefined" &&
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    }
+  };
+
+  const resolvedActiveId = activeId ?? headings[0]?.id ?? null;
+
   return (
-    <nav className={cn("space-y-1", className)}>
-      {headings.map((heading, index) => {
-        const isActive = index === activeIndex;
-        const levelClass = heading.level === 2 ? "text-lg" : "text-base";
+    <nav ref={ref} aria-label={ariaLabel} className={cn("flex flex-col items-start gap-1", className)} {...props}>
+      {headings.map((heading) => {
+        const isActive = heading.id === resolvedActiveId;
+        const levelClass = heading.level === 2 ? "text-sm font-medium" : "text-xs";
         const indent = heading.level === 3 ? "ps-3" : "";
 
         return (
           <button
             type="button"
             key={heading.id}
+            onClick={() => handleSelect(heading)}
+            aria-current={isActive ? "location" : undefined}
             className={cn(
-              "whitespace-nowrap select-none",
+              "relative cursor-pointer rounded-sm py-1 text-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               indent,
               levelClass,
-              "text-muted-foreground hover:text-foreground transition-colors",
-              isActive && "relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-0.5 after:bg-accent after:dashed after:border-0 after:border-border/60 after:transition-all after:duration-300 ease-out after:top-0 after:pointer-events-none after:select-none after:motion-safe:animate-[slide-in_top_0.3s_ease-out_both]",
-              isActive && "text-foreground"
+              isActive
+                ? "font-semibold text-foreground after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-full after:border-b-2 after:border-dashed after:border-accent after:content-[''] motion-safe:after:animate-[slide-in_0.25s_ease-out_both] motion-reduce:after:animate-none"
+                : "text-muted-foreground hover:text-foreground",
             )}
-            onClick={() => setActiveIndex(index)}
-            aria-disabled={isActive}
-            role="button"
           >
             {heading.text}
           </button>
@@ -73,4 +87,5 @@ export function Toc({ headings = [], className }: TocProps) {
       })}
     </nav>
   );
-}
+});
+Toc.displayName = "Toc";

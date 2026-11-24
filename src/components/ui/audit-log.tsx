@@ -46,7 +46,7 @@ export function AuditLog({ entries = [], filter = "all", className, ...props }: 
       {visible.map((e, idx) => (
         <div
           key={e.id}
-          className="flex items-start gap-3 rounded-md border border-border bg-card px-3 py-2.5 animate-[auditIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
+          className="flex items-start gap-3 rounded-md border border-border bg-card px-3 py-2.5 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
           style={{ animationDelay: `${idx * 45}ms` }}
         >
           <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[10px] font-bold text-secondary-foreground">

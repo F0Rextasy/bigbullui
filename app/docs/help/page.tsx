@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { components } from "@/lib/registry-site";
 import catalog from "@/data/catalog.json";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Help & FAQ", alternates: { canonical: "/docs/help" } };
+export const metadata = buildMetadata({
+  title: "Help & FAQ",
+  description: "Answers to common questions about installing, theming, tree-shaking, accessibility, and contributing to bigbullui.",
+  path: "/docs/help",
+});
 
 const QA: { q: string; a: string }[] = [
   { q: "What is bigbullui?", a: `An open-source React 19 + Tailwind CSS v4 component library with a Ticket-Stub aesthetic: ${components.length} copy-paste components, 75 page blocks, and ${catalog.packageIcons} hand-drawn stroke icons in the shipped icon package. MIT licensed, zero runtime dependencies.` },

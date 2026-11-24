@@ -45,7 +45,7 @@ export function ActivityV2({ items = [], filters, className, ...props }: Activit
       </div>
       <ul className="space-y-1.5">
         {visible.map((item, idx) => (
-          <li key={item.id} className="flex items-center gap-2.5 rounded-md border border-border bg-card px-3 py-2 animate-[av2In_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
+          <li key={item.id} className="flex items-center gap-2.5 rounded-md border border-border bg-card px-3 py-2 animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
             <span className="min-w-0 flex-1 truncate text-sm">
               <span className="font-medium">{item.actor}</span> <span className="text-muted-foreground">{item.action}</span> <span className="font-medium">{item.target}</span>
             </span>

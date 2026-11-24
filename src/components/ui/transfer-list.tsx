@@ -117,7 +117,7 @@ export function TransferList({
                   )
                 }
                 className={cn(
-                  "flex w-full cursor-pointer items-center justify-between rounded-md px-2.5 py-1.5 text-left text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "flex w-full cursor-pointer items-center justify-between rounded-md px-2.5 py-1.5 text-start text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   isChecked ? "bg-accent text-accent-foreground font-bold" : "hover:bg-secondary text-foreground"
                 )}
               >

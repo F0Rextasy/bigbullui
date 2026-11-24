@@ -8,9 +8,9 @@ export type ImageCompareProps = {
   after: string;
   alt?: string;
   defaultPosition?: number;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function ImageCompare({ before, after, alt = "Comparison", defaultPosition = 50 }: ImageCompareProps) {
+export function ImageCompare({ before, after, alt = "Comparison", defaultPosition = 50, ...props }: ImageCompareProps) {
   const [position, setPosition] = React.useState(defaultPosition);
   const [dragging, setDragging] = React.useState(false);
 
@@ -31,7 +31,7 @@ export function ImageCompare({ before, after, alt = "Comparison", defaultPositio
     <div
       className={cn("relative w-full h-64 rounded-md overflow-hidden bg-border", "motion-reduce:animate-none")}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={handleMouseLeave} {...props}
     >
       <div className="absolute inset-0">
         <img

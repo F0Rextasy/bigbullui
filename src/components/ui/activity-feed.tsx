@@ -399,7 +399,7 @@ export function ActivityFeed({
                   onClick={() => setSelectedFilter(tab.id)}
                   aria-pressed={active}
                   className={cn(
-                    "cursor-pointer rounded-sm border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase transition-all duration-150 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    "cursor-pointer rounded-sm border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase transition-[transform,opacity,background-color,border-color,color] duration-150 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     active
                       ? "border-foreground bg-foreground text-card shadow-xs"
                       : "border-dashed border-border bg-card/70 text-muted-foreground hover:bg-card hover:text-foreground"
@@ -453,7 +453,7 @@ export function ActivityFeed({
                 <div className="relative ps-7 sm:ps-9 space-y-5">
                   {/* Vertical Continuous Perforation Stem */}
                   <div
-                    className="absolute left-3 sm:left-4 top-2 bottom-2 w-0 border-l-2 border-dashed border-border"
+                    className="absolute left-3 sm:left-4 top-2 bottom-2 w-0 border-s-2 border-dashed border-border"
                     aria-hidden="true"
                   />
 
@@ -515,7 +515,7 @@ export function ActivityFeed({
                         {/* Activity Card */}
                         <div
                           className={cn(
-                            "relative overflow-hidden rounded-lg border-2 border-foreground bg-card p-3.5 sm:p-4 shadow-xs transition-all duration-150 group-hover:border-accent group-hover:shadow-[3px_3px_0_0_var(--color-border)]",
+                            "relative overflow-hidden rounded-lg border-2 border-foreground bg-card p-3.5 sm:p-4 shadow-xs transition-colors duration-150 group-hover:border-accent group-hover:shadow-[3px_3px_0_0_var(--color-border)]",
                             item.isUnread && "ring-1 ring-accent"
                           )}
                         >

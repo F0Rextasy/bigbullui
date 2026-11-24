@@ -9,43 +9,109 @@ import { MetricCard } from "../ui/metric-card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 import { Avatar } from "../ui/avatar";
 
-const ORDERS = [
+export interface AdminMetricItem {
+  title: string;
+  value: string;
+  trend: { value: string; direction: "up" | "down"; label: string };
+  periodLabel: string;
+  sparklineData: number[];
+  sparklineTone?: "accent" | "muted";
+}
+
+export interface AdminOrderRow {
+  id: string;
+  holder: string;
+  tier: string;
+  total: string;
+  status: string;
+}
+
+export interface AdminActivityItem {
+  name: string;
+  text: string;
+  time: string;
+}
+
+const DEFAULT_METRICS: AdminMetricItem[] = [
+  { title: "GROSS REVENUE", value: "$48,250", trend: { value: "+14.8%", direction: "up", label: "VS LAST WEEK" }, periodLabel: "ROLLING 7 DAYS", sparklineData: [32, 38, 35, 42, 40, 48, 52, 59] },
+  { title: "STUBS ADMITTED", value: "4,820", trend: { value: "+8.1%", direction: "up", label: "VS LAST WEEK" }, periodLabel: "ROLLING 7 DAYS", sparklineData: [20, 26, 24, 30, 34, 38, 44, 49] },
+  { title: "REFUND RATE", value: "1.8%", trend: { value: "-0.4%", direction: "down", label: "VS LAST WEEK" }, periodLabel: "ROLLING 7 DAYS", sparklineTone: "muted", sparklineData: [8, 7, 9, 6, 5, 6, 4, 3] },
+  { title: "STANDBY QUEUE", value: "312", trend: { value: "+22", direction: "up", label: "SINCE DOORS" }, periodLabel: "TONIGHT", sparklineData: [10, 14, 18, 22, 26, 30, 34, 40] },
+];
+
+const DEFAULT_ORDERS: AdminOrderRow[] = [
   { id: "BB-90210", holder: "Ada Bull", tier: "VIP BOX", total: "$240.00", status: "ADMITTED" },
   { id: "BB-90211", holder: "Grace Hopper", tier: "ORCHESTRA", total: "$150.00", status: "RESERVED" },
   { id: "BB-90212", holder: "Alan Turing", tier: "BALCONY", total: "$90.00", status: "ADMITTED" },
   { id: "BB-90213", holder: "Linus Torvalds", tier: "GENERAL", total: "$60.00", status: "STANDBY" },
 ];
 
-const ACTIVITY = [
+const DEFAULT_ACTIVITY: AdminActivityItem[] = [
   { name: "Ada Bull", text: "claimed 2 VIP stubs", time: "2 MIN AGO" },
   { name: "Gate 03", text: "scanned 148 stubs this hour", time: "9 MIN AGO" },
   { name: "Grace Hopper", text: "refunded 1 balcony stub", time: "24 MIN AGO" },
 ];
 
-export interface AdminOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminOverviewProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  eyebrow?: string;
+  title?: string;
+  statusLabel?: string;
+  metrics?: AdminMetricItem[];
+  orders?: AdminOrderRow[];
+  activities?: AdminActivityItem[];
+  onExport?: () => void;
+  onViewLedger?: () => void;
   onAction?: (action: string) => void;
 }
 
-export function AdminOverview({ className, onAction, ...props }: AdminOverviewProps) {
+export function AdminOverview({
+  eyebrow = "BOX OFFICE // OVERVIEW",
+  title = "Nightly audit",
+  statusLabel = "LIVE",
+  metrics = DEFAULT_METRICS,
+  orders = DEFAULT_ORDERS,
+  activities = DEFAULT_ACTIVITY,
+  onExport,
+  onViewLedger,
+  className,
+  onAction,
+  ...props
+}: AdminOverviewProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // OVERVIEW</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Nightly audit</h2>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{eyebrow}</p>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
-          <Badge variant="accent">LIVE</Badge>
-          <Button size="sm" onClick={() => { setNotice("Stubs CSV exported."); onAction?.("export-stubs"); }}>Export stubs</Button>
+          <Badge variant="accent">{statusLabel}</Badge>
+          <Button
+            size="sm"
+            onClick={() => {
+              setNotice("Stubs CSV exported.");
+              onExport?.();
+              onAction?.("export-stubs");
+            }}
+          >
+            Export stubs
+          </Button>
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <MetricCard title="GROSS REVENUE" value="$48,250" trend={{ value: "+14.8%", direction: "up", label: "VS LAST WEEK" }} periodLabel="ROLLING 7 DAYS" sparklineData={[32, 38, 35, 42, 40, 48, 52, 59]} />
-        <MetricCard title="STUBS ADMITTED" value="4,820" trend={{ value: "+8.1%", direction: "up", label: "VS LAST WEEK" }} periodLabel="ROLLING 7 DAYS" sparklineData={[20, 26, 24, 30, 34, 38, 44, 49]} />
-        <MetricCard title="REFUND RATE" value="1.8%" trend={{ value: "-0.4%", direction: "down", label: "VS LAST WEEK" }} periodLabel="ROLLING 7 DAYS" sparklineTone="muted" sparklineData={[8, 7, 9, 6, 5, 6, 4, 3]} />
-        <MetricCard title="STANDBY QUEUE" value="312" trend={{ value: "+22", direction: "up", label: "SINCE DOORS" }} periodLabel="TONIGHT" sparklineData={[10, 14, 18, 22, 26, 30, 34, 40]} />
+        {metrics.map((metric) => (
+          <MetricCard
+            key={metric.title}
+            title={metric.title}
+            value={metric.value}
+            trend={metric.trend}
+            periodLabel={metric.periodLabel}
+            sparklineTone={metric.sparklineTone}
+            sparklineData={metric.sparklineData}
+          />
+        ))}
       </div>
       <div className="grid gap-4 xl:grid-cols-3">
         <Card className="xl:col-span-2">
@@ -64,7 +130,7 @@ export function AdminOverview({ className, onAction, ...props }: AdminOverviewPr
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ORDERS.map((order) => (
+                {orders.map((order) => (
                   <TableRow key={order.id}>
                     <TableCell className="font-bold">{order.id}</TableCell>
                     <TableCell>{order.holder}</TableCell>
@@ -86,8 +152,8 @@ export function AdminOverview({ className, onAction, ...props }: AdminOverviewPr
             <CardTitle>Activity stream</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {ACTIVITY.map((item) => (
-              <div key={item.text} className="flex items-start gap-3">
+            {activities.map((item) => (
+              <div key={`${item.name}-${item.text}`} className="flex items-start gap-3">
                 <Avatar name={item.name} size="sm" />
                 <div className="min-w-0">
                   <p className="font-mono text-xs">
@@ -97,7 +163,18 @@ export function AdminOverview({ className, onAction, ...props }: AdminOverviewPr
                 </div>
               </div>
             ))}
-            <Button variant="outline" size="sm" className="w-full" onClick={() => { setNotice("Loaded full nightly ledger."); onAction?.("view-ledger"); }}>View full ledger</Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                setNotice("Loaded full nightly ledger.");
+                onViewLedger?.();
+                onAction?.("view-ledger");
+              }}
+            >
+              View full ledger
+            </Button>
           </CardContent>
         </Card>
       </div>

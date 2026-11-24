@@ -72,7 +72,7 @@ export function ParkingTicketMeter({
         {expired ? "EXPIRED" : `${hh}:${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`}
       </p>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100} aria-label="Remaining time">
-        <div className={cn("h-full rounded-full transition-all", expired ? "bg-destructive" : "bg-accent")} style={{ width: `${pct}%` }} />
+        <div className={cn("h-full rounded-full transition-[width,height,left,right,opacity,background-color,border-color]", expired ? "bg-destructive" : "bg-accent")} style={{ width: `${pct}%` }} />
       </div>
       <p className="mt-1 font-mono text-[10px] uppercase text-muted-foreground">
         {allowanceMin} min allowance

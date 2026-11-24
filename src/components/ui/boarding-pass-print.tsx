@@ -63,7 +63,7 @@ export function BoardingPassPrint({
               {cell("Boards", boarding)}
             </div>
           </div>
-          <div className="flex flex-row items-center justify-around gap-2 border-t-2 border-dashed border-border px-4 py-3 sm:w-32 sm:flex-col sm:border-l-2 sm:border-t-0">
+          <div className="flex flex-row items-center justify-around gap-2 border-t-2 border-dashed border-border px-4 py-3 sm:w-32 sm:flex-col sm:border-s-2 sm:border-t-0">
             {cell("Flight", flight)}
             {cell("Seat", seat)}
             {cell("Gate", gate)}

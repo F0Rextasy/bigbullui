@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface StepperProps {
+export interface StepperProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: number;
   defaultValue?: number;
   min?: number;
@@ -24,7 +24,7 @@ export function Stepper({
   onValueChange,
   disabled = false,
   className,
-  "aria-label": ariaLabel = "Stepper",
+  "aria-label": ariaLabel = "Stepper", ...props
 }: StepperProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
@@ -64,7 +64,7 @@ export function Stepper({
         "inline-flex items-center rounded-md border-2 border-dashed border-border bg-card p-1",
         disabled && "opacity-50",
         className
-      )}
+      )} {...props}
     >
       <button
         type="button"
@@ -72,7 +72,7 @@ export function Stepper({
         onClick={handleDecrement}
         aria-label="Decrease value"
         className={cn(
-          "flex size-8 items-center justify-center rounded-sm border border-border bg-secondary font-mono text-sm font-bold transition-all",
+          "flex size-8 items-center justify-center rounded-sm border border-border bg-secondary font-mono text-sm font-bold transition-colors",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isMin || disabled
             ? "cursor-not-allowed opacity-40"
@@ -95,7 +95,7 @@ export function Stepper({
         onClick={handleIncrement}
         aria-label="Increase value"
         className={cn(
-          "flex size-8 items-center justify-center rounded-sm border border-border bg-secondary font-mono text-sm font-bold transition-all",
+          "flex size-8 items-center justify-center rounded-sm border border-border bg-secondary font-mono text-sm font-bold transition-colors",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isMax || disabled
             ? "cursor-not-allowed opacity-40"

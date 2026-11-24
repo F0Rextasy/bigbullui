@@ -92,7 +92,7 @@ export function CreditCardForm({ onSubmit, className, ...props }: CreditCardForm
         disabled={!valid}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
+          "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
           "disabled:pointer-events-none disabled:opacity-40 animate-[creditCardIn_0.25s_ease-out_0.18s_both] motion-reduce:animate-none"
         )}

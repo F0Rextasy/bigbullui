@@ -43,7 +43,7 @@ export function PageTabs({ tabs = [], activeId, onNavigate, className, ...props 
         >
           {tab.label}
           {active === tab.id && (
-            <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left bg-accent motion-reduce:animate-none!" style={{ animation: "ptUnderline 0.25s ease-out both" }} aria-hidden="true" />
+            <span className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left bg-accent motion-reduce:animate-none!" style={{ animation: "bpFill 0.25s ease-out both" }} aria-hidden="true" />
           )}
         </button>
       ))}

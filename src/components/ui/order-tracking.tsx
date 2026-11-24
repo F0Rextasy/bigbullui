@@ -31,7 +31,7 @@ export function OrderTracking({ orderId = "", steps = [], courier, className, ..
           className="absolute left-0 top-2 h-0.5 origin-left rounded-full bg-accent motion-reduce:animate-none!"
           style={{
             width: `${(steps.filter((s) => s.done).length / Math.max(1, steps.length - 1)) * 100}%`,
-            animation: "otLine 0.8s cubic-bezier(0.16,1,0.3,1) both",
+            animation: "bpFill 0.8s cubic-bezier(0.16,1,0.3,1) both",
           }}
           aria-hidden="true"
         />

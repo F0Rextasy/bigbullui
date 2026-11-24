@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Avatar } from "../ui/avatar";
 import { Progress } from "../ui/progress";
 
-const TEAM = [
+const DEFAULT_TEAM = [
   { name: "Ada Bull", role: "DOOR CAPTAIN", leave: "ON SHIFT", score: 92 },
   { name: "Jon Reyes", role: "SCANNER LEAD", leave: "2 DAYS LEFT", score: 78 },
   { name: "Sena Park", role: "VIP HOST", leave: "ON LEAVE", score: 64 },
@@ -21,18 +21,21 @@ function leaveVariant(leave: string): "accent" | "outline" | "secondary" | "defa
   return "outline";
 }
 
-export interface AdminHrProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminHrProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  team?: typeof DEFAULT_TEAM;
   onAction?: (action: string) => void;
 }
 
-export function AdminHr({ className, onAction, ...props }: AdminHrProps) {
+export function AdminHr({ title, team = DEFAULT_TEAM, className, onAction, ...props }: AdminHrProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">CREW // HUMAN RESOURCES</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Shift roster</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Shift roster"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -40,7 +43,7 @@ export function AdminHr({ className, onAction, ...props }: AdminHrProps) {
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {TEAM.map((person) => (
+        {team.map((person) => (
           <Card key={person.name} className="min-w-0">
             <CardHeader className="flex flex-row items-center gap-3 space-y-0">
               <Avatar name={person.name} size="md" />

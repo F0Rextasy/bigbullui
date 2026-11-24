@@ -7,11 +7,13 @@ import { Avatar } from "../ui/avatar";
 import { Toc } from "../ui/toc";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-export interface PageArticleProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageArticleProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function PageArticle({ className, onAction, ...props }: PageArticleProps) {
+export function PageArticle({ title, className, onAction, ...props }: PageArticleProps) {
   void onAction;
   const uid = React.useId();
   const headings = [
@@ -32,7 +34,7 @@ export function PageArticle({ className, onAction, ...props }: PageArticleProps)
       <div className="grid gap-4 lg:grid-cols-3">
         <article className="min-w-0 space-y-6 lg:col-span-2">
           <section id={`${uid}-doors`} className="space-y-2">
-            <h2 className="font-mono text-sm font-black uppercase tracking-wider">Doors and entry flow</h2>
+            <h2 className="font-mono text-sm font-black uppercase tracking-wider">{title ?? "Doors and entry flow"}</h2>
             <p className="text-sm leading-relaxed text-muted-foreground">Gates open ninety minutes before curtain. Each lane scans, stamps, and tears in one motion so the queue never stalls past the lobby reel.</p>
             <p className="text-sm leading-relaxed text-muted-foreground">Holders with reissued barcodes enter through lane two, where agents verify the serial against the nightly ledger.</p>
           </section>

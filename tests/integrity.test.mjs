@@ -159,9 +159,15 @@ describe("bigbullui Component Library Integrity", () => {
     assert.equal(utilsItem.files[0].target, "components/ui/lib/utils.ts");
     assert.match(utilsItem.files[0].content, /export\s+function\s+cn\b/);
     const byPath = (files, p) => files.find((f) => f.path === p);
-    const checked = ["button", "stat-tile", "admin-overview", "form-validation"];
+    const checked = fs
+      .readdirSync(rDir)
+      .filter((f) => f.endsWith(".json") && f !== "utils.json")
+      .map((f) => f.slice(0, -5));
+    assert.ok(checked.length >= 700, `expected >= 700 registry items in public/r/, got ${checked.length}`);
     for (const slug of checked) {
       const item = JSON.parse(fs.readFileSync(path.join(rDir, `${slug}.json`), "utf8"));
+      assert.equal(item.name, slug, `${slug}.json name must match filename`);
+      assert.ok(Array.isArray(item.files) && item.files.length > 0, `${slug}.json must include files`);
       const targetByPath = {};
       for (const f of item.files) targetByPath[f.path] = f.target;
       for (const f of item.files) {
@@ -171,7 +177,11 @@ describe("bigbullui Component Library Integrity", () => {
         }
       }
       const needsUtils = item.files.some(
-        (f) => typeof f.content === "string" && (f.content.includes('"./lib/utils"') || f.content.includes('"../ui/lib/utils"'))
+        (f) =>
+          typeof f.content === "string" &&
+          (f.content.includes('"./lib/utils"') ||
+            f.content.includes('"../ui/lib/utils"') ||
+            (f.path.startsWith("src/components/ui/lib/") && f.content.includes('"./utils"')))
       );
       if (needsUtils) {
         assert.ok((item.registryDependencies || []).includes("https://ui.bigbullapp.com/r/utils.json"), `${slug} must declare the utils registryDependency`);
@@ -191,6 +201,14 @@ describe("bigbullui Component Library Integrity", () => {
         for (const m of content.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
           if (m[1] === "lib") {
             assert.ok(byPath(item.files, "src/components/ui/lib/utils.ts") || targetByPath["src/components/ui/lib/utils.ts"] === "components/ui/lib/utils.ts" || utilsItem, `${slug}: ./lib dep needs utils coverage`);
+            continue;
+          }
+          if (f.path.startsWith("src/components/ui/lib/")) {
+            assert.ok(
+              byPath(item.files, `src/components/ui/lib/${m[1]}.ts`) ||
+                (item.registryDependencies || []).includes(`https://ui.bigbullapp.com/r/${m[1]}.json`),
+              `${slug}: lib sibling ./${m[1]} must be bundled or declared in registryDependencies`
+            );
             continue;
           }
           assert.ok(byPath(item.files, `src/components/ui/${m[1]}.tsx`), `${slug}: sibling ./${m[1]} must be bundled`);
@@ -321,18 +339,16 @@ describe("bigbullui Component Library Integrity", () => {
   });
 
   it("no phantom foreground tokens (must exist in bigbullui.css)", () => {
-    const phantom = /text-(destructive|success|warning|info)-foreground/;
-    const violations = [];
-    for (const file of uiFiles) {
-      const content = fs.readFileSync(path.join(uiDir, file), "utf8");
-      const m = content.match(phantom);
-      if (m) violations.push(`${file}: ${m[0]}`);
+    const css = fs.readFileSync(path.join(rootDir, "bigbullui.css"), "utf8");
+    const required = ["--destructive-foreground", "--success-foreground", "--warning-foreground", "--info-foreground"];
+    for (const token of required) {
+      assert.ok(css.includes(token), `bigbullui.css must define ${token}`);
+      assert.ok(css.includes(`--color-${token.slice(2)}`), `bigbullui.css @theme inline must map --color-${token.slice(2)}`);
     }
-    assert.deepEqual(violations, [], `Undefined foreground token (renders unstyled):\n${violations.join("\n")}`);
   });
 
   it("English UI copy: no Turkish strings in UI components", () => {
-    const turkish = /\b(Aktif|DARALT|hedef|Eklendi|Beklemede|Reddedildi|Onayla|Kapat|Kaydet|Kopyala|Tamamlanan|Toplam|Detay|Bitti|Hata|Kaydedildi|Kaydediliyor|Kaydedilemedi|Stokta|Yenileme|Bakiye ekle|Kuyrukta|Okundu|Sonraki|Sayfalama|Geri|Senkronize|POSTA|bu kaynak|Sonraki sayfa)\b/;
+    const turkish = /\b(Aktif|DARALT|hedef|Eklendi|Beklemede|Reddedildi|Onayla|Kapat|Kaydet|Kopyala|Tamamlanan|Toplam|Detay|Bitti|Hata|Kaydedildi|Kaydediliyor|Kaydedilemedi|Stokta|Yenileme|Bakiye ekle|Kuyrukta|Okundu|Sonraki|Sayfalama|Geri|Senkronize|POSTA|bu kaynak|Sonraki sayfa|Proje|Projeler|Faturalar|Fatura yok|Mesaj|Sohbet|Kullanici|Ayarlar|Iptal|Gonder|Yorumlar|Bildirim|Siparis|Sepet|Odeme|Urun)\b/;
     const violations = [];
     for (const file of uiFiles) {
       const content = fs.readFileSync(path.join(uiDir, file), "utf8");
@@ -375,12 +391,28 @@ describe("bigbullui Component Library Integrity", () => {
         check("dark", dark, fg, bg);
       }
     }
-    for (const [fg, bg] of [["primary-foreground", "primary"], ["secondary-foreground", "secondary"], ["accent-foreground", "accent"]]) {
+    for (const [fg, bg] of [
+      ["primary-foreground", "primary"],
+      ["secondary-foreground", "secondary"],
+      ["accent-foreground", "accent"],
+      ["destructive-foreground", "destructive"],
+      ["success-foreground", "success"],
+      ["warning-foreground", "warning"],
+      ["info-foreground", "info"],
+    ]) {
       check("light", light, fg, bg);
       check("dark", dark, fg, bg);
     }
+    for (const uiBorder of ["border", "input"]) {
+      for (const surface of ["background", "card", "muted"]) {
+        const lr = ratio(light[uiBorder], light[surface]);
+        if (lr < 3.0) failures.push(`light ${uiBorder} on ${surface}: ${lr.toFixed(2)}:1 (<3.0)`);
+        const dr = ratio(dark[uiBorder], dark[surface]);
+        if (dr < 3.0) failures.push(`dark ${uiBorder} on ${surface}: ${dr.toFixed(2)}:1 (<3.0)`);
+      }
+    }
     assert.ok(css.includes(".bg-info.text-white"), "bigbullui.css dark override must include .bg-info.text-white");
-    assert.deepEqual(failures, [], `Text tokens below WCAG AA 4.5:1:\n${failures.join("\n")}`);
+    assert.deepEqual(failures, [], `Text/UI tokens below WCAG AA:\n${failures.join("\n")}`);
   });
 
   it("form safety: every internal <button> has an explicit type attribute", () => {
@@ -422,6 +454,29 @@ describe("bigbullui Component Library Integrity", () => {
       }
     }
     assert.deepEqual(violations, [], `Internal <button> without explicit type= (submits parent <form> by default):\n${violations.join("\n")}`);
+  });
+
+  it("valid HTML nesting: no <div> inside <button> in UI components", async () => {
+    const ts = (await import("typescript")).default;
+    const nestingViolations = [];
+    for (const file of uiFiles) {
+      const filePath = path.join(uiDir, file);
+      const src = fs.readFileSync(filePath, "utf8");
+      const sf = ts.createSourceFile(filePath, src, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+      const visit = (node, inButton) => {
+        let next = inButton;
+        if (ts.isJsxElement(node)) {
+          const tag = node.openingElement.tagName.getText(sf);
+          if (tag === "button") next = true;
+          else if (inButton && tag === "div") nestingViolations.push(file);
+        } else if (ts.isJsxSelfClosingElement(node)) {
+          if (inButton && node.tagName.getText(sf) === "div") nestingViolations.push(file);
+        }
+        ts.forEachChild(node, (c) => visit(c, next));
+      };
+      visit(sf, false);
+    }
+    assert.deepEqual([...new Set(nestingViolations)], [], `Invalid <div> nested inside <button>:\n${[...new Set(nestingViolations)].join(", ")}`);
   });
 
   it("no dynamic Tailwind animation templates in UI components", () => {
@@ -554,5 +609,36 @@ describe("bigbullui Component Library Integrity", () => {
 
     assert.deepEqual(missingTrap, [], `fixed inset-0 overlays missing focus-trap.ts integration:\n${missingTrap.join("\n")}`);
     assert.deepEqual(clickableIssues, [], `Clickable <div>/<span> elements without keyboard/ARIA support:\n${clickableIssues.join("\n")}`);
+  });
+
+  it("CSS & size ratchet gates: zero transition-all, zero backdrop-blur, zero physical RTL direction classes, and capped >12KB files", () => {
+    const tAll = [];
+    const blur = [];
+    const physRtl = [];
+    const over12k = [];
+    const allowedOver12k = new Set([
+      "activity-feed.tsx", "announcement-bar.tsx", "audio-waveform.tsx", "code-block.tsx",
+      "combobox.tsx", "command-palette.tsx", "credit-card.tsx", "date-picker.tsx",
+      "dock.tsx", "donut-chart.tsx", "drawer.tsx", "file-upload-list.tsx",
+      "hover-card.tsx", "keypad.tsx", "metric-card.tsx", "nfc-badge.tsx",
+      "pricing-table.tsx", "qr-reader.tsx", "radio-cards.tsx", "resizable.tsx",
+      "rich-text-editor.tsx", "scroll-area.tsx", "seat-map.tsx", "segmented-switch.tsx",
+      "signature-pad.tsx", "split-flap.tsx", "status-dot.tsx", "tag-input.tsx",
+      "theme-toggle.tsx", "ticket-fold.tsx",
+    ]);
+
+    for (const file of uiFiles) {
+      const full = path.join(uiDir, file);
+      const s = fs.readFileSync(full, "utf8");
+      if (/\btransition-all\b/.test(s)) tAll.push(file);
+      if (/\bbackdrop-blur-/.test(s)) blur.push(file);
+      if (/(?:^|[\s"`':(])((?:[a-z0-9-]+:)*)(ml-|mr-|pl-|pr-|text-left\b|text-right\b)/.test(s)) physRtl.push(file);
+      if (fs.statSync(full).size > 12288 && !allowedOver12k.has(file)) over12k.push(file);
+    }
+
+    assert.deepEqual(tAll, [], `UI components must use specific transitions instead of transition-all:\n${tAll.join("\n")}`);
+    assert.deepEqual(blur, [], `UI components must avoid expensive backdrop-blur-* passes:\n${blur.join("\n")}`);
+    assert.deepEqual(physRtl, [], `UI components must use logical RTL classes (ms/me/ps/pe/text-start/text-end):\n${physRtl.join("\n")}`);
+    assert.deepEqual(over12k, [], `New UI components exceeding 12KB budget:\n${over12k.join("\n")}`);
   });
 });

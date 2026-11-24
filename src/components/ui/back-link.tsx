@@ -3,14 +3,14 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface BackLinkProps {
+export interface BackLinkProps extends React.HTMLAttributes<HTMLElement> {
   href: string;
   label?: string;
 }
 
 export function BackLink({
   href,
-  label = "Back",
+  label = "Back", ...props
 }: BackLinkProps) {
   return (
     <a
@@ -19,7 +19,7 @@ export function BackLink({
         "flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "group"
-      )}
+      )} {...props}
     >
       <svg
         className={cn(

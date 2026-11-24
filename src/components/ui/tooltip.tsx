@@ -4,21 +4,32 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
 import { registerEscapeLayer } from "./lib/focus-trap";
+import { useIsMounted } from "./lib/react-compat";
+import { useFloating } from "./lib/floating";
 
-export type TooltipProps = React.HTMLAttributes<HTMLSpanElement> & {
+export type TooltipProps = Omit<React.HTMLAttributes<HTMLSpanElement>, "content"> & {
   content: React.ReactNode;
-  side?: "top" | "bottom";
+  side?: "top" | "bottom" | "left" | "right";
   delayMs?: number;
   /** Dual-mode: false renders instantly with no motion. Default true. */
   animated?: boolean;
 };
 
-export function Tooltip({ content, side = "top", delayMs = 300, animated = true, className, children, ...props }: TooltipProps) {
+export function Tooltip({
+  content,
+  side = "top",
+  delayMs = 300,
+  animated = true,
+  className,
+  children,
+  ...props
+}: TooltipProps) {
+  const mounted = useIsMounted();
   const [visible, setVisible] = React.useState(false);
-  const [coords, setCoords] = React.useState<{ top: number; left: number } | null>(null);
   const showTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const hideTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerWrapRef = React.useRef<HTMLSpanElement>(null);
+  const bubbleRef = React.useRef<HTMLSpanElement>(null);
   const descriptionId = React.useId();
 
   const clearTimers = React.useCallback(() => {
@@ -32,13 +43,15 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
     }
   }, []);
 
-  React.useEffect(() => {
-    return () => clearTimers();
-  }, [clearTimers]);
+  React.useEffect(() => () => clearTimers(), [clearTimers]);
 
-  const show = () => {
+  const showDelayed = () => {
     clearTimers();
     showTimer.current = setTimeout(() => setVisible(true), delayMs);
+  };
+  const showImmediate = () => {
+    clearTimers();
+    setVisible(true);
   };
   const hideSoon = () => {
     clearTimers();
@@ -49,32 +62,19 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
     setVisible(false);
   }, [clearTimers]);
 
-  React.useEffect(() => {
-    if (!visible) return;
-    const updatePosition = () => {
-      const rect = triggerWrapRef.current?.getBoundingClientRect();
-      if (!rect || (rect.width === 0 && rect.height === 0)) {
-        setCoords(null);
-        return;
-      }
-      setCoords({
-        top: side === "top" ? rect.top - 6 : rect.bottom + 6,
-        left: rect.left + rect.width / 2,
-      });
-    };
-    const raf = requestAnimationFrame(updatePosition);
-    const releaseEscape = registerEscapeLayer(hideNow);
-    window.addEventListener("scroll", updatePosition, true);
-    window.addEventListener("resize", updatePosition);
-    return () => {
-      cancelAnimationFrame(raf);
-      releaseEscape();
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [visible, side, hideNow]);
+  const pos = useFloating({
+    open: visible && mounted,
+    referenceRef: triggerWrapRef,
+    floatingRef: bubbleRef,
+    side,
+    align: "center",
+    offset: 6,
+  });
 
-  const activeCoords = visible ? coords : null;
+  React.useEffect(() => {
+    if (!visible || !mounted) return;
+    return registerEscapeLayer(hideNow);
+  }, [visible, mounted, hideNow]);
 
   const childNode = React.isValidElement<{ "aria-describedby"?: string }>(children)
     ? React.cloneElement(children, {
@@ -84,45 +84,41 @@ export function Tooltip({ content, side = "top", delayMs = 300, animated = true,
       })
     : <span aria-describedby={visible ? descriptionId : undefined}>{children}</span>;
 
-  const bubble = visible ? (
-    <span
-      role="tooltip"
-      id={descriptionId}
-      onMouseEnter={clearTimers}
-      onMouseLeave={hideSoon}
-      style={
-        activeCoords
-          ? {
-              position: "fixed",
-              top: activeCoords.top,
-              left: activeCoords.left,
-              transform: side === "top" ? "translate(-50%, -100%)" : "translateX(-50%)",
-            }
-          : undefined
-      }
-      className={cn(
-        "z-50 w-max max-w-64 rounded-md border border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-primary-foreground shadow-md",
-        !activeCoords && "absolute left-1/2 -translate-x-1/2",
-        !activeCoords && (side === "top" ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"),
-        animated && "animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!"
-      )}
-    >
-      {content}
-    </span>
-  ) : null;
+  const bubble =
+    visible && mounted ? (
+      <span
+        ref={bubbleRef}
+        role="tooltip"
+        id={descriptionId}
+        onMouseEnter={clearTimers}
+        onMouseLeave={hideSoon}
+        style={{
+          position: "fixed",
+          top: pos.top,
+          left: pos.left,
+          visibility: pos.ready ? "visible" : "hidden",
+        }}
+        className={cn(
+          "pointer-events-auto z-50 w-max max-w-64 rounded-md border border-foreground bg-primary px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-primary-foreground shadow-md",
+          animated && pos.ready && "animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!",
+        )}
+      >
+        {content}
+      </span>
+    ) : null;
 
   return (
     <span
       ref={triggerWrapRef}
       className={cn("relative inline-flex", className)}
-      onMouseEnter={show}
+      onMouseEnter={showDelayed}
       onMouseLeave={hideSoon}
-      onFocus={show}
+      onFocus={showImmediate}
       onBlur={hideNow}
       {...props}
     >
       {childNode}
-      {bubble && activeCoords && typeof document !== "undefined" ? createPortal(bubble, document.body) : bubble}
+      {bubble ? createPortal(bubble, document.body) : null}
     </span>
   );
 }

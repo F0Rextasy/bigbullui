@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { CompareHelper } from "@/components/site/compare-helper";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Compare Components" };
+export const metadata = buildMetadata({
+  title: "Compare Components",
+  description: "Side-by-side comparison guide to choose between similar bigbullui components (Table vs DataTable, Dialog vs Sheet, Select vs Combobox).",
+  path: "/docs/compare",
+});
 
 const PAIRS = [
   {

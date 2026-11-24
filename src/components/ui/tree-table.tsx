@@ -31,7 +31,7 @@ export function TreeTable({ nodes = [], className, ...props }: TreeTableProps) {
       <React.Fragment key={node.id}>
         <tr
           className={cn(
-            "border-b border-border/40 last:border-0 transition-colors hover:bg-secondary/40 motion-reduce:transition-none animate-[ttIn_0.25s_ease-out_both] motion-reduce:animate-none"
+            "border-b border-border/40 last:border-0 transition-colors hover:bg-secondary/40 motion-reduce:transition-none animate-[slide-in_0.25s_ease-out_both] motion-reduce:animate-none"
           )}
           style={{ animationDelay: `${idx * 35}ms` }}
         >
@@ -54,7 +54,7 @@ export function TreeTable({ nodes = [], className, ...props }: TreeTableProps) {
               <span className="text-sm">{node.label}</span>
             </div>
           </td>
-          <td className="px-3 py-2 text-right font-mono text-xs tabular-nums text-muted-foreground">{node.value ?? "-"}</td>
+          <td className="px-3 py-2 text-end font-mono text-xs tabular-nums text-muted-foreground">{node.value ?? "-"}</td>
         </tr>
         {node.children && expanded.has(node.id) && renderRows(node.children, depth + 1)}
       </React.Fragment>
@@ -66,7 +66,7 @@ export function TreeTable({ nodes = [], className, ...props }: TreeTableProps) {
         <thead>
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
             <th className="px-3 py-2 text-start font-medium">Ad</th>
-            <th className="px-3 py-2 text-right font-medium">Value</th>
+            <th className="px-3 py-2 text-end font-medium">Value</th>
           </tr>
         </thead>
         <tbody>{renderRows(nodes, 0)}</tbody>

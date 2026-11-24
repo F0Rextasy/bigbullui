@@ -9,66 +9,44 @@ export interface Reaction {
   active?: boolean;
 }
 
-export interface ReactionBarProps {
-  reactions: Reaction[];
+export interface ReactionBarProps extends React.HTMLAttributes<HTMLDivElement> {
+  reactions?: Reaction[];
   onReact?: (emoji: string) => void;
 }
 
-const ReactionBar: React.FC<ReactionBarProps> = ({ reactions = [], onReact }) => {
+export const ReactionBar = React.forwardRef<HTMLDivElement, ReactionBarProps>(function ReactionBar(
+  { reactions = [], onReact, className, ...props },
+  ref,
+) {
   return (
-    <div className="flex flex-wrap gap-2" role="group" aria-label="Reactions">
+    <div
+      ref={ref}
+      className={cn("flex flex-wrap gap-2", className)}
+      role="group"
+      aria-label="Reactions"
+      {...props}
+    >
       {reactions.map((reaction) => (
         <button
           key={reaction.emoji}
           type="button"
           onClick={() => onReact?.(reaction.emoji)}
-          aria-pressed={reaction.active}
+          aria-pressed={Boolean(reaction.active)}
           aria-label={`${reaction.emoji} reaction, ${reaction.count} votes`}
           className={cn(
-            "relative flex-0 flex cursor-pointer flex-col items-center gap-1 rounded-md border border-border/30 px-3 py-1 transition-colors duration-200 hover:bg-accent/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
-            reaction.active && "bg-accent/20 text-accent-strong"
+            "group relative flex shrink-0 cursor-pointer flex-col items-center gap-0.5 rounded-md border border-border px-3 py-1.5 transition-colors duration-150 hover:bg-accent/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+            reaction.active && "border-accent bg-accent/15 text-accent-strong",
           )}
         >
-          <span
-            className={cn(
-              "text-lg",
-              "motion-reduce:animate-none"
-            )}
-            aria-hidden="true"
-          >
+          <span className="text-lg" aria-hidden="true">
             {reaction.emoji}
           </span>
-          <span
-            className={cn(
-              "text-[10px] font-mono uppercase text-muted-foreground",
-              "motion-reduce:animate-none"
-            )}
-            aria-hidden="true"
-          >
+          <span className="font-mono text-[10px] uppercase text-muted-foreground" aria-hidden="true">
             {reaction.count}
-          </span>
-
-          {/* Active pop animation */}
-          {reaction.active && (
-            <span
-              aria-hidden="true"
-              className={cn(
-                "absolute top-0 right-0 h-3 w-3 rounded-full bg-accent/30 motion-safe:animate-[scale_0.3s_ease-out] opacity-0"
-              )}
-            />
-          )}
-
-          {/* Hover tooltip */}
-          <span
-            aria-hidden="true"
-            className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[8px] font-mono uppercase text-muted-foreground opacity-0 transition-opacity duration-150 group-hover:opacity-100"
-          >
-            {reaction.emoji} reaction
           </span>
         </button>
       ))}
     </div>
   );
-};
-
-export { ReactionBar };
+});
+ReactionBar.displayName = "ReactionBar";

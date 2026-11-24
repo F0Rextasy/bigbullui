@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface MonthPickerProps {
+export interface MonthPickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: number; // 0-11
   defaultValue?: number;
   onValueChange?: (value: number) => void;
@@ -23,7 +23,7 @@ export function MonthPicker({
   onValueChange,
   year: controlledYear,
   onYearChange,
-  className,
+  className, ...props
 }: MonthPickerProps) {
   const [internalMonth, setInternalMonth] = React.useState(() => controlledValue ?? defaultValue ?? 0);
   const [internalYear, setInternalYear] = React.useState(() => controlledYear ?? 2026);
@@ -65,7 +65,7 @@ export function MonthPicker({
       className={cn(
         "relative rounded-md border border-border bg-card p-4 font-mono",
         className,
-      )}
+      )} {...props}
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -103,7 +103,7 @@ export function MonthPicker({
         {Array.from({ length: 12 }, (_, i) => i).map((monthIdx) => {
           const isSelected = activeMonth === monthIdx;
           const bgClass = cn(
-            "rounded-sm px-3 py-1.5 text-left cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            "rounded-sm px-3 py-1.5 text-start cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             isSelected && "bg-accent text-accent-foreground",
             "hover:bg-accent/20 transition-colors"
           );

@@ -7,18 +7,20 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Input } from "../ui/input";
 
-export interface AuthVerifyProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AuthVerifyProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function AuthVerify({ className, onAction, ...props }: AuthVerifyProps) {
+export function AuthVerify({ title, className, onAction, ...props }: AuthVerifyProps) {
   const [verified, setVerified] = React.useState(false);
   return (
     <div className={cn("mx-auto w-full max-w-md", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <Badge variant="accent" className="mx-auto">GATE PASS // VERIFY</Badge>
-          <CardTitle className="text-xl">Check your inbox</CardTitle>
+          <CardTitle className="text-xl">{title ?? "Check your inbox"}</CardTitle>
           <CardDescription>We sent a 6-digit code to crew@arena.gg.</CardDescription>
         </CardHeader>
         <CardContent>

@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Avatar } from "../ui/avatar";
 
-const CONTACTS = [
+const DEFAULT_CONTACTS = [
   { name: "Ada Bull", detail: "Door captain // Gate 01", group: "CREW" },
   { name: "Grace Hopper", detail: "VIP patron // Box seats", group: "VIP" },
   { name: "Jon Reyes", detail: "Scanner tech // Night shift", group: "CREW" },
@@ -18,20 +18,23 @@ const CONTACTS = [
 
 const GROUPS = ["ALL", "CREW", "VIP", "PARTNERS", "PRESS"] as const;
 
-export interface AppContactsProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppContactsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  contacts?: typeof DEFAULT_CONTACTS;
   onAction?: (action: string) => void;
 }
 
-export function AppContacts({ className, onAction, ...props }: AppContactsProps) {
+export function AppContacts({ title, contacts = DEFAULT_CONTACTS, className, onAction, ...props }: AppContactsProps) {
   const [group, setGroup] = React.useState<(typeof GROUPS)[number]>("ALL");
   const [notice, setNotice] = React.useState<string | null>(null);
-  const visible = CONTACTS.filter((person) => group === "ALL" || person.group === group);
+  const visible = contacts.filter((person) => group === "ALL" || person.group === group);
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">ROLLODEX // CONTACTS</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">People file</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "People file"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}

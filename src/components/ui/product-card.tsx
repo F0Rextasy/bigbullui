@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface ProductCardProps {
+export interface ProductCardProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   title: string;
   price: string;
   originalPrice?: string;
@@ -22,14 +22,14 @@ export function ProductCard({
   image,
   discount = 0,
   className,
-  onAddToWishlist,
+  onAddToWishlist, ...props
 }: ProductCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground overflow-hidden hover:translate-y-1 hover:shadow-lg transition-all duration-300 motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground overflow-hidden hover:translate-y-1 hover:shadow-lg transition-[transform,width,height,opacity,background-color,border-color] duration-300 motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Image with entrance and hover scale */}
       <div className="relative aspect-[4/3] overflow-hidden">

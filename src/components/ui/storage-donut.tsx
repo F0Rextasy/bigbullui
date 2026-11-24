@@ -19,7 +19,7 @@ export function StorageDonut({ used = 62, total = 100, unit = "GB", className, .
       <div className="relative size-24 shrink-0" role="img" aria-label={`Storage ${pct} percent used`}>
         <svg viewBox="0 0 84 84" className="size-full -rotate-90">
           <circle cx="42" cy="42" r={r} fill="none" strokeWidth="10" className="stroke-border" strokeDasharray="4 3" />
-          <circle cx="42" cy="42" r={r} fill="none" strokeWidth="10" strokeLinecap="round" className="stroke-accent transition-all duration-700 motion-reduce:transition-none" strokeDasharray={c} strokeDashoffset={c - (c * pct) / 100} />
+          <circle cx="42" cy="42" r={r} fill="none" strokeWidth="10" strokeLinecap="round" className="stroke-accent transition-colors duration-700 motion-reduce:transition-none" strokeDasharray={c} strokeDashoffset={c - (c * pct) / 100} />
         </svg>
         <span className="absolute inset-0 flex items-center justify-center font-mono text-sm font-bold tabular-nums text-foreground">{pct}%</span>
       </div>

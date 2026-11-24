@@ -10,24 +10,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PageHeader } from "../ui/page-header";
 import { Steps } from "../ui/steps";
 
-const TICKETS = [
+const DEFAULT_TICKETS = [
   { id: "SUP-1042", subject: "Refund for duplicate stub order", status: "IN PROGRESS", updated: "12 MIN AGO" },
   { id: "SUP-1041", subject: "Seat swap for orchestra row C", status: "TRIAGE", updated: "1 HR AGO" },
   { id: "SUP-1038", subject: "Missing barcode on confirmation", status: "RESOLVED", updated: "1 DAY AGO" },
 ];
 
-const TRACKER = [
+const DEFAULT_TRACKER = [
   { title: "Received", description: "Stub logged" },
   { title: "Triage", description: "Agent assigned" },
   { title: "In progress", description: "Fix underway" },
   { title: "Resolved", description: "Stamped shut" },
 ];
 
-export interface BlockCustomerPortalProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockCustomerPortalProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  tickets?: typeof DEFAULT_TICKETS;
+  tracker?: typeof DEFAULT_TRACKER;
   onAction?: (action: string) => void;
 }
 
-export function BlockCustomerPortal({ className, onAction, ...props }: BlockCustomerPortalProps) {
+export function BlockCustomerPortal({ title, tickets = DEFAULT_TICKETS, tracker = DEFAULT_TRACKER, className, onAction, ...props }: BlockCustomerPortalProps) {
   const [sent, setSent] = React.useState(false);
 
   return (
@@ -41,10 +45,10 @@ export function BlockCustomerPortal({ className, onAction, ...props }: BlockCust
       <div className="grid gap-4 lg:grid-cols-5">
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>My tickets</CardTitle>
+            <CardTitle>{title ?? "My tickets"}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {TICKETS.map((ticket) => (
+            {tickets.map((ticket) => (
               <div key={ticket.id} className="flex min-w-0 items-center gap-3 rounded-md border border-dashed border-border p-3">
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-mono text-xs font-bold">{ticket.id}: {ticket.subject}</p>
@@ -62,7 +66,7 @@ export function BlockCustomerPortal({ className, onAction, ...props }: BlockCust
             <CardTitle>Status tracker</CardTitle>
           </CardHeader>
           <CardContent>
-            <Steps steps={TRACKER} current={2} />
+            <Steps steps={tracker} current={2} />
             <p className="mt-4 rounded-md border border-dashed border-border bg-secondary p-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
               SUP-1042 is with the box office crew
             </p>

@@ -3,7 +3,15 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
-import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
+import {
+  getFocusable,
+  hideBackgroundSiblings,
+  lockBodyScroll,
+  registerEscapeLayer,
+  trapFocus,
+} from "./lib/focus-trap";
+import { useIsMounted } from "./lib/react-compat";
+import { Slot } from "./lib/slot";
 
 interface DrawerContextValue {
   open: boolean;
@@ -97,50 +105,59 @@ export interface DrawerTriggerProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
 
-export function DrawerTrigger({
-  asChild = false,
-  children,
-  className,
-  ...props
-}: DrawerTriggerProps) {
-  const ctx = useDrawerContext();
+export const DrawerTrigger = React.forwardRef<HTMLButtonElement, DrawerTriggerProps>(
+  function DrawerTrigger({ asChild = false, children, className, onClick, ...props }, ref) {
+    const ctx = useDrawerContext();
 
-  if (asChild && React.isValidElement(children)) {
-    const child = children as React.ReactElement<React.HTMLAttributes<HTMLElement>>;
-    return React.cloneElement(child, {
-      "aria-haspopup": "dialog",
-      "aria-expanded": ctx.open,
-      "aria-controls": ctx.open ? ctx.contentId : undefined,
-      onClick: (e: React.MouseEvent<HTMLElement>) => {
-        child.props.onClick?.(e);
-        ctx.setOpen(true);
-      },
-    });
-  }
+    if (asChild && React.isValidElement(children)) {
+      return (
+        <Slot
+          ref={ref as React.Ref<HTMLElement>}
+          aria-haspopup="dialog"
+          aria-expanded={ctx.open}
+          aria-controls={ctx.open ? ctx.contentId : undefined}
+          className={className}
+          onClick={(e: React.MouseEvent<HTMLElement>) => {
+            onClick?.(e);
+            ctx.setOpen(true);
+          }}
+          {...props}
+        >
+          {children}
+        </Slot>
+      );
+    }
 
-  return (
-    <button
-      type="button"
-      aria-haspopup="dialog"
-      aria-expanded={ctx.open}
-      aria-controls={ctx.open ? ctx.contentId : undefined}
-      onClick={() => ctx.setOpen(true)}
-      className={cn(
-        "inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-wider",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+    return (
+      <button
+        ref={ref}
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={ctx.open}
+        aria-controls={ctx.open ? ctx.contentId : undefined}
+        onClick={(e) => {
+          onClick?.(e);
+          ctx.setOpen(true);
+        }}
+        className={cn(
+          "inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-wider",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
+);
+DrawerTrigger.displayName = "DrawerTrigger";
 
 export interface DrawerContentProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   className?: string;
   showCloseButton?: boolean;
   dismissThreshold?: number;
+  caption?: React.ReactNode;
 }
 
 export function DrawerContent({
@@ -148,13 +165,17 @@ export function DrawerContent({
   className,
   showCloseButton = true,
   dismissThreshold = 80,
+  caption = "ADMISSION STUB • TEAR ALONG NOTCH RIM",
+  style,
   ...props
 }: DrawerContentProps) {
   const ctx = useDrawerContext();
+  const mounted = useIsMounted();
+  const rootRef = React.useRef<HTMLDivElement>(null);
   const contentRef = React.useRef<HTMLDivElement>(null);
   const restoreRef = React.useRef<HTMLElement | null>(null);
   const setOpenRef = React.useRef(ctx.setOpen);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setOpenRef.current = ctx.setOpen;
   });
 
@@ -165,12 +186,13 @@ export function DrawerContent({
 
   // Focus trap & escape key handler
   React.useEffect(() => {
-    if (!ctx.open) return;
+    if (!ctx.open || !mounted) return;
     restoreRef.current = document.activeElement as HTMLElement | null;
     const content = contentRef.current;
     const focusables = content ? getFocusable(content) : [];
     (focusables[0] ?? content)?.focus();
 
+    const releaseInert = hideBackgroundSiblings(rootRef.current);
     const releaseScroll = lockBodyScroll();
     const releaseEscape = registerEscapeLayer(() => {
       setOpenRef.current(false);
@@ -187,12 +209,13 @@ export function DrawerContent({
       document.removeEventListener("keydown", onKeyDown);
       releaseEscape();
       releaseScroll();
+      releaseInert();
       restoreRef.current?.focus();
       currentOffsetRef.current = 0;
       setDragOffset(0);
       setIsDragging(false);
     };
-  }, [ctx.open]);
+  }, [ctx.open, mounted]);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
@@ -236,12 +259,12 @@ export function DrawerContent({
   if (!ctx.open) return null;
 
   const overlay = (
-    <div className="fixed inset-0 z-50 overflow-hidden overscroll-contain">
-      {/* Backdrop blur overlay */}
+    <div ref={rootRef} className="fixed inset-0 z-50 overflow-hidden overscroll-contain">
+      {/* Backdrop overlay */}
       <div
         aria-hidden="true"
         onClick={() => ctx.setOpen(false)}
-        className="fixed inset-0 bg-foreground/60 backdrop-blur-sm overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
+        className="fixed inset-0 bg-foreground/60 overscroll-contain motion-safe:animate-[fade-in_0.2s_ease-out_both]"
       />
 
       {/* Slide-up ticket stub admission drawer */}
@@ -253,14 +276,16 @@ export function DrawerContent({
         aria-labelledby={ctx.hasTitle ? ctx.titleId : undefined}
         aria-describedby={ctx.hasDescription ? ctx.descriptionId : undefined}
         tabIndex={-1}
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 flex max-h-[88vh] flex-col overscroll-contain rounded-t-2xl border-t-2 border-x-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-7px] outline-border focus:outline-none sm:mx-auto sm:max-w-xl",
+          dragOffset === 0 && "motion-safe:animate-[fade-in-up_0.25s_ease-out]",
+          className,
+        )}
         style={{
-          transform: `translateY(${Math.max(0, dragOffset)}px)`,
+          ...style,
+          transform: dragOffset !== 0 ? `translateY(${Math.max(0, dragOffset)}px)` : style?.transform,
           transition: isDragging ? "none" : "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
-        className={cn(
-          "fixed inset-x-0 bottom-0 z-50 flex max-h-[88vh] flex-col overscroll-contain rounded-t-2xl border-t-2 border-x-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-7px] outline-border focus:outline-none sm:max-w-xl sm:mx-auto motion-safe:animate-[fade-in-up_0.25s_ease-out]",
-          className
-        )}
         {...props}
       >
         {/* Pull Handle and Perforated Ticket Notch Rim Header */}
@@ -275,11 +300,13 @@ export function DrawerContent({
           <div className="mx-auto h-1.5 w-14 rounded-full bg-muted-foreground/35 hover:bg-muted-foreground/55 transition-colors" />
 
           {/* Micro Ticket Stub Admission Eyebrow */}
-          <div className="mt-2 flex items-center justify-center gap-2">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
-              ADMISSION STUB • TEAR ALONG NOTCH RIM
-            </span>
-          </div>
+          {caption !== null && caption !== false && (
+            <div className="mt-2 flex items-center justify-center gap-2">
+              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
+                {caption}
+              </span>
+            </div>
+          )}
 
           {/* Scalloped Perforated Notch Rim */}
           <div
@@ -310,7 +337,7 @@ export function DrawerContent({
             type="button"
             aria-label="Close drawer"
             onClick={() => ctx.setOpen(false)}
-            className="absolute right-4 top-3.5 z-30 cursor-pointer rounded-sm p-1 text-muted-foreground opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring"
+            className="absolute end-3 top-3 z-30 cursor-pointer rounded-sm p-1.5 text-muted-foreground opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <svg
               width="16"
@@ -333,7 +360,7 @@ export function DrawerContent({
     </div>
   );
 
-  return typeof document !== "undefined" ? createPortal(overlay, document.body) : overlay;
+  return mounted ? createPortal(overlay, document.body) : overlay;
 }
 
 export function DrawerHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
@@ -395,35 +422,43 @@ export interface DrawerCloseProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
 }
 
-export function DrawerClose({
-  asChild = false,
-  children,
-  className,
-  ...props
-}: DrawerCloseProps) {
-  const ctx = useDrawerContext();
+export const DrawerClose = React.forwardRef<HTMLButtonElement, DrawerCloseProps>(
+  function DrawerClose({ asChild = false, children, className, onClick, ...props }, ref) {
+    const ctx = useDrawerContext();
 
-  if (asChild && React.isValidElement(children)) {
-    const child = children as React.ReactElement<React.HTMLAttributes<HTMLElement>>;
-    return React.cloneElement(child, {
-      onClick: (e: React.MouseEvent<HTMLElement>) => {
-        child.props.onClick?.(e);
-        ctx.setOpen(false);
-      },
-    });
-  }
+    if (asChild && React.isValidElement(children)) {
+      return (
+        <Slot
+          ref={ref as React.Ref<HTMLElement>}
+          className={className}
+          onClick={(e: React.MouseEvent<HTMLElement>) => {
+            onClick?.(e);
+            ctx.setOpen(false);
+          }}
+          {...props}
+        >
+          {children}
+        </Slot>
+      );
+    }
 
-  return (
-    <button
-      type="button"
-      onClick={() => ctx.setOpen(false)}
-      className={cn(
-        "inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-wider",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
+    return (
+      <button
+        ref={ref}
+        type="button"
+        onClick={(e) => {
+          onClick?.(e);
+          ctx.setOpen(false);
+        }}
+        className={cn(
+          "inline-flex items-center justify-center font-mono text-xs font-bold uppercase tracking-wider",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
+);
+DrawerClose.displayName = "DrawerClose";

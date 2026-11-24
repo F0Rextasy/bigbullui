@@ -44,7 +44,7 @@ const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
         aria-pressed={isPressed}
         onClick={handleClick}
         className={cn(
-          "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border transition-all duration-150",
+          "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border transition-colors duration-150",
           "motion-reduce:transition-none",
           variants[variant],
           sizes[size],

@@ -26,7 +26,7 @@ export function VoiceNoteList({ notes = [], onPlay, className, ...props }: Voice
         return (
           <div
             key={note.id}
-            className="flex items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 animate-[vnIn_0.3s_ease-out_both] motion-reduce:animate-none"
+            className="flex items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none"
             style={{ animationDelay: `${idx * 55}ms` }}
           >
             <button

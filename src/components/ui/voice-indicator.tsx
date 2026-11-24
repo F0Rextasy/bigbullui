@@ -24,7 +24,7 @@ export function VoiceIndicator({ name = "ADA", speaking = true, muted = false, l
         {[0.5, 0.9, 0.65, 1, 0.55].map((h, i) => (
           <span
             key={i}
-            className={cn("w-1 origin-bottom rounded-full motion-reduce:animate-none", muted ? "bg-muted-foreground" : speaking ? "bg-success animate-[voiceBar_0.7s_ease-in-out_infinite]" : "bg-secondary")}
+            className={cn("w-1 origin-bottom rounded-full motion-reduce:animate-none", muted ? "bg-muted-foreground" : speaking ? "bg-success animate-[arWave_0.7s_ease-in-out_infinite]" : "bg-secondary")}
             style={{ height: `${Math.round(h * level * 24)}px`, animationDelay: `${i * 90}ms` }}
           />
         ))}

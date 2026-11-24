@@ -36,7 +36,7 @@ export function UploadProgress({ filename, progress, onCancel, className, ...pro
           {done ? "✓" : `${progress}%`}
         </span>
       </span>
-      <div className="min-w-0 flex-1 animate-[upFade_0.3s_ease-out_both] motion-reduce:animate-none">
+      <div className="min-w-0 flex-1 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <p className="truncate text-sm font-medium">{filename}</p>
         <p className="text-xs text-muted-foreground">{done ? "Upload complete" : "Uploading…"}</p>
       </div>

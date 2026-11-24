@@ -6,26 +6,31 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 
-const DOCTORS = [
+const DEFAULT_DOCTORS = [
   { id: "d1", name: "Dr. Elif Aydin", field: "Dermatology" },
   { id: "d2", name: "Dr. Mert Kaya", field: "Cardiology" },
   { id: "d3", name: "Dr. Zeynep Demir", field: "Pediatrics" },
 ];
 
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-const HOURS = ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"];
+const DEFAULT_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+const DEFAULT_HOURS = ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00"];
 
 /** Clinic booking: doctor pick + day/hour grid + confirmation stub. */
-export interface BlockClinicProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockClinicProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  doctors?: typeof DEFAULT_DOCTORS;
+  days?: typeof DEFAULT_DAYS;
+  hours?: typeof DEFAULT_HOURS;
   onAction?: (action: string) => void;
 }
 
-export function BlockClinic({ className, onAction, ...props }: BlockClinicProps) {
-  const [doctor, setDoctor] = React.useState(DOCTORS[0].id);
+export function BlockClinic({ title, doctors = DEFAULT_DOCTORS, days = DEFAULT_DAYS, hours = DEFAULT_HOURS, className, onAction, ...props }: BlockClinicProps) {
+  const [doctor, setDoctor] = React.useState(doctors[0].id);
   const [slot, setSlot] = React.useState<string | null>(null);
   const [done, setDone] = React.useState(false);
 
-  const doc = DOCTORS.find((d) => d.id === doctor) ?? DOCTORS[0];
+  const doc = doctors.find((d) => d.id === doctor) ?? doctors[0];
   const key = (d: string, h: string) => `${d} ${h}`;
 
   if (done && slot) {
@@ -49,9 +54,9 @@ export function BlockClinic({ className, onAction, ...props }: BlockClinicProps)
   return (
     <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
-        <h2 className="font-mono text-xl font-black uppercase tracking-tight">Book a visit</h2>
+        <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "Book a visit"}</h2>
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="Doctors">
-          {DOCTORS.map((d) => (
+          {doctors.map((d) => (
             <button
               key={d.id}
               type="button"
@@ -69,16 +74,16 @@ export function BlockClinic({ className, onAction, ...props }: BlockClinicProps)
             <thead>
               <tr>
                 <th className="p-1" aria-hidden="true" />
-                {DAYS.map((d) => (
+                {days.map((d) => (
                   <th key={d} className="p-1 font-mono text-[10px] uppercase text-muted-foreground">{d}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {HOURS.map((h) => (
+              {hours.map((h) => (
                 <tr key={h}>
                   <th className="p-1 font-mono text-[10px] tabular-nums text-muted-foreground">{h}</th>
-                  {DAYS.map((d) => {
+                  {days.map((d) => {
                     const k = key(d, h);
                     const on = slot === k;
                     return (

@@ -36,7 +36,7 @@ export function VolumeSlider({
   );
 
   const fillClass = cn(
-    "absolute bottom-0 left-0 rounded-full bg-primary transition-all duration-300 ease-out",
+    "absolute bottom-0 left-0 rounded-full bg-primary transition-[width,height,left,right,opacity,background-color,border-color] duration-300 ease-out",
     motionReduceClass
   );
 

@@ -123,7 +123,7 @@ export function KanbanLite({
               col.tickets.map((ticket) => (
                 <div
                   key={ticket.id}
-                  className="group relative rounded-md border-2 border-foreground bg-background p-3 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group relative rounded-md border-2 border-foreground bg-background p-3 shadow-sm transition-[transform,opacity,background-color,border-color,color] hover:-translate-y-0.5 hover:shadow-md"
                 >
                   {/* Left notch cut */}
                   <div

@@ -102,7 +102,7 @@ export function ScratchCard({ prize = "20% OFF", code = "BB-SCRATCH-20", coverTe
         ) : null}
       </div>
       <div className="mx-4 mb-4 h-1.5 overflow-hidden rounded-full bg-secondary" aria-hidden>
-        <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${scratched}%` }} />
+        <div className="h-full rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color]" style={{ width: `${scratched}%` }} />
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ export function WaitlistQueueCard({
         <span className="text-base font-normal text-muted-foreground"> / {total}</span>
       </p>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuenow={Math.round(pct)} aria-valuemin={0} aria-valuemax={100} aria-label="Queue progress">
-        <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${pct}%` }} />
+        <div className="h-full rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color]" style={{ width: `${pct}%` }} />
       </div>
       {!joined ? (
         <div className="mt-3 flex gap-2">

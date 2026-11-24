@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 
-const ROOMS = [
+const DEFAULT_ROOMS = [
   { id: "r1", name: "Attic Single", price: 90, beds: 1 },
   { id: "r2", name: "Courtyard Double", price: 140, beds: 2 },
   { id: "r3", name: "Roof Suite", price: 260, beds: 3 },
@@ -20,18 +20,21 @@ function nightsBetween(a: string, b: string): number {
 }
 
 /** Hotel booking: date range + room cards + stay summary. */
-export interface BlockHotelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockHotelProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  rooms?: typeof DEFAULT_ROOMS;
   onAction?: (action: string) => void;
 }
 
-export function BlockHotel({ className, onAction, ...props }: BlockHotelProps) {
+export function BlockHotel({ title, rooms = DEFAULT_ROOMS, className, onAction, ...props }: BlockHotelProps) {
   const [checkIn, setCheckIn] = React.useState("");
   const [checkOut, setCheckOut] = React.useState("");
   const [roomId, setRoomId] = React.useState("r2");
   const [done, setDone] = React.useState(false);
 
   const nights = nightsBetween(checkIn, checkOut);
-  const room = ROOMS.find((r) => r.id === roomId) ?? ROOMS[0];
+  const room = rooms.find((r) => r.id === roomId) ?? rooms[0];
   const total = nights * room.price;
   const ready = nights > 0;
 
@@ -55,7 +58,7 @@ export function BlockHotel({ className, onAction, ...props }: BlockHotelProps) {
   return (
     <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
-        <h2 className="font-mono text-xl font-black uppercase tracking-tight">Book your stay</h2>
+        <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "Book your stay"}</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="block">
             <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Check-in</span>
@@ -67,7 +70,7 @@ export function BlockHotel({ className, onAction, ...props }: BlockHotelProps) {
           </label>
         </div>
         <div className="grid gap-2 sm:grid-cols-3" role="group" aria-label="Rooms">
-          {ROOMS.map((r) => (
+          {rooms.map((r) => (
             <button
               key={r.id}
               type="button"

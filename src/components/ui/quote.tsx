@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface QuoteProps {
+export interface QuoteProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   children?: React.ReactNode;
   cite?: string;
@@ -12,18 +12,18 @@ export function Quote({
   className,
   children,
   cite,
-  author,
+  author, ...props
 }: QuoteProps) {
   const citeClasses = "mt-2 text-sm font-mono text-uppercase text-muted-foreground";
 
   return (
     <blockquote
       className={cn(
-        "border-l-2 border-dashed border-border/60 ps-4 my-2",
+        "border-s-2 border-dashed border-border/60 ps-4 my-2",
         "motion-reduce:transition-none",
         "motion-safe:animate-[stamp_0.4s_ease-out_both]",
         className
-      )}
+      )} {...props}
     >
       <p className="text-lg line-clamp-3">
         {children}

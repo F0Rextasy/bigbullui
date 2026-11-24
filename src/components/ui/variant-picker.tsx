@@ -8,7 +8,7 @@ export interface ColorOption {
   className?: string;
 }
 
-export interface VariantPickerProps {
+export interface VariantPickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   colors: ColorOption[];
   sizes?: string[];
   value?: string;
@@ -25,7 +25,7 @@ export function VariantPicker({
   defaultValue,
   onColorChange,
   onSizeChange,
-  className,
+  className, ...props
 }: VariantPickerProps) {
   const [internalColor, setInternalColor] = React.useState<string | undefined>(
     defaultValue ?? undefined
@@ -33,7 +33,7 @@ export function VariantPicker({
   const controlledValue = value ?? internalColor;
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-3", className)} {...props}>
       {/* Color swatches */}
       <div>
         <span className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Color</span>

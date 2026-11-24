@@ -159,7 +159,7 @@ function BeaconGraphic({
       {/* Outer reticle / sweep track */}
       <div
         className={cn(
-          "absolute inset-0 rounded-full border border-current/20 transition-all",
+          "absolute inset-0 rounded-full border border-current/20 transition-[width,height,left,right,opacity,background-color,border-color]",
           size === "lg" && "border-current/30"
         )}
       />
@@ -204,7 +204,7 @@ function BeaconGraphic({
       {/* Center LED Core Dot */}
       <span
         className={cn(
-          "relative z-10 rounded-full border border-background/60 transition-all",
+          "relative z-10 rounded-full border border-background/60 transition-colors",
           sizeDot,
           config.dotBg,
           config.glowClass
@@ -334,7 +334,7 @@ export function StatusDot({
             {gateName}
           </span>
         </div>
-        <div className="flex flex-col items-end text-right">
+        <div className="flex flex-col items-end text-end">
           <span className="rounded-xs border border-border bg-secondary/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
             {turnstileId}
           </span>
@@ -378,7 +378,7 @@ export function StatusDot({
           <div className="mt-2.5">
             <div className="relative h-2 w-full overflow-hidden rounded-xs border border-border bg-background">
               <div
-                className={cn("h-full transition-all duration-500", config.meterBg)}
+                className={cn("h-full transition-[width,height,left,right,opacity,background-color,border-color] duration-500", config.meterBg)}
                 style={{ width: `${Math.min(100, Math.max(0, percent))}%` }}
               />
             </div>

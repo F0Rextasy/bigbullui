@@ -20,7 +20,7 @@ export function OnboardingChecklist({ steps = [{ id: "s1", label: "Create venue"
         <span className="font-mono text-xs font-bold tabular-nums text-accent">{pct}%</span>
       </div>
       <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-border/50" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="Onboarding progress">
-        <div className="h-full rounded-full bg-accent transition-all duration-500 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
+        <div className="h-full rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-500 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
       </div>
       <ul className="mt-3 space-y-1.5">
         {steps.map((s) => {

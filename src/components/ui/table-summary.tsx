@@ -26,7 +26,7 @@ export function TableSummary({ rows = [], caption, className, ...props }: TableS
           <div
             key={row.id}
             className={cn(
-              "flex items-center justify-between gap-4 animate-[tsIn_0.3s_ease-out_both] motion-reduce:animate-none",
+              "flex items-center justify-between gap-4 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none",
               row.bold && "border-t border-dashed border-border pt-2"
             )}
             style={{ animationDelay: `${idx * 50}ms` }}

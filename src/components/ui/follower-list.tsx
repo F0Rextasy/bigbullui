@@ -8,98 +8,113 @@ export interface Follower {
   avatar: string;
   name: string;
   handle: string;
-}
-
-export interface FollowerListProps {
-  followers: Follower[];
-}
-
-const FollowButton: React.FC<{
   isFollowing?: boolean;
+}
+
+export interface FollowerListProps extends React.HTMLAttributes<HTMLDivElement> {
+  followers?: Follower[];
+  onToggleFollow?: (id: string, following: boolean) => void;
+}
+
+function FollowButton({
+  defaultFollowing = false,
+  followerName,
+  onToggle,
+}: {
+  defaultFollowing?: boolean;
+  followerName: string;
   onToggle?: (following: boolean) => void;
-}> = ({ isFollowing = false, onToggle }) => {
-  const [isActive, setIsActive] = React.useState(isFollowing);
+}) {
+  const [isActive, setIsActive] = React.useState(defaultFollowing);
 
   const handleClick = () => {
-    setIsActive(!isActive);
-    onToggle?.(!isActive);
+    const next = !isActive;
+    setIsActive(next);
+    onToggle?.(next);
   };
 
   return (
     <button
       type="button"
+      aria-pressed={isActive}
+      aria-label={isActive ? `Unfollow ${followerName}` : `Follow ${followerName}`}
       onClick={handleClick}
       className={cn(
-        "flex items-center gap-1 rounded-md border border-dashed border-border/30 px-2.5 py-1 text-[10px] font-mono uppercase text-muted-foreground",
-        isActive && "bg-accent text-accent-foreground",
-        isActive && "hover:bg-accent/90"
+        "inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md border border-dashed border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        isActive && "border-solid border-accent bg-accent text-accent-foreground hover:bg-accent/90 hover:text-accent-foreground",
       )}
     >
       {isActive ? (
         <>
-          FOLLOWING
+          <span>Following</span>
           <svg
-            className="w-3 h-3"
+            className="size-3"
             viewBox="0 0 24 24"
-            fill="currentColor"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
           >
-            <path d="M20 6L9 17l-5-5" />
+            <path d="M20 6 9 17l-5-5" />
           </svg>
         </>
       ) : (
         <>
-          FOLLOW
+          <span>Follow</span>
           <svg
-            className="w-3 h-3"
+            className="size-3"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
           >
-            <path d="M6.8 2.5a2.2 2.2 0 0 1 2.1-.2h7.6a2.2 2.2 0 0 1 2.1 2.2v5.6a2.2 2.2 0 0 1-2.1 2.2H9.2a2.2 2.2 0 0 1-2.1-2.2V5.3a2.2 2.2 0 0 1 1.4-1.9z" />
-            <line x1="10" y1="7.5" x2="15.5" y2="7.5" />
+            <path d="M12 5v14M5 12h14" />
           </svg>
         </>
       )}
     </button>
   );
-};
+}
 
-const FollowerList: React.FC<FollowerListProps> = ({ followers = [] }) => {
+export const FollowerList = React.forwardRef<HTMLDivElement, FollowerListProps>(function FollowerList(
+  { followers = [], onToggleFollow, className, ...props },
+  ref,
+) {
   return (
-    <div className="space-y-1">
+    <div ref={ref} className={cn("space-y-1.5", className)} {...props}>
       {followers.map((follower) => (
         <div
           key={follower.id}
-          className={cn(
-            "flex items-center gap-3 px-1 py-1 rounded-sm border border-border/30 motion-reduce:transition-none",
-                        "motion-safe:animate-[fade-in-up_0.3s_ease-out_both]"
-          )}
+          className="flex items-center gap-3 rounded-sm border border-border/60 bg-card px-2.5 py-2 motion-safe:animate-[fade-in-up_0.3s_ease-out_both] motion-reduce:animate-none"
         >
           <span
-            className={cn(
-              "rounded-full bg-border/20 p-1 text-[10px] font-mono uppercase text-muted-foreground",
-              "w-6 h-6 flex-shrink-0"
-            )}
+            aria-hidden="true"
+            className="flex size-7 shrink-0 items-center justify-center rounded-full bg-secondary font-mono text-[10px] font-bold uppercase text-secondary-foreground"
           >
             {follower.avatar || "U"}
           </span>
-          <div className="flex-1 min-w-0">
-            <span className="font-mono uppercase text-foreground">
+          <div className="min-w-0 flex-1">
+            <span className="block truncate font-mono text-xs font-semibold uppercase text-foreground">
               {follower.name}
             </span>
-            <span className="text-[10px] font-mono uppercase text-muted-foreground">
+            <span className="block truncate font-mono text-[10px] text-muted-foreground">
               {follower.handle}
             </span>
           </div>
           <FollowButton
-            isFollowing={false}
-            onToggle={() => console.log("toggle")}
+            key={`${follower.id}-${Boolean(follower.isFollowing)}`}
+            defaultFollowing={Boolean(follower.isFollowing)}
+            followerName={follower.name}
+            onToggle={(next) => onToggleFollow?.(follower.id, next)}
           />
         </div>
       ))}
     </div>
   );
-};
-
-export { FollowerList };
+});
+FollowerList.displayName = "FollowerList";

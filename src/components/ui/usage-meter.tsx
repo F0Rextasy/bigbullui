@@ -26,14 +26,14 @@ export function UsageMeter({ label = "", used = 0, limit = 0, unit = "", classNa
       </div>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-border/50" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
         <div
-          className={cn("h-full rounded-full transition-all duration-700 ease-out motion-reduce:transition-none", tone)}
-          style={{ width: `${pct}%`, animation: "usageGrow 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
+          className={cn("h-full rounded-full transition-[width,height,left,right,opacity,background-color,border-color] duration-700 ease-out motion-reduce:transition-none", tone)}
+          style={{ width: `${pct}%`, animation: "bltGrow 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
         />
       </div>
       <div className="mt-1.5 flex items-center justify-between">
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">%{pct}</span>
         {over && (
-          <span className="font-mono text-[10px] uppercase tracking-wider text-destructive animate-[usagePulse_1.2s_ease-in-out_infinite] motion-reduce:animate-none">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-destructive animate-[pulse-soft_1.2s_ease-in-out_infinite] motion-reduce:animate-none">
             Quota exceeded
           </span>
         )}

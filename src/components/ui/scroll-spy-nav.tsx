@@ -8,12 +8,12 @@ export interface Section {
   label: string;
 }
 
-export interface ScrollSpyNavProps {
+export interface ScrollSpyNavProps extends React.HTMLAttributes<HTMLElement> {
   sections: Section[];
   className?: string;
 }
 
-export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
+export function ScrollSpyNav({ sections = [], className, ...props }: ScrollSpyNavProps) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const refs = React.useRef<HTMLDivElement[]>(sections.map(() => null!));
 
@@ -74,7 +74,7 @@ export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
     <div className={cn(
       "sticky top-0 z-10 bg-background border-b border-border/50 px-2 pt-1",
       className
-    )}>
+    )} {...props}>
       {/* Sections */}
       <div role="tablist" className="flex space-x-1">
         {sections.map((section, i) => {
@@ -101,7 +101,7 @@ export function ScrollSpyNav({ sections = [], className }: ScrollSpyNavProps) {
               key={section.id}
               className={cn(
                 "rounded-sm px-3 py-1 text-sm font-mono uppercase tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors",
-                isActive && "relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 -translate-x-1/2 after:w-0 after:h-0.5 after:bg-accent after:rounded-full after:transition-all after:duration-300 ease-out after:motion-safe:animate-[stamp_0.4s_ease-out_both]",
+                isActive && "relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 -translate-x-1/2 after:w-0 after:h-0.5 after:bg-accent after:rounded-full after:transition-[transform,width,height,opacity,background-color,border-color] after:duration-300 ease-out after:motion-safe:animate-[stamp_0.4s_ease-out_both]",
                 isActive && "text-foreground after:z-10"
               )}
               onClick={onClick}

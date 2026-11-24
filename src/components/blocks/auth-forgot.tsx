@@ -8,11 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui
 import { Input } from "../ui/input";
 import { Alert } from "../ui/alert";
 
-export interface AuthForgotProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AuthForgotProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function AuthForgot({ className, onAction, ...props }: AuthForgotProps) {
+export function AuthForgot({ title, className, onAction, ...props }: AuthForgotProps) {
   const emailId = React.useId();
   const [sent, setSent] = React.useState(false);
   return (
@@ -20,7 +22,7 @@ export function AuthForgot({ className, onAction, ...props }: AuthForgotProps) {
       <Card>
         <CardHeader className="text-center">
           <Badge variant="accent" className="mx-auto">GATE PASS // RECOVERY</Badge>
-          <CardTitle className="text-xl">Lost your stub?</CardTitle>
+          <CardTitle className="text-xl">{title ?? "Lost your stub?"}</CardTitle>
           <CardDescription>Enter your crew email and we reissue a pass.</CardDescription>
         </CardHeader>
         <CardContent>

@@ -40,7 +40,7 @@ export function InstallmentPicker({ plans = [], value, defaultValue, onValueChan
                 className={cn(
                   "flex w-full items-center gap-3 px-4 py-2.5 text-start transition-colors motion-reduce:transition-none",
                   "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-inset",
-                  "animate-[ipIn_0.3s_ease-out_both] motion-reduce:animate-none",
+                  "animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none",
                   selected ? "bg-accent/5" : "hover:bg-secondary/30"
                 )}
                 style={{ animationDelay: `${idx * 50}ms` }}
@@ -58,7 +58,7 @@ export function InstallmentPicker({ plans = [], value, defaultValue, onValueChan
                   <span className={cn("block text-sm", selected ? "font-semibold text-accent" : "font-medium")}>{plan.months} taksit</span>
                   {plan.rate && <span className="block text-[11px] text-muted-foreground">%{plan.rate} / month</span>}
                 </span>
-                <span className="shrink-0 text-right">
+                <span className="shrink-0 text-end">
                   <span className={cn("block font-mono text-sm font-bold tabular-nums", selected && "text-accent")}>{plan.monthly}</span>
                   <span className="block font-mono text-[10px] tabular-nums text-muted-foreground">Total {plan.total}</span>
                 </span>

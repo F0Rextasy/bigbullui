@@ -92,7 +92,7 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
           <div
             role="region"
             aria-label={activeItem.label}
-            className="rounded-md border border-border bg-card p-3 shadow-sm animate-[fadeIn_0.15s_ease-out_both] motion-reduce:animate-none!"
+            className="rounded-md border border-border bg-card p-3 shadow-sm animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none!"
           >
             {activeItem.panel}
           </div>

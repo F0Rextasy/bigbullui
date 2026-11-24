@@ -17,7 +17,7 @@ export function BioCard({ name, initials, bio, links = [], onFollow, className, 
 
   return (
     <div className={cn("w-full max-w-xs rounded-lg border border-border bg-card p-5 text-center", className)} {...props}>
-      <span className="mx-auto flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground animate-[bioIn_0.35s_ease-out_both] motion-reduce:animate-none">
+      <span className="mx-auto flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground animate-[walletCardIn_0.35s_ease-out_both] motion-reduce:animate-none">
         {initials}
       </span>
       <h3 className="mt-3 text-sm font-semibold">{name}</h3>
@@ -39,7 +39,7 @@ export function BioCard({ name, initials, bio, links = [], onFollow, className, 
         type="button"
         onClick={() => { setFollowing((f) => !f); onFollow?.(); }}
         className={cn(
-          "mt-4 w-full rounded-md border-2 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-200 motion-reduce:transition-none",
+          "mt-4 w-full rounded-md border-2 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-[width,height,left,right,opacity,background-color,border-color] duration-200 motion-reduce:transition-none",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           following
             ? "border-border text-muted-foreground hover:border-destructive hover:text-destructive"

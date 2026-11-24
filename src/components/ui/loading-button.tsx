@@ -48,7 +48,7 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
         ref={ref}
         disabled={loading || showSuccess}
         className={cn(
-          "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border transition-all duration-150",
+          "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border transition-colors duration-150",
           "motion-reduce:transition-none",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
           className

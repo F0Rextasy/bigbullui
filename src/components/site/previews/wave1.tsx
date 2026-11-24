@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Input } from "@/components/ui/input";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import { Carousel } from "@/components/ui/carousel";
 import { Label } from "@/components/ui/label";
@@ -76,7 +77,7 @@ export const wave1Previews: Record<string, React.ComponentType> = {
         error="Please enter a valid email address"
         required
       >
-        <input id="email-input" type="email" />
+        <Input id="email-input" type="email" />
       </FormField>
     );
   },
@@ -90,7 +91,7 @@ export const wave1Previews: Record<string, React.ComponentType> = {
         description="Choose a username for your account"
         error="Username must be at least 3 characters"
       >
-        <input id="username" type="text" defaultValue="johndoe" />
+        <Input id="username" type="text" defaultValue="johndoe" />
       </Field>
     );
   },
@@ -102,9 +103,12 @@ export const wave1Previews: Record<string, React.ComponentType> = {
       <Toggle
         pressed={pressed}
         onPressedChange={setPressed}
+        aria-label="Toggle bold"
         variant="default"
         size="default"
-      />
+      >
+        Bold
+      </Toggle>
     );
   },
 

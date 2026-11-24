@@ -326,7 +326,7 @@ export function Keypad({
       aria-label={`${title} Keypad`}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative w-full max-w-sm select-none rounded-xl border-2 border-dashed border-border bg-card p-4 font-mono shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-accent/40",
+        "relative w-full max-w-sm select-none rounded-xl border-2 border-dashed border-border bg-card p-4 font-mono shadow-md transition-[width,height,left,right,opacity,background-color,border-color] focus:outline-none focus:ring-2 focus:ring-accent/40",
         disabled && "opacity-60 pointer-events-none cursor-not-allowed",
         status === "error" && "border-destructive/60",
         status === "success" && "border-success/60",
@@ -441,7 +441,7 @@ export function Keypad({
               <div
                 key={idx}
                 className={cn(
-                  "relative flex size-11 items-center justify-center rounded-md border-2 font-mono text-xl font-black transition-all duration-150 shadow-sm",
+                  "relative flex size-11 items-center justify-center rounded-md border-2 font-mono text-xl font-black transition-colors duration-150 shadow-sm",
                   isFilled
                     ? "border-foreground/80 bg-card text-foreground scale-100"
                     : "border-dashed border-border/80 bg-secondary/40 text-muted-foreground/40",
@@ -527,7 +527,7 @@ export function Keypad({
                 isClearKey ? "Clear digit" : isEnterKey ? "Submit PIN code" : `Digit ${k.label}`
               }
               className={cn(
-                "group relative flex flex-col items-center justify-center rounded-lg border-2 font-mono transition-all duration-75 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                "group relative flex flex-col items-center justify-center rounded-lg border-2 font-mono transition-colors duration-75 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent",
                 "h-14 sm:h-16 py-1 px-2",
                 // Stamped Mechanical Raised 3D Button Shadows
                 !isActive && "shadow-[0_3px_0_0_var(--color-border)] hover:border-foreground/40 hover:bg-secondary/40",
@@ -545,9 +545,9 @@ export function Keypad({
               )}
             >
               {/* Mechanical keycap register mark */}
-              <div
+              <span
                 aria-hidden="true"
-                className="absolute top-1 left-1 size-1 rounded-full bg-border/60 group-hover:bg-foreground/40"
+                className="block absolute top-1 left-1 size-1 rounded-full bg-border/60 group-hover:bg-foreground/40"
               />
 
               {/* Click / Audio Visual Pulse Ripple */}

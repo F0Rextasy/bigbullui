@@ -9,7 +9,7 @@ export interface TeamMember {
   link?: { label: string; href: string };
 }
 
-export interface TeamGridProps {
+export interface TeamGridProps extends React.HTMLAttributes<HTMLElement> {
   members: TeamMember[];
   columns?: 2 | 3 | 4;
   className?: string;
@@ -24,7 +24,7 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-export function TeamGrid({ members = [], columns = 3, className }: TeamGridProps) {
+export function TeamGrid({ members = [], columns = 3, className, ...props }: TeamGridProps) {
   return (
     <div
       className={cn(
@@ -33,7 +33,7 @@ export function TeamGrid({ members = [], columns = 3, className }: TeamGridProps
         columns === 3 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
         columns === 4 && "grid-cols-2 lg:grid-cols-4",
         className
-      )}
+      )} {...props}
     >
       {members.map((member, index) => (
         <div

@@ -32,10 +32,10 @@ jobs:
 
       - name: Upgrade npm for trusted publishing
         # npm < 11.5.1 cannot exchange the GitHub OIDC token, so publish 404s.
-        run: npm install -g npm@11
+        run: npm install -g npm@11.21.3 --ignore-scripts
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Verify git tag matches package version
         if: github.ref_type == 'tag' && matrix.package == '.'
@@ -63,8 +63,8 @@ jobs:
         run: |
           npm test
           npx tsc --noEmit
+          npx --no-install publint --strict "${{ matrix.package }}"
           if [ "${{ matrix.package }}" != "packages/create-app" ]; then
-            npx --no-install publint --strict "${{ matrix.package }}"
             npx --no-install attw --pack "${{ matrix.package }}" --profile node16
           fi
 

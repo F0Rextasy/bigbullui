@@ -10,7 +10,7 @@ export interface CheckoutSummaryItem {
   qty: number;
 }
 
-export interface CheckoutSummaryProps {
+export interface CheckoutSummaryProps extends React.HTMLAttributes<HTMLElement> {
   items: CheckoutSummaryItem[];
   subtotal?: string;
   tax?: string;
@@ -29,7 +29,7 @@ export function CheckoutSummary({
   cta = "Checkout",
   className,
   onQtyChange,
-  onCheckout,
+  onCheckout, ...props
 }: CheckoutSummaryProps) {
   const [localQtys, setLocalQtys] = React.useState<Record<string, number>>({});
   const qtyOf = (it: CheckoutSummaryItem) => localQtys[it.id] ?? it.qty;
@@ -48,7 +48,7 @@ export function CheckoutSummary({
       className={cn(
         "rounded-lg border border-foreground bg-card text-card-foreground p-6 shadow-sm motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Items section */}
       <div className="space-y-3 max-h-80 overflow-y-auto">
@@ -90,18 +90,18 @@ export function CheckoutSummary({
       {/* Totals */}
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 pt-4 border-t border-border/50">
         <span className="text-sm font-mono text-muted-foreground">Subtotal</span>
-        <span className="font-mono text-right">{subtotal}</span>
+        <span className="font-mono text-end">{subtotal}</span>
 
         {tax && (
           <div className="ms-2 flex items-baseline gap-2">
             <span className="text-sm font-mono text-muted-foreground">Tax</span>
-            <span className="font-mono text-right ms-2">{tax}</span>
+            <span className="font-mono text-end ms-2">{tax}</span>
           </div>
         )}
 
         <div className="mt-1 flex items-baseline gap-2">
           <span className="font-medium text-sm font-mono">Total</span>
-          <span className="font-mono text-right text-accent font-bold">{total}</span>
+          <span className="font-mono text-end text-accent font-bold">{total}</span>
         </div>
       </div>
 

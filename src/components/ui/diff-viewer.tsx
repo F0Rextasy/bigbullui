@@ -71,9 +71,9 @@ export function DiffViewer({
 
           const transformClass =
             line.type === "added"
-              ? "transform translate-x-0 transition-all duration-300"
+              ? "transform translate-x-0 transition-[transform,opacity,background-color,border-color,color] duration-300"
               : line.type === "removed"
-                ? "transform translate-x-[-10px] transition-all duration-300"
+                ? "transform translate-x-[-10px] transition-[transform,opacity,background-color,border-color,color] duration-300"
                 : "";
 
           return (

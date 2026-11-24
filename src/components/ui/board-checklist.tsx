@@ -46,12 +46,12 @@ export function BoardChecklist({ title = "Tasks", items = [], onToggle, classNam
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{doneCount}/{list.length}</span>
       </div>
       <div className="mt-2 h-1 overflow-hidden rounded-full bg-border/50">
-        <div className="h-full rounded-full bg-accent transition-all duration-500 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
+        <div className="h-full rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-500 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
       </div>
 
       <ul className="mt-3 space-y-1">
         {list.map((item, idx) => (
-          <li key={item.id} className="animate-[bcIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
+          <li key={item.id} className="animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
             <label className="flex cursor-pointer items-center gap-2.5 rounded-sm px-1 py-1.5 transition-colors hover:bg-secondary/40 motion-reduce:transition-none">
               <input
                 type="checkbox"
@@ -61,7 +61,7 @@ export function BoardChecklist({ title = "Tasks", items = [], onToggle, classNam
               />
               <span
                 className={cn(
-                  "flex size-4 shrink-0 items-center justify-center rounded-sm border transition-all duration-150 peer-focus-visible:ring-2 peer-focus-visible:ring-ring motion-reduce:transition-none",
+                  "flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors duration-150 peer-focus-visible:ring-2 peer-focus-visible:ring-ring motion-reduce:transition-none",
                   item.done ? "border-accent bg-accent text-accent-foreground animate-[bcCheck_0.2s_ease-out] motion-reduce:animate-none" : "border-border"
                 )}
                 aria-hidden="true"

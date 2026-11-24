@@ -55,8 +55,8 @@ npx tsc --noEmit   # TypeScript check (must be clean)
 2. Follow the Ticket Stub language: mono uppercase micro labels, dashed borders, squarish radius, stamp-red emphasis, `focus-visible:ring-2` on everything interactive, `motion-reduce` fallbacks on animations.
 3. Export the component plus its props type, add it to `src/index.ts` (barrel).
 4. Register it in `src/lib/registry-site.ts` (name, title, one-line description, category).
-5. Add a live preview in `src/components/site/component-preview.tsx`, a usage snippet and props rows in `app/docs/[slug]/page.tsx`.
-6. Run `npx tsc --noEmit` and `npm run build` — both must pass before opening a PR.
+5. Add a live preview under `src/components/site/previews/` (`wave*.tsx`), add usage snippet and props docs in `src/lib/docs-content.ts` (or JSDoc on exported `*Props`), and run `npm run prebuild`.
+6. Run `npx tsc --noEmit`, `npm test`, and `npm run build` — all must pass before opening a PR.
 
 ## Pull request guidelines
 

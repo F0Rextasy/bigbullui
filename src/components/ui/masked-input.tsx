@@ -79,7 +79,7 @@ export function MaskedInput({
         onChange={handleChange}
         placeholder={placeholder || mask}
         className={cn(
-          "w-full rounded-md border-2 border-foreground bg-card px-3 py-2 text-xs font-bold uppercase tracking-wider text-foreground placeholder:text-muted-foreground/60 transition-all",
+          "w-full rounded-md border-2 border-foreground bg-card px-3 py-2 text-xs font-bold uppercase tracking-wider text-foreground placeholder:text-muted-foreground/60 transition-[width,height,left,right,opacity,background-color,border-color]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isComplete ? "border-accent shadow-xs" : "hover:border-foreground/70"
         )}

@@ -5,6 +5,7 @@ import { cn } from "./lib/utils";
 
 export interface LoginFormProps extends Omit<React.HTMLAttributes<HTMLFormElement>, "onSubmit"> {
   onSubmit?: (data: { email: string; password: string; remember: boolean }) => void;
+  onSocialLogin?: (provider: string) => void;
   /** Show social login provider buttons */
   social?: boolean;
   forgotHref?: string;
@@ -12,7 +13,7 @@ export interface LoginFormProps extends Omit<React.HTMLAttributes<HTMLFormElemen
 }
 
 /** Sign-in form: validation, password reveal toggle, remember me, social login. */
-export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerHref = "#", className, ...props }: LoginFormProps) {
+export function LoginForm({ onSubmit, onSocialLogin, social = true, forgotHref = "#", registerHref = "#", className, ...props }: LoginFormProps) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [remember, setRemember] = React.useState(false);
@@ -35,7 +36,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
   return (
     <form onSubmit={handleSubmit} className={cn("w-full max-w-sm space-y-4", className)} noValidate {...props}>
 
-      <div className="space-y-1.5 animate-[loginIn_0.35s_ease-out_both] motion-reduce:animate-none">
+      <div className="space-y-1.5 animate-[rise-in_0.35s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={emailId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Email</label>
         <input
           id={emailId}
@@ -43,7 +44,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className={cn(
-            "w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-all duration-200",
+            "w-full rounded-md border border-input bg-background px-3 py-2 text-sm transition-[width,height,left,right,opacity,background-color,border-color] duration-200",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
             email.length > 0 && !emailValid && "border-destructive",
             emailValid && "border-success"
@@ -51,10 +52,10 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
           placeholder="you@example.com"
           aria-invalid={!!errors.email}
         />
-        {errors.email && <p className="text-xs text-destructive animate-[loginShake_0.3s_ease-out] motion-reduce:animate-none">{errors.email}</p>}
+        {errors.email && <p className="text-xs text-destructive animate-[formFieldShake_0.3s_ease-out] motion-reduce:animate-none">{errors.email}</p>}
       </div>
 
-      <div className="space-y-1.5 animate-[loginIn_0.35s_ease-out_0.08s_both] motion-reduce:animate-none">
+      <div className="space-y-1.5 animate-[rise-in_0.35s_ease-out_0.08s_both] motion-reduce:animate-none">
         <label htmlFor={passwordId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
         <div className="relative">
           <input
@@ -63,7 +64,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={cn(
-              "w-full rounded-md border border-input bg-background px-3 py-2 pe-16 text-sm transition-all duration-200",
+              "w-full rounded-md border border-input bg-background px-3 py-2 pe-16 text-sm transition-[width,height,left,right,opacity,background-color,border-color] duration-200",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               errors.password && "border-destructive"
             )}
@@ -79,10 +80,10 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
             {show ? "HIDE" : "SHOW"}
           </button>
         </div>
-        {errors.password && <p className="text-xs text-destructive animate-[loginShake_0.3s_ease-out] motion-reduce:animate-none">{errors.password}</p>}
+        {errors.password && <p className="text-xs text-destructive animate-[formFieldShake_0.3s_ease-out] motion-reduce:animate-none">{errors.password}</p>}
       </div>
 
-      <div className="flex items-center justify-between text-xs animate-[loginIn_0.35s_ease-out_0.16s_both] motion-reduce:animate-none">
+      <div className="flex items-center justify-between text-xs animate-[rise-in_0.35s_ease-out_0.16s_both] motion-reduce:animate-none">
         <label className="flex cursor-pointer items-center gap-1.5 select-none">
           <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="size-3.5 accent-accent" />
           <span className="text-muted-foreground">Remember me</span>
@@ -94,21 +95,22 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
         type="submit"
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
+          "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
-          "animate-[loginIn_0.35s_ease-out_0.24s_both] motion-reduce:animate-none"
+          "animate-[rise-in_0.35s_ease-out_0.24s_both] motion-reduce:animate-none"
         )}
       >
         Sign In
       </button>
 
       {social && (
-        <div className="grid grid-cols-2 gap-2 animate-[loginIn_0.35s_ease-out_0.32s_both] motion-reduce:animate-none">
+        <div className="grid grid-cols-2 gap-2 animate-[rise-in_0.35s_ease-out_0.32s_both] motion-reduce:animate-none">
           {["Google", "GitHub"].map((p) => (
             <button
               key={p}
               type="button"
-              className="rounded-md border border-border bg-card px-3 py-2 text-xs font-medium transition-all duration-150 hover:border-foreground/40 hover:bg-secondary/40 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+              onClick={() => onSocialLogin?.(p)}
+              className="rounded-md border border-border bg-card px-3 py-2 text-xs font-medium transition-colors duration-150 hover:border-foreground/40 hover:bg-secondary/40 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             >
               Continue with {p}
             </button>
@@ -116,7 +118,7 @@ export function LoginForm({ onSubmit, social = true, forgotHref = "#", registerH
         </div>
       )}
 
-      <p className="text-center text-xs text-muted-foreground animate-[loginIn_0.35s_ease-out_0.4s_both] motion-reduce:animate-none">
+      <p className="text-center text-xs text-muted-foreground animate-[rise-in_0.35s_ease-out_0.4s_both] motion-reduce:animate-none">
         Don&apos;t have an account? <a href={registerHref} className="text-accent hover:underline">Sign up</a>
       </p>
     </form>

@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 
-const INVOICES = [
+const DEFAULT_INVOICES = [
   { id: "INV-2001", client: "Annex Events", total: "$1,240.00", status: "PAID" },
   { id: "INV-2002", client: "Night Haul Co", total: "$860.00", status: "SENT" },
   { id: "INV-2003", client: "Swift Cart", total: "$430.00", status: "DRAFT" },
@@ -23,18 +23,21 @@ function statusVariant(status: string): "accent" | "default" | "outline" | "seco
   return "outline";
 }
 
-export interface AppInvoicesProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppInvoicesProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  invoices?: typeof DEFAULT_INVOICES;
   onAction?: (action: string) => void;
 }
 
-export function AppInvoices({ className, onAction, ...props }: AppInvoicesProps) {
+export function AppInvoices({ title, invoices = DEFAULT_INVOICES, className, onAction, ...props }: AppInvoicesProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">LEDGER // INVOICES</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Billing stubs</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Billing stubs"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -74,7 +77,7 @@ export function AppInvoices({ className, onAction, ...props }: AppInvoicesProps)
               </TableRow>
             </TableHead>
             <TableBody>
-              {INVOICES.map((row) => (
+              {invoices.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell className="font-bold">{row.id}</TableCell>
                   <TableCell>{row.client}</TableCell>

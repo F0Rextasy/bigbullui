@@ -42,7 +42,7 @@ export function SpotlightCard({ radius = 220, className, children, ...props }: S
           opacity: hover ? 0.1 : 0,
         }}
       />
-      <div className="relative animate-[spotlightCardIn_0.35s_ease-out_both] motion-reduce:animate-none">
+      <div className="relative animate-[walletCardIn_0.35s_ease-out_both] motion-reduce:animate-none">
         {children}
       </div>
     </div>

@@ -48,7 +48,7 @@ export function PollResults({
               <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-secondary" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={o.label}>
                 <div
                   className={cn("h-full rounded-full motion-reduce:animate-none!", isWin ? "bg-accent" : "bg-foreground/60")}
-                  style={{ width: `${pct}%`, animation: "pollGrow 0.6s cubic-bezier(0.16,1,0.3,1) both" }}
+                  style={{ width: `${pct}%`, animation: "bltGrow 0.6s cubic-bezier(0.16,1,0.3,1) both" }}
                 />
               </div>
               <p className="mt-1 font-mono text-[10px] text-muted-foreground">

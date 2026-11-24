@@ -44,7 +44,7 @@ export function GlossaryList({ terms = [], className, ...props }: GlossaryListPr
 
       <dl className="mt-4 divide-y divide-border/60 overflow-hidden rounded-lg border border-border bg-card">
         {visible.map((t, idx) => (
-          <div key={t.id} className="px-4 py-3 animate-[glIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 45}ms` }}>
+          <div key={t.id} className="px-4 py-3 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 45}ms` }}>
             <dt className="text-sm font-semibold">{t.term}</dt>
             <dd className="mt-0.5 text-sm text-muted-foreground">{t.definition}</dd>
           </div>

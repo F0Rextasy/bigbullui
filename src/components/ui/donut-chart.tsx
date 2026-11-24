@@ -300,7 +300,7 @@ export function DonutChart({
                   strokeWidth={1.5}
                   strokeLinejoin="round"
                   className={cn(
-                    "transition-all duration-200",
+                    "transition-colors duration-200",
                     interactive && "cursor-pointer focus-visible:outline-none"
                   )}
                   style={{
@@ -386,7 +386,7 @@ export function DonutChart({
             top: `${tooltipPos.y - 34}px`,
           }}
         >
-          <div className="flex items-center gap-2 rounded-xs border-2 border-dashed border-border bg-card/95 px-2.5 py-1.5 shadow-xl backdrop-blur-xs">
+          <div className="flex items-center gap-2 rounded-xs border-2 border-dashed border-border bg-card/95 px-2.5 py-1.5 shadow-xl">
             <span
               className="size-2.5 rounded-xs shrink-0 border border-foreground/20"
               style={{ backgroundColor: activeSlice.color }}
@@ -427,7 +427,7 @@ export function DonutChart({
             key={slice.index}
             type="button"
             className={cn(
-              "group flex items-center justify-between gap-2 px-2 py-1 rounded-xs border border-transparent text-start transition-all duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
+              "group flex items-center justify-between gap-2 px-2 py-1 rounded-xs border border-transparent text-start transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
               isHovered
                 ? "border-dashed border-foreground/40 bg-secondary shadow-xs scale-[1.02]"
                 : "hover:border-dashed hover:border-border hover:bg-secondary/40"
@@ -447,7 +447,7 @@ export function DonutChart({
               }
             }}
           >
-            <div className="flex items-center gap-1.5 min-w-0">
+            <span className="flex items-center gap-1.5 min-w-0">
               <span
                 className="size-2.5 rounded-xs shrink-0 border border-foreground/20"
                 style={{ backgroundColor: slice.color }}
@@ -455,15 +455,15 @@ export function DonutChart({
               <span className="font-mono text-[11px] font-bold uppercase tracking-tight text-foreground truncate">
                 {slice.item.label}
               </span>
-            </div>
-            <div className="flex items-center gap-1 text-right shrink-0">
+            </span>
+            <span className="flex items-center gap-1 text-end shrink-0">
               <span className="font-mono text-[11px] text-muted-foreground">
                 {formatValue(slice.value)}
               </span>
               <span className="font-mono text-[10px] text-accent font-bold">
                 ({formatPercent(slice.percent)})
               </span>
-            </div>
+            </span>
           </button>
         );
       })}

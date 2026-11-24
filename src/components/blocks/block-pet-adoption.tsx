@@ -6,32 +6,36 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 
-const PETS = [
+const DEFAULT_PETS = [
   { id: "a1", name: "Boncuk", kind: "Cat", age: "2y", trait: "Lap professional" },
   { id: "a2", name: "Zeytin", kind: "Dog", age: "8mo", trait: "Fetch champion" },
   { id: "a3", name: "Mırnav", kind: "Cat", age: "4y", trait: "Sunbeam hunter" },
   { id: "a4", name: "Fındık", kind: "Rabbit", age: "1y", trait: "Carrot critic" },
 ];
 
-const KINDS = ["All", "Cat", "Dog", "Rabbit"];
+const DEFAULT_KINDS = ["All", "Cat", "Dog", "Rabbit"];
 
 /** Pet adoption: filterable animal cards + application flow. */
-export interface BlockPetAdoptionProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockPetAdoptionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  pets?: typeof DEFAULT_PETS;
+  kinds?: typeof DEFAULT_KINDS;
   onAction?: (action: string) => void;
 }
 
-export function BlockPetAdoption({ className, onAction, ...props }: BlockPetAdoptionProps) {
+export function BlockPetAdoption({ title, pets = DEFAULT_PETS, kinds = DEFAULT_KINDS, className, onAction, ...props }: BlockPetAdoptionProps) {
   const [kind, setKind] = React.useState("All");
   const [applied, setApplied] = React.useState<string[]>([]);
 
-  const results = PETS.filter((p) => kind === "All" || p.kind === kind);
+  const results = pets.filter((p) => kind === "All" || p.kind === kind);
 
   return (
     <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="font-mono text-xl font-black uppercase tracking-tight">Adopt, do not shop</h2>
+        <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "Adopt, do not shop"}</h2>
         <div className="flex gap-1.5" role="group" aria-label="Animal kind">
-          {KINDS.map((k) => (
+          {kinds.map((k) => (
             <button
               key={k}
               type="button"

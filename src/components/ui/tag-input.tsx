@@ -268,7 +268,7 @@ export function TagInput({
     <div
       ref={containerRef}
       className={cn(
-        "relative w-full rounded-xl border-2 border-dashed border-border bg-card p-3.5 font-mono shadow-sm transition-all focus-within:border-foreground/60 focus-within:ring-2 focus-within:ring-accent/20",
+        "relative w-full rounded-xl border-2 border-dashed border-border bg-card p-3.5 font-mono shadow-sm transition-[width,height,left,right,opacity,background-color,border-color] focus-within:border-foreground/60 focus-within:ring-2 focus-within:ring-accent/20",
         disabled && "opacity-60 pointer-events-none cursor-not-allowed",
         className
       )}
@@ -338,7 +338,7 @@ export function TagInput({
             <div
               key={`${tag}-${index}`}
               className={cn(
-                "group relative inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-mono select-none transition-all duration-100",
+                "group relative inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-mono select-none transition-colors duration-100",
                 tagVariantStyles(index)
               )}
             >
@@ -383,7 +383,7 @@ export function TagInput({
                   }}
                   aria-label={`Remove tag ${tag}`}
                   className={cn(
-                    "ms-0.5 flex size-4 items-center justify-center rounded-full border text-muted-foreground transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-accent",
+                    "ms-0.5 flex size-4 items-center justify-center rounded-full border text-muted-foreground transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-accent",
                     isPendingDelete
                       ? "border-destructive bg-destructive text-white"
                       : "border-border/80 bg-secondary/80 hover:border-destructive hover:bg-destructive hover:text-white active:scale-90 motion-reduce:active:scale-100"
@@ -454,7 +454,7 @@ export function TagInput({
                     addTag(sug);
                   }}
                   className={cn(
-                    "flex items-center gap-1 rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider transition-all",
+                    "flex items-center gap-1 rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider transition-colors",
                     alreadyAdded
                       ? "border-border/40 bg-secondary/30 text-muted-foreground/40 cursor-default"
                       : "border-dashed border-border bg-secondary/40 text-muted-foreground hover:border-foreground/50 hover:bg-secondary hover:text-foreground active:scale-95 motion-reduce:active:scale-100"
@@ -473,7 +473,7 @@ export function TagInput({
 
       {/* Backspace Deletion Guidance Notice */}
       {pendingDeleteIndex !== null && (
-        <div className="mt-2 text-right font-mono text-[9px] uppercase tracking-wider text-destructive motion-safe:animate-pulse">
+        <div className="mt-2 text-end font-mono text-[9px] uppercase tracking-wider text-destructive motion-safe:animate-pulse">
           PRESS BACKSPACE AGAIN TO REMOVE &apos;{tags[pendingDeleteIndex]}&apos;
         </div>
       )}

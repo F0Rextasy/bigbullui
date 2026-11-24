@@ -8,7 +8,7 @@ import { PageHeader } from "../ui/page-header";
 
 const TAGS = ["ALL", "GUIDES", "RELEASES", "STORIES"] as const;
 
-const POSTS = [
+const DEFAULT_POSTS = [
   { title: "How we stamp 5,000 stubs a night", excerpt: "Gates, scanners, and the paper trail behind a smooth entry.", category: "GUIDES", author: "Ada Bull", readTime: "6 MIN READ", tag: "GUIDES" },
   { title: "Countdown boards go split-flap", excerpt: "Why the lobby display flipped back to mechanical type.", category: "RELEASES", author: "Grace Hopper", readTime: "4 MIN READ", tag: "RELEASES" },
   { title: "The encore ballot returns", excerpt: "Holders vote the final song with torn stubs.", category: "STORIES", author: "Alan Turing", readTime: "8 MIN READ", tag: "STORIES" },
@@ -18,12 +18,13 @@ const POSTS = [
 ];
 
 export interface PageBlogProps extends React.HTMLAttributes<HTMLDivElement> {
+    posts?: typeof DEFAULT_POSTS;
   onAction?: (action: string) => void;
 }
 
-export function PageBlog({ className, onAction, ...props }: PageBlogProps) {
+export function PageBlog({ posts = DEFAULT_POSTS, className, onAction, ...props }: PageBlogProps) {
   const [active, setActive] = React.useState<(typeof TAGS)[number]>("ALL");
-  const visible = POSTS.filter((post) => active === "ALL" || post.tag === active);
+  const visible = posts.filter((post) => active === "ALL" || post.tag === active);
 
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>

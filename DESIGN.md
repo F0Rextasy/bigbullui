@@ -10,9 +10,9 @@ All tokens live in `bigbullui.css` as CSS variables (`:root` + `.dark`), mapped 
 |---|---|---|
 | Background | `#F6F0E0` cream paper | `#16120B` night stub |
 | Foreground | `#17130C` ink | `#F3EAD3` cream text |
-| Accent | `#BC3A28` stamp red | `#C34A31` deep stamp (strong `#E8705A`, ring `#E0573D`) |
+| Accent | `#B53524` stamp red (ring `#BC3A28`) | `#C34A31` deep stamp (strong `#E8705A`, ring `#E0573D`) |
 | Muted text | `#6F6350` | `#B0A284` |
-| Borders | warm tan, often dashed | warm charcoal, often dashed |
+| Borders | `#8F8066` warm tan (input `#807157`), often dashed | `#7A6B51` warm charcoal (input `#86775C`), often dashed |
 
 ## Typography
 

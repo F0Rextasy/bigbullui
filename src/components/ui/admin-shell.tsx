@@ -22,7 +22,7 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
     <div className={cn("flex min-h-[420px] overflow-hidden rounded-lg border border-border bg-background", className)} {...props}>
 
       {/* Sidebar */}
-      <aside className={cn("flex shrink-0 flex-col border-r border-border bg-card transition-all duration-300 motion-reduce:transition-none", collapsed ? "w-14" : "w-52")}>
+      <aside className={cn("flex shrink-0 flex-col border-e border-border bg-card transition-[width,height,left,right,opacity,background-color,border-color] duration-300 motion-reduce:transition-none", collapsed ? "w-14" : "w-52")}>
         <div className="flex h-12 items-center gap-2 border-b border-border px-3">
           <span className="flex size-6 shrink-0 items-center justify-center rounded-sm bg-accent font-mono text-[10px] font-black text-accent-foreground">B</span>
           {!collapsed && <span className="truncate font-mono text-xs font-bold uppercase tracking-widest">{brand}</span>}
@@ -35,9 +35,9 @@ export function AdminShell({ brand = "Panel", navItems = [], activeId, onNavigat
               onClick={() => { setInternalActive(item.id); onNavigate?.(item.id); }}
               aria-current={active === item.id ? "page" : undefined}
               className={cn(
-                "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-start text-xs transition-all duration-150 motion-reduce:transition-none",
+                "flex w-full items-center gap-2.5 rounded-sm px-2 py-1.5 text-start text-xs transition-[width,height,left,right,opacity,background-color,border-color] duration-150 motion-reduce:transition-none",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                "animate-[adminIn_0.25s_ease-out_both] motion-reduce:animate-none",
+                "animate-[secIn_0.25s_ease-out_both] motion-reduce:animate-none",
                 active === item.id
                   ? "bg-accent text-accent-foreground font-medium"
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground"

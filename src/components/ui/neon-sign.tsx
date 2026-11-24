@@ -1,13 +1,13 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface NeonSignProps {
+export interface NeonSignProps extends Omit<React.HTMLAttributes<HTMLElement>, "color"> {
   text: string;
   color?: "accent" | "destructive" | "foreground";
   className?: string;
 }
 
-export function NeonSign({ text = "", color = "accent", className }: NeonSignProps) {
+export function NeonSign({ text = "", color = "accent", className, ...props }: NeonSignProps) {
   const glowColor = {
     accent: "var(--accent)",
     destructive: "var(--destructive)",
@@ -20,7 +20,7 @@ export function NeonSign({ text = "", color = "accent", className }: NeonSignPro
         "relative rounded-lg border border-border bg-card p-4 motion-reduce:animate-none motion-reduce:transition-none",
         className
       )}
-      style={{ "--neon-glow": glowColor } as React.CSSProperties}
+      style={{ "--neon-glow": glowColor } as React.CSSProperties} {...props}
     >
       <div className="font-mono text-[10px] uppercase tracking-[0.15em]">
         {text.split("").map((char, i) => (

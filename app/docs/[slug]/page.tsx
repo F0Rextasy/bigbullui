@@ -10,7 +10,51 @@ import { Badge } from "@/components/ui/badge";
 import { ComponentPreview } from "@/components/site/component-preview";
 import { MarkSeen } from "@/components/site/mark-seen";
 import { CodeBox } from "@/components/site/code-box";
+import { PackageManagerTabs } from "@/components/site/package-manager-tabs";
+import { SourceFileTabs, type SourceFileEntry } from "@/components/site/source-file-tabs";
+import { LivePropPlayground } from "@/components/site/live-prop-playground";
 import { DocsStackBlitzButton } from "@/components/site/docs-stackblitz-button";
+
+function collectLocalSourceFiles(entryName: string): SourceFileEntry[] {
+  const uiRoot = join(process.cwd(), "src/components/ui");
+  const queue: { rel: string; disk: string; lang: "tsx" | "ts" }[] = [];
+  const tsxEntry = join(uiRoot, `${entryName}.tsx`);
+  const libEntry = join(uiRoot, "lib", `${entryName}.ts`);
+  if (existsSync(tsxEntry)) {
+    queue.push({ rel: `${entryName}.tsx`, disk: tsxEntry, lang: "tsx" });
+  } else if (existsSync(libEntry)) {
+    queue.push({ rel: `lib/${entryName}.ts`, disk: libEntry, lang: "ts" });
+  }
+  const visited = new Set<string>();
+  const collected: SourceFileEntry[] = [];
+
+  while (queue.length > 0 && collected.length < 16) {
+    const item = queue.shift()!;
+    if (visited.has(item.rel) || !existsSync(/*turbopackIgnore: true*/ item.disk)) continue;
+    visited.add(item.rel);
+    const code = readFileSync(/*turbopackIgnore: true*/ item.disk, "utf8");
+    collected.push({ path: item.rel, code, language: item.lang });
+
+    const dir = join(item.disk, "..");
+    for (const m of code.matchAll(/from\s+["'](\.[^"']+)["']/g)) {
+      const spec = m[1];
+      const base = join(dir, spec);
+      for (const ext of [".ts", ".tsx"]) {
+        const candidate = `${base}${ext}`;
+        if (existsSync(/*turbopackIgnore: true*/ candidate)) {
+          const relFromUi = candidate
+            .slice(uiRoot.length + 1)
+            .replace(/\\/g, "/");
+          if (!visited.has(relFromUi)) {
+            queue.push({ rel: relFromUi, disk: candidate, lang: ext === ".ts" ? "ts" : "tsx" });
+          }
+          break;
+        }
+      }
+    }
+  }
+  return collected;
+}
 
 const usage = docsContent.usage as Record<string, string>;
 const propsDocs = docsContent.props as Record<string, { name: string; type: string; description: string }[]>;
@@ -60,9 +104,9 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const tsxFile = join(process.cwd(), "src/components/ui", `${meta.name}.tsx`);
   const libFile = join(process.cwd(), "src/components/ui/lib", `${meta.name}.ts`);
   const isLib = !existsSync(tsxFile) && existsSync(libFile);
-  const sourceFile = isLib ? libFile : tsxFile;
-  const sourceLabel = isLib ? `lib/${meta.name}.ts` : `${meta.name}.tsx`;
-  const sourceCode = existsSync(sourceFile) ? readFileSync(sourceFile, "utf8") : "";
+  const sourceFiles = collectLocalSourceFiles(meta.name);
+  const sourceLabel = sourceFiles[0]?.path ?? (isLib ? `lib/${meta.name}.ts` : `${meta.name}.tsx`);
+  const sourceCode = sourceFiles[0]?.code ?? "";
 
   const exportedMatch = sourceCode.match(/export\s+(?:async\s+)?(?:function|const|class)\s+([A-Z][A-Za-z0-9_]*|[a-z][A-Za-z0-9_]*)/);
   const primarySymbol = exportedMatch?.[1] ?? meta.title.replace(/\s+/g, "");
@@ -77,6 +121,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     { id: "usage", label: "Usage" },
     ...(sourceCode ? [{ id: "source", label: "Source" }] : []),
     ...(propsList.length > 0 ? [{ id: "props", label: "Props" }] : []),
+    ...(relatedShelf.length > 0 ? [{ id: "related", label: "Related" }] : []),
   ];
 
   return (
@@ -167,41 +212,53 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           <p className="text-xs text-muted-foreground">
             Add to your project via CLI (zero dependencies, code you own):
           </p>
-          <CodeBox code={`npx bigbullui add ${meta.name}`} />
+          <PackageManagerTabs command={`npx bigbullui add ${meta.name}`} />
         </div>
 
         <div className="space-y-2 pt-1">
           <p className="text-xs text-muted-foreground">Or install the full npm package:</p>
-          <CodeBox code="npm install bigbullui" />
+          <PackageManagerTabs command="npm install bigbullui" />
         </div>
       </section>
 
       <section className="space-y-3">
         <div className="flex items-center justify-between gap-2">
           <h2 id="usage" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Usage</h2>
-          <DocsStackBlitzButton name={meta.name} />
+          <DocsStackBlitzButton
+            name={meta.name}
+            files={sourceFiles.map((f) => ({ path: f.path, code: f.code }))}
+            usage={usageCode}
+          />
         </div>
-          <CodeBox code={usageCode} block />
+        <CodeBox code={usageCode} block language="tsx" />
       </section>
 
-      {sourceCode ? (
+      {sourceFiles.length > 0 ? (
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 id="source" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Source code</h2>
             <span className="rounded bg-secondary px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
-              {sourceLabel}
+              {sourceLabel}{sourceFiles.length > 1 ? ` + ${sourceFiles.length - 1} helper${sourceFiles.length - 1 === 1 ? "" : "s"}` : ""}
             </span>
           </div>
           <p className="text-xs text-muted-foreground">
-            Zero dependencies (only React + utils). Copy and paste directly into your project:
+            {sourceFiles.length > 1
+              ? `Zero third-party dependencies (${sourceFiles.length} local files shown in tabs below).`
+              : "Zero third-party dependencies (only React + standard DOM APIs). Copy directly into your project:"}
           </p>
-          <CodeBox code={sourceCode} block maxHeight="420px" />
+          <SourceFileTabs files={sourceFiles} />
         </section>
       ) : null}
 
       {propsList.length > 0 ? (
-        <section className="space-y-3">
+        <section className="space-y-4">
           <h2 id="props" className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Props</h2>
+          <LivePropPlayground
+            name={meta.name}
+            primarySymbol={primarySymbol}
+            isLib={isLib}
+            propsList={propsList}
+          />
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary text-left text-muted-foreground">

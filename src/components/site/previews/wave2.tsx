@@ -140,10 +140,10 @@ export const wave2Previews: Record<string, React.ComponentType> = {
   "link-card": () => {
     return (
       <LinkCard
-        href="/product/1"
+        href="#preview-product"
         title="Product Name"
         description="An amazing product with great features"
-        external={true}
+        external={false}
       />
     );
   },

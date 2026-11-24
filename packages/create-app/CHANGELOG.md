@@ -1,15 +1,10 @@
 # Changelog
 
-## [1.1.0](https://github.com/F0Rextasy/bigbullui/compare/create-bigbull-app-v1.0.1...create-bigbull-app-v1.1.0) (2026-10-29)
+## 1.2.1
 
+- Added `@/*` path alias in `tsconfig.json`, persistent `localStorage` theme toggle, and Tailwind utility layout in `app/page.tsx`.
+- Fixed destination validation in `create.js` to allow empty directories while rejecting existing files or non-empty folders.
 
-### Features
+## 1.0.0
 
-* CLI update and doctor commands ([b4c3ba6](https://github.com/F0Rextasy/bigbullui/commit/b4c3ba6436b37b4e4e16e9905100746491b36c40))
-* create-bigbull-app starter scaffold ([89619d2](https://github.com/F0Rextasy/bigbullui/commit/89619d2aceb63a7532963c20214121b545c06d8f))
-
-
-### Bug Fixes
-
-* repair CI ordering and pre-existing lint errors ([ea062b5](https://github.com/F0Rextasy/bigbullui/commit/ea062b53f9494a7bd854adc0f7ecc722d5bedbc4))
-* repair CI, dark mode coverage, motion and icon rendering ([4fb5521](https://github.com/F0Rextasy/bigbullui/commit/4fb5521b6b42c20b54e6bd0b870f8b759ba28be1))
+- Initial release of `create-bigbull-app` Next.js + Tailwind CSS v4 + `bigbullui` starter.

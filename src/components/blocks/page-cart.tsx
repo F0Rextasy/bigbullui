@@ -9,18 +9,21 @@ import { CouponField } from "../ui/coupon-field";
 import { CheckoutSummary } from "../ui/checkout-summary";
 import { Separator } from "../ui/separator";
 
-const INITIAL = [
+const DEFAULT_INITIAL = [
   { id: "jacket", title: "TOUR JACKET 1977", price: "$148.00", qty: 1 },
   { id: "tee", title: "STUB TEE BLACK", price: "$32.00", qty: 2 },
   { id: "cap", title: "GATE CAP", price: "$24.00", qty: 1 },
 ];
 
-export interface PageCartProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageCartProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  initial?: typeof DEFAULT_INITIAL;
   onAction?: (action: string) => void;
 }
 
-export function PageCart({ className, onAction, ...props }: PageCartProps) {
-  const [rows, setRows] = React.useState(INITIAL);
+export function PageCart({ title, initial = DEFAULT_INITIAL, className, onAction, ...props }: PageCartProps) {
+  const [rows, setRows] = React.useState(initial);
   const [coupon, setCoupon] = React.useState<string | null>(null);
   const bump = (id: string, d: number) => {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, qty: Math.max(1, r.qty + d) } : r)));
@@ -35,7 +38,7 @@ export function PageCart({ className, onAction, ...props }: PageCartProps) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT // CART</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Your bundle</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Your bundle"}</h2>
         </div>
         <Badge variant="accent">{rows.length} ITEMS</Badge>
       </div>

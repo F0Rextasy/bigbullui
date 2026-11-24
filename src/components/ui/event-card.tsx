@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface EventCardProps {
+export interface EventCardProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   title: string;
   date?: string;
   venue?: string;
@@ -16,19 +16,19 @@ export function EventCard({
   date = "Oct 14",
   venue = "Berlin Arena",
   time = "21:00",
-  className,
+  className, ...props
 }: EventCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground p-6 transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground p-6 transition-[transform,width,height,opacity,background-color,border-color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Date block with dashed left edge */}
       <div className="relative flex items-start gap-3">
         <div
-          className="shrink-0 size-8 rounded-full border-2 border-dashed border-border bg-secondary/10 flex flex-col items-center justify-center transition-all duration-300 motion-reduce:transition-none"
+          className="shrink-0 size-8 rounded-full border-2 border-dashed border-border bg-secondary/10 flex flex-col items-center justify-center transition-colors duration-300 motion-reduce:transition-none"
         >
           <div className="font-mono text-[24px] font-black uppercase tracking-widest">{date.slice(0, 2)}</div>
           <div className="font-mono text-[10px] uppercase tracking-widest">{date.slice(2)}</div>

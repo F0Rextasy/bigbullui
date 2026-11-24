@@ -16,11 +16,13 @@ const USERS = [
   { name: "Margaret Hamilton", email: "margaret@arena.gg", role: "VIEWER", status: "SUSPENDED" },
 ];
 
-export interface AppUsersProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppUsersProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function AppUsers({ className, onAction, ...props }: AppUsersProps) {
+export function AppUsers({ title, className, onAction, ...props }: AppUsersProps) {
   const [query, setQuery] = React.useState("");
   const [users, setUsers] = React.useState(USERS);
   const [selectedEmail, setSelectedEmail] = React.useState(USERS[0].email);
@@ -32,7 +34,7 @@ export function AppUsers({ className, onAction, ...props }: AppUsersProps) {
       <Card className="xl:col-span-2">
         <CardHeader>
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <CardTitle>Crew roster</CardTitle>
+            <CardTitle>{title ?? "Crew roster"}</CardTitle>
             <div className="flex gap-2">
               <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search crew..." aria-label="Search crew" className="w-40" />
               <Button size="sm" onClick={() => { setNotice("Invite link copied."); onAction?.("invite"); }}>Invite</Button>

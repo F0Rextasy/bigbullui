@@ -19,7 +19,7 @@ export function RadioTile({ title, description, icon, value, checked, onCheckedC
     <label
       className={cn(
         "group flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 select-none",
-        "transition-all duration-200 motion-reduce:transition-none",
+        "transition-colors duration-200 motion-reduce:transition-none",
         "focus-within:outline-none focus-within:ring-2 focus-within:ring-ring",
         checked ? "border-accent bg-accent/5" : "border-border hover:border-foreground/30",
         className

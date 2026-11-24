@@ -51,7 +51,7 @@ export function AspectRatio({
   return (
     <div
       className={cn(
-        "group relative w-full select-none overflow-hidden rounded-lg transition-all duration-200",
+        "group relative w-full select-none overflow-hidden rounded-lg transition-[width,height,left,right,opacity,background-color,border-color] duration-200",
         // Surface variants
         variant === "default" && "border-2 border-foreground bg-card text-card-foreground shadow-sm",
         variant === "perforated" && "border-2 border-dashed border-foreground bg-card text-card-foreground shadow-sm",
@@ -132,7 +132,7 @@ export function AspectRatio({
           aria-hidden="true"
         >
           {displayLabel && (
-            <span className="truncate rounded border border-border/80 bg-background/90 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest text-foreground shadow-xs backdrop-blur-xs">
+            <span className="truncate rounded border border-border/80 bg-background/90 px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest text-foreground shadow-xs">
               {displayLabel}
             </span>
           )}

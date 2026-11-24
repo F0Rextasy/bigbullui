@@ -30,13 +30,13 @@ export function FeatureFlagPanel({ flags = [], onToggle, className, ...props }: 
   return (
     <div className={cn("w-full max-w-md divide-y divide-border/60 rounded-lg border border-border bg-card", className)} {...props}>
       {state.map((f, idx) => (
-        <div key={f.id} className="flex items-center gap-3 px-4 py-3 animate-[ffSlide_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
+        <div key={f.id} className="flex items-center gap-3 px-4 py-3 animate-[slide-in_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium">{f.label}</p>
             {f.rollout !== undefined && (
               <div className="mt-1 flex items-center gap-2">
                 <div className="h-1 w-20 overflow-hidden rounded-full bg-border/60">
-                  <div className="h-full rounded-full bg-accent transition-all duration-500 motion-reduce:transition-none" style={{ width: `${f.rollout}%` }} />
+                  <div className="h-full rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-500 motion-reduce:transition-none" style={{ width: `${f.rollout}%` }} />
                 </div>
                 <span className="font-mono text-[9px] tabular-nums text-muted-foreground">%{f.rollout} rollout</span>
               </div>
@@ -56,7 +56,7 @@ export function FeatureFlagPanel({ flags = [], onToggle, className, ...props }: 
           >
             <span
               className={cn(
-                "absolute top-0.5 size-3.5 rounded-full bg-background shadow-xs transition-all duration-200 motion-reduce:transition-none",
+                "absolute top-0.5 size-3.5 rounded-full bg-background shadow-xs transition-[width,height,left,right,opacity,background-color,border-color] duration-200 motion-reduce:transition-none",
                 f.enabled ? "left-[18px]" : "left-0.5"
               )}
             />

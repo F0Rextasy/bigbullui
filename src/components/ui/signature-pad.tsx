@@ -431,12 +431,12 @@ export function SignaturePad({
 
         {isEndorsed && (
           <div
-            className="pointer-events-none absolute right-8 top-1/2 -translate-y-1/2 z-20 transition-all duration-300 transform -rotate-12 select-none motion-reduce:transition-none motion-reduce:animate-none!"
+            className="pointer-events-none absolute right-8 top-1/2 -translate-y-1/2 z-20 transition-[transform,width,height,opacity,background-color,border-color] duration-300 transform -rotate-12 select-none motion-reduce:transition-none motion-reduce:animate-none!"
             style={{
               animation: "stampIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
             }}
           >
-            <div className="rounded border-4 border-double border-accent bg-card/85 px-4 py-2 text-center shadow-lg backdrop-blur-xs">
+            <div className="rounded border-4 border-double border-accent bg-card/85 px-4 py-2 text-center shadow-lg">
               <div className="text-[8px] font-black uppercase tracking-widest text-accent/80">
                 ★ OFFICIAL VALIDATION ★
               </div>
@@ -495,7 +495,7 @@ export function SignaturePad({
               type="button"
               disabled={disabled || !hasSignature}
               onClick={handleEndorse}
-              className="inline-flex cursor-pointer items-center justify-center rounded border-2 border-dashed border-foreground bg-accent px-3 py-1 text-[11px] font-black uppercase tracking-wider text-accent-foreground shadow-xs transition-all hover:border-solid hover:scale-102 motion-reduce:hover:scale-100 active:scale-98 motion-reduce:active:scale-100 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="inline-flex cursor-pointer items-center justify-center rounded border-2 border-dashed border-foreground bg-accent px-3 py-1 text-[11px] font-black uppercase tracking-wider text-accent-foreground shadow-xs transition-[transform,opacity,background-color,border-color,color] hover:border-solid hover:scale-102 motion-reduce:hover:scale-100 active:scale-98 motion-reduce:active:scale-100 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               ENDORSE &amp; STAMP
             </button>

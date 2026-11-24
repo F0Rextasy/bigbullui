@@ -51,7 +51,7 @@ export function DiffEditor({ before = "", after = "", readOnly, onBeforeChange, 
           aria-label="Next version"
           spellCheck={false}
           className={cn(
-            "min-h-40 resize-none bg-transparent p-3 font-mono text-xs leading-5 text-foreground focus-visible:outline-none animate-[deIn_0.3s_ease-out] motion-reduce:animate-none",
+            "min-h-40 resize-none bg-transparent p-3 font-mono text-xs leading-5 text-foreground focus-visible:outline-none animate-[fade-in_0.3s_ease-out] motion-reduce:animate-none",
             maxLines > 0 && afterLines.some((l, i) => rowTone(i) !== "same") && "bg-success/5"
           )}
         />

@@ -224,7 +224,7 @@ export function CollapsibleTrigger({
         onClick?.(event);
       }}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded border border-border bg-secondary/80 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-secondary-foreground transition-all duration-150 select-none hover:bg-secondary hover:border-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded border border-border bg-secondary/80 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-secondary-foreground transition-[transform,opacity,background-color,border-color,color] duration-150 select-none hover:bg-secondary hover:border-foreground active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
         className
       )}
       {...props}

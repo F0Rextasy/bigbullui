@@ -113,7 +113,7 @@ export function ToggleItem({
         onClick?.(e);
       }}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center rounded-sm px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider transition-all",
+        "inline-flex cursor-pointer items-center justify-center rounded-sm px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         isSelected
           ? "bg-primary text-primary-foreground shadow-xs"

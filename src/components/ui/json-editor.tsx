@@ -39,7 +39,7 @@ export function JsonEditor({ value, defaultValue = '{\n  "name": "bigbullui",\n 
           {valid ? (
             <span className="font-mono text-[9px] uppercase tracking-wider text-success">✓ Valid</span>
           ) : (
-            <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[jeIn_0.2s_ease-out] motion-reduce:animate-none">✗ Invalid</span>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-destructive animate-[cpIn_0.2s_ease-out] motion-reduce:animate-none">✗ Invalid</span>
           )}
           <button
             type="button"

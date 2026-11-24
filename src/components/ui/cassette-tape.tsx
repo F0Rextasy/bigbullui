@@ -3,15 +3,15 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface CassetteTapeProps {
+export interface CassetteTapeProps extends Omit<React.HTMLAttributes<HTMLElement>, "title" | "onToggle"> {
   title: string;
   playing?: boolean;
   onToggle?: () => void;
 }
 
-export function CassetteTape({ title, playing = false, onToggle }: CassetteTapeProps) {
+export function CassetteTape({ title, playing = false, onToggle, ...props }: CassetteTapeProps) {
   return (
-    <div className="w-64 max-w-full">
+    <div className="w-64 max-w-full" {...props}>
       <div
         className={cn(
           "relative rounded-md border border-border bg-card p-4 motion-reduce:transition-none"
@@ -34,7 +34,7 @@ export function CassetteTape({ title, playing = false, onToggle }: CassetteTapeP
           <span
             aria-hidden="true"
             className="grid size-10 place-items-center rounded-full border-2 border-foreground/30 bg-background motion-reduce:animate-none!"
-            style={playing ? { animation: "ctSpin 1.2s linear infinite" } : undefined}
+            style={playing ? { animation: "avSpin 1.2s linear infinite" } : undefined}
           >
             <span className="grid size-5 grid-cols-2 gap-px">
               <i className="rounded-full bg-muted-foreground/60" />
@@ -47,7 +47,7 @@ export function CassetteTape({ title, playing = false, onToggle }: CassetteTapeP
           <span
             aria-hidden="true"
             className="grid size-10 place-items-center rounded-full border-2 border-foreground/30 bg-background motion-reduce:animate-none!"
-            style={playing ? { animation: "ctSpin 1.2s linear infinite reverse" } : undefined}
+            style={playing ? { animation: "avSpin 1.2s linear infinite reverse" } : undefined}
           >
             <span className="grid size-5 grid-cols-2 gap-px">
               <i className="rounded-full bg-muted-foreground/60" />

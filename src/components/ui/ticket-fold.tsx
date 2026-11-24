@@ -93,7 +93,7 @@ export function TicketFold({
       {/* 3D Ticket Accordion Container */}
       <div
         className={cn(
-          "relative flex flex-col rounded-xl border-2 border-foreground bg-card shadow-lg transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
+          "relative flex flex-col rounded-xl border-2 border-foreground bg-card shadow-lg transition-colors duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
           !isUnfolded && "hover:-translate-y-1 hover:shadow-xl"
         )}
         style={{
@@ -163,7 +163,7 @@ export function TicketFold({
                 {date} · {time}
               </span>
             </div>
-            <div className="text-right">
+            <div className="text-end">
               <span className="block text-[9px] uppercase tracking-wider text-muted-foreground">
                 VENUE
               </span>
@@ -241,7 +241,7 @@ export function TicketFold({
 
         <div
           className={cn(
-            "overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
+            "overflow-hidden transition-colors duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
             isUnfolded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
           )}
           style={{
@@ -271,7 +271,7 @@ export function TicketFold({
                   {seatInfo.section || "GA"}
                 </span>
               </div>
-              <div className="border-l border-dashed border-border/70">
+              <div className="border-s border-dashed border-border/70">
                 <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
                   ROW
                 </span>
@@ -279,7 +279,7 @@ export function TicketFold({
                   {seatInfo.row || "-"}
                 </span>
               </div>
-              <div className="border-l border-dashed border-border/70">
+              <div className="border-s border-dashed border-border/70">
                 <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
                   SEAT
                 </span>
@@ -287,7 +287,7 @@ export function TicketFold({
                   {seatInfo.seat || "-"}
                 </span>
               </div>
-              <div className="border-l border-dashed border-border/70">
+              <div className="border-s border-dashed border-border/70">
                 <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground">
                   GATE
                 </span>
@@ -305,7 +305,7 @@ export function TicketFold({
                 </span>
                 <span className="font-bold text-foreground">{holderName}</span>
               </div>
-              <div className="text-right">
+              <div className="text-end">
                 <span className="text-muted-foreground block text-[9px] uppercase tracking-wider">
                   SECURITY LEVEL
                 </span>
@@ -322,7 +322,7 @@ export function TicketFold({
 
         <div
           className={cn(
-            "relative z-20 flex items-center justify-between bg-card transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
+            "relative z-20 flex items-center justify-between bg-card transition-colors duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]",
             isUnfolded ? "opacity-100 max-h-8" : "opacity-0 max-h-0 overflow-hidden"
           )}
         >
@@ -367,7 +367,7 @@ export function TicketFold({
 
         <div
           className={cn(
-            "transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] rounded-b-xl overflow-hidden",
+            "transition-colors duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] rounded-b-xl overflow-hidden",
             isUnfolded ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
           )}
           style={{
@@ -389,7 +389,7 @@ export function TicketFold({
           >
             {/* If torn, overlay rubber stamp */}
             {isTorn ? (
-              <div className="absolute inset-0 z-30 flex items-center justify-center bg-background/70 backdrop-blur-[1px] p-4 text-center">
+              <div className="absolute inset-0 z-30 flex items-center justify-center bg-background/70 p-4 text-center">
                 <div className="rotate-[-8deg] rounded-md border-2 border-destructive bg-card/95 px-4 py-2 shadow-lg motion-safe:animate-[scale-in_0.3s_ease-out_both] motion-reduce:animate-none!">
                   <div className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-destructive">
                     STUB DETACHED
@@ -434,7 +434,7 @@ export function TicketFold({
                 <button
                   type="button"
                   onClick={handleTearSlip}
-                  className="group inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-destructive/80 bg-card px-2.5 py-1 font-mono text-[10px] font-black uppercase tracking-wider text-destructive shadow-sm transition-all hover:bg-destructive hover:text-white active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="group inline-flex items-center gap-1.5 rounded-sm border-2 border-dashed border-destructive/80 bg-card px-2.5 py-1 font-mono text-[10px] font-black uppercase tracking-wider text-destructive shadow-sm transition-[transform,opacity,background-color,border-color,color] hover:bg-destructive hover:text-white active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <svg
                     width="11"

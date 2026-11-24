@@ -58,16 +58,16 @@ export function PrintableInvoice({
           <thead>
             <tr className="border-y border-dashed border-border font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
               <th className="py-1 text-start font-bold">Item</th>
-              <th className="py-1 text-right font-bold">Qty</th>
-              <th className="py-1 text-right font-bold">Amount</th>
+              <th className="py-1 text-end font-bold">Qty</th>
+              <th className="py-1 text-end font-bold">Amount</th>
             </tr>
           </thead>
           <tbody>
             {items.map((l, i) => (
               <tr key={i} className="border-b border-dashed border-border text-foreground">
                 <td className="py-1.5">{l.label}</td>
-                <td className="py-1.5 text-right font-mono">{l.qty}</td>
-                <td className="py-1.5 text-right font-mono">{money(l.qty * l.price)}</td>
+                <td className="py-1.5 text-end font-mono">{l.qty}</td>
+                <td className="py-1.5 text-end font-mono">{money(l.qty * l.price)}</td>
               </tr>
             ))}
           </tbody>

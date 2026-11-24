@@ -33,7 +33,7 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>(
       <div
         ref={ref}
         className={cn(
-          "group rounded-md border border-border/50 bg-card p-4 hover:bg-accent/5 hover:transition-all duration-200",
+          "group rounded-md border border-border/50 bg-card p-4 hover:bg-accent/5 hover:transition-colors duration-200",
           "motion-reduce:transition-none",
           "cursor-pointer",
           className

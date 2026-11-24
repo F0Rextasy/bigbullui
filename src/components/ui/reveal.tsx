@@ -9,9 +9,9 @@ export type RevealProps = {
   delay?: number;
   /** Only trigger once on first visible appearance */
   once?: boolean;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function Reveal({ children, delay = 0, once = true }: RevealProps) {
+export function Reveal({ children, delay = 0, once = true, ...props }: RevealProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [visible, setVisible] = React.useState(false);
 
@@ -36,7 +36,7 @@ export function Reveal({ children, delay = 0, once = true }: RevealProps) {
   }, [once]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative" {...props}>
       <div
         className={cn(
           "animate-[fade-in-up_0.4s_ease-out_both]",

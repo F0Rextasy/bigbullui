@@ -1,5 +1,3 @@
-"use client";
-
 export * from "./named-icons";
 export {
   STAMP_ICONS,

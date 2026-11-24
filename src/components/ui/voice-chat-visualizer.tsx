@@ -36,7 +36,7 @@ export function VoiceChatVisualizer({
             className={cn("w-full origin-center rounded-full motion-reduce:animate-none!", active ? "bg-accent" : "bg-border")}
             style={
               active
-                ? { height: "100%", animation: `vcvBar 0.9s ease-in-out ${i * 60}ms infinite` }
+                ? { height: "100%", animation: `waveformBounce 0.9s ease-in-out ${i * 60}ms infinite` }
                 : { height: 4 }
             }
           />

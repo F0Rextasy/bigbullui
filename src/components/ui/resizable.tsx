@@ -541,7 +541,7 @@ export function ResizableHandle({
         className={cn(
           "absolute transition-colors pointer-events-none",
           isHorizontal
-            ? "inset-y-0 left-1/2 -translate-x-1/2 w-0 border-r-2 border-dashed border-border group-hover:border-foreground group-data-[active=true]:border-accent"
+            ? "inset-y-0 left-1/2 -translate-x-1/2 w-0 border-e-2 border-dashed border-border group-hover:border-foreground group-data-[active=true]:border-accent"
             : "inset-x-0 top-1/2 -translate-y-1/2 h-0 border-b-2 border-dashed border-border group-hover:border-foreground group-data-[active=true]:border-accent"
         )}
       />
@@ -550,7 +550,7 @@ export function ResizableHandle({
       {withHandle && (
         <div
           className={cn(
-            "z-10 rounded-xs border-2 border-border bg-card shadow-xs transition-all",
+            "z-10 rounded-xs border-2 border-border bg-card shadow-xs transition-colors",
             "group-hover:border-foreground group-hover:scale-105 motion-reduce:group-hover:scale-100",
             isActive && "border-accent bg-accent/20 scale-110",
             isHorizontal ? "px-1 py-1.5" : "px-1.5 py-1"
@@ -580,7 +580,7 @@ export function ResizableHandle({
           }}
           aria-label={isTargetCollapsed ? "Expand panel" : "Collapse panel"}
           className={cn(
-            "z-10 flex size-5 cursor-pointer items-center justify-center rounded-xs border-2 border-border bg-card font-mono text-[9px] font-bold text-foreground shadow-xs transition-all",
+            "z-10 flex size-5 cursor-pointer items-center justify-center rounded-xs border-2 border-border bg-card font-mono text-[9px] font-bold text-foreground shadow-xs transition-colors",
             "hover:border-foreground hover:bg-accent hover:text-accent-foreground hover:scale-110 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100",
             isHorizontal ? "mt-2" : "ms-2"
           )}

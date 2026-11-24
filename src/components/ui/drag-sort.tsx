@@ -46,7 +46,7 @@ export function DragSort({ items = [], onReorder, className, ...props }: DragSor
           onDrop={() => handleDrop(item.id)}
           className={cn(
             "flex cursor-grab items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 select-none",
-            "transition-all duration-200 motion-reduce:transition-none",
+            "transition-colors duration-200 motion-reduce:transition-none",
             "animate-[dragSortPop_0.25s_ease-out_both] motion-reduce:animate-none",
             "hover:border-foreground/40 active:cursor-grabbing",
             dragId === item.id && "opacity-40 border-dashed",

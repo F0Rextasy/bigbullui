@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface ReceiptProps {
+export interface ReceiptProps extends React.HTMLAttributes<HTMLElement> {
   items: { label: string; price: string }[];
   taxRate?: number;
   total: string;
@@ -19,7 +19,7 @@ export function Receipt({
   items = [],
   taxRate = 0.1,
   total = "",
-  className,
+  className, ...props
 }: ReceiptProps) {
   const subtotal = items.reduce((sum, it) => sum + parseAmount(it.price), 0);
   const tax = subtotal * Math.max(0, taxRate);
@@ -29,7 +29,7 @@ export function Receipt({
       className={cn(
         "w-full rounded-lg border border-foreground bg-secondary p-4 text-secondary-foreground shadow-sm motion-safe:animate-[fade-in_0.2s_ease-out_both]",
         className,
-      )}
+      )} {...props}
     >
       <div className="mb-3 border-b border-dashed border-border/80 pb-3">
         <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
@@ -41,7 +41,7 @@ export function Receipt({
         {items.map((it, i) => (
           <div key={`${it.label}-${i}`} className="flex items-baseline justify-between gap-2 py-1">
             <span className="line-clamp-1 flex-1 font-mono text-xs">{it.label}</span>
-            <span className="text-right font-mono text-xs opacity-80">{it.price}</span>
+            <span className="text-end font-mono text-xs opacity-80">{it.price}</span>
           </div>
         ))}
       </div>

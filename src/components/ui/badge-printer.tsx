@@ -41,12 +41,12 @@ export function BadgePrinter({
       </div>
       <div className="overflow-hidden border-2 border-foreground bg-card">
         <div
-          className="bg-secondary transition-all duration-1000 motion-reduce:transition-none"
+          className="bg-secondary transition-colors duration-1000 motion-reduce:transition-none"
           style={{ height: printing || done ? 8 : 0 }}
         />
         <div
           className={cn(
-            "mx-6 my-0 border-x-2 border-dashed border-border bg-background p-4 text-center transition-all duration-1000 motion-reduce:transition-none",
+            "mx-6 my-0 border-x-2 border-dashed border-border bg-background p-4 text-center transition-colors duration-1000 motion-reduce:transition-none",
             printing || done ? "max-h-48 opacity-100" : "max-h-0 overflow-hidden opacity-0",
           )}
           aria-live="polite"

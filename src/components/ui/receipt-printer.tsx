@@ -1,20 +1,20 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface ReceiptPrinterProps {
+export interface ReceiptPrinterProps extends React.HTMLAttributes<HTMLElement> {
   lines: string[];
   total?: string;
   autoFeed?: boolean;
   className?: string;
 }
 
-export function ReceiptPrinter({ lines = [], total, autoFeed = true, className }: ReceiptPrinterProps) {
+export function ReceiptPrinter({ lines = [], total, autoFeed = true, className, ...props }: ReceiptPrinterProps) {
   return (
     <div
       className={cn(
         "relative size-80 overflow-hidden rounded-md border border-border bg-card p-4 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       <div className="space-y-1.5 max-h-[70%] overflow-y-auto">
         {lines.map((line, i) => (

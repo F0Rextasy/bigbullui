@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { Slot } from "./lib/slot";
 
 type Variant = "default" | "destructive" | "secondary" | "outline" | "ghost" | "link";
 type Size = "default" | "sm" | "lg" | "icon";
@@ -16,7 +17,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variants: Record<Variant, string> = {
   default: "border-2 border-dashed border-foreground bg-card text-foreground hover:border-solid hover:bg-primary hover:text-primary-foreground",
-  destructive: "border border-destructive bg-destructive text-white hover:bg-destructive/90",
+  destructive: "border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90",
   secondary: "border border-border bg-secondary text-secondary-foreground hover:bg-secondary/70",
   outline: "border border-foreground bg-transparent hover:bg-secondary",
   ghost: "hover:bg-secondary",
@@ -30,37 +31,34 @@ const sizes: Record<Size, string> = {
   icon: "size-9",
 };
 
-function mergeRefs<T>(a: React.Ref<T> | undefined, b: React.Ref<T> | undefined): React.RefCallback<T> {
-  return (node) => {
-    for (const ref of [a, b]) {
-      if (!ref) continue;
-      if (typeof ref === "function") ref(node);
-      else if (typeof ref === "object" && "current" in ref) {
-        (ref as React.MutableRefObject<T | null>).current = node;
-      }
-    }
-  };
-}
-
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "default", size = "default", asChild = false, animated = true, type = "button", children, ...props }, ref) => {
+  (
+    {
+      variant = "default",
+      size = "default",
+      asChild = false,
+      animated = true,
+      type = "button",
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => {
     const classes = cn(
-      "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-mono uppercase tracking-[0.15em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:transition-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-      animated
-        ? "transition-all duration-150 hover:scale-[1.02] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"
-        : "transition-none",
+      "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-mono font-semibold uppercase tracking-[0.08em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+      animated ? "transition-colors motion-reduce:transition-none" : "transition-none",
       variants[variant],
       sizes[size],
       className
     );
 
     if (asChild && React.isValidElement(children)) {
-      const child = children as React.ReactElement<{ className?: string; ref?: React.Ref<HTMLButtonElement> }>;
-      return React.cloneElement(child, {
-        ...props,
-        ref: mergeRefs(ref, child.props.ref),
-        className: cn(classes, child.props.className),
-      });
+      return (
+        <Slot ref={ref} className={classes} {...props}>
+          {children}
+        </Slot>
+      );
     }
 
     return (

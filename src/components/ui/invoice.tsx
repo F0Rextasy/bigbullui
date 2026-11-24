@@ -9,7 +9,7 @@ export interface InvoiceLineItem {
   price: string;
 }
 
-export interface InvoiceProps {
+export interface InvoiceProps extends React.HTMLAttributes<HTMLElement> {
   number: string;
   items: InvoiceLineItem[];
   taxRate?: number;
@@ -46,7 +46,7 @@ export function Invoice({
   items = [],
   taxRate = 0.1,
   status = "draft",
-  className,
+  className, ...props
 }: InvoiceProps) {
   const subtotal = items.reduce((sum, it) => sum + parsePrice(it.price) * it.qty, 0);
   const tax = subtotal * taxRate;
@@ -57,7 +57,7 @@ export function Invoice({
       className={cn(
         "rounded-lg border border-foreground bg-card text-card-foreground p-6 shadow-sm motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Header */}
       <div className="flex flex-col gap-2 border-b border-border/80 pb-4">
@@ -85,7 +85,7 @@ export function Invoice({
             <tr className="text-xs uppercase tracking-wider text-muted-foreground">
               <th className="text-start">Item</th>
               <th className="text-center">Qty</th>
-              <th className="text-right">Price</th>
+              <th className="text-end">Price</th>
             </tr>
           </thead>
           <tbody>
@@ -99,7 +99,7 @@ export function Invoice({
               >
                 <td className="font-medium">{it.label}</td>
                 <td className="text-center font-mono">{it.qty}</td>
-                <td className="text-right font-mono">{it.price}</td>
+                <td className="text-end font-mono">{it.price}</td>
               </tr>
             ))}
           </tbody>
@@ -110,17 +110,17 @@ export function Invoice({
       <div className="mt-4 space-y-1.5 pt-4 border-t border-border/80">
         <div className="flex items-baseline justify-between">
           <span className="text-sm font-mono text-muted-foreground">Subtotal</span>
-          <span className="font-mono text-right">{subtotal.toFixed(2)}</span>
+          <span className="font-mono text-end">{subtotal.toFixed(2)}</span>
         </div>
         {taxRate > 0 && (
           <div className="flex items-baseline justify-between">
             <span className="text-sm font-mono text-muted-foreground">Tax ({taxRate * 100}%)</span>
-            <span className="font-mono text-right ms-2">{tax.toFixed(2)}</span>
+            <span className="font-mono text-end ms-2">{tax.toFixed(2)}</span>
           </div>
         )}
         <div className="flex items-baseline justify-between pt-1">
           <span className="font-medium">Total</span>
-          <span className="font-medium text-accent text-right">{total.toFixed(2)}</span>
+          <span className="font-medium text-accent text-end">{total.toFixed(2)}</span>
         </div>
       </div>
     </div>

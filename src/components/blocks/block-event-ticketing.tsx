@@ -8,11 +8,13 @@ import { Card, CardContent } from "../ui/card";
 import { SeatMap, type SeatData } from "../ui/seat-map";
 
 /** Event ticketing: seat map + cart stub + confirmation. */
-export interface BlockEventTicketingProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockEventTicketingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function BlockEventTicketing({ className, onAction, ...props }: BlockEventTicketingProps) {
+export function BlockEventTicketing({ title, className, onAction, ...props }: BlockEventTicketingProps) {
   const [seats, setSeats] = React.useState<SeatData[]>([]);
   const [total, setTotal] = React.useState(0);
   const [paid, setPaid] = React.useState(false);
@@ -22,7 +24,7 @@ export function BlockEventTicketing({ className, onAction, ...props }: BlockEven
       <Card className={cn("w-full", className)} {...props}>
         <CardContent className="flex flex-col items-center gap-2 p-8 text-center">
           <Badge variant="accent">Admit {seats.length}</Badge>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">You are in</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "You are in"}</h2>
           <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
             {seats.map((s) => s.id).join(", ")} · ${total}
           </p>

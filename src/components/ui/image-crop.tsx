@@ -207,7 +207,7 @@ export const ImageCrop = React.forwardRef<HTMLDivElement, ImageCropProps>(
               "absolute inset-2 pointer-events-auto select-none",
               "rounded-lg",
               "outline-2 outline-dashed outline-border/60",
-              "transition-all duration-200",
+              "transition-colors duration-200",
               "group-hover:-translate-y-0.5 group-focus-within:-translate-y-0.5",
               "motion-reduce:transition-none",
               isResizing && "motion-safe:animate-[pulse_1s_ease-in-out_infinite]",

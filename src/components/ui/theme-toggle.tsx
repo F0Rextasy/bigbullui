@@ -200,7 +200,7 @@ export function ThemeToggle({
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         className={cn(
-          "group relative inline-flex select-none items-center justify-between overflow-hidden rounded-md border-2 border-dashed border-foreground bg-card font-mono uppercase tracking-wider text-foreground shadow-xs transition-all duration-200 hover:border-solid hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
+          "group relative inline-flex select-none items-center justify-between overflow-hidden rounded-md border-2 border-dashed border-foreground bg-card font-mono uppercase tracking-wider text-foreground shadow-xs transition-colors duration-200 hover:border-solid hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
           isPunching && "scale-95",
           sizeStyles,
           className
@@ -223,7 +223,7 @@ export function ThemeToggle({
         <span className="flex items-center gap-2 ps-2">
           <span
             className={cn(
-              "size-2 rounded-full border border-foreground transition-all duration-200",
+              "size-2 rounded-full border border-foreground transition-colors duration-200",
               activeDark ? "bg-accent" : "bg-foreground"
             )}
           />
@@ -272,13 +272,13 @@ export function ThemeToggle({
         {...props}
       >
         {/* 3D Rotating Flipper Container */}
-        <div
-          className="relative w-full h-full transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] [transform-style:preserve-3d]"
+        <span
+          className="block relative w-full h-full transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] [transform-style:preserve-3d]"
           style={{
             transform: mounted && activeDark ? "rotateY(180deg)" : "rotateY(0deg)",
           }}
         >
-          <div
+          <span
             className="w-full h-full rounded-md border-2 border-dashed border-foreground bg-card text-card-foreground shadow-md p-3 relative flex items-center justify-between [backface-visibility:hidden]"
             style={{ minHeight: "inherit" }}
           >
@@ -293,15 +293,15 @@ export function ThemeToggle({
             />
 
             {/* Left Ticket Main Body */}
-            <div className="flex-1 pe-3 border-r-2 border-dashed border-border">
+            <span className="flex-1 pe-3 border-e-2 border-dashed border-border">
               {/* Header Micro-label */}
-              <div className="flex items-center justify-between text-[9px] uppercase tracking-widest text-muted-foreground mb-1">
+              <span className="flex items-center justify-between text-[9px] uppercase tracking-widest text-muted-foreground mb-1">
                 <span>ADMISSION STUB</span>
                 <span className="font-bold text-card-foreground">PASS #01-DAY</span>
-              </div>
+              </span>
 
               {/* Title & Stamp */}
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center size-5 rounded-full border border-foreground bg-secondary text-[10px]">
                   ☼
                 </span>
@@ -311,17 +311,17 @@ export function ThemeToggle({
                 <span className="rounded border border-dashed border-accent bg-accent px-1 py-0.2 text-[8px] font-black text-accent-foreground uppercase tracking-wider">
                   STAMPED
                 </span>
-              </div>
+              </span>
 
               {/* Sub-label & Hours */}
-              <div className="flex flex-wrap items-center justify-between gap-x-2 text-[9px] text-muted-foreground mt-1.5 uppercase">
+              <span className="flex flex-wrap items-center justify-between gap-x-2 text-[9px] text-muted-foreground mt-1.5 uppercase">
                 <span>GATES: 07:00 - 19:00</span>
                 <span className="tracking-tighter font-semibold">CLICK TO FLIP</span>
-              </div>
-            </div>
+              </span>
+            </span>
 
             {/* Right Perforated Tear-off Stub */}
-            <div className="w-16 ps-3 flex flex-col items-center justify-center text-center shrink-0">
+            <span className="w-16 ps-3 flex flex-col items-center justify-center text-center shrink-0">
               <span className="text-[8px] font-bold tracking-widest text-muted-foreground uppercase">
                 SHIFT
               </span>
@@ -329,16 +329,16 @@ export function ThemeToggle({
                 LIGHT
               </span>
               {/* Mini Barcode Glyph */}
-              <div
-                className="text-[7px] tracking-tight text-muted-foreground font-mono leading-none select-none"
+              <span
+                className="block text-[7px] tracking-tight text-muted-foreground font-mono leading-none select-none"
                 aria-hidden="true"
               >
                 ||| | |||| |
-              </div>
-            </div>
-          </div>
+              </span>
+            </span>
+          </span>
 
-          <div
+          <span
             className="absolute inset-0 w-full h-full rounded-md border-2 border-dashed border-background bg-foreground text-background shadow-md p-3 flex items-center justify-between [backface-visibility:hidden] [transform:rotateY(180deg)]"
             style={{ minHeight: "inherit" }}
           >
@@ -353,15 +353,15 @@ export function ThemeToggle({
             />
 
             {/* Left Ticket Main Body */}
-            <div className="flex-1 pe-3 border-r-2 border-dashed border-border">
+            <span className="flex-1 pe-3 border-e-2 border-dashed border-border">
               {/* Header Micro-label */}
-              <div className="flex items-center justify-between text-[9px] uppercase tracking-widest text-background mb-1">
+              <span className="flex items-center justify-between text-[9px] uppercase tracking-widest text-background mb-1">
                 <span>NIGHT CURTAIN</span>
                 <span className="font-bold text-background">PASS #02-NGT</span>
-              </div>
+              </span>
 
               {/* Title & Stamp */}
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center size-5 rounded-full border border-background bg-background/15 text-[10px] text-background">
                   ☾
                 </span>
@@ -371,17 +371,17 @@ export function ThemeToggle({
                 <span className="rounded border border-dashed border-accent bg-accent px-1 py-0.2 text-[8px] font-black text-accent-foreground uppercase tracking-wider">
                   ENDORSED
                 </span>
-              </div>
+              </span>
 
               {/* Sub-label & Hours */}
-              <div className="flex flex-wrap items-center justify-between gap-x-2 text-[9px] text-background mt-1.5 uppercase">
+              <span className="flex flex-wrap items-center justify-between gap-x-2 text-[9px] text-background mt-1.5 uppercase">
                 <span>GATES: 19:00 - 07:00</span>
                 <span className="tracking-tighter font-semibold">CLICK TO FLIP</span>
-              </div>
-            </div>
+              </span>
+            </span>
 
             {/* Right Perforated Tear-off Stub */}
-            <div className="w-16 ps-3 flex flex-col items-center justify-center text-center shrink-0">
+            <span className="w-16 ps-3 flex flex-col items-center justify-center text-center shrink-0">
               <span className="text-[8px] font-bold tracking-widest text-background uppercase">
                 SHIFT
               </span>
@@ -389,15 +389,15 @@ export function ThemeToggle({
                 DARK
               </span>
               {/* Mini Barcode Glyph */}
-              <div
-                className="text-[7px] tracking-tight text-background font-mono leading-none select-none"
+              <span
+                className="block text-[7px] tracking-tight text-background font-mono leading-none select-none"
                 aria-hidden="true"
               >
                 | ||| || | |
-              </div>
-            </div>
-          </div>
-        </div>
+              </span>
+            </span>
+          </span>
+        </span>
       </button>
 
       {/* Tactile Punch Hole Flash Indicator */}

@@ -7,9 +7,9 @@ export type ZoomImageProps = {
   src: string;
   alt?: string;
   zoom?: number;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function ZoomImage({ src, alt, zoom = 2 }: ZoomImageProps) {
+export function ZoomImage({ src, alt, zoom = 2, ...props }: ZoomImageProps) {
   const [scale, setScale] = React.useState(1);
   const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 
@@ -43,7 +43,7 @@ export function ZoomImage({ src, alt, zoom = 2 }: ZoomImageProps) {
         "motion-reduce:animate-none",
       )}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={handleMouseLeave} {...props}
     >
       <img
         src={src}

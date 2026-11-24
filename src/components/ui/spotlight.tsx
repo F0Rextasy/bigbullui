@@ -9,9 +9,9 @@ export type SpotlightProps = {
   padding?: number;
   title?: string;
   description?: string;
-};
+} & Omit<React.HTMLAttributes<HTMLElement>, "title">;
 
-export function Spotlight({ targetRef, padding = 24, title, description }: SpotlightProps) {
+export function Spotlight({ targetRef, padding = 24, title, description, ...props }: SpotlightProps) {
   const [visible, setVisible] = React.useState(false);
   const [targetBox, setTargetBox] = React.useState({ left: 0, top: 0, width: 0, height: 0 });
   const overlayRef = React.useRef<HTMLDivElement>(null);
@@ -73,13 +73,13 @@ export function Spotlight({ targetRef, padding = 24, title, description }: Spotl
   return (
     <div
       className={cn("fixed inset-0 z-50", "motion-reduce:animate-none")}
-      style={{ ...overlayStyle }}
+      style={{ ...overlayStyle }} {...props}
     >
       <div
         aria-hidden="true"
         onClick={() => setVisible(false)}
         className={cn(
-          "fixed inset-0 bg-black/60 backdrop-blur-sm",
+          "fixed inset-0 bg-black/60",
           "motion-reduce:animate-none",
         )}
       />

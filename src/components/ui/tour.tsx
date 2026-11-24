@@ -91,7 +91,7 @@ export function Tour({
             <div
               key={i}
               className={cn(
-                "size-1.5 rounded-full transition-all",
+                "size-1.5 rounded-full transition-colors",
                 i === stepIdx ? "w-4 bg-accent" : "bg-muted"
               )}
             />

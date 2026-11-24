@@ -10,7 +10,7 @@ export interface LightboxImage {
   title?: string;
 }
 
-export interface LightboxProps {
+export interface LightboxProps extends React.HTMLAttributes<HTMLElement> {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   images: LightboxImage[];
@@ -23,7 +23,7 @@ export function Lightbox({
   onOpenChange,
   images = [],
   initialIndex = 0,
-  className,
+  className, ...props
 }: LightboxProps) {
   const [nav, setNav] = React.useState({ base: initialIndex, index: initialIndex });
   const currentIndex = nav.base === initialIndex ? nav.index : initialIndex;
@@ -73,12 +73,12 @@ export function Lightbox({
   const current = images[currentIndex] ?? images[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 font-mono select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 font-mono select-none" {...props}>
       {/* Backdrop */}
       <div
         aria-hidden="true"
         onClick={() => onOpenChange(false)}
-        className="fixed inset-0 bg-black/80 backdrop-blur-xs motion-safe:animate-[fade-in_0.15s_ease-out_both]"
+        className="fixed inset-0 bg-black/80 motion-safe:animate-[fade-in_0.15s_ease-out_both]"
       />
 
       {/* Lightbox Card */}

@@ -3,12 +3,12 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface WristbandProps {
+export interface WristbandProps extends React.HTMLAttributes<HTMLElement> {
   text: string;
   variant?: "general" | "vip" | "media";
 }
 
-export function Wristband({ text, variant = "general" }: WristbandProps) {
+export function Wristband({ text, variant = "general", ...props }: WristbandProps) {
   const variantClasses = {
     general: "bg-secondary text-secondary-foreground",
     vip: "bg-accent text-accent-foreground",
@@ -21,7 +21,7 @@ export function Wristband({ text, variant = "general" }: WristbandProps) {
         "relative size-40 rounded-full border-2 border-border/50 p-2 text-center motion-reduce:animate-none motion-reduce:transition-none",
         variantClasses[variant],
         "group"
-      )}
+      )} {...props}
     >
       <div className="font-mono text-[9px] uppercase tracking-[0.15em]">
         {text}

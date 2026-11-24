@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface RatingProps {
+export interface RatingProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: number;
   defaultValue?: number;
   max?: number;
@@ -20,7 +20,7 @@ export function Rating({
   onValueChange,
   disabled = false,
   className,
-  "aria-label": ariaLabel = "Rating",
+  "aria-label": ariaLabel = "Rating", ...props
 }: RatingProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
@@ -56,7 +56,7 @@ export function Rating({
       role="radiogroup"
       aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
-      className={cn("inline-flex items-center gap-1.5", disabled && "opacity-50", className)}
+      className={cn("inline-flex items-center gap-1.5", disabled && "opacity-50", className)} {...props}
     >
       <div className="flex items-center gap-1" onMouseLeave={() => setHoverVal(null)}>
         {Array.from({ length: max }, (_, i) => {

@@ -76,7 +76,7 @@ export function BoardingPass({
               <span className="mt-1 font-mono text-[10px] text-muted-foreground">NON-STOP</span>
             </div>
 
-            <div className="text-right">
+            <div className="text-end">
               <span className="font-mono text-4xl font-extrabold tracking-tight text-foreground">
                 {destination}
               </span>
@@ -121,7 +121,7 @@ export function BoardingPass({
       {/* Perforation Divider */}
       <div className="relative flex md:flex-col items-center justify-between">
         <div className="size-5 rounded-full bg-background border-2 border-foreground -ms-2.5 md:ms-0 md:-mt-2.5 shrink-0" />
-        <div className="h-0 w-full md:w-0 md:h-full border-t-2 md:border-t-0 md:border-l-2 border-dashed border-border" />
+        <div className="h-0 w-full md:w-0 md:h-full border-t-2 md:border-t-0 md:border-s-2 border-dashed border-border" />
         <div className="size-5 rounded-full bg-background border-2 border-foreground -me-2.5 md:me-0 md:-mb-2.5 shrink-0" />
       </div>
 

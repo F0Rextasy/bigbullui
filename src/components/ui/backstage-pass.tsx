@@ -3,19 +3,19 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface BackstagePassProps {
+export interface BackstagePassProps extends React.HTMLAttributes<HTMLElement> {
   holderName?: string;
   className?: string;
 }
 
-export function BackstagePass({ holderName, className }: BackstagePassProps) {
+export function BackstagePass({ holderName, className, ...props }: BackstagePassProps) {
   return (
     <div
       className={cn(
         "relative size-56 rounded-lg border border-border bg-card p-6 motion-reduce:transition-none",
         "group",
         className
-      )}
+      )} {...props}
     >
       <div className="absolute top-2 right-2 flex items-center gap-2">
         <div

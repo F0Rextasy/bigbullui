@@ -30,7 +30,7 @@ export function BentoGrid({ cells = [], columns = 4, className, ...props }: Bent
           key={cell.id}
           className={cn(
             "group rounded-lg border border-border bg-card p-5",
-            "transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/30 hover:shadow-sm motion-reduce:transition-none motion-reduce:hover:transform-none",
+            "transition-[transform,opacity,background-color,border-color,color] duration-200 hover:-translate-y-0.5 hover:border-foreground/30 hover:shadow-sm motion-reduce:transition-none motion-reduce:hover:transform-none",
             "animate-[bentoIn_0.4s_cubic-bezier(0.16,1,0.3,1)_both] motion-reduce:animate-none",
             spanClass[cell.span ?? 1],
             rowClass[cell.rows ?? 1]

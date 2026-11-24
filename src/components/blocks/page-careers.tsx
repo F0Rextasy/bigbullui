@@ -9,22 +9,25 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PageHeader } from "../ui/page-header";
 
-const ROLES = [
+const DEFAULT_ROLES = [
   { id: "gate-agent", title: "Gate Agent", team: "BOX OFFICE", place: "HALL A // NIGHTS", type: "FULL TIME" },
   { id: "stub-designer", title: "Stub Designer", team: "DESIGN", place: "REMOTE // EU", type: "FULL TIME" },
   { id: "sound-tech", title: "Sound Technician", team: "STAGE CREW", place: "HALL B // WEEKENDS", type: "PART TIME" },
   { id: "support-lead", title: "Support Lead", team: "HELP DESK", place: "REMOTE // US", type: "FULL TIME" },
 ];
 
-export interface PageCareersProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageCareersProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  roles?: typeof DEFAULT_ROLES;
   onAction?: (action: string) => void;
 }
 
-export function PageCareers({ className, onAction, ...props }: PageCareersProps) {
-  const [selected, setSelected] = React.useState(ROLES[0].id);
+export function PageCareers({ title, roles = DEFAULT_ROLES, className, onAction, ...props }: PageCareersProps) {
+  const [selected, setSelected] = React.useState(roles[0].id);
   const [applied, setApplied] = React.useState(false);
   const [referred, setReferred] = React.useState(false);
-  const current = ROLES.find((role) => role.id === selected) ?? ROLES[0];
+  const current = roles.find((role) => role.id === selected) ?? roles[0];
 
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
@@ -40,7 +43,7 @@ export function PageCareers({ className, onAction, ...props }: PageCareersProps)
       />
       <div className="grid gap-4 lg:grid-cols-5">
         <div className="space-y-3 lg:col-span-3">
-          {ROLES.map((role) => (
+          {roles.map((role) => (
             <button
               key={role.id}
               type="button"
@@ -57,7 +60,7 @@ export function PageCareers({ className, onAction, ...props }: PageCareersProps)
         </div>
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Apply panel</CardTitle>
+            <CardTitle>{title ?? "Apply panel"}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="rounded-md border border-dashed border-border bg-secondary p-3 font-mono text-[11px] uppercase tracking-wider">

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface UserCardProps {
+export interface UserCardProps extends Omit<React.HTMLAttributes<HTMLElement>, "role"> {
   initials?: string;
   name?: string;
   role?: string;
@@ -18,14 +18,14 @@ export function UserCard({
   role = "Developer",
   meta = [],
   className,
-  onAction,
+  onAction, ...props
 }: UserCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-full rounded-lg border border-foreground bg-card p-6 text-card-foreground transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:shadow-none",
+        "group relative w-full rounded-lg border border-foreground bg-card p-6 text-card-foreground transition-[transform,width,height,opacity,background-color,border-color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:shadow-none",
         className,
-      )}
+      )} {...props}
     >
       <div className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-secondary">
         <span className="font-mono text-xl font-bold text-foreground">{initials}</span>

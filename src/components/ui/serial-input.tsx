@@ -103,7 +103,7 @@ export function SerialInput({
             aria-label={`Group ${g + 1} character ${i + 1}`}
             className={cn(
               "size-9 rounded-md border border-dashed border-border bg-card text-center font-mono text-sm font-bold uppercase",
-              "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+              "transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               charVal && "border-accent"
             )}
           />

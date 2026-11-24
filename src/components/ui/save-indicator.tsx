@@ -23,7 +23,7 @@ export function SaveIndicator({ status = "idle", label, className, ...props }: S
     <span
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider",
-        "transition-all duration-300 motion-reduce:transition-none",
+        "transition-colors duration-300 motion-reduce:transition-none",
         m.tone,
         className
       )}

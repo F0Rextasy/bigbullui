@@ -77,7 +77,7 @@ export function ConfirmDialog({
           onCancelRef.current?.();
           onOpenChangeRef.current?.(false);
         }}
-        className="fixed inset-0 bg-foreground/50 backdrop-blur-[2px] overscroll-contain motion-safe:animate-[fade-in_0.15s_ease-out_both]"
+        className="fixed inset-0 bg-foreground/50 overscroll-contain motion-safe:animate-[fade-in_0.15s_ease-out_both]"
       />
       <div
         ref={dialogRef}

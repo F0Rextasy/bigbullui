@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface StampCardProps {
+export interface StampCardProps extends React.HTMLAttributes<HTMLElement> {
   text?: string;
   subtext?: string;
   tone?: "accent" | "primary" | "destructive";
@@ -14,14 +14,14 @@ export function StampCard({
   text = "ADMITTED",
   subtext = "OFFICIAL STUB",
   tone = "accent",
-  className,
+  className, ...props
 }: StampCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground p-4 transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground p-4 transition-[transform,width,height,opacity,background-color,border-color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Top tone badge */}
       <div className="flex items-center justify-between mb-3">

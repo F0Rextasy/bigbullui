@@ -102,7 +102,7 @@ export function NfcBadge({
       role="region"
       aria-label={`NFC Gate Pass for ${holderName}`}
       className={cn(
-        "relative mx-auto flex w-full max-w-sm flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card text-foreground shadow-lg select-none transition-all duration-200",
+        "relative mx-auto flex w-full max-w-sm flex-col overflow-hidden rounded-xl border-2 border-foreground bg-card text-foreground shadow-lg select-none transition-[width,height,left,right,opacity,background-color,border-color] duration-200",
         className
       )}
       {...props}
@@ -187,7 +187,7 @@ export function NfcBadge({
           onClick={triggerTap}
           onKeyDown={handleKeyDown}
           className={cn(
-            "group relative flex flex-col items-center justify-center overflow-hidden rounded-lg border-2 p-5 text-center cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring select-none",
+            "group relative flex flex-col items-center justify-center overflow-hidden rounded-lg border-2 p-5 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring select-none",
             currentStatus === "idle" &&
               "border-dashed border-border bg-secondary/30 hover:border-foreground hover:bg-secondary/50",
             currentStatus === "scanning" &&
@@ -274,7 +274,7 @@ export function NfcBadge({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className={cn(
-                    "transition-all duration-300",
+                    "transition-colors duration-300",
                     currentStatus === "scanning" && "motion-safe:animate-pulse"
                   )}
                   aria-hidden="true"

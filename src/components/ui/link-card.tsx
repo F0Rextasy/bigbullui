@@ -21,7 +21,7 @@ export function LinkCard({
       href={href}
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className={cn(
-        "group flex items-start justify-between gap-4 rounded-md border border-border bg-card p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-foreground/40 hover:shadow-[4px_4px_0_0_var(--color-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-none animate-[fade-in-up_0.3s_ease-out_both] motion-reduce:animate-none",
+        "group flex items-start justify-between gap-4 rounded-md border border-border bg-card p-5 transition-[transform,opacity,background-color,border-color,color] duration-200 hover:-translate-y-0.5 hover:border-foreground/40 hover:shadow-[4px_4px_0_0_var(--color-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:shadow-none animate-[fade-in-up_0.3s_ease-out_both] motion-reduce:animate-none",
         className
       )}
       {...props}

@@ -35,7 +35,7 @@ export function QueuedJobs({ jobs = [], onCancel, className, ...props }: QueuedJ
         return (
           <div
             key={job.id}
-            className="rounded-md border border-border bg-card px-3 py-2.5 animate-[qjIn_0.3s_ease-out_both] motion-reduce:animate-none"
+            className="rounded-md border border-border bg-card px-3 py-2.5 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none"
             style={{ animationDelay: `${idx * 55}ms` }}
           >
             <div className="flex items-center gap-2">
@@ -55,7 +55,7 @@ export function QueuedJobs({ jobs = [], onCancel, className, ...props }: QueuedJ
             </div>
             {job.status === "running" && job.progress !== undefined && (
               <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-border/50">
-                <div className="h-full rounded-full bg-accent transition-all duration-500 motion-reduce:transition-none" style={{ width: `${job.progress}%` }} />
+                <div className="h-full rounded-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-500 motion-reduce:transition-none" style={{ width: `${job.progress}%` }} />
               </div>
             )}
           </div>

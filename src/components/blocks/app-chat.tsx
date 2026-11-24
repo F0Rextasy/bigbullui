@@ -7,37 +7,87 @@ import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Avatar } from "../ui/avatar";
 
-const THREADS = [
+export interface ChatThreadItem {
+  id: string;
+  name: string;
+  last: string;
+  time: string;
+  unread: number;
+}
+
+export interface ChatMessageItem {
+  id: string;
+  who: string;
+  body: string;
+  mine: boolean;
+  time: string;
+}
+
+const DEFAULT_THREADS: ChatThreadItem[] = [
   { id: "c1", name: "Stage Crew", last: "Truss is up, lights at 80%", time: "09:12", unread: 3 },
   { id: "c2", name: "Gate Team", last: "Scanner 4 needs a reboot", time: "08:47", unread: 1 },
   { id: "c3", name: "Vendors", last: "Ice delivery confirmed", time: "YESTERDAY", unread: 0 },
 ];
 
-const MESSAGES = [
+const DEFAULT_MESSAGES: ChatMessageItem[] = [
   { id: "m1", who: "Mira Chen", body: "Truss is up, lights at 80 percent.", mine: false, time: "09:10" },
   { id: "m2", who: "You", body: "Copy that. Doors still 19:30 sharp.", mine: true, time: "09:11" },
   { id: "m3", who: "Mira Chen", body: "Sending the cue sheet now.", mine: false, time: "09:12" },
 ];
 
 export interface AppChatProps extends React.HTMLAttributes<HTMLDivElement> {
+  threads?: ChatThreadItem[];
+  messages?: ChatMessageItem[];
+  defaultMessages?: ChatMessageItem[];
+  activeThreadId?: string;
+  onThreadChange?: (threadId: string) => void;
+  onSendMessage?: (text: string, threadId: string) => void;
   onAction?: (action: string) => void;
 }
 
-export function AppChat({ className, onAction, ...props }: AppChatProps) {
-  const [active, setActive] = React.useState("c1");
+export function AppChat({
+  threads = DEFAULT_THREADS,
+  messages: controlledMessages,
+  defaultMessages = DEFAULT_MESSAGES,
+  activeThreadId: controlledActive,
+  onThreadChange,
+  onSendMessage,
+  className,
+  onAction,
+  ...props
+}: AppChatProps) {
+  const [internalActive, setInternalActive] = React.useState(threads[0]?.id ?? "c1");
   const [draft, setDraft] = React.useState("");
-  const [messages, setMessages] = React.useState(MESSAGES);
-  const current = THREADS.find((thread) => thread.id === active) ?? THREADS[0];
+  const [internalMessages, setInternalMessages] = React.useState<ChatMessageItem[]>(defaultMessages);
+
+  const active = controlledActive ?? internalActive;
+  const messages = controlledMessages ?? internalMessages;
+  const current = threads.find((thread) => thread.id === active) ?? threads[0];
+
+  const selectThread = (id: string) => {
+    if (controlledActive === undefined) setInternalActive(id);
+    onThreadChange?.(id);
+  };
+
   return (
-    <div className={cn("grid w-full overflow-hidden rounded-lg border-2 border-foreground bg-card md:grid-cols-3", className)} {...props}>
-      <div className="divide-y divide-dashed divide-border border-b border-dashed border-border md:border-b-0 md:border-r">
+    <div
+      className={cn(
+        "grid w-full overflow-hidden rounded-lg border-2 border-foreground bg-card md:grid-cols-3",
+        className
+      )}
+      {...props}
+    >
+      <div className="divide-y divide-dashed divide-border border-b border-dashed border-border md:border-b-0 md:border-e">
         <p className="px-4 py-3 font-mono text-xs font-black uppercase tracking-[0.2em]">Channels</p>
-        {THREADS.map((thread) => (
+        {threads.map((thread) => (
           <button
             key={thread.id}
             type="button"
-            onClick={() => setActive(thread.id)}
-            className={`flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-start transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${active === thread.id ? "bg-secondary/60" : ""}`}
+            onClick={() => selectThread(thread.id)}
+            className={cn(
+              "flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-start transition-colors hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+              active === thread.id && "bg-secondary/60"
+            )}
           >
             <Avatar name={thread.name} size="sm" />
             <span className="min-w-0 flex-1">
@@ -47,7 +97,7 @@ export function AppChat({ className, onAction, ...props }: AppChatProps) {
               </span>
               <span className="block truncate text-xs text-muted-foreground">{thread.last}</span>
             </span>
-            {thread.unread > 0 && <Badge variant="accent">{thread.unread}</Badge>}
+            {thread.unread > 0 ? <Badge variant="accent">{thread.unread}</Badge> : null}
           </button>
         ))}
       </div>
@@ -58,11 +108,22 @@ export function AppChat({ className, onAction, ...props }: AppChatProps) {
         </div>
         <div className="flex-1 space-y-3 p-4">
           {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.mine ? "justify-end" : "justify-start"}`}>
-              <div className={`max-w-[75%] rounded-lg border px-3 py-2 ${message.mine ? "border-foreground bg-primary text-primary-foreground" : "border-dashed border-border bg-secondary/50"}`}>
-                {!message.mine && <p className="font-mono text-[10px] font-black uppercase tracking-widest opacity-70">{message.who}</p>}
+            <div key={message.id} className={cn("flex", message.mine ? "justify-end" : "justify-start")}>
+              <div
+                className={cn(
+                  "max-w-[75%] rounded-lg border px-3 py-2",
+                  message.mine
+                    ? "border-foreground bg-primary text-primary-foreground"
+                    : "border-dashed border-border bg-secondary/50"
+                )}
+              >
+                {!message.mine && (
+                  <p className="font-mono text-[10px] font-black uppercase tracking-widest opacity-70">
+                    {message.who}
+                  </p>
+                )}
                 <p className="text-sm">{message.body}</p>
-                <p className="mt-1 text-right font-mono text-[10px] opacity-60">{message.time}</p>
+                <p className="mt-1 text-end font-mono text-[10px] opacity-60">{message.time}</p>
               </div>
             </div>
           ))}
@@ -73,13 +134,26 @@ export function AppChat({ className, onAction, ...props }: AppChatProps) {
             event.preventDefault();
             const text = draft.trim();
             if (!text) return;
-            setMessages((prev) => [...prev, { id: `m-${prev.length + 1}`, who: "You", body: text, mine: true, time: "NOW" }]);
+            if (!controlledMessages) {
+              setInternalMessages((prev) => [
+                ...prev,
+                { id: `m-${prev.length + 1}`, who: "You", body: text, mine: true, time: "NOW" },
+              ]);
+            }
             setDraft("");
+            onSendMessage?.(text, active);
             onAction?.("send-message");
           }}
         >
-          <Input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="Type a message..." aria-label="Type a message" />
-          <Button type="submit" size="sm">Send</Button>
+          <Input
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            placeholder="Type a message..."
+            aria-label="Type a message"
+          />
+          <Button type="submit" size="sm">
+            Send
+          </Button>
         </form>
       </div>
     </div>

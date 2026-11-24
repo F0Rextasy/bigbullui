@@ -85,7 +85,7 @@ export function Leaderboard({
             <span
               className={cn(
                 "font-mono text-[10px] uppercase text-muted-foreground",
-                "transition-all duration-500",
+                "transition-colors duration-500",
               )}
             >
               {entry.score}

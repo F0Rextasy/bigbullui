@@ -8,18 +8,20 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 
-export interface Auth2faProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface Auth2faProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function Auth2fa({ className, onAction, ...props }: Auth2faProps) {
+export function Auth2fa({ title, className, onAction, ...props }: Auth2faProps) {
   const [verified, setVerified] = React.useState(false);
   return (
     <div className={cn("mx-auto w-full max-w-md", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <Badge variant="accent" className="mx-auto">GATE PASS // 2FA</Badge>
-          <CardTitle className="text-xl">Second stamp required</CardTitle>
+          <CardTitle className="text-xl">{title ?? "Second stamp required"}</CardTitle>
           <CardDescription>Enter the 6-digit code from your authenticator.</CardDescription>
         </CardHeader>
         <CardContent>

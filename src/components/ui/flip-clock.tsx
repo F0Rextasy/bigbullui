@@ -3,12 +3,12 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface FlipClockProps {
+export interface FlipClockProps extends React.HTMLAttributes<HTMLElement> {
   time: string; // "HH:MM"
   className?: string;
 }
 
-export function FlipClock({ time = "", className }: FlipClockProps) {
+export function FlipClock({ time = "", className, ...props }: FlipClockProps) {
   const digits = time.split(":");
 
   return (
@@ -16,7 +16,7 @@ export function FlipClock({ time = "", className }: FlipClockProps) {
       className={cn(
         "grid grid-cols-4 gap-1.5 text-center motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       {digits.map((digit, i) => (
         <FlipDigit key={i} value={parseInt(digit, 10) || 0} index={i} />

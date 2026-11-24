@@ -36,7 +36,7 @@ export function MentionList({ users = [], onSelect, className, ...props }: Menti
               "flex w-full items-center gap-2.5 px-3 py-2 text-start transition-colors motion-reduce:transition-none motion-reduce:animate-none! focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-inset",
               idx === highlight ? "bg-accent/10" : "hover:bg-secondary/50"
             )}
-            style={{ animation: "mlIn 0.2s ease-out both", animationDelay: `${idx * 35}ms` }}
+            style={{ animation: "cpIn 0.2s ease-out both", animationDelay: `${idx * 35}ms` }}
           >
             <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[9px] font-bold">
               {u.initials}

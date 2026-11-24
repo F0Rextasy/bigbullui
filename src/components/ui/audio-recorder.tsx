@@ -33,7 +33,7 @@ export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProp
         type="button"
         onClick={() => (recording ? stop() : setRecording(true))}
         className={cn(
-          "flex size-11 shrink-0 items-center justify-center rounded-full transition-all duration-200 motion-reduce:transition-none",
+          "flex size-11 shrink-0 items-center justify-center rounded-full transition-colors duration-200 motion-reduce:transition-none",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           recording ? "bg-destructive text-white animate-pulse motion-reduce:animate-none" : "bg-accent text-accent-foreground hover:bg-accent/90"
         )}
@@ -61,7 +61,7 @@ export function AudioRecorder({ onSend, className, ...props }: AudioRecorderProp
         <button
           type="button"
           onClick={stop}
-          className="shrink-0 rounded-md bg-success px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-success active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success motion-reduce:transition-none"
+          className="shrink-0 rounded-md bg-success px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-success active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success motion-reduce:transition-none"
         >
           Send
         </button>

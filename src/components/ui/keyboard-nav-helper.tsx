@@ -61,7 +61,7 @@ export function KeyboardNavHelper({ shortcuts, className, ...props }: KeyboardNa
         role="dialog"
         aria-modal="true"
         aria-label="Keyboard shortcuts"
-        className="relative z-10 w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[khIn_0.2s_ease-out_both] motion-reduce:animate-none focus:outline-none"
+        className="relative z-10 w-full max-w-sm rounded-lg border border-border bg-card p-5 shadow-lg animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none focus:outline-none"
       >
         <div className="flex items-center justify-between">
           <h3 className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Keyboard Shortcuts</h3>

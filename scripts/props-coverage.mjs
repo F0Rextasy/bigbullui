@@ -9,15 +9,29 @@ const names = [...registry.matchAll(/name:\s*["']([a-z0-9][a-z0-9-]*)["']/g)].ma
 const propsMap = JSON.parse(fs.readFileSync(path.join(rootDir, "src/data/docs-content.json"), "utf8")).props ?? {};
 
 let missing = 0;
+let emptyDescCount = 0;
+let totalPropsCount = 0;
 for (const slug of names) {
-  const documented = Boolean(propsMap[slug]);
+  const list = propsMap[slug];
+  const documented = Array.isArray(list) && list.length > 0;
   if (!documented) {
     missing += 1;
     console.log(`WARN props-coverage: no props docs for "${slug}"`);
+  } else {
+    for (const p of list) {
+      totalPropsCount += 1;
+      if (!p?.description || !String(p.description).trim()) {
+        emptyDescCount += 1;
+      }
+    }
   }
 }
 const documented = names.length - missing;
-console.log(`props-coverage: ${documented}/${names.length} components documented.`);
+console.log(`props-coverage: ${documented}/${names.length} components documented (${totalPropsCount} props, ${emptyDescCount} empty descriptions).`);
+if (emptyDescCount > 0) {
+  console.error(`props-coverage: FAIL ${emptyDescCount} prop(s) still have empty description.`);
+  process.exit(1);
+}
 
 const floorPath = path.join(rootDir, "scripts/props-floor.json");
 if (!fs.existsSync(floorPath)) {

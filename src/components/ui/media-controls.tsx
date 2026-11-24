@@ -125,7 +125,7 @@ export function MediaControls({
       {/* Progress micro-bar */}
       <div className="flex-1 h-0.5 bg-muted rounded-full overflow-hidden mx-2">
         <div
-          className="h-full bg-primary rounded-full transition-all duration-200 ease-out"
+          className="h-full bg-primary rounded-full transition-[width,height,left,right,opacity,background-color,border-color] duration-200 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>

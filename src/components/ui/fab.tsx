@@ -61,7 +61,7 @@ export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(function Fab(
         <div
           aria-hidden="true"
           onClick={() => setOpen(false)}
-          className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-[1px]"
+          className="fixed inset-0 z-40 bg-foreground/20"
         />
       )}
 

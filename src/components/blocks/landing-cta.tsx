@@ -5,16 +5,18 @@ import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
-export interface LandingCtaProps extends React.HTMLAttributes<HTMLElement> {
+export interface LandingCtaProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function LandingCta({ className, onAction, ...props }: LandingCtaProps) {
+export function LandingCta({ title, className, onAction, ...props }: LandingCtaProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <section className={cn("w-full rounded-lg border-2 border-foreground bg-primary p-10 text-center text-primary-foreground outline-1 outline-dashed outline-offset-[-7px]", className)} {...props}>
       <Badge variant="outline" className="mx-auto border-primary-foreground/50 text-primary-foreground">FINAL CALL</Badge>
-      <h2 className="mx-auto mt-3 max-w-xl font-mono text-3xl font-black uppercase tracking-tight sm:text-4xl">Open the gates tonight</h2>
+      <h2 className="mx-auto mt-3 max-w-xl font-mono text-3xl font-black uppercase tracking-tight sm:text-4xl">{title ?? "Open the gates tonight"}</h2>
       <p className="mx-auto mt-2 max-w-md text-sm opacity-80">Install once, print forever. Your first stub ships in under five minutes.</p>
       <div className="mt-5 flex flex-wrap justify-center gap-2">
         <Button size="lg" variant="secondary" onClick={() => { setNotice("Starting quick install..."); onAction?.("start-printing"); }}>Start printing</Button>

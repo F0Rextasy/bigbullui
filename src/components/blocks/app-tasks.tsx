@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Avatar } from "../ui/avatar";
 
-const COLUMNS = [
+const DEFAULT_COLUMNS = [
   {
     id: "todo",
     title: "QUEUE",
@@ -33,11 +33,14 @@ const COLUMNS = [
   },
 ];
 
-export interface AppTasksProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppTasksProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  columns?: typeof DEFAULT_COLUMNS;
   onAction?: (action: string) => void;
 }
 
-export function AppTasks({ className, onAction, ...props }: AppTasksProps) {
+export function AppTasks({ title, columns = DEFAULT_COLUMNS, className, onAction, ...props }: AppTasksProps) {
   const [query, setQuery] = React.useState("");
   const [notice, setNotice] = React.useState<string | null>(null);
   const q = query.trim().toLowerCase();
@@ -46,7 +49,7 @@ export function AppTasks({ className, onAction, ...props }: AppTasksProps) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">CREW // TASK BOARD</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Load-in list</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Load-in list"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -55,7 +58,7 @@ export function AppTasks({ className, onAction, ...props }: AppTasksProps) {
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        {COLUMNS.map((column) => {
+        {columns.map((column) => {
           const cards = column.cards.filter((card) => !q || `${card.title} ${card.tag} ${card.who}`.toLowerCase().includes(q));
           return (
           <div key={column.id} className="rounded-lg border-2 border-dashed border-border bg-secondary/30 p-3">

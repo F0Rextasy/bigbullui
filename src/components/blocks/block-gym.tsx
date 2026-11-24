@@ -6,8 +6,8 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const CLASSES = [
+const DEFAULT_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DEFAULT_CLASSES = [
   { id: "g1", name: "Boxing Basics", coach: "Kaya", day: "Mon", time: "18:00", spots: 4 },
   { id: "g2", name: "HIIT 45", coach: "Demir", time: "19:30", day: "Mon", spots: 0 },
   { id: "g3", name: "Yoga Flow", coach: "Aydin", time: "08:00", day: "Tue", spots: 6 },
@@ -17,22 +17,26 @@ const CLASSES = [
 ];
 
 /** Gym schedule: weekly class grid + spot booking. */
-export interface BlockGymProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockGymProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  days?: typeof DEFAULT_DAYS;
+  classes?: typeof DEFAULT_CLASSES;
   onAction?: (action: string) => void;
 }
 
-export function BlockGym({ className, onAction, ...props }: BlockGymProps) {
+export function BlockGym({ title, days = DEFAULT_DAYS, classes = DEFAULT_CLASSES, className, onAction, ...props }: BlockGymProps) {
   const [booked, setBooked] = React.useState<string[]>([]);
 
   return (
     <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex items-end justify-between">
-        <h2 className="font-mono text-xl font-black uppercase tracking-tight">This week</h2>
+        <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "This week"}</h2>
         <Badge>{booked.length === 0 ? "No bookings" : `${booked.length} booked`}</Badge>
       </div>
       <ul className="space-y-2">
-        {DAYS.map((d) => {
-          const rows = CLASSES.filter((c) => c.day === d);
+        {days.map((d) => {
+          const rows = classes.filter((c) => c.day === d);
           if (rows.length === 0) return null;
           return (
             <li key={d}>

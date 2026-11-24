@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface AppShellProps {
+export interface AppShellProps extends React.HTMLAttributes<HTMLElement> {
   header?: React.ReactNode;
   sidebar?: React.ReactNode;
   children: React.ReactNode;
@@ -16,12 +16,12 @@ export function AppShell({
   sidebar,
   children,
   defaultCollapsed = false,
-  className,
+  className, ...props
 }: AppShellProps) {
   const [collapsed, setCollapsed] = React.useState(defaultCollapsed);
 
   return (
-    <div className={cn("flex min-h-screen overflow-hidden", className)}>
+    <div className={cn("flex min-h-screen overflow-hidden", className)} {...props}>
       {/* Skip link */}
       <a
         href="#main"
@@ -57,7 +57,7 @@ export function AppShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "w-64 flex-shrink-0 bg-card border-r border-border/50 transition-colors duration-300 ease-out",
+          "w-64 flex-shrink-0 bg-card border-e border-border/50 transition-colors duration-300 ease-out",
           collapsed && "w-0",
           !collapsed && "pe-2",
           "accordion"

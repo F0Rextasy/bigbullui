@@ -60,7 +60,7 @@ export function PaginationV2({ totalPages, page, defaultPage = 1, onPageChange, 
                 onClick={() => go(p)}
                 aria-current={p === current ? "page" : undefined}
                 className={cn(
-                  "size-7 rounded-sm border font-mono text-[11px] tabular-nums transition-all duration-150 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+                  "size-7 rounded-sm border font-mono text-[11px] tabular-nums transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
                   p === current ? "border-accent bg-accent text-accent-foreground animate-[scale-in_0.15s_ease-out] motion-reduce:animate-none" : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
                 )}
               >

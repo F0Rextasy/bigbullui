@@ -26,10 +26,12 @@ const componentMatches = [
     /\{\s*name:\s*"([^"]+)",\s*title:\s*"((?:[^"\\]|\\.)+)",\s*description:\s*"((?:[^"\\]|\\.)+)",\s*category:\s*"([^"]+)"/g
   ),
 ];
+const unescapeReg = (s) => s.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+
 const components = componentMatches.map((m) => ({
   name: m[1],
-  title: m[2],
-  description: m[3],
+  title: unescapeReg(m[2]),
+  description: unescapeReg(m[3]),
   category: m[4],
 }));
 
@@ -71,8 +73,8 @@ if (missed.length > 0) console.log(`generate-llms-full: ${missed.length} entries
 const iconSrc = fs.readFileSync(path.join(rootDir, "src", "components", "site", "icon-data.tsx"), "utf8");
 const iconNames = [...iconSrc.matchAll(/^\s*\|\s*"([^"]+)"/gm)].map((m) => m[1]);
 doc += `## Icons (${iconNames.length}, bigbullicons package)\n`;
-doc += "Hand-drawn Ticket Stub stroke icons. Install: `npm install bigbullicons`, use `<StampIcon name=\"ticket\" size={20} />`. ";
-doc += "Props: `name` (required), `size` (default 20), `animated` (default true), `animation` (\"draw\"|\"pulse\"|\"spin\"|\"none\"). ";
+doc += "Hand-drawn Ticket Stub stroke icons. Install: `npm install bigbullicons`, and import tree-shakeable named components cleanly (`import { TicketIcon } from \"bigbullicons\"`) or use `bigbullicons/dynamic` (`<StampIcon name=\"ticket\" size={20} />`) for dynamic lookups. ";
+doc += "Props: `size` (default 20), `animated` (default true), `animation` (\"draw\"|\"pulse\"|\"spin\"|\"none\"), plus `name` on `StampIcon`. ";
 doc += "Gallery: https://ui.bigbullapp.com/icons, per-icon pages at https://ui.bigbullapp.com/icons/<name>, single-icon CLI: `npx bigbullui add icon-<name>`.\n";
 doc += iconNames.slice(0, 60).join(", ") + `, ... (${iconNames.length} total)\n\n`;
 
@@ -82,7 +84,17 @@ doc += "Admin dashboards, app screens, auth flows, pricing, checkout, marketing:
 doc += "Registry JSON per block: https://ui.bigbullapp.com/r/<name>.json\n\n";
 
 const outputPath = path.join(rootDir, "public", "llms-full.txt");
-fs.writeFileSync(outputPath, doc, "utf8");
-console.log(
-  `Generated public/llms-full.txt with ${components.length} components across ${categories.length} categories.`
-);
+const stripDate = (s) => s.replace(/\r\n/g, "\n").replace(/^> AUTO-GENERATED.*$/m, "");
+if (process.argv.includes("--check")) {
+  const existing = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
+  if (stripDate(existing) !== stripDate(doc)) {
+    console.error("generate-llms-full --check: public/llms-full.txt is out of date — run node scripts/generate-llms-full.mjs");
+    process.exit(1);
+  }
+  console.log(`generate-llms-full --check: OK (${components.length} components)`);
+} else {
+  fs.writeFileSync(outputPath, doc, "utf8");
+  console.log(
+    `Generated public/llms-full.txt with ${components.length} components across ${categories.length} categories.`
+  );
+}

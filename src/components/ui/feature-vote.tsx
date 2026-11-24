@@ -50,7 +50,7 @@ export function FeatureVote({
                 aria-pressed={mine}
                 aria-label={`Vote for ${idea.title}`}
                 className={cn(
-                  "shrink-0 rounded border px-2 py-1 font-mono text-[11px] font-bold tabular-nums transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+                  "shrink-0 rounded border px-2 py-1 font-mono text-[11px] font-bold tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
                   mine ? "border-accent bg-accent text-accent-foreground" : "border-border hover:border-accent hover:text-accent"
                 )}
               >

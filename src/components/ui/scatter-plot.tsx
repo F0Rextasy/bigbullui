@@ -77,7 +77,7 @@ export function ScatterPlot({
                 strokeWidth={1}
                 style={{ animationDelay: `${delay}ms` }}
                 className={cn(
-                  "transition-all duration-300",
+                  "transition-colors duration-300",
                   "motion-reduce:transition-none",
                   "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
                   "group-hover:scale-150 motion-reduce:group-hover:scale-100",

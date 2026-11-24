@@ -3,7 +3,13 @@ import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import graph from "@/data/dep-graph.json";
 
-export const metadata = { title: "Dependency graph" };
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Dependency graph",
+  description: "Inspect which zero-dependency primitives each bigbullui block composes.",
+  path: "/dep-graph",
+});
 
 type Graph = { updated: string; blocks: Record<string, string[]> };
 
@@ -25,7 +31,9 @@ export default function DepGraphPage() {
           {counts.map(({ block, n }) => (
             <li key={block} className="rounded-lg border border-border bg-card p-3">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-mono text-sm font-black">{block}</span>
+                <Link href={`/blocks/${block}`} className="font-mono text-sm font-black hover:underline">
+                  {block}
+                </Link>
                 <span className="font-mono text-[11px] tabular-nums text-muted-foreground">{n} deps</span>
               </div>
               <div className="mt-2 flex flex-wrap gap-1.5">

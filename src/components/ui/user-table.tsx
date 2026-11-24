@@ -48,14 +48,14 @@ export function UserTable({ users = [], onRemove, className, ...props }: UserTab
               <th className="px-4 py-2.5 text-start font-medium">User</th>
               <th className="px-4 py-2.5 text-start font-medium">Rol</th>
               <th className="px-4 py-2.5 text-start font-medium">Durum</th>
-              <th className="px-4 py-2.5 text-right font-medium">Action</th>
+              <th className="px-4 py-2.5 text-end font-medium">Action</th>
             </tr>
           </thead>
           <tbody>
             {visible.map((u, idx) => (
               <tr
                 key={u.id}
-                className="border-b border-border/50 last:border-0 animate-[userRowIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:bg-secondary/30 motion-reduce:transition-none"
+                className="border-b border-border/50 last:border-0 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:bg-secondary/30 motion-reduce:transition-none"
                 style={{ animationDelay: `${idx * 50}ms` }}
               >
                 <td className="px-4 py-2.5">
@@ -80,12 +80,12 @@ export function UserTable({ users = [], onRemove, className, ...props }: UserTab
                     {STATUS_LABEL[u.status]}
                   </span>
                 </td>
-                <td className="px-4 py-2.5 text-right">
+                <td className="px-4 py-2.5 text-end">
                   <button
                     type="button"
                     onClick={() => { setRemoved((r) => [...r, u.id]); onRemove?.(u.id); }}
                     className="rounded-sm border border-dashed border-border px-2 py-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-destructive hover:text-destructive focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:animate-none!"
-                    style={removed.includes(u.id) ? { animation: "userRowOut 0.25s ease-in both" } : undefined}
+                    style={removed.includes(u.id) ? { animation: "sessionOut 0.25s ease-in both" } : undefined}
                   >
                     KALDIR
                   </button>

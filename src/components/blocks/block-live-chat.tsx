@@ -8,18 +8,19 @@ import { ChatWindow } from "../ui/chat-window";
 import type { ChatMessage } from "../ui/chat-window";
 import { StatusDot } from "../ui/status-dot";
 
-const SEED: ChatMessage[] = [
+const DEFAULT_SEED: ChatMessage[] = [
   { id: "m1", author: "Box office", initials: "BO", body: "Hello, this is the box office desk. How can we help?", time: "20:02", direction: "incoming" },
   { id: "m2", author: "You", initials: "YO", body: "My barcode will not scan at gate 3.", time: "20:03", direction: "outgoing" },
   { id: "m3", author: "Box office", initials: "BO", body: "We reissued stub BB-90215. Show the new code at the gate.", time: "20:04", direction: "incoming" },
 ];
 
 export interface BlockLiveChatProps extends React.HTMLAttributes<HTMLDivElement> {
+    seed?: typeof DEFAULT_SEED;
   onAction?: (action: string) => void;
 }
 
-export function BlockLiveChat({ className, onAction, ...props }: BlockLiveChatProps) {
-  const [messages, setMessages] = React.useState<ChatMessage[]>(SEED);
+export function BlockLiveChat({ seed = DEFAULT_SEED, className, onAction, ...props }: BlockLiveChatProps) {
+  const [messages, setMessages] = React.useState<ChatMessage[]>(seed);
   const [typing, setTyping] = React.useState(false);
   const [ended, setEnded] = React.useState(false);
 

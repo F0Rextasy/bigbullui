@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface TicketStubV2Props {
+export interface TicketStubV2Props extends React.HTMLAttributes<HTMLElement> {
   event?: string;
   date?: string;
   serial?: string;
@@ -9,7 +9,7 @@ export interface TicketStubV2Props {
   className?: string;
 }
 
-export function TicketStubV2({ event, date, serial, tear = false, className }: TicketStubV2Props) {
+export function TicketStubV2({ event, date, serial, tear = false, className, ...props }: TicketStubV2Props) {
   return (
     <div
       className={cn(
@@ -17,7 +17,7 @@ export function TicketStubV2({ event, date, serial, tear = false, className }: T
         "group",
         className
       )}
-      style={tear ? { animation: "stubTear 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards" } : undefined}
+      style={tear ? { animation: "stubTear 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards" } : undefined} {...props}
     >
       {/* Event details */}
       <div className="font-mono text-[9px] uppercase tracking-[0.15em] text-muted-foreground mb-2">

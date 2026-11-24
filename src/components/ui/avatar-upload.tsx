@@ -33,7 +33,7 @@ export function AvatarUpload({ initials = "BB", src, onChange, className, ...pro
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="group relative block size-24 overflow-hidden rounded-full border-2 border-dashed border-border bg-card transition-all duration-200 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+        className="group relative block size-24 overflow-hidden rounded-full border-2 border-dashed border-border bg-card transition-colors duration-200 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         aria-label="Upload avatar"
       >
         {preview ? (

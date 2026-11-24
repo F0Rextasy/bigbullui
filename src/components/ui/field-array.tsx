@@ -33,7 +33,7 @@ export function FieldArray({ label = "Fields", rows = [], onRowsChange, placehol
     <div className={cn("w-full max-w-sm space-y-2", className)} {...props}>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label} · {rows.length}</p>
       {rows.map((row, idx) => (
-        <div key={row.id} className="flex items-center gap-1.5 animate-[faIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
+        <div key={row.id} className="flex items-center gap-1.5 animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
           <span className="shrink-0 font-mono text-[10px] tabular-nums text-muted-foreground">{idx + 1}</span>
           <input
             value={row.value}

@@ -3,7 +3,14 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
-import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
+import {
+  getFocusable,
+  hideBackgroundSiblings,
+  lockBodyScroll,
+  registerEscapeLayer,
+  trapFocus,
+} from "./lib/focus-trap";
+import { useIsMounted } from "./lib/react-compat";
 
 export interface CommandItem {
   id: string;
@@ -21,6 +28,9 @@ export interface CommandPaletteProps {
   items: CommandItem[];
   placeholder?: string;
   synonyms?: Record<string, string | string[]>;
+  emptyText?: string;
+  navigateHint?: string;
+  selectHint?: string;
 }
 
 const EMPTY_SYNONYMS: Record<string, string | string[]> = {};
@@ -88,10 +98,16 @@ export function CommandPalette({
   items = [],
   placeholder = "Type a command or search tickets...",
   synonyms = EMPTY_SYNONYMS,
+  emptyText = "NO COMMANDS MATCHING QUERY",
+  navigateHint = "Navigate: ↑↓",
+  selectHint = "Select: ↵",
 }: CommandPaletteProps) {
+  const mounted = useIsMounted();
   const [search, setSearch] = React.useState("");
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const itemRefs = React.useRef<Map<number, HTMLDivElement>>(new Map());
 
   const MAX_RESULTS = 60;
 
@@ -162,13 +178,14 @@ export function CommandPalette({
   const activeIndex = filteredItems.length === 0 ? 0 : Math.min(selectedIndex, filteredItems.length - 1);
 
   React.useEffect(() => {
-    if (!open) return;
+    if (!open || !mounted) return;
     returnFocusRef.current = document.activeElement as HTMLElement | null;
     const focusTimer = setTimeout(() => {
       setSearch("");
       setSelectedIndex(0);
       inputRef.current?.focus();
     }, 0);
+    const releaseInert = hideBackgroundSiblings(rootRef.current);
     const releaseScroll = lockBodyScroll();
     const releaseEscape = registerEscapeLayer(() => {
       onOpenChangeRef.current?.(false);
@@ -190,9 +207,15 @@ export function CommandPalette({
       document.removeEventListener("keydown", handleKeyDown);
       releaseEscape();
       releaseScroll();
+      releaseInert();
       returnFocusRef.current?.focus();
     };
-  }, [open]);
+  }, [open, mounted]);
+
+  React.useEffect(() => {
+    if (!open || !mounted) return;
+    itemRefs.current.get(activeIndex)?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex, open, mounted]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown") {
@@ -201,7 +224,7 @@ export function CommandPalette({
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredItems.length - 1));
-    } else if (e.key === "Enter" && filteredItems[activeIndex]) {
+    } else if (e.key === "Enter" && !e.nativeEvent.isComposing && filteredItems[activeIndex]) {
       e.preventDefault();
       filteredItems[activeIndex].onSelect?.();
       onOpenChangeRef.current?.(false);
@@ -211,12 +234,12 @@ export function CommandPalette({
   if (!open) return null;
 
   const overlay = (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-hidden overscroll-contain pt-20 sm:pt-28">
+    <div ref={rootRef} className="fixed inset-0 z-50 flex items-start justify-center overflow-hidden overscroll-contain pt-20 sm:pt-28">
       {/* Backdrop */}
       <div
         aria-hidden="true"
         onClick={() => onOpenChangeRef.current?.(false)}
-        className="fixed inset-0 bg-foreground/50 backdrop-blur-[2px] overscroll-contain animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none!"
+        className="fixed inset-0 bg-foreground/50 overscroll-contain animate-[fade-in_0.15s_ease-out_both] motion-reduce:animate-none!"
       />
 
       {/* Palette Card */}
@@ -225,7 +248,7 @@ export function CommandPalette({
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="relative z-50 w-full max-w-xl overflow-hidden overscroll-contain rounded-xl border-2 border-foreground bg-card shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!"
+        className="relative z-50 w-full max-w-xl overflow-hidden overscroll-contain rounded-xl border-2 border-foreground bg-card text-card-foreground shadow-2xl outline-1 outline-dashed outline-offset-[-6px] animate-[scale-in_0.15s_ease-out_both] motion-reduce:animate-none!"
       >
         {/* Search Header */}
         <div className="flex items-center border-b-2 border-dashed border-border px-4 py-3">
@@ -277,7 +300,7 @@ export function CommandPalette({
         <div id={listId} role="listbox" aria-label="Search results" className="max-h-72 overflow-y-auto overscroll-contain p-2">
           {filteredItems.length === 0 ? (
             <div className="py-6 text-center font-mono text-xs text-muted-foreground">
-              NO COMMANDS MATCHING QUERY
+              {emptyText}
             </div>
           ) : (
             (() => {
@@ -302,10 +325,14 @@ export function CommandPalette({
                 }
                 const idx = flatIndex;
                 flatIndex += 1;
-                const isSelected = idx === selectedIndex;
+                const isSelected = idx === activeIndex;
                 rows.push(
                   <div
                     key={item.id}
+                    ref={(el) => {
+                      if (el) itemRefs.current.set(idx, el);
+                      else itemRefs.current.delete(idx);
+                    }}
                     id={`${listId}-item-${item.id}`}
                     role="option"
                     aria-selected={isSelected}
@@ -357,12 +384,12 @@ export function CommandPalette({
           <span>
             {totalMatches} result{totalMatches === 1 ? "" : "s"}
           </span>
-          <span>Navigate: ↑↓</span>
-          <span>Select: ↵</span>
+          <span>{navigateHint}</span>
+          <span>{selectHint}</span>
         </div>
       </div>
     </div>
   );
 
-  return typeof document !== "undefined" ? createPortal(overlay, document.body) : overlay;
+  return mounted ? createPortal(overlay, document.body) : overlay;
 }

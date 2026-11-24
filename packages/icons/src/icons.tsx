@@ -65,14 +65,25 @@ export function StampIcon({ name, size = 20, animated = true, animation = "draw"
   React.useEffect(() => {
     const group = groupRef.current;
     if (!group || mode !== "draw") return;
-    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function" ||
+      !window.matchMedia("(prefers-reduced-motion: no-preference)").matches
+    ) {
+      return;
+    }
     const children = Array.from(group.children).filter(
       (el): el is SVGGeometryElement => typeof (el as SVGGeometryElement).getTotalLength === "function"
     );
     const applied: SVGGeometryElement[] = [];
     let delay = 0;
     for (const el of children) {
-      const length = el.getTotalLength();
+      let length = 0;
+      try {
+        length = el.getTotalLength();
+      } catch {
+        continue;
+      }
       if (!Number.isFinite(length) || length <= 0) continue;
       const duration = Math.min(1800, Math.max(500, Math.round(length * 14)));
       el.style.strokeDasharray = `${length}`;
@@ -91,6 +102,7 @@ export function StampIcon({ name, size = 20, animated = true, animation = "draw"
   }, [mode, name]);
 
   const isDecorative = props["aria-hidden"] ?? !(props["aria-label"] || props["aria-labelledby"]);
+  const iconNode = Object.hasOwn(STAMP_ICONS, name) ? STAMP_ICONS[name] : null;
 
   return (
     <svg
@@ -106,7 +118,7 @@ export function StampIcon({ name, size = 20, animated = true, animation = "draw"
       {...props}
     >
       <g ref={groupRef} className={cls}>
-        {STAMP_ICONS[name]}
+        {iconNode}
       </g>
     </svg>
   );

@@ -1,8 +1,13 @@
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import catalog from "@/data/catalog.json";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Packages" };
+export const metadata = buildMetadata({
+  title: "Packages",
+  description: "All npm packages in the bigbullui workspace: bigbullui, bigbullicons, and create-bigbull-app.",
+  path: "/packages",
+});
 
 const PACKAGES = [
   {

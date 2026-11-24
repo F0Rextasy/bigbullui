@@ -27,7 +27,7 @@ export function MilestoneChart({ milestones = [], className, ...props }: Milesto
         {/* Progress fill */}
         <div
           className="absolute left-0 top-2.5 h-0.5 origin-left rounded-full bg-accent motion-reduce:animate-none!"
-          style={{ width: `${pct}%`, animation: "mcLine 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
+          style={{ width: `${pct}%`, animation: "bpFill 0.7s cubic-bezier(0.16,1,0.3,1) both" }}
           aria-hidden="true"
         />
         {/* Noktalar */}

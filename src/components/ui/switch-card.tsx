@@ -21,7 +21,7 @@ export function SwitchCard({ title, description, checked, defaultChecked, onChec
     <label
       className={cn(
         "flex cursor-pointer items-center justify-between gap-4 rounded-lg border p-3.5 select-none",
-        "transition-all duration-200 motion-reduce:transition-none",
+        "transition-colors duration-200 motion-reduce:transition-none",
         "focus-within:outline-none focus-within:ring-2 focus-within:ring-ring",
         isOn ? "border-accent/60 bg-accent/5" : "border-border hover:border-foreground/30",
         disabled && "pointer-events-none opacity-50",
@@ -43,7 +43,7 @@ export function SwitchCard({ title, description, checked, defaultChecked, onChec
       >
         <span
           className={cn(
-            "absolute top-0.5 size-3.5 rounded-full bg-background shadow-xs transition-all duration-200 motion-reduce:transition-none",
+            "absolute top-0.5 size-3.5 rounded-full bg-background shadow-xs transition-[width,height,left,right,opacity,background-color,border-color] duration-200 motion-reduce:transition-none",
             isOn ? "left-[18px]" : "left-0.5"
           )}
         />

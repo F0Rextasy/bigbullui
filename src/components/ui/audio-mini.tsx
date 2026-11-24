@@ -78,7 +78,7 @@ export function AudioMini({
               key={i}
               style={{ height: isPlaying ? `${h}%` : "20%" }}
               className={cn(
-                "w-1 rounded-xs bg-accent transition-all duration-300",
+                "w-1 rounded-xs bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-300",
                 isPlaying && "motion-safe:animate-pulse"
               )}
             />
@@ -91,7 +91,7 @@ export function AudioMini({
         <div className="relative h-1.5 w-full overflow-hidden rounded-xs bg-secondary border border-border">
           <div
             style={{ width: `${progress}%` }}
-            className="h-full bg-foreground transition-all duration-300"
+            className="h-full bg-foreground transition-[width,height,left,right,opacity,background-color,border-color] duration-300"
           />
         </div>
         <div className="flex justify-between text-[9px] text-muted-foreground">

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface JumbotronProps {
+export interface JumbotronProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   title?: string;
   home?: string;
   away?: string;
@@ -11,7 +11,7 @@ export interface JumbotronProps {
   className?: string;
 }
 
-export function Jumbotron({ title, home, away, score, className }: JumbotronProps) {
+export function Jumbotron({ title, home, away, score, className, ...props }: JumbotronProps) {
   const [homeScore, awayScore] = score || [0, 0];
 
   return (
@@ -19,7 +19,7 @@ export function Jumbotron({ title, home, away, score, className }: JumbotronProp
       className={cn(
         "relative rounded-lg border border-border bg-card p-8 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       <div className="font-mono text-[24px] font-bold uppercase tracking-widest text-foreground mb-2">
         {title || "SCOREBOARD"}

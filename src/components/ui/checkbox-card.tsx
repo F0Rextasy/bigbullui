@@ -33,7 +33,7 @@ export function CheckboxCard({ title, description, checked, defaultChecked, onCh
       tabIndex={disabled ? undefined : 0}
       className={cn(
         "flex cursor-pointer items-start gap-3 rounded-lg border p-3.5 select-none",
-        "transition-all duration-200 motion-reduce:transition-none",
+        "transition-colors duration-200 motion-reduce:transition-none",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         isOn ? "border-accent bg-accent/5" : "border-border hover:border-foreground/30",
         disabled && "pointer-events-none opacity-50",
@@ -43,8 +43,8 @@ export function CheckboxCard({ title, description, checked, defaultChecked, onCh
     >
       <span
         className={cn(
-          "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border transition-all duration-150 motion-reduce:transition-none",
-          isOn ? "border-accent bg-accent text-accent-foreground animate-[ccPop_0.2s_ease-out] motion-reduce:animate-none" : "border-border bg-background"
+          "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border transition-colors duration-150 motion-reduce:transition-none",
+          isOn ? "border-accent bg-accent text-accent-foreground animate-[bcCheck_0.2s_ease-out] motion-reduce:animate-none" : "border-border bg-background"
         )}
         aria-hidden="true"
       >

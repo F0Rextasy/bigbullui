@@ -30,7 +30,7 @@ export function LiveBadge({
       {/* Blinking LIVE dot */}
       <span
         className={cn(
-          "w-1.5 h-1.5 rounded-full bg-primary animate-[liveBadgeBlink_1s_ease-in-out_infinite]",
+          "w-1.5 h-1.5 rounded-full bg-primary animate-[pulse-soft_1s_ease-in-out_infinite]",
           motionReduceClass
         )}
         aria-hidden="true"

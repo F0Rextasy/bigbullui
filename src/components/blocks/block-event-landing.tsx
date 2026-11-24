@@ -9,7 +9,7 @@ import { PageHeader } from "../ui/page-header";
 import { PricingTable } from "../ui/pricing-table";
 import { Timeline } from "../ui/timeline";
 
-const TIERS = [
+const DEFAULT_TIERS = [
   {
     id: "general",
     name: "GENERAL",
@@ -45,7 +45,7 @@ const TIERS = [
   },
 ];
 
-const SCHEDULE = [
+const DEFAULT_SCHEDULE = [
   { date: "19:00", title: "Doors and lobby reel", description: "Gate scan opens, merch booth live.", tone: "default" as const },
   { date: "20:00", title: "Opening brass set", description: "House band warms the main stage.", tone: "default" as const },
   { date: "21:30", title: "Headline performance", description: "Full stage show with encore ballot.", tone: "accent" as const },
@@ -53,10 +53,12 @@ const SCHEDULE = [
 ];
 
 export interface BlockEventLandingProps extends React.HTMLAttributes<HTMLDivElement> {
+    tiers?: typeof DEFAULT_TIERS;
+  schedule?: typeof DEFAULT_SCHEDULE;
   onAction?: (action: string) => void;
 }
 
-export function BlockEventLanding({ className, onAction, ...props }: BlockEventLandingProps) {
+export function BlockEventLanding({ tiers = DEFAULT_TIERS, schedule = DEFAULT_SCHEDULE, className, onAction, ...props }: BlockEventLandingProps) {
   const [claimed, setClaimed] = React.useState(false);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
@@ -85,10 +87,10 @@ export function BlockEventLanding({ className, onAction, ...props }: BlockEventL
           </div>
         </div>
       </div>
-      <PricingTable tiers={TIERS} defaultBillingCycle="monthly" />
+      <PricingTable tiers={tiers} defaultBillingCycle="monthly" />
       <div className="min-w-0">
         <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">RUNNING ORDER</p>
-        <Timeline items={SCHEDULE} />
+        <Timeline items={schedule} />
       </div>
     </div>
   );

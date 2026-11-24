@@ -2,114 +2,92 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useControllableState } from "./lib/use-controllable-state";
 
-export interface PagerDotsProps {
-  count: number;
+export interface PagerDotsProps extends React.HTMLAttributes<HTMLDivElement> {
+  count?: number;
   value?: number;
   defaultValue?: number;
   onValueChange?: (value: number) => void;
   variant?: "dots" | "lines" | "bars";
-  className?: string;
 }
 
-export function PagerDots({
-  count,
-  value,
-  defaultValue,
-  onValueChange,
-  variant = "dots",
-  className,
-}: PagerDotsProps) {
-  const [internal, setInternal] = React.useState(defaultValue ?? 0);
-  const current = value ?? internal;
+export const PagerDots = React.forwardRef<HTMLDivElement, PagerDotsProps>(function PagerDots(
+  {
+    count = 5,
+    value: controlledValue,
+    defaultValue = 0,
+    onValueChange,
+    variant = "dots",
+    className,
+    ...props
+  },
+  ref,
+) {
+  const safeCount = Math.max(1, count);
+  const [current, setCurrent] = useControllableState<number>({
+    prop: controlledValue,
+    defaultProp: defaultValue,
+    onChange: onValueChange,
+  });
 
   const handleChange = React.useCallback(
     (idx: number) => {
-      setInternal(idx);
-      onValueChange?.(idx);
+      setCurrent(Math.max(0, Math.min(safeCount - 1, idx)));
     },
-    [onValueChange]
+    [safeCount, setCurrent],
   );
-
-  const safeCount = Math.max(1, count);
-
-  const getItemStyle = (index: number): React.CSSProperties | undefined => {
-    const isActive = current === index;
-    if (variant === "lines" && isActive) {
-      const width = safeCount > 1 ? (index / (safeCount - 1)) * 100 : 100;
-      return { width: `${width}%` };
-    }
-    if (variant === "bars" && isActive) {
-      const height = ((index + 1) / safeCount) * 100;
-      return { height: `${height}%` };
-    }
-    return undefined;
-  };
-
-  const getItemClass = (index: number) => {
-    const isActive = current === index;
-
-    if (variant === "dots") {
-      if (isActive) {
-        return cn(
-          "rounded-full bg-accent text-accent-foreground w-6 h-6 transition-all duration-300 ease-out flex items-center justify-center",
-          "motion-safe:animate-[stamp_0.4s_ease-out_both] motion-reduce:animate-none!"
-        );
-      }
-      return cn("rounded-full bg-transparent w-4 h-4 border border-border/30 transition-all duration-200 flex items-center justify-center");
-    }
-
-    if (variant === "lines") {
-      return isActive
-        ? "h-0.5 bg-accent transition-all duration-300 ease-out"
-        : "h-0.5 bg-transparent w-full transition-all duration-200";
-    }
-
-    if (variant === "bars") {
-      return isActive
-        ? "w-1 h-full bg-accent rounded-t-md rounded-b-md transition-all duration-300 ease-out"
-        : "w-0.5 bg-border/30 rounded-t-md rounded-b-md transition-all duration-200";
-    }
-
-    return cn("rounded-full bg-transparent w-4 h-4 border border-border/30");
-  };
 
   return (
     <div
+      ref={ref}
+      role="group"
+      aria-label="Pagination indicators"
       className={cn(
-        "flex space-x-1.5 justify-center",
-        variant === "lines" && "items-center",
-        variant === "bars" && "items-end h-5",
-        className
+        "flex items-center justify-center gap-2",
+        variant === "bars" && "h-6 items-end",
+        className,
       )}
+      {...props}
     >
-      {Array.from({ length: count }, (_, i) => (
-        <button
-          key={i}
-          style={getItemStyle(i)}
-          className={cn(getItemClass(i), "cursor-pointer")}
-          onClick={() => handleChange(i)}
-          aria-label={`Go to page ${i + 1}`}
-          type="button"
-        >
-          {variant === "dots" && (
-            <svg
-              className="h-3 w-3"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              focusable="false"
-            >
-              <path d="M8 5v14l11-4-11-4z" />
-            </svg>
-          )}
-          {variant === "lines" && (
-            <div className="h-full w-full bg-current rounded-md" />
-          )}
-          {variant === "bars" && (
-            <div className="h-4 w-1 bg-current rounded-t rounded-b" />
-          )}
-        </button>
-      ))}
+      {Array.from({ length: safeCount }, (_, i) => {
+        const isActive = current === i;
+        return (
+          <button
+            key={i}
+            type="button"
+            onClick={() => handleChange(i)}
+            aria-label={`Go to page ${i + 1}`}
+            aria-current={isActive ? "page" : undefined}
+            className={cn(
+              "inline-flex cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+              variant === "dots" &&
+                (isActive
+                  ? "size-5 rounded-full bg-accent text-accent-foreground motion-safe:animate-[stamp_0.3s_ease-out_both] motion-reduce:animate-none"
+                  : "size-3 rounded-full border border-border bg-transparent hover:border-foreground/60"),
+              variant === "lines" &&
+                (isActive
+                  ? "h-1.5 w-8 rounded-full bg-accent"
+                  : "h-1.5 w-4 rounded-full bg-border hover:bg-foreground/40"),
+              variant === "bars" &&
+                (isActive
+                  ? "h-5 w-1.5 rounded-t-sm bg-accent"
+                  : "h-2.5 w-1 rounded-t-sm bg-border hover:bg-foreground/40"),
+            )}
+          >
+            {variant === "dots" && (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "block rounded-full",
+                  isActive ? "size-2 bg-accent-foreground" : "size-1.5 bg-transparent",
+                )}
+              />
+            )}
+          </button>
+        );
+      })}
     </div>
   );
-}
+});
+PagerDots.displayName = "PagerDots";

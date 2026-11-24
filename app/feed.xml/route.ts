@@ -1,7 +1,14 @@
 import changelog from "@/data/changelog.json";
 
+export const dynamic = "force-static";
+
 function esc(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 export async function GET() {
@@ -9,7 +16,7 @@ export async function GET() {
     .map(
       (e) => `    <item>
       <title>${esc(e.version)} ${esc(e.title)}</title>
-      <link>https://ui.bigbullapp.com/docs/changelog</link>
+      <link>https://ui.bigbullapp.com/docs/changelog#v${esc(e.version)}</link>
       <guid isPermaLink="false">bigbullui-${esc(e.version)}</guid>
       <pubDate>${new Date(e.date).toUTCString()}</pubDate>
       <description>${esc(e.changes.join(" "))}</description>
@@ -25,5 +32,10 @@ export async function GET() {
 ${items}
   </channel>
 </rss>`;
-  return new Response(xml, { headers: { "Content-Type": "application/rss+xml" } });
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/rss+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600, s-maxage=86400",
+    },
+  });
 }

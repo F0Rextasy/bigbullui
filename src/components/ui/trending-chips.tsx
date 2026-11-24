@@ -23,7 +23,7 @@ export function TrendingChips({ items = [{ label: " courtside", hot: true }, { l
             aria-selected={active === chip.label}
             onClick={() => { setActive(chip.label); onSelect?.(chip.label); }}
             className={cn(
-              "rounded-full border border-dashed border-border bg-background px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+              "rounded-full border border-dashed border-border bg-background px-2.5 py-1 font-mono text-[11px] uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               active === chip.label ? "border-accent bg-accent text-accent-foreground" : "text-foreground hover:border-accent/60"
             )}
           >

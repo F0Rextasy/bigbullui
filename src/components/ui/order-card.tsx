@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface OrderCardProps {
+export interface OrderCardProps extends React.HTMLAttributes<HTMLElement> {
   orderId: string;
   status: "Processing" | "Shipped" | "Delivered" | "Cancelled";
   progress?: number;
@@ -16,14 +16,14 @@ export function OrderCard({
   status = "Processing",
   progress = 0,
   items,
-  className,
+  className, ...props
 }: OrderCardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-foreground bg-card text-card-foreground p-6 transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "rounded-lg border border-foreground bg-card text-card-foreground p-6 transition-[transform,opacity,background-color,border-color,color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       <div className="flex items-baseline justify-between mb-4">
         <span className="font-mono text-sm uppercase tracking-widest">Order {orderId}</span>

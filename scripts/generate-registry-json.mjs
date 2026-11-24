@@ -5,17 +5,50 @@ import { fileURLToPath } from "node:url";
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const uiDir = path.join(rootDir, "src", "components", "ui");
 const outDir = path.join(rootDir, "public", "r");
+const checkOnly = process.argv.includes("--check");
+let staleCount = 0;
+
+function normEol(s) {
+  return String(s).replace(/\r\n/g, "\n");
+}
+
+function stableJson(str) {
+  try {
+    const obj = JSON.parse(str);
+    if (obj && typeof obj === "object" && "updated" in obj) {
+      delete obj.updated;
+    }
+    return JSON.stringify(obj);
+  } catch {
+    return normEol(str);
+  }
+}
+
 // Write via temp file + rename: parallel readers (npm test, docs build) never
-// see a partially written file mid-run.
-function writeJsonAtomic(filePath, value) {
+// see a partially written file mid-run. When --check is active, operate strictly read-only.
+function writeFileAtomic(filePath, data, { compareJsonIgnoreUpdated = false } = {}) {
+  const next = String(data);
+  if (checkOnly) {
+    const disk = fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : null;
+    const same =
+      disk !== null &&
+      (compareJsonIgnoreUpdated ? stableJson(disk) === stableJson(next) : normEol(disk) === normEol(next));
+    if (!same) {
+      staleCount += 1;
+      process.exitCode = 1;
+    }
+    return;
+  }
+  const existing = fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : null;
+  if (existing !== null && (compareJsonIgnoreUpdated ? stableJson(existing) === stableJson(next) : existing === next)) {
+    return;
+  }
   const tmp = `${filePath}.tmp-${process.pid}`;
-  fs.writeFileSync(tmp, JSON.stringify(value));
+  fs.writeFileSync(tmp, next);
   fs.renameSync(tmp, filePath);
 }
-function writeFileAtomic(filePath, data) {
-  const tmp = `${filePath}.tmp-${process.pid}`;
-  fs.writeFileSync(tmp, data);
-  fs.renameSync(tmp, filePath);
+function writeJsonAtomic(filePath, value, opts = {}) {
+  writeFileAtomic(filePath, JSON.stringify(value), opts);
 }
 const registry = fs.readFileSync(path.join(rootDir, "src/lib/registry-site.ts"), "utf8");
 
@@ -117,22 +150,29 @@ writeFileAtomic(
 );
 // Catalog-registered lib helpers (hooks, focus-trap) as registry:lib items so
 // public/r/<name>.json exists for shadcn CLI / bigbullui CLI / MCP installs.
+const toTitle = (slug) => slug.split("-").map((w) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1) : w)).join(" ");
 const libDir = path.join(uiDir, "lib");
 const libSlugs = fs
   .readdirSync(libDir)
   .filter((f) => f.endsWith(".ts") && f !== "utils.ts")
   .map((f) => f.replace(/\.ts$/, ""))
-  .filter((s) => catalogItems.some((c) => c.name === s))
   .sort();
 let libWritten = 0;
 for (const slug of libSlugs) {
   const source = fs.readFileSync(path.join(libDir, `${slug}.ts`), "utf8");
   const item = {
     name: slug,
-    title: titles[slug] ?? slug,
+    title: titles[slug] ?? toTitle(slug),
     type: "registry:lib",
     files: [{ path: `src/components/ui/lib/${slug}.ts`, type: "registry:lib", target: `components/ui/lib/${slug}.ts`, content: source }],
   };
+  const libInternalDeps = new Set();
+  for (const m of source.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
+    libInternalDeps.add(m[1]);
+  }
+  if (libInternalDeps.size > 0) {
+    item.registryDependencies = [...libInternalDeps].sort().map((d) => `https://ui.bigbullapp.com/r/${d}.json`);
+  }
   writeJsonAtomic(path.join(outDir, `${slug}.json`), item);
   libWritten += 1;
 }
@@ -171,7 +211,6 @@ console.log(`generate-registry-json: ${written} ui + ${libWritten} lib items in 
 
 // Block registry entries (shadcn-compatible): block source + referenced ui sources.
 const blkDir = path.join(rootDir, "src", "components", "blocks");
-const toTitle = (slug) => slug.split("-").map((w) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1) : w)).join(" ");
 const blockSlugList = fs.existsSync(blkDir) ? fs.readdirSync(blkDir).filter((f) => f.endsWith(".tsx")).map((f) => f.replace(/\.tsx$/, "")).sort() : [];
 const blockSlugsGenPath = path.join(rootDir, "src", "lib", "block-slugs.gen.ts");
 const blockSlugsGenContent =
@@ -179,7 +218,6 @@ const blockSlugsGenContent =
   "export const BLOCK_SLUGS_GENERATED: string[] = [\n" +
   blockSlugList.map((s) => `  "${s}",`).join("\n") +
   "\n];\n";
-const checkOnly = process.argv.includes("--check");
 if (!checkOnly) {
   writeFileAtomic(blockSlugsGenPath, blockSlugsGenContent);
 } else if (!fs.existsSync(blockSlugsGenPath) || fs.readFileSync(blockSlugsGenPath, "utf8").replace(/\r\n/g, "\n") !== blockSlugsGenContent) {
@@ -214,11 +252,21 @@ for (const slug of blockSlugList) {
       if (m[1] !== "lib") queue.push(m[1]);
     }
   }
-  for (const helper of libFiles) {
+  const libQueue = [...libFiles].filter((h) => h !== "utils");
+  while (libQueue.length > 0) {
+    const helper = libQueue.shift();
+    if (helper === "utils") continue;
     if (files.some((f) => f.path.endsWith(`/lib/${helper}.ts`))) continue;
     const helperPath = path.join(uiDir, "lib", `${helper}.ts`);
     if (!fs.existsSync(helperPath)) continue;
-    files.push({ path: `src/components/ui/lib/${helper}.ts`, type: "registry:lib", target: `components/ui/lib/${helper}.ts`, content: fs.readFileSync(helperPath, "utf8") });
+    const helperSrc = fs.readFileSync(helperPath, "utf8");
+    files.push({ path: `src/components/ui/lib/${helper}.ts`, type: "registry:lib", target: `components/ui/lib/${helper}.ts`, content: helperSrc });
+    for (const m of helperSrc.matchAll(/from\s+["']\.\/([a-z0-9-]+)["']/g)) {
+      if (m[1] !== "utils" && !libFiles.has(m[1])) {
+        libFiles.add(m[1]);
+        libQueue.push(m[1]);
+      }
+    }
   }
   const item = { name: slug, title: toTitle(slug), type: "registry:block", files };
   if (files.some((f) => f.content.includes('"./lib/utils"') || f.content.includes('"../ui/lib/utils"'))) {
@@ -230,12 +278,15 @@ for (const slug of blockSlugList) {
 console.log(`generate-registry-json: ${blockCount} blocks in public/r/`);
 
 // Compact indexes for the MCP server and other index consumers.
-writeJsonAtomic(path.join(rootDir, "public", "components.json"), { updated: new Date().toISOString().slice(0, 10), count: metas.length, components: metas });
+writeJsonAtomic(path.join(rootDir, "public", "components.json"), { updated: new Date().toISOString().slice(0, 10), count: metas.length, components: metas }, { compareJsonIgnoreUpdated: true });
 const blockSlugs = blockSlugList;
-writeJsonAtomic(path.join(rootDir, "public", "blocks.json"), { updated: new Date().toISOString().slice(0, 10), count: blockSlugs.length, blocks: blockSlugs });
+writeJsonAtomic(path.join(rootDir, "public", "blocks.json"), { updated: new Date().toISOString().slice(0, 10), count: blockSlugs.length, blocks: blockSlugs }, { compareJsonIgnoreUpdated: true });
 const iconSrc = fs.readFileSync(path.join(rootDir, "src", "components", "site", "icon-data.tsx"), "utf8");
 const iconNames = [...iconSrc.matchAll(/^\s*\|\s*"([^"]+)"/gm)].map((m) => m[1]);
-writeJsonAtomic(path.join(rootDir, "public", "icons.json"), { updated: new Date().toISOString().slice(0, 10), count: iconNames.length, icons: iconNames });
+writeJsonAtomic(path.join(rootDir, "public", "icons.json"), { updated: new Date().toISOString().slice(0, 10), count: iconNames.length, icons: iconNames }, { compareJsonIgnoreUpdated: true });
+if (checkOnly && staleCount > 0) {
+  console.error(`generate-registry-json --check: ${staleCount} generated file(s) out of date — run node scripts/generate-registry-json.mjs`);
+}
 console.log(`generate-registry-json: indexes components=${metas.length} blocks=${blockSlugs.length} icons=${iconNames.length}`);
 
 const cliPath = path.join(rootDir, "bin", "cli.js");
@@ -277,12 +328,21 @@ if (!blockPattern.test(cli)) {
   }
 }
 
+const libLiteral = `const LIB_FILES = ${JSON.stringify(libSlugs)};`;
+const libPattern = /const LIB_FILES = \[[^\]]*\];/;
+if (!libPattern.test(cli)) {
+  console.error("generate-registry-json: bin/cli.js LIB_FILES pattern not found");
+  process.exitCode = 1;
+} else if (!cli.includes(libLiteral)) {
+  if (checkOnly || process.env.BIGBULLUI_NO_CLI_SYNC) {
+    console.error(`generate-registry-json: bin/cli.js LIB_FILES out of sync (expected ${JSON.stringify(libSlugs)})`);
+    process.exitCode = 1;
+  } else {
+    cli = cli.replace(libPattern, libLiteral);
+    cliChanged = true;
+    console.log(`generate-registry-json: cli.js LIB_FILES synced (${libSlugs.length} helpers)`);
+  }
+}
 if (cliChanged) {
   writeFileAtomic(cliPath, cli);
-}
-
-const libLiteral = `const LIB_FILES = ${JSON.stringify(libSlugs)};`;
-if (!cli.includes(libLiteral)) {
-  console.error(`generate-registry-json: bin/cli.js LIB_FILES out of sync (expected ${JSON.stringify(libSlugs)})`);
-  process.exitCode = 1;
 }

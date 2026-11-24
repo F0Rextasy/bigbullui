@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { CodeBox } from "@/components/site/code-box";
+import { PackageManagerTabs } from "@/components/site/package-manager-tabs";
 import { SITE_VERSION } from "@/lib/site-meta";
 import { components } from "@/lib/registry-site";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Installation" };
+export const metadata = buildMetadata({
+  title: "Installation",
+  description: "Install bigbullui in your React 19 + Tailwind CSS v4 project using the CLI, npm package, manual copy-paste, or MCP server.",
+  path: "/docs/installation",
+});
 
 const cssSetup = `@import "tailwindcss";
 @import "bigbullui/css";`;
@@ -33,7 +39,7 @@ export default function InstallationPage() {
       <header className="space-y-3">
         <h1 className="text-4xl font-semibold tracking-[-0.03em]">Installation</h1>
         <p className="text-muted-foreground">
-          Three ways to build with bigbullui: pull components with the CLI, install the all-in-one npm package, or copy source files directly.
+          Four ways to build with bigbullui: pull components with the CLI, install the all-in-one npm package, copy source files manually, or connect via MCP.
         </p>
       </header>
 
@@ -59,18 +65,18 @@ export default function InstallationPage() {
             <p className="text-sm text-muted-foreground">
               Creates <code className="font-mono text-xs text-foreground">lib/utils.ts</code> and copies design tokens.
             </p>
-            <CodeBox code={cliInit} />
+            <PackageManagerTabs command={cliInit} />
           </Step>
 
           <Step n="02" title="Add components">
             <p className="text-sm text-muted-foreground">
               Fetch any component with zero dependencies. Sibling utilities are automatically bundled.
             </p>
-            <CodeBox code={cliAdd} />
+            <PackageManagerTabs command={cliAdd} />
           </Step>
 
           <Step n="03" title="Use in your views">
-            <CodeBox code={`import { Button } from "@/components/ui/button";\nimport { TicketCard } from "@/components/ui/ticket-card";\n\nexport default function Page() {\n  return (\n    <TicketCard title="VIP ADMISSION" serial="№ 00481">\n      <Button>Claim Pass</Button>\n    </TicketCard>\n  );\n}`} block />
+            <CodeBox code={`import { Button } from "@/components/ui/button";\nimport { TicketCard } from "@/components/ui/ticket-card";\n\nexport default function Page() {\n  return (\n    <TicketCard title="VIP ADMISSION" serial="№ 00481">\n      <Button>Claim Pass</Button>\n    </TicketCard>\n  );\n}`} block language="tsx" />
           </Step>
         </div>
       </section>
@@ -86,27 +92,19 @@ export default function InstallationPage() {
 
         <div className="space-y-5">
           <Step n="B · 01" title="Install the package">
-            <CodeBox code="npm install bigbullui" />
+            <PackageManagerTabs command="npm install bigbullui" />
           </Step>
 
           <Step n="B · 02" title="Add design tokens to globals.css">
-            <CodeBox code={cssSetup} block />
+            <CodeBox code={cssSetup} block language="css" />
           </Step>
 
           <Step n="B · 03" title="Import and use">
-            <CodeBox code={npmUsage} block />
+            <CodeBox code={npmUsage} block language="tsx" />
           </Step>
         </div>
       </section>
 
-      {/* METHOD D: MCP */}
-      <section className="space-y-3 rounded-lg border border-border p-5">
-        <h2 className="text-base font-semibold tracking-tight">Method D · AI assistant (MCP)</h2>
-        <p className="text-sm text-muted-foreground">
-          No install in your project. Point your agent at the registry with one command. Details: <Link className="underline" href="/docs/mcp">/docs/mcp</Link>.
-        </p>
-        <CodeBox code={mcpAdd} />
-      </section>
       {/* METHOD C: MANUAL */}
       <section className="space-y-3 rounded-lg border border-dashed border-foreground/30 p-5">
         <h2 className="text-base font-semibold tracking-tight">Method C · Manual copy-paste</h2>
@@ -121,6 +119,15 @@ export default function InstallationPage() {
             Import <code className="font-mono text-xs text-foreground">bigbullui/css</code> or copy token variables into your stylesheet.
           </li>
         </ol>
+      </section>
+
+      {/* METHOD D: MCP */}
+      <section className="space-y-3 rounded-lg border border-border p-5">
+        <h2 className="text-base font-semibold tracking-tight">Method D · AI assistant (MCP)</h2>
+        <p className="text-sm text-muted-foreground">
+          No install in your project. Point your agent at the registry with one command. Details: <Link className="underline" href="/docs/mcp">/docs/mcp</Link>.
+        </p>
+        <CodeBox code={mcpAdd} />
       </section>
     </article>
   );

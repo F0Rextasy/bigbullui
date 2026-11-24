@@ -3,13 +3,13 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface VinylRecordProps {
+export interface VinylRecordProps extends Omit<React.HTMLAttributes<HTMLElement>, "onToggle"> {
   label?: React.ReactNode;
   playing?: boolean;
   onToggle?: () => void;
 }
 
-export function VinylRecord({ label, playing = false, onToggle }: VinylRecordProps) {
+export function VinylRecord({ label, playing = false, onToggle, ...props }: VinylRecordProps) {
   return (
     <div
       role={onToggle ? "button" : undefined}
@@ -28,7 +28,7 @@ export function VinylRecord({ label, playing = false, onToggle }: VinylRecordPro
         playing && "motion-safe:animate-spin",
         onToggle && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "group"
-      )}
+      )} {...props}
     >
       <div className="absolute inset-0 rounded-full bg-gradient-to-b from-border/20 via-border/30 to-border/20" />
 

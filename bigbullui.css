@@ -1,7 +1,9 @@
 /* bigbullui design tokens — import once in your CSS:
    @import "tailwindcss";
    @import "bigbullui/css";
-   Requires Tailwind CSS v4. */
+   Requires Tailwind CSS v4.
+   Note: @source "./dist" lets Tailwind v4 scan installed bigbullui utilities automatically.
+   For ultra-lean bundles in copy-paste setups, omit @import "bigbullui/css" or copy only the tokens below. */
 
 @source "./dist";
 @custom-variant dark (&:is(.dark *):not(:where(.light, .light *)));
@@ -14,8 +16,8 @@
   --muted-foreground: #6f6350;
   --card: #fffdf5;
   --card-foreground: #17130c;
-  --border: #d8c9ac;
-  --input: #c9ba99;
+  --border: #8f8066;
+  --input: #807157;
   --primary: #17130c;
   --primary-foreground: #fbf5e8;
   --secondary: #ece3cc;
@@ -24,9 +26,13 @@
   --accent-foreground: #fff6e8;
   --accent-strong: #b53524;
   --destructive: #b3261e;
+  --destructive-foreground: #fff6e8;
   --success: #27693c;
+  --success-foreground: #fff6e8;
   --warning: #9a4a08;
+  --warning-foreground: #fff6e8;
   --info: #2a648f;
+  --info-foreground: #fff6e8;
   --ring: #bc3a28;
   --radius: 0.5rem;
 }
@@ -39,8 +45,8 @@
   --muted-foreground: #b0a284;
   --card: #1e1810;
   --card-foreground: #f3ead3;
-  --border: #3a3122;
-  --input: #4a3f2c;
+  --border: #7a6b51;
+  --input: #86775c;
   --primary: #f3ead3;
   --primary-foreground: #16120b;
   --secondary: #241e13;
@@ -49,9 +55,13 @@
   --accent-foreground: #fff6e6;
   --accent-strong: #e8705a;
   --destructive: #ff6369;
+  --destructive-foreground: #16120b;
   --success: #5cb86e;
+  --success-foreground: #16120b;
   --warning: #e8a13e;
+  --warning-foreground: #16120b;
   --info: #6fb3dd;
+  --info-foreground: #16120b;
   --ring: #e0573d;
 }
 
@@ -72,9 +82,13 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-strong: var(--accent-strong);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-ring: var(--ring);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -251,10 +265,6 @@
   50% { transform: scale(1.06); opacity: 0.3; }
   100% { transform: scale(0.96); opacity: 0.9; }
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 @keyframes radarIn {
   from { opacity: 0; transform: scale(0.6); transform-origin: center; }
   to { opacity: 1; transform: scale(1); transform-origin: center; }
@@ -282,31 +292,18 @@
 
 
 /* Component keyframes */
-@keyframes av2In { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes afIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes adminIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes airmailUnfold { from { transform: translateY(20px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
-@keyframes apiKeyIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes apiKeyStamp { 0% { transform: scale(0.8); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 @keyframes arWave { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
-@keyframes auditIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes avSpin { to { transform: rotate(360deg); } }
 @keyframes blPop { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 @keyframes blShine { 0% { transform: translateX(-120%) rotate(25deg); } 100% { transform: translateX(220%) rotate(25deg); } }
 @keyframes bentoIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes bpIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes bioIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bcCheck { 0% { transform: scale(0.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
-@keyframes bcIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bossSweep { from { opacity: 0.2; } to { opacity: 1; } }
 @keyframes bcPop { from { transform: scale(0); opacity: 0; } }
 @keyframes bpFill { from { transform: scaleX(0); } }
 @keyframes bltGrow { from { width: 0; } }
-@keyframes ctSpin { to { transform: rotate(360deg); } }
-@keyframes clIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes ccPop { 0% { transform: scale(0.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
-@keyframes ceIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes ctRow { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes comboDrain { from { width: 100%; } to { width: 0%; } }
 @keyframes comboPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
 @keyframes csPing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
@@ -316,159 +313,79 @@
 @keyframes csIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes cfShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 @keyframes cfCheck { from { stroke-dashoffset: 20; } to { stroke-dashoffset: 0; } }
-@keyframes crIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes ctScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes currencyPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-@keyframes curIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes dmgFlash { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes dzIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes dgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes deIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes dmIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes dragSortPop { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
 @keyframes dnPanel { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 @keyframes durIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 @keyframes ecFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@keyframes evIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes envFlapOpen { from { transform: rotateX(-85deg); opacity: 0.4; } to { transform: rotateX(0deg); opacity: 1; } }
 @keyframes errStamp { 0% { transform: scale(1.6) rotate(-14deg); opacity: 0; } 60% { transform: scale(0.95) rotate(-8deg); opacity: 1; } 100% { transform: scale(1) rotate(-8deg); opacity: 1; } }
-@keyframes errIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes exSwap { from { transform: rotate(0); } to { transform: rotate(180deg); } }
-@keyframes ffSlide { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes faIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fireworkRise { 0% { transform: translate(-50%, 0) scale(0.4); opacity: 0; } 15% { opacity: 1; } 60% { transform: translate(-50%, -140px) scale(1); opacity: 1; } 100% { transform: translate(-50%, -170px) scale(0.8); opacity: 0; } }
 @keyframes fireworkSpread { 0% { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; } }
-@keyframes flipCardIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fl2In { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes fmIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fnIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes forgotSwap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes forgotCheck { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
-@keyframes fpFill { from { transform: scaleX(0); } }
 @keyframes gachaIn { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-@keyframes ggIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 @keyframes gmPop { 0% { transform: scale(0.85) rotate(-3deg); opacity: 0; } 70% { transform: scale(1.05) rotate(1deg); } 100% { transform: scale(1) rotate(0); opacity: 1; } }
 @keyframes gmRibbon { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
-@keyframes glIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes hpPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 @keyframes hsLeft { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes hsRight { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes hgGrow { from { transform: scaleY(0); } }
 @keyframes icSlide { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
-@keyframes inboxIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes ipIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes invScale { from { opacity: 0; transform: scale(0.95) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes jeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes kbIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes khIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-@keyframes kpiRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes lcDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes loginShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-@keyframes loginIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes logoSlide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes crateShake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
 @keyframes lowHp { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.9; } }
 @keyframes mbFlag { 0% { transform: rotate(0deg); } 100% { transform: rotate(45deg); } }
 @keyframes mbLetter { 0% { transform: translateY(-20px) scale(0.8); opacity: 0; } 60% { opacity: 1; } 100% { transform: translateY(0) scale(1); opacity: 0; } }
 @keyframes mbBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 @keyframes mpShimmer { from { transform: translateX(-100%); } to { transform: translateX(220%); } }
-@keyframes mdIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes marqueeSlide { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 @keyframes masonryIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes mtScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes mdShine { 0% { transform: translateX(-120%); } 100% { transform: translateX(220%); } }
 @keyframes meShimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
 @keyframes mgWave { 0%, 100% { transform: scaleY(1); opacity: 0.4; } 50% { transform: scaleY(1.6); opacity: 1; } }
-@keyframes mlIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes migIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes mcLine { from { transform: scaleX(0); } }
 @keyframes mcPop { 0% { transform: scale(0); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
 @keyframes mmIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes ngDraw { from { stroke-dashoffset: 60; } }
 @keyframes ngNode { from { transform: scale(0); } }
-@keyframes nfIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes obDots { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
-@keyframes otLine { from { transform: scaleX(0); } }
 @keyframes otPop { 0% { transform: scale(0); } 70% { transform: scale(1.3); } 100% { transform: scale(1); } }
 @keyframes otpShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 @keyframes otpPop { 0% { transform: scale(0.9); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }
-@keyframes ptUnderline { from { transform: scaleX(0); } }
 @keyframes piIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-@keyframes pmIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pdShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
-@keyframes permPop { 0% { transform: scale(0.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
-@keyframes pollGrow { from { width: 0; } }
 @keyframes pcZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
-@keyframes pcIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes profIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pcFeed { from { transform: translateY(-16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes qjIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes qaFlash { from { background-color: var(--accent); } to { background-color: transparent; } }
 @keyframes qcPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }
 @keyframes receiptFeed { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-@keyframes rcIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes rfIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes rtIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes regIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes rnvDrop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes rlRun { 0% { transform: translateX(-100%) scaleX(0.4); } 50% { transform: translateX(30%) scaleX(0.5); } 100% { transform: translateX(100%) scaleX(0.4); } }
-@keyframes reIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes skPulse { 0% { transform: scale(1.25); color: var(--accent); } 100% { transform: scale(1); } }
-@keyframes sfIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes sfbChip { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 @keyframes snowFall { 0% { transform: translateY(-12px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(150px); opacity: 0; } }
-@keyframes serialPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
 @keyframes sessionSlide { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes sessionOut { to { opacity: 0; transform: translateX(24px); } }
-@keyframes setIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes setStamp { 0% { transform: scale(0.7); opacity: 0; } 70% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-@keyframes soIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes sb2In { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes skeletonV2Sweep { 100% { transform: translateX(100%); } }
-@keyframes snIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes speedDialScaleIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 @keyframes splitIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes spotlightCardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes spotlightPulseRing { 0% { box-shadow: 0 0 0 0 var(--ring); opacity: 0.6; } 100% { box-shadow: 0 0 0 12px transparent; opacity: 0; } }
-@keyframes statRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes soFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes stvIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes sfUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes sfUp2 { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes subIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes sbIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
-@keyframes tsIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes tlIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes teamIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes teamStamp { 0% { transform: scale(0.8); opacity: 0; } 70% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
 @keyframes tsSel { from { transform: scale(0.92); } to { transform: scale(1); } }
 @keyframes stubTear { from { transform: rotate(0deg) translateY(0); } to { transform: rotate(-30deg) translateY(20px); } }
 @keyframes tvBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-@keyframes tvShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-@keyframes tv2In { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes ttIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes trIn { 0% { transform: translateY(-14px) scale(0.8); opacity: 0; } 70% { transform: translateY(2px) scale(1.05); opacity: 1; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 @keyframes tutRing { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-@keyframes twoColIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes twofaScan { 0% { top: 4%; opacity: 0.9; } 50% { top: 92%; opacity: 1; } 100% { top: 4%; opacity: 0.9; } }
-@keyframes twofaIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes upShine { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(220%); } }
-@keyframes upIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes upFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes usageGrow { from { width: 0; } }
 @keyframes usagePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-@keyframes userRowIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes userRowOut { to { opacity: 0; transform: translateX(24px); } }
-@keyframes vlIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes vcvBar { 0%, 100% { transform: scaleY(0.25); } 50% { transform: scaleY(1); } }
-@keyframes voiceBar { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
-@keyframes vnIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes waxSealPress { from { transform: scale(1); } to { transform: scale(0.9) rotate(-5deg); } }
-@keyframes whIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes wishlistBurst { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-24px) scale(0.8); opacity: 0; } }
-@keyframes wzIn { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes wzShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-@keyframes wmIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
 @layer base {
   /* Default semantic border color across all bare `border` utilities, plus pointer & focus affordances. */
@@ -486,14 +403,18 @@
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
+  :where([role="dialog"], [role="alertdialog"], dialog:modal) {
+    overscroll-behavior: contain;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   :where([class*="animate-"], [style*="animation"]) {
     animation: none !important;
   }
-  :where([class*="transition-transform"], [class*="transition-all"], [style*="transition"]) {
+  :where([class*="transition-"], [style*="transition"]) {
     transition-property: color, background-color, border-color, opacity !important;
+    transition-duration: 0.01ms !important;
   }
   :where(*, ::before, ::after) {
     scroll-behavior: auto !important;
@@ -504,6 +425,6 @@
 .dark :where(.text-accent):not(:where(.light, .light *)) {
   color: var(--color-accent-strong);
 }
-.dark :where(.bg-destructive.text-white, .bg-warning.text-white, .bg-success.text-white, .bg-info.text-white) {
+.dark :where(.bg-destructive.text-white, .bg-warning.text-white, .bg-success.text-white, .bg-info.text-white):not(:where(.light, .light *)) {
   color: var(--color-background);
 }

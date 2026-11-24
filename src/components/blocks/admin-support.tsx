@@ -8,26 +8,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Avatar } from "../ui/avatar";
 import { Textarea } from "../ui/textarea";
 
-const TICKETS = [
+const DEFAULT_TICKETS = [
   { id: "TCK-881", who: "Gate 03", subject: "Scanner will not read balcony stubs", sla: "OVERDUE", tone: "secondary" as const },
   { id: "TCK-882", who: "Ada Bull", subject: "Refund request for duplicate charge", sla: "2H LEFT", tone: "default" as const },
   { id: "TCK-883", who: "Mira Chen", subject: "VIP list spelling correction", sla: "ON TRACK", tone: "accent" as const },
 ];
 
-export interface AdminSupportProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminSupportProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  tickets?: typeof DEFAULT_TICKETS;
   onAction?: (action: string) => void;
 }
 
-export function AdminSupport({ className, onAction, ...props }: AdminSupportProps) {
+export function AdminSupport({ title, tickets = DEFAULT_TICKETS, className, onAction, ...props }: AdminSupportProps) {
   const [reply, setReply] = React.useState("");
-  const [active, setActive] = React.useState(TICKETS[0].id);
+  const [active, setActive] = React.useState(tickets[0].id);
   const [status, setStatus] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DESK{" // "}SUPPORT QUEUE</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Ticket inbox</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Ticket inbox"}</h2>
         </div>
         <Badge variant="accent">3 OPEN</Badge>
       </div>
@@ -37,7 +40,7 @@ export function AdminSupport({ className, onAction, ...props }: AdminSupportProp
             <CardTitle>Ticket queue</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {TICKETS.map((ticket) => (
+            {tickets.map((ticket) => (
               <button
                 key={ticket.id}
                 type="button"

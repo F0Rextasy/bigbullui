@@ -14,6 +14,9 @@ const base = process.env.BIGBULL_BASE ?? "http://localhost:3000";
 const routes = [
   "/",
   "/docs",
+  "/docs/installation",
+  "/docs/recipes",
+  "/docs/changelog",
   "/docs/button",
   "/docs/dialog",
   "/docs/tabs",
@@ -26,11 +29,17 @@ const routes = [
   "/showcase",
   "/docs/design",
   "/icons",
+  "/icons/ticket",
+  "/dep-graph",
+  "/benchmarks",
+  "/preview/button",
 ];
 
 const themes = ["light", "dark"];
+const strictModerate = process.env.BIGBULL_STRICT_MODERATE === "1";
 const browser = await chromium.launch({ headless: true });
 let critical = 0;
+let moderateCount = 0;
 let skipped = 0;
 let scanCount = 0;
 
@@ -49,16 +58,37 @@ async function setTheme(page, theme) {
 async function runAxe(page, label) {
   scanCount += 1;
   const violations = await page.evaluate(async () => {
+    for (const anim of document.getAnimations({ subtree: true })) {
+      try {
+        if (anim.effect?.getTiming?.().iterations !== Infinity) anim.finish();
+      } catch {
+        // ignore unfinishable animations
+      }
+    }
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
     const result = await window.axe.run({ resultTypes: ["violations"] });
     return result.violations
-      .filter((v) => v.impact === "critical" || v.impact === "serious")
-      .map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length }));
+      .filter((v) => v.impact === "critical" || v.impact === "serious" || v.impact === "moderate")
+      .map((v) => ({
+        id: v.id,
+        impact: v.impact,
+        nodes: v.nodes.length,
+        sample: v.nodes[0]?.html?.replace(/\s+/g, " ").slice(0, 120) ?? "",
+      }));
   });
+  let blocking = 0;
   for (const v of violations) {
-    console.log(`${v.impact === "critical" ? "CRITICAL" : "SERIOUS"} a11y-scan: ${label} ${v.id} x${v.nodes}`);
-    critical += v.nodes;
+    if (v.impact === "moderate") {
+      moderateCount += v.nodes;
+      console.log(`MODERATE a11y-scan: ${label} ${v.id} x${v.nodes}`);
+      if (strictModerate) critical += v.nodes;
+    } else {
+      blocking += v.nodes;
+      critical += v.nodes;
+      console.log(`${v.impact === "critical" ? "CRITICAL" : "SERIOUS"} a11y-scan: ${label} ${v.id} x${v.nodes} -> ${v.sample}`);
+    }
   }
-  if (violations.length === 0) console.log(`a11y-scan: ${label} clean`);
+  if (blocking === 0 && violations.length === 0) console.log(`a11y-scan: ${label} clean`);
 }
 
 for (const route of routes) {
@@ -105,7 +135,7 @@ if (skipped > 0) {
   process.exit(1);
 }
 if (critical > 0) {
-  console.error(`a11y-scan: ${critical} critical/serious violations found across ${scanCount} scans.`);
+  console.error(`a11y-scan: ${critical} critical/serious violations (${moderateCount} moderate) found across ${scanCount} scans.`);
   process.exit(1);
 }
-console.log(`a11y-scan: ${scanCount} scans across ${routes.length} routes (light + dark + open overlays), no critical/serious violations.`);
+console.log(`a11y-scan: ${scanCount} scans across ${routes.length} routes (light + dark + open overlays), 0 critical/serious violations (${moderateCount} moderate).`);

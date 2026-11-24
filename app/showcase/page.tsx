@@ -4,10 +4,20 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { ChromeIcon } from "@/components/site/chrome-icons";
 import showcase from "@/data/showcase.json";
 
-export const metadata = { title: "Showcase" };
+import { buildMetadata } from "@/lib/seo";
 
-function isSafeExternalUrl(url: string | undefined): url is string {
-  return typeof url === "string" && /^https?:\/\//i.test(url);
+export const metadata = buildMetadata({
+  title: "Showcase",
+  description: "Real projects, starters, and galleries built with zero-dependency bigbullui components.",
+  path: "/showcase",
+});
+
+function isSafeLink(url: string | undefined): url is string {
+  return typeof url === "string" && (/^https?:\/\//i.test(url) || /^\/(?!\/)/.test(url));
+}
+
+function isExternalLink(url: string): boolean {
+  return /^https?:\/\//i.test(url);
 }
 
 type ShowcaseEntry = {
@@ -45,10 +55,16 @@ export default function ShowcasePage() {
             {entries.map((entry) => (
               <article key={entry.id} className="rounded-lg border-2 border-foreground bg-card p-4 shadow-md outline-1 outline-dashed outline-offset-[-5px] outline-border">
                 <h2 className="font-mono text-sm font-black uppercase">
-                  {isSafeExternalUrl(entry.url) ? (
-                    <a href={entry.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      {entry.title}
-                    </a>
+                  {isSafeLink(entry.url) ? (
+                    isExternalLink(entry.url) ? (
+                      <a href={entry.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        {entry.title}
+                      </a>
+                    ) : (
+                      <Link href={entry.url} className="hover:underline">
+                        {entry.title}
+                      </Link>
+                    )
                   ) : (
                     entry.title
                   )}
@@ -63,12 +79,18 @@ export default function ShowcasePage() {
                 </div>
                 <p className="mt-2 font-mono text-[10px] uppercase text-muted-foreground">
                   By {entry.author}
-                  {isSafeExternalUrl(entry.url) ? (
+                  {isSafeLink(entry.url) ? (
                     <>
                       {" "}·{" "}
-                      <a href={entry.url} target="_blank" rel="noopener noreferrer" className="underline">
-                        Visit
-                      </a>
+                      {isExternalLink(entry.url) ? (
+                        <a href={entry.url} target="_blank" rel="noopener noreferrer" className="underline">
+                          Visit
+                        </a>
+                      ) : (
+                        <Link href={entry.url} className="underline">
+                          Visit
+                        </Link>
+                      )}
                     </>
                   ) : null}
                 </p>

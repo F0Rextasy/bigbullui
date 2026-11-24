@@ -290,7 +290,7 @@ export function RadioCard({
       onClick={handleClick}
       className={cn(
         // Base ticket frame geometry
-        "relative flex flex-col justify-between rounded-lg border-2 p-5 text-start transition-all duration-200 select-none outline-none",
+        "relative flex flex-col justify-between rounded-lg border-2 p-5 text-start transition-colors duration-200 select-none outline-none",
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         // Interactive state
         isDisabled
@@ -364,7 +364,7 @@ export function RadioCard({
             <div
               aria-hidden="true"
               className={cn(
-                "flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200",
+                "flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-200",
                 isChecked
                   ? "border-foreground bg-accent text-accent-foreground shadow-xs scale-105"
                   : "border-dashed border-muted-foreground/60 bg-transparent hover:border-foreground"

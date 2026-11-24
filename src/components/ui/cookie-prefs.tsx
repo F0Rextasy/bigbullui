@@ -45,7 +45,7 @@ export function CookiePrefs({ onSave, className, ...props }: CookiePrefsProps) {
             >
               <span
                 className={cn(
-                  "absolute top-0.5 size-3.5 rounded-full bg-card shadow transition-all motion-reduce:transition-none",
+                  "absolute top-0.5 size-3.5 rounded-full bg-card shadow transition-[width,height,left,right,opacity,background-color,border-color] motion-reduce:transition-none",
                   prefs[c.id] ? "left-[18px]" : "left-0.5"
                 )}
               />

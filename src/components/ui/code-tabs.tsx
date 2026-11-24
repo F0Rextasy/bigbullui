@@ -66,7 +66,7 @@ export function CodeTabs({ tabs = [], defaultTab, onCopy, className, ...props }:
         <code>
           {current.code.split("\n").map((line, i) => (
             <span key={i} className="block">
-              <span aria-hidden className="me-3 inline-block w-6 select-none text-right text-muted-foreground/50">
+              <span aria-hidden className="me-3 inline-block w-6 select-none text-end text-muted-foreground/50">
                 {i + 1}
               </span>
               {line || " "}

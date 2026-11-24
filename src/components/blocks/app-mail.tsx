@@ -9,22 +9,24 @@ import { Input } from "../ui/input";
 import { Avatar } from "../ui/avatar";
 import { Separator } from "../ui/separator";
 
-const FOLDERS = ["INBOX", "STARRED", "SENT", "DRAFTS", "SPAM"];
-const MESSAGES = [
+const DEFAULT_FOLDERS = ["INBOX", "STARRED", "SENT", "DRAFTS", "SPAM"];
+const DEFAULT_MESSAGES = [
   { id: "m1", from: "Box Office", subject: "Your VIP stubs are ready", preview: "Present this pass at Gate 3 for instant entry.", time: "09:41", unread: true },
   { id: "m2", from: "Stage Crew", subject: "Soundcheck moved to 18:30", preview: "Doors still open at 19:30 sharp.", time: "08:15", unread: true },
   { id: "m3", from: "Support Desk", subject: "Refund BB-90213 confirmed", preview: "Funds return within 5 business days.", time: "YESTERDAY", unread: false },
 ];
 
 export interface AppMailProps extends React.HTMLAttributes<HTMLDivElement> {
+    folders?: typeof DEFAULT_FOLDERS;
+  messages?: typeof DEFAULT_MESSAGES;
   onAction?: (action: string) => void;
 }
 
-export function AppMail({ className, onAction, ...props }: AppMailProps) {
+export function AppMail({ folders = DEFAULT_FOLDERS, messages = DEFAULT_MESSAGES, className, onAction, ...props }: AppMailProps) {
   const [folder, setFolder] = React.useState("INBOX");
   const [active, setActive] = React.useState("m1");
   const [notice, setNotice] = React.useState<string | null>(null);
-  const current = MESSAGES.find((message) => message.id === active) ?? MESSAGES[0];
+  const current = messages.find((message) => message.id === active) ?? messages[0];
   return (
     <div className={cn("w-full overflow-hidden rounded-lg border-2 border-foreground bg-card", className)} {...props}>
       <div className="flex items-center justify-between border-b-2 border-dashed border-border px-4 py-3">
@@ -34,7 +36,7 @@ export function AppMail({ className, onAction, ...props }: AppMailProps) {
       <div className="grid md:grid-cols-4">
         <div className="space-y-1 border-b border-dashed border-border p-3 md:border-b-0 md:border-r">
           <Input placeholder="Search mail..." aria-label="Search mail" className="mb-2" />
-          {FOLDERS.map((item) => (
+          {folders.map((item) => (
             <button
               key={item}
               type="button"
@@ -50,7 +52,7 @@ export function AppMail({ className, onAction, ...props }: AppMailProps) {
           <Button size="sm" className="w-full" onClick={() => { setNotice("Draft composer opened."); onAction?.("compose"); }}>Compose</Button>
         </div>
         <div className="divide-y divide-dashed divide-border border-b border-dashed border-border md:col-span-1 md:border-b-0 md:border-r">
-          {MESSAGES.map((message) => (
+          {messages.map((message) => (
             <button
               key={message.id}
               type="button"

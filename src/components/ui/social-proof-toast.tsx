@@ -41,7 +41,7 @@ export function SocialProofToast({
     <div
       role="status"
       className={cn(
-        "flex w-72 items-center gap-3 rounded-lg border-2 border-foreground bg-card p-3 shadow-lg transition-all duration-300 motion-reduce:transition-none",
+        "flex w-72 items-center gap-3 rounded-lg border-2 border-foreground bg-card p-3 shadow-lg transition-[width,height,left,right,opacity,background-color,border-color] duration-300 motion-reduce:transition-none",
         leaving ? "translate-y-2 opacity-0" : "translate-y-0 opacity-100",
         className,
       )}

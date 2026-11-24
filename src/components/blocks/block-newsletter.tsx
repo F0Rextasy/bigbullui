@@ -6,17 +6,19 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Card, CardContent } from "../ui/card";
 
-export interface BlockNewsletterProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockNewsletterProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function BlockNewsletter({ className, onAction, ...props }: BlockNewsletterProps) {
+export function BlockNewsletter({ title, className, onAction, ...props }: BlockNewsletterProps) {
   const [done, setDone] = React.useState(false);
   return (
     <Card className={cn("w-full", className)} {...props}>
       <CardContent className="flex flex-col items-center gap-3 p-8 text-center sm:p-10">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">WEEKLY PLAYBILL</p>
-        <h2 className="max-w-md font-mono text-2xl font-black uppercase tracking-tight">First to know when doors open</h2>
+        <h2 className="max-w-md font-mono text-2xl font-black uppercase tracking-tight">{title ?? "First to know when doors open"}</h2>
         {done ? (
           <p role="status" className="font-mono text-xs uppercase tracking-wider text-foreground">
             On the list. See you at doors.

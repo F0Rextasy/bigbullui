@@ -7,25 +7,29 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Progress } from "../ui/progress";
 
-const EPISODES = [
+const DEFAULT_EPISODES = [
   { id: "e1", title: "Doors open: the first scan", length: "24:10", mark: 12 },
   { id: "e2", title: "Balcony nights and brass", length: "31:45", mark: 48 },
   { id: "e3", title: "Encore economics", length: "18:22", mark: 76 },
 ];
 
-const CHAPTERS = [0, 20, 40, 60, 80, 100];
+const DEFAULT_CHAPTERS = [0, 20, 40, 60, 80, 100];
 
-export interface AppPlayerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppPlayerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  episodes?: typeof DEFAULT_EPISODES;
+  chapters?: typeof DEFAULT_CHAPTERS;
   onAction?: (action: string) => void;
 }
 
-export function AppPlayer({ className, onAction, ...props }: AppPlayerProps) {
-  const [current, setCurrent] = React.useState(EPISODES[0].id);
+export function AppPlayer({ title, episodes = DEFAULT_EPISODES, chapters = DEFAULT_CHAPTERS, className, onAction, ...props }: AppPlayerProps) {
+  const [current, setCurrent] = React.useState(episodes[0].id);
   const [playing, setPlaying] = React.useState(true);
-  const idx = Math.max(0, EPISODES.findIndex((episode) => episode.id === current));
-  const active = EPISODES[idx] ?? EPISODES[0];
+  const idx = Math.max(0, episodes.findIndex((episode) => episode.id === current));
+  const active = episodes[idx] ?? episodes[0];
   const step = (delta: number) => {
-    const next = EPISODES[(idx + delta + EPISODES.length) % EPISODES.length];
+    const next = episodes[(idx + delta + episodes.length) % episodes.length];
     if (!next) return;
     setCurrent(next.id);
     onAction?.(delta < 0 ? "prev-episode" : "next-episode");
@@ -35,7 +39,7 @@ export function AppPlayer({ className, onAction, ...props }: AppPlayerProps) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOOTH{" // "}PLAYER</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Show tapes</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Show tapes"}</h2>
         </div>
         <Badge variant="accent">{playing ? "NOW PLAYING" : "PAUSED"}</Badge>
       </div>
@@ -44,7 +48,7 @@ export function AppPlayer({ className, onAction, ...props }: AppPlayerProps) {
           <CardTitle>Episode row</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          {EPISODES.map((episode) => (
+          {episodes.map((episode) => (
             <button
               key={episode.id}
               type="button"
@@ -69,7 +73,7 @@ export function AppPlayer({ className, onAction, ...props }: AppPlayerProps) {
           </div>
           <Progress value={active.mark} />
           <div aria-hidden className="relative h-4">
-            {CHAPTERS.map((tick) => (
+            {chapters.map((tick) => (
               <span key={tick} className="absolute top-0 h-3 w-0.5 bg-foreground/60" style={{ left: `${tick}%` }} />
             ))}
           </div>

@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 
-const LISTINGS = [
+const DEFAULT_LISTINGS = [
   { id: "KX-101", title: "Corner Loft", area: "Karakoy", price: "$1,850/mo", beds: 2, baths: 1, size: 95 },
   { id: "KX-204", title: "Garden Flat", area: "Moda", price: "$1,200/mo", beds: 1, baths: 1, size: 70 },
   { id: "KX-318", title: "Bosphorus View", area: "Bebek", price: "$3,400/mo", beds: 3, baths: 2, size: 140 },
@@ -15,23 +15,26 @@ const LISTINGS = [
 ];
 
 /** Real-estate showcase: filterable listing grid + detail drawer. */
-export interface BlockRealEstateProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockRealEstateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  listings?: typeof DEFAULT_LISTINGS;
   onAction?: (action: string) => void;
 }
 
-export function BlockRealEstate({ className, onAction, ...props }: BlockRealEstateProps) {
+export function BlockRealEstate({ title, listings = DEFAULT_LISTINGS, className, onAction, ...props }: BlockRealEstateProps) {
   const [query, setQuery] = React.useState("");
   const [activeId, setActiveId] = React.useState<string | null>(null);
 
-  const results = LISTINGS.filter(
+  const results = listings.filter(
     (l) => !query || `${l.title} ${l.area}`.toLowerCase().includes(query.toLowerCase())
   );
-  const active = LISTINGS.find((l) => l.id === activeId) ?? null;
+  const active = listings.find((l) => l.id === activeId) ?? null;
 
   return (
     <div className={cn("w-full space-y-3", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="font-mono text-xl font-black uppercase tracking-tight">Listings</h2>
+        <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "Listings"}</h2>
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}

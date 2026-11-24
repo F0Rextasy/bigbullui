@@ -6,9 +6,9 @@ import { cn } from "./lib/utils";
 export type ScrollShadowProps = {
   className?: string;
   children?: React.ReactNode;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function ScrollShadow({ className, children }: ScrollShadowProps) {
+export function ScrollShadow({ className, children, ...props }: ScrollShadowProps) {
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -47,7 +47,7 @@ export function ScrollShadow({ className, children }: ScrollShadowProps) {
         "relative h-64 overflow-hidden",
         "motion-reduce:animate-none",
         className,
-      )}
+      )} {...props}
     >
       <div ref={ref} className="h-full overflow-auto">
         <div className="relative bg-card p-4">{children}</div>

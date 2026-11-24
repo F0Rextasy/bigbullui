@@ -8,13 +8,13 @@ export interface FeatureItem {
   description: string;
 }
 
-export interface FeatureGridProps {
+export interface FeatureGridProps extends React.HTMLAttributes<HTMLElement> {
   items: FeatureItem[];
   columns?: 2 | 3;
   className?: string;
 }
 
-export function FeatureGrid({ items = [], columns = 2, className }: FeatureGridProps) {
+export function FeatureGrid({ items = [], columns = 2, className, ...props }: FeatureGridProps) {
   return (
     <div
       className={cn(
@@ -22,7 +22,7 @@ export function FeatureGrid({ items = [], columns = 2, className }: FeatureGridP
         columns === 2 && "grid-cols-1 sm:grid-cols-2",
         columns === 3 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
         className
-      )}
+      )} {...props}
     >
       {items.map((item, index) => (
         <div

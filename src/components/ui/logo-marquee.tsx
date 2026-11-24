@@ -12,7 +12,7 @@ export function LogoMarquee({ logos = ["ARENA", "STAGECO", "TIXLY", "GATE9", "EN
   const row = [...logos, ...logos];
   return (
     <div className={cn("w-full max-w-xl overflow-hidden rounded-lg border-2 border-foreground bg-card py-3", className)} {...props}>
-      <div className="flex w-max gap-2 motion-safe:animate-[logoSlide_18s_linear_infinite] hover:[animation-play-state:paused]" aria-label="Partner logos">
+      <div className="flex w-max gap-2 motion-safe:animate-[marquee_18s_linear_infinite] hover:[animation-play-state:paused]" aria-label="Partner logos">
         {row.map((l, i) => (
           <span key={i} aria-hidden={i >= logos.length} className="rounded-md border border-dashed border-border bg-background px-4 py-1.5 font-mono text-xs font-black tracking-widest">
             {l}

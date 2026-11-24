@@ -4,20 +4,17 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
 import { registerEscapeLayer } from "./lib/focus-trap";
-
-function assignRef<T>(ref: React.Ref<T> | undefined, node: T | null) {
-  if (!ref) return;
-  if (typeof ref === "function") ref(node);
-  else if (typeof ref === "object" && "current" in ref) {
-    (ref as React.MutableRefObject<T | null>).current = node;
-  }
-}
+import { mergeRefs, useIsMounted } from "./lib/react-compat";
+import { Slot } from "./lib/slot";
+import { useControllableState } from "./lib/use-controllable-state";
+import { useFloating } from "./lib/floating";
 
 interface PopoverContextValue {
   open: boolean;
   setOpen: (open: boolean) => void;
+  contentId: string;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
   setTriggerEl: (el: HTMLButtonElement | null) => void;
-  getTriggerEl: () => HTMLButtonElement | null;
 }
 
 const PopoverCtx = React.createContext<PopoverContextValue | null>(null);
@@ -35,35 +32,21 @@ export function Popover({
   onOpenChange,
   children,
 }: PopoverProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
-  const isControlled = controlledOpen !== undefined;
-  const open = isControlled ? controlledOpen : uncontrolledOpen;
-  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
-  const onOpenChangeRef = React.useRef(onOpenChange);
-
-  React.useEffect(() => {
-    onOpenChangeRef.current = onOpenChange;
+  const [open, setOpen] = useControllableState<boolean>({
+    prop: controlledOpen,
+    defaultProp: defaultOpen,
+    onChange: onOpenChange,
   });
-
-  const setOpen = React.useCallback(
-    (nextOpen: boolean) => {
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-      onOpenChangeRef.current?.(nextOpen);
-    },
-    [isControlled]
-  );
+  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const contentId = React.useId();
 
   const setTriggerEl = React.useCallback((el: HTMLButtonElement | null) => {
     triggerRef.current = el;
   }, []);
 
-  const getTriggerEl = React.useCallback(() => triggerRef.current, []);
-
   const ctxValue = React.useMemo(
-    () => ({ open, setOpen, setTriggerEl, getTriggerEl }),
-    [open, setOpen, setTriggerEl, getTriggerEl]
+    () => ({ open, setOpen, contentId, triggerRef, setTriggerEl }),
+    [open, setOpen, contentId, setTriggerEl],
   );
 
   return (
@@ -76,39 +59,43 @@ export function Popover({
 export interface PopoverTriggerProps {
   children: React.ReactElement<{
     ref?: React.Ref<HTMLButtonElement>;
-    onMouseDown?: React.MouseEventHandler;
+    onPointerDown?: React.PointerEventHandler;
     onClick?: React.MouseEventHandler;
     "aria-haspopup"?: string;
     "aria-expanded"?: boolean;
+    "aria-controls"?: string;
   }>;
 }
 
-export function PopoverTrigger({ children }: PopoverTriggerProps) {
-  const ctx = React.useContext(PopoverCtx);
-  if (!ctx) throw new Error("PopoverTrigger must be used within Popover");
-  const childRef = (children.props as { ref?: React.Ref<HTMLButtonElement> }).ref;
+export const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(
+  function PopoverTrigger({ children }, forwardedRef) {
+    const ctx = React.useContext(PopoverCtx);
+    if (!ctx) throw new Error("PopoverTrigger must be used within Popover");
 
-  return React.cloneElement(children, {
-    ref: (node: HTMLButtonElement | null) => {
-      ctx.setTriggerEl(node);
-      assignRef(childRef, node);
-    },
-    "aria-haspopup": "dialog",
-    "aria-expanded": ctx.open,
-    onMouseDown: (e: React.MouseEvent) => {
-      ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
-      children.props.onMouseDown?.(e);
-    },
-    onClick: (e: React.MouseEvent) => {
-      ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
-      children.props.onClick?.(e);
-      ctx.setOpen(!ctx.open);
-    },
-  });
-}
+    return (
+      <Slot
+        ref={mergeRefs(forwardedRef, ctx.setTriggerEl)}
+        aria-haspopup="dialog"
+        aria-expanded={ctx.open}
+        aria-controls={ctx.open ? ctx.contentId : undefined}
+        onPointerDown={(e: React.PointerEvent) => {
+          ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
+        }}
+        onClick={(e: React.MouseEvent) => {
+          ctx.setTriggerEl(e.currentTarget as HTMLButtonElement);
+          ctx.setOpen(!ctx.open);
+        }}
+      >
+        {children}
+      </Slot>
+    );
+  },
+);
+PopoverTrigger.displayName = "PopoverTrigger";
 
 export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: "start" | "center" | "end";
+  side?: "top" | "bottom" | "left" | "right";
   children?: React.ReactNode;
   className?: string;
   /** Dual-mode: false renders instantly with no motion. Default true. */
@@ -117,6 +104,7 @@ export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement
 
 export function PopoverContent({
   align = "center",
+  side = "bottom",
   children,
   className,
   style,
@@ -124,31 +112,28 @@ export function PopoverContent({
   ...props
 }: PopoverContentProps) {
   const ctx = React.useContext(PopoverCtx);
+  const mounted = useIsMounted();
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = React.useState<{ top: number; left: number } | null>(null);
   const open = Boolean(ctx?.open);
   const setOpen = ctx?.setOpen;
-  const getTriggerEl = ctx?.getTriggerEl;
+  const triggerRef = ctx?.triggerRef;
+  const fallbackRef = React.useRef<HTMLButtonElement | null>(null);
+
+  const pos = useFloating({
+    open: open && mounted,
+    referenceRef: triggerRef ?? fallbackRef,
+    floatingRef: contentRef,
+    side,
+    align,
+    offset: 8,
+  });
 
   React.useEffect(() => {
-    if (!open || !setOpen) return;
+    if (!open || !setOpen || !mounted) return;
 
-    const updatePosition = () => {
-      const rect = getTriggerEl?.()?.getBoundingClientRect();
-      if (!rect || (rect.width === 0 && rect.height === 0)) {
-        setCoords(null);
-        return;
-      }
-      const left =
-        align === "start" ? rect.left : align === "end" ? rect.right : rect.left + rect.width / 2;
-      setCoords({ top: rect.bottom + 8, left });
-    };
-
-    const posRaf = requestAnimationFrame(updatePosition);
-
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutside(event: PointerEvent) {
       const target = event.target as Node;
-      const triggerEl = getTriggerEl?.();
+      const triggerEl = triggerRef?.current;
       if (
         contentRef.current &&
         !contentRef.current.contains(target) &&
@@ -160,46 +145,38 @@ export function PopoverContent({
 
     const releaseEscape = registerEscapeLayer(() => {
       setOpen(false);
-      getTriggerEl?.()?.focus();
+      triggerRef?.current?.focus();
     });
 
-    document.addEventListener("mousedown", handleClickOutside);
-    window.addEventListener("scroll", updatePosition, true);
-    window.addEventListener("resize", updatePosition);
+    document.addEventListener("pointerdown", handleClickOutside);
     return () => {
-      cancelAnimationFrame(posRaf);
-      document.removeEventListener("mousedown", handleClickOutside);
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
+      document.removeEventListener("pointerdown", handleClickOutside);
       releaseEscape();
     };
-  }, [open, setOpen, getTriggerEl, align]);
+  }, [open, setOpen, triggerRef, mounted]);
 
   if (!open) return null;
-
-  const portalStyle: React.CSSProperties | undefined = coords
-    ? {
-        position: "fixed",
-        top: coords.top,
-        left: coords.left,
-        transform: align === "end" ? "translateX(-100%)" : align === "center" ? "translateX(-50%)" : undefined,
-        ...style,
-      }
-    : style;
 
   const panel = (
     <div
       ref={contentRef}
+      id={ctx?.contentId}
       role="dialog"
-      style={portalStyle}
+      style={
+        mounted
+          ? {
+              position: "fixed",
+              top: pos.top,
+              left: pos.left,
+              visibility: pos.ready ? "visible" : "hidden",
+              ...style,
+            }
+          : style
+      }
       className={cn(
         "z-50 w-72 overscroll-contain rounded-lg border-[1.5px] border-foreground bg-card p-4 shadow-lg outline-1 outline-dashed outline-offset-[-6px]",
-        !coords && "absolute mt-2",
-        !coords && align === "start" && "left-0",
-        !coords && align === "center" && "left-1/2 -translate-x-1/2",
-        !coords && align === "end" && "right-0",
-        animated && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
-        className
+        animated && pos.ready && "motion-safe:animate-[scale-in_0.15s_ease-out_both]",
+        className,
       )}
       {...props}
     >
@@ -207,5 +184,5 @@ export function PopoverContent({
     </div>
   );
 
-  return coords && typeof document !== "undefined" ? createPortal(panel, document.body) : panel;
+  return mounted ? createPortal(panel, document.body) : panel;
 }

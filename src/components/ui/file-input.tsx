@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface FileInputProps {
+export interface FileInputProps extends React.HTMLAttributes<HTMLElement> {
   accept?: string;
   multiple?: boolean;
   onFilesChange?: (files: File[]) => void;
@@ -14,7 +14,7 @@ export function FileInput({
   accept,
   multiple = false,
   onFilesChange,
-  className,
+  className, ...props
 }: FileInputProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
@@ -35,7 +35,7 @@ export function FileInput({
   };
 
   return (
-    <div className={cn("relative flex flex-col gap-2", className)}>
+    <div className={cn("relative flex flex-col gap-2", className)} {...props}>
       <div>
         <input
           ref={inputRef}

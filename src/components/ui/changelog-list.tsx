@@ -31,7 +31,7 @@ export function ChangelogList({ entries = [], className, ...props }: ChangelogLi
       {entries.map((entry, idx) => (
         <article
           key={entry.id}
-          className="rounded-lg border border-border bg-card p-4 animate-[clIn_0.3s_ease-out_both] motion-reduce:animate-none"
+          className="rounded-lg border border-border bg-card p-4 animate-[secIn_0.3s_ease-out_both] motion-reduce:animate-none"
           style={{ animationDelay: `${idx * 80}ms` }}
         >
           <header className="flex items-baseline justify-between">

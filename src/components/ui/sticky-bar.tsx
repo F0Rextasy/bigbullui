@@ -22,7 +22,7 @@ export function StickyBar({
   return (
     <div
       className={cn(
-        "fixed inset-x-0 bottom-0 z-40 border-t-2 border-dashed border-foreground bg-card/95 backdrop-blur-xs p-3 font-mono shadow-2xl select-none",
+        "fixed inset-x-0 bottom-0 z-40 border-t-2 border-dashed border-foreground bg-card/95 p-3 font-mono shadow-2xl select-none",
         className
       )}
       {...props}

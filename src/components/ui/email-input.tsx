@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface EmailInputProps {
+export interface EmailInputProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -27,7 +27,7 @@ export function EmailInput({
   defaultValue = "",
   onValueChange,
   validate = true,
-  className,
+  className, ...props
 }: EmailInputProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue);
   const [blurredInvalid, setBlurredInvalid] = React.useState(false);
@@ -69,7 +69,7 @@ export function EmailInput({
   const errorClasses = "border-destructive ring-1 ring-destructive/50 placeholder:text-destructive";
 
   return (
-    <div className={cn("relative space-y-1.5", className)}>
+    <div className={cn("relative space-y-1.5", className)} {...props}>
       <input
         type="email"
         value={currentValue}

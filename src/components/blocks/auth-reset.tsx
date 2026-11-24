@@ -7,11 +7,13 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Input } from "../ui/input";
 
-export interface AuthResetProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AuthResetProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function AuthReset({ className, onAction, ...props }: AuthResetProps) {
+export function AuthReset({ title, className, onAction, ...props }: AuthResetProps) {
   const uid = React.useId();
   const [saved, setSaved] = React.useState(false);
   return (
@@ -19,7 +21,7 @@ export function AuthReset({ className, onAction, ...props }: AuthResetProps) {
       <Card>
         <CardHeader className="text-center">
           <Badge variant="accent" className="mx-auto">GATE PASS // NEW STUB</Badge>
-          <CardTitle className="text-xl">Set a fresh password</CardTitle>
+          <CardTitle className="text-xl">{title ?? "Set a fresh password"}</CardTitle>
           <CardDescription>Pick something the scalpers cannot guess.</CardDescription>
         </CardHeader>
         <CardContent>

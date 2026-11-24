@@ -33,13 +33,17 @@ try {
   // unreachable package.json keeps fallback version
 }
 const GITHUB_RAW_TAG =
+  process.env.BIGBULLUI_REGISTRY_BASE ||
   `https://raw.githubusercontent.com/F0Rextasy/bigbullui/v${PACKAGE_VERSION}`;
 const GITHUB_RAW_BASE =
+  process.env.BIGBULLUI_REGISTRY_BASE ||
   "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 
-const REGISTRY_ICON_BASE = "https://ui.bigbullapp.com/r/icons";
+const REGISTRY_ICON_BASE = process.env.BIGBULLUI_REGISTRY_BASE
+  ? `${process.env.BIGBULLUI_REGISTRY_BASE}/r/icons`
+  : "https://ui.bigbullapp.com/r/icons";
 // Catalog-registered lib helpers shipped as plain .ts (kept in sync by generate-registry-json.mjs).
-const LIB_FILES = ["focus-trap","hooks","use-ticket-audio"];
+const LIB_FILES = ["direction","floating","focus-trap","hooks","presence","react-compat","slot","use-controllable-state","use-ticket-audio"];
 // Page blocks index (kept in sync by generate-registry-json.mjs).
 const BLOCK_FILES = ["admin-academy","admin-analytics","admin-crm","admin-ecommerce","admin-finance","admin-hr","admin-logistics","admin-marketing","admin-overview","admin-saas","admin-support","app-bookmarks","app-calendar","app-chat","app-contacts","app-files","app-invoices","app-kanban","app-mail","app-notes","app-player","app-tasks","app-users","auth-2fa","auth-forgot","auth-login","auth-register","auth-reset","auth-verify","block-car-rental","block-clinic","block-conference","block-contact","block-course","block-customer-portal","block-dev-api-keys","block-event-landing","block-event-ticketing","block-gallery","block-gym","block-hotel","block-job-board","block-live-chat","block-newsletter","block-pet-adoption","block-portfolio","block-real-estate","block-restaurant","block-stats","block-team","block-timeline","block-user-profile-dossier","form-wizard","landing-cta","landing-features","landing-footer","landing-hero","landing-heroes-2","landing-logos","landing-testimonials","page-404","page-about","page-article","page-blog","page-careers","page-cart","page-checkout","page-contact","page-empty","page-faq","page-order-success","page-pricing","page-product","page-storefront","settings-account"];
 
@@ -52,230 +56,372 @@ function installedFileFor(baseDir, slug) {
 }
 
 const UTILS_CONTENT = [
-  'export type ClassValue = string | number | boolean | null | undefined;',
-  '',
-  'const SPACING_DIRS: Record<string, string[]> = {',
-  '  p: ["p", "px", "py", "pt", "pr", "pb", "pl", "ps", "pe"],',
-  '  px: ["px", "pl", "pr", "ps", "pe"],',
-  '  py: ["py", "pt", "pb"],',
-  '  m: ["m", "mx", "my", "mt", "mr", "mb", "ml", "ms", "me"],',
-  '  mx: ["mx", "ml", "mr", "ms", "me"],',
-  '  my: ["my", "mt", "mb"],',
-  '};',
-  '',
-  'const DISPLAY_SET = new Set([',
-  '  "block", "inline-block", "inline", "flex", "inline-flex",',
-  '  "grid", "inline-grid", "table", "inline-table", "hidden", "contents",',
-  ']);',
-  '',
-  'const POSITION_SET = new Set(["static", "fixed", "absolute", "relative", "sticky"]);',
-  'const TEXT_ALIGN_SET = new Set(["left", "center", "right", "justify", "start", "end"]);',
-  'const TEXT_SIZE_SET = new Set(["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl", "9xl"]);',
-  'const FONT_WEIGHT_SET = new Set(["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black"]);',
-  'const BORDER_STYLE_SET = new Set(["solid", "dashed", "dotted", "double", "hidden", "none"]);',
-  'const SHADOW_SIZE_SET = new Set(["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inner", "none"]);',
-  'const ROUNDED_SIZE_SET = new Set(["none", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"]);',
-  'const BG_NON_COLOR = /^(?:none|gradient-|linear$|linear-|radial$|radial-|conic$|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$|blend-|size-|position-)/;',
-  '',
-  'function splitVariant(token: string): [string, string] {',
-  '  let depth = 0;',
-  '  let lastColon = -1;',
-  '  for (let i = 0; i < token.length; i++) {',
-  '    const ch = token[i];',
-  '    if (ch === "[") depth++;',
-  '    else if (ch === "]" && depth > 0) depth--;',
-  '    else if (ch === ":" && depth === 0) lastColon = i;',
-  '  }',
-  '  return lastColon === -1 ? ["", token] : [token.slice(0, lastColon + 1), token.slice(lastColon + 1)];',
-  '}',
-  '',
-  'function getConflictKeys(rawBase: string): string[] {',
-  '  let base = rawBase.startsWith("!") ? rawBase.slice(1) : rawBase;',
-  '  if (base.endsWith("!")) base = base.slice(0, -1);',
-  '  const negStripped = base.startsWith("-") ? base.slice(1) : base;',
-  '',
-  '  if (DISPLAY_SET.has(base)) return ["display"];',
-  '  if (POSITION_SET.has(base)) return ["position"];',
-  '  if (base === "visible" || base === "invisible" || base === "collapse") return ["visibility"];',
-  '',
-  '  const sp = negStripped.match(/^(p|px|py|pt|pr|pb|pl|ps|pe|m|mx|my|mt|mr|mb|ml|ms|me)-/);',
-  '  if (sp) {',
-  '    const key = sp[1];',
-  '    return SPACING_DIRS[key] ?? [key];',
-  '  }',
-  '',
-  '  if (negStripped.startsWith("space-x-")) return ["space-x"];',
-  '  if (negStripped.startsWith("space-y-")) return ["space-y"];',
-  '  if (negStripped.startsWith("inset-x-")) return ["inset-x", "left", "right", "start", "end"];',
-  '  if (negStripped.startsWith("inset-y-")) return ["inset-y", "top", "bottom"];',
-  '  if (negStripped.startsWith("inset-")) return ["inset", "inset-x", "inset-y", "top", "right", "bottom", "left", "start", "end"];',
-  '  const posSide = negStripped.match(/^(top|right|bottom|left|start|end)-/);',
-  '  if (posSide) return [posSide[1]];',
-  '',
-  '  if (/^size-/.test(base)) return ["size", "w", "h"];',
-  '  if (/^w-/.test(base)) return ["w"];',
-  '  if (/^h-/.test(base)) return ["h"];',
-  '  if (/^(min-w|max-w|min-h|max-h)-/.test(base)) return [base.slice(0, 5)];',
-  '  if (/^gap-/.test(base)) {',
-  '    if (base.startsWith("gap-x-")) return ["gap-x"];',
-  '    if (base.startsWith("gap-y-")) return ["gap-y"];',
-  '    return ["gap", "gap-x", "gap-y"];',
-  '  }',
-  '  if (/^grid-cols-/.test(base)) return ["grid-cols"];',
-  '  if (/^grid-rows-/.test(base)) return ["grid-rows"];',
-  '  if (/^flex-(?:row|row-reverse|col|col-reverse)$/.test(base)) return ["flex-dir"];',
-  '  if (/^flex-(?:wrap|wrap-reverse|nowrap)$/.test(base)) return ["flex-wrap"];',
-  '  if (base.startsWith("justify-items-")) return ["justify-items"];',
-  '  if (base.startsWith("justify-self-")) return ["justify-self"];',
-  '  if (base.startsWith("justify-")) return ["justify"];',
-  '  if (base.startsWith("items-")) return ["items"];',
-  '  if (base.startsWith("self-")) return ["self"];',
-  '  if (/^-?z-/.test(base)) return ["z"];',
-  '  if (/^opacity-/.test(base)) return ["opacity"];',
-  '  if (/^cursor-/.test(base)) return ["cursor"];',
-  '  if (/^pointer-events-/.test(base)) return ["pointer-events"];',
-  '  if (/^select-/.test(base)) return ["select"];',
-  '  if (/^leading-/.test(base)) return ["leading"];',
-  '  if (/^tracking-/.test(base)) return ["tracking"];',
-  '  if (/^overflow-(x|y)-/.test(base)) return [`overflow-${base[9]}`];',
-  '  if (/^overflow-/.test(base)) return ["overflow", "overflow-x", "overflow-y"];',
-  '',
-  '  if (base === "shadow" || (base.startsWith("shadow-") && SHADOW_SIZE_SET.has(base.slice(7)))) {',
-  '    return ["shadow"];',
-  '  }',
-  '',
-  '  if (base === "rounded" || (base.startsWith("rounded-") && (ROUNDED_SIZE_SET.has(base.slice(8)) || base.slice(8).startsWith("[")))) {',
-  '    return ["rounded"];',
-  '  }',
-  '',
-  '  if (base === "border" || /^border-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {',
-  '    return ["border-w", "border-w-t", "border-w-r", "border-w-b", "border-w-l", "border-w-x", "border-w-y", "border-w-s", "border-w-e"];',
-  '  }',
-  '  const bwSide = base.match(/^border-(t|r|b|l|x|y|s|e)(?:-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\]))?$/);',
-  '  if (bwSide) {',
-  '    const side = bwSide[1];',
-  '    if (side === "x") return ["border-w-x", "border-w-l", "border-w-r"];',
-  '    if (side === "y") return ["border-w-y", "border-w-t", "border-w-b"];',
-  '    return [`border-w-${side}`];',
-  '  }',
-  '  if (base === "border-collapse" || base === "border-separate") {',
-  '    return ["border-collapse"];',
-  '  }',
-  '  if (base.startsWith("border-spacing-")) {',
-  '    if (base.startsWith("border-spacing-x-")) return ["border-spacing-x"];',
-  '    if (base.startsWith("border-spacing-y-")) return ["border-spacing-y"];',
-  '    return ["border-spacing", "border-spacing-x", "border-spacing-y"];',
-  '  }',
-  '  if (base.startsWith("border-") && BORDER_STYLE_SET.has(base.slice(7))) {',
-  '    return ["border-style"];',
-  '  }',
-  '  const bcSide = base.match(/^border-(t|r|b|l|x|y|s|e)-/);',
-  '  if (bcSide) {',
-  '    const side = bcSide[1];',
-  '    if (side === "x") return ["border-c-x", "border-c-l", "border-c-r"];',
-  '    if (side === "y") return ["border-c-y", "border-c-t", "border-c-b"];',
-  '    return [`border-c-${side}`];',
-  '  }',
-  '  if (base.startsWith("border-")) {',
-  '    return ["border-color", "border-c-t", "border-c-r", "border-c-b", "border-c-l", "border-c-x", "border-c-y", "border-c-s", "border-c-e"];',
-  '  }',
-  '',
-  '  if (base === "ring-inset") return ["ring-inset"];',
-  '  if (base.startsWith("ring-offset-")) {',
-  '    return /^ring-offset-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])/.test(base)',
-  '      ? ["ring-offset-w"]',
-  '      : ["ring-offset-color"];',
-  '  }',
-  '  if (base === "ring" || /^ring-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {',
-  '    return ["ring-w"];',
-  '  }',
-  '  if (base.startsWith("ring-")) return ["ring-color"];',
-  '',
-  '  if (base.startsWith("text-")) {',
-  '    const rest = base.slice(5);',
-  '    if (TEXT_ALIGN_SET.has(rest)) return ["text-align"];',
-  '    if (rest === "ellipsis" || rest === "clip") return ["text-overflow"];',
-  '    if (rest === "wrap" || rest === "nowrap" || rest === "balance" || rest === "pretty") {',
-  '      return ["text-wrap"];',
-  '    }',
-  '    if (rest === "shadow" || rest.startsWith("shadow-")) return ["text-shadow"];',
-  '    const slashIdx = rest.indexOf("/");',
-  '    const sizeHead = slashIdx === -1 ? rest : rest.slice(0, slashIdx);',
-  '    if (TEXT_SIZE_SET.has(sizeHead) || /^\\[(?:length:|[\\d.]+(?:px|rem|em|vw|vh|%))/.test(sizeHead)) {',
-  '      return slashIdx !== -1 ? ["text-size", "leading"] : ["text-size"];',
-  '    }',
-  '    return ["text-color"];',
-  '  }',
-  '',
-  '  if (base.startsWith("font-")) {',
-  '    const rest = base.slice(5);',
-  '    if (rest === "sans" || rest === "serif" || rest === "mono") return ["font-family"];',
-  '    if (FONT_WEIGHT_SET.has(rest)) return ["font-weight"];',
-  '  }',
-  '',
-  '  if (base.startsWith("bg-") && !BG_NON_COLOR.test(base.slice(3))) {',
-  '    return ["bg"];',
-  '  }',
-  '',
-  '  if (base === "transition" || /^transition-/.test(base)) return ["transition"];',
-  '  if (/^duration-/.test(base)) return ["duration"];',
-  '  if (/^animate-/.test(base)) return ["animate"];',
-  '',
-  '  return [];',
-  '}',
-  '',
-  '/** Class merger with zero-dependency Tailwind utility conflict resolution (last class wins). */',
-  'export function cn(...inputs: ClassValue[]): string {',
-  '  const tokens: string[] = [];',
-  '  for (const input of inputs) {',
-  '    if (typeof input === "string" || typeof input === "number") {',
-  '      const str = String(input).trim();',
-  '      if (!str) continue;',
-  '      for (const part of str.split(/\\s+/)) {',
-  '        if (part) tokens.push(part);',
-  '      }',
-  '    }',
-  '  }',
-  '  if (tokens.length <= 1) return tokens.join(" ");',
-  '',
-  '  const kept: string[] = [];',
-  '  const seen = new Map<string, number>();',
-  '',
-  '  for (let i = tokens.length - 1; i >= 0; i--) {',
-  '    const token = tokens[i];',
-  '    const [variant, base] = splitVariant(token);',
-  '    const groups = getConflictKeys(base);',
-  '    if (groups.length === 0) {',
-  '      kept.push(token);',
-  '      continue;',
-  '    }',
-  '    const primary = `${variant}${groups[0]}`;',
-  '    if (seen.has(primary)) continue;',
-  '    for (const g of groups) {',
-  '      seen.set(`${variant}${g}`, 1);',
-  '    }',
-  '    kept.push(token);',
-  '  }',
-  '',
-  '  return kept.reverse().join(" ");',
-  '}',
-  '',
-  '/** Returns true only for safe link schemes (http/https/mailto/tel/relative paths/hashes). */',
-  'export function isSafeUrl(url: string): boolean {',
-  '  const trimmed = url.trim();',
-  '  if (!trimmed) return false;',
-  '  if (trimmed.startsWith("//")) return false;',
-  '  return /^(https?:\\/\\/|mailto:|tel:|\\/|#)/i.test(trimmed);',
-  '}',
-  '',
-  '/** Escapes special regular expression metacharacters in untrusted literal strings. */',
-  'export function escapeRegExp(value: string): string {',
-  '  return value.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&");',
-  '}',
-].join('\n');
+  "export type ClassValue =",
+  "  | string",
+  "  | number",
+  "  | boolean",
+  "  | null",
+  "  | undefined",
+  "  | ClassValue[]",
+  "  | { [key: string]: boolean | null | undefined };",
+  "",
+  "const SPACING_DIRS: Record<string, string[]> = {",
+  "  p: [\"p\", \"px\", \"py\", \"pt\", \"pr\", \"pb\", \"pl\", \"ps\", \"pe\"],",
+  "  px: [\"px\", \"pl\", \"pr\", \"ps\", \"pe\"],",
+  "  py: [\"py\", \"pt\", \"pb\"],",
+  "  m: [\"m\", \"mx\", \"my\", \"mt\", \"mr\", \"mb\", \"ml\", \"ms\", \"me\"],",
+  "  mx: [\"mx\", \"ml\", \"mr\", \"ms\", \"me\"],",
+  "  my: [\"my\", \"mt\", \"mb\"],",
+  "};",
+  "",
+  "const DISPLAY_SET = new Set([",
+  "  \"block\", \"inline-block\", \"inline\", \"flex\", \"inline-flex\",",
+  "  \"grid\", \"inline-grid\", \"table\", \"inline-table\", \"hidden\", \"contents\",",
+  "]);",
+  "",
+  "const POSITION_SET = new Set([\"static\", \"fixed\", \"absolute\", \"relative\", \"sticky\"]);",
+  "const TEXT_ALIGN_SET = new Set([\"left\", \"center\", \"right\", \"justify\", \"start\", \"end\"]);",
+  "const TEXT_SIZE_SET = new Set([\"xs\", \"sm\", \"base\", \"lg\", \"xl\", \"2xl\", \"3xl\", \"4xl\", \"5xl\", \"6xl\", \"7xl\", \"8xl\", \"9xl\"]);",
+  "const FONT_WEIGHT_SET = new Set([\"thin\", \"extralight\", \"light\", \"normal\", \"medium\", \"semibold\", \"bold\", \"extrabold\", \"black\"]);",
+  "const BORDER_STYLE_SET = new Set([\"solid\", \"dashed\", \"dotted\", \"double\", \"hidden\", \"none\"]);",
+  "const OUTLINE_STYLE_SET = new Set([\"solid\", \"dashed\", \"dotted\", \"double\", \"none\"]);",
+  "const SHADOW_SIZE_SET = new Set([\"2xs\", \"xs\", \"sm\", \"md\", \"lg\", \"xl\", \"2xl\", \"inner\", \"none\"]);",
+  "const ROUNDED_SIZE_SET = new Set([\"none\", \"2xs\", \"xs\", \"sm\", \"md\", \"lg\", \"xl\", \"2xl\", \"3xl\", \"full\"]);",
+  "const FLEX_VAL_SET = new Set([\"1\", \"auto\", \"initial\", \"none\"]);",
+  "const BG_NON_COLOR = /^(?:none|gradient-|linear$|linear-|radial$|radial-|conic$|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$|blend-|size-|position-)/;",
+  "",
+  "const ROUNDED_ALL_KEYS = [",
+  "  \"rounded\",",
+  "  \"rounded-t\", \"rounded-r\", \"rounded-b\", \"rounded-l\", \"rounded-s\", \"rounded-e\",",
+  "  \"rounded-tl\", \"rounded-tr\", \"rounded-br\", \"rounded-bl\",",
+  "  \"rounded-ss\", \"rounded-se\", \"rounded-ee\", \"rounded-es\",",
+  "];",
+  "",
+  "function splitVariant(token: string): [string, string] {",
+  "  let depth = 0;",
+  "  let lastColon = -1;",
+  "  for (let i = 0; i < token.length; i++) {",
+  "    const ch = token[i];",
+  "    if (ch === \"[\") depth++;",
+  "    else if (ch === \"]\" && depth > 0) depth--;",
+  "    else if (ch === \":\" && depth === 0) lastColon = i;",
+  "  }",
+  "  if (lastColon === -1) return [\"\", token];",
+  "  const rawVariant = token.slice(0, lastColon);",
+  "  const base = token.slice(lastColon + 1);",
+  "  // Canonicalize stacked variants (`dark:hover:` === `hover:dark:`) so overrides match regardless of modifier order.",
+  "  const parts: string[] = [];",
+  "  let segStart = 0;",
+  "  depth = 0;",
+  "  for (let i = 0; i <= rawVariant.length; i++) {",
+  "    const ch = rawVariant[i];",
+  "    if (ch === \"[\") depth++;",
+  "    else if (ch === \"]\" && depth > 0) depth--;",
+  "    else if ((ch === \":\" || i === rawVariant.length) && depth === 0) {",
+  "      parts.push(rawVariant.slice(segStart, i));",
+  "      segStart = i + 1;",
+  "    }",
+  "  }",
+  "  const canonicalVariant = parts.length > 1 ? parts.sort().join(\":\") + \":\" : rawVariant + \":\";",
+  "  return [canonicalVariant, base];",
+  "}",
+  "",
+  "function getConflictKeys(rawBase: string): string[] {",
+  "  let base = rawBase.startsWith(\"!\") ? rawBase.slice(1) : rawBase;",
+  "  if (base.endsWith(\"!\")) base = base.slice(0, -1);",
+  "  const negStripped = base.startsWith(\"-\") ? base.slice(1) : base;",
+  "",
+  "  if (DISPLAY_SET.has(base)) return [\"display\"];",
+  "  if (POSITION_SET.has(base)) return [\"position\"];",
+  "  if (base === \"visible\" || base === \"invisible\" || base === \"collapse\") return [\"visibility\"];",
+  "",
+  "  const sp = negStripped.match(/^(p|px|py|pt|pr|pb|pl|ps|pe|m|mx|my|mt|mr|mb|ml|ms|me)-/);",
+  "  if (sp) {",
+  "    const key = sp[1];",
+  "    return SPACING_DIRS[key] ?? [key];",
+  "  }",
+  "",
+  "  if (negStripped.startsWith(\"space-x-\")) return [\"space-x\"];",
+  "  if (negStripped.startsWith(\"space-y-\")) return [\"space-y\"];",
+  "  if (negStripped.startsWith(\"inset-x-\")) return [\"inset-x\", \"left\", \"right\", \"start\", \"end\"];",
+  "  if (negStripped.startsWith(\"inset-y-\")) return [\"inset-y\", \"top\", \"bottom\"];",
+  "  if (negStripped.startsWith(\"inset-\")) return [\"inset\", \"inset-x\", \"inset-y\", \"top\", \"right\", \"bottom\", \"left\", \"start\", \"end\"];",
+  "  const posSide = negStripped.match(/^(top|right|bottom|left|start|end)-/);",
+  "  if (posSide) return [posSide[1]];",
+  "",
+  "  if (/^size-/.test(base)) return [\"size\", \"w\", \"h\"];",
+  "  if (/^w-/.test(base)) return [\"w\"];",
+  "  if (/^h-/.test(base)) return [\"h\"];",
+  "  if (/^(min-w|max-w|min-h|max-h)-/.test(base)) return [base.slice(0, 5)];",
+  "  if (/^gap-/.test(base)) {",
+  "    if (base.startsWith(\"gap-x-\")) return [\"gap-x\"];",
+  "    if (base.startsWith(\"gap-y-\")) return [\"gap-y\"];",
+  "    return [\"gap\", \"gap-x\", \"gap-y\"];",
+  "  }",
+  "  if (/^grid-cols-/.test(base)) return [\"grid-cols\"];",
+  "  if (/^grid-rows-/.test(base)) return [\"grid-rows\"];",
+  "  if (/^col-span-/.test(base)) return [\"col-span\"];",
+  "  if (/^row-span-/.test(base)) return [\"row-span\"];",
+  "  if (/^flex-(?:row|row-reverse|col|col-reverse)$/.test(base)) return [\"flex-dir\"];",
+  "  if (/^flex-(?:wrap|wrap-reverse|nowrap)$/.test(base)) return [\"flex-wrap\"];",
+  "  if (base.startsWith(\"flex-\") && (FLEX_VAL_SET.has(base.slice(5)) || base.slice(5).startsWith(\"[\"))) {",
+  "    return [\"flex\"];",
+  "  }",
+  "  if (base === \"shrink\" || /^shrink-/.test(base)) return [\"shrink\"];",
+  "  if (base === \"grow\" || /^grow-/.test(base)) return [\"grow\"];",
+  "  if (base.startsWith(\"justify-items-\")) return [\"justify-items\"];",
+  "  if (base.startsWith(\"justify-self-\")) return [\"justify-self\"];",
+  "  if (base.startsWith(\"justify-\")) return [\"justify\"];",
+  "  if (base.startsWith(\"items-\")) return [\"items\"];",
+  "  if (base.startsWith(\"self-\")) return [\"self\"];",
+  "  if (/^-?z-/.test(base)) return [\"z\"];",
+  "  if (/^opacity-/.test(base)) return [\"opacity\"];",
+  "  if (/^cursor-/.test(base)) return [\"cursor\"];",
+  "  if (/^pointer-events-/.test(base)) return [\"pointer-events\"];",
+  "  if (/^select-/.test(base)) return [\"select\"];",
+  "  if (/^leading-/.test(base)) return [\"leading\"];",
+  "  if (/^tracking-/.test(base)) return [\"tracking\"];",
+  "  if (/^overflow-(x|y)-/.test(base)) return [`overflow-${base[9]}`];",
+  "  if (/^overflow-/.test(base)) return [\"overflow\", \"overflow-x\", \"overflow-y\"];",
+  "",
+  "  if (negStripped.startsWith(\"translate-x-\")) return [\"translate-x\"];",
+  "  if (negStripped.startsWith(\"translate-y-\")) return [\"translate-y\"];",
+  "  if (negStripped.startsWith(\"scale-x-\")) return [\"scale-x\"];",
+  "  if (negStripped.startsWith(\"scale-y-\")) return [\"scale-y\"];",
+  "  if (negStripped.startsWith(\"scale-\")) return [\"scale\", \"scale-x\", \"scale-y\"];",
+  "  if (negStripped.startsWith(\"rotate-\")) return [\"rotate\"];",
+  "",
+  "  if (base === \"shadow\" || (base.startsWith(\"shadow-\") && SHADOW_SIZE_SET.has(base.slice(7)))) {",
+  "    return [\"shadow\"];",
+  "  }",
+  "  if (base.startsWith(\"shadow-\")) {",
+  "    return [\"shadow-color\"];",
+  "  }",
+  "",
+  "  if (base === \"rounded\" || (base.startsWith(\"rounded-\") && (ROUNDED_SIZE_SET.has(base.slice(8)) || base.slice(8).startsWith(\"[\")))) {",
+  "    return ROUNDED_ALL_KEYS;",
+  "  }",
+  "  const rSide = base.match(/^rounded-(tl|tr|br|bl|ss|se|ee|es|t|r|b|l|s|e)(?:-.+)?$/);",
+  "  if (rSide) {",
+  "    const s = rSide[1];",
+  "    if (s === \"t\") return [\"rounded-t\", \"rounded-tl\", \"rounded-tr\", \"rounded-ss\", \"rounded-se\"];",
+  "    if (s === \"b\") return [\"rounded-b\", \"rounded-bl\", \"rounded-br\", \"rounded-es\", \"rounded-ee\"];",
+  "    if (s === \"l\") return [\"rounded-l\", \"rounded-tl\", \"rounded-bl\"];",
+  "    if (s === \"r\") return [\"rounded-r\", \"rounded-tr\", \"rounded-br\"];",
+  "    if (s === \"s\") return [\"rounded-s\", \"rounded-ss\", \"rounded-es\"];",
+  "    if (s === \"e\") return [\"rounded-e\", \"rounded-se\", \"rounded-ee\"];",
+  "    return [`rounded-${s}`];",
+  "  }",
+  "",
+  "  if (base === \"border\" || /^border-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {",
+  "    return [\"border-w\", \"border-w-t\", \"border-w-r\", \"border-w-b\", \"border-w-l\", \"border-w-x\", \"border-w-y\", \"border-w-s\", \"border-w-e\"];",
+  "  }",
+  "  const bwSide = base.match(/^border-(t|r|b|l|x|y|s|e)(?:-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\]))?$/);",
+  "  if (bwSide) {",
+  "    const side = bwSide[1];",
+  "    if (side === \"x\") return [\"border-w-x\", \"border-w-l\", \"border-w-r\"];",
+  "    if (side === \"y\") return [\"border-w-y\", \"border-w-t\", \"border-w-b\"];",
+  "    return [`border-w-${side}`];",
+  "  }",
+  "  if (base === \"border-collapse\" || base === \"border-separate\") {",
+  "    return [\"border-collapse\"];",
+  "  }",
+  "  if (base.startsWith(\"border-spacing-\")) {",
+  "    if (base.startsWith(\"border-spacing-x-\")) return [\"border-spacing-x\"];",
+  "    if (base.startsWith(\"border-spacing-y-\")) return [\"border-spacing-y\"];",
+  "    return [\"border-spacing\", \"border-spacing-x\", \"border-spacing-y\"];",
+  "  }",
+  "  if (base.startsWith(\"border-\") && BORDER_STYLE_SET.has(base.slice(7))) {",
+  "    return [\"border-style\"];",
+  "  }",
+  "  const bcSide = base.match(/^border-(t|r|b|l|x|y|s|e)-/);",
+  "  if (bcSide) {",
+  "    const side = bcSide[1];",
+  "    if (side === \"x\") return [\"border-c-x\", \"border-c-l\", \"border-c-r\"];",
+  "    if (side === \"y\") return [\"border-c-y\", \"border-c-t\", \"border-c-b\"];",
+  "    return [`border-c-${side}`];",
+  "  }",
+  "  if (base.startsWith(\"border-\")) {",
+  "    return [\"border-color\", \"border-c-t\", \"border-c-r\", \"border-c-b\", \"border-c-l\", \"border-c-x\", \"border-c-y\", \"border-c-s\", \"border-c-e\"];",
+  "  }",
+  "",
+  "  if (base === \"outline\" || /^outline-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {",
+  "    return [\"outline-w\"];",
+  "  }",
+  "  if (base.startsWith(\"outline-offset-\")) {",
+  "    return [\"outline-offset\"];",
+  "  }",
+  "  if (base.startsWith(\"outline-\") && OUTLINE_STYLE_SET.has(base.slice(8))) {",
+  "    return base === \"outline-none\" ? [\"outline-style\", \"outline-w\"] : [\"outline-style\"];",
+  "  }",
+  "  if (base.startsWith(\"outline-\")) {",
+  "    return [\"outline-color\"];",
+  "  }",
+  "",
+  "  if (base === \"ring-inset\") return [\"ring-inset\"];",
+  "  if (base.startsWith(\"ring-offset-\")) {",
+  "    return /^ring-offset-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])/.test(base)",
+  "      ? [\"ring-offset-w\"]",
+  "      : [\"ring-offset-color\"];",
+  "  }",
+  "  if (base === \"ring\" || /^ring-(?:\\d+|\\[(?:length:[^\\]]+|[^\\]#]+(?:px|rem|em))\\])$/.test(base)) {",
+  "    return [\"ring-w\"];",
+  "  }",
+  "  if (base.startsWith(\"ring-\")) return [\"ring-color\"];",
+  "",
+  "  if (base.startsWith(\"text-\")) {",
+  "    const rest = base.slice(5);",
+  "    if (TEXT_ALIGN_SET.has(rest)) return [\"text-align\"];",
+  "    if (rest === \"ellipsis\" || rest === \"clip\") return [\"text-overflow\"];",
+  "    if (rest === \"wrap\" || rest === \"nowrap\" || rest === \"balance\" || rest === \"pretty\") {",
+  "      return [\"text-wrap\"];",
+  "    }",
+  "    if (rest === \"shadow\" || rest.startsWith(\"shadow-\")) return [\"text-shadow\"];",
+  "    const slashIdx = rest.indexOf(\"/\");",
+  "    const sizeHead = slashIdx === -1 ? rest : rest.slice(0, slashIdx);",
+  "    if (TEXT_SIZE_SET.has(sizeHead) || /^\\[(?:length:|[\\d.]+(?:px|rem|em|vw|vh|%))/.test(sizeHead)) {",
+  "      return slashIdx !== -1 ? [\"text-size\", \"leading\"] : [\"text-size\"];",
+  "    }",
+  "    return [\"text-color\"];",
+  "  }",
+  "",
+  "  if (base.startsWith(\"font-\")) {",
+  "    const rest = base.slice(5);",
+  "    if (rest === \"sans\" || rest === \"serif\" || rest === \"mono\") return [\"font-family\"];",
+  "    if (FONT_WEIGHT_SET.has(rest)) return [\"font-weight\"];",
+  "  }",
+  "",
+  "  if (base.startsWith(\"bg-\") && !BG_NON_COLOR.test(base.slice(3))) {",
+  "    return [\"bg\"];",
+  "  }",
+  "",
+  "  if (base === \"transition\" || /^transition-/.test(base)) return [\"transition\"];",
+  "  if (/^duration-/.test(base)) return [\"duration\"];",
+  "  if (/^animate-/.test(base)) return [\"animate\"];",
+  "",
+  "  return [];",
+  "}",
+  "",
+  "function collectTokens(input: ClassValue, tokens: string[]): void {",
+  "  if (!input) return;",
+  "  if (typeof input === \"string\" || typeof input === \"number\") {",
+  "    const str = String(input).trim();",
+  "    if (!str) return;",
+  "    for (const part of str.split(/\\s+/)) {",
+  "      if (part) tokens.push(part);",
+  "    }",
+  "    return;",
+  "  }",
+  "  if (Array.isArray(input)) {",
+  "    for (const item of input) collectTokens(item, tokens);",
+  "    return;",
+  "  }",
+  "  if (typeof input === \"object\") {",
+  "    for (const [key, enabled] of Object.entries(input)) {",
+  "      if (enabled) collectTokens(key, tokens);",
+  "    }",
+  "  }",
+  "}",
+  "",
+  "/** Class merger with zero-dependency Tailwind utility conflict resolution (last class wins). */",
+  "export function cn(...inputs: ClassValue[]): string {",
+  "  const tokens: string[] = [];",
+  "  for (const input of inputs) {",
+  "    collectTokens(input, tokens);",
+  "  }",
+  "  if (tokens.length <= 1) return tokens.join(\" \");",
+  "",
+  "  const kept: string[] = [];",
+  "  const seen = new Map<string, number>();",
+  "",
+  "  for (let i = tokens.length - 1; i >= 0; i--) {",
+  "    const token = tokens[i];",
+  "    const [variant, base] = splitVariant(token);",
+  "    const groups = getConflictKeys(base);",
+  "    if (groups.length === 0) {",
+  "      kept.push(token);",
+  "      continue;",
+  "    }",
+  "    if (seen.has(`${variant}${groups[0]}`)) continue;",
+  "    for (const g of groups) {",
+  "      seen.set(`${variant}${g}`, 1);",
+  "    }",
+  "    kept.push(token);",
+  "  }",
+  "",
+  "  return kept.reverse().join(\" \");",
+  "}",
+  "",
+  "/** Returns true only for safe link schemes (http/https/mailto/tel/relative paths/hashes). */",
+  "export function isSafeUrl(url: string): boolean {",
+  "  const trimmed = url.trim();",
+  "  if (!trimmed) return false;",
+  "  if (trimmed.startsWith(\"//\")) return false;",
+  "  return /^(https?:\\/\\/|mailto:|tel:|\\/|#)/i.test(trimmed);",
+  "}",
+  "",
+  "/** Escapes special regular expression metacharacters in untrusted literal strings. */",
+  "export function escapeRegExp(value: string): string {",
+  "  return value.replace(/[.*+?^${}()|[\\]\\\\]/g, \"\\\\$&\");",
+  "}",
+].join("\n");
 
 function stripPackageSourceDirective(css) {
   return css.replace(/^@source\s+["']\.\/dist["'];\r?\n?/gm, "");
+}
+
+function normalizeEol(text) {
+  return String(text || "").replace(/\r\n/g, "\n");
+}
+
+function loadConfig(cwd = process.cwd()) {
+  const cfgPath = path.join(cwd, "bigbullui.json");
+  if (!fs.existsSync(cfgPath)) return {};
+  try {
+    const parsed = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveConfig(cwd, cfg) {
+  writeFileAtomic(path.join(cwd, "bigbullui.json"), JSON.stringify(cfg, null, 2) + "\n");
+}
+
+function isInsideDir(baseDir, targetPath) {
+  const rel = path.relative(path.resolve(baseDir), path.resolve(targetPath));
+  return rel !== "" && !rel.startsWith("..") && !path.isAbsolute(rel);
+}
+
+async function runWithConcurrency(items, limit, worker) {
+  const results = new Array(items.length);
+  let cursor = 0;
+  const count = Math.min(Math.max(1, limit), Math.max(1, items.length));
+  await Promise.all(
+    Array.from({ length: count }, async () => {
+      while (cursor < items.length) {
+        const idx = cursor++;
+        results[idx] = await worker(items[idx], idx);
+      }
+    })
+  );
+  return results;
+}
+
+const DEFAULT_ALLOWED_HOSTS = new Set([
+  "ui.bigbullapp.com",
+  "bigbullui.com",
+  "raw.githubusercontent.com",
+]);
+
+function isAllowedHost(hostname) {
+  const extra = (process.env.BIGBULLUI_REGISTRY_ALLOWLIST || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  const host = String(hostname || "").toLowerCase();
+  return DEFAULT_ALLOWED_HOSTS.has(host) || extra.includes(host);
 }
 
 function printBanner() {
@@ -294,22 +440,26 @@ function printHelp() {
   console.log(`  ${c.bold}COMMANDS${c.reset}`);
   console.log(`    ${c.green}add${c.reset} <...components>    Add one or more components to your project`);
   console.log(`    ${c.green}update${c.reset} [components]     Check installed components against the registry (use -f to apply)`);
-  console.log(`    ${c.green}doctor${c.reset}                 Diagnose setup: deps, tokens, utils, dark mode`);
+  console.log(`    ${c.green}diff${c.reset} [components]       Show line diff between local files and registry`);
+  console.log(`    ${c.green}remove${c.reset} <...components>  Remove installed component(s) with reverse-dep guard`);
+  console.log(`    ${c.green}info${c.reset} <component>        Inspect metadata, dependencies, and install status`);
+  console.log(`    ${c.green}doctor${c.reset}                 Diagnose setup: Node, React, Tailwind, tokens, utils, deps`);
   console.log(`    ${c.green}list${c.reset} [filter]          List components (or pass --blocks / --icons)`);
-  console.log(`    ${c.green}init${c.reset}                   Initialize bigbullui utils and tokens in your project`);
-  console.log(`    ${c.green}tokens${c.reset}                 Export bigbullui.css design tokens locally`);
+  console.log(`    ${c.green}init${c.reset}                   Initialize bigbullui config, utils, and tokens in your project`);
+  console.log(`    ${c.green}tokens${c.reset}                 Export bigbullui.css design tokens locally (supports --out)`);
   console.log(`    ${c.green}help${c.reset}                   Show this help message\n`);
   console.log(`  ${c.bold}OPTIONS${c.reset}`);
-  console.log(`    ${c.yellow}-d, --dir${c.reset} <path>       Target directory for components (default: auto-detected)`);
-  console.log(`    ${c.yellow}-f, --force${c.reset}            Overwrite existing files without asking`);
+  console.log(`    ${c.yellow}-d, --dir${c.reset} <path>       Target directory for components (default: bigbullui.json or auto)`);
+  console.log(`    ${c.yellow}-f, --force${c.reset}            Overwrite existing files or bypass dependency checks`);
+  console.log(`    ${c.yellow}--dry-run${c.reset}              Preview filesystem changes without writing`);
   console.log(`    ${c.yellow}--all${c.reset}                  Add all components into your project\n`);
   console.log(`  ${c.bold}EXAMPLES${c.reset}`);
   console.log(`    ${c.dim}# Add a button and badge${c.reset}`);
   console.log(`    npx bigbullui add button badge\n`);
-  console.log(`    ${c.dim}# List all chart components${c.reset}`);
-  console.log(`    npx bigbullui list chart\n`);
-  console.log(`    ${c.dim}# Add ticket stub to a custom directory${c.reset}`);
-  console.log(`    npx bigbullui add ticket-stub --dir ./components/ui\n`);
+  console.log(`    ${c.dim}# Preview changes before writing${c.reset}`);
+  console.log(`    npx bigbullui add ticket-card --dry-run\n`);
+  console.log(`    ${c.dim}# Diff local component against upstream${c.reset}`);
+  console.log(`    npx bigbullui diff button\n`);
 }
 
 function detectTargetDir(customDir) {
@@ -317,8 +467,11 @@ function detectTargetDir(customDir) {
   if (customDir) {
     return path.resolve(cwd, customDir);
   }
+  const cfg = loadConfig(cwd);
+  if (typeof cfg.componentsDir === "string" && cfg.componentsDir.trim()) {
+    return path.resolve(cwd, cfg.componentsDir.trim());
+  }
 
-  // Check common directory layouts
   const candidates = [
     path.join(cwd, "src", "components", "ui"),
     path.join(cwd, "components", "ui"),
@@ -332,7 +485,6 @@ function detectTargetDir(customDir) {
     }
   }
 
-  // Default to src/components/ui if src exists, otherwise components/ui
   if (fs.existsSync(path.join(cwd, "src"))) {
     return path.join(cwd, "src", "components", "ui");
   }
@@ -355,6 +507,10 @@ function fetchUrl(url, redirects = 0) {
       reject(new Error(`Refusing non-HTTPS URL: ${url}`));
       return;
     }
+    if (!isAllowedHost(parsed.hostname)) {
+      reject(new Error(`Refusing disallowed host "${parsed.hostname}" (SSRF guard): ${url}`));
+      return;
+    }
     const req = https.get(parsed, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         res.resume();
@@ -374,6 +530,10 @@ function fetchUrl(url, redirects = 0) {
           reject(new Error(`Refusing non-HTTPS redirect to ${nextUrl.href}`));
           return;
         }
+        if (!isAllowedHost(nextUrl.hostname)) {
+          reject(new Error(`Refusing redirect to disallowed host "${nextUrl.hostname}"`));
+          return;
+        }
         fetchUrl(nextUrl.href, redirects + 1).then(resolve, reject);
         return;
       }
@@ -386,6 +546,11 @@ function fetchUrl(url, redirects = 0) {
       const chunks = [];
       let totalBytes = 0;
       let aborted = false;
+      const expectedLength =
+        res.headers["content-length"] && !res.headers["content-encoding"]
+          ? Number(res.headers["content-length"])
+          : null;
+
       res.on("data", (chunk) => {
         totalBytes += chunk.length;
         if (totalBytes > MAX_FETCH_BYTES) {
@@ -395,8 +560,21 @@ function fetchUrl(url, redirects = 0) {
         }
         chunks.push(chunk);
       });
+      res.on("aborted", () => {
+        if (aborted) return;
+        aborted = true;
+        reject(new Error(`Stream aborted before completion fetching ${url}`));
+      });
       res.on("end", () => {
         if (aborted) return;
+        if (!res.complete) {
+          reject(new Error(`Incomplete HTTP response fetching ${url}`));
+          return;
+        }
+        if (expectedLength !== null && !Number.isNaN(expectedLength) && totalBytes !== expectedLength) {
+          reject(new Error(`Truncated response for ${url}: expected ${expectedLength} bytes, got ${totalBytes}`));
+          return;
+        }
         res.destroy();
         resolve(Buffer.concat(chunks).toString("utf8"));
       });
@@ -543,7 +721,7 @@ function ensureUtils(targetDir, force = false) {
 
 function getAllKnownSlugs() {
   const localUiDir = getLocalPackageUiDir();
-  let allFiles = ["accordion","achievement-toast","action-buttons","action-sheet","activity-calendar","activity-feed","activity-v2","add-to-cart-button","address-form","admin-shell","agenda-list","agent-artifact-card","airmail-letter","alert","alert-dialog","anchor-nav","announcement-bar","api-key-card","api-tester","app-shell","area-chart","article-card","aspect-ratio","audio-mini","audio-player","audio-recorder","audio-toggle","audio-waveform","audit-log","audit-timeline","autocomplete","avatar","avatar-group","avatar-upload","back-link","backstage-pass","badge","badge-list","badge-printer","badge-printer-template","badge-ribbon","bar-chart","barcode","base64-tool","battle-pass-track","bento-grid","billing-panel","bio-card","board-checklist","boarding-pass","boarding-pass-print","booking-calendar","boss-bar","bottom-sheet","box-plot","breadcrumb","breadcrumb-dropdown","bubble-chart","budget-progress","bug-report","bulk-actions","bullet-chart","button","button-group","calendar","calendar-heatmap","callout","candlestick-chart","card","cargo-shipping-label","carousel","cart-badge","cart-drawer","cassette-tape","centered-card","changelog-entry","changelog-list","char-counter","chat-bubble","chat-thread","chat-window","checkbox","checkbox-card","checkbox-group","checkout-summary","chord-diagram","citation-bubble","clan-card","clock-picker","coach-mark","coat-check-tag","code-block","code-editor","code-tabs","collapsible","color-contrast","color-palette-picker","color-picker","color-token-table","column-toggle","combo-buttons","combo-counter","combobox","combobox-v2","command-k-root","command-palette","comment-thread","compare-table","composed-chart","conditional-fields","confetti-burst","confirm-dialog","connection-status","consent-checkbox","console-panel","container","context-menu","control-chart","cookie-banner","cookie-prefs","copy-button","copy-chip","countdown","countdown-start","countdown-v2","country-select","countup","coupon","coupon-field","credit-card","credit-card-form","credit-card-input","cron-builder","cron-humanizer","crosshair-picker","crypto-ticker","csv-importer","csv-mapper","cta-section","currency-display","currency-select","d-pad","daily-rewards","damage-vignette","danger-zone","data-grid","data-table","date-picker","date-range-picker","date-time-picker","delete-account","density-plot","density-toggle","deploy-timeline","description-list","devices-list","dialog","dialogue-box","diff-editor","diff-viewer","digest-preview","divider-with-text","dm-thread","dock","dockable-panels","docs-prop-playground","docs-stackblitz-button","donut-chart","donut-multi","drag-sort","drawer","drawer-nav","dropdown-menu","dropdown-menu-v2","dual-slider","duration-input","email-input","emoji-picker","empty","empty-col-span","empty-offline","empty-search","env-editor","env-switcher","envelope","error-500","error-page","event-card","exchange-rate","export-menu","fab","faq","feature-flag-panel","feature-grid","feature-vote","feed-masonry","feedback-vote","feedback-widget","field","field-array","figure","file-dropzone","file-image-preview","file-input","file-tree","file-upload-list","filter-builder","filters-drawer","fireworks","flight-timeline-card","flip-card","flip-clock","flyout-menu","flyout-v2","focus-trap","follower-list","footer","footer-minimal","footer-nav","forgot-password","form-builder","form-field","form-progress","form-validation","friend-list","funnel-chart","gacha-pull","gallery-grid","gallery-lightbox","gantt-lite","gauge","gift-card","gift-message","glossary-list","heading","health-bar","heatmap","hero","hero-split","highlight-text","histogram","history-nav","holy-grail","hooks","horizon-chart","hotkey-recorder","hover-card","html-preview","icicle-chart","id-card","image-carousel","image-compare","image-crop","import-review","inbox-list","infinite-scroll","inline-edit","inline-multiselect","input","input-group","input-mask-phone","input-otp","install-prompt","installment-picker","inventory-grid","invite-modal","invite-team","invoice","item","item-slot","joystick","json-editor","json-formatter","json-inspector","json-viewer","jumbotron","jwt-decoder","kanban-lite","kanban-v2","kbd","keyboard-nav-helper","keyboard-shortcuts","keypad","kill-feed","kpi-strip","label","language-select","lanyard","leaderboard","library-due-date-card","lightbox","like-button","line-chart","link-card","list","listbox","live-badge","live-clock","load-more","loading-button","loading-dots","loading-overlay","log-viewer","login-form","logo-cloud","logo-marquee","loot-box","lorem-typer","low-hp-pulse","luggage-tag","magic-link","mailbox","maintenance-banner","maintenance-page","mana-bar","markdown-editor","markdown-preview","marquee","marquee-bulbs","masked-currency","masked-input","masonry-columns","master-detail","match-ticker","matchmaking-lobby","matrix-chart","medal-display","media-controls","media-embed","media-object","mega-menu","megaphone","mention-highlight","mention-input","mention-list","menubar","meter","metric-card","migration-banner","milestone-chart","mini-month","mobile-menu","model-picker","month-picker","multi-select","navbar","navigation-menu","neon-sign","network-graph","newsletter-box","nfc-badge","notification-center","notification-feed","now-serving","nps-survey","number-input","offline-banner","offline-queue","onboarding-checklist","onboarding-pager","order-card","order-tracking","org-chart","org-tree-v2","otp-v2","otp-verify","page-header","page-tabs","pager-dots","pagination","pagination-v2","parking-ticket-meter","passkey-button","passport","passport-id-card","passport-stamp-grid","password-input","password-strength","path-breadcrumb","pause-menu","payment-methods","permission-denied","permissions-matrix","phone-input","pie-interactive","pin-input","ping-indicator","pivot-lite","playlist","podcast-player","poll","poll-results","popover","post-card","poster-card","postmark","price-compare","price-tag","pricing-calculator","pricing-slider","pricing-table","print-invoice","printable-invoice","printable-ticket","product-card","profile-settings","progress","progress-circle","prompt-box","prompt-diff-compare","prompt-history","prompt-history-drawer","prompt-input","pull-refresh","punch-clock","push-permission","qq-plot","qr-code","qr-reader","quest-list","quest-tracker","queue-ticket","queued-jobs","quick-actions","quiz-card","quote","quote-wall","radar-chart","radial-bar","radio-cards","radio-group","radio-tile","range-calendar","rank-list","rate-limit-note","rating","reaction-bar","receipt","receipt-printer","recent-searches","recipe-card","recurrence-picker","refund-card","regex-tester","regex-visualizer","register-form","replay-controls","resizable","resource-scheduler","respawn-timer","responsive-nav","result","reveal","rich-text-editor","roadmap-board","role-badge","route-loader","row-expand","rsvp-card","sample-data","sankey-chart","save-indicator","saved-searches","scatter-plot","score-keeper","score-popup","scoreboard","scratch-card","screenshot-frame","scroll-area","scroll-shadow","scroll-spy-nav","scroll-spy-v2","scroll-top","search-bar","search-command","search-filter-bar","seasonal-pumpkin","seasonal-snow","seat-map","section-heading","security-score","segmented-switch","select","select-v2","sensitivity-slider","separator","serial-input","session-list","settings-section","settings-sheet","share-menu","sheet","shift-planner","shipping-options","shop-grid","shortcut-recorder","sidebar","sidebar-layout","sidebar-v2","signature-line","signature-pad","sitemap-list","size-picker","skeleton","skeleton-v2","skip-link","slider","slider-range-label","slider-ticks","smart-search-bar","snippet-card","social-proof-toast","spark-bars","spark-line-group","sparkline","speed-dial","spinner","split-bill-calculator","split-button","split-flap","split-screen","split-view","spotlight","spotlight-card","spreadsheet-lite","sso-row","stack","stacked-bar","stamp-card","stamp-field","stamp-seal","star","star-rating-input","stat-tile","stats-band","stats-overview","status-dot","status-page","stepper","stepper-v2","steps","sticky-bar","sticky-footer","sticky-split","stock-status","stopwatch","stopwatch-v2","storage-donut","story-ring","story-viewer","stream-graph","streaming-text","subscription-card","suggestion-chips","sunburst-chart","swipe-actions","switch","switch-card","sync-status","tabbar","tabbar-v2","table","table-empty-col","table-summary","tabs","tag-input","task-list","team-frames","team-grid","team-members","terminal","testimonial","testimonial-carousel","text","text-diff","textarea","textarea-autosize","theme-preset-picker","theme-stamping-machine","theme-toggle","thinking-block","thumbnail-strip","ticket-card","ticket-deck-dnd","ticket-fold","ticket-stub-v2","ticket-validator","tilt-card","time-ago","time-input","time-range-picker","timeline","timeline-gantt","timeline-vertical-v2","timezone-select","toast","toc","toggle","toggle-group","token-counter","tooltip","tour","tournament-bracket","train-departure-board","transfer-list","tree-nav","tree-select","tree-table","treemap-chart","trend-badge","trending-chips","trophy-shelf","truncate","turnstile-gate","tutorial-highlight","two-column-list","two-factor","typewriter","typing-indicator","update-toast","upgrade-prompt","upload-progress","usage-meter","usage-quota-ring","use-ticket-audio","user-card","user-table","variant-picker","version-badge","video-frame","video-list","video-player","video-thumbnail","vinyl-record","violin-chart","virtual-card-flipper","virtual-list","voice-chat-visualizer","voice-indicator","voice-message","voice-note-list","volume-slider","waitlist-queue-card","wall-of-love","wallet-card","warranty-certificate","waterfall-chart","watermark","wax-seal","webhook-list","webhook-log","wishlist-button","wizard","word-cloud","world-map","wristband","xp-bar","year-picker","zoom-image"];
+  let allFiles = ["accordion","achievement-toast","action-buttons","action-sheet","activity-calendar","activity-feed","activity-v2","add-to-cart-button","address-form","admin-shell","agenda-list","agent-artifact-card","airmail-letter","alert","alert-dialog","anchor-nav","announcement-bar","api-key-card","api-tester","app-shell","area-chart","article-card","aspect-ratio","audio-mini","audio-player","audio-recorder","audio-toggle","audio-waveform","audit-log","audit-timeline","autocomplete","avatar","avatar-group","avatar-upload","back-link","backstage-pass","badge","badge-list","badge-printer","badge-printer-template","badge-ribbon","bar-chart","barcode","base64-tool","battle-pass-track","bento-grid","billing-panel","bio-card","board-checklist","boarding-pass","boarding-pass-print","booking-calendar","boss-bar","bottom-sheet","box-plot","breadcrumb","breadcrumb-dropdown","bubble-chart","budget-progress","bug-report","bulk-actions","bullet-chart","button","button-group","calendar","calendar-heatmap","callout","candlestick-chart","card","cargo-shipping-label","carousel","cart-badge","cart-drawer","cassette-tape","centered-card","changelog-entry","changelog-list","char-counter","chat-bubble","chat-thread","chat-window","checkbox","checkbox-card","checkbox-group","checkout-summary","chord-diagram","citation-bubble","clan-card","clock-picker","coach-mark","coat-check-tag","code-block","code-editor","code-tabs","collapsible","color-contrast","color-palette-picker","color-picker","color-token-table","column-toggle","combo-buttons","combo-counter","combobox","combobox-v2","command-k-root","command-palette","comment-thread","compare-table","composed-chart","conditional-fields","confetti-burst","confirm-dialog","connection-status","consent-checkbox","console-panel","container","context-menu","control-chart","cookie-banner","cookie-prefs","copy-button","copy-chip","countdown","countdown-start","countdown-v2","country-select","countup","coupon","coupon-field","credit-card","credit-card-form","credit-card-input","cron-builder","cron-humanizer","crosshair-picker","crypto-ticker","csv-importer","csv-mapper","cta-section","currency-display","currency-select","d-pad","daily-rewards","damage-vignette","danger-zone","data-grid","data-table","date-picker","date-range-picker","date-time-picker","delete-account","density-plot","density-toggle","deploy-timeline","description-list","devices-list","dialog","dialogue-box","diff-editor","diff-viewer","digest-preview","direction","divider-with-text","dm-thread","dock","dockable-panels","docs-prop-playground","docs-stackblitz-button","donut-chart","donut-multi","drag-sort","drawer","drawer-nav","dropdown-menu","dropdown-menu-v2","dual-slider","duration-input","email-input","emoji-picker","empty","empty-col-span","empty-offline","empty-search","env-editor","env-switcher","envelope","error-500","error-page","event-card","exchange-rate","export-menu","fab","faq","feature-flag-panel","feature-grid","feature-vote","feed-masonry","feedback-vote","feedback-widget","field","field-array","figure","file-dropzone","file-image-preview","file-input","file-tree","file-upload-list","filter-builder","filters-drawer","fireworks","flight-timeline-card","flip-card","flip-clock","floating","flyout-menu","flyout-v2","focus-trap","follower-list","footer","footer-minimal","footer-nav","forgot-password","form-builder","form-field","form-progress","form-validation","friend-list","funnel-chart","gacha-pull","gallery-grid","gallery-lightbox","gantt-lite","gauge","gift-card","gift-message","glossary-list","heading","health-bar","heatmap","hero","hero-split","highlight-text","histogram","history-nav","holy-grail","hooks","horizon-chart","hotkey-recorder","hover-card","html-preview","icicle-chart","id-card","image-carousel","image-compare","image-crop","import-review","inbox-list","infinite-scroll","inline-edit","inline-multiselect","input","input-group","input-mask-phone","input-otp","install-prompt","installment-picker","inventory-grid","invite-modal","invite-team","invoice","item","item-slot","joystick","json-editor","json-formatter","json-inspector","json-viewer","jumbotron","jwt-decoder","kanban-lite","kanban-v2","kbd","keyboard-nav-helper","keyboard-shortcuts","keypad","kill-feed","kpi-strip","label","language-select","lanyard","leaderboard","library-due-date-card","lightbox","like-button","line-chart","link-card","list","listbox","live-badge","live-clock","load-more","loading-button","loading-dots","loading-overlay","log-viewer","login-form","logo-cloud","logo-marquee","loot-box","lorem-typer","low-hp-pulse","luggage-tag","magic-link","mailbox","maintenance-banner","maintenance-page","mana-bar","markdown-editor","markdown-preview","marquee","marquee-bulbs","masked-currency","masked-input","masonry-columns","master-detail","match-ticker","matchmaking-lobby","matrix-chart","medal-display","media-controls","media-embed","media-object","mega-menu","megaphone","mention-highlight","mention-input","mention-list","menubar","meter","metric-card","migration-banner","milestone-chart","mini-month","mobile-menu","model-picker","month-picker","multi-select","navbar","navigation-menu","neon-sign","network-graph","newsletter-box","nfc-badge","notification-center","notification-feed","now-serving","nps-survey","number-input","offline-banner","offline-queue","onboarding-checklist","onboarding-pager","order-card","order-tracking","org-chart","org-tree-v2","otp-v2","otp-verify","page-header","page-tabs","pager-dots","pagination","pagination-v2","parking-ticket-meter","passkey-button","passport","passport-id-card","passport-stamp-grid","password-input","password-strength","path-breadcrumb","pause-menu","payment-methods","permission-denied","permissions-matrix","phone-input","pie-interactive","pin-input","ping-indicator","pivot-lite","playlist","podcast-player","poll","poll-results","popover","post-card","poster-card","postmark","presence","price-compare","price-tag","pricing-calculator","pricing-slider","pricing-table","print-invoice","printable-invoice","printable-ticket","product-card","profile-settings","progress","progress-circle","prompt-box","prompt-diff-compare","prompt-history","prompt-history-drawer","prompt-input","pull-refresh","punch-clock","push-permission","qq-plot","qr-code","qr-reader","quest-list","quest-tracker","queue-ticket","queued-jobs","quick-actions","quiz-card","quote","quote-wall","radar-chart","radial-bar","radio-cards","radio-group","radio-tile","range-calendar","rank-list","rate-limit-note","rating","react-compat","reaction-bar","receipt","receipt-printer","recent-searches","recipe-card","recurrence-picker","refund-card","regex-tester","regex-visualizer","register-form","replay-controls","resizable","resource-scheduler","respawn-timer","responsive-nav","result","reveal","rich-text-editor","roadmap-board","role-badge","route-loader","row-expand","rsvp-card","sample-data","sankey-chart","save-indicator","saved-searches","scatter-plot","score-keeper","score-popup","scoreboard","scratch-card","screenshot-frame","scroll-area","scroll-shadow","scroll-spy-nav","scroll-spy-v2","scroll-top","search-bar","search-command","search-filter-bar","seasonal-pumpkin","seasonal-snow","seat-map","section-heading","security-score","segmented-switch","select","select-v2","sensitivity-slider","separator","serial-input","session-list","settings-section","settings-sheet","share-menu","sheet","shift-planner","shipping-options","shop-grid","shortcut-recorder","sidebar","sidebar-layout","sidebar-v2","signature-line","signature-pad","sitemap-list","size-picker","skeleton","skeleton-v2","skip-link","slider","slider-range-label","slider-ticks","slot","smart-search-bar","snippet-card","social-proof-toast","spark-bars","spark-line-group","sparkline","speed-dial","spinner","split-bill-calculator","split-button","split-flap","split-screen","split-view","spotlight","spotlight-card","spreadsheet-lite","sso-row","stack","stacked-bar","stamp-card","stamp-field","stamp-seal","star","star-rating-input","stat-tile","stats-band","stats-overview","status-dot","status-page","stepper","stepper-v2","steps","sticky-bar","sticky-footer","sticky-split","stock-status","stopwatch","stopwatch-v2","storage-donut","story-ring","story-viewer","stream-graph","streaming-text","subscription-card","suggestion-chips","sunburst-chart","swipe-actions","switch","switch-card","sync-status","tabbar","tabbar-v2","table","table-empty-col","table-summary","tabs","tag-input","task-list","team-frames","team-grid","team-members","terminal","testimonial","testimonial-carousel","text","text-diff","textarea","textarea-autosize","theme-preset-picker","theme-stamping-machine","theme-toggle","thinking-block","thumbnail-strip","ticket-card","ticket-deck-dnd","ticket-fold","ticket-stub-v2","ticket-validator","tilt-card","time-ago","time-input","time-range-picker","timeline","timeline-gantt","timeline-vertical-v2","timezone-select","toast","toc","toggle","toggle-group","token-counter","tooltip","tour","tournament-bracket","train-departure-board","transfer-list","tree-nav","tree-select","tree-table","treemap-chart","trend-badge","trending-chips","trophy-shelf","truncate","turnstile-gate","tutorial-highlight","two-column-list","two-factor","typewriter","typing-indicator","update-toast","upgrade-prompt","upload-progress","usage-meter","usage-quota-ring","use-controllable-state","use-ticket-audio","user-card","user-table","variant-picker","version-badge","video-frame","video-list","video-player","video-thumbnail","vinyl-record","violin-chart","virtual-card-flipper","virtual-list","voice-chat-visualizer","voice-indicator","voice-message","voice-note-list","volume-slider","waitlist-queue-card","wall-of-love","wallet-card","warranty-certificate","waterfall-chart","watermark","wax-seal","webhook-list","webhook-log","wishlist-button","wizard","word-cloud","world-map","wristband","xp-bar","year-picker","zoom-image"];
   if (localUiDir) {
     allFiles = fs
       .readdirSync(localUiDir)
@@ -577,6 +755,7 @@ async function handleAdd(args) {
   let customDir = null;
   let force = false;
   let addAll = false;
+  let dryRun = false;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -590,6 +769,8 @@ async function handleAdd(args) {
       force = true;
     } else if (arg === "--all") {
       addAll = true;
+    } else if (arg === "--dry-run") {
+      dryRun = true;
     } else if (arg.startsWith("-")) {
       flags.push(arg);
     } else {
@@ -614,60 +795,81 @@ async function handleAdd(args) {
   }
 
   const targetDir = detectTargetDir(customDir);
-  fs.mkdirSync(targetDir, { recursive: true });
-
-  ensureUtils(targetDir, force);
+  if (!dryRun) {
+    fs.mkdirSync(targetDir, { recursive: true });
+    ensureUtils(targetDir, force);
+  }
 
   const componentsToAdd = addAll ? getAllKnownSlugs() : slugs;
 
-  console.log(`  Adding components into ${c.cyan}${path.relative(process.cwd(), targetDir)}${c.reset}...\n`);
+  console.log(`  ${dryRun ? "[dry-run] " : ""}Adding components into ${c.cyan}${path.relative(process.cwd(), targetDir)}${c.reset}...\n`);
 
   let addedCount = 0;
   let skippedCount = 0;
   let failedCount = 0;
   const refreshedDeps = new Set();
 
+  const fetchedSources = new Map();
+  await runWithConcurrency(componentsToAdd, 6, async (slug) => {
+    const targetPath = installedFileFor(targetDir, slug);
+    if (fs.existsSync(targetPath) && !force) return;
+    try {
+      const content = slug.startsWith("icon-") ? await getIconContent(slug) : await getComponentContent(slug);
+      fetchedSources.set(slug, { ok: true, content });
+    } catch (err) {
+      fetchedSources.set(slug, { ok: false, err });
+    }
+  });
+
   for (const slug of componentsToAdd) {
     const targetPath = installedFileFor(targetDir, slug);
+    if (!isInsideDir(targetDir, targetPath)) {
+      console.error(`  ${c.red}✗${c.reset} Refusing path outside target directory for ${c.bold}${slug}${c.reset}`);
+      failedCount++;
+      continue;
+    }
     if (fs.existsSync(targetPath) && !force) {
       console.log(`  ${c.yellow}↷${c.reset} Skipped ${c.bold}${slug}${c.reset} (already exists, use -f to overwrite)`);
       skippedCount++;
       continue;
     }
 
-    if (slug.startsWith("icon-")) {
-      try {
-        const content = await getIconContent(slug);
-        writeFileAtomic(targetPath, content);
-        console.log(`  ${c.green}✓${c.reset} Added ${c.bold}${slug}${c.reset}`);
-        addedCount++;
-      } catch (err) {
-        console.error(`  ${c.red}✗${c.reset} Failed to add ${c.bold}${slug}${c.reset}: ${err.message}`);
-        failedCount++;
+    const res = fetchedSources.get(slug);
+    if (!res || !res.ok) {
+      const err = res ? res.err : new Error("Fetch failed");
+      console.error(`  ${c.red}✗${c.reset} Failed to add ${c.bold}${slug}${c.reset}: ${err.message}`);
+      if (err.message.includes("(HTTP 404)")) {
+        console.error(`  ${c.dim}  Unknown name? Run ${c.reset}npx bigbullui list${c.dim} to see available components.${c.reset}`);
       }
+      failedCount++;
       continue;
     }
 
-    try {
-      const content = await getComponentContent(slug);
+    const content = res.content;
+    if (!dryRun) {
+      fs.mkdirSync(path.dirname(targetPath), { recursive: true });
       writeFileAtomic(targetPath, content);
-      console.log(`  ${c.green}✓${c.reset} Added ${c.bold}${slug}${c.reset}`);
-      addedCount++;
+    }
+    console.log(`  ${c.green}✓${c.reset} ${dryRun ? "Would add" : "Added"} ${c.bold}${slug}${c.reset}`);
+    addedCount++;
 
-      // Detect sibling and lib helper imports ("./ticket-card", "./lib/hooks")
-      // transitively (BFS) so multi-hop dependencies also compile on their own.
+    if (!slug.startsWith("icon-")) {
       const queue = extractLocalDeps(content);
       const visited = new Set([slug, ...queue]);
       while (queue.length > 0) {
         const dep = queue.shift();
         const depPath = installedFileFor(targetDir, dep);
+        if (!isInsideDir(targetDir, depPath)) continue;
         const alreadyExists = fs.existsSync(depPath);
         if (alreadyExists && (!force || refreshedDeps.has(dep))) continue;
         try {
           const depContent = await getComponentContent(dep);
-          writeFileAtomic(depPath, depContent);
+          if (!dryRun) {
+            fs.mkdirSync(path.dirname(depPath), { recursive: true });
+            writeFileAtomic(depPath, depContent);
+          }
           refreshedDeps.add(dep);
-          console.log(`    ${c.dim}└─ ${alreadyExists ? "Updated" : "Auto-installed"} dependency:${c.reset} ${c.cyan}${dep}${c.reset}`);
+          console.log(`    ${c.dim}└─ ${dryRun ? "Would install" : alreadyExists ? "Updated" : "Auto-installed"} dependency:${c.reset} ${c.cyan}${dep}${c.reset}`);
           for (const nested of extractLocalDeps(depContent)) {
             if (!visited.has(nested)) {
               visited.add(nested);
@@ -678,17 +880,10 @@ async function handleAdd(args) {
           console.error(`    ${c.yellow}└─ Could not install dependency ${c.bold}${dep}${c.reset}${c.yellow} — install manually: npx bigbullui add ${dep}${c.reset}`);
         }
       }
-
-    } catch (err) {
-      console.error(`  ${c.red}✗${c.reset} Failed to add ${c.bold}${slug}${c.reset}: ${err.message}`);
-      if (err.message.includes("(HTTP 404)")) {
-        console.error(`  ${c.dim}  Unknown name? Run ${c.reset}npx bigbullui list${c.dim} to see available components.${c.reset}`);
-      }
-      failedCount++;
     }
   }
 
-  console.log(`\n  ${c.bold}Done!${c.reset} ${c.green}${addedCount} added${c.reset}${skippedCount > 0 ? `, ${c.yellow}${skippedCount} skipped${c.reset}` : ""}.`);
+  console.log(`\n  ${c.bold}Done!${c.reset} ${c.green}${addedCount} ${dryRun ? "would add" : "added"}${c.reset}${skippedCount > 0 ? `, ${c.yellow}${skippedCount} skipped${c.reset}` : ""}.`);
   if (failedCount > 0) {
     console.error(`  ${c.red}${failedCount} component(s) failed to add.${c.reset}`);
     process.exitCode = 1;
@@ -746,18 +941,39 @@ async function handleList(args) {
   console.log(`\n  ${c.dim}Run ${c.yellow}${installHint}${c.dim} to install any item.${c.reset}\n`);
 }
 
-function handleInit() {
+function handleInit(args = []) {
   printBanner();
   const cwd = process.cwd();
-  const targetDir = detectTargetDir();
-  ensureUtils(targetDir);
+  let customDir = null;
+  let force = false;
+  for (let i = 0; i < args.length; i++) {
+    if ((args[i] === "-d" || args[i] === "--dir") && args[i + 1]) customDir = args[++i];
+    else if (args[i] === "-f" || args[i] === "--force") force = true;
+  }
+  const targetDir = detectTargetDir(customDir);
+  ensureUtils(targetDir, force);
 
   const cssSourcePath = path.resolve(__dirname, "..", "bigbullui.css");
-  let cssTarget = path.join(cwd, "bigbullui.css");
+  const cfg = loadConfig(cwd);
+  const cssTarget = path.resolve(cwd, cfg.cssPath || "bigbullui.css");
 
-  if (fs.existsSync(cssSourcePath) && !fs.existsSync(cssTarget)) {
-    fs.writeFileSync(cssTarget, stripPackageSourceDirective(fs.readFileSync(cssSourcePath, "utf8")), "utf8");
-    console.log(`  ${c.green}✓${c.reset} Copied ${c.bold}bigbullui.css${c.reset} to project root.`);
+  if (fs.existsSync(cssSourcePath) && (!fs.existsSync(cssTarget) || force)) {
+    fs.mkdirSync(path.dirname(cssTarget), { recursive: true });
+    writeFileAtomic(cssTarget, stripPackageSourceDirective(fs.readFileSync(cssSourcePath, "utf8")));
+    console.log(`  ${c.green}✓${c.reset} Copied ${c.bold}${path.relative(cwd, cssTarget)}${c.reset} to project.`);
+  }
+
+  const cfgPath = path.join(cwd, "bigbullui.json");
+  if (!fs.existsSync(cfgPath) || force) {
+    const nextCfg = {
+      componentsDir: path.relative(cwd, targetDir).replace(/\\/g, "/") || "components/ui",
+      cssPath: path.relative(cwd, cssTarget).replace(/\\/g, "/") || "bigbullui.css",
+      registry: "https://ui.bigbullapp.com",
+      ...cfg,
+      ...(customDir ? { componentsDir: path.relative(cwd, targetDir).replace(/\\/g, "/") } : {}),
+    };
+    saveConfig(cwd, nextCfg);
+    console.log(`  ${c.green}✓${c.reset} Saved config: ${c.dim}bigbullui.json${c.reset}`);
   }
 
   console.log(`\n  ${c.bold}🎉 bigbullui initialized!${c.reset}\n`);
@@ -771,23 +987,36 @@ function handleInit() {
 
 function handleTokens(args = []) {
   const force = args.includes("-f") || args.includes("--force");
+  let outArg = null;
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === "--out" || args[i] === "-o") {
+      outArg = args[++i];
+      if (!outArg) {
+        console.error(`  ${c.red}Error:${c.reset} --out requires a file path.`);
+        process.exit(1);
+      }
+    }
+  }
   const cssSourcePath = path.resolve(__dirname, "..", "bigbullui.css");
   if (!fs.existsSync(cssSourcePath)) {
     console.error(`  ${c.red}Error:${c.reset} Could not locate bigbullui.css.`);
     return;
   }
-  const cssTarget = path.join(process.cwd(), "bigbullui.css");
+  const cfg = loadConfig();
+  const cssTarget = path.resolve(process.cwd(), outArg || cfg.cssPath || "bigbullui.css");
   if (fs.existsSync(cssTarget) && !force) {
-    console.log(`  ${c.yellow}↷${c.reset} bigbullui.css already exists (use ${c.bold}-f${c.reset} to overwrite).`);
+    console.log(`  ${c.yellow}↷${c.reset} ${path.relative(process.cwd(), cssTarget)} already exists (use ${c.bold}-f${c.reset} to overwrite).`);
     return;
   }
-  fs.writeFileSync(cssTarget, stripPackageSourceDirective(fs.readFileSync(cssSourcePath, "utf8")), "utf8");
-  console.log(`  ${c.green}✓${c.reset} Generated ${c.bold}bigbullui.css${c.reset} in current directory.`);
+  fs.mkdirSync(path.dirname(cssTarget), { recursive: true });
+  writeFileAtomic(cssTarget, stripPackageSourceDirective(fs.readFileSync(cssSourcePath, "utf8")));
+  console.log(`  ${c.green}✓${c.reset} Generated ${c.bold}${path.relative(process.cwd(), cssTarget)}${c.reset}.`);
 }
 
 async function handleUpdate(args) {
   let customDir = null;
   let force = false;
+  let dryRun = false;
   const slugs = [];
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -797,8 +1026,8 @@ async function handleUpdate(args) {
         console.error(`  ${c.red}Error:${c.reset} --dir requires a path argument.`);
         process.exit(1);
       }
-    }
-    else if (arg === "-f" || arg === "--force") force = true;
+    } else if (arg === "-f" || arg === "--force") force = true;
+    else if (arg === "--dry-run") dryRun = true;
     else if (!arg.startsWith("-")) {
       const s = arg.replace(/\.tsx$/, "");
       if (!/^[a-z0-9][a-z0-9-]*$/.test(s)) {
@@ -829,24 +1058,25 @@ async function handleUpdate(args) {
     return;
   }
   console.log(`  Checking ${local.length} installed component(s)...\n`);
-  // Fetch every latest source once, then write: a network failure mid-apply
-  // must never leave the project half-updated.
   const latestMap = new Map();
   const outdated = [];
-  for (const slug of local) {
-    let latest;
+  await runWithConcurrency(local, 6, async (slug) => {
     try {
-      latest = await getLatest(slug);
+      const latest = await getLatest(slug);
+      latestMap.set(slug, latest);
     } catch (err) {
       console.error(`  ${c.red}✗${c.reset} Could not check ${c.bold}${slug}${c.reset}: ${err.message}. Skipping.`);
-      continue;
     }
-    latestMap.set(slug, latest);
+  });
+  for (const slug of local) {
+    const latest = latestMap.get(slug);
+    if (latest === undefined) continue;
     const current = fs.readFileSync(installedFileFor(targetDir, slug), "utf8");
-    if (current !== latest) outdated.push(slug);
+    if (normalizeEol(current) !== normalizeEol(latest)) outdated.push(slug);
   }
   const cssSource = path.resolve(__dirname, "..", "bigbullui.css");
-  const cssLocal = path.join(process.cwd(), "bigbullui.css");
+  const cfg = loadConfig();
+  const cssLocal = path.resolve(process.cwd(), cfg.cssPath || "bigbullui.css");
   let cssStale = false;
   let cssDesired = null;
   if (fs.existsSync(cssLocal)) {
@@ -855,12 +1085,12 @@ async function handleUpdate(args) {
       : await fetchGithubRaw("bigbullui.css").catch(() => null);
     if (rawCss !== null) {
       cssDesired = stripPackageSourceDirective(rawCss);
-      cssStale = fs.readFileSync(cssLocal, "utf8") !== cssDesired;
+      cssStale = normalizeEol(fs.readFileSync(cssLocal, "utf8")) !== normalizeEol(cssDesired);
     }
   }
   const utilsFile = path.join(targetDir, "lib", "utils.ts");
   const utilsDesired = getLatestUtilsContent();
-  const utilsStale = fs.existsSync(utilsFile) && fs.readFileSync(utilsFile, "utf8") !== utilsDesired;
+  const utilsStale = fs.existsSync(utilsFile) && normalizeEol(fs.readFileSync(utilsFile, "utf8")) !== normalizeEol(utilsDesired);
   if (outdated.length === 0 && !cssStale && !utilsStale) {
     console.log(`  ${c.green}✓${c.reset} Everything is up to date.`);
     return;
@@ -869,15 +1099,36 @@ async function handleUpdate(args) {
   if (utilsStale) console.log(`  ${c.yellow}●${c.reset} ${c.bold}lib/utils.ts${c.reset} has updates.`);
   if (cssStale) console.log(`  ${c.yellow}●${c.reset} ${c.bold}bigbullui.css${c.reset} has updates.`);
   console.log("");
-  if (!force) {
-    console.log(`  Run with ${c.yellow}-f${c.reset} to apply, or update one piece: ${c.green}npx bigbullui add <name> -f${c.reset}\n`);
+  if (!force || dryRun) {
+    console.log(`  Run with ${c.yellow}-f${c.reset} to apply, or inspect changes: ${c.green}npx bigbullui diff${c.reset}\n`);
     return;
   }
   let failed = 0;
+  const visitedDeps = new Set(outdated);
   for (const slug of outdated) {
     try {
-      writeFileAtomic(installedFileFor(targetDir, slug), latestMap.get(slug));
+      const nextContent = latestMap.get(slug);
+      const targetPath = installedFileFor(targetDir, slug);
+      fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+      writeFileAtomic(targetPath, nextContent);
       console.log(`  ${c.green}✓${c.reset} Updated ${c.bold}${slug}${c.reset}`);
+      const queue = extractLocalDeps(nextContent);
+      while (queue.length > 0) {
+        const dep = queue.shift();
+        if (visitedDeps.has(dep)) continue;
+        visitedDeps.add(dep);
+        const depPath = installedFileFor(targetDir, dep);
+        if (fs.existsSync(depPath)) continue;
+        try {
+          const depContent = await getComponentContent(dep);
+          fs.mkdirSync(path.dirname(depPath), { recursive: true });
+          writeFileAtomic(depPath, depContent);
+          console.log(`    ${c.dim}└─ Auto-installed new dependency:${c.reset} ${c.cyan}${dep}${c.reset}`);
+          queue.push(...extractLocalDeps(depContent));
+        } catch {
+          console.error(`    ${c.yellow}└─ Could not install dependency ${c.bold}${dep}${c.reset}`);
+        }
+      }
     } catch (err) {
       failed += 1;
       console.error(`  ${c.red}✗${c.reset} Failed to update ${c.bold}${slug}${c.reset}: ${err.message}`);
@@ -908,15 +1159,155 @@ async function handleUpdate(args) {
   console.log("");
 }
 
+async function handleDiff(args) {
+  let customDir = null;
+  const slugs = [];
+  for (let i = 0; i < args.length; i++) {
+    if ((args[i] === "-d" || args[i] === "--dir") && args[i + 1]) customDir = args[++i];
+    else if (!args[i].startsWith("-")) slugs.push(args[i].replace(/\.tsx$/, ""));
+  }
+  const targetDir = detectTargetDir(customDir);
+  if (!fs.existsSync(targetDir)) {
+    console.error(`  ${c.red}Error:${c.reset} Target directory not found: ${path.relative(process.cwd(), targetDir)}`);
+    process.exitCode = 1;
+    return;
+  }
+  let local = fs.readdirSync(targetDir).filter((f) => f.endsWith(".tsx")).map((f) => f.replace(/\.tsx$/, ""));
+  if (slugs.length > 0) local = local.filter((s) => slugs.includes(s));
+  if (local.length === 0) {
+    console.log("  No matching installed components to diff.");
+    return;
+  }
+  let diffs = 0;
+  for (const slug of local) {
+    const filePath = installedFileFor(targetDir, slug);
+    const localLines = normalizeEol(fs.readFileSync(filePath, "utf8")).split("\n");
+    let remoteRaw;
+    try {
+      remoteRaw = await getLatest(slug);
+    } catch {
+      continue;
+    }
+    const remoteLines = normalizeEol(remoteRaw).split("\n");
+    if (localLines.join("\n") === remoteLines.join("\n")) continue;
+    diffs++;
+    console.log(`  ${c.bold}--- a/${slug}${c.reset}\n  ${c.bold}+++ b/${slug}${c.reset}`);
+    const maxLen = Math.max(localLines.length, remoteLines.length);
+    let printed = 0;
+    for (let i = 0; i < maxLen && printed < 40; i++) {
+      if (localLines[i] !== remoteLines[i]) {
+        if (localLines[i] !== undefined) console.log(`  ${c.red}- ${localLines[i]}${c.reset}`);
+        if (remoteLines[i] !== undefined) console.log(`  ${c.green}+ ${remoteLines[i]}${c.reset}`);
+        printed++;
+      }
+    }
+    console.log("");
+  }
+  if (diffs === 0) console.log(`  ${c.green}✓${c.reset} No differences found.`);
+}
+
+function handleRemove(args) {
+  let customDir = null;
+  let force = false;
+  let dryRun = false;
+  const slugs = [];
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if ((arg === "-d" || arg === "--dir") && args[i + 1]) customDir = args[++i];
+    else if (arg === "-f" || arg === "--force") force = true;
+    else if (arg === "--dry-run") dryRun = true;
+    else if (!arg.startsWith("-")) slugs.push(arg.replace(/\.tsx$/, ""));
+  }
+  if (slugs.length === 0) {
+    console.error(`  ${c.red}Error:${c.reset} Specify component(s) to remove.`);
+    process.exitCode = 1;
+    return;
+  }
+  const targetDir = detectTargetDir(customDir);
+  if (!fs.existsSync(targetDir)) {
+    console.error(`  ${c.red}Error:${c.reset} Directory not found: ${targetDir}`);
+    process.exitCode = 1;
+    return;
+  }
+  const installedFiles = fs.readdirSync(targetDir).filter((f) => f.endsWith(".tsx"));
+  for (const slug of slugs) {
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) {
+      console.error(`  ${c.red}Error:${c.reset} Invalid component name: ${slug}`);
+      process.exitCode = 1;
+      return;
+    }
+    const targetPath = installedFileFor(targetDir, slug);
+    if (!fs.existsSync(targetPath)) {
+      console.log(`  ${c.yellow}↷${c.reset} ${slug} is not installed.`);
+      continue;
+    }
+    const dependents = [];
+    for (const f of installedFiles) {
+      const otherSlug = f.replace(/\.tsx$/, "");
+      if (otherSlug === slug || slugs.includes(otherSlug)) continue;
+      const src = fs.readFileSync(path.join(targetDir, f), "utf8");
+      if (extractLocalDeps(src).includes(slug)) dependents.push(otherSlug);
+    }
+    if (dependents.length > 0 && !force) {
+      console.error(`  ${c.red}✗${c.reset} Refusing to remove ${c.bold}${slug}${c.reset}: imported by ${dependents.join(", ")} (use -f to force).`);
+      process.exitCode = 1;
+      continue;
+    }
+    if (!dryRun) fs.unlinkSync(targetPath);
+    console.log(`  ${c.green}✓${c.reset} ${dryRun ? "Would remove" : "Removed"} ${c.bold}${slug}${c.reset}`);
+  }
+}
+
+async function handleInfo(args) {
+  let customDir = null;
+  let slug = null;
+  for (let i = 0; i < args.length; i++) {
+    if ((args[i] === "-d" || args[i] === "--dir") && args[i + 1]) customDir = args[++i];
+    else if (!args[i].startsWith("-") && !slug) slug = args[i].replace(/\.tsx$/, "");
+  }
+  if (!slug || !/^[a-z0-9][a-z0-9-]*$/.test(slug)) {
+    console.error(`  ${c.red}Error:${c.reset} Specify a valid component name.`);
+    process.exitCode = 1;
+    return;
+  }
+  const targetDir = detectTargetDir(customDir);
+  const installed = fs.existsSync(installedFileFor(targetDir, slug));
+  let content = null;
+  try {
+    content = await getLatest(slug);
+  } catch (err) {
+    console.error(`  ${c.red}Error:${c.reset} Unknown component "${slug}" (${err.message})`);
+    process.exitCode = 1;
+    return;
+  }
+  const deps = slug.startsWith("icon-") ? [] : extractLocalDeps(content);
+  console.log(`\n  ${c.bold}${slug}${c.reset}`);
+  console.log(`  Installed: ${installed ? `${c.green}yes${c.reset}` : `${c.dim}no${c.reset}`}`);
+  console.log(`  Local deps: ${deps.length > 0 ? deps.join(", ") : "none"}`);
+  console.log(`  Docs: https://ui.bigbullapp.com/docs/${slug}\n`);
+}
+
 function handleDoctor() {
   printBanner();
   const cwd = process.cwd();
   const checks = [];
   const major = Number(process.versions.node.split(".")[0]);
   checks.push({ label: `Node ${process.versions.node} (>= 20)`, ok: major >= 20, hint: "Install Node.js 20 or newer." });
+  const pkgPath = path.join(cwd, "package.json");
+  if (fs.existsSync(pkgPath)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+      const reactSpec = (pkg.dependencies && pkg.dependencies.react) || (pkg.peerDependencies && pkg.peerDependencies.react) || "";
+      const reactOk = !reactSpec || /\b(?:18|19)\b|\^18|\^19|>=18|>=19|\*/.test(reactSpec);
+      checks.push({ label: `React version (${reactSpec || "unspecified"})`, ok: reactOk, hint: "bigbullui requires React >= 18." });
+    } catch {
+      // Ignore unreadable package.json
+    }
+  }
   const hasTailwind = fs.existsSync(path.join(cwd, "node_modules", "tailwindcss"));
   checks.push({ label: "tailwindcss installed", ok: hasTailwind, hint: "Run npm install -D tailwindcss @tailwindcss/postcss." });
-  const hasLocalCss = fs.existsSync(path.join(cwd, "bigbullui.css"));
+  const cfg = loadConfig(cwd);
+  const hasLocalCss = fs.existsSync(path.resolve(cwd, cfg.cssPath || "bigbullui.css"));
   const hasPkgCss = fs.existsSync(path.join(cwd, "node_modules", "bigbullui", "bigbullui.css"));
   const cssFiles = ["app/globals.css", "src/app/globals.css", "src/index.css", "src/globals.css", "styles/globals.css"]
     .map((p) => path.join(cwd, p))
@@ -936,6 +1327,20 @@ function handleDoctor() {
   const targetDir = detectTargetDir();
   const hasUtils = fs.existsSync(path.join(targetDir, "lib", "utils.ts")) || fs.existsSync(path.join(targetDir, "utils.ts"));
   checks.push({ label: "cn() utils present", ok: hasUtils, hint: "Run npx bigbullui init." });
+  if (fs.existsSync(targetDir)) {
+    const missingDeps = [];
+    for (const f of fs.readdirSync(targetDir).filter((n) => n.endsWith(".tsx"))) {
+      const src = fs.readFileSync(path.join(targetDir, f), "utf8");
+      for (const dep of extractLocalDeps(src)) {
+        if (!fs.existsSync(installedFileFor(targetDir, dep))) missingDeps.push(`${f}->${dep}`);
+      }
+    }
+    checks.push({
+      label: "installed component dependencies intact",
+      ok: missingDeps.length === 0,
+      hint: `Missing: ${missingDeps.slice(0, 5).join(", ")}. Run npx bigbullui add <name>.`,
+    });
+  }
   let failed = 0;
   for (const check of checks) {
     if (check.ok) console.log(`  ${c.green}✓${c.reset} ${check.label}`);
@@ -966,13 +1371,23 @@ async function main() {
       await handleList(args.slice(1));
       break;
     case "init":
-      handleInit();
+      handleInit(args.slice(1));
       break;
     case "tokens":
       handleTokens(args.slice(1));
       break;
     case "update":
       await handleUpdate(args.slice(1));
+      break;
+    case "diff":
+      await handleDiff(args.slice(1));
+      break;
+    case "remove":
+    case "rm":
+      handleRemove(args.slice(1));
+      break;
+    case "info":
+      await handleInfo(args.slice(1));
       break;
     case "doctor":
       handleDoctor();
@@ -991,7 +1406,6 @@ async function main() {
       printHelp();
       break;
     default:
-      // If someone runs `npx bigbullui button badge`, treat it as `add`
       if (!command.startsWith("-")) {
         await handleAdd(args);
       } else {

@@ -403,7 +403,7 @@ export function CreditCard({
               </span>
             </div>
 
-            <div className="text-right">
+            <div className="text-end">
               <span className="block font-mono text-[8px] sm:text-[9px] uppercase tracking-widest opacity-65">
                 EXPIRES
               </span>

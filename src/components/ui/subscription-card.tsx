@@ -21,7 +21,7 @@ export function SubscriptionCard({ plan, price, cycle, renewDate, features = [],
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Abonelik</p>
           <h3 className="mt-0.5 text-lg font-bold">{plan}</h3>
         </div>
-        <div className="text-right">
+        <div className="text-end">
           <span className="font-mono text-lg font-bold tabular-nums">{price}</span>
           <span className="block text-[10px] text-muted-foreground">/ {cycle}</span>
         </div>
@@ -30,7 +30,7 @@ export function SubscriptionCard({ plan, price, cycle, renewDate, features = [],
       {features.length > 0 && (
         <ul className="mt-3 space-y-1">
           {features.map((f, i) => (
-            <li key={f} className="flex items-center gap-2 text-sm animate-[subIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${i * 60}ms` }}>
+            <li key={f} className="flex items-center gap-2 text-sm animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${i * 60}ms` }}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
               {f}
             </li>

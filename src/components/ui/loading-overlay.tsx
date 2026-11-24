@@ -7,9 +7,9 @@ import { cn } from "./lib/utils";
 export type LoadingOverlayProps = {
   active: boolean;
   label?: string;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function LoadingOverlay({ active, label }: LoadingOverlayProps) {
+export function LoadingOverlay({ active, label, ...props }: LoadingOverlayProps) {
   React.useEffect(() => {
     if (!active) return;
     return lockBodyScroll();
@@ -22,11 +22,11 @@ export function LoadingOverlay({ active, label }: LoadingOverlayProps) {
       aria-busy={active}
       aria-hidden={!active}
       className={cn(
-        "fixed inset-0 z-40 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300",
+        "fixed inset-0 z-40 flex items-center justify-center bg-black/40 transition-opacity duration-300",
         "motion-reduce:animate-none",
         active ? "opacity-100" : "pointer-events-none invisible opacity-0",
         "motion-reduce:transition-none",
-      )}
+      )} {...props}
     >
       <div
         className={cn(

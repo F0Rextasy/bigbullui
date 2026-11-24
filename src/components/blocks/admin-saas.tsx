@@ -8,31 +8,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { MetricCard } from "../ui/metric-card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 
-const PLANS = [
+const DEFAULT_PLANS = [
   { name: "STUB STARTER", seats: 1240, pct: 52 },
   { name: "BOX OFFICE PRO", seats: 860, pct: 36 },
   { name: "ARENA SCALE", seats: 290, pct: 12 },
 ];
 
-const COHORTS = [
+const DEFAULT_COHORTS = [
   { month: "MAR", signups: 210, churn: "2.1%" },
   { month: "APR", signups: 284, churn: "1.9%" },
   { month: "MAY", signups: 342, churn: "1.6%" },
   { month: "JUN", signups: 410, churn: "1.4%" },
 ];
 
-export interface AdminSaasProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminSaasProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  plans?: typeof DEFAULT_PLANS;
+  cohorts?: typeof DEFAULT_COHORTS;
   onAction?: (action: string) => void;
 }
 
-export function AdminSaas({ className, onAction, ...props }: AdminSaasProps) {
+export function AdminSaas({ title, plans = DEFAULT_PLANS, cohorts = DEFAULT_COHORTS, className, onAction, ...props }: AdminSaasProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // SAAS</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Subscription desk</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Subscription desk"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -52,7 +56,7 @@ export function AdminSaas({ className, onAction, ...props }: AdminSaasProps) {
             <CardTitle>Plan mix</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {PLANS.map((plan) => (
+            {plans.map((plan) => (
               <div key={plan.name} className="space-y-1.5">
                 <div className="flex items-center justify-between font-mono text-xs">
                   <span className="font-bold">{plan.name}</span>
@@ -80,7 +84,7 @@ export function AdminSaas({ className, onAction, ...props }: AdminSaasProps) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {COHORTS.map((cohort) => (
+                {cohorts.map((cohort) => (
                   <TableRow key={cohort.month}>
                     <TableCell className="font-bold">{cohort.month}</TableCell>
                     <TableCell>{cohort.signups}</TableCell>

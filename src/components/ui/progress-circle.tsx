@@ -65,7 +65,7 @@ export function ProgressCircle({
               : circumference * (1 - progressPercent / 100)
           }
           className={cn(
-            "transition-all duration-800 ease-out",
+            "transition-colors duration-800 ease-out",
             "motion-reduce:transition-none",
             indeterminate
               ? "motion-safe:animate-[spin_1.5s_linear_forever]"

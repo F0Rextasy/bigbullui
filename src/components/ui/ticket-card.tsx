@@ -97,7 +97,7 @@ export function TicketCard({
         <div className="size-5 rounded-full bg-background border-2 border-foreground -ms-2.5 md:ms-0 md:-mt-2.5 shrink-0" />
         
         {/* Dashed line */}
-        <div className="h-0 w-full md:w-0 md:h-full border-t-2 md:border-t-0 md:border-l-2 border-dashed border-border" />
+        <div className="h-0 w-full md:w-0 md:h-full border-t-2 md:border-t-0 md:border-s-2 border-dashed border-border" />
         
         {/* Bottom/Right notch */}
         <div className="size-5 rounded-full bg-background border-2 border-foreground -me-2.5 md:me-0 md:-mb-2.5 shrink-0" />

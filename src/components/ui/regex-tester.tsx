@@ -74,7 +74,7 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
           )}
           spellCheck={false}
         />
-        {error && <p className="text-xs text-destructive animate-[rtIn_0.2s_ease-out] motion-reduce:animate-none">{error}</p>}
+        {error && <p className="text-xs text-destructive animate-[cpIn_0.2s_ease-out] motion-reduce:animate-none">{error}</p>}
       </div>
       <div className="space-y-1">
         <label htmlFor={testId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Test string</label>
@@ -88,7 +88,7 @@ export function RegexTester({ pattern: patternProp, testString: testProp = "", o
         />
       </div>
       {test && !error && (
-        <div className="rounded-md border border-dashed border-border bg-secondary/40 p-3 animate-[rtIn_0.25s_ease-out_both] motion-reduce:animate-none">
+        <div className="rounded-md border border-dashed border-border bg-secondary/40 p-3 animate-[cpIn_0.25s_ease-out_both] motion-reduce:animate-none">
           <p className="font-mono text-xs leading-relaxed">
             {segments.map((seg, i) =>
               seg.hit ? (

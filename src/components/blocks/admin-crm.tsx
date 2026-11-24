@@ -9,27 +9,31 @@ import { MetricCard } from "../ui/metric-card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 import { Avatar } from "../ui/avatar";
 
-const LEADS = [
+const DEFAULT_LEADS = [
   { name: "Nova Events", contact: "Mira Chen", value: "$48,000", stage: "NEGOTIATION" },
   { name: "Copper Hall", contact: "Jon Reyes", value: "$21,500", stage: "PROPOSAL" },
   { name: "Velvet Org", contact: "Sena Park", value: "$12,800", stage: "QUALIFIED" },
   { name: "Dune Fest", contact: "Omar Haddad", value: "$63,200", stage: "CLOSED" },
 ];
 
-const STAGES = ["QUALIFIED", "PROPOSAL", "NEGOTIATION", "CLOSED"];
+const DEFAULT_STAGES = ["QUALIFIED", "PROPOSAL", "NEGOTIATION", "CLOSED"];
 
-export interface AdminCrmProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminCrmProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  leads?: typeof DEFAULT_LEADS;
+  stages?: typeof DEFAULT_STAGES;
   onAction?: (action: string) => void;
 }
 
-export function AdminCrm({ className, onAction, ...props }: AdminCrmProps) {
+export function AdminCrm({ title, leads = DEFAULT_LEADS, stages = DEFAULT_STAGES, className, onAction, ...props }: AdminCrmProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // CRM</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Deal pipeline</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Deal pipeline"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -47,7 +51,7 @@ export function AdminCrm({ className, onAction, ...props }: AdminCrmProps) {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <CardTitle>Lead ledger</CardTitle>
             <div className="flex flex-wrap gap-1.5">
-              {STAGES.map((stage) => (
+              {stages.map((stage) => (
                 <Badge key={stage} variant={stage === "CLOSED" ? "accent" : "outline"}>{stage}</Badge>
               ))}
             </div>
@@ -64,7 +68,7 @@ export function AdminCrm({ className, onAction, ...props }: AdminCrmProps) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {LEADS.map((lead) => (
+              {leads.map((lead) => (
                 <TableRow key={lead.name}>
                   <TableCell className="font-bold">{lead.name}</TableCell>
                   <TableCell>

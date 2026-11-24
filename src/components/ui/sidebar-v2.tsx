@@ -36,7 +36,7 @@ export function SidebarV2({ items = [], activeId, onNavigate, title = "Menu", cl
       const isOpen = expanded.has(item.id);
       const isActive = active === item.id;
       return (
-        <li key={item.id} className="animate-[sb2In_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
+        <li key={item.id} className="animate-[slide-in_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
           <button
             type="button"
             onClick={() => { if (hasChildren) toggle(item.id); setActive(item.id); onNavigate?.(item.id); }}

@@ -124,7 +124,7 @@ export function InlineEdit({
             }
           }}
           className={cn(
-            "group flex items-center gap-2 cursor-pointer rounded-md border border-dashed border-border/80 px-2 py-1 text-xs text-foreground transition-all hover:border-foreground/50 hover:bg-secondary/40",
+            "group flex items-center gap-2 cursor-pointer rounded-md border border-dashed border-border/80 px-2 py-1 text-xs text-foreground transition-colors hover:border-foreground/50 hover:bg-secondary/40",
             justSaved && "border-accent bg-accent/10"
           )}
         >

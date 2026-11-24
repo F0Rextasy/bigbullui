@@ -42,7 +42,7 @@ export function InboxList({ items = [], onSelect, className, ...props }: InboxLi
           key={item.id}
           onClick={() => { setSelected(item.id); onSelect?.(item.id); }}
           className={cn(
-            "flex w-full items-start gap-3 px-4 py-3 text-start animate-[inboxIn_0.3s_ease-out_both] motion-reduce:animate-none",
+            "flex w-full items-start gap-3 px-4 py-3 text-start animate-[secIn_0.3s_ease-out_both] motion-reduce:animate-none",
             "transition-colors motion-reduce:transition-none hover:bg-secondary/40",
             selected === item.id && "bg-accent/5",
             item.unread && "bg-secondary/20"

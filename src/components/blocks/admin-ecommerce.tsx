@@ -8,25 +8,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { MetricCard } from "../ui/metric-card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 
-const PRODUCTS = [
+const DEFAULT_PRODUCTS = [
   { name: "VIP ALL-ACCESS", sold: 842, revenue: "$101,040", stock: "IN STOCK" },
   { name: "ORCHESTRA ROW", sold: 1240, revenue: "$93,000", stock: "LOW STOCK" },
   { name: "BALCONY PASS", sold: 2084, revenue: "$93,780", stock: "IN STOCK" },
   { name: "STANDBY STUB", sold: 390, revenue: "$11,700", stock: "SOLD OUT" },
 ];
 
-export interface AdminEcommerceProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminEcommerceProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  products?: typeof DEFAULT_PRODUCTS;
   onAction?: (action: string) => void;
 }
 
-export function AdminEcommerce({ className, onAction, ...props }: AdminEcommerceProps) {
+export function AdminEcommerce({ title, products = DEFAULT_PRODUCTS, className, onAction, ...props }: AdminEcommerceProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // COMMERCE</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Stub storefront</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Stub storefront"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -56,7 +59,7 @@ export function AdminEcommerce({ className, onAction, ...props }: AdminEcommerce
                 </TableRow>
               </TableHead>
               <TableBody>
-                {PRODUCTS.map((product) => (
+                {products.map((product) => (
                   <TableRow key={product.name}>
                     <TableCell className="font-bold">{product.name}</TableCell>
                     <TableCell>{product.sold.toLocaleString()}</TableCell>

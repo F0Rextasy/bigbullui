@@ -53,7 +53,7 @@ export function DrawerNav({ items, open, onOpenChange, title = "Menu", className
   return (
     <div className={cn("fixed inset-0 z-50", className)} {...props}>
       <div className="absolute inset-0 bg-black/40" onClick={() => onOpenChange(false)} aria-hidden="true" />
-      <div ref={panelRef} tabIndex={-1} className="absolute inset-y-0 left-0 flex w-64 flex-col border-r-2 border-dashed border-border bg-background shadow-xl motion-reduce:animate-none! focus:outline-none" style={{ animation: "dnPanel 0.3s cubic-bezier(0.16,1,0.3,1) both" }} role="dialog" aria-modal="true" aria-label={title}>
+      <div ref={panelRef} tabIndex={-1} className="absolute inset-y-0 start-0 flex w-64 flex-col border-e-2 border-dashed border-border bg-background shadow-xl motion-reduce:animate-none! focus:outline-none" style={{ animation: "dnPanel 0.3s cubic-bezier(0.16,1,0.3,1) both" }} role="dialog" aria-modal="true" aria-label={title}>
         <div className="flex items-center justify-between border-b border-dashed border-border px-4 py-3">
           <span className="font-mono text-xs font-bold uppercase tracking-widest">{title}</span>
           <button

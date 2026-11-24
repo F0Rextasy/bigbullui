@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface FireworksProps {
+export interface FireworksProps extends React.HTMLAttributes<HTMLElement> {
   active?: boolean;
   bursts?: number;
 }
@@ -14,12 +14,12 @@ function seeded(index: number, salt: number): number {
   return x - Math.floor(x);
 }
 
-export function Fireworks({ active = true, bursts = 5 }: FireworksProps) {
+export function Fireworks({ active = true, bursts = 5, ...props }: FireworksProps) {
   const count = Math.max(1, bursts);
   return (
     <div
       className={cn("relative size-64 overflow-hidden motion-reduce:animate-none", !active && "opacity-40")}
-      aria-hidden="true"
+      aria-hidden="true" {...props}
     >
 
       {/* Rockets */}

@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 
-const PROJECTS = [
+const DEFAULT_PROJECTS = [
   { id: "p1", title: "Opera Season Identity", tags: ["branding", "print"], year: "2025" },
   { id: "p2", title: "Night Ferry App", tags: ["product", "mobile"], year: "2025" },
   { id: "p3", title: "Seed Packet Series", tags: ["print", "packaging"], year: "2024" },
@@ -15,23 +15,26 @@ const PROJECTS = [
 ];
 
 /** Portfolio page: project grid + lightbox + contact strip. */
-export interface BlockPortfolioProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockPortfolioProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  projects?: typeof DEFAULT_PROJECTS;
   onAction?: (action: string) => void;
 }
 
-export function BlockPortfolio({ className, onAction, ...props }: BlockPortfolioProps) {
+export function BlockPortfolio({ title, projects = DEFAULT_PROJECTS, className, onAction, ...props }: BlockPortfolioProps) {
   const [filter, setFilter] = React.useState("all");
   const [lightbox, setLightbox] = React.useState<string | null>(null);
   const [sent, setSent] = React.useState(false);
 
-  const tags = ["all", ...Array.from(new Set(PROJECTS.flatMap((p) => p.tags)))];
-  const results = PROJECTS.filter((p) => filter === "all" || p.tags.includes(filter));
-  const active = PROJECTS.find((p) => p.id === lightbox) ?? null;
+  const tags = ["all", ...Array.from(new Set(projects.flatMap((p) => p.tags)))];
+  const results = projects.filter((p) => filter === "all" || p.tags.includes(filter));
+  const active = projects.find((p) => p.id === lightbox) ?? null;
 
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-end justify-between gap-2">
-        <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Selected work</h2>
+        <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Selected work"}</h2>
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter by tag">
           {tags.map((t) => (
             <button

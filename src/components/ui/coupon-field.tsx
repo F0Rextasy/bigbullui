@@ -39,7 +39,7 @@ export function CouponField({ onApply, placeholder = "KUPON KODU", className, ..
             className={cn(
               "w-full rounded-md border border-dashed border-border bg-background px-3 py-2 font-mono text-sm uppercase tracking-widest",
               "transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              state === "invalid" && "border-destructive animate-[cfShake_0.3s_ease-out] motion-reduce:animate-none",
+              state === "invalid" && "border-destructive animate-[formFieldShake_0.3s_ease-out] motion-reduce:animate-none",
               state === "valid" && "border-success"
             )}
           />

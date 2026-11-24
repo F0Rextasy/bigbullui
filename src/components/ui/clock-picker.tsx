@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface ClockPickerProps {
+export interface ClockPickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: string; // "HH:MM"
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -16,7 +16,7 @@ export function ClockPicker({
   defaultValue = "09:00",
   onValueChange,
   hour12 = false,
-  className,
+  className, ...props
 }: ClockPickerProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
@@ -75,7 +75,7 @@ export function ClockPicker({
       className={cn(
         "relative rounded-lg border border-border bg-card p-6 font-mono",
         className,
-      )}
+      )} {...props}
     >
       <svg
         width={svgSize}

@@ -8,6 +8,13 @@ import { ChromeIcon } from "@/components/site/chrome-icons";
 import { categories, components } from "@/lib/registry-site";
 import { cn } from "@/components/ui/lib/utils";
 import { SITE_VERSION } from "@/lib/site-meta";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  description:
+    "Open-source library of 660 animated, accessible, zero-dependency React 19 components, 75 page blocks, and 1,099 stroke icons for Tailwind CSS v4.",
+  path: "/",
+});
 
 const features = [
   {
@@ -39,6 +46,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
 
+      <main>
       {/* Hero Section */}
       <section className="mx-auto max-w-6xl px-4 pb-12 pt-10 text-center sm:px-6 sm:pb-16 sm:pt-16">
         {/* Release / Announcement Pill */}
@@ -65,7 +73,7 @@ export default function Home() {
         <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/docs"
-            className="inline-flex h-11 cursor-pointer items-center rounded-md bg-primary px-6 font-mono text-xs uppercase tracking-wider text-primary-foreground shadow-sm transition-all duration-150 hover:opacity-90 active:scale-[0.98]"
+            className="inline-flex h-11 cursor-pointer items-center rounded-md bg-primary px-6 font-mono text-xs uppercase tracking-wider text-primary-foreground shadow-sm transition-[transform,opacity] duration-150 hover:opacity-90 active:scale-[0.98]"
           >
             Browse {totalCount}+ Components
           </Link>
@@ -194,7 +202,7 @@ export default function Home() {
               <Link
                 key={cat.id}
                 href={`/docs#${cat.id}`}
-                className="group flex flex-col justify-between rounded-lg border border-border bg-card p-5 transition-all duration-150 hover:-translate-y-0.5 hover:border-foreground/50 hover:shadow-sm"
+                className="group flex flex-col justify-between rounded-lg border border-border bg-card p-5 transition-[transform,border-color,box-shadow] duration-150 hover:-translate-y-0.5 hover:border-foreground/50 hover:shadow-sm"
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -240,7 +248,7 @@ export default function Home() {
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 href="/icons"
-                className="inline-flex h-9 cursor-pointer items-center rounded-md bg-primary px-4 text-xs font-medium text-primary-foreground transition-all duration-150 hover:scale-[1.02] active:scale-[0.97]"
+                className="inline-flex h-9 cursor-pointer items-center rounded-md bg-primary px-4 text-xs font-medium text-primary-foreground transition-transform duration-150 hover:scale-[1.02] active:scale-[0.97]"
               >
                 Browse the icon set
               </Link>
@@ -268,6 +276,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <SiteFooter />

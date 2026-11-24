@@ -44,7 +44,7 @@ export function BubbleChart({ points = [], height = 240, className, ...props }: 
               opacity={isHover ? 0.55 : 0.25}
               stroke="var(--accent)"
               strokeWidth={isHover ? 0.6 : 0.3}
-              className="cursor-pointer transition-all duration-200 motion-reduce:transition-none"
+              className="cursor-pointer transition-colors duration-200 motion-reduce:transition-none"
             />
             <text x={p.x} y={p.y + r + 3} textAnchor="middle" fontSize="2.4" fill="var(--muted-foreground)" className="pointer-events-none select-none font-mono">
               {p.label ?? ""}

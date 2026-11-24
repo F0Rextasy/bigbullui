@@ -5,7 +5,7 @@ import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-const FEATURES = [
+const DEFAULT_FEATURES = [
   { tag: "ZERO DEP", title: "No baggage fees", body: "Every file imports only React plus a 7-line cn helper. Nothing else rides along." },
   { tag: "COPY PASTE", title: "Code you keep", body: "Vendor the source into your repo. Restyle tokens, fork freely, ship forever." },
   { tag: "A11Y FIRST", title: "Every gate labeled", body: "Roving tabindex, focus traps, live regions, and reduced-motion fallbacks built in." },
@@ -14,21 +14,24 @@ const FEATURES = [
   { tag: "TYPED", title: "Stamped types", body: "Strict TypeScript props with docs tables generated beside each preview." },
 ];
 
-export interface LandingFeaturesProps extends React.HTMLAttributes<HTMLElement> {
+export interface LandingFeaturesProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  features?: typeof DEFAULT_FEATURES;
   onAction?: (action: string) => void;
 }
 
-export function LandingFeatures({ className, onAction, ...props }: LandingFeaturesProps) {
+export function LandingFeatures({ title, features = DEFAULT_FEATURES, className, onAction, ...props }: LandingFeaturesProps) {
   void onAction;
   return (
     <section className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-2 text-center">
         <Badge variant="accent" className="mx-auto">WHY BIGBULLUI</Badge>
-        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Built like a box office</h2>
+        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">{title ?? "Built like a box office"}</h2>
         <p className="mx-auto max-w-xl text-sm text-muted-foreground">Six reasons crews switch from black-box kits to stubs they own.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {FEATURES.map((feature) => (
+        {features.map((feature) => (
           <Card key={feature.title}>
             <CardHeader>
               <Badge variant="outline">{feature.tag}</Badge>

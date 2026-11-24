@@ -20,7 +20,7 @@ export function HealthBar({ value, max = 100, label = "HP", segments = 10, class
       <div className="mb-1 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.15em]">
         <span className="text-muted-foreground">{label}</span>
         <span
-          className={cn("font-bold tabular-nums", low ? "text-destructive animate-[hpPulse_1s_ease-in-out_infinite] motion-reduce:animate-none" : "text-foreground")}
+          className={cn("font-bold tabular-nums", low ? "text-destructive animate-[pulse-soft_1s_ease-in-out_infinite] motion-reduce:animate-none" : "text-foreground")}
           role="status"
           aria-label={`${label} ${value} of ${max}`}
         >

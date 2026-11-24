@@ -17,7 +17,7 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
     <div className={cn("w-full max-w-sm", className)} {...props}>
 
       {!sent ? (
-        <div className="space-y-4 animate-[forgotSwap_0.3s_ease-out_both] motion-reduce:animate-none">
+        <div className="space-y-4 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
           <div>
             <h2 className="text-lg font-semibold tracking-tight">Forgot your password?</h2>
             <p className="mt-1 text-sm text-muted-foreground">Enter your email address and we will send a reset link.</p>
@@ -40,7 +40,7 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
             disabled={!valid}
             className={cn(
               "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-              "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
+              "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
               "disabled:pointer-events-none disabled:opacity-40"
             )}
@@ -49,7 +49,7 @@ export function ForgotPassword({ onSend, className, ...props }: ForgotPasswordPr
           </button>
         </div>
       ) : (
-        <div className="space-y-4 text-center animate-[forgotSwap_0.3s_ease-out_both] motion-reduce:animate-none">
+        <div className="space-y-4 text-center animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
           <div className="mx-auto flex size-14 items-center justify-center rounded-full border-2 border-success bg-success/10">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success">
               <path d="M20 6L9 17l-5-5" style={{ strokeDasharray: 24, animation: "forgotCheck 0.4s ease-out 0.15s both" }} />

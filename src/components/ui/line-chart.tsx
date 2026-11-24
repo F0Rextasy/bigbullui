@@ -73,7 +73,7 @@ function SeriesLine({
           cy={y(val)}
           r={hovered ? 4 : 3}
           fill="currentColor"
-          className="transition-all duration-300 motion-reduce:transition-none"
+          className="transition-colors duration-300 motion-reduce:transition-none"
         >
           <title>{`${s.label}: ${val}`}</title>
         </circle>

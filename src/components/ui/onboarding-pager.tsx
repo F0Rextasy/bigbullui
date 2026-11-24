@@ -31,7 +31,7 @@ export function OnboardingPager({ steps = FALLBACK, className, ...props }: Onboa
             aria-selected={i === index}
             aria-label={`Go to step ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={cn("h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", i === index ? "w-6 bg-accent" : "w-2 bg-border hover:bg-muted-foreground")}
+            className={cn("h-2 rounded-full transition-[width,height,left,right,opacity,background-color,border-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", i === index ? "w-6 bg-accent" : "w-2 bg-border hover:bg-muted-foreground")}
           />
         ))}
       </div>

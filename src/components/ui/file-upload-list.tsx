@@ -291,7 +291,7 @@ export function FileUploadList({
               <button
                 type="button"
                 onClick={() => inputRef.current?.click()}
-                className="inline-flex items-center gap-1.5 rounded-xs border border-dashed border-foreground/60 bg-secondary px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-foreground hover:border-solid hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer transition-all active:scale-95 motion-reduce:active:scale-100"
+                className="inline-flex items-center gap-1.5 rounded-xs border border-dashed border-foreground/60 bg-secondary px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-foreground hover:border-solid hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer transition-[transform,opacity,background-color,border-color,color] active:scale-95 motion-reduce:active:scale-100"
               >
                 <svg
                   width="12"
@@ -318,7 +318,7 @@ export function FileUploadList({
           <div className="relative h-2.5 w-full rounded-xs border border-dashed border-border bg-secondary/70 overflow-hidden">
             <div
               className={cn(
-                "h-full bg-accent transition-all duration-300 ease-out",
+                "h-full bg-accent transition-[width,height,left,right,opacity,background-color,border-color] duration-300 ease-out",
                 uploadingCount > 0 && "bg-[repeating-linear-gradient(45deg,_var(--color-accent),_var(--color-accent)_8px,_var(--color-accent-strong)_8px,_var(--color-accent-strong)_16px)]"
               )}
               style={{ width: `${overallPercent}%` }}
@@ -582,7 +582,7 @@ export function FileUploadList({
                   <div className="relative h-1.5 w-full rounded-xs border border-dashed border-border/80 bg-secondary/50 overflow-hidden">
                     <div
                       className={cn(
-                        "h-full transition-all duration-200 ease-out",
+                        "h-full transition-[width,height,left,right,opacity,background-color,border-color] duration-200 ease-out",
                         file.status === "uploading" && "bg-accent",
                         file.status === "success" && "bg-foreground",
                         file.status === "error" && "bg-destructive",

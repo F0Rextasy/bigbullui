@@ -52,7 +52,7 @@ export function BarChart({
               <div
                 style={{ height: `${heightPercent}%` }}
                 className={cn(
-                  "w-full max-w-[40px] rounded-t-sm border border-b-0 transition-all duration-200 group-hover:scale-x-105 motion-reduce:group-hover:scale-x-100",
+                  "w-full max-w-[40px] rounded-t-sm border border-b-0 transition-[transform,width,height,opacity,background-color,border-color] duration-200 group-hover:scale-x-105 motion-reduce:group-hover:scale-x-100",
                   isAccent
                     ? "border-accent bg-accent text-accent-foreground"
                     : "border-foreground bg-primary text-primary-foreground"

@@ -1,4 +1,4 @@
-import { describe, it, before } from "node:test";
+import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
@@ -20,6 +20,12 @@ function run(...args) {
 describe("bigbullui CLI end-to-end", () => {
   before(() => {
     workdir = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-cli-"));
+  });
+
+  after(() => {
+    if (workdir) {
+      fs.rmSync(workdir, { recursive: true, force: true });
+    }
   });
 
   it("list shows available components", () => {
@@ -244,5 +250,86 @@ describe("bigbullui CLI end-to-end", () => {
     } finally {
       fs.rmSync(appParent, { recursive: true, force: true });
     }
+  });
+
+  it("supports info, diff, add --dry-run, remove, and bigbullui.json config", () => {
+    const projDir = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-workflow-"));
+    try {
+      fs.writeFileSync(
+        path.join(projDir, "bigbullui.json"),
+        JSON.stringify({ componentsDir: "./src/ui", cssPath: "./styles/bigbullui.css" }, null, 2)
+      );
+
+      // info
+      const infoOut = execFileSync("node", [cli, "info", "button"], { cwd: projDir, encoding: "utf8", timeout: 20000 });
+      assert.match(infoOut, /button/i);
+
+      // add --dry-run creates nothing
+      const dryOut = execFileSync("node", [cli, "add", "button", "--dry-run"], { cwd: projDir, encoding: "utf8", timeout: 20000 });
+      assert.match(dryOut, /dry run|would/i);
+      assert.equal(fs.existsSync(path.join(projDir, "src", "ui", "button.tsx")), false);
+
+      // add respects bigbullui.json componentsDir
+      execFileSync("node", [cli, "add", "button"], { cwd: projDir, encoding: "utf8", timeout: 20000 });
+      const btnPath = path.join(projDir, "src", "ui", "button.tsx");
+      assert.ok(fs.existsSync(btnPath), "bigbullui.json componentsDir should receive button.tsx");
+
+      // diff shows clean then changed after edit
+      const cleanDiff = execFileSync("node", [cli, "diff", "button"], { cwd: projDir, encoding: "utf8", timeout: 20000 });
+      assert.match(cleanDiff, /up to date|no differences|clean/i);
+
+      fs.appendFileSync(btnPath, "\n// local modification\n");
+      const dirtyDiff = execFileSync("node", [cli, "diff", "button"], { cwd: projDir, encoding: "utf8", timeout: 20000 });
+      assert.match(dirtyDiff, /local modification/);
+
+      // remove deletes file
+      execFileSync("node", [cli, "remove", "button", "--yes"], { cwd: projDir, encoding: "utf8", timeout: 20000 });
+      assert.equal(fs.existsSync(btnPath), false);
+    } finally {
+      fs.rmSync(projDir, { recursive: true, force: true });
+    }
+  });
+
+  it("rejects untrusted BIGBULLUI_REGISTRY_BASE hosts via SSRF allowlist", () => {
+    const isolatedDir = fs.mkdtempSync(path.join(os.tmpdir(), "bigbullui-ssrf-"));
+    try {
+      const isolatedCli = path.join(isolatedDir, "cli.js");
+      fs.copyFileSync(cli, isolatedCli);
+      const res = spawnSync("node", [isolatedCli, "add", "button", "--dir", "./components/ui"], {
+        cwd: isolatedDir,
+        encoding: "utf8",
+        env: { ...process.env, BIGBULLUI_REGISTRY_BASE: "https://evil.example.com" },
+        timeout: 15000,
+      });
+      assert.notEqual(res.status, 0, "untrusted registry origin must fail");
+      assert.match(res.stderr + res.stdout, /allowlist|disallowed host|ssrf/i);
+    } finally {
+      fs.rmSync(isolatedDir, { recursive: true, force: true });
+    }
+  });
+
+  it("mcp exposes get_block, get_props, resources, and prompts", () => {
+    const mcp = path.join(rootDir, "bin", "mcp.js");
+    const reqs = [
+      { jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_block", arguments: { name: "auth-login" } } },
+      { jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "get_props", arguments: { name: "button" } } },
+      { jsonrpc: "2.0", id: 3, method: "resources/list" },
+      { jsonrpc: "2.0", id: 4, method: "resources/read", params: { uri: "bigbullui://catalog" } },
+      { jsonrpc: "2.0", id: 5, method: "prompts/list" },
+      { jsonrpc: "2.0", id: 6, method: "prompts/get", params: { name: "build-page", arguments: { feature: "login form" } } },
+    ]
+      .map((r) => JSON.stringify(r))
+      .join("\n") + "\n";
+
+    const res = spawnSync("node", [mcp], { input: reqs, encoding: "utf8", timeout: 15000 });
+    assert.equal(res.status, 0, res.stderr);
+    const msgs = new Map(res.stdout.trim().split("\n").map((l) => JSON.parse(l)).map((m) => [m.id, m]));
+
+    assert.ok(!msgs.get(1)?.result?.isError && msgs.get(1)?.result?.content?.[0]?.text?.includes("auth-login"), "get_block succeeds");
+    assert.ok(!msgs.get(2)?.result?.isError && msgs.get(2)?.result?.content?.[0]?.text?.includes("variant"), "get_props returns button props");
+    assert.ok(Array.isArray(msgs.get(3)?.result?.resources) && msgs.get(3).result.resources.length >= 2, "resources/list returns catalog + theme");
+    assert.ok(msgs.get(4)?.result?.contents?.[0]?.text?.includes("button"), "resources/read returns catalog content");
+    assert.ok(Array.isArray(msgs.get(5)?.result?.prompts) && msgs.get(5).result.prompts.length >= 1, "prompts/list returns prompts");
+    assert.ok(Array.isArray(msgs.get(6)?.result?.messages) && msgs.get(6).result.messages.length >= 1, "prompts/get returns prompt messages");
   });
 });

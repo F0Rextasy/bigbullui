@@ -8,17 +8,20 @@ import { TeamGrid } from "../ui/team-grid";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PageHeader } from "../ui/page-header";
 
-const TEAM = [
+const DEFAULT_TEAM = [
   { id: "ada", name: "Ada Bull", role: "Box office lead" },
   { id: "grace", name: "Grace Hopper", role: "Stub designer" },
   { id: "alan", name: "Alan Turing", role: "Gate systems" },
 ];
 
-export interface PageAboutProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageAboutProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  team?: typeof DEFAULT_TEAM;
   onAction?: (action: string) => void;
 }
 
-export function PageAbout({ className, onAction, ...props }: PageAboutProps) {
+export function PageAbout({ title, team = DEFAULT_TEAM, className, onAction, ...props }: PageAboutProps) {
   const [expanded, setExpanded] = React.useState(false);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
@@ -39,7 +42,7 @@ export function PageAbout({ className, onAction, ...props }: PageAboutProps) {
       )}
       <Card>
         <CardHeader>
-          <CardTitle>The story so far</CardTitle>
+          <CardTitle>{title ?? "The story so far"}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-sm leading-relaxed text-muted-foreground">
           <p>We started with one folding table, a rubber stamp, and a spool of numbered stubs. Every show sold out, so we built tooling that keeps the paper ritual while the ledger stays exact.</p>
@@ -53,7 +56,7 @@ export function PageAbout({ className, onAction, ...props }: PageAboutProps) {
       </div>
       <div className="min-w-0">
         <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">THE CREW</p>
-        <TeamGrid members={TEAM} columns={3} />
+        <TeamGrid members={team} columns={3} />
       </div>
     </div>
   );

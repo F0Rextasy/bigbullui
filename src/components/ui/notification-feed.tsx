@@ -42,7 +42,7 @@ export function NotificationFeed({ notifications = [], onMarkRead, className, ..
           <div
             key={n.id}
             className={cn(
-              "flex items-start gap-3 rounded-md border p-3 animate-[nfIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors motion-reduce:transition-none",
+              "flex items-start gap-3 rounded-md border p-3 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors motion-reduce:transition-none",
               isRead ? "border-border bg-card opacity-70" : "border-accent/40 bg-accent/5"
             )}
             style={{ animationDelay: `${idx * 55}ms` }}

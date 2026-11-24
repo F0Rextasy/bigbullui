@@ -11,22 +11,34 @@ export interface DmThreadMessage {
 }
 
 export interface DmThreadProps extends React.HTMLAttributes<HTMLDivElement> {
-  name: string;
-  initials: string;
+  name?: string;
+  initials?: string;
   online?: boolean;
-  messages: DmThreadMessage[];
+  messages?: DmThreadMessage[];
   onSend?: (body: string) => void;
+  onInfoClick?: () => void;
 }
 
 /** Direct message thread: header + status + action toolbar. */
-export function DmThread({ name = "", initials = "", online = false, messages = [], onSend, className, ...props }: DmThreadProps) {
+export const DmThread = React.forwardRef<HTMLDivElement, DmThreadProps>(function DmThread(
+  {
+    name = "",
+    initials = "",
+    online = false,
+    messages = [],
+    onSend,
+    onInfoClick,
+    className,
+    ...props
+  },
+  ref,
+) {
   const [input, setInput] = React.useState("");
   const scrollRef = React.useRef<HTMLDivElement>(null);
-  const list = messages;
 
   React.useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
-  }, [list.length]);
+  }, [messages.length]);
 
   const send = () => {
     if (!input.trim()) return;
@@ -35,15 +47,23 @@ export function DmThread({ name = "", initials = "", online = false, messages = 
   };
 
   return (
-    <div className={cn("flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-border bg-card", className)} {...props}>
-
+    <div
+      ref={ref}
+      className={cn("flex w-full max-w-md flex-col overflow-hidden rounded-lg border border-border bg-card", className)}
+      {...props}
+    >
       {/* Header */}
       <div className="flex items-center gap-2.5 border-b border-border px-4 py-2.5">
         <span className="relative">
           <span className="flex size-9 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[10px] font-bold">
             {initials}
           </span>
-          {online && <span className="absolute -bottom-0.5 -right-0.5 size-2.5 rounded-full border-2 border-card bg-success" aria-label="Online" />}
+          {online && (
+            <span
+              className="absolute -bottom-0.5 -end-0.5 size-2.5 rounded-full border-2 border-card bg-success"
+              aria-label="Online"
+            />
+          )}
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">{name}</p>
@@ -51,24 +71,40 @@ export function DmThread({ name = "", initials = "", online = false, messages = 
             {online ? "Online" : "Recently active"}
           </p>
         </div>
-        <button type="button" className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none" aria-label="Sohbet bilgileri">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="5" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="12" cy="19" r="1" /></svg>
+        <button
+          type="button"
+          onClick={onInfoClick}
+          className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none"
+          aria-label="Conversation info"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <circle cx="12" cy="5" r="1" />
+            <circle cx="12" cy="12" r="1" />
+            <circle cx="12" cy="19" r="1" />
+          </svg>
         </button>
       </div>
 
-      {/* Mesajlar */}
+      {/* Messages */}
       <div ref={scrollRef} className="max-h-72 flex-1 space-y-2 overflow-y-auto p-4">
-        {list.map((m, idx) => (
+        {messages.map((m, idx) => (
           <div key={m.id} className={cn("flex", m.mine ? "justify-end" : "justify-start")}>
             <div
               className={cn(
-                "max-w-[80%] rounded-lg px-3 py-1.5 text-sm animate-[dmIn_0.25s_ease-out_both] motion-reduce:animate-none",
-                m.mine ? "bg-accent text-accent-foreground" : "bg-secondary"
+                "max-w-[80%] rounded-lg px-3 py-1.5 text-sm animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none",
+                m.mine ? "bg-accent text-accent-foreground" : "bg-secondary",
               )}
               style={{ animationDelay: `${idx * 30}ms` }}
             >
               {m.body}
-              <span className={cn("mt-0.5 block text-right font-mono text-[9px]", m.mine ? "text-accent-foreground/60" : "text-muted-foreground")}>{m.time}</span>
+              <span
+                className={cn(
+                  "mt-0.5 block text-end font-mono text-[9px]",
+                  m.mine ? "text-accent-foreground/70" : "text-muted-foreground",
+                )}
+              >
+                {m.time}
+              </span>
             </div>
           </div>
         ))}
@@ -79,21 +115,29 @@ export function DmThread({ name = "", initials = "", online = false, messages = 
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); send(); } }}
-          placeholder="Mesaj yaz…"
-          aria-label="Mesaj"
-          className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-colors motion-reduce:transition-none"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              send();
+            }
+          }}
+          placeholder="Write a message..."
+          aria-label="Message"
+          className="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         />
         <button
           type="button"
           onClick={send}
           disabled={!input.trim()}
-          className="shrink-0 rounded-md bg-accent px-3 py-1.5 text-accent-foreground transition-all duration-150 hover:bg-accent/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40 motion-reduce:transition-none"
+          className="shrink-0 rounded-md bg-accent px-3 py-1.5 text-accent-foreground transition-colors duration-150 hover:bg-accent/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40 motion-reduce:transition-none"
           aria-label="Send message"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" /></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+          </svg>
         </button>
       </div>
     </div>
   );
-}
+});
+DmThread.displayName = "DmThread";

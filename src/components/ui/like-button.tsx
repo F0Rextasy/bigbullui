@@ -2,41 +2,77 @@
 
 import * as React from "react";
 import { cn } from "./lib/utils";
+import { useControllableState } from "./lib/use-controllable-state";
 
-const LikeButton: React.FC<{ onClick?: () => void; initiallyActive?: boolean }> = ({
-  onClick,
-  initiallyActive = false,
-}) => {
-  const [active, setActive] = React.useState(initiallyActive);
+export interface LikeButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
+  active?: boolean;
+  defaultActive?: boolean;
+  initiallyActive?: boolean;
+  count?: number;
+  onActiveChange?: (active: boolean) => void;
+  onClick?: (active: boolean) => void;
+}
+
+export const LikeButton = React.forwardRef<HTMLButtonElement, LikeButtonProps>(function LikeButton(
+  {
+    active: controlledActive,
+    defaultActive,
+    initiallyActive = false,
+    count,
+    onActiveChange,
+    onClick,
+    className,
+    type = "button",
+    "aria-label": ariaLabel = "Like",
+    ...props
+  },
+  ref,
+) {
+  const [active, setActive] = useControllableState<boolean>({
+    prop: controlledActive,
+    defaultProp: defaultActive ?? initiallyActive,
+    onChange: onActiveChange,
+  });
 
   const handleClick = () => {
-    setActive(true);
-    onClick?.();
-    // Reset after animation
-    const timeout = setTimeout(() => setActive(false), 300);
-    return () => clearTimeout(timeout);
+    const next = !active;
+    setActive(next);
+    onClick?.(next);
   };
 
   return (
     <button
-      type="button"
-      aria-label="Like"
+      ref={ref}
+      type={type}
+      aria-label={ariaLabel}
       aria-pressed={active}
       onClick={handleClick}
       className={cn(
-        "relative inline-flex cursor-pointer items-center justify-center rounded-full border border-border p-2 hover:bg-accent/10 hover:text-accent-strong transition-colors duration-200",
-        active && "bg-accent text-accent-foreground hover:bg-accent hover:text-accent-foreground"
+        "relative inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border border-border px-2.5 py-2 text-foreground transition-colors duration-150 hover:bg-accent/10 hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+        active && "border-accent bg-accent text-accent-foreground hover:bg-accent/90 hover:text-accent-foreground",
+        className,
       )}
+      {...props}
     >
       <svg
-        className={cn("w-5 h-5", active ? "text-accent-foreground" : "text-current")}
+        className={cn(
+          "size-4 transition-transform duration-150 motion-reduce:transition-none",
+          active && "scale-110 motion-reduce:scale-100",
+        )}
         viewBox="0 0 24 24"
         fill={active ? "currentColor" : "none"}
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
       >
-        <path d="M12 21.35l-1.45-1.32c-0.53-0.48-1.28-.41-1.66.09s-.81 1.19.59 1.7l7.19 6.59L12 17.28l-6.66 5.48c-0.52 0.45-1.27.74-2.06.74-.78 0-1.54-.28-2.06-.74L2.16 7.76c-0.77-0.7-1.03-1.81-.55-2.5l7.19-6.59L12 5.24l-6.82 5.46c-0.78 0.63-1.06 1.74-.55 2.5s1.28 1.12 2.06.74l7.19-6.59L12 21.35z" />
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
       </svg>
+      {count !== undefined && (
+        <span className="font-mono text-xs tabular-nums">{count}</span>
+      )}
     </button>
   );
-};
-
-export { LikeButton };
+});
+LikeButton.displayName = "LikeButton";

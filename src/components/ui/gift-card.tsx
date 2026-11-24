@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface GiftCardProps {
+export interface GiftCardProps extends React.HTMLAttributes<HTMLElement> {
   amount: string;
   recipient: string;
   message?: string;
@@ -14,14 +14,14 @@ export function GiftCard({
   amount,
   recipient,
   message = "Happy Birthday!",
-  className,
+  className, ...props
 }: GiftCardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-foreground bg-card text-card-foreground p-6 relative overflow-hidden transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "rounded-lg border border-foreground bg-card text-card-foreground p-6 relative overflow-hidden transition-[transform,opacity,background-color,border-color,color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Amount badge */}
       <div

@@ -9,32 +9,36 @@ import { MetricCard } from "../ui/metric-card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
-const PAGES = [
+const DEFAULT_PAGES = [
   { path: "/events/midnight-cinema", views: "18,204", share: 82 },
   { path: "/events/symphony-brass", views: "12,480", share: 64 },
   { path: "/pricing", views: "9,312", share: 48 },
   { path: "/events/vip-balcony", views: "6,108", share: 32 },
 ];
 
-const REGIONS = [
+const DEFAULT_REGIONS = [
   { region: "NORTH AMERICA", pct: 46 },
   { region: "EUROPE", pct: 31 },
   { region: "ASIA PACIFIC", pct: 15 },
   { region: "REST OF WORLD", pct: 8 },
 ];
 
-export interface AdminAnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminAnalyticsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  pages?: typeof DEFAULT_PAGES;
+  regions?: typeof DEFAULT_REGIONS;
   onAction?: (action: string) => void;
 }
 
-export function AdminAnalytics({ className, onAction, ...props }: AdminAnalyticsProps) {
+export function AdminAnalytics({ title, pages = DEFAULT_PAGES, regions = DEFAULT_REGIONS, className, onAction, ...props }: AdminAnalyticsProps) {
   const [downloaded, setDownloaded] = React.useState(false);
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">BOX OFFICE // ANALYTICS</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Traffic ledger</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Traffic ledger"}</h2>
         </div>
         <Badge variant="accent">7D WINDOW</Badge>
       </div>
@@ -81,7 +85,7 @@ export function AdminAnalytics({ className, onAction, ...props }: AdminAnalytics
                 </TableRow>
               </TableHead>
               <TableBody>
-                {PAGES.map((page) => (
+                {pages.map((page) => (
                   <TableRow key={page.path}>
                     <TableCell className="font-bold">{page.path}</TableCell>
                     <TableCell>{page.views}</TableCell>
@@ -101,7 +105,7 @@ export function AdminAnalytics({ className, onAction, ...props }: AdminAnalytics
             <CardTitle>Traffic by region</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {REGIONS.map((row) => (
+            {regions.map((row) => (
               <div key={row.region} className="space-y-1.5">
                 <div className="flex items-center justify-between font-mono text-xs">
                   <span className="font-bold">{row.region}</span>

@@ -36,7 +36,7 @@ export function EnvEditor({ vars: varsProp, onChange, className, ...props }: Env
       {vars.map((v, idx) => {
         const shown = !v.secret || revealed.has(idx);
         return (
-          <div key={idx} className="flex items-center gap-2 animate-[evIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
+          <div key={idx} className="flex items-center gap-2 animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 40}ms` }}>
             <input
               value={v.key}
               onChange={(e) => update(idx, { key: e.target.value.toUpperCase().replace(/\s+/g, "_") })}

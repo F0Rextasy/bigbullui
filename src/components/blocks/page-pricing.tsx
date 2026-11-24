@@ -6,24 +6,27 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-const TIERS = [
+const DEFAULT_TIERS = [
   { name: "STANDING", monthly: "$9", annual: "$90", blurb: "For side-stage nights.", features: ["1 venue", "Basic scans", "Email support"], hot: false },
   { name: "BOX PRO", monthly: "$29", annual: "$290", blurb: "For nightly box offices.", features: ["5 venues", "Offline scans", "Refund desk", "Priority support"], hot: true },
   { name: "ARENA", monthly: "$99", annual: "$990", blurb: "For multi-gate arenas.", features: ["Unlimited venues", "API + webhooks", "Dedicated line"], hot: false },
 ];
 
-export interface PagePricingProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PagePricingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  tiers?: typeof DEFAULT_TIERS;
   onAction?: (action: string) => void;
 }
 
-export function PagePricing({ className, onAction, ...props }: PagePricingProps) {
+export function PagePricing({ title, tiers = DEFAULT_TIERS, className, onAction, ...props }: PagePricingProps) {
   const [annual, setAnnual] = React.useState(true);
   const [selectedTier, setSelectedTier] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-6 text-center", className)} {...props}>
       <div className="space-y-2">
         <Badge variant="accent" className="mx-auto">TARIFF BOARD</Badge>
-        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Pick your pass</h2>
+        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">{title ?? "Pick your pass"}</h2>
         <p className="text-sm text-muted-foreground">Monthly or annual. Cancel at any intermission.</p>
         <div className="flex justify-center gap-2 pt-1">
           <Button size="sm" variant={annual ? "default" : "outline"} onClick={() => setAnnual(true)}>Annual</Button>
@@ -31,7 +34,7 @@ export function PagePricing({ className, onAction, ...props }: PagePricingProps)
         </div>
       </div>
       <div className="grid gap-4 text-start md:grid-cols-3">
-        {TIERS.map((tier) => (
+        {tiers.map((tier) => (
           <Card key={tier.name} className={tier.hot ? "border-accent" : undefined}>
             <CardHeader>
               <div className="flex items-center justify-between">

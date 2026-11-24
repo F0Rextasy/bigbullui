@@ -130,7 +130,7 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        "relative flex flex-col rounded-xl border-2 border-foreground bg-card shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md overflow-hidden select-none",
+        "relative flex flex-col rounded-xl border-2 border-foreground bg-card shadow-sm transition-[transform,opacity,background-color,border-color,color] duration-200 hover:-translate-y-0.5 hover:shadow-md overflow-hidden select-none",
         className
       )}
       {...props}
@@ -338,7 +338,7 @@ export function MetricCard({
             </div>
             <div className="h-2 w-full rounded-xs border border-dashed border-foreground/30 bg-muted overflow-hidden p-0.5">
               <div
-                className="h-full bg-accent rounded-xs transition-all duration-500"
+                className="h-full bg-accent rounded-xs transition-[width,height,left,right,opacity,background-color,border-color] duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
               />
             </div>

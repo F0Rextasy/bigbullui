@@ -9,23 +9,27 @@ import { LogViewer } from "../ui/log-viewer";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PageHeader } from "../ui/page-header";
 
-const WEBHOOKS = [
+const DEFAULT_WEBHOOKS = [
   { id: "wh-01", url: "https://box.example.com/hooks/stubs", events: ["stub.issued", "stub.scanned"], active: true },
   { id: "wh-02", url: "https://box.example.com/hooks/refunds", events: ["refund.opened"], active: false },
 ];
 
-const LOGS = [
+const DEFAULT_LOGS = [
   { time: "20:41:07", level: "INFO" as const, message: "POST /v1/stubs 201 serial BB-90214" },
   { time: "20:41:09", level: "INFO" as const, message: "webhook stub.issued delivered in 182ms" },
   { time: "20:42:31", level: "WARN" as const, message: "quota at 78 percent for key bb_live_****9j0" },
   { time: "20:44:02", level: "ERROR" as const, message: "webhook refund.opened retry 2 of 5" },
 ];
 
-export interface BlockDevApiKeysProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockDevApiKeysProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  webhooks?: typeof DEFAULT_WEBHOOKS;
+  logs?: typeof DEFAULT_LOGS;
   onAction?: (action: string) => void;
 }
 
-export function BlockDevApiKeys({ className, onAction, ...props }: BlockDevApiKeysProps) {
+export function BlockDevApiKeys({ title, webhooks = DEFAULT_WEBHOOKS, logs = DEFAULT_LOGS, className, onAction, ...props }: BlockDevApiKeysProps) {
   void onAction;
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
@@ -41,10 +45,10 @@ export function BlockDevApiKeys({ className, onAction, ...props }: BlockDevApiKe
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Webhooks</CardTitle>
+            <CardTitle>{title ?? "Webhooks"}</CardTitle>
           </CardHeader>
           <CardContent>
-            <WebhookList webhooks={WEBHOOKS} />
+            <WebhookList webhooks={webhooks} />
           </CardContent>
         </Card>
         <Card>
@@ -52,7 +56,7 @@ export function BlockDevApiKeys({ className, onAction, ...props }: BlockDevApiKe
             <CardTitle>Delivery log</CardTitle>
           </CardHeader>
           <CardContent>
-            <LogViewer entries={LOGS} />
+            <LogViewer entries={logs} />
           </CardContent>
         </Card>
       </div>

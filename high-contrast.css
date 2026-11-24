@@ -11,17 +11,39 @@
     color: CanvasText;
   }
 
-  :where(.border-foreground, .border-border) {
+  :where(.border-foreground, .border-border, .border-input) {
     border-color: CanvasText;
   }
 
-  :where(.bg-primary, .bg-accent, .bg-destructive) {
+  :where(
+    button.bg-primary,
+    button.bg-accent,
+    button.bg-destructive,
+    [role="switch"][aria-checked="true"],
+    [role="checkbox"][aria-checked="true"],
+    [aria-selected="true"]
+  ) {
     background-color: Highlight;
     color: HighlightText;
     border-color: HighlightText;
   }
 
-  :where(.text-foreground, .text-muted-foreground, .text-accent) {
+  :where([role="switch"] > span, .bg-primary-foreground) {
+    background-color: CanvasText;
+    border: 1px solid Canvas;
+  }
+
+  :where([role="radio"] > span, .bg-accent-strong) {
+    background-color: Highlight;
+    border: 1px solid HighlightText;
+  }
+
+  :where([role="slider"], input[type="range"]) {
+    border: 1px solid CanvasText;
+    outline: 1px solid CanvasText;
+  }
+
+  :where(.text-foreground, .text-muted-foreground, .text-accent, .text-accent-strong) {
     color: CanvasText;
   }
 
@@ -32,7 +54,7 @@
 }
 
 @media (prefers-contrast: more) {
-  :where(.border-border) {
+  :where(.border-border, .border-input) {
     border-color: currentColor;
   }
 

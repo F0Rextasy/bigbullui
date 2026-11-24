@@ -8,28 +8,31 @@ import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 
-const FAQS = [
+const DEFAULT_FAQS = [
   { id: "q1", q: "How do refunds work?", a: "Refunds stamp back to the original payment within 5 business days. Partial refunds split by stub." },
   { id: "q2", q: "Can I scan offline?", a: "Yes. The gate ledger caches the night manifest and syncs when the connection returns." },
   { id: "q3", q: "Do you support assigned seating?", a: "Every tier includes seat maps with row letters, holds, and transfer links." },
   { id: "q4", q: "How do payouts land?", a: "Nightly batches settle to your linked account with a stamped invoice attached." },
 ];
 
-export interface PageFaqProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageFaqProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  faqs?: typeof DEFAULT_FAQS;
   onAction?: (action: string) => void;
 }
 
-export function PageFaq({ className, onAction, ...props }: PageFaqProps) {
+export function PageFaq({ title, faqs = DEFAULT_FAQS, className, onAction, ...props }: PageFaqProps) {
   const [query, setQuery] = React.useState("");
   const [ticketOpened, setTicketOpened] = React.useState(false);
-  const filtered = FAQS.filter(
+  const filtered = faqs.filter(
     (faq) => `${faq.q} ${faq.a}`.toLowerCase().includes(query.trim().toLowerCase())
   );
   return (
     <div className={cn("mx-auto w-full max-w-2xl space-y-5", className)} {...props}>
       <div className="space-y-2 text-center">
         <Badge variant="accent" className="mx-auto">HELP DESK</Badge>
-        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Asked at every gate</h2>
+        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">{title ?? "Asked at every gate"}</h2>
         <div className="mx-auto max-w-sm">
           <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search answers..." aria-label="Search answers" />
         </div>

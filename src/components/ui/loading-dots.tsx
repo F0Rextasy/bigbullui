@@ -6,7 +6,7 @@ import { cn } from "./lib/utils";
 export type LoadingDotsProps = {
   size?: "sm" | "md" | "lg";
   tone?: "default" | "accent" | "destructive";
-};
+} & React.HTMLAttributes<HTMLElement>;
 
 function getSizeClass(size: LoadingDotsProps["size"]): string {
   switch (size) {
@@ -30,12 +30,12 @@ function getToneClass(tone: LoadingDotsProps["tone"]): string {
   }
 }
 
-export function LoadingDots({ size = "md", tone = "default" }: LoadingDotsProps) {
+export function LoadingDots({ size = "md", tone = "default", ...props }: LoadingDotsProps) {
   const sizeClass = getSizeClass(size);
   const toneClass = getToneClass(tone);
 
   return (
-    <div className={cn("flex items-center gap-2", "motion-reduce:animate-none")}>
+    <div className={cn("flex items-center gap-2", "motion-reduce:animate-none")} {...props}>
       {[0, 1, 2].map((i) => (
         <div
           key={i}

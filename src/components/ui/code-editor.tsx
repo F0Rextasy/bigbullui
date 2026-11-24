@@ -48,9 +48,9 @@ export function CodeEditor({ value, defaultValue = "", onValueChange, language =
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{language}</span>
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{lineCount} lines</span>
       </div>
-      <div className="relative flex max-h-72 overflow-hidden animate-[ceIn_0.3s_ease-out] motion-reduce:animate-none">
+      <div className="relative flex max-h-72 overflow-hidden animate-[fade-in_0.3s_ease-out] motion-reduce:animate-none">
         {/* Gutter */}
-        <div ref={gutterRef} className="select-none overflow-hidden border-r border-border/50 bg-secondary/30 px-2 py-3 text-right font-mono text-xs leading-5 text-muted-foreground/60" aria-hidden="true">
+        <div ref={gutterRef} className="select-none overflow-hidden border-e border-border/50 bg-secondary/30 px-2 py-3 text-end font-mono text-xs leading-5 text-muted-foreground/60" aria-hidden="true">
           {Array.from({ length: lineCount }).map((_, i) => (
             <div key={i}>{i + 1}</div>
           ))}

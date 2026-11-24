@@ -3,18 +3,18 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface AirmailLetterProps {
+export interface AirmailLetterProps extends React.HTMLAttributes<HTMLElement> {
   lines: string[];
   className?: string;
 }
 
-export function AirmailLetter({ lines = [], className }: AirmailLetterProps) {
+export function AirmailLetter({ lines = [], className, ...props }: AirmailLetterProps) {
   return (
     <div
       className={cn(
         "relative rounded-lg border border-border bg-card p-6 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
 
       <div

@@ -59,8 +59,13 @@ function main() {
 
   const dest = path.resolve(process.cwd(), name);
   if (fs.existsSync(dest)) {
+    const stat = fs.statSync(dest);
+    if (!stat.isDirectory()) {
+      console.error(`Error: "${name}" already exists and is not a directory.`);
+      process.exit(1);
+    }
     const entries = fs.readdirSync(dest).filter((e) => e !== ".git");
-    if (name !== "." || entries.length > 0) {
+    if (entries.length > 0) {
       console.error(`Error: directory "${name}" already exists and is not empty.`);
       process.exit(1);
     }

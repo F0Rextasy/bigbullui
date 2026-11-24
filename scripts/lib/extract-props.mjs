@@ -63,22 +63,43 @@ function extractDefaultsFromObjectPattern(pattern, sourceFile, defaults) {
   }
 }
 
-function collectParamDefaults(sourceFile) {
+function extractDefaultsFromFn(fnNode, sourceFile) {
   const defaults = new Map();
+  if (fnNode && fnNode.parameters && fnNode.parameters.length > 0) {
+    const first = fnNode.parameters[0];
+    if (ts.isObjectBindingPattern(first.name)) {
+      extractDefaultsFromObjectPattern(first.name, sourceFile, defaults);
+    }
+  }
+  return defaults;
+}
+
+function collectParamDefaultsByComponent(sourceFile) {
+  const byComponent = new Map();
+  const register = (compName, fnNode) => {
+    if (!compName || !fnNode) return;
+    const defs = extractDefaultsFromFn(fnNode, sourceFile);
+    if (defs.size > 0) byComponent.set(compName, defs);
+  };
+
   function visit(node) {
-    if (
-      (ts.isFunctionDeclaration(node) || ts.isFunctionExpression(node) || ts.isArrowFunction(node)) &&
-      node.parameters.length > 0
-    ) {
-      const first = node.parameters[0];
-      if (ts.isObjectBindingPattern(first.name)) {
-        extractDefaultsFromObjectPattern(first.name, sourceFile, defaults);
+    if (ts.isFunctionDeclaration(node) && node.name) {
+      register(node.name.text, node);
+    } else if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) {
+      let init = node.initializer;
+      if (ts.isFunctionExpression(init) || ts.isArrowFunction(init)) {
+        register(node.name.text, init);
+      } else if (ts.isCallExpression(init) && init.arguments.length > 0) {
+        const inner = init.arguments[0];
+        if (ts.isFunctionExpression(inner) || ts.isArrowFunction(inner)) {
+          register(node.name.text, inner);
+        }
       }
     }
     ts.forEachChild(node, visit);
   }
   visit(sourceFile);
-  return defaults;
+  return byComponent;
 }
 
 function membersFromTypeNode(typeNode, sourceFile, defaults) {
@@ -113,7 +134,12 @@ export function extractComponentProps(filePath) {
   const code = fs.readFileSync(filePath, "utf8");
   const slug = path.basename(filePath, path.extname(filePath));
   const sourceFile = ts.createSourceFile(filePath, code, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  const defaults = collectParamDefaults(sourceFile);
+  const byComponent = collectParamDefaultsByComponent(sourceFile);
+  const EMPTY = new Map();
+  const defaultsFor = (propsName) => {
+    const compName = propsName.replace(/Props$/, "");
+    return byComponent.get(compName) ?? EMPTY;
+  };
 
   const exportedPropsGroups = [];
   for (const stmt of sourceFile.statements) {
@@ -121,6 +147,7 @@ export function extractComponentProps(filePath) {
     if (!isExported) continue;
 
     if (ts.isInterfaceDeclaration(stmt) && /Props$/.test(stmt.name.text)) {
+      const compDefaults = defaultsFor(stmt.name.text);
       const items = [];
       for (const member of stmt.members) {
         if (!ts.isPropertySignature(member) || !member.name) continue;
@@ -134,12 +161,13 @@ export function extractComponentProps(filePath) {
           type,
           optional: Boolean(member.questionToken),
           description,
-          defaultValue: defaults.get(name) ?? "",
+          defaultValue: compDefaults.get(name) ?? "",
         });
       }
       exportedPropsGroups.push({ interfaceName: stmt.name.text, props: items });
     } else if (ts.isTypeAliasDeclaration(stmt) && /Props$/.test(stmt.name.text)) {
-      const items = membersFromTypeNode(stmt.type, sourceFile, defaults);
+      const compDefaults = defaultsFor(stmt.name.text);
+      const items = membersFromTypeNode(stmt.type, sourceFile, compDefaults);
       exportedPropsGroups.push({ interfaceName: stmt.name.text, props: items });
     }
   }

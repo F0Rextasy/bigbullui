@@ -1,8 +1,14 @@
+import Link from "next/link";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import sizes from "@/data/sizes.json";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Bundle benchmarks" };
+export const metadata = buildMetadata({
+  title: "Bundle benchmarks",
+  description: "esbuild minified + gzip bundle sizes for every bigbullui component.",
+  path: "/benchmarks",
+});
 
 type Entry = { raw: number; gzip: number; kb: number };
 const table = sizes as { updated: string; sizes: Record<string, Entry> };
@@ -13,7 +19,7 @@ export default function BenchmarksPage() {
     .sort((a, b) => b.gzip - a.gzip);
   const totalGzip = rows.reduce((a, r) => a + r.gzip, 0);
   const totalRaw = rows.reduce((a, r) => a + r.raw, 0);
-  const median = rows[Math.floor(rows.length / 2)].gzip;
+  const median = rows.length > 0 ? rows[Math.floor(rows.length / 2)].gzip : 0;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -34,18 +40,18 @@ export default function BenchmarksPage() {
         <h2 className="mt-8 font-mono text-sm font-black uppercase">Heaviest 25 (gzip)</h2>
         <table className="mt-2 w-full border-collapse font-mono text-xs">
           <thead>
-            <tr className="border-b-2 border-foreground text-left uppercase">
-              <th className="py-2 pr-4">Component</th>
-              <th className="py-2 pr-4 text-right">Gzip</th>
-              <th className="py-2 text-right">Raw</th>
+            <tr className="border-b-2 border-foreground text-start uppercase">
+              <th className="py-2 pe-4">Component</th>
+              <th className="py-2 pe-4 text-end">Gzip</th>
+              <th className="py-2 text-end">Raw</th>
             </tr>
           </thead>
           <tbody>
             {rows.slice(0, 25).map((r) => (
               <tr key={r.name} className="border-b border-dashed border-border">
-                <td className="py-1.5 pr-4"><a className="hover:underline" href={`/docs/${r.name}`}>{r.name}</a></td>
-                <td className="py-1.5 pr-4 text-right tabular-nums">{r.gzip.toFixed(1)}kb</td>
-                <td className="py-1.5 text-right tabular-nums text-muted-foreground">{r.raw.toFixed(1)}kb</td>
+                <td className="py-1.5 pe-4"><Link className="hover:underline" href={`/docs/${r.name}`}>{r.name}</Link></td>
+                <td className="py-1.5 pe-4 text-end tabular-nums">{r.gzip.toFixed(1)}kb</td>
+                <td className="py-1.5 text-end tabular-nums text-muted-foreground">{r.raw.toFixed(1)}kb</td>
               </tr>
             ))}
           </tbody>

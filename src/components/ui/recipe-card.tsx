@@ -58,7 +58,7 @@ export function RecipeCard({ title = "", minutes = 0, servings = 0, ingredients 
         {tab === "ingredients" ? (
           <ul className="space-y-1.5">
             {ingredients.map((ing, i) => (
-              <li key={ing.id} className="flex items-center justify-between gap-3 text-sm animate-[rcIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${i * 40}ms` }}>
+              <li key={ing.id} className="flex items-center justify-between gap-3 text-sm animate-[walletCardIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${i * 40}ms` }}>
                 <span className="truncate">{ing.name}</span>
                 <span className="shrink-0 font-mono text-xs tabular-nums text-muted-foreground">{ing.amount}</span>
               </li>
@@ -67,7 +67,7 @@ export function RecipeCard({ title = "", minutes = 0, servings = 0, ingredients 
         ) : (
           <ol className="space-y-2.5">
             {steps.map((step, i) => (
-              <li key={i} className="flex gap-2.5 text-sm animate-[rcIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${i * 50}ms` }}>
+              <li key={i} className="flex gap-2.5 text-sm animate-[walletCardIn_0.25s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${i * 50}ms` }}>
                 <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-dashed border-accent/60 font-mono text-[9px] font-bold text-accent">{i + 1}</span>
                 <span className="leading-snug">{step}</span>
               </li>

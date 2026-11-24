@@ -37,15 +37,19 @@ jobs:
       - name: Audit production dependencies
         run: npm audit --omit=dev
 
-      - name: Generate derived data (prebuild)
-        run: npm run prebuild
-
-      - name: Verify checked-in generators (--check)
+      - name: Verify checked-in generators (--check before prebuild)
         run: |
           node scripts/generate-registry-json.mjs --check
           node scripts/generate-docs-json.mjs --check
           node scripts/generate-readme.mjs --check
           node scripts/generate-icon-components.mjs --check
+          node scripts/sync-icons.mjs --check
+          node scripts/generate-llms-full.mjs --check
+
+      - name: Generate derived data (prebuild) and verify zero drift
+        run: |
+          npm run prebuild
+          git diff --exit-code src/ public/ README.md packages/icons/src/
 
       - name: Build library (tsup)
         run: npm run build:lib
@@ -66,6 +70,7 @@ jobs:
         run: |
           npx --no-install publint --strict
           npx --no-install publint --strict packages/icons
+          npx --no-install publint --strict packages/create-app
 
       - name: Type resolution check (attw)
         # node16 profile: engines field is >=20; node10 simulation false-positives

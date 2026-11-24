@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Contributing" };
+export const metadata = buildMetadata({
+  title: "Contributing",
+  description: "How to contribute zero-dependency React components, accessibility fixes, and docs to bigbullui.",
+  path: "/docs/contributing",
+});
 
 const steps = [
   {

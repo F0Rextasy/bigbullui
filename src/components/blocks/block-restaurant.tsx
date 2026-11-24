@@ -7,8 +7,8 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 
-const SLOTS = ["18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"];
-const TABLES = [
+const DEFAULT_SLOTS = ["18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00"];
+const DEFAULT_TABLES = [
   { id: "W1", seats: 2, area: "Window" },
   { id: "W2", seats: 2, area: "Window" },
   { id: "C1", seats: 4, area: "Center" },
@@ -18,18 +18,22 @@ const TABLES = [
 ];
 
 /** Restaurant reservation: date + slot + party size + table pick + ticket. */
-export interface BlockRestaurantProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockRestaurantProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  slots?: typeof DEFAULT_SLOTS;
+  tables?: typeof DEFAULT_TABLES;
   onAction?: (action: string) => void;
 }
 
-export function BlockRestaurant({ className, onAction, ...props }: BlockRestaurantProps) {
+export function BlockRestaurant({ title, slots = DEFAULT_SLOTS, tables = DEFAULT_TABLES, className, onAction, ...props }: BlockRestaurantProps) {
   const [date, setDate] = React.useState("");
-  const [slot, setSlot] = React.useState(SLOTS[2]);
+  const [slot, setSlot] = React.useState(slots[2]);
   const [party, setParty] = React.useState(2);
   const [table, setTable] = React.useState("C1");
   const [booked, setBooked] = React.useState(false);
 
-  const fitting = TABLES.filter((t) => t.seats >= party);
+  const fitting = tables.filter((t) => t.seats >= party);
   const active = fitting.some((t) => t.id === table) ? table : (fitting[0]?.id ?? "");
 
   if (booked) {
@@ -54,7 +58,7 @@ export function BlockRestaurant({ className, onAction, ...props }: BlockRestaura
     <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-mono text-xl font-black uppercase tracking-tight">Reserve a table</h2>
+          <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "Reserve a table"}</h2>
           <Badge>Bistro stub</Badge>
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
@@ -73,7 +77,7 @@ export function BlockRestaurant({ className, onAction, ...props }: BlockRestaura
           <div>
             <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Time</span>
             <div className="flex flex-wrap gap-1.5" role="group" aria-label="Time slots">
-              {SLOTS.map((s) => (
+              {slots.map((s) => (
                 <button
                   key={s}
                   type="button"
@@ -90,7 +94,7 @@ export function BlockRestaurant({ className, onAction, ...props }: BlockRestaura
         <div>
           <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Table · fits {party}</span>
           <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-6" role="group" aria-label="Tables">
-            {TABLES.map((t) => {
+            {tables.map((t) => {
               const fits = t.seats >= party;
               const on = active === t.id;
               return (

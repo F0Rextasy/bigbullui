@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface LogoCloudProps {
+export interface LogoCloudProps extends React.HTMLAttributes<HTMLElement> {
   logos?: string[];
   scrolling?: boolean;
   className?: string;
@@ -10,7 +10,7 @@ export interface LogoCloudProps {
 export function LogoCloud({
   logos = [],
   scrolling = false,
-  className,
+  className, ...props
 }: LogoCloudProps) {
   const logoCount = logos.length || 6; // default set of placeholder logos
   const logoItems = Array.from({ length: logoCount }, (_, i) => `
@@ -22,7 +22,7 @@ export function LogoCloud({
       className={cn(
         "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       {logoItems.map((logoText, i) => (
         <div

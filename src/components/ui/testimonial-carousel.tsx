@@ -48,7 +48,7 @@ export function TestimonialCarousel({
               aria-selected={i === idx % quotes.length}
               aria-label={`Quote ${i + 1}`}
               onClick={() => setIdx(i)}
-              className={cn("h-1.5 rounded-full transition-all motion-reduce:transition-none", i === idx % quotes.length ? "w-5 bg-accent" : "w-1.5 bg-border hover:bg-foreground/40")}
+              className={cn("h-1.5 rounded-full transition-[width,height,left,right,opacity,background-color,border-color] motion-reduce:transition-none", i === idx % quotes.length ? "w-5 bg-accent" : "w-1.5 bg-border hover:bg-foreground/40")}
             />
           ))}
         </span>

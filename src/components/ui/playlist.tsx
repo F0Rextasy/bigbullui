@@ -38,7 +38,7 @@ export function Playlist({
       {tracks.map((track, idx) => {
         const isActive = track.id === activeId;
         const rowClass = cn(
-          "relative flex w-full cursor-pointer items-center justify-between px-3 py-2 rounded-md text-left transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "relative flex w-full cursor-pointer items-center justify-between px-3 py-2 rounded-md text-start transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isActive && "bg-primary/10 border border-primary/20",
           "motion-reduce:transition-none"
         );

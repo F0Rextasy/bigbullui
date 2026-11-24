@@ -346,7 +346,7 @@ export function AudioWaveform({
                   <div
                     style={{ height: `${height}%` }}
                     className={cn(
-                      "w-full rounded-xs transition-all duration-75",
+                      "w-full rounded-xs transition-[width,height,left,right,opacity,background-color,border-color] duration-75",
                       isPlayed
                         ? isCurrent
                           ? "bg-foreground shadow-[0_0_6px_currentColor]"
@@ -544,7 +544,7 @@ export function AudioWaveform({
 
         {/* Dashed Perforation Line */}
         <div
-          className="h-0 w-full lg:w-0 lg:h-full border-t-2 lg:border-t-0 lg:border-l-2 border-dashed border-border"
+          className="h-0 w-full lg:w-0 lg:h-full border-t-2 lg:border-t-0 lg:border-s-2 border-dashed border-border"
           aria-hidden="true"
         />
 

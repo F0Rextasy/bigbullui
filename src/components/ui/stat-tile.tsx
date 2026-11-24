@@ -17,13 +17,13 @@ export function StatTile({ label = "", value = "", delta, spark, className, ...p
     <TiltCard maxTilt={4} glare={false} className={cn("p-4", className)} {...props}>
       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{label}</p>
       <div className="mt-1.5 flex items-end justify-between gap-2">
-        <span className="font-mono text-2xl font-bold tabular-nums animate-[statRise_0.4s_ease-out_both] motion-reduce:animate-none">{value}</span>
+        <span className="font-mono text-2xl font-bold tabular-nums animate-[walletCardIn_0.4s_ease-out_both] motion-reduce:animate-none">{value}</span>
         {spark && (
           <span className="flex h-6 items-end gap-0.5" aria-hidden="true">
             {spark.map((v, i) => (
               <span
                 key={i}
-                className="w-1 rounded-t-sm bg-accent/70 transition-all duration-300 motion-reduce:transition-none"
+                className="w-1 rounded-t-sm bg-accent/70 transition-[width,height,left,right,opacity,background-color,border-color] duration-300 motion-reduce:transition-none"
                 style={{ height: `${Math.max(10, v)}%`, animationDelay: `${i * 40}ms` }}
               />
             ))}

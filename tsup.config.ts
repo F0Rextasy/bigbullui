@@ -43,17 +43,28 @@ function rewriteEsmRelativeSpecifiers(src: string, filePath: string): string {
   );
 }
 
+function sourceUsesClient(filePath: string): boolean {
+  const distDir = path.join(__dirname, "dist");
+  const rel = path.relative(distDir, filePath).replace(/\\/g, "/");
+  const baseNoExt = rel.replace(/\.(?:mjs|js)$/, "");
+  const candidates = [
+    path.join(__dirname, "src", `${baseNoExt}.tsx`),
+    path.join(__dirname, "src", `${baseNoExt}.ts`),
+  ];
+  for (const cand of candidates) {
+    if (fs.existsSync(cand)) {
+      const head = fs.readFileSync(cand, "utf8").trimStart();
+      return head.startsWith('"use client"') || head.startsWith("'use client'");
+    }
+  }
+  return false;
+}
+
 function normalizeDistDirectives() {
   const distDir = path.join(__dirname, "dist");
   if (!fs.existsSync(distDir)) return;
 
   const files = collectDistFiles(distDir);
-  const pureFiles = new Set<string>([
-    path.join(distDir, "index.mjs"),
-    path.join(distDir, "index.js"),
-    path.join(distDir, "components", "ui", "lib", "utils.mjs"),
-    path.join(distDir, "components", "ui", "lib", "utils.js"),
-  ]);
 
   for (const filePath of files) {
     const raw = fs.readFileSync(filePath, "utf8");
@@ -68,7 +79,7 @@ function normalizeDistDirectives() {
       body = rewriteEsmRelativeSpecifiers(body, filePath);
     }
 
-    const next = pureFiles.has(filePath) ? body : `"use client";\n${body}`;
+    const next = sourceUsesClient(filePath) ? `"use client";\n${body}` : body;
     if (next !== raw) fs.writeFileSync(filePath, next, "utf8");
   }
 }
@@ -80,6 +91,12 @@ export default defineConfig({
     "src/components/ui/lib/hooks.ts",
     "src/components/ui/lib/focus-trap.ts",
     "src/components/ui/lib/use-ticket-audio.ts",
+    "src/components/ui/lib/react-compat.ts",
+    "src/components/ui/lib/use-controllable-state.ts",
+    "src/components/ui/lib/slot.ts",
+    "src/components/ui/lib/floating.ts",
+    "src/components/ui/lib/presence.ts",
+    "src/components/ui/lib/direction.ts",
     ...uiFiles,
   ],
   format: ["cjs", "esm"],

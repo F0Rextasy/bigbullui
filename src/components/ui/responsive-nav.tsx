@@ -60,7 +60,7 @@ export function ResponsiveNav({ brand = "bigbullui", items = [], activeId, break
       </div>
 
       {open && (
-        <ul className={cn("space-y-1 border-t border-dashed border-border px-4 py-3 animate-[rnvDrop_0.25s_ease-out_both] motion-reduce:animate-none", bpPanel)}>
+        <ul className={cn("space-y-1 border-t border-dashed border-border px-4 py-3 animate-[receiptFeed2_0.25s_ease-out_both] motion-reduce:animate-none", bpPanel)}>
           {items.map((item, idx) => (
             <li key={item.id} style={{ animationDelay: `${idx * 50}ms` }}>
               <a

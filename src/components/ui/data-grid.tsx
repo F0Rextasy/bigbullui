@@ -49,7 +49,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns = [], rows
     <div className={cn("w-full overflow-hidden rounded-lg border border-border", className)} {...props}>
       <div className="max-h-80 overflow-auto">
         <table className="w-full min-w-max text-sm">
-          <thead className="sticky top-0 z-10 bg-secondary/95 backdrop-blur-sm">
+          <thead className="sticky top-0 z-10 bg-secondary/95">
             <tr className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
               {columns.map((col) => (
                 <th key={col.key} className="border-b border-border px-3 py-2.5 text-start font-medium">
@@ -74,7 +74,7 @@ export function DataGrid<T extends Record<string, unknown>>({ columns = [], rows
             {slice.map((row, idx) => (
               <tr
                 key={rowKey ? rowKey(row) : idx}
-                className="border-b border-border/40 last:border-0 transition-colors hover:bg-secondary/40 motion-reduce:transition-none animate-[dgIn_0.25s_ease-out_both] motion-reduce:animate-none"
+                className="border-b border-border/40 last:border-0 transition-colors hover:bg-secondary/40 motion-reduce:transition-none animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none"
                 style={{ animationDelay: `${idx * 40}ms` }}
               >
                 {columns.map((col) => (

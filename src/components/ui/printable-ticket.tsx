@@ -52,7 +52,7 @@ export function PrintableTicket({
               </span>
             </div>
           </div>
-          <div className="flex w-28 shrink-0 flex-col items-center justify-center gap-1 border-l-2 border-dashed border-border px-2 py-3">
+          <div className="flex w-28 shrink-0 flex-col items-center justify-center gap-1 border-s-2 border-dashed border-border px-2 py-3">
             <div className="flex items-end gap-0.5" aria-hidden="true">
               {[10, 18, 8, 22, 12, 20, 9, 16, 11, 19].map((h, i) => (
                 <span key={i} className="w-1 bg-foreground print:bg-black" style={{ height: h }} />

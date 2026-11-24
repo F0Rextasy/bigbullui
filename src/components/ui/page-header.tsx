@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface PageHeaderProps {
+export interface PageHeaderProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   title: string;
   description?: string;
   actions?: React.ReactNode;
@@ -14,7 +14,7 @@ export function PageHeader({
   description,
   actions,
   eyebrow,
-  className,
+  className, ...props
 }: PageHeaderProps) {
   const titleClasses = "font-mono text-[15px] font-bold uppercase tracking-[0.1em]";
   const descClasses = "mt-1 text-sm text-muted-foreground";
@@ -25,7 +25,7 @@ export function PageHeader({
         "flex flex-col sm:flex-row gap-4 mb-6",
         "motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       <div className="flex-1">
         {eyebrow && (

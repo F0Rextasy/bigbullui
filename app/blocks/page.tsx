@@ -1,8 +1,13 @@
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { BlocksExplorer, type BlockSection } from "@/components/site/blocks-explorer";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Blocks" };
+export const metadata = buildMetadata({
+  title: "Blocks",
+  description: "75 ready-to-paste page blocks built from zero-dependency bigbullui components: dashboards, auth flows, storefronts, and landing sections.",
+  path: "/blocks",
+});
 
 const SECTIONS: BlockSection[] = [
   {

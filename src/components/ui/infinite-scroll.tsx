@@ -8,9 +8,9 @@ export type InfiniteScrollProps = {
   hasMore: boolean;
   loader?: React.ReactNode;
   children?: React.ReactNode;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function InfiniteScroll({ onLoadMore, hasMore, loader, children }: InfiniteScrollProps) {
+export function InfiniteScroll({ onLoadMore, hasMore, loader, children, ...props }: InfiniteScrollProps) {
 
   const sentinelRef = React.useRef<HTMLDivElement>(null);
 
@@ -32,7 +32,7 @@ export function InfiniteScroll({ onLoadMore, hasMore, loader, children }: Infini
   }, [onLoadMore]);
 
   return (
-    <div className="relative">
+    <div className="relative" {...props}>
       {children}
       {hasMore && (
         <div

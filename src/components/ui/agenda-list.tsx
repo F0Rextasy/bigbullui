@@ -16,7 +16,7 @@ export function AgendaList({ items = [{ time: "09:00", title: "Doors open", meta
       {items.map((item) => {
         const isDone = done.includes(item.title);
         return (
-          <li key={item.title} className="relative border-l-2 border-dashed border-border ps-4 pb-3 last:pb-0">
+          <li key={item.title} className="relative border-s-2 border-dashed border-border ps-4 pb-3 last:pb-0">
             <span className={cn("absolute -left-[5px] top-1 size-2 rounded-full border", isDone ? "border-accent bg-accent" : "border-border bg-background")} aria-hidden="true" />
             <button
               type="button"

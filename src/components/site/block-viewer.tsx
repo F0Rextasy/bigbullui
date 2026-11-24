@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useTheme } from "@/components/theme-provider";
 import { CodeBox } from "@/components/site/code-box";
+import { PreviewErrorBoundary } from "@/components/site/preview-error-boundary";
 import { cn } from "@/components/ui/lib/utils";
 import { slugTitle } from "@/lib/site-meta";
 
@@ -118,6 +119,14 @@ export function BlockViewer({ slug, title, code, uiDeps, children }: BlockViewer
               >
                 {previewTheme === "auto" ? `Auto ${isDark ? "Night" : "Paper"}` : isDark ? "Night" : "Paper"}
               </button>
+              <a
+                href={`/preview/block/${slug}`}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded border border-border bg-card px-2 py-0.5 font-mono text-[11px] uppercase text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+              >
+                Open ↗
+              </a>
             </>
           ) : (
             <span className="font-mono text-[11px] text-muted-foreground">
@@ -134,15 +143,30 @@ export function BlockViewer({ slug, title, code, uiDeps, children }: BlockViewer
           aria-labelledby={`${baseId}-tab-preview`}
           className={cn(
             "overflow-x-auto rounded-lg border border-border p-4 transition-colors sm:p-6",
-            isDark ? "dark bg-background text-foreground" : "light bg-card text-foreground"
+            previewTheme === "auto"
+              ? "bg-card text-foreground dark:bg-background"
+              : isDark
+                ? "dark bg-background text-foreground"
+                : "light bg-card text-foreground"
           )}
         >
-          <div
-            className="mx-auto w-full transition-all duration-300 motion-reduce:transition-none"
-            style={{ maxWidth: viewportWidth }}
-          >
-            {children}
-          </div>
+          {viewport !== "desktop" ? (
+            <iframe
+              src={`/preview/block/${slug}`}
+              title={`${title} ${viewport} isolated preview`}
+              style={{ width: viewportWidth, maxWidth: "100%" }}
+              className="mx-auto block h-[520px] rounded-md border-2 border-dashed border-border bg-background"
+            />
+          ) : (
+            <div
+              className="mx-auto w-full transition-[max-width] duration-300 motion-reduce:transition-none"
+              style={{ maxWidth: viewportWidth }}
+            >
+              <PreviewErrorBoundary resetKey={slug}>
+                {children}
+              </PreviewErrorBoundary>
+            </div>
+          )}
         </div>
       ) : (
         <div

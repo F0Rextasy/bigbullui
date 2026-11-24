@@ -9,16 +9,19 @@ import { StampSeal } from "../ui/stamp-seal";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PageHeader } from "../ui/page-header";
 
-const SEALS = [
+const DEFAULT_SEALS = [
   { text: "VERIFIED", subtext: "BOX OFFICE", tone: "accent" as const },
   { text: "FOUNDER", subtext: "SINCE 2019", tone: "primary" as const },
 ];
 
-export interface BlockUserProfileDossierProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockUserProfileDossierProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  seals?: typeof DEFAULT_SEALS;
   onAction?: (action: string) => void;
 }
 
-export function BlockUserProfileDossier({ className, onAction, ...props }: BlockUserProfileDossierProps) {
+export function BlockUserProfileDossier({ title, seals = DEFAULT_SEALS, className, onAction, ...props }: BlockUserProfileDossierProps) {
   void onAction;
   return (
     <div className={cn("w-full space-y-6", className)} {...props}>
@@ -29,7 +32,7 @@ export function BlockUserProfileDossier({ className, onAction, ...props }: Block
       />
       <Card className="overflow-hidden">
         <CardHeader>
-          <CardTitle>ADMIT HOLDER FILE</CardTitle>
+          <CardTitle>{title ?? "ADMIT HOLDER FILE"}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap items-start gap-5">
@@ -45,7 +48,7 @@ export function BlockUserProfileDossier({ className, onAction, ...props }: Block
               </div>
             </div>
             <div className="flex gap-3">
-              {SEALS.map((seal) => (
+              {seals.map((seal) => (
                 <StampSeal key={seal.text} text={seal.text} subtext={seal.subtext} tone={seal.tone} />
               ))}
             </div>

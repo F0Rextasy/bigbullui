@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 
-const LINKS = [
+const DEFAULT_LINKS = [
   { id: "b1", title: "Scanner calibration manual", host: "DOCS.BIGBULL.APP", tag: "OPS" },
   { id: "b2", title: "VIP seating chart v4", host: "FILES.BIGBULL.APP", tag: "VIP" },
   { id: "b3", title: "Encore weekend poster", host: "PRESS.BIGBULL.APP", tag: "HYPE" },
@@ -16,14 +16,17 @@ const LINKS = [
   { id: "b6", title: "Radio spot script", host: "PRESS.BIGBULL.APP", tag: "HYPE" },
 ];
 
-export interface AppBookmarksProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppBookmarksProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  links?: typeof DEFAULT_LINKS;
   onAction?: (action: string) => void;
 }
 
-export function AppBookmarks({ className, onAction, ...props }: AppBookmarksProps) {
+export function AppBookmarks({ title, links = DEFAULT_LINKS, className, onAction, ...props }: AppBookmarksProps) {
   const [query, setQuery] = React.useState("");
   const [opened, setOpened] = React.useState<string | null>(null);
-  const visible = LINKS.filter((link) =>
+  const visible = links.filter((link) =>
     `${link.title} ${link.host} ${link.tag}`.toLowerCase().includes(query.trim().toLowerCase())
   );
   return (
@@ -31,7 +34,7 @@ export function AppBookmarks({ className, onAction, ...props }: AppBookmarksProp
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">WALL // BOOKMARKS</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Saved links</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Saved links"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {opened && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{opened}</span>}

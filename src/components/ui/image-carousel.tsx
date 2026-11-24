@@ -61,7 +61,7 @@ export function ImageCarousel({ images = [], autoPlay, interval = 4000, classNam
             key={img.id}
             onClick={() => setIndex(i)}
             aria-label={`Go to slide ${i + 1}`}
-            className={cn("rounded-full transition-all duration-200 motion-reduce:transition-none", i === index ? "h-1.5 w-4 bg-white" : "size-1.5 bg-white/50 hover:bg-white/80")}
+            className={cn("rounded-full transition-[width,height,left,right,opacity,background-color,border-color] duration-200 motion-reduce:transition-none", i === index ? "h-1.5 w-4 bg-white" : "size-1.5 bg-white/50 hover:bg-white/80")}
           />
         ))}
       </div>

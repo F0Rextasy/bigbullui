@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface YearPickerProps {
+export interface YearPickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: number;
   defaultValue?: number;
   onValueChange?: (value: number) => void;
@@ -26,7 +26,7 @@ export function YearPicker({
   onValueChange,
   from,
   to,
-  className,
+  className, ...props
 }: YearPickerProps) {
   const [baseYear, setBaseYear] = React.useState(2026);
   React.useEffect(() => {
@@ -66,7 +66,7 @@ export function YearPicker({
       className={cn(
         "relative rounded-md border border-border bg-card p-4 font-mono",
         className,
-      )}
+      )} {...props}
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">

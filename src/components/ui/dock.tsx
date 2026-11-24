@@ -110,7 +110,7 @@ export function Dock({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className={cn(
-          "relative inline-flex items-center gap-2 rounded-xl border-2 border-foreground bg-card/90 p-2 shadow-2xl backdrop-blur-md select-none transition-all duration-200",
+          "relative inline-flex items-center gap-2 rounded-xl border-2 border-foreground bg-card/90 p-2 shadow-2xl select-none transition-colors duration-200",
           orientation === "horizontal"
             ? "flex-row h-16 px-4"
             : "flex-col w-16 py-4",
@@ -258,7 +258,7 @@ export function DockItem({
   const content = (
     <div
       className={cn(
-        "relative flex items-center justify-center rounded-lg border-2 transition-all duration-100 ease-out",
+        "relative flex items-center justify-center rounded-lg border-2 transition-colors duration-100 ease-out",
         active
           ? "border-foreground bg-primary text-primary-foreground shadow-md"
           : "border-border bg-secondary/80 text-foreground hover:border-foreground/80 hover:bg-secondary shadow-xs",
@@ -302,7 +302,7 @@ export function DockItem({
       {label && isHovered && (
         <div
           className={cn(
-            "pointer-events-none absolute z-50 flex items-center gap-1.5 whitespace-nowrap rounded-xs border-2 border-dashed border-border bg-card/95 px-2 py-0.5 text-foreground shadow-xl backdrop-blur-xs transition-opacity duration-150 motion-safe:animate-fade-in-up",
+            "pointer-events-none absolute z-50 flex items-center gap-1.5 whitespace-nowrap rounded-xs border-2 border-dashed border-border bg-card/95 px-2 py-0.5 text-foreground shadow-xl transition-opacity duration-150 motion-safe:animate-fade-in-up",
             direction === "bottom" && "-top-9",
             direction === "top" && "-bottom-9",
             direction === "left" && "-right-24",
@@ -371,7 +371,7 @@ export function DockItem({
       {/* Active Indicator Dot */}
       <div
         className={cn(
-          "flex items-center justify-center transition-all duration-200",
+          "flex items-center justify-center transition-colors duration-200",
           orientation === "horizontal" ? "h-2 w-full pt-1" : "w-2 h-full ps-1"
         )}
       >
@@ -421,7 +421,7 @@ export function DockLabel({ children, shortcut, className, ...props }: DockLabel
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-xs border-2 border-dashed border-border bg-card/95 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-foreground shadow-md backdrop-blur-xs",
+        "inline-flex items-center gap-1.5 rounded-xs border-2 border-dashed border-border bg-card/95 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-foreground shadow-md",
         className
       )}
       {...props}

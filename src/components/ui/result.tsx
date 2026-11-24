@@ -10,7 +10,7 @@ export type ResultProps = {
   title: string;
   description?: string;
   actions?: React.ReactNode;
-};
+} & Omit<React.HTMLAttributes<HTMLElement>, "title">;
 
 function getIconClass(status: ResultStatus): string {
   switch (status) {
@@ -38,7 +38,7 @@ function getLabel(status: ResultStatus): string {
   }
 }
 
-export function Result({ status, title, description, actions }: ResultProps) {
+export function Result({ status, title, description, actions, ...props }: ResultProps) {
   const iconClass = getIconClass(status);
   const label = getLabel(status);
 
@@ -47,7 +47,7 @@ export function Result({ status, title, description, actions }: ResultProps) {
       className={cn(
         "max-w-md mx-auto rounded-lg border border-border p-8 bg-card",
         "motion-reduce:animate-none",
-      )}
+      )} {...props}
     >
       <div className={cn("flex items-center justify-center mb-6", "motion-reduce:animate-none")}>
         <div

@@ -203,8 +203,8 @@ export function AnnouncementBar({
       role="banner"
       aria-label="Festival announcement ribbon"
       className={cn(
-        "relative w-full border-y-2 border-dashed font-mono select-none transition-all shadow-xs",
-        sticky && "sticky top-0 z-50 backdrop-blur-md",
+        "relative w-full border-y-2 border-dashed font-mono select-none transition-[width,height,left,right,opacity,background-color,border-color] shadow-xs",
+        sticky && "sticky top-0 z-50",
         currentVariant.container,
         className
       )}
@@ -303,7 +303,7 @@ export function AnnouncementBar({
                 href={actionHref}
                 onClick={onAction}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 cursor-pointer shadow-xs",
+                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-[transform,opacity,background-color,border-color,color] hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 cursor-pointer shadow-xs",
                   currentVariant.button
                 )}
               >
@@ -315,7 +315,7 @@ export function AnnouncementBar({
                 type="button"
                 onClick={onAction}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 cursor-pointer shadow-xs",
+                  "inline-flex items-center gap-1.5 rounded-xs border px-3 py-1 text-xs font-bold uppercase tracking-wider transition-[transform,opacity,background-color,border-color,color] hover:scale-[1.02] motion-reduce:hover:scale-100 active:scale-[0.98] motion-reduce:active:scale-100 cursor-pointer shadow-xs",
                   currentVariant.button
                 )}
               >

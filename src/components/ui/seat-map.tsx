@@ -296,7 +296,7 @@ export function SeatMap({
                   onMouseEnter={() => setActiveTierHighlight(t.id)}
                   onMouseLeave={() => setActiveTierHighlight(null)}
                   className={cn(
-                    "font-mono text-[10px] uppercase font-bold px-2 py-1 rounded border transition-all flex items-center gap-1.5",
+                    "font-mono text-[10px] uppercase font-bold px-2 py-1 rounded border transition-colors flex items-center gap-1.5",
                     t.badgeClass,
                     isActive && "ring-2 ring-foreground scale-105"
                   )}
@@ -371,7 +371,7 @@ export function SeatMap({
                             aria-label={`Row ${row}, Seat ${seatNum}, ${seat.tier}, ${currency}${seat.price}`}
                             aria-pressed={isSelected}
                             className={cn(
-                              "relative group size-6 sm:size-7 rounded-t-md rounded-b-xs border flex items-center justify-center font-mono text-[10px] font-bold transition-all focus-visible:ring-2 ring-ring",
+                              "relative group size-6 sm:size-7 rounded-t-md rounded-b-xs border flex items-center justify-center font-mono text-[10px] font-bold transition-colors focus-visible:ring-2 ring-ring",
                               // Tier Styles
                               seat.tier === "vip" &&
                                 "border-accent/70 bg-card text-foreground hover:border-accent hover:bg-accent/15",
@@ -534,7 +534,7 @@ export function SeatMap({
               onClick={handleCheckoutClick}
               disabled={selectedSeatsList.length === 0}
               className={cn(
-                "w-full py-2.5 px-4 rounded-md font-mono text-xs font-black uppercase tracking-wider transition-all focus-visible:ring-2 ring-ring flex items-center justify-center gap-2",
+                "w-full py-2.5 px-4 rounded-md font-mono text-xs font-black uppercase tracking-wider transition-[width,height,left,right,opacity,background-color,border-color] focus-visible:ring-2 ring-ring flex items-center justify-center gap-2",
                 selectedSeatsList.length > 0
                   ? "bg-foreground text-background hover:opacity-90 shadow-md active:translate-y-0.5"
                   : "bg-muted text-muted-foreground cursor-not-allowed border border-border"

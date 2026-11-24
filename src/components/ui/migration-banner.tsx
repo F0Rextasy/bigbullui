@@ -24,7 +24,7 @@ export function MigrationBanner({ title = "Migrating data to new system", progre
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{title}</p>
           <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-border/50">
-            <div className="h-full rounded-full bg-info transition-all duration-700 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
+            <div className="h-full rounded-full bg-info transition-[width,height,left,right,opacity,background-color,border-color] duration-700 motion-reduce:transition-none" style={{ width: `${pct}%` }} />
           </div>
         </div>
         <span className="shrink-0 font-mono text-[10px] tabular-nums text-info">{pct}%</span>
@@ -41,7 +41,7 @@ export function MigrationBanner({ title = "Migrating data to new system", progre
         )}
       </div>
       {open && detail && (
-        <p className="border-t border-info/20 px-4 py-2 text-xs text-muted-foreground animate-[migIn_0.25s_ease-out_both] motion-reduce:animate-none">{detail}</p>
+        <p className="border-t border-info/20 px-4 py-2 text-xs text-muted-foreground animate-[creditCardIn_0.25s_ease-out_both] motion-reduce:animate-none">{detail}</p>
       )}
     </div>
   );

@@ -124,7 +124,7 @@ export function AreaChart({
                   cy={y(val)}
                   r={hoveredIndex === si ? 3.5 : 2.5}
                   fill="currentColor"
-                  className="transition-all duration-200 motion-reduce:transition-none"
+                  className="transition-colors duration-200 motion-reduce:transition-none"
                 >
                   <title>{`${s.label}: ${val}`}</title>
                 </circle>

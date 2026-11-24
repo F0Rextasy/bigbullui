@@ -95,8 +95,8 @@ export function SearchFilterBar({
           onClick={() => toggleFilter(f.id)}
           aria-pressed={activeFilters.has(f.id)}
           className={cn(
-            "rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition-all duration-150 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-            "animate-[sfbChip_0.2s_ease-out] motion-reduce:animate-none",
+            "rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+            "animate-[piIn_0.2s_ease-out] motion-reduce:animate-none",
             activeFilters.has(f.id)
               ? "border-accent bg-accent/10 text-accent"
               : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"

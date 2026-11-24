@@ -9,10 +9,11 @@ export interface ProfileSettingsProps extends React.HTMLAttributes<HTMLDivElemen
   initials?: string;
   onSave?: (data: { name: string; email: string }) => void;
   onDelete?: () => void;
+  onChangeAvatar?: () => void;
 }
 
 /** Profile settings page: avatar + personal info + danger zone. */
-export function ProfileSettings({ name = "Your Name", email = "you@example.com", initials = "YN", onSave, onDelete, className, ...props }: ProfileSettingsProps) {
+export function ProfileSettings({ name = "Your Name", email = "you@example.com", initials = "YN", onSave, onDelete, onChangeAvatar, className, ...props }: ProfileSettingsProps) {
   const [n, setN] = React.useState(name);
   const [e, setE] = React.useState(email);
   const [confirmDelete, setConfirmDelete] = React.useState(false);
@@ -23,20 +24,20 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
   return (
     <div className={cn("w-full max-w-md space-y-4", className)} {...props}>
 
-      <div className="flex items-center gap-4 animate-[profIn_0.3s_ease-out_both] motion-reduce:animate-none">
+      <div className="flex items-center gap-4 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <span className="flex size-16 items-center justify-center rounded-full border-2 border-dashed border-border bg-secondary font-mono text-lg font-bold text-secondary-foreground transition-transform duration-300 hover:scale-105 motion-reduce:hover:scale-100 motion-reduce:transition-none">
           {initials}
         </span>
         <div>
           <p className="text-sm font-medium">{n}</p>
           <p className="text-xs text-muted-foreground">{e}</p>
-          <button type="button" className="mt-1 font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">
+          <button type="button" onClick={onChangeAvatar} className="mt-1 font-mono text-[9px] uppercase tracking-wider text-accent hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-sm">
             Change avatar
           </button>
         </div>
       </div>
 
-      <div className="space-y-3 rounded-lg border border-border bg-card p-4 animate-[profIn_0.3s_ease-out_0.1s_both] motion-reduce:animate-none">
+      <div className="space-y-3 rounded-lg border border-border bg-card p-4 animate-[walletCardIn_0.3s_ease-out_0.1s_both] motion-reduce:animate-none">
         <div className="space-y-1">
           <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Full Name</label>
           <input
@@ -61,7 +62,7 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
           onClick={() => onSave?.({ name: n, email: e })}
           className={cn(
             "rounded-md bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground",
-            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+            "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >
           Save
@@ -69,7 +70,7 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
       </div>
 
       {/* Danger zone */}
-      <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-4 animate-[profIn_0.3s_ease-out_0.2s_both] motion-reduce:animate-none">
+      <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-4 animate-[walletCardIn_0.3s_ease-out_0.2s_both] motion-reduce:animate-none">
         <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-destructive">Danger Zone</h4>
         <div className="mt-2 flex items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground">Permanently delete your account. This action cannot be undone.</p>
@@ -77,7 +78,7 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
             <button
               type="button"
               onClick={() => setConfirmDelete(true)}
-              className="shrink-0 rounded-md border border-destructive/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-destructive transition-colors hover:bg-destructive hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
+              className="shrink-0 rounded-md border border-destructive/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
             >
               Delete Account
             </button>
@@ -93,7 +94,7 @@ export function ProfileSettings({ name = "Your Name", email = "you@example.com",
               <button
                 type="button"
                 onClick={() => { setConfirmDelete(false); onDelete?.(); }}
-                className="rounded-md bg-destructive px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
+                className="rounded-md bg-destructive px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-destructive-foreground transition-colors duration-150 hover:bg-destructive/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none"
               >
                 Confirm
               </button>

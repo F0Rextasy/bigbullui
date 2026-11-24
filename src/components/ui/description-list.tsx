@@ -6,14 +6,14 @@ export interface DescriptionListItem {
   description: React.ReactNode;
 }
 
-export interface DescriptionListProps {
+export interface DescriptionListProps extends React.HTMLAttributes<HTMLElement> {
   items?: DescriptionListItem[];
   className?: string;
 }
 
 export function DescriptionList({
   items,
-  className,
+  className, ...props
 }: DescriptionListProps) {
   if (!items) {
     return <div className={cn("grid grid-cols-2 gap-4", className)} />;
@@ -26,7 +26,7 @@ export function DescriptionList({
       className={cn(
         "grid grid-cols-2 gap-4 md:grid-cols-3 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       {items.map((item, index) => (
         <div

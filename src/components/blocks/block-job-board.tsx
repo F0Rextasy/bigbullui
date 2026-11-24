@@ -7,27 +7,29 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 
-const JOBS = [
+const DEFAULT_JOBS = [
   { id: "j1", title: "Frontend Engineer", team: "Box Office", type: "Full-time", location: "Remote", salary: "$90–120k" },
   { id: "j2", title: "Motion Designer", team: "Marquee", type: "Contract", location: "Istanbul", salary: "$60–80k" },
   { id: "j3", title: "Support Lead", team: "Desk", type: "Full-time", location: "Remote", salary: "$55–70k" },
   { id: "j4", title: "Data Analyst", team: "Ledger", type: "Part-time", location: "Berlin", salary: "$40–55k" },
 ];
 
-const TYPES = ["All", "Full-time", "Contract", "Part-time"];
+const DEFAULT_TYPES = ["All", "Full-time", "Contract", "Part-time"];
 
 /** Job board: search + type filter + apply drawer. */
 export interface BlockJobBoardProps extends React.HTMLAttributes<HTMLDivElement> {
+    jobs?: typeof DEFAULT_JOBS;
+  types?: typeof DEFAULT_TYPES;
   onAction?: (action: string) => void;
 }
 
-export function BlockJobBoard({ className, onAction, ...props }: BlockJobBoardProps) {
+export function BlockJobBoard({ jobs = DEFAULT_JOBS, types = DEFAULT_TYPES, className, onAction, ...props }: BlockJobBoardProps) {
   const [query, setQuery] = React.useState("");
   const [type, setType] = React.useState("All");
   const [openId, setOpenId] = React.useState<string | null>(null);
   const [applied, setApplied] = React.useState<string[]>([]);
 
-  const results = JOBS.filter(
+  const results = jobs.filter(
     (j) =>
       (type === "All" || j.type === type) &&
       (!query || `${j.title} ${j.team} ${j.location}`.toLowerCase().includes(query.toLowerCase()))
@@ -44,7 +46,7 @@ export function BlockJobBoard({ className, onAction, ...props }: BlockJobBoardPr
           className="max-w-56 flex-1"
         />
         <div className="flex gap-1.5" role="group" aria-label="Employment type">
-          {TYPES.map((t) => (
+          {types.map((t) => (
             <button
               key={t}
               type="button"

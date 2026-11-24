@@ -53,7 +53,7 @@ export function FeedbackWidget({ onSubmit, position = "bottom-right", className,
                       aria-pressed={mood === m}
                       onClick={() => setMood(m)}
                       className={cn(
-                        "flex-1 cursor-pointer rounded-md border px-3 py-2 text-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                        "flex-1 cursor-pointer rounded-md border px-3 py-2 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                         mood === m ? "border-accent bg-accent/10 scale-105" : "border-border hover:border-foreground/50",
                       )}
                     >

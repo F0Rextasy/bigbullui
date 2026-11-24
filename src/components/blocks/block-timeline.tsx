@@ -4,24 +4,27 @@ import * as React from "react";
 import { cn } from "../ui/lib/utils";
 import { Badge } from "../ui/badge";
 
-const STEPS = [
+const DEFAULT_STEPS = [
   { title: "Doors", text: "Tickets scanned, stubs torn, crowd seated.", tone: "DONE" },
   { title: "Support act", text: "Twenty minutes, house lights half down.", tone: "DONE" },
   { title: "Headliner", text: "Ninety minutes, full production.", tone: "NOW" },
   { title: "Curfew", text: "Lights up, ledger closed, refunds window opens.", tone: "NEXT" },
 ];
 
-export interface BlockTimelineProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockTimelineProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  steps?: typeof DEFAULT_STEPS;
   onAction?: (action: string) => void;
 }
 
-export function BlockTimeline({ className, onAction, ...props }: BlockTimelineProps) {
+export function BlockTimeline({ title, steps = DEFAULT_STEPS, className, onAction, ...props }: BlockTimelineProps) {
   void onAction;
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
-      <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Running order</h2>
+      <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Running order"}</h2>
       <ol className="relative space-y-5 before:absolute before:bottom-2 before:left-[15px] before:top-2 before:border-l-2 before:border-dashed before:border-border">
-        {STEPS.map((step, index) => (
+        {steps.map((step, index) => (
           <li key={step.title} className="relative flex gap-4 ps-1">
             <span aria-hidden="true" className="z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-card font-mono text-xs font-black text-foreground">
               {index + 1}

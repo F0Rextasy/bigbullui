@@ -55,7 +55,7 @@ export function StackedBar({
                   <div
                     key={`${row.label}-${segIdx}`}
                     className={cn(
-                      "relative flex items-center justify-center rounded-sm border transition-all duration-500",
+                      "relative flex items-center justify-center rounded-sm border transition-colors duration-500",
                       "motion-reduce:transition-none",
                       colorClass,
                     )}

@@ -21,7 +21,7 @@ export function PosterCard({ title, subtitle, date, gradient, className, childre
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 transition-opacity duration-300 motion-reduce:transition-none" aria-hidden="true" />
 
       {date && (
-        <span className="absolute right-3 top-3 flex flex-col items-center rounded-md border border-white/20 bg-black/50 px-2 py-1 backdrop-blur-sm motion-reduce:animate-none!" style={{ animation: "pcZoom 0.3s ease-out both" }}>
+        <span className="absolute right-3 top-3 flex flex-col items-center rounded-md border border-white/20 bg-black/50 px-2 py-1 motion-reduce:animate-none!" style={{ animation: "pcZoom 0.3s ease-out both" }}>
           <span className="font-mono text-sm font-bold text-white">{date.day}</span>
           <span className="font-mono text-[8px] uppercase tracking-widest text-white/70">{date.month}</span>
         </span>

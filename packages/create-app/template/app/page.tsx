@@ -4,22 +4,13 @@ import { ThemeToggle } from "./theme-toggle";
 
 export default function Home() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        background: "var(--background)",
-        color: "var(--foreground)",
-        padding: 24,
-      }}
-    >
-      <Card style={{ maxWidth: 420, width: "100%" }}>
+    <main className="grid min-h-screen place-items-center bg-background p-6 text-foreground">
+      <Card className="w-full max-w-[420px]">
         <CardHeader>
           <CardTitle>Admit one</CardTitle>
           <CardDescription>Your bigbullui starter is ready.</CardDescription>
         </CardHeader>
-        <CardContent style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <CardContent className="flex items-center gap-3">
           <Button>Get Started</Button>
           <ThemeToggle />
         </CardContent>

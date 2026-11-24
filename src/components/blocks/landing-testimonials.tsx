@@ -6,26 +6,29 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Avatar } from "../ui/avatar";
 
-const QUOTES = [
+const DEFAULT_QUOTES = [
   { name: "Mira Chen", role: "FRONTEND LEAD // NOVA", stars: 5, body: "Swapped our kit in a weekend. The gate team thought we hired a print shop." },
   { name: "Jon Reyes", role: "INDIE HACKER", stars: 5, body: "Zero deps is real. Vendor, tweak tokens, ship. tsc stayed green the whole time." },
   { name: "Sena Park", role: "DESIGN ENG // COPPER", stars: 4, body: "The night-stub theme made our admin panel feel like a backstage pass." },
 ];
 
-export interface LandingTestimonialsProps extends React.HTMLAttributes<HTMLElement> {
+export interface LandingTestimonialsProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  quotes?: typeof DEFAULT_QUOTES;
   onAction?: (action: string) => void;
 }
 
-export function LandingTestimonials({ className, onAction, ...props }: LandingTestimonialsProps) {
+export function LandingTestimonials({ title, quotes = DEFAULT_QUOTES, className, onAction, ...props }: LandingTestimonialsProps) {
   void onAction;
   return (
     <section className={cn("w-full space-y-6", className)} {...props}>
       <div className="space-y-2 text-center">
         <Badge variant="accent" className="mx-auto">WORD AT THE GATE</Badge>
-        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">Crews keep the stubs</h2>
+        <h2 className="font-mono text-3xl font-black uppercase tracking-tight">{title ?? "Crews keep the stubs"}</h2>
       </div>
       <div className="grid gap-4 md:grid-cols-3">
-        {QUOTES.map((quote) => (
+        {quotes.map((quote) => (
           <Card key={quote.name}>
             <CardHeader>
               <div className="flex items-center gap-1" aria-label={`${quote.stars} of 5 stars`}>

@@ -13,7 +13,7 @@ export function StickyFooter({ left, right, className, children, ...props }: Sti
   return (
     <div
       className={cn(
-        "sticky bottom-0 z-30 flex items-center justify-between gap-4 border-t-2 border-dashed border-border bg-background/95 px-4 py-3 backdrop-blur-sm",
+        "sticky bottom-0 z-30 flex items-center justify-between gap-4 border-t-2 border-dashed border-border bg-background/95 px-4 py-3",
         className
       )}
       {...props}

@@ -24,7 +24,7 @@ export function RadialBar({ series = [{ label: "VIP", value: 82 }, { label: "GA"
             return (
               <g key={s.label}>
                 <circle cx={center} cy={center} r={r} fill="none" strokeWidth="8" className="stroke-border/50" />
-                <circle cx={center} cy={center} r={r} fill="none" strokeWidth="8" strokeLinecap="round" className={cn(tones[i % tones.length], "transition-all duration-700 motion-reduce:transition-none")} strokeDasharray={c} strokeDashoffset={c - (c * v) / 100} />
+                <circle cx={center} cy={center} r={r} fill="none" strokeWidth="8" strokeLinecap="round" className={cn(tones[i % tones.length], "transition-colors duration-700 motion-reduce:transition-none")} strokeDasharray={c} strokeDashoffset={c - (c * v) / 100} />
               </g>
             );
           })}

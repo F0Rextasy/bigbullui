@@ -7,25 +7,28 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Progress } from "../ui/progress";
 
-const CAMPAIGNS = [
+const DEFAULT_CAMPAIGNS = [
   { name: "Opening Night Blitz", channel: "POSTER + RADIO", spent: 72, budget: "$4.2K OF $5.8K", status: "LIVE" },
   { name: "Standby Rush", channel: "MARQUEE + SMS", spent: 45, budget: "$1.8K OF $4.0K", status: "LIVE" },
   { name: "VIP Encore", channel: "DIRECT MAIL", spent: 91, budget: "$8.2K OF $9.0K", status: "ENDING" },
   { name: "Matinee Push", channel: "KIOSK FLYERS", spent: 28, budget: "$0.9K OF $3.2K", status: "DRAFT" },
 ];
 
-export interface AdminMarketingProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminMarketingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  campaigns?: typeof DEFAULT_CAMPAIGNS;
   onAction?: (action: string) => void;
 }
 
-export function AdminMarketing({ className, onAction, ...props }: AdminMarketingProps) {
+export function AdminMarketing({ title, campaigns = DEFAULT_CAMPAIGNS, className, onAction, ...props }: AdminMarketingProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">HYPE{" // "}MARKETING</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Campaign ledger</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Campaign ledger"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -37,7 +40,7 @@ export function AdminMarketing({ className, onAction, ...props }: AdminMarketing
           <CardTitle>Budget burn</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {CAMPAIGNS.map((row) => (
+          {campaigns.map((row) => (
             <div key={row.name} className="rounded-md border-2 border-dashed border-border p-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="min-w-0">

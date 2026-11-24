@@ -1,6 +1,11 @@
 import changelog from "@/data/changelog.json";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Changelog" };
+export const metadata = buildMetadata({
+  title: "Changelog",
+  description: "Release history and version changelog for bigbullui components, blocks, CLI, and MCP tooling.",
+  path: "/docs/changelog",
+});
 
 export default function ChangelogPage() {
   return (
@@ -21,8 +26,9 @@ export default function ChangelogPage() {
         {(changelog.entries as { version: string; date: string; title?: string; notes?: string[]; changes?: string[] }[]).map((e) => (
           <section
             key={e.version}
+            id={`v${e.version}`}
             aria-label={`Version ${e.version}`}
-            className="rounded-lg border-2 border-foreground bg-card p-4 shadow-xs outline-1 outline-dashed outline-offset-[-5px] outline-border sm:p-6"
+            className="scroll-mt-20 rounded-lg border-2 border-foreground bg-card p-4 shadow-xs outline-1 outline-dashed outline-offset-[-5px] outline-border sm:p-6"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="font-mono text-base font-black text-foreground">v{e.version}</h2>

@@ -26,11 +26,11 @@ export function HolyGrail({
         {header}
       </header>
       <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[130px_1fr_110px]">
-        <nav aria-label="Section" className="border-r-2 border-dashed border-border p-3 font-mono text-[11px] uppercase text-muted-foreground">
+        <nav aria-label="Section" className="border-e-2 border-dashed border-border p-3 font-mono text-[11px] uppercase text-muted-foreground">
           {sidebar}
         </nav>
         <main className="min-h-28 p-4 text-sm">{children ?? <p className="font-mono text-xs text-muted-foreground">Main content slot.</p>}</main>
-        <aside className="hidden border-l-2 border-dashed border-border p-3 font-mono text-[11px] uppercase text-muted-foreground sm:block">
+        <aside className="hidden border-s-2 border-dashed border-border p-3 font-mono text-[11px] uppercase text-muted-foreground sm:block">
           {aside}
         </aside>
       </div>

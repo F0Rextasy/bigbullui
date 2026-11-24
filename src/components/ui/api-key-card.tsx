@@ -32,7 +32,7 @@ export function ApiKeyCard({ label = "API Key", apiKey = "bb_live_a1b2c3d4e5f6g7
         </span>
       </div>
 
-      <div className="mt-3 flex items-center gap-2 rounded-md border border-dashed border-border bg-secondary/30 px-3 py-2.5 animate-[apiKeyIn_0.3s_ease-out_both] motion-reduce:animate-none">
+      <div className="mt-3 flex items-center gap-2 rounded-md border border-dashed border-border bg-secondary/30 px-3 py-2.5 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none">
         <code className="min-w-0 flex-1 truncate font-mono text-xs text-foreground">
           {revealed ? apiKey : masked}
         </code>

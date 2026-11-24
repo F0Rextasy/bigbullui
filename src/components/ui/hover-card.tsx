@@ -1,7 +1,13 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { cn } from "./lib/utils";
+import { mergeRefs, useIsMounted } from "./lib/react-compat";
+import { useControllableState } from "./lib/use-controllable-state";
+import { Slot } from "./lib/slot";
+import { useFloating, type FloatingSide } from "./lib/floating";
+import { registerEscapeLayer } from "./lib/focus-trap";
 
 interface HoverCardContextValue {
   open: boolean;
@@ -13,9 +19,11 @@ interface HoverCardContextValue {
   handleContentEnter: () => void;
   handleContentLeave: () => void;
   handleFocus: () => void;
-  handleBlur: () => void;
+  handleBlur: (e: React.FocusEvent<HTMLElement>) => void;
   triggerId: string;
   contentId: string;
+  triggerRef: React.RefObject<HTMLElement | null>;
+  contentRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const HoverCardContext = React.createContext<HoverCardContextValue | null>(null);
@@ -45,25 +53,19 @@ export function HoverCard({
   closeDelay = 250,
   children,
 }: HoverCardProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
-  const isControlled = controlledOpen !== undefined;
-  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const [open, setOpen] = useControllableState<boolean>({
+    prop: controlledOpen,
+    defaultProp: defaultOpen,
+    onChange: onOpenChange,
+  });
 
   const openTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const triggerRef = React.useRef<HTMLElement | null>(null);
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
 
   const triggerId = React.useId();
   const contentId = React.useId();
-
-  const setOpen = React.useCallback(
-    (nextOpen: boolean) => {
-      if (!isControlled) {
-        setUncontrolledOpen(nextOpen);
-      }
-      onOpenChange?.(nextOpen);
-    },
-    [isControlled, onOpenChange]
-  );
 
   const clearTimers = React.useCallback(() => {
     if (openTimerRef.current) {
@@ -123,15 +125,26 @@ export function HoverCard({
     }, Math.min(openDelay, 100));
   }, [openDelay, setOpen]);
 
-  const handleBlur = React.useCallback(() => {
-    if (openTimerRef.current) {
-      clearTimeout(openTimerRef.current);
-      openTimerRef.current = null;
-    }
-    closeTimerRef.current = setTimeout(() => {
-      setOpen(false);
-    }, closeDelay);
-  }, [closeDelay, setOpen]);
+  const handleBlur = React.useCallback(
+    (e: React.FocusEvent<HTMLElement>) => {
+      const nextTarget = e.relatedTarget as Node | null;
+      if (
+        nextTarget &&
+        (triggerRef.current?.contains(nextTarget) ||
+          contentRef.current?.contains(nextTarget))
+      ) {
+        return;
+      }
+      if (openTimerRef.current) {
+        clearTimeout(openTimerRef.current);
+        openTimerRef.current = null;
+      }
+      closeTimerRef.current = setTimeout(() => {
+        setOpen(false);
+      }, closeDelay);
+    },
+    [closeDelay, setOpen]
+  );
 
   React.useEffect(() => {
     return () => clearTimers();
@@ -139,14 +152,12 @@ export function HoverCard({
 
   React.useEffect(() => {
     if (!open) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open, setOpen]);
+    return registerEscapeLayer(() => {
+      clearTimers();
+      setOpen(false);
+      triggerRef.current?.focus();
+    });
+  }, [open, setOpen, clearTimers]);
 
   return (
     <HoverCardContext.Provider
@@ -163,6 +174,8 @@ export function HoverCard({
         handleBlur,
         triggerId,
         contentId,
+        triggerRef,
+        contentRef,
       }}
     >
       <div className="relative inline-block">{children}</div>
@@ -175,66 +188,66 @@ export interface HoverCardTriggerProps extends React.HTMLAttributes<HTMLElement>
   children: React.ReactNode;
 }
 
-export function HoverCardTrigger({
-  asChild = false,
-  children,
-  className,
-  ...props
-}: HoverCardTriggerProps) {
-  const ctx = useHoverCardContext();
-
-  if (asChild && React.isValidElement(children)) {
-    const child = children as React.ReactElement<React.HTMLAttributes<HTMLElement>>;
-    return React.cloneElement(child, {
+export const HoverCardTrigger = React.forwardRef<HTMLElement, HoverCardTriggerProps>(
+  function HoverCardTrigger({ asChild = false, children, className, ...props }, forwardedRef) {
+    const ctx = useHoverCardContext();
+    const sharedProps = {
       id: ctx.triggerId,
-      "aria-haspopup": "dialog",
+      "aria-haspopup": "dialog" as const,
       "aria-expanded": ctx.open,
       "aria-controls": ctx.open ? ctx.contentId : undefined,
       onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
-        child.props.onMouseEnter?.(e);
+        props.onMouseEnter?.(e);
         ctx.handleTriggerEnter();
       },
       onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
-        child.props.onMouseLeave?.(e);
+        props.onMouseLeave?.(e);
         ctx.handleTriggerLeave();
       },
       onFocus: (e: React.FocusEvent<HTMLElement>) => {
-        child.props.onFocus?.(e);
+        props.onFocus?.(e);
         ctx.handleFocus();
       },
       onBlur: (e: React.FocusEvent<HTMLElement>) => {
-        child.props.onBlur?.(e);
-        ctx.handleBlur();
+        props.onBlur?.(e);
+        ctx.handleBlur(e);
       },
-    });
-  }
+    };
 
-  return (
-    <span
-      id={ctx.triggerId}
-      role="button"
-      tabIndex={0}
-      aria-haspopup="dialog"
-      aria-expanded={ctx.open}
-      aria-controls={ctx.open ? ctx.contentId : undefined}
-      onMouseEnter={ctx.handleTriggerEnter}
-      onMouseLeave={ctx.handleTriggerLeave}
-      onFocus={ctx.handleFocus}
-      onBlur={ctx.handleBlur}
-      className={cn(
-        "inline-flex items-center cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </span>
-  );
-}
+    if (asChild && React.isValidElement(children)) {
+      return (
+        <Slot
+          ref={mergeRefs(forwardedRef, ctx.triggerRef)}
+          {...props}
+          {...sharedProps}
+          className={className}
+        >
+          {children}
+        </Slot>
+      );
+    }
+
+    return (
+      <button
+        ref={mergeRefs(forwardedRef, ctx.triggerRef)}
+        type="button"
+        {...props}
+        {...sharedProps}
+        className={cn(
+          "inline-flex items-center cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm",
+          className
+        )}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+HoverCardTrigger.displayName = "HoverCardTrigger";
 
 export interface HoverCardContentProps extends React.HTMLAttributes<HTMLDivElement> {
   align?: "start" | "center" | "end";
-  side?: "top" | "bottom";
+  side?: FloatingSide;
   showBeak?: boolean;
   children: React.ReactNode;
   className?: string;
@@ -249,40 +262,54 @@ export function HoverCardContent({
   children,
   className,
   animated = true,
+  style,
   ...props
 }: HoverCardContentProps) {
   const ctx = useHoverCardContext();
-  const contentRef = React.useRef<HTMLDivElement>(null);
+  const mounted = useIsMounted();
+  const localContentRef = React.useRef<HTMLDivElement>(null);
 
-  if (!ctx.open) return null;
+  const floating = useFloating({
+    open: ctx.open && mounted,
+    referenceRef: ctx.triggerRef,
+    floatingRef: localContentRef,
+    side,
+    align,
+    offset: 10,
+  });
 
-  return (
+  if (!ctx.open || !mounted) return null;
+
+  return createPortal(
     <div
-      ref={contentRef}
+      ref={mergeRefs(localContentRef, ctx.contentRef)}
       role="dialog"
       id={ctx.contentId}
       aria-labelledby={ctx.triggerId}
       onMouseEnter={ctx.handleContentEnter}
       onMouseLeave={ctx.handleContentLeave}
+      onFocus={ctx.handleContentEnter}
+      onBlur={ctx.handleBlur}
+      style={{
+        position: "fixed",
+        top: floating.top,
+        left: floating.left,
+        maxWidth: "calc(100vw - 16px)",
+        ...style,
+      }}
       className={cn(
-        "absolute z-50 w-80 rounded-lg border-2 border-foreground bg-card text-card-foreground p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] outline-border select-none",
+        "z-50 w-80 rounded-lg border-2 border-foreground bg-card text-card-foreground p-4 shadow-2xl outline-1 outline-dashed outline-offset-[-6px] outline-border",
         animated && "motion-safe:animate-[scale-in_0.16s_ease-out_both]",
-        side === "top"
-          ? "bottom-[calc(100%+10px)]"
-          : "top-[calc(100%+10px)]",
-        align === "start" && "left-0",
-        align === "center" && "left-1/2 -translate-x-1/2",
-        align === "end" && "right-0",
         className
       )}
       {...props}
     >
       {/* Pointer Beak Notch */}
-      {showBeak && (
+      {showBeak && (floating.side === "top" || floating.side === "bottom") && (
         <span
           className={cn(
             "pointer-events-none absolute size-3.5 rotate-45 bg-card z-10",
-            side === "bottom"
+            floating.side === "bottom"
               ? "-top-[8px] border-t-2 border-l-2 border-foreground"
               : "-bottom-[8px] border-b-2 border-r-2 border-foreground",
             align === "start" && "left-6",
@@ -304,7 +331,8 @@ export function HoverCardContent({
       />
 
       {children}
-    </div>
+    </div>,
+    document.body
   );
 }
 

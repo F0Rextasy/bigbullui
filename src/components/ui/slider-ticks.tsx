@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface SliderTicksProps {
+export interface SliderTicksProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   min?: number;
   max?: number;
   step?: number;
@@ -22,7 +22,7 @@ export function SliderTicks({
   value: controlledValue,
   defaultValue: defaultVal,
   onValueChange,
-  className,
+  className, ...props
 }: SliderTicksProps) {
   const ticks = providedTicks ?? [];
   const [internalValue, setInternalValue] = React.useState<number>(defaultVal ?? min);
@@ -96,7 +96,7 @@ export function SliderTicks({
       className={cn(
         "relative w-full min-h-6",
         className,
-      )}
+      )} {...props}
     >
       <div
         ref={trackRef}
@@ -113,6 +113,7 @@ export function SliderTicks({
         }}
         onKeyDown={handleKeyDown}
         role="slider"
+        tabIndex={0}
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={currentValue}

@@ -66,7 +66,7 @@ export function StampField({
         <span
           aria-live="polite"
           className={cn(
-            "inline-block rounded border-2 px-3 py-1 font-mono text-sm font-bold uppercase tracking-widest transition-all",
+            "inline-block rounded border-2 px-3 py-1 font-mono text-sm font-bold uppercase tracking-widest transition-colors",
             stamped
               ? "rotate-[-6deg] border-accent text-accent"
               : "rotate-[-6deg] border-dashed border-border/60 text-muted-foreground/50",

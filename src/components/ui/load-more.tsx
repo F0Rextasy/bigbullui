@@ -6,9 +6,9 @@ import { cn } from "./lib/utils";
 export type LoadMoreProps = {
   items?: React.ReactNode[];
   onLoadMore?: () => void;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
-export function LoadMore({ items, onLoadMore }: LoadMoreProps) {
+export function LoadMore({ items, onLoadMore, ...props }: LoadMoreProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleClick = () => {
@@ -19,7 +19,7 @@ export function LoadMore({ items, onLoadMore }: LoadMoreProps) {
   const delayClass = (index: number) => `${index * 40}ms`;
 
   return (
-    <div className="relative">
+    <div className="relative" {...props}>
       <button
         type="button"
         onClick={handleClick}

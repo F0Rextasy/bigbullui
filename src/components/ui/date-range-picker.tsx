@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface DateRangePickerProps {
+export interface DateRangePickerProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   value?: [Date, Date];
   defaultValue?: [Date, Date];
   onValueChange?: (value: [Date, Date] | undefined) => void;
@@ -29,7 +29,7 @@ export function DateRangePicker({
   onValueChange,
   min,
   max,
-  className,
+  className, ...props
 }: DateRangePickerProps) {
   const [innerRange, setInnerRange] = React.useState<[Date | undefined, Date | undefined]>(() => [
     defaultVals?.[0],
@@ -182,7 +182,7 @@ export function DateRangePicker({
       className={cn(
         "relative flex w-full flex-col gap-3 rounded-md border border-border bg-card p-4 font-mono",
         className,
-      )}
+      )} {...props}
     >
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-dashed border-border pb-2">
         <div className="flex items-center gap-2">

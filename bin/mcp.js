@@ -2,13 +2,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports -- MCP server runs on plain Node, require() is intentional */
 
 /**
- * bigbullui MCP server (zero dependencies, stdio JSON-RPC).
- * Exposes the component registry, blocks, icons, and theme to AI coding
- * assistants (Claude Code, Cursor, Copilot). No backend: data resolves from
- * the local checkout when present, otherwise from the published site/GitHub.
- *
- * Configure (Claude Code): claude mcp add bigbullui -- npx -y bigbullui mcp
- * Configure (JSON): { "mcpServers": { "bigbullui": { "command": "npx", "args": ["-y", "bigbullui", "mcp"] } } }
+ * bigbullui MCP server (zero dependencies, stdio JSON-RPC 2.0).
+ * Exposes components, blocks, icons, design tokens, resources, and prompts to AI coding assistants.
  */
 
 const fs = require("node:fs");
@@ -20,19 +15,36 @@ let VERSION = "unknown";
 try {
   VERSION = require("../package.json").version;
 } catch {
-  // unreachable package.json leaves the placeholder in place
+  // unreachable package.json keeps the placeholder in place
 }
-const GITHUB_RAW_TAG = VERSION !== "unknown"
-  ? `https://raw.githubusercontent.com/F0Rextasy/bigbullui/v${VERSION}`
-  : "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
+const GITHUB_RAW_TAG =
+  VERSION !== "unknown"
+    ? `https://raw.githubusercontent.com/F0Rextasy/bigbullui/v${VERSION}`
+    : "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 const GITHUB_RAW = "https://raw.githubusercontent.com/F0Rextasy/bigbullui/main";
 
 function packageRoot() {
   return path.resolve(__dirname, "..");
 }
 
+const DEFAULT_ALLOWED_HOSTS = new Set([
+  "ui.bigbullapp.com",
+  "bigbullui.com",
+  "raw.githubusercontent.com",
+]);
+
+function isAllowedHost(hostname) {
+  const extra = (process.env.BIGBULLUI_REGISTRY_ALLOWLIST || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  const host = String(hostname || "").toLowerCase();
+  return DEFAULT_ALLOWED_HOSTS.has(host) || extra.includes(host);
+}
+
 const FETCH_TIMEOUT_MS = 15000;
 const MAX_FETCH_BYTES = 5 * 1024 * 1024;
+const MAX_RPC_LINE_BYTES = 1024 * 1024;
 
 function fetchUrl(url, redirects = 0) {
   return new Promise((resolve, reject) => {
@@ -45,6 +57,10 @@ function fetchUrl(url, redirects = 0) {
     }
     if (parsed.protocol !== "https:") {
       reject(new Error(`Refusing non-HTTPS URL: ${url}`));
+      return;
+    }
+    if (!isAllowedHost(parsed.hostname)) {
+      reject(new Error(`Refusing disallowed host "${parsed.hostname}" (SSRF guard): ${url}`));
       return;
     }
     const req = https.get(parsed, { headers: { "User-Agent": "bigbullui-mcp" } }, (res) => {
@@ -66,6 +82,10 @@ function fetchUrl(url, redirects = 0) {
           reject(new Error(`Refusing non-HTTPS redirect to ${nextUrl.href}`));
           return;
         }
+        if (!isAllowedHost(nextUrl.hostname)) {
+          reject(new Error(`Refusing redirect to disallowed host "${nextUrl.hostname}"`));
+          return;
+        }
         fetchUrl(nextUrl.href, redirects + 1).then(resolve, reject);
         return;
       }
@@ -78,6 +98,11 @@ function fetchUrl(url, redirects = 0) {
       const chunks = [];
       let totalBytes = 0;
       let aborted = false;
+      const expectedLength =
+        res.headers["content-length"] && !res.headers["content-encoding"]
+          ? Number(res.headers["content-length"])
+          : null;
+
       res.on("data", (chunk) => {
         totalBytes += chunk.length;
         if (totalBytes > MAX_FETCH_BYTES) {
@@ -87,8 +112,21 @@ function fetchUrl(url, redirects = 0) {
         }
         chunks.push(chunk);
       });
+      res.on("aborted", () => {
+        if (aborted) return;
+        aborted = true;
+        reject(new Error(`Stream aborted before completion for ${url}`));
+      });
       res.on("end", () => {
         if (aborted) return;
+        if (!res.complete) {
+          reject(new Error(`Incomplete HTTP response for ${url}`));
+          return;
+        }
+        if (expectedLength !== null && !Number.isNaN(expectedLength) && totalBytes !== expectedLength) {
+          reject(new Error(`Truncated response for ${url}: expected ${expectedLength} bytes, got ${totalBytes}`));
+          return;
+        }
         res.destroy();
         resolve(Buffer.concat(chunks).toString("utf8"));
       });
@@ -133,11 +171,73 @@ async function iconsIndex() {
   return cache.icons;
 }
 
+async function propsIndex() {
+  if (!cache.props) {
+    const raw = await loadJson("src/data/docs-content.json", `${SITE}/docs-content.json`).catch(() => null);
+    cache.props = raw && typeof raw === "object" && raw.props ? raw.props : {};
+  }
+  return cache.props;
+}
+
 async function themeCss() {
   if (!cache.theme) {
     cache.theme = await loadText("bigbullui.css", `${GITHUB_RAW_TAG}/bigbullui.css`, `${GITHUB_RAW}/bigbullui.css`);
   }
   return cache.theme;
+}
+
+function sliceCssSection(css, section) {
+  if (!section || section === "all") return css;
+  if (section === "tokens") {
+    const end = css.indexOf("@keyframes");
+    return end > 0 ? css.slice(0, end).trim() : css;
+  }
+  if (section === "dark") {
+    const m = css.match(/\.dark\s*\{[\s\S]*?\n\}/);
+    return m ? m[0] : "";
+  }
+  if (section === "keyframes") {
+    const start = css.indexOf("@keyframes");
+    return start >= 0 ? css.slice(start).trim() : "";
+  }
+  return css;
+}
+
+async function getRegistryPayload(slug, kindLabel) {
+  const clean = String(slug || "").replace(/\.tsx$/, "");
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(clean)) {
+    throw new Error(`Invalid ${kindLabel} name: ${slug}`);
+  }
+  const reg = await loadJson(`public/r/${clean}.json`, `${SITE}/r/${clean}.json`).catch(() => null);
+  if (!reg) throw new Error(`Unknown ${kindLabel}: ${clean}. Use list_${kindLabel}s to discover names.`);
+  const regFiles = Array.isArray(reg.files) ? reg.files : [];
+  const docsUrl = reg.type === "registry:block" ? `${SITE}/blocks/${clean}` : `${SITE}/docs/${clean}`;
+  const MAX_TOTAL = 80000;
+  let remaining = MAX_TOTAL;
+  let truncated = false;
+  const files = [];
+  for (const f of regFiles) {
+    const content = typeof f.content === "string" ? f.content : "";
+    const slice = remaining > 0 ? content.slice(0, remaining) : "";
+    if (slice.length < content.length) truncated = true;
+    remaining = Math.max(0, remaining - slice.length);
+    files.push({
+      path: f.path,
+      ...(f.target ? { target: f.target } : {}),
+      type: f.type,
+      content: slice,
+    });
+  }
+  return {
+    name: reg.name,
+    title: reg.title,
+    type: reg.type,
+    docs: docsUrl,
+    install: `npx bigbullui add ${clean}`,
+    registryDependencies: Array.isArray(reg.registryDependencies) ? reg.registryDependencies : [],
+    files,
+    truncated,
+  };
 }
 
 const TOOLS = [
@@ -159,7 +259,7 @@ const TOOLS = [
   },
   {
     name: "get_component",
-    description: "Get a component's full TSX source plus docs URL. Paste the source into the user's project (copy-paste model) or run `npx bigbullui add <name>`.",
+    description: "Get a component's full TSX source, bundled sibling files, and docs URL.",
     inputSchema: {
       type: "object",
       properties: { name: { type: "string", description: "Component slug, e.g. ticket-card" } },
@@ -170,6 +270,24 @@ const TOOLS = [
     name: "list_blocks",
     description: "List ready page blocks (admin dashboards, app screens, auth, pricing, checkout, marketing).",
     inputSchema: { type: "object", properties: { search: { type: "string" } } },
+  },
+  {
+    name: "get_block",
+    description: "Get a page block's full TSX source, UI dependencies, and install command.",
+    inputSchema: {
+      type: "object",
+      properties: { name: { type: "string", description: "Block slug, e.g. admin-overview" } },
+      required: ["name"],
+    },
+  },
+  {
+    name: "get_props",
+    description: "Get TypeScript prop interfaces and extracted defaults for a UI component.",
+    inputSchema: {
+      type: "object",
+      properties: { name: { type: "string", description: "Component slug, e.g. dialog" } },
+      required: ["name"],
+    },
   },
   {
     name: "list_icons",
@@ -184,13 +302,63 @@ const TOOLS = [
   },
   {
     name: "get_icon",
-    description: "Get one icon's registry entry (component source + page). Or pull it via `npx bigbullui add icon-<name>`.",
+    description: "Get one icon's TSX component source and page URL.",
     inputSchema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] },
   },
   {
     name: "get_theme",
-    description: "Get the Ticket Stub design tokens (bigbullui.css): CSS variables, dark theme, keyframes. Required setup: `@import \"tailwindcss\"; @import \"bigbullui/css\";`",
-    inputSchema: { type: "object", properties: {} },
+    description: "Get the Ticket Stub design tokens (bigbullui.css). Supports optional section filter: all | tokens | dark | keyframes.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        section: { type: "string", enum: ["all", "tokens", "dark", "keyframes"] },
+      },
+    },
+  },
+];
+
+const RESOURCES = [
+  {
+    uri: "bigbullui://tokens",
+    name: "bigbullui Design Tokens",
+    description: "Complete Tailwind v4 theme variables, dark mode tokens, and @keyframes from bigbullui.css",
+    mimeType: "text/css",
+  },
+  {
+    uri: "bigbullui://catalog",
+    name: "Component Catalog Index",
+    description: "Full JSON index of all UI components, categories, and lifecycle statuses",
+    mimeType: "application/json",
+  },
+  {
+    uri: "bigbullui://blocks",
+    name: "Page Blocks Index",
+    description: "Full JSON index of prebuilt page blocks",
+    mimeType: "application/json",
+  },
+];
+
+const PROMPTS = [
+  {
+    name: "build-page",
+    description: "Compose an accessible bigbullui screen from zero-dependency blocks and components",
+    arguments: [
+      { name: "feature", description: "Target screen or flow (e.g. billing settings, checkout, kanban)", required: true },
+    ],
+  },
+  {
+    name: "audit-a11y",
+    description: "Audit a TSX snippet against bigbullui accessibility, RTL, and semantic token rules",
+    arguments: [
+      { name: "component", description: "Component slug or JSX snippet to inspect", required: true },
+    ],
+  },
+  {
+    name: "migrate-theme",
+    description: "Replace hard-coded palette classes and hex colors with semantic bigbullui CSS tokens",
+    arguments: [
+      { name: "source", description: "CSS or TSX snippet to migrate", required: true },
+    ],
   },
 ];
 
@@ -211,41 +379,19 @@ async function callTool(name, args) {
     return { count: hits.length, components: hits };
   }
   if (name === "get_component") {
+    return await getRegistryPayload(a.name, "component");
+  }
+  if (name === "get_block") {
+    return await getRegistryPayload(a.name, "block");
+  }
+  if (name === "get_props") {
     const slug = String(a.name || "").replace(/\.tsx$/, "");
-    if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`Invalid component name: ${a.name}`);
-    const reg = await loadJson(`public/r/${slug}.json`, `${SITE}/r/${slug}.json`).catch(() => null);
-    if (!reg) throw new Error(`Unknown component: ${slug}. Use list_components to discover names.`);
-    const regFiles = Array.isArray(reg.files) ? reg.files : [];
-    const file = regFiles[0];
-    const full = file && typeof file.content === "string" ? file.content : "";
-    const docsUrl = reg.type === "registry:block" ? `${SITE}/blocks/${slug}` : `${SITE}/docs/${slug}`;
-    // Cap total AI context size across all files without silently omitting bundled dependencies.
-    const MAX_TOTAL = 60000;
-    let remaining = MAX_TOTAL;
-    let truncated = false;
-    const files = [];
-    for (const f of regFiles) {
-      const content = typeof f.content === "string" ? f.content : "";
-      const slice = remaining > 0 ? content.slice(0, remaining) : "";
-      if (slice.length < content.length) truncated = true;
-      remaining = Math.max(0, remaining - slice.length);
-      files.push({
-        path: f.path,
-        ...(f.target ? { target: f.target } : {}),
-        type: f.type,
-        content: slice,
-      });
-    }
-    return {
-      name: reg.name,
-      title: reg.title,
-      docs: docsUrl,
-      install: `npx bigbullui add ${slug}`,
-      registryDependencies: Array.isArray(reg.registryDependencies) ? reg.registryDependencies : [],
-      files,
-      source: full.slice(0, MAX_TOTAL),
-      truncated: truncated || full.length > MAX_TOTAL,
-    };
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) throw new Error(`Invalid component name: ${a.name}`);
+    const allProps = await propsIndex();
+    const doc = allProps[slug];
+    if (!doc) throw new Error(`No extracted prop docs found for "${slug}".`);
+    const props = Array.isArray(doc) ? doc : (doc.props || []);
+    return { name: slug, docs: `${SITE}/docs/${slug}`, exports: Array.isArray(doc) ? [] : (doc.exports || []), props };
   }
   if (name === "list_blocks") {
     const idx = await blocksIndex();
@@ -281,12 +427,15 @@ async function callTool(name, args) {
     };
   }
   if (name === "get_theme") {
-    const css = await themeCss();
+    const raw = await themeCss();
+    const css = sliceCssSection(raw, a.section);
     return {
       setup: '@import "tailwindcss";\n@import "bigbullui/css";',
-      usage: "Components use semantic tokens only (bg-primary, text-muted-foreground, border-border, bg-success, text-warning, ...). Never hard-code hex.",
-      css: css.slice(0, 20000),
-      truncated: css.length > 20000,
+      usage: "Use semantic tokens only (bg-primary, text-muted-foreground, border-border, bg-destructive, text-destructive-foreground). Never hard-code hex.",
+      section: a.section || "all",
+      bytes: css.length,
+      css,
+      truncated: false,
     };
   }
   throw new Error(`Unknown tool: ${name}`);
@@ -296,23 +445,45 @@ function textResult(payload) {
   return { content: [{ type: "text", text: JSON.stringify(payload, null, 2) }] };
 }
 
+function writeFrame(obj) {
+  try {
+    process.stdout.write(JSON.stringify(obj) + "\n");
+  } catch (err) {
+    if (err && (err.code === "EPIPE" || err.code === "ERR_STREAM_DESTROYED")) process.exit(0);
+    throw err;
+  }
+}
+
 function reply(id, result) {
-  process.stdout.write(JSON.stringify({ jsonrpc: "2.0", id, result }) + "\n");
+  if (id === undefined) return;
+  writeFrame({ jsonrpc: "2.0", id, result });
 }
 
 function fail(id, code, message) {
-  process.stdout.write(JSON.stringify({ jsonrpc: "2.0", id, error: { code, message } }) + "\n");
+  if (id === undefined) return;
+  writeFrame({ jsonrpc: "2.0", id: id ?? null, error: { code, message } });
 }
 
+process.stdout.on("error", (err) => {
+  if (err && (err.code === "EPIPE" || err.code === "ERR_STREAM_DESTROYED")) process.exit(0);
+});
+
 async function handle(msg) {
-  if (!msg || msg.jsonrpc !== "2.0" || typeof msg.method !== "string") return;
+  if (!msg || typeof msg !== "object" || Array.isArray(msg)) {
+    fail(null, -32600, "Invalid JSON-RPC request");
+    return;
+  }
+  const hasId = Object.prototype.hasOwnProperty.call(msg, "id");
+  const isValidId = msg.id === null || typeof msg.id === "string" || typeof msg.id === "number";
+  if (msg.jsonrpc !== "2.0" || typeof msg.method !== "string" || (hasId && !isValidId)) {
+    if (hasId) fail(isValidId ? msg.id : null, -32600, "Invalid Request");
+    return;
+  }
   if (msg.method === "initialize") {
     const requested = msg.params && msg.params.protocolVersion;
-    // Tools-only surface has no versioned features: honor whatever the client
-    // offers. Forcing 2024-11-05 makes strict clients disconnect on 2025+.
     reply(msg.id, {
       protocolVersion: typeof requested === "string" && /^20\d{2}-/.test(requested) ? requested : "2024-11-05",
-      capabilities: { tools: {} },
+      capabilities: { tools: {}, resources: {}, prompts: {} },
       serverInfo: { name: "bigbullui", version: VERSION },
     });
     return;
@@ -326,8 +497,13 @@ async function handle(msg) {
     return;
   }
   if (msg.method === "tools/call") {
+    const toolName = msg.params && msg.params.name;
+    if (typeof toolName !== "string" || !toolName) {
+      fail(msg.id, -32602, "Missing tool name parameter");
+      return;
+    }
     try {
-      const out = await callTool(msg.params && msg.params.name, msg.params && msg.params.arguments);
+      const out = await callTool(toolName, msg.params.arguments);
       reply(msg.id, textResult(out));
     } catch (err) {
       reply(msg.id, {
@@ -337,11 +513,91 @@ async function handle(msg) {
     }
     return;
   }
-  if (msg.method.startsWith("notifications/")) return;
-  if (msg.id !== undefined) fail(msg.id, -32601, `Method not found: ${msg.method}`);
+  if (msg.method === "resources/list") {
+    reply(msg.id, { resources: RESOURCES });
+    return;
+  }
+  if (msg.method === "resources/read") {
+    const uri = msg.params && msg.params.uri;
+    try {
+      if (uri === "bigbullui://tokens") {
+        const css = await themeCss();
+        reply(msg.id, { contents: [{ uri, mimeType: "text/css", text: css }] });
+      } else if (uri === "bigbullui://catalog") {
+        const comps = await componentsIndex();
+        reply(msg.id, { contents: [{ uri, mimeType: "application/json", text: JSON.stringify(comps, null, 2) }] });
+      } else if (uri === "bigbullui://blocks") {
+        const blks = await blocksIndex();
+        reply(msg.id, { contents: [{ uri, mimeType: "application/json", text: JSON.stringify(blks, null, 2) }] });
+      } else if (typeof uri === "string" && uri.startsWith("bigbullui://component/")) {
+        const slug = uri.slice("bigbullui://component/".length);
+        const payload = await getRegistryPayload(slug, "component");
+        reply(msg.id, { contents: [{ uri, mimeType: "application/json", text: JSON.stringify(payload, null, 2) }] });
+      } else {
+        fail(msg.id, -32602, `Unknown resource URI: ${String(uri)}`);
+      }
+    } catch (err) {
+      fail(msg.id, -32603, err && err.message ? err.message : String(err));
+    }
+    return;
+  }
+  if (msg.method === "prompts/list") {
+    reply(msg.id, { prompts: PROMPTS });
+    return;
+  }
+  if (msg.method === "prompts/get") {
+    const promptName = msg.params && msg.params.name;
+    const args = (msg.params && msg.params.arguments) || {};
+    if (promptName === "build-page") {
+      reply(msg.id, {
+        description: "Build an accessible page with bigbullui components",
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text: `Build "${args.feature || "dashboard"}" using bigbullui semantic tokens (never hardcode hex), logical RTL spacing (ms-/me-/ps-/pe-), and native/WAI-ARIA accessible controls. Start by checking list_blocks and get_component.`,
+            },
+          },
+        ],
+      });
+    } else if (promptName === "audit-a11y") {
+      reply(msg.id, {
+        description: "Audit component accessibility and semantic tokens",
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text: `Audit "${args.component || "button"}" for explicit button types, keyboard navigation, Escape stack / focus-trap on overlays, semantic contrast tokens, and logical RTL classes.`,
+            },
+          },
+        ],
+      });
+    } else if (promptName === "migrate-theme") {
+      reply(msg.id, {
+        description: "Migrate hardcoded colors to bigbullui semantic tokens",
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text: `Convert hardcoded hex/Tailwind colors in:\n\n${args.source || ""}\n\ninto semantic tokens from bigbullui.css (bg-background, text-foreground, bg-card, border-border, bg-primary, text-primary-foreground, bg-destructive, text-destructive-foreground).`,
+            },
+          },
+        ],
+      });
+    } else {
+      fail(msg.id, -32602, `Unknown prompt: ${String(promptName)}`);
+    }
+    return;
+  }
+  if (msg.method.startsWith("notifications/") || !hasId) return;
+  fail(msg.id, -32601, `Method not found: ${msg.method}`);
 }
 
 let buffer = "";
+let overflowed = false;
 function processLine(line) {
   if (!line) return;
   try {
@@ -354,14 +610,32 @@ function processLine(line) {
 process.stdin.setEncoding("utf8");
 process.stdin.on("data", (chunk) => {
   buffer += chunk;
+  if (buffer.length > MAX_RPC_LINE_BYTES) {
+    overflowed = true;
+    const nl = buffer.indexOf("\n");
+    if (nl < 0) {
+      buffer = "";
+      fail(null, -32600, `JSON-RPC frame exceeded ${MAX_RPC_LINE_BYTES} byte limit`);
+      return;
+    }
+  }
   let idx;
   while ((idx = buffer.indexOf("\n")) >= 0) {
     const line = buffer.slice(0, idx).trim();
     buffer = buffer.slice(idx + 1);
+    if (overflowed) {
+      overflowed = false;
+      fail(null, -32600, `JSON-RPC frame exceeded ${MAX_RPC_LINE_BYTES} byte limit`);
+      continue;
+    }
     processLine(line);
   }
 });
 process.stdin.on("end", () => {
+  if (overflowed) {
+    fail(null, -32600, `JSON-RPC frame exceeded ${MAX_RPC_LINE_BYTES} byte limit`);
+    return;
+  }
   const trailing = buffer.trim();
   buffer = "";
   processLine(trailing);

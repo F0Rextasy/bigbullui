@@ -17,7 +17,11 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
   React.useEffect(() => {
     const syncFromHash = () => {
       const hash = window.location.hash.slice(1);
-      if (categories.some((c) => c.id === hash)) setActiveCategory(hash);
+      if (!hash) {
+        setActiveCategory(null);
+      } else if (categories.some((c) => c.id === hash)) {
+        setActiveCategory(hash);
+      }
     };
     const timer = setTimeout(syncFromHash, 0);
     window.addEventListener("hashchange", syncFromHash);
@@ -102,6 +106,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
             type="button"
             onClick={() => {
               setQuery("");
+              setOnlyCore(false);
               selectCategory(null);
             }}
             className="mt-3 rounded-md border border-border px-3 py-1.5 font-mono text-xs uppercase text-foreground transition-colors hover:border-foreground"
@@ -129,7 +134,7 @@ export function DocsExplorer({ components }: { components: ComponentMeta[] }) {
                 <Link
                   key={component.name}
                   href={`/docs/${component.name}`}
-                  className="group flex flex-col justify-between rounded-lg border border-border bg-card p-5 transition-all duration-150 hover:border-foreground/40 hover:bg-secondary/30"
+                  className="group flex flex-col justify-between rounded-lg border border-border bg-card p-5 transition-colors duration-150 hover:border-foreground/40 hover:bg-secondary/30"
                 >
                   <div>
                     <div className="flex items-center justify-between">

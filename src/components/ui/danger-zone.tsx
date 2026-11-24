@@ -17,7 +17,7 @@ export function DangerZone({ title = "Danger Zone", actions = [], className, ...
       <h3 className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-destructive">{title}</h3>
       <ul className="mt-3 space-y-2.5">
         {actions.map((a, idx) => (
-          <li key={a.id} className="flex items-center justify-between gap-3 animate-[dzIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 60}ms` }}>
+          <li key={a.id} className="flex items-center justify-between gap-3 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 60}ms` }}>
             <div className="min-w-0">
               <p className="text-sm font-medium">{a.label}</p>
               {a.description && <p className="text-xs text-muted-foreground">{a.description}</p>}
@@ -25,7 +25,7 @@ export function DangerZone({ title = "Danger Zone", actions = [], className, ...
             {confirming === a.id ? (
               <span className="flex shrink-0 gap-1.5">
                 <button type="button" onClick={() => setConfirming(null)} className="rounded-md border border-border px-2 py-1 font-mono text-[9px] uppercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring motion-reduce:transition-none">Cancel</button>
-                <button type="button" onClick={() => { a.onConfirm?.(); setConfirming(null); }} className="rounded-md bg-destructive px-2 py-1 font-mono text-[9px] uppercase text-white transition-all duration-150 hover:bg-destructive/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none">Confirm</button>
+                <button type="button" onClick={() => { a.onConfirm?.(); setConfirming(null); }} className="rounded-md bg-destructive px-2 py-1 font-mono text-[9px] uppercase text-white transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-destructive/90 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive motion-reduce:transition-none">Confirm</button>
               </span>
             ) : (
               <button

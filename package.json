@@ -94,6 +94,66 @@
         "default": "./dist/components/ui/lib/use-ticket-audio.js"
       }
     },
+    "./react-compat": {
+      "import": {
+        "types": "./dist/components/ui/lib/react-compat.d.mts",
+        "default": "./dist/components/ui/lib/react-compat.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/react-compat.d.ts",
+        "default": "./dist/components/ui/lib/react-compat.js"
+      }
+    },
+    "./use-controllable-state": {
+      "import": {
+        "types": "./dist/components/ui/lib/use-controllable-state.d.mts",
+        "default": "./dist/components/ui/lib/use-controllable-state.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/use-controllable-state.d.ts",
+        "default": "./dist/components/ui/lib/use-controllable-state.js"
+      }
+    },
+    "./slot": {
+      "import": {
+        "types": "./dist/components/ui/lib/slot.d.mts",
+        "default": "./dist/components/ui/lib/slot.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/slot.d.ts",
+        "default": "./dist/components/ui/lib/slot.js"
+      }
+    },
+    "./floating": {
+      "import": {
+        "types": "./dist/components/ui/lib/floating.d.mts",
+        "default": "./dist/components/ui/lib/floating.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/floating.d.ts",
+        "default": "./dist/components/ui/lib/floating.js"
+      }
+    },
+    "./presence": {
+      "import": {
+        "types": "./dist/components/ui/lib/presence.d.mts",
+        "default": "./dist/components/ui/lib/presence.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/presence.d.ts",
+        "default": "./dist/components/ui/lib/presence.js"
+      }
+    },
+    "./direction": {
+      "import": {
+        "types": "./dist/components/ui/lib/direction.d.mts",
+        "default": "./dist/components/ui/lib/direction.mjs"
+      },
+      "require": {
+        "types": "./dist/components/ui/lib/direction.d.ts",
+        "default": "./dist/components/ui/lib/direction.js"
+      }
+    },
     "./components/ui/*": {
       "import": {
         "types": "./dist/components/ui/*.d.mts",
@@ -117,6 +177,9 @@
     "high-contrast.css",
     "css.d.ts",
     "high-contrast.d.ts",
+    "public/components.json",
+    "public/blocks.json",
+    "public/icons.json",
     "README.md",
     "LICENSE"
   ],

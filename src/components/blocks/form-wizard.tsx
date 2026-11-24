@@ -7,25 +7,28 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 
-const STEPS = ["EVENT", "STUBS", "REVIEW"];
+const DEFAULT_STEPS = ["EVENT", "STUBS", "REVIEW"];
 
-export interface FormWizardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FormWizardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  steps?: typeof DEFAULT_STEPS;
   onAction?: (action: string) => void;
 }
 
-export function FormWizard({ className, onAction, ...props }: FormWizardProps) {
+export function FormWizard({ title, steps = DEFAULT_STEPS, className, onAction, ...props }: FormWizardProps) {
   const uid = React.useId();
   const [step, setStep] = React.useState(0);
   const [published, setPublished] = React.useState(false);
-  const last = step === STEPS.length - 1;
+  const last = step === steps.length - 1;
   return (
     <div className={cn("mx-auto w-full max-w-xl space-y-5", className)} {...props}>
       <div className="space-y-2 text-center">
         <Badge variant="accent" className="mx-auto">WIZARD // 3 STAMPS</Badge>
-        <h2 className="font-mono text-2xl font-black uppercase tracking-tight">List your night</h2>
+        <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "List your night"}</h2>
       </div>
       <div className="flex items-center gap-2" role="group" aria-label="Wizard progress">
-        {STEPS.map((label, index) => (
+        {steps.map((label, index) => (
           <React.Fragment key={label}>
             <button
               type="button"
@@ -34,13 +37,13 @@ export function FormWizard({ className, onAction, ...props }: FormWizardProps) {
             >
               {index + 1}. {label}
             </button>
-            {index < STEPS.length - 1 && <span className="h-0 w-4 border-t-2 border-dashed border-border" />}
+            {index < steps.length - 1 && <span className="h-0 w-4 border-t-2 border-dashed border-border" />}
           </React.Fragment>
         ))}
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Step {step + 1}{" // "}{STEPS[step]}</CardTitle>
+          <CardTitle>Step {step + 1}{" // "}{steps[step]}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {step === 0 && (
@@ -81,7 +84,7 @@ export function FormWizard({ className, onAction, ...props }: FormWizardProps) {
                 {published ? "Night published" : "Publish night"}
               </Button>
             ) : (
-              <Button onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}>Next stamp</Button>
+              <Button onClick={() => setStep((s) => Math.min(steps.length - 1, s + 1))}>Next stamp</Button>
             )}
           </div>
         </CardContent>

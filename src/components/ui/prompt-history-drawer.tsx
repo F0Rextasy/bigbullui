@@ -66,7 +66,7 @@ export function PromptHistoryDrawer({
       {open && (
         <div className="fixed inset-0 z-50">
           <div className="absolute inset-0 bg-foreground/30" onClick={() => setOpen(false)} aria-hidden="true" />
-          <aside ref={panelRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Prompt history" className="absolute right-0 top-0 flex h-full w-72 flex-col border-l-2 border-foreground bg-card focus:outline-none">
+          <aside ref={panelRef} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Prompt history" className="absolute right-0 top-0 flex h-full w-72 flex-col border-s-2 border-foreground bg-card focus:outline-none">
             <div className="flex items-center justify-between border-b border-dashed border-border px-3 py-2">
               <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 Prompt history

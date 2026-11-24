@@ -8,11 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 
-export interface AuthRegisterProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AuthRegisterProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
   onAction?: (action: string) => void;
 }
 
-export function AuthRegister({ className, onAction, ...props }: AuthRegisterProps) {
+export function AuthRegister({ title, className, onAction, ...props }: AuthRegisterProps) {
   const uid = React.useId();
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
@@ -20,7 +22,7 @@ export function AuthRegister({ className, onAction, ...props }: AuthRegisterProp
       <Card>
         <CardHeader className="text-center">
           <Badge variant="accent" className="mx-auto">GATE PASS // REGISTER</Badge>
-          <CardTitle className="text-xl">Claim your crew stub</CardTitle>
+          <CardTitle className="text-xl">{title ?? "Claim your crew stub"}</CardTitle>
           <CardDescription>One account for every gate, booth, and ledger.</CardDescription>
         </CardHeader>
         <CardContent>

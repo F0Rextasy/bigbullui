@@ -32,24 +32,24 @@ export function PivotLite({ rows = FALLBACK, className, ...props }: PivotLitePro
         <thead>
           <tr className="border-b-2 border-foreground bg-secondary">
             <th className="px-3 py-2 text-start text-[10px] uppercase text-muted-foreground">Section</th>
-            {tiers.map((t) => <th key={t} className="px-3 py-2 text-right text-[10px] uppercase text-muted-foreground">{t}</th>)}
-            <th className="px-3 py-2 text-right text-[10px] uppercase text-accent">Total</th>
+            {tiers.map((t) => <th key={t} className="px-3 py-2 text-end text-[10px] uppercase text-muted-foreground">{t}</th>)}
+            <th className="px-3 py-2 text-end text-[10px] uppercase text-accent">Total</th>
           </tr>
         </thead>
         <tbody>
           {sections.map((s) => (
             <tr key={s} className="border-b border-dashed border-border last:border-0">
               <td className="px-3 py-2 font-bold uppercase text-foreground">{s}</td>
-              {tiers.map((t) => <td key={t} className="px-3 py-2 text-right tabular-nums text-foreground">{cell(s, t)}</td>)}
-              <td className="px-3 py-2 text-right font-bold tabular-nums text-accent">{rows.filter((r) => r.section === s).reduce((n, r) => n + r.sold, 0)}</td>
+              {tiers.map((t) => <td key={t} className="px-3 py-2 text-end tabular-nums text-foreground">{cell(s, t)}</td>)}
+              <td className="px-3 py-2 text-end font-bold tabular-nums text-accent">{rows.filter((r) => r.section === s).reduce((n, r) => n + r.sold, 0)}</td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr className="bg-secondary/60">
             <td className="px-3 py-2 font-bold uppercase text-foreground">All</td>
-            {tiers.map((t) => <td key={t} className="px-3 py-2 text-right font-bold tabular-nums text-foreground">{rows.filter((r) => r.tier === t).reduce((n, r) => n + r.sold, 0)}</td>)}
-            <td className="px-3 py-2 text-right font-black tabular-nums text-accent">{total}</td>
+            {tiers.map((t) => <td key={t} className="px-3 py-2 text-end font-bold tabular-nums text-foreground">{rows.filter((r) => r.tier === t).reduce((n, r) => n + r.sold, 0)}</td>)}
+            <td className="px-3 py-2 text-end font-black tabular-nums text-accent">{total}</td>
           </tr>
         </tfoot>
       </table>

@@ -211,7 +211,7 @@ export function QrReader({
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); triggerScanSimulation(); } }}
           onClick={triggerScanSimulation}
           className={cn(
-            "relative w-full aspect-square max-h-[300px] sm:max-h-[320px] mx-auto rounded-lg overflow-hidden border-2 border-foreground bg-neutral-950 text-neutral-100 flex items-center justify-center cursor-pointer group shadow-inner transition-all",
+            "relative w-full aspect-square max-h-[300px] sm:max-h-[320px] mx-auto rounded-lg overflow-hidden border-2 border-foreground bg-neutral-950 text-neutral-100 flex items-center justify-center cursor-pointer group shadow-inner transition-[width,height,left,right,opacity,background-color,border-color]",
             torchOn && "ring-4 ring-amber-300/40",
             detectionPulse && "ring-4 ring-emerald-500 shadow-[0_0_24px_rgba(16,185,129,0.6)]"
           )}
@@ -358,7 +358,7 @@ export function QrReader({
 
               {/* Success Detection Pulse Ring & Stamp */}
               {scanResult && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black/60 backdrop-blur-xs p-2 text-center">
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-40 bg-black/60 p-2 text-center">
                   <div className="motion-safe:animate-[scale-in_0.2s_ease-out_both] motion-reduce:animate-none! flex flex-col items-center">
                     <div className="size-10 rounded-full bg-success/20 border-2 border-success flex items-center justify-center text-success mb-1.5 shadow-[0_0_12px_var(--color-success)]">
                       <svg
@@ -388,7 +388,7 @@ export function QrReader({
 
           {/* Click hint badge */}
           <div className="absolute bottom-2 inset-x-0 flex justify-center pointer-events-none">
-            <span className="rounded-xs bg-black/70 border border-neutral-700 px-2 py-0.5 font-mono text-[9px] text-neutral-300 uppercase tracking-wider backdrop-blur-xs">
+            <span className="rounded-xs bg-black/70 border border-neutral-700 px-2 py-0.5 font-mono text-[9px] text-neutral-300 uppercase tracking-wider">
               {scanResult ? "CLICK TO SCAN NEXT TICKET" : "TAP TO SIMULATE ADMISSION"}
             </span>
           </div>
@@ -417,7 +417,7 @@ export function QrReader({
               <span className="text-muted-foreground block">SEAT INFO:</span>
               <span className="font-bold text-foreground">{scanResult.seat}</span>
             </div>
-            <div className="text-right">
+            <div className="text-end">
               <span className="text-muted-foreground block">TIME &amp; GATE:</span>
               <span className="font-bold text-foreground">
                 {scanResult.timestamp} · {scanResult.gate}

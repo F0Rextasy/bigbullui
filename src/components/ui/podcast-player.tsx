@@ -126,7 +126,7 @@ export function PodcastPlayer({
         <div className="w-full bg-background rounded-full h-2 overflow-hidden">
           <div
             className={cn(
-              "h-full bg-primary w-0 rounded-full transition-all duration-500 ease-out",
+              "h-full bg-primary w-0 rounded-full transition-[width,height,left,right,opacity,background-color,border-color] duration-500 ease-out",
               progress > 0 && "shadow-lg",
               motionReduceClass
             )}

@@ -1,4 +1,11 @@
-export type ClassValue = string | number | boolean | null | undefined;
+export type ClassValue =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | ClassValue[]
+  | { [key: string]: boolean | null | undefined };
 
 const SPACING_DIRS: Record<string, string[]> = {
   p: ["p", "px", "py", "pt", "pr", "pb", "pl", "ps", "pe"],
@@ -19,9 +26,18 @@ const TEXT_ALIGN_SET = new Set(["left", "center", "right", "justify", "start", "
 const TEXT_SIZE_SET = new Set(["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl", "9xl"]);
 const FONT_WEIGHT_SET = new Set(["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black"]);
 const BORDER_STYLE_SET = new Set(["solid", "dashed", "dotted", "double", "hidden", "none"]);
+const OUTLINE_STYLE_SET = new Set(["solid", "dashed", "dotted", "double", "none"]);
 const SHADOW_SIZE_SET = new Set(["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "inner", "none"]);
 const ROUNDED_SIZE_SET = new Set(["none", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"]);
+const FLEX_VAL_SET = new Set(["1", "auto", "initial", "none"]);
 const BG_NON_COLOR = /^(?:none|gradient-|linear$|linear-|radial$|radial-|conic$|conic-|clip-|origin-|repeat|no-repeat|cover$|contain$|auto$|center$|top$|bottom$|left$|right$|fixed$|local$|scroll$|blend-|size-|position-)/;
+
+const ROUNDED_ALL_KEYS = [
+  "rounded",
+  "rounded-t", "rounded-r", "rounded-b", "rounded-l", "rounded-s", "rounded-e",
+  "rounded-tl", "rounded-tr", "rounded-br", "rounded-bl",
+  "rounded-ss", "rounded-se", "rounded-ee", "rounded-es",
+];
 
 function splitVariant(token: string): [string, string] {
   let depth = 0;
@@ -32,7 +48,24 @@ function splitVariant(token: string): [string, string] {
     else if (ch === "]" && depth > 0) depth--;
     else if (ch === ":" && depth === 0) lastColon = i;
   }
-  return lastColon === -1 ? ["", token] : [token.slice(0, lastColon + 1), token.slice(lastColon + 1)];
+  if (lastColon === -1) return ["", token];
+  const rawVariant = token.slice(0, lastColon);
+  const base = token.slice(lastColon + 1);
+  // Canonicalize stacked variants (`dark:hover:` === `hover:dark:`) so overrides match regardless of modifier order.
+  const parts: string[] = [];
+  let segStart = 0;
+  depth = 0;
+  for (let i = 0; i <= rawVariant.length; i++) {
+    const ch = rawVariant[i];
+    if (ch === "[") depth++;
+    else if (ch === "]" && depth > 0) depth--;
+    else if ((ch === ":" || i === rawVariant.length) && depth === 0) {
+      parts.push(rawVariant.slice(segStart, i));
+      segStart = i + 1;
+    }
+  }
+  const canonicalVariant = parts.length > 1 ? parts.sort().join(":") + ":" : rawVariant + ":";
+  return [canonicalVariant, base];
 }
 
 function getConflictKeys(rawBase: string): string[] {
@@ -69,8 +102,15 @@ function getConflictKeys(rawBase: string): string[] {
   }
   if (/^grid-cols-/.test(base)) return ["grid-cols"];
   if (/^grid-rows-/.test(base)) return ["grid-rows"];
+  if (/^col-span-/.test(base)) return ["col-span"];
+  if (/^row-span-/.test(base)) return ["row-span"];
   if (/^flex-(?:row|row-reverse|col|col-reverse)$/.test(base)) return ["flex-dir"];
   if (/^flex-(?:wrap|wrap-reverse|nowrap)$/.test(base)) return ["flex-wrap"];
+  if (base.startsWith("flex-") && (FLEX_VAL_SET.has(base.slice(5)) || base.slice(5).startsWith("["))) {
+    return ["flex"];
+  }
+  if (base === "shrink" || /^shrink-/.test(base)) return ["shrink"];
+  if (base === "grow" || /^grow-/.test(base)) return ["grow"];
   if (base.startsWith("justify-items-")) return ["justify-items"];
   if (base.startsWith("justify-self-")) return ["justify-self"];
   if (base.startsWith("justify-")) return ["justify"];
@@ -86,12 +126,33 @@ function getConflictKeys(rawBase: string): string[] {
   if (/^overflow-(x|y)-/.test(base)) return [`overflow-${base[9]}`];
   if (/^overflow-/.test(base)) return ["overflow", "overflow-x", "overflow-y"];
 
+  if (negStripped.startsWith("translate-x-")) return ["translate-x"];
+  if (negStripped.startsWith("translate-y-")) return ["translate-y"];
+  if (negStripped.startsWith("scale-x-")) return ["scale-x"];
+  if (negStripped.startsWith("scale-y-")) return ["scale-y"];
+  if (negStripped.startsWith("scale-")) return ["scale", "scale-x", "scale-y"];
+  if (negStripped.startsWith("rotate-")) return ["rotate"];
+
   if (base === "shadow" || (base.startsWith("shadow-") && SHADOW_SIZE_SET.has(base.slice(7)))) {
     return ["shadow"];
   }
+  if (base.startsWith("shadow-")) {
+    return ["shadow-color"];
+  }
 
   if (base === "rounded" || (base.startsWith("rounded-") && (ROUNDED_SIZE_SET.has(base.slice(8)) || base.slice(8).startsWith("[")))) {
-    return ["rounded"];
+    return ROUNDED_ALL_KEYS;
+  }
+  const rSide = base.match(/^rounded-(tl|tr|br|bl|ss|se|ee|es|t|r|b|l|s|e)(?:-.+)?$/);
+  if (rSide) {
+    const s = rSide[1];
+    if (s === "t") return ["rounded-t", "rounded-tl", "rounded-tr", "rounded-ss", "rounded-se"];
+    if (s === "b") return ["rounded-b", "rounded-bl", "rounded-br", "rounded-es", "rounded-ee"];
+    if (s === "l") return ["rounded-l", "rounded-tl", "rounded-bl"];
+    if (s === "r") return ["rounded-r", "rounded-tr", "rounded-br"];
+    if (s === "s") return ["rounded-s", "rounded-ss", "rounded-es"];
+    if (s === "e") return ["rounded-e", "rounded-se", "rounded-ee"];
+    return [`rounded-${s}`];
   }
 
   if (base === "border" || /^border-(?:\d+|\[(?:length:[^\]]+|[^\]#]+(?:px|rem|em))\])$/.test(base)) {
@@ -124,6 +185,19 @@ function getConflictKeys(rawBase: string): string[] {
   }
   if (base.startsWith("border-")) {
     return ["border-color", "border-c-t", "border-c-r", "border-c-b", "border-c-l", "border-c-x", "border-c-y", "border-c-s", "border-c-e"];
+  }
+
+  if (base === "outline" || /^outline-(?:\d+|\[(?:length:[^\]]+|[^\]#]+(?:px|rem|em))\])$/.test(base)) {
+    return ["outline-w"];
+  }
+  if (base.startsWith("outline-offset-")) {
+    return ["outline-offset"];
+  }
+  if (base.startsWith("outline-") && OUTLINE_STYLE_SET.has(base.slice(8))) {
+    return base === "outline-none" ? ["outline-style", "outline-w"] : ["outline-style"];
+  }
+  if (base.startsWith("outline-")) {
+    return ["outline-color"];
   }
 
   if (base === "ring-inset") return ["ring-inset"];
@@ -170,17 +244,32 @@ function getConflictKeys(rawBase: string): string[] {
   return [];
 }
 
+function collectTokens(input: ClassValue, tokens: string[]): void {
+  if (!input) return;
+  if (typeof input === "string" || typeof input === "number") {
+    const str = String(input).trim();
+    if (!str) return;
+    for (const part of str.split(/\s+/)) {
+      if (part) tokens.push(part);
+    }
+    return;
+  }
+  if (Array.isArray(input)) {
+    for (const item of input) collectTokens(item, tokens);
+    return;
+  }
+  if (typeof input === "object") {
+    for (const [key, enabled] of Object.entries(input)) {
+      if (enabled) collectTokens(key, tokens);
+    }
+  }
+}
+
 /** Class merger with zero-dependency Tailwind utility conflict resolution (last class wins). */
 export function cn(...inputs: ClassValue[]): string {
   const tokens: string[] = [];
   for (const input of inputs) {
-    if (typeof input === "string" || typeof input === "number") {
-      const str = String(input).trim();
-      if (!str) continue;
-      for (const part of str.split(/\s+/)) {
-        if (part) tokens.push(part);
-      }
-    }
+    collectTokens(input, tokens);
   }
   if (tokens.length <= 1) return tokens.join(" ");
 
@@ -195,8 +284,7 @@ export function cn(...inputs: ClassValue[]): string {
       kept.push(token);
       continue;
     }
-    const primary = `${variant}${groups[0]}`;
-    if (seen.has(primary)) continue;
+    if (seen.has(`${variant}${groups[0]}`)) continue;
     for (const g of groups) {
       seen.set(`${variant}${g}`, 1);
     }

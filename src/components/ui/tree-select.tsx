@@ -9,7 +9,7 @@ export interface TreeSelectNode {
   children?: TreeSelectNode[];
 }
 
-export interface TreeSelectProps {
+export interface TreeSelectProps extends Omit<React.HTMLAttributes<HTMLElement>, "value" | "defaultValue"> {
   data: TreeSelectNode[];
   value?: string;
   defaultValue?: string;
@@ -24,7 +24,7 @@ export function TreeSelect({
   defaultValue = "",
   onValueChange,
   placeholder = "SELECT TICKET SEAT / ZONE",
-  className,
+  className, ...props
 }: TreeSelectProps) {
   const [internalVal, setInternalVal] = React.useState(defaultValue);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -115,7 +115,7 @@ export function TreeSelect({
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="border-l border-dashed border-border/80 ms-3 space-y-0.5 ps-1 motion-safe:animate-[fade-in_0.12s_ease-out]">
+          <div className="border-s border-dashed border-border/80 ms-3 space-y-0.5 ps-1 motion-safe:animate-[fade-in_0.12s_ease-out]">
             {node.children!.map((child) => renderNode(child, depth + 1))}
           </div>
         )}
@@ -124,14 +124,14 @@ export function TreeSelect({
   };
 
   return (
-    <div ref={containerRef} className={cn("relative w-full max-w-sm font-mono select-none", className)}>
+    <div ref={containerRef} className={cn("relative w-full max-w-sm font-mono select-none", className)} {...props}>
       <button
         type="button"
         aria-haspopup="tree"
         aria-expanded={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
         className={cn(
-          "flex w-full cursor-pointer items-center justify-between rounded-lg border-2 border-foreground bg-card px-3 py-2 text-xs transition-all shadow-xs",
+          "flex w-full cursor-pointer items-center justify-between rounded-lg border-2 border-foreground bg-card px-3 py-2 text-xs transition-[width,height,left,right,opacity,background-color,border-color] shadow-xs",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isOpen ? "border-accent ring-1 ring-accent" : "hover:border-foreground/70"
         )}

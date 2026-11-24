@@ -32,12 +32,12 @@ export function ColorTokenTable({ tokens = [], className, ...props }: ColorToken
           <tr className="border-b border-border bg-secondary/60 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
             <th className="px-3 py-2 text-start font-medium">Token</th>
             <th className="px-3 py-2 text-start font-medium">Value</th>
-            <th className="px-3 py-2 text-right font-medium">Copy</th>
+            <th className="px-3 py-2 text-end font-medium">Copy</th>
           </tr>
         </thead>
         <tbody>
           {tokens.map((token, idx) => (
-            <tr key={token.name} className="border-b border-border/40 last:border-0 animate-[ctRow_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:bg-secondary/30 motion-reduce:transition-none" style={{ animationDelay: `${idx * 40}ms` }}>
+            <tr key={token.name} className="border-b border-border/40 last:border-0 animate-[secIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:bg-secondary/30 motion-reduce:transition-none" style={{ animationDelay: `${idx * 40}ms` }}>
               <td className="px-3 py-2">
                 <span className="flex items-center gap-2">
                   <span
@@ -51,7 +51,7 @@ export function ColorTokenTable({ tokens = [], className, ...props }: ColorToken
               <td className="px-3 py-2">
                 <code className="font-mono text-xs text-muted-foreground">{token.value}</code>
               </td>
-              <td className="px-3 py-2 text-right">
+              <td className="px-3 py-2 text-end">
                 <button
                   type="button"
                   onClick={() => copy(token)}

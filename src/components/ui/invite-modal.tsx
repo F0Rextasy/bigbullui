@@ -3,7 +3,7 @@
 import * as React from "react";
 import { getFocusable, lockBodyScroll, registerEscapeLayer, trapFocus } from "./lib/focus-trap";
 import { cn } from "./lib/utils";
-export interface InviteModalProps {
+export interface InviteModalProps extends React.HTMLAttributes<HTMLElement> {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   roles?: string[];
@@ -11,7 +11,7 @@ export interface InviteModalProps {
 }
 
 /** Team member invite modal: email + role selector + dispatch state. */
-export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "member"], onSend }: InviteModalProps) {
+export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "member"], onSend, ...props }: InviteModalProps) {
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState(roles[roles.length - 1]);
   const [sent, setSent] = React.useState(false);
@@ -55,7 +55,7 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" {...props}>
       <div className="absolute inset-0 bg-black/40" onClick={() => onOpenChange(false)} aria-hidden="true" />
       <div
         ref={panelRef}
@@ -87,7 +87,7 @@ export function InviteModal({ open, onOpenChange, roles = ["admin", "editor", "m
                     aria-checked={role === r}
                     onClick={() => setRole(r)}
                     className={cn(
-                      "flex-1 rounded-md border px-2 py-1.5 font-mono text-[10px] uppercase tracking-wider transition-all duration-150 motion-reduce:transition-none",
+                      "flex-1 rounded-md border px-2 py-1.5 font-mono text-[10px] uppercase tracking-wider transition-colors duration-150 motion-reduce:transition-none",
                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                       role === r ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground hover:border-foreground/40"
                     )}

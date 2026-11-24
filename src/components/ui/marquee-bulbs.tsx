@@ -3,12 +3,12 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface MarqueeBulbsProps {
+export interface MarqueeBulbsProps extends React.HTMLAttributes<HTMLElement> {
   text: string;
   bulbs?: boolean;
 }
 
-export function MarqueeBulbs({ text = "", bulbs = true }: MarqueeBulbsProps) {
+export function MarqueeBulbs({ text = "", bulbs = true, ...props }: MarqueeBulbsProps) {
   const bulbCount = bulbs ? Math.max(4, text.length + 2) : 1;
 
   return (
@@ -16,7 +16,7 @@ export function MarqueeBulbs({ text = "", bulbs = true }: MarqueeBulbsProps) {
       className={cn(
         "relative rounded-lg border border-border bg-card p-4 motion-reduce:transition-none",
         "overflow-hidden"
-      )}
+      )} {...props}
     >
 
       <div className="flex gap-2 pt-2">

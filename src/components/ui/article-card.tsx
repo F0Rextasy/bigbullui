@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface ArticleCardProps {
+export interface ArticleCardProps extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   title: string;
   excerpt: string;
   category?: string;
@@ -20,14 +20,14 @@ export function ArticleCard({
   author,
   readTime,
   image,
-  className,
+  className, ...props
 }: ArticleCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground overflow-hidden h-full transition-all duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
+        "group relative w-full rounded-lg border border-foreground bg-card text-card-foreground overflow-hidden h-full transition-[transform,width,height,opacity,background-color,border-color] duration-300 hover:translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:translate-y-0 motion-reduce:shadow-none",
         className
-      )}
+      )} {...props}
     >
       {/* Image section */}
       {image && (

@@ -41,11 +41,11 @@ export function QuizCard({ question = "", options = [], onAnswer, className, ...
                 onClick={() => pick(opt.id)}
                 disabled={picked !== null}
                 className={cn(
-                  "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-start text-sm transition-all duration-200 motion-reduce:transition-none",
+                  "flex w-full items-center gap-2 rounded-md border px-3 py-2 text-start text-sm transition-[width,height,left,right,opacity,background-color,border-color] duration-200 motion-reduce:transition-none",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   picked === null && "border-border hover:border-foreground/40",
-                  showCorrect && "border-success bg-success/10 text-success animate-[qcPop_0.25s_ease-out] motion-reduce:animate-none",
-                  showWrong && "border-destructive bg-destructive/10 text-destructive animate-[qcPop_0.25s_ease-out] motion-reduce:animate-none",
+                  showCorrect && "border-success bg-success/10 text-success animate-[comboPop_0.25s_ease-out] motion-reduce:animate-none",
+                  showWrong && "border-destructive bg-destructive/10 text-destructive animate-[comboPop_0.25s_ease-out] motion-reduce:animate-none",
                   picked !== null && !showCorrect && !showWrong && "border-border opacity-50"
                 )}
               >

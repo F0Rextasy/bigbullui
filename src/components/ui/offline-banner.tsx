@@ -17,8 +17,13 @@ function getOnlineSnapshot(): boolean {
   return typeof navigator !== "undefined" ? navigator.onLine : true;
 }
 
+export interface OfflineBannerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Additional CSS classes applied to the banner container. */
+  className?: string;
+}
+
 /** Offline warning banner: monitors navigator.onLine state. */
-export function OfflineBanner({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+export function OfflineBanner({ className, ...props }: OfflineBannerProps) {
   const online = React.useSyncExternalStore(subscribeOnline, getOnlineSnapshot, () => true);
   const [reconnecting, setReconnecting] = React.useState(false);
 

@@ -3,20 +3,20 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface PassportProps {
+export interface PassportProps extends React.HTMLAttributes<HTMLElement> {
   holderName?: string;
   nationality?: string;
   visaCountries?: string[];
   className?: string;
 }
 
-export function Passport({ holderName, nationality, visaCountries = [], className }: PassportProps) {
+export function Passport({ holderName, nationality, visaCountries = [], className, ...props }: PassportProps) {
   return (
     <div
       className={cn(
         "relative size-96 rounded-lg border border-border bg-card p-6 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       <div className="relative rounded-2xl border border-border bg-secondary p-2">
         <div className="relative">

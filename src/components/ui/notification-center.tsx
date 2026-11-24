@@ -14,13 +14,13 @@ export type Notification = {
 export type NotificationCenterProps = {
   notifications?: Notification[];
   onMarkAllRead?: () => void;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
 function getDelay(index: number): string {
   return `${index * 40}ms`;
 }
 
-export function NotificationCenter({ notifications = [], onMarkAllRead }: NotificationCenterProps) {
+export function NotificationCenter({ notifications = [], onMarkAllRead, ...props }: NotificationCenterProps) {
   const [open, setOpen] = React.useState(false);
   const [readIds, setReadIds] = React.useState<Set<string>>(() => new Set());
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ export function NotificationCenter({ notifications = [], onMarkAllRead }: Notifi
   };
 
   return (
-    <div ref={containerRef} className="relative inline-block">
+    <div ref={containerRef} className="relative inline-block" {...props}>
       <button
         type="button"
         className={cn(
@@ -132,7 +132,7 @@ export function NotificationCenter({ notifications = [], onMarkAllRead }: Notifi
                       "motion-reduce:animate-none!",
                       "motion-reduce:transition-none",
                     )}
-                    style={{ animationName: "fadeIn", animationDuration: "200ms", animationDelay: delay, animationFillMode: "forwards" }}
+                    style={{ animationName: "fade-in", animationDuration: "200ms", animationDelay: delay, animationFillMode: "forwards" }}
                   >
                     <div className={cn("mt-1.5 w-2.5 h-2.5 shrink-0 rounded-full", isUnread ? "bg-accent" : "bg-muted-foreground")} aria-hidden="true" />
                     <div className="flex-1 min-w-0">

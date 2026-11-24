@@ -83,7 +83,7 @@ export function RadarChart({
             stroke="currentColor"
             strokeWidth={1}
             className={cn(
-              "transition-all duration-200",
+              "transition-colors duration-200",
               "motion-reduce:transition-none",
               "group-hover:scale-125 motion-reduce:group-hover:scale-100",
             )}

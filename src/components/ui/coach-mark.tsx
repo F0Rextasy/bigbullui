@@ -9,9 +9,9 @@ export type CoachMarkProps = {
   description?: string;
   open?: boolean;
   onDismiss?: () => void;
-};
+} & Omit<React.HTMLAttributes<HTMLElement>, "title">;
 
-export function CoachMark({ trigger, title, description, open: controlledOpen, onDismiss }: CoachMarkProps) {
+export function CoachMark({ trigger, title, description, open: controlledOpen, onDismiss, ...props }: CoachMarkProps) {
   const [internalOpen, setInternalOpen] = React.useState(true);
   const isOpen = controlledOpen !== undefined ? controlledOpen : internalOpen;
 
@@ -30,7 +30,7 @@ export function CoachMark({ trigger, title, description, open: controlledOpen, o
   }, [isOpen, dismiss]);
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" {...props}>
       <div>{trigger}</div>
 
       {isOpen && (

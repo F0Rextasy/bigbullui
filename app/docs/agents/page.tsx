@@ -1,8 +1,13 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { CodeBox } from "@/components/site/code-box";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "AI Agents" };
+export const metadata = buildMetadata({
+  title: "AI Agents",
+  description: "Use bigbullui with AI coding assistants via /skill.md, /llms-full.txt, per-component /md/[slug], and the offline MCP server.",
+  path: "/docs/agents",
+});
 
 const duties = [
   {

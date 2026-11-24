@@ -25,7 +25,7 @@ export function WebhookList({ webhooks = [], onTest, onRemove, className, ...pro
       {webhooks.map((w, idx) => (
         <div
           key={w.id}
-          className="rounded-md border border-border bg-card p-3 animate-[whIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
+          className="rounded-md border border-border bg-card p-3 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:border-foreground/30 motion-reduce:transition-none"
           style={{ animationDelay: `${idx * 60}ms` }}
         >
           <div className="flex items-center gap-2">

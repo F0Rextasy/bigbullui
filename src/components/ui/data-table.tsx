@@ -16,9 +16,32 @@ export interface DataTableProps<T> extends React.HTMLAttributes<HTMLDivElement> 
   searchKey?: string;
   pageSize?: number;
   rowKey?: keyof T | ((row: T, index: number) => string);
+  selectable?: boolean;
   selectedKeys?: string[];
   onSelectionChange?: (keys: string[]) => void;
+  searchPlaceholder?: string;
+  emptyText?: string;
+  totalLabel?: string;
+  recordsLabel?: string;
+  prevLabel?: string;
+  nextLabel?: string;
   className?: string;
+}
+
+function compareValues(aVal: unknown, bVal: unknown): number {
+  if (aVal === bVal) return 0;
+  if (aVal === null || aVal === undefined) return 1;
+  if (bVal === null || bVal === undefined) return -1;
+  if (typeof aVal === "number" && typeof bVal === "number") {
+    return aVal - bVal;
+  }
+  if (aVal instanceof Date && bVal instanceof Date) {
+    return aVal.getTime() - bVal.getTime();
+  }
+  return String(aVal).localeCompare(String(bVal), undefined, {
+    numeric: true,
+    sensitivity: "base",
+  });
 }
 
 export function DataTable<T extends Record<string, unknown>>({
@@ -27,8 +50,15 @@ export function DataTable<T extends Record<string, unknown>>({
   searchKey,
   pageSize = 5,
   rowKey,
+  selectable,
   selectedKeys: controlledSelectedKeys,
   onSelectionChange,
+  searchPlaceholder = "Filter records...",
+  emptyText = "No records found",
+  totalLabel = "Total",
+  recordsLabel = "records",
+  prevLabel = "← Prev",
+  nextLabel = "Next →",
   className,
   ...props
 }: DataTableProps<T>) {
@@ -37,8 +67,12 @@ export function DataTable<T extends Record<string, unknown>>({
   const [sortOrder, setSortOrder] = React.useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [internalSelectedKeys, setInternalSelectedKeys] = React.useState<string[]>([]);
+  const selectAllRef = React.useRef<HTMLInputElement>(null);
+
   const isSelectionControlled = controlledSelectedKeys !== undefined;
   const selectedKeys = isSelectionControlled ? controlledSelectedKeys : internalSelectedKeys;
+  const showSelection =
+    selectable ?? (onSelectionChange !== undefined || controlledSelectedKeys !== undefined);
 
   const originalIndexMap = React.useMemo(() => {
     const map = new Map<T, number>();
@@ -57,35 +91,28 @@ export function DataTable<T extends Record<string, unknown>>({
     [originalIndexMap, rowKey]
   );
 
-  // Filter
   const filteredData = React.useMemo(() => {
     if (!search || !searchKey) return data;
-    return data.filter((item) => {
-      const val = item[searchKey];
-      return String(val ?? "").toLowerCase().includes(search.toLowerCase());
-    });
+    const q = search.toLowerCase();
+    return data.filter((item) => String(item[searchKey] ?? "").toLowerCase().includes(q));
   }, [data, search, searchKey]);
 
-  // Sort
   const sortedData = React.useMemo(() => {
     if (!sortKey) return filteredData;
     return [...filteredData].sort((a, b) => {
-      const aVal = a[sortKey];
-      const bVal = b[sortKey];
-      if (aVal === bVal) return 0;
-      if (aVal === null || aVal === undefined) return 1;
-      if (bVal === null || bVal === undefined) return -1;
-      const cmp = aVal < bVal ? -1 : 1;
+      const cmp = compareValues(a[sortKey], b[sortKey]);
       return sortOrder === "asc" ? cmp : -cmp;
     });
   }, [filteredData, sortKey, sortOrder]);
 
-  // Pagination
-  const totalPages = Math.max(1, Math.ceil(sortedData.length / pageSize));
+  const safePageSize = Math.max(1, pageSize);
+  const totalPages = Math.max(1, Math.ceil(sortedData.length / safePageSize));
+  const safePage = Math.min(currentPage, totalPages);
+
   const paginatedData = React.useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    return sortedData.slice(start, start + pageSize);
-  }, [sortedData, currentPage, pageSize]);
+    const start = (safePage - 1) * safePageSize;
+    return sortedData.slice(start, start + safePageSize);
+  }, [sortedData, safePage, safePageSize]);
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -94,6 +121,7 @@ export function DataTable<T extends Record<string, unknown>>({
       setSortKey(key);
       setSortOrder("asc");
     }
+    setCurrentPage(1);
   };
 
   const commitSelection = (next: string[]) => {
@@ -109,9 +137,18 @@ export function DataTable<T extends Record<string, unknown>>({
     );
   };
 
-  const pageKeys = paginatedData.map((row, idx) => getKey(row, (currentPage - 1) * pageSize + idx));
-  const isAllSelected =
-    pageKeys.length > 0 && pageKeys.every((k) => selectedKeys.includes(k));
+  const pageKeys = paginatedData.map((row, idx) =>
+    getKey(row, (safePage - 1) * safePageSize + idx)
+  );
+  const selectedOnPage = pageKeys.filter((k) => selectedKeys.includes(k)).length;
+  const isAllSelected = pageKeys.length > 0 && selectedOnPage === pageKeys.length;
+  const isIndeterminate = selectedOnPage > 0 && selectedOnPage < pageKeys.length;
+
+  React.useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = isIndeterminate;
+    }
+  }, [isIndeterminate]);
 
   const toggleSelectAll = () => {
     if (isAllSelected) {
@@ -123,7 +160,6 @@ export function DataTable<T extends Record<string, unknown>>({
 
   return (
     <div className={cn("w-full space-y-3 font-mono", className)} {...props}>
-      {/* Top Controls */}
       {searchKey ? (
         <div className="flex items-center justify-between gap-3">
           <div className="relative w-full max-w-xs">
@@ -135,30 +171,33 @@ export function DataTable<T extends Record<string, unknown>>({
                 setCurrentPage(1);
               }}
               aria-label="Filter records"
-              placeholder="FILTER TICKETS..."
+              placeholder={searchPlaceholder}
               className="w-full rounded-md border border-border bg-card px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-widest">
-            TOTAL: {filteredData.length} RECORDS
+            {totalLabel}: {filteredData.length} {recordsLabel}
           </div>
         </div>
       ) : null}
 
-      {/* Ticket Table */}
       <div className="overflow-x-auto rounded-lg border-2 border-foreground bg-card shadow-sm outline-1 outline-dashed outline-offset-[-5px]">
         <table className="w-full border-collapse text-start text-xs">
           <thead>
             <tr className="border-b-2 border-dashed border-border bg-secondary/60">
-              <th className="p-3 w-10 text-center">
-                <input
-                  type="checkbox"
-                  checked={isAllSelected}
-                  onChange={toggleSelectAll}
-                  aria-label="Select all rows"
-                  className="accent-accent size-3.5 cursor-pointer rounded-xs"
-                />
-              </th>
+              {showSelection ? (
+                <th className="w-10 p-3 text-center">
+                  <input
+                    ref={selectAllRef}
+                    type="checkbox"
+                    checked={isAllSelected}
+                    aria-checked={isIndeterminate ? "mixed" : isAllSelected}
+                    onChange={toggleSelectAll}
+                    aria-label="Select all rows"
+                    className="accent-accent size-3.5 cursor-pointer rounded-xs"
+                  />
+                </th>
+              ) : null}
               {columns.map((col) => {
                 const ariaSort = col.sortable
                   ? sortKey === col.key
@@ -170,8 +209,9 @@ export function DataTable<T extends Record<string, unknown>>({
                 return (
                   <th
                     key={col.key}
+                    scope="col"
                     aria-sort={ariaSort}
-                    className="p-3 font-bold uppercase tracking-wider text-muted-foreground select-none"
+                    className="p-3 font-bold uppercase tracking-wider text-muted-foreground"
                   >
                     {col.sortable ? (
                       <button
@@ -198,10 +238,10 @@ export function DataTable<T extends Record<string, unknown>>({
             {paginatedData.length === 0 ? (
               <tr>
                 <td
-                  colSpan={columns.length + 1}
-                  className="p-8 text-center text-muted-foreground text-xs uppercase tracking-widest"
+                  colSpan={columns.length + (showSelection ? 1 : 0)}
+                  className="p-8 text-center text-xs uppercase tracking-widest text-muted-foreground"
                 >
-                  NO TICKET RECORDS FOUND
+                  {emptyText}
                 </td>
               </tr>
             ) : (
@@ -217,15 +257,17 @@ export function DataTable<T extends Record<string, unknown>>({
                       isSelected && "bg-accent/5 font-medium"
                     )}
                   >
-                    <td className="p-3 text-center">
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => toggleSelect(key)}
-                        aria-label={`Select row ${idx + 1}`}
-                        className="accent-accent size-3.5 cursor-pointer rounded-xs"
-                      />
-                    </td>
+                    {showSelection ? (
+                      <td className="p-3 text-center">
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleSelect(key)}
+                          aria-label={`Select row ${idx + 1}`}
+                          className="accent-accent size-3.5 cursor-pointer rounded-xs"
+                        />
+                      </td>
+                    ) : null}
                     {columns.map((col) => (
                       <td key={col.key} className="p-3 text-foreground">
                         {col.render ? col.render(row) : String(row[col.key] ?? "-")}
@@ -239,27 +281,26 @@ export function DataTable<T extends Record<string, unknown>>({
         </table>
       </div>
 
-      {/* Pagination Footer */}
-      <div className="flex items-center justify-between text-xs text-muted-foreground pt-1">
+      <div className="flex items-center justify-between pt-1 text-xs text-muted-foreground">
         <div className="text-[11px]">
-          PAGE {currentPage} OF {totalPages}
+          PAGE {safePage} OF {totalPages}
         </div>
         <div className="flex items-center gap-1.5">
           <button
             type="button"
-            disabled={currentPage <= 1}
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            className="rounded-sm border border-border bg-card px-2.5 py-1 text-[10px] uppercase font-bold hover:bg-secondary disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
+            disabled={safePage <= 1}
+            onClick={() => setCurrentPage(Math.max(1, safePage - 1))}
+            className="cursor-pointer rounded-sm border border-border bg-card px-2.5 py-1 text-[10px] font-bold uppercase hover:bg-secondary disabled:pointer-events-none disabled:opacity-40"
           >
-            ← PREV
+            {prevLabel}
           </button>
           <button
             type="button"
-            disabled={currentPage >= totalPages}
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            className="rounded-sm border border-border bg-card px-2.5 py-1 text-[10px] uppercase font-bold hover:bg-secondary disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
+            disabled={safePage >= totalPages}
+            onClick={() => setCurrentPage(Math.min(totalPages, safePage + 1))}
+            className="cursor-pointer rounded-sm border border-border bg-card px-2.5 py-1 text-[10px] font-bold uppercase hover:bg-secondary disabled:pointer-events-none disabled:opacity-40"
           >
-            NEXT →
+            {nextLabel}
           </button>
         </div>
       </div>

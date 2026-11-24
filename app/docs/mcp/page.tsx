@@ -1,8 +1,13 @@
 import { CodeBox } from "@/components/site/code-box";
 import { components } from "@/lib/registry-site";
 import iconsMeta from "@/../public/icons.json";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "MCP Server" };
+export const metadata = buildMetadata({
+  title: "MCP Server",
+  description: "Connect Claude, Cursor, Windsurf, or Codex to bigbullui's zero-dependency Model Context Protocol server.",
+  path: "/docs/mcp",
+});
 
 const CLAUDE = `claude mcp add bigbullui -- npx -y bigbullui mcp`;
 const JSON_CFG = `{

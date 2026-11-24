@@ -9,83 +9,45 @@ export interface ChatStatus {
   read?: boolean;
 }
 
-export interface ChatBubbleProps {
-  direction: "incoming" | "outgoing";
-  children: React.ReactNode;
+export interface ChatBubbleProps extends React.HTMLAttributes<HTMLDivElement> {
+  direction?: "incoming" | "outgoing";
+  children?: React.ReactNode;
   status?: ChatStatus;
 }
 
-const ChatBubble: React.FC<ChatBubbleProps> = ({ direction, children, status }) => {
-  const [isPressed, setIsPressed] = React.useState(false);
-
+export const ChatBubble = React.forwardRef<HTMLDivElement, ChatBubbleProps>(function ChatBubble(
+  { direction = "incoming", children, status, className, ...props },
+  ref,
+) {
   return (
     <div
+      ref={ref}
       className={cn(
-        "flex flex-col gap-1 relative min-w-[40px]",
-        direction === "outgoing"
-          ? "items-end"
-          : "items-start"
+        "flex flex-col gap-1",
+        direction === "outgoing" ? "items-end" : "items-start",
+        className,
       )}
+      {...props}
     >
-      {children}
-      {status && (
-        <div
-          className={cn(
-            "absolute -bottom-1 -left-1 flex gap-0.5 text-[10px] font-mono uppercase text-muted-foreground",
-            direction === "outgoing" ? "-right-1" : "-left-1"
-          )}
-        >
-          {[status.sent && "S", status.delivered && "D", status.read && "R"]
-            .filter(Boolean)
-            .join(" ")}
-        </div>
-      )}
-
-      {/* Tail triangle for incoming, rotated square for outgoing */}
-      {direction === "incoming" ? (
-        <div
-          className={cn(
-            "absolute -inset-0.5 pointer-events-none",
-            "mx-auto w-0 border-2 border-transparent border-border/50"
-          )}
-        >
-          <div
-            className={cn(
-              "mx-auto w-0 border-2 border-border/60",
-              "border-t-transparent border-b-2"
-            )}
-          />
-        </div>
-      ) : (
-        <div
-          className={cn(
-            "absolute -inset-0.5 pointer-events-none rotate-6",
-            "w-0 h-0 border-2 border-transparent border-border/50"
-          )}
-        >
-          <div
-            className={cn(
-              "w-0 h-0 border-2 border-border/60",
-              "border-t-transparent border-b-2 rotate-6"
-            )}
-          />
-        </div>
-      )}
-
-      {/* Press feedback */}
       <div
-        onMouseDown={() => setIsPressed(true)}
-        onMouseUp={() => setIsPressed(false)}
-        onMouseLeave={() => setIsPressed(false)}
         className={cn(
-          "transition-transform duration-150",
-          isPressed ? "scale-[0.96]" : ""
+          "relative max-w-sm rounded-lg border px-3 py-2 text-sm shadow-2xs transition-transform duration-150 active:scale-[0.98] motion-reduce:transition-none motion-reduce:active:scale-100",
+          direction === "outgoing"
+            ? "rounded-ee-xs border-accent/40 bg-accent text-accent-foreground"
+            : "rounded-es-xs border-border bg-card text-card-foreground",
         )}
       >
         {children}
       </div>
+
+      {status && (
+        <span className="flex items-center gap-1 px-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          {[status.sent && "Sent", status.delivered && "Delivered", status.read && "Read"]
+            .filter(Boolean)
+            .join(" · ")}
+        </span>
+      )}
     </div>
   );
-};
-
-export { ChatBubble };
+});
+ChatBubble.displayName = "ChatBubble";

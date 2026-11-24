@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface WishlistButtonProps {
+export interface WishlistButtonProps extends Omit<React.HTMLAttributes<HTMLElement>, "onToggle"> {
   active?: boolean;
   onToggle?: (active: boolean) => void;
   size?: "sm" | "md" | "lg";
@@ -15,7 +15,7 @@ export function WishlistButton({
   active = false,
   onToggle,
   size = "md",
-  className,
+  className, ...props
 }: WishlistButtonProps) {
   const [isActive, setIsActive] = React.useState(active);
 
@@ -27,13 +27,13 @@ export function WishlistButton({
   const sizeNum = size === "sm" ? 16 : size === "lg" ? 24 : 20;
 
   return (
-    <div className="relative inline-flex flex-col items-start">
+    <div className="relative inline-flex flex-col items-start" {...props}>
     <button
       type="button"
       onClick={handleToggle}
       aria-pressed={isActive}
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-foreground bg-card text-foreground transition-all duration-200 hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring mb-2",
+        "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full border-2 border-foreground bg-card text-foreground transition-[transform,opacity,background-color,border-color,color] duration-200 hover:scale-105 motion-reduce:hover:scale-100 active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring mb-2",
         isActive && "bg-accent text-accent-foreground",
         !isActive && "hover:bg-accent hover:text-accent-foreground",
         className

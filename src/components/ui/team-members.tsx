@@ -39,7 +39,7 @@ export function TeamMembers({ members = [], onInvite, onRemove, className, ...pr
 
       <ul className="divide-y divide-border/60">
         {list.map((m, idx) => (
-          <li key={m.id} className="flex items-center gap-3 px-4 py-2.5 animate-[teamIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 45}ms` }}>
+          <li key={m.id} className="flex items-center gap-3 px-4 py-2.5 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 45}ms` }}>
             <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-dashed border-border bg-secondary font-mono text-[10px] font-bold">
               {m.initials}
             </span>
@@ -80,7 +80,7 @@ export function TeamMembers({ members = [], onInvite, onRemove, className, ...pr
           disabled={!valid}
           className={cn(
             "shrink-0 rounded-md bg-accent px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-accent-foreground",
-            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
+            "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
             "disabled:pointer-events-none disabled:opacity-40"
           )}
@@ -89,7 +89,7 @@ export function TeamMembers({ members = [], onInvite, onRemove, className, ...pr
         </button>
       </div>
       {invite.length > 0 && !valid && (
-        <p className="px-4 pb-2 font-mono text-[9px] text-destructive animate-[teamStamp_0.2s_ease-out] motion-reduce:animate-none">Enter a valid email address</p>
+        <p className="px-4 pb-2 font-mono text-[9px] text-destructive animate-[apiKeyStamp_0.2s_ease-out] motion-reduce:animate-none">Enter a valid email address</p>
       )}
     </div>
   );

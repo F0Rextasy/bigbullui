@@ -1,6 +1,11 @@
 import { KeyboardShortcuts } from "@/components/ui/keyboard-shortcuts";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Keyboard shortcuts" };
+export const metadata = buildMetadata({
+  title: "Keyboard shortcuts",
+  description: "Global and component keyboard navigation shortcuts across the bigbullui docs site and component library.",
+  path: "/docs/shortcuts",
+});
 
 const SITE_SHORTCUTS = [
   { action: "Search components and guides", keys: ["Ctrl", "K"] },

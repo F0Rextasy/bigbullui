@@ -39,7 +39,7 @@ export const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(f
       onClick={handleCopy}
       aria-label={copied ? "Copied" : "Copy to clipboard"}
       className={cn(
-        "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border border-dashed border-border bg-secondary px-2 py-1 font-mono text-[11px] font-medium text-secondary-foreground transition-all duration-150 active:scale-95 motion-reduce:active:scale-100",
+        "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border border-dashed border-border bg-secondary px-2 py-1 font-mono text-[11px] font-medium text-secondary-foreground transition-[transform,opacity,background-color,border-color,color] duration-150 active:scale-95 motion-reduce:active:scale-100",
         "hover:border-foreground/50 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         copied && "border-accent text-accent-strong",
         className

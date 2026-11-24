@@ -17,7 +17,7 @@ export function Timeline({ items = [], className, ...props }: TimelineProps) {
   return (
     <div className={cn("relative space-y-6 ps-6", className)} {...props}>
       {/* Continuous dashed vertical stem */}
-      <div className="absolute left-[11px] top-2 bottom-2 w-0 border-l-2 border-dashed border-border" />
+      <div className="absolute left-[11px] top-2 bottom-2 w-0 border-s-2 border-dashed border-border" />
 
       {items.map((item, idx) => {
         const isAccent = item.tone === "accent";

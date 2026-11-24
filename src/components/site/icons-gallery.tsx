@@ -14,13 +14,19 @@ function IconCard({ name, animation, big }: { name: NavIconName; animation: Anim
   return (
     <div
       className="group flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-4 transition-colors hover:border-foreground/50"
-      onMouseEnter={() => setReplayKey((k) => k + 1)}
+      onMouseEnter={animation === "none" ? undefined : () => setReplayKey((k) => k + 1)}
     >
       <Link
         href={`/icons/${name}`}
         className="flex w-full flex-col items-center gap-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <NavIcon key={`${name}-${replayKey}`} name={name} size={big ? 40 : 20} animated animation={animation} />
+        <NavIcon
+          key={animation === "none" ? name : `${name}-${replayKey}`}
+          name={name}
+          size={big ? 40 : 20}
+          animated={animation !== "none"}
+          animation={animation}
+        />
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground group-hover:text-foreground">
           {name}
         </span>
@@ -62,6 +68,15 @@ export function IconsGallery() {
     () => names.slice(0, visibleCount),
     [names, visibleCount]
   );
+
+  const totalByCat = React.useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const name of names) {
+      const cat = NAV_ICON_CATEGORIES[name] ?? "Other";
+      counts.set(cat, (counts.get(cat) ?? 0) + 1);
+    }
+    return counts;
+  }, [names]);
 
   const grouped = React.useMemo(() => {
     const map = new Map<string, NavIconName[]>();
@@ -165,7 +180,7 @@ export function IconsGallery() {
           {grouped.map(([cat, items]) => (
             <section key={cat} aria-label={`${cat} icons`} className="space-y-3">
               <h2 className="font-mono text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
-                {cat} · {items.length}
+                {cat} · {totalByCat.get(cat) ?? items.length}
               </h2>
               <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
                 {items.map((name) => (

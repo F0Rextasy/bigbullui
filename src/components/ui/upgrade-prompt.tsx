@@ -38,13 +38,13 @@ export function UpgradePrompt({
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
       </button>
 
-      <div className="relative animate-[upIn_0.35s_ease-out_both] motion-reduce:animate-none">
+      <div className="relative animate-[rise-in_0.35s_ease-out_both] motion-reduce:animate-none">
         <span className="rounded-full border border-accent/60 bg-accent/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-accent">Upgrade to Pro</span>
         <h3 className="mt-2 text-base font-semibold">{title}</h3>
         <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         <ul className="mt-3 space-y-1">
           {features.map((f, i) => (
-            <li key={f} className="flex items-center gap-2 text-sm animate-[upIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
+            <li key={f} className="flex items-center gap-2 text-sm animate-[rise-in_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-success" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
               {f}
             </li>
@@ -57,7 +57,7 @@ export function UpgradePrompt({
             onClick={onUpgrade}
             className={cn(
               "rounded-md bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground",
-              "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
+              "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             )}
           >

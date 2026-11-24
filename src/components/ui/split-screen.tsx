@@ -29,7 +29,7 @@ export function SplitScreen({ left, right, rightRatio = 0.45, hideRightOnMobile 
       </div>
       <div
         className={cn(
-          "relative border-l border-border bg-secondary/40 p-8 animate-[splitIn_0.4s_ease-out_0.15s_both] motion-reduce:animate-none",
+          "relative border-s border-border bg-secondary/40 p-8 animate-[splitIn_0.4s_ease-out_0.15s_both] motion-reduce:animate-none",
           hideRightOnMobile && "hidden lg:flex"
         )}
         style={{ flexBasis: `${rightPct}%` }}

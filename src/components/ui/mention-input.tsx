@@ -113,7 +113,7 @@ export function MentionInput({
         placeholder={placeholder}
         rows={3}
         className={cn(
-          "w-full rounded-lg border-2 border-foreground bg-card p-3 text-xs text-foreground placeholder:text-muted-foreground outline-none transition-all shadow-sm",
+          "w-full rounded-lg border-2 border-foreground bg-card p-3 text-xs text-foreground placeholder:text-muted-foreground outline-none transition-[width,height,left,right,opacity,background-color,border-color] shadow-sm",
           "focus:border-accent focus:ring-1 focus:ring-accent"
         )}
         {...props}

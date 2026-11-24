@@ -21,7 +21,7 @@ export function SuggestionChips({ suggestions = FALLBACK, onPick, className, ...
           type="button"
           onClick={() => { setPicked(s); onPick?.(s); }}
           className={cn(
-            "rounded-full border px-3 py-1 font-mono text-[11px] font-bold uppercase transition-all active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            "rounded-full border px-3 py-1 font-mono text-[11px] font-bold uppercase transition-[transform,opacity,background-color,border-color,color] active:scale-95 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             picked === s ? "border-foreground bg-accent text-accent-foreground" : "border-dashed border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
           )}
         >

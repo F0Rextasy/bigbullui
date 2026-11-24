@@ -11,14 +11,14 @@ export interface FooterColumn {
   links: FooterLink[];
 }
 
-export interface FooterProps {
+export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
   columns?: FooterColumn[];
   className?: string;
 }
 
 export function Footer({
   columns,
-  className,
+  className, ...props
 }: FooterProps) {
   return (
     <footer
@@ -26,7 +26,7 @@ export function Footer({
         "border-t border-dashed border-border/20 py-8 mt-8",
         "motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       {columns && columns.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

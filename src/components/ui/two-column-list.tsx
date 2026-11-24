@@ -15,7 +15,7 @@ export function TwoColumnList({ items = [], className, ...props }: TwoColumnList
 
   const Row = ({ item, idx = 0 }: { item: (typeof items)[number]; idx: number }) => (
     <li
-      className="flex items-center justify-between gap-3 border-b border-dashed border-border/50 py-2 animate-[twoColIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:text-accent motion-reduce:transition-none"
+      className="flex items-center justify-between gap-3 border-b border-dashed border-border/50 py-2 animate-[creditCardIn_0.3s_ease-out_both] motion-reduce:animate-none transition-colors hover:text-accent motion-reduce:transition-none"
       style={{ animationDelay: `${idx * 40}ms` }}
     >
       <span className="truncate text-sm">{item.label}</span>

@@ -57,7 +57,7 @@ export function PasswordStrength({
             <div
               key={step}
               className={cn(
-                "h-2 rounded-sm transition-all duration-300",
+                "h-2 rounded-sm transition-[width,height,left,right,opacity,background-color,border-color] duration-300",
                 isActive ? strengthLevel.color : "bg-muted opacity-40",
                 isActive && "shadow-xs"
               )}
@@ -79,7 +79,7 @@ export function PasswordStrength({
             >
               <span
                 className={cn(
-                  "size-4 rounded-sm border flex items-center justify-center text-[10px] transition-all",
+                  "size-4 rounded-sm border flex items-center justify-center text-[10px] transition-colors",
                   c.met
                     ? "border-accent bg-accent text-accent-foreground font-bold scale-110"
                     : "border-border bg-card text-transparent"

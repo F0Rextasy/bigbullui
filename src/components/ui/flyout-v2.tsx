@@ -18,7 +18,7 @@ export function FlyoutV2({ items = [], className, ...props }: FlyoutV2Props) {
   return (
     <ul className={cn("w-44 rounded-md border border-border bg-card p-1 shadow-lg", className)} role="menu" {...props}>
       {items.map((item, idx) => (
-        <li key={item.id} className="group relative animate-[fl2In_0.2s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 35}ms` }}>
+        <li key={item.id} className="group relative animate-[slide-in_0.2s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 35}ms` }}>
           <button
             type="button"
             role="menuitem"
@@ -30,7 +30,7 @@ export function FlyoutV2({ items = [], className, ...props }: FlyoutV2Props) {
             )}
           </button>
           {item.children && item.children.length > 0 && (
-            <ul className="invisible absolute left-full top-0 z-10 ms-0.5 w-40 rounded-md border border-border bg-card p-1 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:opacity-100 motion-reduce:transition-none">
+            <ul className="invisible absolute left-full top-0 z-10 ms-0.5 w-40 rounded-md border border-border bg-card p-1 opacity-0 shadow-lg transition-[width,height,left,right,opacity,background-color,border-color] duration-150 group-hover:visible group-hover:opacity-100 motion-reduce:transition-none">
               {item.children.map((child) => (
                 <li key={child.id}>
                   <a role="menuitem" href={child.href ?? "#"} className="block rounded-sm px-2.5 py-1.5 text-xs transition-colors hover:bg-secondary motion-reduce:transition-none">

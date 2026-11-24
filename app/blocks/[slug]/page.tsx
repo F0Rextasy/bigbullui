@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { CopyBlock } from "@/components/site/copy-block";
 import { BlockViewer } from "@/components/site/block-viewer";
 import { BLOCK_SLUGS, slugTitle } from "@/lib/site-meta";
+import { buildMetadata } from "@/lib/seo";
 
 // Generated from src/components/blocks (scripts/generate-registry-json.mjs):
 // new blocks join prerender, sitemap and search automatically instead of
@@ -18,7 +19,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const title = slugTitle(slug);
-  return { title: `${title}: Block` };
+  return buildMetadata({
+    title: `${title}: Block`,
+    description: `Copy-paste ${title} page block built from zero-dependency bigbullui primitives for React 19 and Tailwind CSS v4.`,
+    path: `/blocks/${slug}`,
+    type: "article",
+  });
 }
 
 export default async function BlockPage({ params }: { params: Promise<{ slug: string }> }) {

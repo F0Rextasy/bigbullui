@@ -3,18 +3,18 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface NowServingProps {
+export interface NowServingProps extends React.HTMLAttributes<HTMLElement> {
   number: string;
   className?: string;
 }
 
-export function NowServing({ number = "", className }: NowServingProps) {
+export function NowServing({ number = "", className, ...props }: NowServingProps) {
   return (
     <div
       className={cn(
         "relative rounded-lg border border-border bg-card p-6 motion-reduce:transition-none",
         className
-      )}
+      )} {...props}
     >
       <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
         NOW SERVING

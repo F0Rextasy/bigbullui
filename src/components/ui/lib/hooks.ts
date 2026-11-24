@@ -5,7 +5,9 @@ import * as React from "react";
 export function useMediaQuery(query: string): boolean {
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
-      if (typeof window === "undefined") return () => {};
+      if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+        return () => {};
+      }
       const match = window.matchMedia(query);
       match.addEventListener("change", onStoreChange);
       return () => match.removeEventListener("change", onStoreChange);
@@ -13,45 +15,107 @@ export function useMediaQuery(query: string): boolean {
     [query],
   );
   const getSnapshot = React.useCallback(
-    () => (typeof window !== "undefined" ? window.matchMedia(query).matches : false),
+    () =>
+      typeof window !== "undefined" && typeof window.matchMedia === "function"
+        ? window.matchMedia(query).matches
+        : false,
     [query],
   );
   return React.useSyncExternalStore(subscribe, getSnapshot, () => false);
+}
+
+const localStorageListeners = new Map<string, Set<() => void>>();
+const localStorageCache = new Map<string, { raw: string | null; parsed: unknown }>();
+
+function emitLocalStorageChange(key: string) {
+  const subs = localStorageListeners.get(key);
+  if (!subs) return;
+  for (const cb of subs) cb();
 }
 
 export function useLocalStorage<T>(
   key: string,
   initial: T,
 ): [T, (v: T | ((p: T) => T)) => void] {
-  const initialRef = React.useRef(initial);
-  React.useEffect(() => {
-    initialRef.current = initial;
-  });
-  const [state, setState] = React.useState<T>(initial);
+  const initialSerialized = React.useMemo(() => {
+    try {
+      return JSON.stringify(initial);
+    } catch {
+      return "";
+    }
+  }, [initial]);
 
-  React.useEffect(() => {
-    const id = setTimeout(() => {
-      try {
-        const stored = localStorage.getItem(key);
-        setState(stored !== null ? (JSON.parse(stored) as T) : initialRef.current);
-      } catch {
-        setState(initialRef.current);
+  const stableInitial = React.useMemo(() => {
+    try {
+      return initialSerialized ? (JSON.parse(initialSerialized) as T) : initial;
+    } catch {
+      return initial;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- keyed on serialized value for referential stability
+  }, [initialSerialized]);
+
+  const subscribe = React.useCallback(
+    (onStoreChange: () => void) => {
+      let subs = localStorageListeners.get(key);
+      if (!subs) {
+        subs = new Set();
+        localStorageListeners.set(key, subs);
       }
-    }, 0);
-    return () => clearTimeout(id);
-  }, [key]);
+      subs.add(onStoreChange);
+
+      const onStorage = (e: StorageEvent) => {
+        if (e.key === null || e.key === key) {
+          localStorageCache.delete(key);
+          onStoreChange();
+        }
+      };
+      if (typeof window !== "undefined") {
+        window.addEventListener("storage", onStorage);
+      }
+      return () => {
+        subs?.delete(onStoreChange);
+        if (subs && subs.size === 0) localStorageListeners.delete(key);
+        if (typeof window !== "undefined") {
+          window.removeEventListener("storage", onStorage);
+        }
+      };
+    },
+    [key],
+  );
+
+  const getSnapshot = React.useCallback((): T => {
+    if (typeof window === "undefined") return stableInitial;
+    try {
+      const raw = window.localStorage.getItem(key);
+      if (raw === null) return stableInitial;
+      const cached = localStorageCache.get(key);
+      if (cached && cached.raw === raw) return cached.parsed as T;
+      const parsed = JSON.parse(raw) as T;
+      localStorageCache.set(key, { raw, parsed });
+      return parsed;
+    } catch {
+      return stableInitial;
+    }
+  }, [key, stableInitial]);
+
+  const state = React.useSyncExternalStore(subscribe, getSnapshot, () => stableInitial);
+
+  const stateRef = React.useRef(state);
+  React.useLayoutEffect(() => {
+    stateRef.current = state;
+  });
 
   const setValue = React.useCallback(
     (value: T | ((p: T) => T)) => {
-      setState((prev) => {
-        const next = typeof value === "function" ? (value as (p: T) => T)(prev) : value;
-        try {
-          localStorage.setItem(key, JSON.stringify(next));
-        } catch {
-          // Ignore errors in SSR / private browsing
-        }
-        return next;
-      });
+      const next = typeof value === "function" ? (value as (p: T) => T)(stateRef.current) : value;
+      try {
+        const raw = JSON.stringify(next);
+        window.localStorage.setItem(key, raw);
+        localStorageCache.set(key, { raw, parsed: next });
+      } catch {
+        // Ignore errors in SSR / private browsing
+      }
+      emitLocalStorageChange(key);
     },
     [key],
   );
@@ -60,7 +124,7 @@ export function useLocalStorage<T>(
 }
 
 export function useIntersection(
-  ref: React.RefObject<HTMLElement>,
+  ref: React.RefObject<HTMLElement | null>,
   options?: IntersectionObserverInit,
 ): boolean {
   const [isIntersecting, setIsIntersecting] = React.useState(false);
@@ -69,7 +133,7 @@ export function useIntersection(
   const threshold = options?.threshold;
 
   React.useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || typeof IntersectionObserver === "undefined") return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -87,26 +151,27 @@ export function useIntersection(
   return isIntersecting;
 }
 
-export function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () => void) {
+export function useClickOutside(
+  ref: React.RefObject<HTMLElement | null>,
+  handler: () => void,
+) {
   const handlerRef = React.useRef(handler);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     handlerRef.current = handler;
   });
 
   React.useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
+    if (typeof document === "undefined") return;
+    const listener = (event: PointerEvent) => {
       if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
       handlerRef.current();
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-
+    document.addEventListener("pointerdown", listener);
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("pointerdown", listener);
     };
   }, [ref]);
 }
@@ -143,6 +208,12 @@ export function useCopy(timeout = 2000): { copied: boolean; copy: (text: string)
         } else if (typeof document !== "undefined") {
           const textarea = document.createElement("textarea");
           textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.top = "0";
+          textarea.style.left = "-9999px";
+          textarea.style.opacity = "0";
+          textarea.style.pointerEvents = "none";
           document.body.appendChild(textarea);
           textarea.select();
           const ok = document.execCommand("copy");
@@ -160,21 +231,35 @@ export function useCopy(timeout = 2000): { copied: boolean; copy: (text: string)
   return { copied, copy };
 }
 
+export interface UseHotkeyOptions {
+  /** Matches Cmd on macOS or Ctrl on Windows/Linux unless `ctrl` is specified separately. */
+  meta?: boolean;
+  /** Explicitly require Ctrl key (distinguishes Ctrl from Meta when set). */
+  ctrl?: boolean;
+  shift?: boolean;
+  alt?: boolean;
+  enabled?: boolean;
+}
+
 export function useHotkey(
   key: string,
   handler: (event: KeyboardEvent) => void,
-  options?: { meta?: boolean; shift?: boolean; alt?: boolean },
+  options?: UseHotkeyOptions,
 ) {
   const handlerRef = React.useRef(handler);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     handlerRef.current = handler;
   });
-  const meta = Boolean(options?.meta);
+  const meta = options?.meta;
+  const ctrl = options?.ctrl;
   const shift = options?.shift;
   const alt = Boolean(options?.alt);
+  const enabled = options?.enabled ?? true;
 
   React.useEffect(() => {
+    if (!enabled || typeof document === "undefined") return;
     const onKeyDown = (event: KeyboardEvent) => {
+      if (event.isComposing) return;
       const target = event.target as HTMLElement | null;
       const isEditable =
         target &&
@@ -183,13 +268,19 @@ export function useHotkey(
           target.tagName === "SELECT" ||
           target.isContentEditable);
 
-      if (isEditable && !meta && !alt) {
+      if (isEditable && !meta && !ctrl && !alt) {
         return;
       }
 
-      if (meta ? !(event.metaKey || event.ctrlKey) : event.metaKey || event.ctrlKey) {
+      if (ctrl !== undefined) {
+        if (event.ctrlKey !== ctrl) return;
+        if (Boolean(meta) !== event.metaKey) return;
+      } else if (meta) {
+        if (!(event.metaKey || event.ctrlKey)) return;
+      } else if (event.metaKey || event.ctrlKey) {
         return;
       }
+
       if (alt !== event.altKey) {
         return;
       }
@@ -204,7 +295,7 @@ export function useHotkey(
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [key, meta, shift, alt]);
+  }, [key, meta, ctrl, shift, alt, enabled]);
 }
 
 export function useDebounce<T>(value: T, delay: number): T {

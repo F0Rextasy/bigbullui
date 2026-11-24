@@ -27,7 +27,7 @@ export function KpiStrip({ tiles = [], className, ...props }: KpiStripProps) {
         <div
           key={tile.label}
           role="listitem"
-          className="rounded-lg border-2 border-foreground bg-card p-4 shadow-xs outline-1 outline-dashed outline-offset-[-5px] outline-border animate-[kpiRise_0.4s_ease-out_both] motion-reduce:animate-none"
+          className="rounded-lg border-2 border-foreground bg-card p-4 shadow-xs outline-1 outline-dashed outline-offset-[-5px] outline-border animate-[walletCardIn_0.4s_ease-out_both] motion-reduce:animate-none"
           style={{ animationDelay: `${i * 80}ms` }}
         >
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">{tile.label}</p>

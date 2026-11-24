@@ -89,7 +89,7 @@ export function Terminal({
             key={`${lineIdx}-${line.text}`}
             style={{ animationDelay: `${Math.min(lineIdx, 8) * 35}ms` }}
             className={cn(
-              "animate-[fadeIn_0.2s_ease-out_both] motion-reduce:animate-none!",
+              "animate-[fade-in_0.2s_ease-out_both] motion-reduce:animate-none!",
               TONE_CLASS[line.tone ?? "info"]
             )}
           >

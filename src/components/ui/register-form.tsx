@@ -35,7 +35,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
       {...props}
     >
 
-      <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_both] motion-reduce:animate-none">
+      <div className="space-y-1.5 animate-[rise-in_0.3s_ease-out_both] motion-reduce:animate-none">
         <label htmlFor={nameId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Full Name</label>
         <input
           id={nameId}
@@ -50,7 +50,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
         />
       </div>
 
-      <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_0.06s_both] motion-reduce:animate-none">
+      <div className="space-y-1.5 animate-[rise-in_0.3s_ease-out_0.06s_both] motion-reduce:animate-none">
         <label htmlFor={emailId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Email</label>
         <input
           id={emailId}
@@ -66,7 +66,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
         />
       </div>
 
-      <div className="space-y-1.5 animate-[regIn_0.3s_ease-out_0.12s_both] motion-reduce:animate-none">
+      <div className="space-y-1.5 animate-[rise-in_0.3s_ease-out_0.12s_both] motion-reduce:animate-none">
         <label htmlFor={passwordId} className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">Password</label>
         <input
           id={passwordId}
@@ -94,7 +94,7 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
         )}
       </div>
 
-      <label className="flex cursor-pointer items-start gap-2 text-xs animate-[regIn_0.3s_ease-out_0.18s_both] motion-reduce:animate-none select-none">
+      <label className="flex cursor-pointer items-start gap-2 text-xs animate-[rise-in_0.3s_ease-out_0.18s_both] motion-reduce:animate-none select-none">
         <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 size-3.5 accent-accent" />
         <span className="text-muted-foreground">
           I have read and agree to the <a href={termsHref} className="text-accent hover:underline">Terms of Service</a> and Privacy Policy.
@@ -106,10 +106,10 @@ export function RegisterForm({ onSubmit, termsHref = "#", className, ...props }:
         disabled={!valid}
         className={cn(
           "w-full rounded-md bg-accent px-4 py-2.5 text-sm font-semibold uppercase tracking-widest text-accent-foreground",
-          "transition-all duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
+          "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.98] motion-reduce:active:scale-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
           "disabled:pointer-events-none disabled:opacity-40",
-          "animate-[regIn_0.3s_ease-out_0.24s_both] motion-reduce:animate-none"
+          "animate-[rise-in_0.3s_ease-out_0.24s_both] motion-reduce:animate-none"
         )}
       >
         Create Account

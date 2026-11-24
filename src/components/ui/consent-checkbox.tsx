@@ -21,7 +21,7 @@ export function ConsentCheckbox({ text, linkLabel = "devam et", linkHref = "#", 
     <label
       className={cn(
         "flex cursor-pointer items-start gap-2.5 select-none",
-        "transition-all duration-150 motion-reduce:transition-none focus-within:outline-none focus-within:ring-2 focus-within:ring-ring rounded-sm p-1 -m-1",
+        "transition-colors duration-150 motion-reduce:transition-none focus-within:outline-none focus-within:ring-2 focus-within:ring-ring rounded-sm p-1 -m-1",
         className
       )}
       {...props}
@@ -34,7 +34,7 @@ export function ConsentCheckbox({ text, linkLabel = "devam et", linkHref = "#", 
       />
       <span
         className={cn(
-          "mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-sm border transition-all duration-150 motion-reduce:transition-none peer-focus-visible:ring-2 peer-focus-visible:ring-ring",
+          "mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors duration-150 motion-reduce:transition-none peer-focus-visible:ring-2 peer-focus-visible:ring-ring",
           isOn ? "border-accent bg-accent text-accent-foreground animate-[consPop_0.25s_cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:animate-none" : "border-border bg-background"
         )}
         aria-hidden="true"

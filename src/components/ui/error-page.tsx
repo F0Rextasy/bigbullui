@@ -28,11 +28,11 @@ export function ErrorPage({ code = "404", title, description, action, className,
       >
         {code}
       </span>
-      <div className="animate-[errIn_0.35s_ease-out_0.2s_both] motion-reduce:animate-none">
+      <div className="animate-[rise-in_0.35s_ease-out_0.2s_both] motion-reduce:animate-none">
         <h1 className="text-xl font-semibold tracking-tight">{title ?? meta.t}</h1>
         <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">{description ?? meta.d}</p>
       </div>
-      <div className="animate-[errIn_0.35s_ease-out_0.3s_both] motion-reduce:animate-none">
+      <div className="animate-[rise-in_0.35s_ease-out_0.3s_both] motion-reduce:animate-none">
         {action ?? (
           // eslint-disable-next-line @next/next/no-html-link-for-pages -- library component must not depend on next/link
           <a

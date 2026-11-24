@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 
-const CARS = [
+const DEFAULT_CARS = [
   { id: "c1", name: "City Hatch", seats: 4, price: 55, tag: "Eco" },
   { id: "c2", name: "Family Wagon", seats: 5, price: 80, tag: "Popular" },
   { id: "c3", name: "Roadster", seats: 2, price: 150, tag: "Fun" },
@@ -20,18 +20,21 @@ function daysBetween(a: string, b: string): number {
 }
 
 /** Car rental: dates + car cards + price summary. */
-export interface BlockCarRentalProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockCarRentalProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  cars?: typeof DEFAULT_CARS;
   onAction?: (action: string) => void;
 }
 
-export function BlockCarRental({ className, onAction, ...props }: BlockCarRentalProps) {
+export function BlockCarRental({ title, cars = DEFAULT_CARS, className, onAction, ...props }: BlockCarRentalProps) {
   const [from, setFrom] = React.useState("");
   const [to, setTo] = React.useState("");
   const [carId, setCarId] = React.useState("c2");
   const [done, setDone] = React.useState(false);
 
   const days = daysBetween(from, to);
-  const car = CARS.find((c) => c.id === carId) ?? CARS[0];
+  const car = cars.find((c) => c.id === carId) ?? cars[0];
   const total = days * car.price;
   const ready = days > 0;
 
@@ -55,7 +58,7 @@ export function BlockCarRental({ className, onAction, ...props }: BlockCarRental
   return (
     <Card className={cn("w-full", className)} {...props}>
       <CardContent className="space-y-4 p-6">
-        <h2 className="font-mono text-xl font-black uppercase tracking-tight">Rent a car</h2>
+        <h2 className="font-mono text-xl font-black uppercase tracking-tight">{title ?? "Rent a car"}</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="block">
             <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Pick-up</span>
@@ -67,7 +70,7 @@ export function BlockCarRental({ className, onAction, ...props }: BlockCarRental
           </label>
         </div>
         <div className="grid gap-2 sm:grid-cols-3" role="group" aria-label="Cars">
-          {CARS.map((c) => (
+          {cars.map((c) => (
             <button
               key={c.id}
               type="button"

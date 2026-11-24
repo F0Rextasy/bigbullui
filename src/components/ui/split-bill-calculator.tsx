@@ -41,7 +41,7 @@ export function SplitBillCalculator({
             inputMode="decimal"
             aria-label="Bill total"
             onChange={(e) => setInnerTotal(Number(e.target.value.replace(/[^0-9.]/g, "")) || 0)}
-            className="w-20 bg-transparent text-right font-bold tabular-nums focus:outline-none"
+            className="w-20 bg-transparent text-end font-bold tabular-nums focus:outline-none"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@ export function SplitBillCalculator({
           </div>
         ))}
       </div>
-      <p className="mt-3 border-t border-dashed border-border pt-2 text-right font-mono text-xs text-muted-foreground">
+      <p className="mt-3 border-t border-dashed border-border pt-2 text-end font-mono text-xs text-muted-foreground">
         Total with tip:{" "}
         <strong className="text-base text-foreground tabular-nums">
           {currency}

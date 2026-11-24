@@ -65,8 +65,8 @@ export function Wizard({ steps = [], onFinish, children = [], className, ...prop
       </ol>
 
       {/* Step content */}
-      <div key={step.id} className={cn("mt-6 min-h-32", error && "animate-[wzShake_0.3s_ease-out] motion-reduce:animate-none")}>
-        <h3 className="text-base font-semibold animate-[wzIn_0.3s_ease-out_both] motion-reduce:animate-none">{step.title}</h3>
+      <div key={step.id} className={cn("mt-6 min-h-32", error && "animate-[formFieldShake_0.3s_ease-out] motion-reduce:animate-none")}>
+        <h3 className="text-base font-semibold animate-[hsRight_0.3s_ease-out_both] motion-reduce:animate-none">{step.title}</h3>
         {step.description && <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>}
         <div className="mt-4">{children[current]}</div>
       </div>
@@ -87,7 +87,7 @@ export function Wizard({ steps = [], onFinish, children = [], className, ...prop
           onClick={next}
           className={cn(
             "rounded-md bg-accent px-4 py-1.5 font-mono text-[10px] uppercase tracking-wider text-accent-foreground",
-            "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
+            "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
           )}
         >

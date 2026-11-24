@@ -239,7 +239,7 @@ export function SegmentedSwitch({
 
       <div
         className={cn(
-          "relative rounded-xl border-2 border-foreground bg-secondary/50 p-1 shadow-sm transition-all",
+          "relative rounded-xl border-2 border-foreground bg-secondary/50 p-1 shadow-sm transition-colors",
           disabled && "pointer-events-none opacity-50 cursor-not-allowed"
         )}
       >
@@ -277,7 +277,7 @@ export function SegmentedSwitch({
               <div className="flex items-center justify-center">
                 <span
                   className={cn(
-                    "h-1 w-6 rounded-full transition-all duration-300",
+                    "h-1 w-6 rounded-full transition-[width,height,left,right,opacity,background-color,border-color] duration-300",
                     getLedGlow(activeOption?.tone)
                   )}
                 />
@@ -299,7 +299,7 @@ export function SegmentedSwitch({
                   disabled={disabled || opt.disabled}
                   onClick={() => handleSelect(opt.value, opt.disabled)}
                   className={cn(
-                    "relative z-20 flex flex-1 items-center justify-center gap-1.5 px-2 font-mono uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 rounded-md",
+                    "relative z-20 flex flex-1 items-center justify-center gap-1.5 px-2 font-mono uppercase tracking-wider transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 rounded-md",
                     heightClasses,
                     getToneTextColor(opt.tone, isSelected),
                     opt.disabled && "cursor-not-allowed opacity-40",
@@ -384,7 +384,7 @@ export function SegmentedSwitch({
                     {/* Top Micro Notch */}
                     <span className="size-2 -mt-1.5 rounded-full border border-foreground/60 bg-background shrink-0" />
                     {/* Vertical Dashed Line */}
-                    <span className="h-full w-0 border-r-2 border-dashed border-border/80" />
+                    <span className="h-full w-0 border-e-2 border-dashed border-border/80" />
                     {/* Bottom Micro Notch */}
                     <span className="size-2 -mb-1.5 rounded-full border border-foreground/60 bg-background shrink-0" />
                   </div>

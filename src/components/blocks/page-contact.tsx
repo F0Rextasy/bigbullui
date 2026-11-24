@@ -10,17 +10,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PageHeader } from "../ui/page-header";
 import { Faq } from "../ui/faq";
 
-const FAQS = [
+const DEFAULT_FAQS = [
   { question: "How fast does the desk reply?", answer: "Most notes get a stamped reply within one business day." },
   { question: "Where is the box office?", answer: "Hall A north lobby, gate 03, open on show nights from 18:00." },
   { question: "Can I exchange a tier?", answer: "Yes, file a request with the serial and the desk swaps it." },
 ];
 
-export interface PageContactProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageContactProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  faqs?: typeof DEFAULT_FAQS;
   onAction?: (action: string) => void;
 }
 
-export function PageContact({ className, onAction, ...props }: PageContactProps) {
+export function PageContact({ title, faqs = DEFAULT_FAQS, className, onAction, ...props }: PageContactProps) {
   const [sent, setSent] = React.useState(false);
 
   return (
@@ -34,7 +37,7 @@ export function PageContact({ className, onAction, ...props }: PageContactProps)
       <div className="grid gap-4 lg:grid-cols-5">
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Send a note</CardTitle>
+            <CardTitle>{title ?? "Send a note"}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid gap-3 sm:grid-cols-2">
@@ -65,7 +68,7 @@ export function PageContact({ className, onAction, ...props }: PageContactProps)
               <CardTitle>Quick answers</CardTitle>
             </CardHeader>
             <CardContent>
-              <Faq items={FAQS} defaultOpen={0} />
+              <Faq items={faqs} defaultOpen={0} />
             </CardContent>
           </Card>
         </div>

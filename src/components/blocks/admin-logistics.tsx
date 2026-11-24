@@ -7,14 +7,14 @@ import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from "../ui/table";
 
-const SHIPMENTS = [
+const DEFAULT_SHIPMENTS = [
   { id: "SHP-4101", route: "Gate 01 to Depot East", carrier: "Bull Freight", eta: "08:40", status: "IN TRANSIT" },
   { id: "SHP-4102", route: "Depot West to Gate 04", carrier: "Night Haul", eta: "09:15", status: "LOADING" },
   { id: "SHP-4103", route: "Gate 02 to Annex", carrier: "Bull Freight", eta: "10:05", status: "DELIVERED" },
   { id: "SHP-4104", route: "Annex to Gate 03", carrier: "Swift Cart", eta: "11:30", status: "DELAYED" },
 ];
 
-const TIMELINE = [
+const DEFAULT_TIMELINE = [
   { point: "06:10", label: "MANIFEST STAMPED", detail: "42 crates logged at dock" },
   { point: "07:25", label: "GATE 01 DISPATCH", detail: "Convoy cleared scanner" },
   { point: "08:40", label: "ETA CHECKPOINT", detail: "East depot confirms arrival window" },
@@ -28,18 +28,22 @@ function statusVariant(status: string): "accent" | "default" | "outline" | "seco
   return "outline";
 }
 
-export interface AdminLogisticsProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AdminLogisticsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  shipments?: typeof DEFAULT_SHIPMENTS;
+  timeline?: typeof DEFAULT_TIMELINE;
   onAction?: (action: string) => void;
 }
 
-export function AdminLogistics({ className, onAction, ...props }: AdminLogisticsProps) {
+export function AdminLogistics({ title, shipments = DEFAULT_SHIPMENTS, timeline = DEFAULT_TIMELINE, className, onAction, ...props }: AdminLogisticsProps) {
   const [notice, setNotice] = React.useState<string | null>(null);
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">DISPATCH // LOGISTICS</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Shipment board</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Shipment board"}</h2>
         </div>
         <div className="flex items-center gap-2">
           {notice && <span role="status" className="font-mono text-[10px] uppercase tracking-wider text-accent">{notice}</span>}
@@ -63,7 +67,7 @@ export function AdminLogistics({ className, onAction, ...props }: AdminLogistics
                 </TableRow>
               </TableHead>
               <TableBody>
-                {SHIPMENTS.map((row) => (
+                {shipments.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell className="font-bold">{row.id}</TableCell>
                     <TableCell>{row.route}</TableCell>
@@ -84,7 +88,7 @@ export function AdminLogistics({ className, onAction, ...props }: AdminLogistics
           </CardHeader>
           <CardContent>
             <ol className="relative space-y-4 border-l-2 border-dashed border-border ps-4">
-              {TIMELINE.map((step) => (
+              {timeline.map((step) => (
                 <li key={step.label} className="relative">
                   <span aria-hidden className="absolute -left-[21px] top-1 size-2.5 rounded-full border-2 border-foreground bg-accent motion-reduce:transition-none" />
                   <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{step.point}</p>

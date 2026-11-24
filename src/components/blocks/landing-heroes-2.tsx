@@ -6,17 +6,18 @@ import { Badge } from "../ui/badge";
 import { AnnouncementBar } from "../ui/announcement-bar";
 import { Hero } from "../ui/hero";
 
-const SHOT_ROWS = [
+const DEFAULT_SHOT_ROWS = [
   { label: "GROSS TONIGHT", value: "$48,250" },
   { label: "STUBS SCANNED", value: "4,820" },
   { label: "GATE QUEUE", value: "312" },
 ];
 
 export interface LandingHeroes2Props extends React.HTMLAttributes<HTMLDivElement> {
+    shotRows?: typeof DEFAULT_SHOT_ROWS;
   onAction?: (action: string) => void;
 }
 
-export function LandingHeroes2({ className, onAction, ...props }: LandingHeroes2Props) {
+export function LandingHeroes2({ shotRows = DEFAULT_SHOT_ROWS, className, onAction, ...props }: LandingHeroes2Props) {
   void onAction;
   return (
     <div className={cn("w-full space-y-4", className)} {...props}>
@@ -44,7 +45,7 @@ export function LandingHeroes2({ className, onAction, ...props }: LandingHeroes2
           <p className="ms-2 truncate font-mono text-[10px] uppercase tracking-widest text-muted-foreground">app.bigbull: nightly audit</p>
         </div>
         <div className="grid gap-3 p-4 sm:grid-cols-3">
-          {SHOT_ROWS.map((row) => (
+          {shotRows.map((row) => (
             <div key={row.label} className="min-w-0 rounded-md border border-dashed border-border bg-secondary p-4">
               <p className="truncate font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{row.label}</p>
               <p className="mt-1 font-mono text-xl font-black">{row.value}</p>

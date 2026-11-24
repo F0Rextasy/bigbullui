@@ -46,7 +46,7 @@ export function ThemePresetPicker({
                 onChange?.(p.id);
               }}
               className={cn(
-                "rounded-lg border-2 p-2 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
+                "rounded-lg border-2 p-2 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none",
                 selected ? "border-accent" : "border-dashed border-border hover:border-foreground"
               )}
             >

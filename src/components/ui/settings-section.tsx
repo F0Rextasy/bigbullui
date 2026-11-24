@@ -29,7 +29,7 @@ export function SettingsSection({ title, description, rows = [], onSave, classNa
 
       <div className="divide-y divide-border/60">
         {rows.map((row, idx) => (
-          <div key={row.label} className="flex items-center justify-between gap-4 px-4 py-3 animate-[setIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
+          <div key={row.label} className="flex items-center justify-between gap-4 px-4 py-3 animate-[walletCardIn_0.3s_ease-out_both] motion-reduce:animate-none" style={{ animationDelay: `${idx * 50}ms` }}>
             <span className="text-sm text-foreground">{row.label}</span>
             <div className="shrink-0">{row.control}</div>
           </div>
@@ -39,7 +39,7 @@ export function SettingsSection({ title, description, rows = [], onSave, classNa
       {(children || rows.length > 0) && (
         <div className="flex items-center justify-end gap-3 border-t border-border px-4 py-3">
           {saved && (
-            <span className="inline-block animate-[setStamp_0.3s_ease-out] motion-reduce:animate-none font-mono text-[10px] uppercase tracking-wider text-success">
+            <span className="inline-block animate-[gachaIn_0.3s_ease-out] motion-reduce:animate-none font-mono text-[10px] uppercase tracking-wider text-success">
               ✓ Saved
             </span>
           )}
@@ -48,7 +48,7 @@ export function SettingsSection({ title, description, rows = [], onSave, classNa
             onClick={handleSave}
             className={cn(
               "rounded-md bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-foreground",
-              "transition-all duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
+              "transition-[transform,opacity,background-color,border-color,color] duration-150 hover:bg-accent/90 active:scale-[0.97] motion-reduce:active:scale-100",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
             )}
           >

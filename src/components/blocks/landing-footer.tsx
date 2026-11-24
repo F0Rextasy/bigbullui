@@ -4,17 +4,18 @@ import * as React from "react";
 import { cn } from "../ui/lib/utils";
 import { Separator } from "../ui/separator";
 
-const COLUMNS = [
+const DEFAULT_COLUMNS = [
   { title: "BOOTH", links: ["Components", "Blocks", "Pricing", "Changelog"] },
   { title: "GATES", links: ["Docs", "Installation", "Design", "Agents"] },
   { title: "HOUSE", links: ["About", "Contact", "License", "Status"] },
 ];
 
 export interface LandingFooterProps extends React.HTMLAttributes<HTMLElement> {
+    columns?: typeof DEFAULT_COLUMNS;
   onAction?: (action: string) => void;
 }
 
-export function LandingFooter({ className, onAction, ...props }: LandingFooterProps) {
+export function LandingFooter({ columns = DEFAULT_COLUMNS, className, onAction, ...props }: LandingFooterProps) {
   return (
     <footer className={cn("w-full rounded-lg border-2 border-foreground bg-card p-8", className)} {...props}>
       <div className="grid gap-8 md:grid-cols-4">
@@ -23,7 +24,7 @@ export function LandingFooter({ className, onAction, ...props }: LandingFooterPr
           <p className="max-w-52 text-sm text-muted-foreground">Ticket-stub components you own. React 19, zero dependencies, MIT.</p>
           <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">STUB № 000500 // PRINTED 2026</p>
         </div>
-        {COLUMNS.map((column) => (
+        {columns.map((column) => (
           <nav key={column.title} aria-label={column.title} className="space-y-2">
             <p className="font-mono text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">{column.title}</p>
             {column.links.map((link) => (

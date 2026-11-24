@@ -61,6 +61,11 @@ import { Playlist } from "./src/components/ui/playlist";
 import { Calendar } from "./src/components/ui/calendar";
 import { RangeCalendar } from "./src/components/ui/range-calendar";
 import { SliderTicks } from "./src/components/ui/slider-ticks";
+import { DatePicker } from "./src/components/ui/date-picker";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "./src/components/ui/hover-card";
+import { ContextMenu } from "./src/components/ui/context-menu";
+import { DataTable } from "./src/components/ui/data-table";
+import { Sidebar } from "./src/components/ui/sidebar";
 
 function OverlaysCase() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -362,11 +367,76 @@ function CoreControlsCase() {
   );
 }
 
+function Wave8ControlsCase() {
+  const [pickedDate, setPickedDate] = React.useState<Date | undefined>(undefined);
+  const [selectedRows, setSelectedRows] = React.useState<string[]>([]);
+  const [ctxLog, setCtxLog] = React.useState("");
+
+  const rows = [
+    { id: "r1", guest: "Zoe", seat: 2 },
+    { id: "r2", guest: "Ada", seat: 1 },
+  ];
+
+  return (
+    <div style={{ display: "grid", gap: 20 }}>
+      <div>
+        <span data-testid="dp-iso">{pickedDate ? pickedDate.getDate() : "none"}</span>
+        <DatePicker onValueChange={setPickedDate} />
+      </div>
+
+      <HoverCard openDelay={0} closeDelay={0}>
+        <HoverCardTrigger asChild>
+          <button type="button">Hover Ticket</button>
+        </HoverCardTrigger>
+        <HoverCardContent>
+          <p>Seat Details: Row A</p>
+        </HoverCardContent>
+      </HoverCard>
+
+      <div>
+        <span data-testid="ctx-log">{ctxLog}</span>
+        <ContextMenu
+          items={[
+            { id: "copy", label: "Copy Pass", onSelect: () => setCtxLog("copied") },
+            "separator",
+            { id: "void", label: "Void Pass", danger: true, onSelect: () => setCtxLog("voided") },
+          ]}
+        >
+          <div data-testid="ctx-target" style={{ padding: 12, border: "1px dashed" }}>
+            Right click target
+          </div>
+        </ContextMenu>
+      </div>
+
+      <DataTable
+        data={rows}
+        selectable
+        selectedKeys={selectedRows}
+        onSelectionChange={setSelectedRows}
+        columns={[
+          { key: "guest", header: "Guest", sortable: true },
+          { key: "seat", header: "Seat", sortable: true },
+        ]}
+      />
+
+      <form data-testid="reset-form">
+        <Checkbox aria-label="Mixed box" indeterminate />
+        <Checkbox aria-label="Resettable box" defaultChecked={false} />
+        <Switch aria-label="Resettable switch" defaultChecked />
+        <button type="reset">Reset form</button>
+      </form>
+
+      <Sidebar brand="TEST VENUE" />
+    </div>
+  );
+}
+
 const CASES: Record<string, React.ComponentType> = {
   overlays: OverlaysCase,
   menus: MenusCase,
   waveA: WaveACase,
   core: CoreControlsCase,
+  wave8: Wave8ControlsCase,
 };
 
 let currentRoot: Root | null = null;
@@ -752,7 +822,7 @@ describe(
 
     // 5. Combobox filter + Enter
     await page.getByRole("button", { name: /Select an option/ }).click();
-    await page.getByRole("combobox").fill("vip");
+    await page.getByRole("combobox", { name: /Type to search/i }).fill("vip");
     await page.keyboard.press("Enter");
     assert.ok((await page.getByRole("button", { name: /VIP Pass/ }).count()) >= 1);
 
@@ -802,12 +872,14 @@ describe(
 
     // 12. Playlist keyboard Enter
     const trackBtn = page.getByRole("button", { name: /Encore/ });
+    await trackBtn.scrollIntoViewIfNeeded();
     await trackBtn.focus();
-    await page.keyboard.press("Enter");
+    await trackBtn.press("Enter");
+    await page.waitForFunction(() => document.querySelector('[data-testid="played-track"]')?.textContent === "t2");
     assert.equal(await page.getByTestId("played-track").textContent(), "t2");
 
     // 13. RangeCalendar click 2 days
-    const rc = page.locator('[role="grid"]');
+    const rc = page.locator('[role="grid"]').last();
     const rcBtns = rc.locator("button");
     await rcBtns.nth(4).click();
     await rcBtns.nth(7).click();
@@ -818,10 +890,70 @@ describe(
 
     // 15. SliderTicks click update
     const slider = page.locator('[role="slider"]');
+    await slider.scrollIntoViewIfNeeded();
     const sBox = await slider.boundingBox();
     assert.ok(sBox);
     await page.mouse.click(sBox.x + sBox.width * 0.75, sBox.y + sBox.height / 2);
     assert.notEqual(await page.getByTestId("slider-val").textContent(), "20");
+
+    assertNoRuntimeErrors();
+  });
+
+  it("wave8 controls: DatePicker, HoverCard, ContextMenu, DataTable, Checkbox indeterminate/reset, Switch reset, Sidebar", async () => {
+    await mountCase("wave8");
+
+    // 1. DatePicker opens grid and selects a day
+    await page.getByRole("button", { name: /SELECT ADMISSION DATE/i }).click();
+    const grid = page.locator('[role="grid"]').first();
+    await grid.waitFor({ state: "visible" });
+    await grid.locator('button[data-date$="-15"]').first().click();
+    assert.equal(await page.getByTestId("dp-iso").textContent(), "15");
+
+    // 2. HoverCard hover/focus open & Escape close
+    const hoverBtn = page.getByRole("button", { name: "Hover Ticket" });
+    await page.waitForTimeout(40);
+    await hoverBtn.hover();
+    await page.getByText("Seat Details: Row A").waitFor({ state: "visible" });
+    await page.keyboard.press("Escape");
+    assert.equal(await page.getByText("Seat Details: Row A").count(), 0);
+
+    // 3. ContextMenu right-click + item click
+    await page.getByTestId("ctx-target").click({ button: "right" });
+    await page.getByRole("menuitem", { name: "Copy Pass" }).waitFor({ state: "visible" });
+    await page.getByRole("menuitem", { name: "Copy Pass" }).click();
+    assert.equal(await page.getByTestId("ctx-log").textContent(), "copied");
+
+    // 4. DataTable sorting + indeterminate select-all
+    const guestSort = page.getByRole("button", { name: /Guest/ });
+    await guestSort.click();
+    const firstRowAfterSort = await page.locator("tbody tr").first().textContent();
+    assert.ok(firstRowAfterSort?.includes("Ada"), `Expected Ada first after asc sort, got ${firstRowAfterSort}`);
+    const rowCheckboxes = page.locator('tbody input[type="checkbox"], tbody button[role="checkbox"]');
+    await rowCheckboxes.first().click();
+    const headerSelectAll = page.locator('thead input[type="checkbox"], thead button[role="checkbox"]').first();
+    const isMixed = await headerSelectAll.evaluate((el) =>
+      el instanceof HTMLInputElement ? el.indeterminate : el.getAttribute("aria-checked") === "mixed"
+    );
+    assert.equal(isMixed, true, "partial row selection sets indeterminate/mixed header checkbox");
+
+    // 5. Checkbox indeterminate + form reset on Checkbox & Switch
+    assert.equal(await page.getByRole("checkbox", { name: "Mixed box" }).getAttribute("aria-checked"), "mixed");
+    const resetBox = page.getByRole("checkbox", { name: "Resettable box" });
+    const resetSwitch = page.getByRole("switch", { name: "Resettable switch" });
+    await resetBox.click();
+    await resetSwitch.click();
+    assert.equal(await resetBox.getAttribute("aria-checked"), "true");
+    assert.equal(await resetSwitch.getAttribute("aria-checked"), "false");
+    await page.getByRole("button", { name: "Reset form" }).click();
+    assert.equal(await resetBox.getAttribute("aria-checked"), "false");
+    assert.equal(await resetSwitch.getAttribute("aria-checked"), "true");
+
+    // 6. Sidebar collapse toggle
+    const collapseBtn = page.getByRole("button", { name: "Collapse sidebar" });
+    assert.equal(await collapseBtn.getAttribute("aria-expanded"), "true");
+    await collapseBtn.click();
+    const expandBtn = page.getByRole("button", { name: "Expand sidebar" });
+    assert.equal(await expandBtn.getAttribute("aria-expanded"), "false");
 
     assertNoRuntimeErrors();
   });

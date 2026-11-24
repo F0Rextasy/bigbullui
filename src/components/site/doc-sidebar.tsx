@@ -120,6 +120,18 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
     return catalog.items.find((c) => c.name === slug)?.category;
   }, [pathname]);
 
+  const groupedCategories = React.useMemo(() => {
+    return categories.map((cat) => {
+      const allCatItems = catalog.items
+        .filter((c) => c.category === cat.id)
+        .sort((a, b) => a.title.localeCompare(b.title));
+      const items = filterMode === "core"
+        ? allCatItems.filter((c) => CORE_ESSENTIALS.has(c.name))
+        : allCatItems;
+      return { cat, items };
+    });
+  }, [filterMode]);
+
   const isOpen = (key: string) => {
     if (key in userToggled) return userToggled[key];
     return activeGroup === key;
@@ -189,15 +201,7 @@ export function DocSidebar({ onNavigate }: { onNavigate?: () => void } = {}) {
       </section>
 
       {/* Categorized Menus */}
-      {categories.map((cat) => {
-        const allCatItems = catalog.items
-          .filter((c) => c.category === cat.id)
-          .sort((a, b) => a.title.localeCompare(b.title));
-        
-        const catItems = filterMode === "core"
-          ? allCatItems.filter((c) => CORE_ESSENTIALS.has(c.name))
-          : allCatItems;
-
+      {groupedCategories.map(({ cat, items: catItems }) => {
         if (filterMode === "core" && catItems.length === 0) {
           return null;
         }

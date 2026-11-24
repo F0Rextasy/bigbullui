@@ -10,7 +10,7 @@ import { Select } from "../ui/select";
 import { ToggleGroup, ToggleItem } from "../ui/toggle-group";
 import { ProductCard } from "../ui/product-card";
 
-const PRODUCTS = [
+const DEFAULT_PRODUCTS = [
   { title: "TOUR JACKET", price: "$148.00", originalPrice: "$185.00", discount: 20, cat: "APPAREL" },
   { title: "STUB TEE", price: "$32.00", originalPrice: undefined, discount: 0, cat: "APPAREL" },
   { title: "GATE CAP", price: "$24.00", originalPrice: "$30.00", discount: 20, cat: "HEADWEAR" },
@@ -18,22 +18,26 @@ const PRODUCTS = [
   { title: "POSTER SET", price: "$18.00", originalPrice: undefined, discount: 0, cat: "PRINT" },
   { title: "WRISTBAND", price: "$9.00", originalPrice: "$12.00", discount: 25, cat: "PRINT" },
 ];
-const SORTS = [
+const DEFAULT_SORTS = [
   { value: "feat", label: "FEATURED" },
   { value: "low", label: "PRICE LOW" },
   { value: "high", label: "PRICE HIGH" },
 ];
 
-export interface PageStorefrontProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageStorefrontProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  products?: typeof DEFAULT_PRODUCTS;
+  sorts?: typeof DEFAULT_SORTS;
   onAction?: (action: string) => void;
 }
 
-export function PageStorefront({ className, onAction, ...props }: PageStorefrontProps) {
+export function PageStorefront({ title, products = DEFAULT_PRODUCTS, sorts = DEFAULT_SORTS, className, onAction, ...props }: PageStorefrontProps) {
   const [filter, setFilter] = React.useState("ALL");
   const [sort, setSort] = React.useState("feat");
   const [query, setQuery] = React.useState("");
-  const priceOf = (p: (typeof PRODUCTS)[number]) => Number.parseFloat(p.price.replace(/[^0-9.]/g, "")) || 0;
-  const list = PRODUCTS.filter((p) => (filter === "ALL" ? true : p.cat === filter))
+  const priceOf = (p: (typeof products)[number]) => Number.parseFloat(p.price.replace(/[^0-9.]/g, "")) || 0;
+  const list = products.filter((p) => (filter === "ALL" ? true : p.cat === filter))
     .filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
     .sort((a, b) => (sort === "low" ? priceOf(a) - priceOf(b) : sort === "high" ? priceOf(b) - priceOf(a) : 0));
   return (
@@ -41,7 +45,7 @@ export function PageStorefront({ className, onAction, ...props }: PageStorefront
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">STOREFRONT{" // "}BROWSE</p>
-          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">Merch booth</h2>
+          <h2 className="font-mono text-2xl font-black uppercase tracking-tight">{title ?? "Merch booth"}</h2>
         </div>
         <Badge variant="accent">{list.length} STUBS</Badge>
       </div>
@@ -54,7 +58,7 @@ export function PageStorefront({ className, onAction, ...props }: PageStorefront
             ))}
           </ToggleGroup>
           <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="SEARCH STUBS" aria-label="Search products" className="max-w-45" />
-          <Select options={SORTS} value={sort} onValueChange={setSort} placeholder="SORT" aria-label="Sort products" />
+          <Select options={sorts} value={sort} onValueChange={setSort} placeholder="SORT" aria-label="Sort products" />
           <Button variant="outline" size="sm" onClick={() => { setFilter("ALL"); setQuery(""); setSort("feat"); onAction?.("reset-filters"); }}>Reset</Button>
         </CardContent>
       </Card>

@@ -3,13 +3,13 @@
 import * as React from "react";
 import { cn } from "./lib/utils";
 
-export interface WaxSealProps {
+export interface WaxSealProps extends React.HTMLAttributes<HTMLElement> {
   letter: string;
   broken?: boolean;
   onBreak?: () => void;
 }
 
-export function WaxSeal({ letter, broken = false, onBreak }: WaxSealProps) {
+export function WaxSeal({ letter, broken = false, onBreak, ...props }: WaxSealProps) {
   return (
     <div
       role={onBreak ? "button" : undefined}
@@ -28,7 +28,7 @@ export function WaxSeal({ letter, broken = false, onBreak }: WaxSealProps) {
         broken && "scale-95 opacity-60",
         onBreak && "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "group"
-      )}
+      )} {...props}
     >
       <div className="absolute inset-0 rounded-full bg-gradient-to-b from-accent to-destructive opacity-80 filter blur-sm" />
       <div

@@ -5,13 +5,13 @@ import { cn } from "../ui/lib/utils";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 
-const SPEAKERS = [
+const DEFAULT_SPEAKERS = [
   { id: "s1", name: "Ada Bull", talk: "Tickets as interfaces", time: "10:00" },
   { id: "s2", name: "Can Marquee", talk: "Motion with meaning", time: "11:30" },
   { id: "s3", name: "Elif Grid", talk: "Dashboards people read", time: "14:00" },
 ];
 
-const PROGRAM = [
+const DEFAULT_PROGRAM = [
   { time: "09:00", what: "Doors + coffee" },
   { time: "10:00", what: "Keynotes" },
   { time: "12:30", what: "Lunch + demos" },
@@ -19,11 +19,15 @@ const PROGRAM = [
 ];
 
 /** Conference page: speakers + program + ticket CTA. */
-export interface BlockConferenceProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BlockConferenceProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+    title?: string;
+  subtitle?: string;
+  speakers?: typeof DEFAULT_SPEAKERS;
+  program?: typeof DEFAULT_PROGRAM;
   onAction?: (action: string) => void;
 }
 
-export function BlockConference({ className, onAction, ...props }: BlockConferenceProps) {
+export function BlockConference({ title, speakers = DEFAULT_SPEAKERS, program = DEFAULT_PROGRAM, className, onAction, ...props }: BlockConferenceProps) {
   const [tier, setTier] = React.useState("Standard");
   const [claimed, setClaimed] = React.useState(false);
 
@@ -31,13 +35,13 @@ export function BlockConference({ className, onAction, ...props }: BlockConferen
     <div className={cn("w-full space-y-4", className)} {...props}>
       <div className="rounded-lg border-2 border-foreground bg-card p-6 text-center shadow-md outline-1 outline-dashed outline-offset-[-5px] outline-border">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">One day · single track</p>
-        <h2 className="mt-1 font-mono text-3xl font-black uppercase tracking-tight">Stubconf 2026</h2>
+        <h2 className="mt-1 font-mono text-3xl font-black uppercase tracking-tight">{title ?? "Stubconf 2026"}</h2>
         <p className="mt-1 font-mono text-xs uppercase tracking-wider text-muted-foreground">400 seats · no recordings, be there</p>
       </div>
       <div>
         <p className="mb-2 font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Speakers</p>
         <ul className="grid gap-2 sm:grid-cols-3">
-          {SPEAKERS.map((s) => (
+          {speakers.map((s) => (
             <li key={s.id}>
               <Card>
                 <CardContent className="p-4 text-center">
@@ -56,7 +60,7 @@ export function BlockConference({ className, onAction, ...props }: BlockConferen
       <div>
         <p className="mb-2 font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Program</p>
         <ol className="space-y-1.5">
-          {PROGRAM.map((p) => (
+          {program.map((p) => (
             <li key={p.time} className="flex items-center gap-3 rounded-md border border-dashed border-border px-3 py-2">
               <span className="font-mono text-xs font-bold tabular-nums text-accent">{p.time}</span>
               <span className="text-sm">{p.what}</span>

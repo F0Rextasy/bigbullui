@@ -13,7 +13,7 @@ export type ButtonGroupProps = {
   children?: React.ReactNode;
 };
 
-const separator = "border-r border-border/50 h-[1px]";
+const separator = "border-e border-border/50 h-[1px]";
 
 const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
   ({ className, children }, ref) => {

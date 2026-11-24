@@ -143,7 +143,7 @@ export function AudioPlayer({
         <div className="h-2.5 w-full overflow-hidden rounded-full bg-secondary">
           <div
             className={cn(
-              "h-full rounded-full bg-primary transition-all duration-300 ease-out motion-reduce:transition-none",
+              "h-full rounded-full bg-primary transition-[width,height,left,right,opacity,background-color,border-color] duration-300 ease-out motion-reduce:transition-none",
               progress > 0 && "shadow-xs",
             )}
             style={{ width: `${pct}%` }}
