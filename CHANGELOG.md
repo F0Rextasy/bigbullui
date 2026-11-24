@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.9.0](https://github.com/F0Rextasy/bigbullui/compare/v1.8.0...v1.9.0) (2026-11-24)
+
+### Added
+
+* **Zero-Dep UI Primitives & Subpaths:** Add `floating`, `slot`, `presence`, `use-controllable-state`, `direction`, and `react-compat` primitives inside `src/components/ui/lib/` and expose `bigbullui/floating`, `bigbullui/slot`, `bigbullui/presence`, `bigbullui/use-controllable-state`, `bigbullui/direction`, and `bigbullui/react-compat` entrypoints
+* **CLI & MCP Workflow Upgrades:** Add `diff`, `remove`, `info`, `--dry-run`, `bigbullui.json` config resolution, `BIGBULLUI_REGISTRY_BASE`, and SSRF host allowlist validation in `bin/cli.js`; add `get_block`, `get_props`, `resources/*`, `prompts/*`, and offline bundled JSON indexes (`public/components.json`, `blocks.json`, `icons.json`) in `bin/mcp.js`
+* **Docs Studio & Interactive Developer Tools:** Add zero-dependency TSX/TS/CSS/Bash syntax highlighting + collapsible/numbered `CodeBox`, persisted `npm|pnpm|yarn|bun` selector, multi-file transitive source tabs, live WCAG AA `/docs/design` Theme Studio, isolated `/preview/[slug]` and `/preview/block/[slug]` iframe viewports with `PreviewErrorBoundary`, `/blocks` lazy preview thumbnails, real StackBlitz POST export, `.svg` download + `Copy SVG` + `strokeWidth` slider on `/icons/[name]`, and React Hook Form / Zod / Server Action recipes
+
+### Changed
+
+* **Overlays, Forms, Tables, RTL & CSS Architecture:** Upgrade overlay primitives, WAI-ARIA `DatePicker`/`Calendar` grids, `<form>` reset synchronization (`Checkbox`, `Switch`, `RadioGroup`, `Slider`), logical RTL utilities across 57+ components, deduplicated `@keyframes` and WCAG contrast tokens in `bigbullui.css` / `high-contrast.css`, `asChild` + `forwardRef` + `...props` forwarding, and data-driven props across all 75 page blocks
+* **Props Coverage, Tests & A11y Gates:** Enforce `100%` prop coverage (`660/660` components, `2,602` props, `0` empty descriptions), validate all 741+ `public/r/*.json` manifests, expand `tests/dom.test.mjs`, `tests/cli.test.mjs`, and add `tests/site.test.mjs`, and pass 46 live Chromium `axe-core` scans across 21 routes (`0` critical/serious violations)
+* **Subpackages (`bigbullicons 1.4.1`, `create-bigbull-app 1.2.2`):** Keep static icon exports server-safe with minified `tsup` chunks, add `Object.hasOwn`/`matchMedia`/`getTotalLength` guards in `bigbullicons`, and add `@/*` TS path alias + persistent `localStorage` `ThemeToggle` + empty-dir safety in `create-bigbull-app`
+
 ## [1.8.0](https://github.com/F0Rextasy/bigbullui/compare/v1.7.0...v1.8.0) (2026-11-22)
 
 ### Added

@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.9.0",
+      "date": "2026-11-24",
+      "title": "Zero-dep primitive layer, 75 data-driven blocks, CLI diff/remove/SSRF, offline MCP, and interactive docs studio",
+      "changes": [
+        "UI Primitives & Subpaths: Added floating, slot, presence, use-controllable-state, direction, and react-compat helpers in src/components/ui/lib/ plus bigbullui/* package exports, WAI-ARIA DatePicker/Calendar grids, native form reset sync, logical RTL utilities, and 0 transition-all / backdrop-blur guarantees",
+        "75 Data-Driven Blocks: Added typed data and action props across all 75 page blocks while keeping zero-prop SSR defaults, and marked remaining *-v2 variants deprecated",
+        "CLI & MCP Hardening: Added diff, remove, info, --dry-run, bigbullui.json support, and SSRF allowlists to CLI; added get_block, get_props, resources/prompts, and bundled offline JSON indexes to MCP",
+        "Docs Site & Tooling: Added syntax highlighter, PM tabs, multi-file source viewer, Theme Studio, isolated /preview iframe routes, ErrorBoundary, real StackBlitz export, SVG download tools, form adapter recipes, hardened CSP/HSTS, full SEO metadata, and 83-test + 46-scan axe-core verification",
+        "Subpackages (bigbullicons 1.4.1, create-bigbull-app 1.2.2): Marked static icon exports RSC-safe with minified tsup output and added @/* path alias + persistent ThemeToggle to starter"
+      ]
+    },
+    {
       "version": "1.8.0",
       "date": "2026-11-22",
       "title": "Zero-chunk ESM/CJS package, full focus-trap & keyboard pass, 44-component Chromium DOM suite, and AST-synced props",

@@ -39,17 +39,17 @@ jobs:
 
       - name: Verify checked-in generators (--check before prebuild)
         run: |
-          node scripts/generate-registry-json.mjs --check
-          node scripts/generate-docs-json.mjs --check
-          node scripts/generate-readme.mjs --check
-          node scripts/generate-icon-components.mjs --check
           node scripts/sync-icons.mjs --check
-          node scripts/generate-llms-full.mjs --check
+          node scripts/generate-readme.mjs --check
 
       - name: Generate derived data (prebuild) and verify zero drift
         run: |
           npm run prebuild
-          git diff --exit-code src/ public/ README.md packages/icons/src/
+          git diff --exit-code src/ public/ README.md bin/ packages/icons/src/
+          node scripts/generate-registry-json.mjs --check
+          node scripts/generate-docs-json.mjs --check
+          node scripts/generate-icon-components.mjs --check
+          node scripts/generate-llms-full.mjs --check
 
       - name: Build library (tsup)
         run: npm run build:lib
